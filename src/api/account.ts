@@ -24,7 +24,7 @@ class AccountAPI {
      * 
      * @param {IAccount} account 
      */
-    public update(account: IAccount): AxiosPromise<AxiosResponse> {
+    public update(account: IAccount): AxiosPromise {
         return API.getEndpoint(CONSTANTS.ACCOUNT).patch(account, account);        
     }
 }

@@ -1,6 +1,6 @@
 import API from './api';
 import * as CONSTANTS from '../shared/constants';
-import {AxiosPromise, AxiosResponse} from 'axios';
+import { AxiosPromise } from 'axios';
 
 class AuthAPI {
     constructor() {
@@ -13,9 +13,8 @@ class AuthAPI {
      * Logs in a user to the API.
      * @param {String} email 
      * @param {String} password 
-     * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public login(email: string, password: string): AxiosPromise<AxiosResponse> { 
+    public login(email: string, password: string): AxiosPromise {
         return API.getEndpoint(CONSTANTS.LOGIN_URL).create(
             { email, password }
         );
@@ -24,16 +23,15 @@ class AuthAPI {
      * Logs out a user from the API
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public logout(): AxiosPromise<AxiosResponse> {
-        return API.getEndpoint(CONSTANTS.LOGIN_URL).getOne({id:''});
+    public logout(): AxiosPromise {
+        return API.getEndpoint(CONSTANTS.LOGIN_URL).getOne({ id: '' });
 
     }
     /**
      * Sends a request for a reset-password email.
      * @param {string} email 
-     * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public forgotPassword(email: string): AxiosPromise<AxiosResponse> { 
+    public forgotPassword(email: string): AxiosPromise {
         return API.getEndpoint(CONSTANTS.LOGOUT_URL).create({ email });
     }
     /**
@@ -48,7 +46,7 @@ class AuthAPI {
             }
         }).then(
             (value) => {
-                if(value.status >= 200 && value.status <= 299) {
+                if (value.status >= 200 && value.status <= 299) {
                     console.log(value.data);
                 } else {
                     console.error(value.data);
