@@ -1,5 +1,5 @@
 import {IAccount} from '../shared/userTypes';
-import {AxiosPromise, AxiosResponse} from 'axios';
+import {AxiosPromise} from 'axios';
 import * as CONSTANTS from '../shared/constants';
 import API from './api';
 class AccountAPI {
