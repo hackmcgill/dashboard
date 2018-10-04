@@ -6,6 +6,9 @@
 # testing
 /coverage
 
+# debugging
+/.vscode/chrome
+
 # production
 /build
 
