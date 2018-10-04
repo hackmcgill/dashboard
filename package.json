@@ -3,22 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "axios": "^0.18.0",
-    "react-scripts-ts": "3.1.0"
+    "react-scripts-ts": "3.1.0",
+    "react-select": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "PORT=1337 react-scripts-ts start",
+    "build": "PORT=1337 react-scripts-ts build",
+    "test": "PORT=1337 react-scripts-ts test --env=jsdom",
+    "eject": "PORT=1337 react-scripts-ts eject"
   },
   "devDependencies": {
     "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
-    "typescript": "^3.1.1"
-  }
+    "typescript": "^3.1.1",
+    "@types/react-select": "^2.0.4"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
