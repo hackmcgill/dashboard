@@ -4,7 +4,7 @@ export default class Endpoint {
     private resourceURL: string;
     private name: string;
 
-    constructor(name:string, resourceURL:string) {
+    constructor(name: string, resourceURL: string) {
         this.resourceURL = resourceURL
         this.name = name;
     }
@@ -13,7 +13,7 @@ export default class Endpoint {
      * @param {*} id the the id for a given resource
      * @param {AxiosRequestConfig} config 
      */
-    public getOne({ id }: {id:string}, config: AxiosRequestConfig = {}): AxiosPromise {
+    public getOne({ id }: { id: string }, config: AxiosRequestConfig = {}): AxiosPromise {
         return axios.get(`${this.resourceURL}/${id}`, config);
     }
     /**
@@ -28,7 +28,7 @@ export default class Endpoint {
      * @param {*} toCreate object to create. 
      * @param {AxiosRequestConfig} config 
      */
-    public create(toCreate:any, config: AxiosRequestConfig = {}): AxiosPromise {
+    public create(toCreate: any, config: AxiosRequestConfig = {}): AxiosPromise {
         return axios.post(this.resourceURL, toCreate, config);
     }
     /**
@@ -37,7 +37,7 @@ export default class Endpoint {
      * @param {*} toUpdate the update data. 
      * @param {AxiosRequestConfig} config 
      */
-    public update({ id }: { id: string; }, toUpdate:any, config: AxiosRequestConfig = {}): AxiosPromise {
+    public update({ id }: { id: string; }, toUpdate: any, config: AxiosRequestConfig = {}): AxiosPromise {
         return axios.put(`${this.resourceURL}/${id}`, toUpdate, config);
     }
     /**
@@ -46,7 +46,7 @@ export default class Endpoint {
      * @param {*} toPatch the patched data. 
      * @param {AxiosRequestConfig} config 
      */
-    public patch({ id }: { id: string; }, toPatch:any, config: AxiosRequestConfig = {}): AxiosPromise {
+    public patch({ id }: { id: string; }, toPatch: any, config: AxiosRequestConfig = {}): AxiosPromise {
         return axios.patch(`${this.resourceURL}/${id}`, toPatch, config);
     }
     /**
@@ -60,7 +60,7 @@ export default class Endpoint {
     /**
      * Gets the name of api
      */
-    public getName() {
+    public getName(): string {
         return this.name;
     }
 }

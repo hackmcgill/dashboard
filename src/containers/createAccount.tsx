@@ -3,7 +3,7 @@ import Account from '../api/account';
 import EmailInput from '../components/emailInputComponent';
 import DietaryRestrictionComponent from '../components/dietaryRestrictionsComponent';
 import ShirtSize from '../shared/shirtSizes';
-import { ShirtSizeComponent } from '../components/shirtSize';
+import ShirtSizeComponent from '../components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
 import { AxiosResponse } from 'axios';
@@ -46,7 +46,7 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
                 <EmailInput
                     onEmailChanged={this.onEmailChanged}
                 />
-                <PasswordInput 
+                <PasswordInput
                     onPasswordChanged={this.onPasswordChanged}
                 />
                 <DietaryRestrictionComponent
@@ -70,9 +70,9 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
                 shirtSize: this.state.shirtSize,
                 id: ''
             }
-        ).then((value:AxiosResponse) => {
+        ).then((value: AxiosResponse) => {
             // Good response
-            if(value.status === 200) {
+            if (value.status === 200) {
                 console.log("Created an account");
             }
         }).catch((reason) => {

@@ -9,20 +9,26 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
         <div>
             <label>
                 First Name:
-                <input type="text" onChange={handleChange(props,'first')} />
+                <input type="text" onChange={handleChange(props, 'first')} />
             </label>
             <label>
                 Last Name:
-                <input type="text" onChange={handleChange(props,'last')} />
+                <input type="text" onChange={handleChange(props, 'last')} />
             </label>
         </div>
     );
 }
-function handleChange(props:IFullNameInput, nameType:'first'|'last'): (event:React.ChangeEvent<HTMLInputElement>)=>void {
-    if(nameType==='first') {
-        return (event:React.ChangeEvent<HTMLInputElement>) => props.onFirstNameChanged(event.target.value);
+/**
+ * Function factory that generates function to handle changes in user's choice.
+ * @param props The props passed into the EmailInput component.
+ * @param nameType Whether it's a firstname or last name
+ * @returns the function that handles changes to the choices provided by the user.
+ */
+function handleChange(props: IFullNameInput, nameType: 'first' | 'last'): (event: React.ChangeEvent<HTMLInputElement>) => void {
+    if (nameType === 'first') {
+        return (event: React.ChangeEvent<HTMLInputElement>) => props.onFirstNameChanged(event.target.value);
     } else {
-        return (event:React.ChangeEvent<HTMLInputElement>) => props.onLastNameChanged(event.target.value);
+        return (event: React.ChangeEvent<HTMLInputElement>) => props.onLastNameChanged(event.target.value);
     }
 }
 

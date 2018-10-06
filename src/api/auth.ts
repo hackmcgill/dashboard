@@ -24,7 +24,7 @@ class AuthAPI {
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
     public logout(): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.LOGIN_URL).getOne({ id: '' });
+        return API.getEndpoint(CONSTANTS.LOGOUT_URL).getOne({ id: '' });
 
     }
     /**
@@ -32,28 +32,18 @@ class AuthAPI {
      * @param {string} email 
      */
     public forgotPassword(email: string): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.LOGOUT_URL).create({ email });
+        return API.getEndpoint(CONSTANTS.FORGOT_PASS).create({ email });
     }
     /**
      * Reset a password given an authentication token (provided by API in email).
      * @param {string} password 
      * @param {string} authToken 
      */
-    public resetPassword(password: string, authToken: string) {
-        API.getEndpoint(CONSTANTS.RESET_PASS).create({ password }, {
+    public resetPassword(password: string, authToken: string): AxiosPromise {
+        return API.getEndpoint(CONSTANTS.RESET_PASS).create({ password }, {
             headers: {
                 Authentication: authToken
             }
-        }).then(
-            (value) => {
-                if (value.status >= 200 && value.status <= 299) {
-                    console.log(value.data);
-                } else {
-                    console.error(value.data);
-                }
-            }
-        ).catch((reason) => {
-            console.error(reason);
         });
     }
 }
