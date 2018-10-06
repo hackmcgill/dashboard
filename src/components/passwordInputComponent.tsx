@@ -7,7 +7,7 @@ const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
         <label>
             Password:
-            <input type="password" onChange={handleChange(props)} />
+            <input type='password' onChange={handleChange(props)} />
         </label>
     )
 }

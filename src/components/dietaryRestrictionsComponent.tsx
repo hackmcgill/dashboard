@@ -30,7 +30,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
     ]
     return (
         <CreatableSelect
-            id={"diet-restrictions"}
+            id={'diet-restrictions'}
             isMulti={true}
             onChange={handleChange(props)}
             options={options}

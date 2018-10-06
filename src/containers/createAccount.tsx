@@ -21,10 +21,10 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
     constructor(props: {}) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
             dietaryRestrictions: [],
             shirtSize: ShirtSize.M
         };
@@ -55,7 +55,7 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
                 <ShirtSizeComponent
                     onShirtSizeChanged={this.onShirtSizeChanged}
                 />
-                <input type="button" value="Submit" onClick={this.handleSubmit} />
+                <input type='button' value='Submit' onClick={this.handleSubmit} />
             </form>
         )
     }
@@ -73,7 +73,7 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
         ).then((value: AxiosResponse) => {
             // Good response
             if (value.status === 200) {
-                console.log("Created an account");
+                console.log('Created an account');
             }
         }).catch((reason) => {
             console.error(reason);

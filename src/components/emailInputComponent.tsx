@@ -7,7 +7,7 @@ const EmailInput: React.StatelessComponent<IEmailInputProp> = (props) => {
     return (
         <label>
             Email:
-            <input type="email" onChange={handleChange(props)} />
+            <input type='email' onChange={handleChange(props)} />
         </label>
     )
 }

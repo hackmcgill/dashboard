@@ -9,11 +9,11 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
         <div>
             <label>
                 First Name:
-                <input type="text" onChange={handleChange(props, 'first')} />
+                <input type='text' onChange={handleChange(props, 'first')} />
             </label>
             <label>
                 Last Name:
-                <input type="text" onChange={handleChange(props, 'last')} />
+                <input type='text' onChange={handleChange(props, 'last')} />
             </label>
         </div>
     );
