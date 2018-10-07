@@ -1,4 +1,3 @@
-// cosmos.config.js
 module.exports = {
   containerQuerySelector: "#root",
   proxiesPath: "src/cosmos.proxies",
