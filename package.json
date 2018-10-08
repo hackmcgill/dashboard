@@ -13,6 +13,7 @@
   "scripts": {
     "start": "PORT=1337 react-scripts-ts start",
     "build": "PORT=1337 react-scripts-ts build",
+    "cosmos": "cosmos",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
     "eject": "PORT=1337 react-scripts-ts eject"
   },
@@ -21,8 +22,9 @@
     "@types/node": "^10.11.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
-    "typescript": "^3.1.1",
-    "@types/react-select": "^2.0.4"
+    "@types/react-select": "^2.0.4",
+    "react-cosmos": "^4.6.4",
+    "typescript": "^3.1.1"
   },
   "browserslist": [
     ">0.2%",
