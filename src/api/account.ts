@@ -21,6 +21,13 @@ class AccountAPI {
         return API.getEndpoint(CONSTANTS.ACCOUNT_SELF).getAll();
     }
     /**
+     * Get information about a user
+     * @param id the ID of the account
+     */
+    public get(id: string): AxiosPromise {
+        return API.getEndpoint(CONSTANTS.ACCOUNT).getOne({ id });
+    }
+    /**
      * Update an account. In the future, we might want to relax the attributes being passed in
      * so that it's not the entirety of the Account object.
      * @param {IAccount} account 
