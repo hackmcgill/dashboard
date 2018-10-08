@@ -17,7 +17,7 @@ interface ICreateAccountContainerState {
     shirtSize: ShirtSize;
 }
 
-export class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
+class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
     constructor(props: {}) {
         super(props);
         this.state = {

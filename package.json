@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/query-string": "^6.1.0",
     "axios": "^0.18.0",
+    "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
