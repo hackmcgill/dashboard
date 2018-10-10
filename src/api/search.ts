@@ -1,14 +1,14 @@
 import { AxiosPromise } from 'axios';
-import * as CONSTANTS from '../shared/constants';
+import Route from '../shared/route';
 import API from './api';
 import ISearchParameter from 'src/shared/searchParameter';
 class SearchAPI {
     constructor() {
-        API.createEntity(CONSTANTS.SEARCH);
+        API.createEntity(Route.SEARCH);
     }
     public search(parameters: ISearchParameter[]): AxiosPromise {
         const escapedSearch: string = this.encodeParameters(parameters);
-        return API.getEndpoint(CONSTANTS.SEARCH).getAll({
+        return API.getEndpoint(Route.SEARCH).getAll({
             params: {
                 'q': escapedSearch
             }

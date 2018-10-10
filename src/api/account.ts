@@ -1,11 +1,11 @@
 import { IAccount } from '../shared/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
-import * as CONSTANTS from '../shared/constants';
+import Route from '../shared/route';
 import API from './api';
 class AccountAPI {
     constructor() {
-        API.createEntity(CONSTANTS.ACCOUNT);
-        API.createEntity(CONSTANTS.ACCOUNT_SELF);
+        API.createEntity(Route.ACCOUNT);
+        API.createEntity(Route.ACCOUNT_SELF);
     }
     /**
      * Create an account.
@@ -21,20 +21,20 @@ class AccountAPI {
                 }
             };
         }
-        return API.getEndpoint(CONSTANTS.ACCOUNT).create(account, config);
+        return API.getEndpoint(Route.ACCOUNT).create(account, config);
     }
     /**
      * Get the logged-in user's information.
      */
     public getSelf(): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT_SELF).getAll();
+        return API.getEndpoint(Route.ACCOUNT_SELF).getAll();
     }
     /**
      * Get information about a user
      * @param id the ID of the account
      */
     public get(id: string): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT).getOne({ id });
+        return API.getEndpoint(Route.ACCOUNT).getOne({ id });
     }
     /**
      * Update an account. In the future, we might want to relax the attributes being passed in
@@ -42,7 +42,7 @@ class AccountAPI {
      * @param {IAccount} account 
      */
     public update(account: IAccount): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT).patch(account, account);
+        return API.getEndpoint(Route.ACCOUNT).patch(account, account);
     }
 }
 
