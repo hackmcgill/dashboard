@@ -1,5 +1,5 @@
 import { IAccount } from '../shared/userTypes';
-import { AxiosPromise } from 'axios';
+import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import * as CONSTANTS from '../shared/constants';
 import API from './api';
 class AccountAPI {
@@ -10,9 +10,18 @@ class AccountAPI {
     /**
      * Create an account.
      * @param account The account that you want to create
+     * @param authToken If there is an authentication token associated with the account creation, then provide it here.
      */
-    public create(account: IAccount): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT).create(account);
+    public create(account: IAccount, authToken?: string): AxiosPromise {
+        let config: AxiosRequestConfig = {};
+        if (!!authToken) {
+            config = {
+                headers: {
+                    Authentication: authToken
+                }
+            };
+        }
+        return API.getEndpoint(CONSTANTS.ACCOUNT).create(account, config);
     }
     /**
      * Get the logged-in user's information.
