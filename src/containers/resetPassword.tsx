@@ -25,7 +25,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                     <PasswordInputComponent
                         onPasswordChanged={this.onPasswordChanged}
                     />
-                    <input type='button' value='Submit' onClick={this.handleSubmit} />
+                    <button type='button' onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>
         );
@@ -46,7 +46,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
             }
         }).catch((reason) => {
             console.error(reason);
-        })
+        });
     }
     /**
      * Callback that is called once password is updated.

@@ -55,7 +55,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                 <ShirtSizeComponent
                     onShirtSizeChanged={this.onShirtSizeChanged}
                 />
-                <input type='button' value='Submit' onClick={this.handleSubmit} />
+                <button type='button' onClick={this.handleSubmit}>Submit</button>
             </form>
         )
     }
@@ -77,7 +77,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             }
         }).catch((reason) => {
             console.error(reason);
-        })
+        });
     }
     private onDietaryRestrictionsChanged(dietaryRestrictions: string[]) {
         this.setState({ dietaryRestrictions });
