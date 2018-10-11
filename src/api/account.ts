@@ -14,7 +14,7 @@ class AccountAPI {
      */
     public create(account: IAccount, authToken?: string): AxiosPromise {
         let config: AxiosRequestConfig = {};
-        if (!!authToken) {
+        if (authToken) {
             config = {
                 headers: {
                     Authentication: authToken
