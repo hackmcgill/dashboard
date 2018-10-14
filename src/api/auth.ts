@@ -1,13 +1,13 @@
 import API from './api';
-import * as CONSTANTS from '../shared/constants';
+import Route from '../shared/route';
 import { AxiosPromise } from 'axios';
 
 class AuthAPI {
     constructor() {
-        API.createEntity(CONSTANTS.LOGIN_URL);
-        API.createEntity(CONSTANTS.LOGOUT_URL);
-        API.createEntity(CONSTANTS.FORGOT_PASS);
-        API.createEntity(CONSTANTS.RESET_PASS);
+        API.createEntity(Route.LOGIN);
+        API.createEntity(Route.LOGOUT);
+        API.createEntity(Route.FORGOT_PASS);
+        API.createEntity(Route.RESET_PASS);
     }
     /**
      * Logs in a user to the API.
@@ -15,7 +15,7 @@ class AuthAPI {
      * @param {String} password 
      */
     public login(email: string, password: string): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.LOGIN_URL).create(
+        return API.getEndpoint(Route.LOGIN).create(
             { email, password }
         );
     }
@@ -24,7 +24,7 @@ class AuthAPI {
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
     public logout(): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.LOGOUT_URL).getOne({ id: '' });
+        return API.getEndpoint(Route.LOGOUT).getOne({ id: '' });
 
     }
     /**
@@ -32,7 +32,7 @@ class AuthAPI {
      * @param {string} email 
      */
     public forgotPassword(email: string): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.FORGOT_PASS).create({ email });
+        return API.getEndpoint(Route.FORGOT_PASS).create({ email });
     }
     /**
      * Reset a password given an authentication token (provided by API in email).
@@ -40,7 +40,7 @@ class AuthAPI {
      * @param {string} authToken 
      */
     public resetPassword(password: string, authToken: string): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.RESET_PASS).create({ password }, {
+        return API.getEndpoint(Route.RESET_PASS).create({ password }, {
             headers: {
                 Authentication: authToken
             }
