@@ -16,7 +16,7 @@ export interface IHacker {
     school: string,
     // no enum for this
     gender?: string,
-    needsBus: boolean,
+    needsBus?: boolean,
     application: {
         portfolioURL: {
             // gcloud bucket link
@@ -29,7 +29,7 @@ export interface IHacker {
         },
         jobInterest: JobInterest,
         // array of mongoose ids referencing different skills
-        skills: string[],
+        skills?: string[],
         // any miscelaneous comments that the user has
         comments?: string,
         // "Why do you want to come to our hackathon?"
