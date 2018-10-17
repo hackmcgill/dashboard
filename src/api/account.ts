@@ -1,24 +1,40 @@
 import { IAccount } from '../shared/userTypes';
-import { AxiosPromise } from 'axios';
-import * as CONSTANTS from '../shared/constants';
+import { AxiosPromise, AxiosRequestConfig } from 'axios';
+import Route from '../shared/route';
 import API from './api';
 class AccountAPI {
     constructor() {
-        API.createEntity(CONSTANTS.ACCOUNT);
-        API.createEntity(CONSTANTS.ACCOUNT_SELF);
+        API.createEntity(Route.ACCOUNT);
+        API.createEntity(Route.ACCOUNT_SELF);
     }
     /**
      * Create an account.
      * @param account The account that you want to create
+     * @param authToken If there is an authentication token associated with the account creation, then provide it here.
      */
-    public create(account: IAccount): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT).create(account);
+    public create(account: IAccount, authToken?: string): AxiosPromise {
+        let config: AxiosRequestConfig = {};
+        if (authToken) {
+            config = {
+                headers: {
+                    Authentication: authToken
+                }
+            };
+        }
+        return API.getEndpoint(Route.ACCOUNT).create(account, config);
     }
     /**
      * Get the logged-in user's information.
      */
     public getSelf(): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT_SELF).getAll();
+        return API.getEndpoint(Route.ACCOUNT_SELF).getAll();
+    }
+    /**
+     * Get information about a user
+     * @param id the ID of the account
+     */
+    public get(id: string): AxiosPromise {
+        return API.getEndpoint(Route.ACCOUNT).getOne({ id });
     }
     /**
      * Update an account. In the future, we might want to relax the attributes being passed in
@@ -26,7 +42,7 @@ class AccountAPI {
      * @param {IAccount} account 
      */
     public update(account: IAccount): AxiosPromise {
-        return API.getEndpoint(CONSTANTS.ACCOUNT).patch(account, account);
+        return API.getEndpoint(Route.ACCOUNT).patch(account, account);
     }
 }
 

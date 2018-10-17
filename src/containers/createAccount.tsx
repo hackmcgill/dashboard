@@ -17,7 +17,7 @@ interface ICreateAccountContainerState {
     shirtSize: ShirtSize;
 }
 
-export class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
+class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -55,7 +55,7 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
                 <ShirtSizeComponent
                     onShirtSizeChanged={this.onShirtSizeChanged}
                 />
-                <input type='button' value='Submit' onClick={this.handleSubmit} />
+                <button type='button' onClick={this.handleSubmit}>Submit</button>
             </form>
         )
     }
@@ -77,7 +77,7 @@ export class CreateAccountContainer extends React.Component<{}, ICreateAccountCo
             }
         }).catch((reason) => {
             console.error(reason);
-        })
+        });
     }
     private onDietaryRestrictionsChanged(dietaryRestrictions: string[]) {
         this.setState({ dietaryRestrictions });
