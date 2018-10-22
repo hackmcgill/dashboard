@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CreatableSelect from 'react-select/lib/Creatable';
-import DietaryRestriction from '../shared/dietaryRestrictions';
+import DietaryRestriction from '../config/dietaryRestrictions';
 
 /**
  * DietaryRestrictionsComponent state

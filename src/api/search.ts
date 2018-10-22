@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios';
-import Route from '../shared/route';
+import Route from '../config/route';
 import API from './api';
-import ISearchParameter from 'src/shared/searchParameter';
+import ISearchParameter from 'src/config/searchParameter';
 class SearchAPI {
     constructor() {
         API.createEntity(Route.SEARCH);

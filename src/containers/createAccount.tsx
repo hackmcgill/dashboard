@@ -2,7 +2,7 @@ import * as React from 'react';
 import Account from '../api/account';
 import EmailInput from '../components/emailInputComponent';
 import DietaryRestrictionComponent from '../components/dietaryRestrictionsComponent';
-import ShirtSize from '../shared/shirtSizes';
+import ShirtSize from '../config/shirtSizes';
 import ShirtSizeComponent from '../components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';

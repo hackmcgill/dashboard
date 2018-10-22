@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Select from 'react-select';
-import ShirtSize from '../shared/shirtSizes';
+import ShirtSize from '../config/shirtSizes';
 
 interface IShirtSizeProps {
     onShirtSizeChanged: (selectedOptions: ShirtSize) => void;
