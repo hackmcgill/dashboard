@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CreatableSelect from 'react-select/lib/Creatable';
+import StyledSelect from '../shared/StyledCreatableSelect';
 import DietaryRestriction from '../config/dietaryRestrictions';
 
 /**
@@ -29,7 +29,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
         { label: DietaryRestriction.VEGETARIAN, value: DietaryRestriction.VEGETARIAN },
     ]
     return (
-        <CreatableSelect
+        <StyledSelect
             id={'diet-restrictions'}
             isMulti={true}
             onChange={handleChange(props)}
