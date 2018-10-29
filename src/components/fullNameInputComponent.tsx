@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Input from '../shared/Input';
 
 interface IFullNameInput {
     onFirstNameChanged: (firstName: string) => void;
@@ -9,11 +10,11 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
         <div>
             <label>
                 First Name:
-                <input type='text' onChange={handleChange(props, 'first')} />
+                <Input type='text' onChange={handleChange(props, 'first')} />
             </label>
             <label>
                 Last Name:
-                <input type='text' onChange={handleChange(props, 'last')} />
+                <Input type='text' onChange={handleChange(props, 'last')} />
             </label>
         </div>
     );

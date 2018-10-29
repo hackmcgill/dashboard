@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Input from '../shared/Input';
 
 interface IPasswordInputProp {
     onPasswordChanged: (email: string) => void;
@@ -7,7 +8,7 @@ const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
         <label>
             Password:
-            <input type='password' onChange={handleChange(props)} />
+            <Input type='password' onChange={handleChange(props)} />
         </label>
     )
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Input from '../shared/Input';
 
 interface IEmailInputProp {
     onEmailChanged: (email: string) => void;
@@ -7,7 +8,7 @@ const EmailInput: React.StatelessComponent<IEmailInputProp> = (props) => {
     return (
         <label>
             Email:
-            <input type='email' onChange={handleChange(props)} />
+            <Input type='email' onChange={handleChange(props)} />
         </label>
     )
 }
