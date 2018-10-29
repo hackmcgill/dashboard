@@ -1,5 +1,8 @@
 import * as React from 'react';
-import Input from '../shared/Input';
+import Input from 'src/shared/Input';
+import Label from 'src/shared/Label';
+
+import { Flex, Box} from '@rebass/grid'
 
 interface IFullNameInput {
     onFirstNameChanged: (firstName: string) => void;
@@ -7,16 +10,20 @@ interface IFullNameInput {
 }
 const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
     return (
-        <div>
-            <label>
-                First Name:
+        <Flex flexWrap={'wrap'}>
+            <Box width={1}>
+                <Label>
+                    First Name:
+                </Label>
                 <Input type='text' onChange={handleChange(props, 'first')} />
-            </label>
-            <label>
-                Last Name:
-                <Input type='text' onChange={handleChange(props, 'last')} />
-            </label>
-        </div>
+            </Box>
+            <Box width={1}>
+                <Label>
+                    Last Name:
+                    <Input type='text' onChange={handleChange(props, 'last')} />
+                </Label>
+            </Box>
+        </Flex>
     );
 }
 /**

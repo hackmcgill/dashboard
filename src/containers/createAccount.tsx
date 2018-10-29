@@ -1,13 +1,15 @@
 import * as React from 'react';
-import Account from '../api/account';
-import EmailInput from '../components/emailInputComponent';
-import DietaryRestrictionComponent from '../components/dietaryRestrictionsComponent';
-import ShirtSize from '../config/shirtSizes';
-import ShirtSizeComponent from '../components/shirtSizeComponent';
+import Account from 'src/api/account';
+import EmailInput from 'src/components/emailInputComponent';
+import DietaryRestrictionComponent from 'src/components/dietaryRestrictionsComponent';
+import ShirtSize from 'src/config/shirtSizes';
+import ShirtSizeComponent from 'src/components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
-import Button from '../shared/Button';
+import Button from 'src/shared/Button';
+import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
+import { Flex, Box} from '@rebass/grid'
 
 interface ICreateAccountContainerState {
     firstName: string;
@@ -39,25 +41,42 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     }
     public render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <FullNameInput
-                    onFirstNameChanged={this.onFirstNameChanged}
-                    onLastNameChanged={this.onLastNameChanged}
-                />
-                <EmailInput
-                    onEmailChanged={this.onEmailChanged}
-                />
-                <PasswordInput
-                    onPasswordChanged={this.onPasswordChanged}
-                />
-                <DietaryRestrictionComponent
-                    onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
-                />
-                <ShirtSizeComponent
-                    onShirtSizeChanged={this.onShirtSizeChanged}
-                />
-                <Button type='button' onClick={this.handleSubmit}>Submit</Button>
-            </form>
+            <Container>
+                <form onSubmit={this.handleSubmit}>
+                    <Flex flexWrap={'wrap'}>
+                        <Box width={1}>
+                            <FullNameInput
+                                onFirstNameChanged={this.onFirstNameChanged}
+                                onLastNameChanged={this.onLastNameChanged}
+                            />
+                        </Box>
+                        <Box width={1}>
+                            <EmailInput
+                                onEmailChanged={this.onEmailChanged}
+                            />
+                        </Box>
+                        <Box width={1}>
+                            <PasswordInput
+                                onPasswordChanged={this.onPasswordChanged}
+                            />
+                        </Box>
+                    </Flex>
+                    <DietaryRestrictionComponent
+                        onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+                    />
+                    <ShirtSizeComponent
+                        onShirtSizeChanged={this.onShirtSizeChanged}
+                    />
+                    <Flex justifyContent={'center'}>
+                        <Box>
+                            <Button type='button' onClick={this.handleSubmit}>Submit</Button>
+                        </Box>
+                        
+                    </Flex>
+                    
+                </form>
+            </Container>
+            
         )
     }
     private handleSubmit() {
