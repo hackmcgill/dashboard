@@ -6,6 +6,7 @@ import ShirtSize from '../config/shirtSizes';
 import ShirtSizeComponent from '../components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
+import Button from '../shared/Button';
 import { AxiosResponse } from 'axios';
 
 interface ICreateAccountContainerState {
@@ -55,7 +56,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                 <ShirtSizeComponent
                     onShirtSizeChanged={this.onShirtSizeChanged}
                 />
-                <button type='button' onClick={this.handleSubmit}>Submit</button>
+                <Button type='button' onClick={this.handleSubmit}>Submit</Button>
             </form>
         )
     }
