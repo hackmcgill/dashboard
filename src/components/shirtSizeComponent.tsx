@@ -17,6 +17,8 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
     ]
     return (
         <StyledSelect
+            className='react-select-container'
+            classNamePrefix='react-select'
             onChange={handleChange(props)}
             options={options}
         />

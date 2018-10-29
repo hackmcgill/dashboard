@@ -30,6 +30,8 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
     ]
     return (
         <StyledSelect
+            className='react-select-container'
+            classNamePrefix='react-select'
             id={'diet-restrictions'}
             isMulti={true}
             onChange={handleChange(props)}

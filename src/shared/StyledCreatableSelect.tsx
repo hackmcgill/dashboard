@@ -2,7 +2,7 @@ import CreatableSelect from "react-select/lib/Creatable";
 import styled from "styled-components";
 
 const StyledCreatableSelect = styled(CreatableSelect)`
-  > div {
+  .react-select__control {
     border-radius: 20px;
     padding-left: 10px;
   }
