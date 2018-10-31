@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 const Button = styled.button`
-  background-color: red;
+background-color: ${props => props.theme.primary};
   font-size: 14px;
   color: white;
   padding: 10px 5px;
@@ -11,7 +11,7 @@ const Button = styled.button`
   transition: 0.15s linear background-color;
 
   &:hover {
-    background-color: coral;
+    background-color: ${props => props.theme.primaryLight};
   }
 `
 

@@ -9,7 +9,10 @@ import PasswordInput from 'src/components/passwordInputComponent';
 import Button from 'src/shared/Button';
 import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
-import { Flex, Box} from '@rebass/grid'
+import { Flex, Box } from '@rebass/grid'
+import { ThemeProvider } from 'styled-components';
+
+import theme from '../theme';
 
 interface ICreateAccountContainerState {
     firstName: string;
@@ -41,42 +44,43 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     }
     public render() {
         return (
-            <Container>
-                <form onSubmit={this.handleSubmit}>
-                    <Flex flexWrap={'wrap'}>
-                        <Box width={1}>
-                            <FullNameInput
-                                onFirstNameChanged={this.onFirstNameChanged}
-                                onLastNameChanged={this.onLastNameChanged}
-                            />
-                        </Box>
-                        <Box width={1}>
-                            <EmailInput
-                                onEmailChanged={this.onEmailChanged}
-                            />
-                        </Box>
-                        <Box width={1}>
-                            <PasswordInput
-                                onPasswordChanged={this.onPasswordChanged}
-                            />
-                        </Box>
-                    </Flex>
-                    <DietaryRestrictionComponent
-                        onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
-                    />
-                    <ShirtSizeComponent
-                        onShirtSizeChanged={this.onShirtSizeChanged}
-                    />
-                    <Flex justifyContent={'center'}>
-                        <Box>
-                            <Button type='button' onClick={this.handleSubmit}>Submit</Button>
-                        </Box>
+            <ThemeProvider theme={theme}>
+                <Container>
+                    <form onSubmit={this.handleSubmit}>
+                        <Flex flexWrap={'wrap'}>
+                            <Box width={1}>
+                                <FullNameInput
+                                    onFirstNameChanged={this.onFirstNameChanged}
+                                    onLastNameChanged={this.onLastNameChanged}
+                                />
+                            </Box>
+                            <Box width={1}>
+                                <EmailInput
+                                    onEmailChanged={this.onEmailChanged}
+                                />
+                            </Box>
+                            <Box width={1}>
+                                <PasswordInput
+                                    onPasswordChanged={this.onPasswordChanged}
+                                />
+                            </Box>
+                        </Flex>
+                        <DietaryRestrictionComponent
+                            onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+                        />
+                        <ShirtSizeComponent
+                            onShirtSizeChanged={this.onShirtSizeChanged}
+                        />
+                        <Flex justifyContent={'center'}>
+                            <Box>
+                                <Button type='button' onClick={this.handleSubmit}>Submit</Button>
+                            </Box>
+                            
+                        </Flex>
                         
-                    </Flex>
-                    
-                </form>
-            </Container>
-            
+                    </form>
+                </Container>
+            </ThemeProvider>
         )
     }
     private handleSubmit() {
