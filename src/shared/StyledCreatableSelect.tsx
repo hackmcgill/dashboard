@@ -15,6 +15,20 @@ const StyledCreatableSelect = styled(CreatableSelect)`
       border: 2px solid ${props => props.theme.grey};
     }
   }
+
+  .react-select__option {
+    &: hover {
+      background-color: ${props => props.theme.primaryLight};
+    }
+
+    &--is-focused {
+      background-color: ${props => props.theme.primaryLight};
+    }
+
+    &--is-selected {
+      background-color: ${props => props.theme.primary};
+    }
+  }
 `;
 
 export default StyledCreatableSelect;
