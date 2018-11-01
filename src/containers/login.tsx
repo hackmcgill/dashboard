@@ -77,7 +77,7 @@ export default class ResetPasswordContainer extends React.Component<{}, ILoginSt
         this.setState({ password });
     }
     /**
-     * Returns the auth token that is present in the query, or undefined if it doesn't exist.
+     * Returns the redirect link, or undefined if it doesn't exist.
      */
     private getRedirectLink(): string | string[] | undefined {
         const queries: QueryString.OutputParams = QueryString.parse(location.search);
