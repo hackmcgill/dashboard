@@ -1,6 +1,6 @@
-import { IAccount } from '../shared/userTypes';
+import { IAccount } from '../config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
-import Route from '../shared/route';
+import Route from '../config/route';
 import API from './api';
 class AccountAPI {
     constructor() {

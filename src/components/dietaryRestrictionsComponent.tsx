@@ -1,6 +1,7 @@
 import * as React from 'react';
-import CreatableSelect from 'react-select/lib/Creatable';
-import DietaryRestriction from '../shared/dietaryRestrictions';
+import StyledSelect from '../shared/StyledCreatableSelect';
+import DietaryRestriction from '../config/dietaryRestrictions';
+import Label from 'src/shared/Label';
 
 /**
  * DietaryRestrictionsComponent state
@@ -29,12 +30,17 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
         { label: DietaryRestriction.VEGETARIAN, value: DietaryRestriction.VEGETARIAN },
     ]
     return (
-        <CreatableSelect
-            id={'diet-restrictions'}
-            isMulti={true}
-            onChange={handleChange(props)}
-            options={options}
-        />
+        <Label>
+            Dietary Restrictions:
+            <StyledSelect
+                className='react-select-container'
+                classNamePrefix='react-select'
+                id={'diet-restrictions'}
+                isMulti={true}
+                onChange={handleChange(props)}
+                options={options}
+            />
+        </Label>
     );
 }
 /**

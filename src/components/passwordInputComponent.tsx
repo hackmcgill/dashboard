@@ -1,14 +1,16 @@
 import * as React from 'react';
+import Input from 'src/shared/Input';
+import Label from 'src/shared/Label';
 
 interface IPasswordInputProp {
     onPasswordChanged: (email: string) => void;
 }
 const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
-        <label>
+        <Label>
             Password:
-            <input type='password' onChange={handleChange(props)} />
-        </label>
+            <Input type='password' onChange={handleChange(props)} />
+        </Label>
     )
 }
 /**
