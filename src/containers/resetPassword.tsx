@@ -2,7 +2,7 @@ import * as React from 'react';
 import PasswordInputComponent from '../components/passwordInputComponent';
 import Auth from '../api/auth';
 import { AxiosResponse } from 'axios';
-import * as QueryString from 'query-string';
+// import * as QueryString from 'query-string';
 
 export interface IResetPasswordContainerState {
     password: string;
@@ -34,7 +34,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      * Function that calls the reset password function once the form is submitted.
      */
     private handleSubmit(): void {
-        const authToken: string = this.getAuthTokenFromQuery();
+        const authToken: string = "";
         Auth.resetPassword(
             this.state.password,
             authToken
@@ -58,11 +58,11 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
     /**
      * Returns the auth token that is present in the query, or undefined if it doesn't exist.
      */
-    private getAuthTokenFromQuery(): string {
-        const queries: { token: string } = QueryString.parse(location.search);
-        if (!queries.token) {
-            throw new Error("Token not present in the query body");
-        }
-        return queries.token;
-    }
+    // private getAuthTokenFromQuery(): string | string[] {
+    //     const queries = QueryString.parse(location.search);
+    //     if (!queries.token) {
+    //         throw new Error("Token not present in the query body");
+    //     }
+    //     return queries.token;
+    // }
 }

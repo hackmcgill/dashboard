@@ -11,9 +11,9 @@ export interface ILoginState {
 }
 
 /**
- * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
+ * Container that renders form to log in.
  */
-export default class ResetPasswordContainer extends React.Component<{}, ILoginState>{
+export default class LoginContainer extends React.Component<{}, ILoginState>{
     constructor(props: {}) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +38,7 @@ export default class ResetPasswordContainer extends React.Component<{}, ILoginSt
         );
     }
     /**
-     * Function that calls the reset password function once the form is submitted.
+     * Function that calls the login function once the form is submitted.
      */
     private handleSubmit(): void {
         Auth.login(
