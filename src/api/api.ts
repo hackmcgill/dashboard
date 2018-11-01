@@ -1,4 +1,4 @@
-import * as CONSTANTS from '../shared/constants';
+import * as CONSTANTS from '../config/constants';
 import Endpoint from './endpoint';
 /**
  * Inspired by https://github.com/FrancescoSaverioZuppichini/API-Class

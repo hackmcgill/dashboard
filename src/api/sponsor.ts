@@ -1,6 +1,6 @@
-import { ISponsor } from '../shared/userTypes';
+import { ISponsor } from '../config/userTypes';
 import { AxiosPromise } from 'axios';
-import Route from '../shared/route';
+import Route from '../config/route';
 import API from './api';
 class SponsorAPI {
     constructor() {

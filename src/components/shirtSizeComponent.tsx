@@ -1,6 +1,7 @@
 import * as React from 'react';
-import Select from 'react-select';
-import ShirtSize from '../shared/shirtSizes';
+import StyledSelect from '../shared/StyledSelect';
+import ShirtSize from '../config/shirtSizes';
+import Label from 'src/shared/Label';
 
 interface IShirtSizeProps {
     onShirtSizeChanged: (selectedOptions: ShirtSize) => void;
@@ -16,10 +17,15 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
         { label: ShirtSize.XXL, value: ShirtSize.XXL },
     ]
     return (
-        <Select
-            onChange={handleChange(props)}
-            options={options}
-        />
+        <Label>
+            Shirt size:
+            <StyledSelect
+                className='react-select-container'
+                classNamePrefix='react-select'
+                onChange={handleChange(props)}
+                options={options}
+            />
+        </Label>
     );
 }
 /**
