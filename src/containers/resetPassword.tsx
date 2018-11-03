@@ -48,8 +48,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
     private handleSubmit(): void {
         const { isInvalid } = this.state;
         this.setState({isSubmitted: true});
-        if (!isInvalid) {
-            alert('Passwords must match!');
+        if (isInvalid) {
             return;
         }
         // TODO: try/catch
