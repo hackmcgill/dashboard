@@ -5,6 +5,8 @@ import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 
 export interface IResetPasswordContainerState {
+    isInvalid: boolean;
+    isSubmitted: boolean;
     password: string;
 }
 
@@ -16,6 +18,12 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
+        this.onConfirmationChanged = this.onConfirmationChanged.bind(this);
+        this.state = {
+            isInvalid: false,
+            isSubmitted: false,
+            password: ''
+        }
     }
     public render() {
         return (
@@ -23,8 +31,12 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                 <h2>Reset your password</h2>
                 <form>
                     <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged}
+                        onPasswordChanged={this.onPasswordChanged} label={'New Password'}
                     />
+                    <PasswordInputComponent
+                        onPasswordChanged={this.onConfirmationChanged} label={'Confirm Password'}
+                    />
+                    {this.state.isInvalid && this.state.isSubmitted && 'Passwords must match!'}
                     <button type='button' onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>
@@ -34,6 +46,13 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      * Function that calls the reset password function once the form is submitted.
      */
     private handleSubmit(): void {
+        const { isInvalid } = this.state;
+        this.setState({isSubmitted: true});
+        if (!isInvalid) {
+            alert('Passwords must match!');
+            return;
+        }
+        // TODO: try/catch
         const authToken: string = this.getAuthTokenFromQuery();
         Auth.resetPassword(
             this.state.password,
@@ -54,6 +73,14 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      */
     private onPasswordChanged(password: string) {
         this.setState({ password });
+    }
+
+    /**
+     * Callback that is called once password is updated.
+     * @param password The updated password
+     */
+    private onConfirmationChanged(confirmation: string) {
+        this.setState((state) => ({ isInvalid: state.password !== confirmation }));
     }
     /**
      * Returns the auth token that is present in the query, or undefined if it doesn't exist.
