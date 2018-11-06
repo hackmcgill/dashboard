@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 
 export interface IResetPasswordContainerState {
-    isInvalid: boolean;
+    isValid: boolean;
     isSubmitted: boolean;
     password: string;
 }
@@ -20,7 +20,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.onConfirmationChanged = this.onConfirmationChanged.bind(this);
         this.state = {
-            isInvalid: false,
+            isValid: false,
             isSubmitted: false,
             password: ''
         }
@@ -36,7 +36,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                     <PasswordInputComponent
                         onPasswordChanged={this.onConfirmationChanged} label={'Confirm Password'}
                     />
-                    {this.state.isInvalid && this.state.isSubmitted && 'Passwords must match!'}
+                    {!this.state.isValid && this.state.isSubmitted && 'Passwords must match!'}
                     <button type='button' onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>
@@ -46,9 +46,9 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      * Function that calls the reset password function once the form is submitted.
      */
     private handleSubmit(): void {
-        const { isInvalid } = this.state;
+        const { isValid } = this.state;
         this.setState({isSubmitted: true});
-        if (isInvalid) {
+        if (!isValid) {
             return;
         }
         // TODO: try/catch
@@ -79,7 +79,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      * @param password The updated password
      */
     private onConfirmationChanged(confirmation: string) {
-        this.setState((state) => ({ isInvalid: state.password !== confirmation }));
+        this.setState((state) => ({ isValid: state.password === confirmation && state.password.length > 0}));
     }
     /**
      * Returns the auth token that is present in the query, or undefined if it doesn't exist.
