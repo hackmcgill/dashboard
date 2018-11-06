@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
+// import Home from './containers/Home';
 
 
 class App extends React.Component {
