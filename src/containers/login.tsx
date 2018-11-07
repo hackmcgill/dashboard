@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PasswordInputComponent from '../components/passwordInputComponent';
+import PasswordInputComponent from 'src/components/passwordInputComponent';
 import Auth from '../api/auth';
 import { AxiosResponse } from 'axios';
 import EmailInputComponent from 'src/components/emailInputComponent';
