@@ -1,7 +1,7 @@
 import { IHacker } from 'src/config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import Route from 'src/config/route';
-import API from './api';
+import API from 'src/api/api';
 class AccountAPI {
     constructor() {
         API.createEntity(Route.HACKER);
