@@ -21,12 +21,12 @@ class AccountAPI {
                 }
             };
         }
-        return API.getEndpoint(Route.ACCOUNT).create(account, config);
+        return API.getEndpoint(Route.ACCOUNT).create(account, { config });
     }
     /**
      * Get the logged-in user's information.
      */
-    public getSelf(): AxiosPromise {
+    public getSelf(): AxiosPromise<IAccount> {
         return API.getEndpoint(Route.ACCOUNT_SELF).getAll();
     }
     /**

@@ -1,14 +1,8 @@
 import * as React from 'react';
-import StyledSelect from '../shared/StyledCreatableSelect';
-import DietaryRestriction from '../config/dietaryRestrictions';
+import StyledSelect from 'src/shared/StyledCreatableSelect';
+import DietaryRestriction from 'src/config/dietaryRestrictions';
 import Label from 'src/shared/Label';
 
-/**
- * DietaryRestrictionsComponent state
- */
-export interface IDietRestrictionState {
-    selectedOptions: string[]
-}
 /**
  * DietaryRestrictionsComponent props
  */
