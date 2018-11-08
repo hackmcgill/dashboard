@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Select from 'react-select';
-import Genders from 'src/shared/genders';
+import Genders from 'src/config/genders';
 import { FieldProps } from 'formik';
 
 const GenderComponent: React.StatelessComponent<FieldProps> = (props) => {

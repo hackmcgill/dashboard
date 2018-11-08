@@ -1,8 +1,8 @@
 import * as React from 'react';
-import PasswordInputComponent from '../components/passwordInputComponent';
-import Auth from '../api/auth';
+import PasswordInputComponent from 'src/components/passwordInputComponent';
+import Auth from 'src/api/auth';
 import { AxiosResponse } from 'axios';
-import GetToken from 'src/shared/authToken';
+import GetToken from 'src/config/authToken';
 export interface IResetPasswordContainerState {
     isValid: boolean;
     isSubmitted: boolean;
