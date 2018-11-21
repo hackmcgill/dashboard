@@ -79,8 +79,8 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
     /**
      * Returns the redirect link, or undefined if it doesn't exist.
      */
-    private getRedirectLink(): string | string[] | undefined {
-        const queries: QueryString.OutputParams = QueryString.parse(location.search);
-        return queries.redir;
+    private getRedirectLink(): any {
+        const queries: any = QueryString.parse(location.search);
+        return queries.redir.toString();
     }
 }
