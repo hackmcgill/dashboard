@@ -11,16 +11,23 @@ import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
 import { Flex, Box } from '@rebass/grid'
 import { ThemeProvider } from 'styled-components';
+import PhoneInput from 'react-phone-number-input';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 import theme from '../theme';
+import 'react-phone-number-input/style.css'
+import 'react-day-picker/lib/style.css';
+
 
 interface ICreateAccountContainerState {
     firstName: string;
     lastName: string;
     email: string;
-    password: string
+    password: string;
     dietaryRestrictions: string[];
     shirtSize: ShirtSize;
+    phone: string;
+    birthdate: Date;
 }
 
 class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
@@ -32,7 +39,9 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             email: '',
             password: '',
             dietaryRestrictions: [],
-            shirtSize: ShirtSize.M
+            shirtSize: ShirtSize.M,
+            phone: '',
+            birthdate: new Date()
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
         this.onShirtSizeChanged = this.onShirtSizeChanged.bind(this);
@@ -41,6 +50,8 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.onLastNameChanged = this.onLastNameChanged.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onPhoneChanged = this.onPhoneChanged.bind(this);
+        this.onBirthDateChanged = this.onBirthDateChanged.bind(this);
     }
     public render() {
         return (
@@ -71,13 +82,24 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                         <ShirtSizeComponent
                             onShirtSizeChanged={this.onShirtSizeChanged}
                         />
+                        <ShirtSizeComponent
+                            onShirtSizeChanged={this.onShirtSizeChanged}
+                        />
+                        <PhoneInput
+                            placeholder="Enter phone number"
+                            value={this.state.phone}
+                            onChange={this.onPhoneChanged} />
+                        <DayPickerInput
+                            placeholder="Enter your birthdate"
+                            onDayChange={this.onBirthDateChanged}
+                            format="MM-DD-YYYY"
+                        />
                         <Flex justifyContent={'center'}>
                             <Box>
                                 <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                             </Box>
-                            
                         </Flex>
-                        
+
                     </form>
                 </Container>
             </ThemeProvider>
@@ -121,7 +143,12 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     private onPasswordChanged(password: string) {
         this.setState({ password });
     }
-
+    private onPhoneChanged(phone: string) {
+        this.setState({ phone });
+    }
+    private onBirthDateChanged(birthdate: Date) {
+        this.setState({ birthdate })
+    }
 }
 
 export default CreateAccountContainer;
