@@ -13,6 +13,12 @@ export interface IAccount {
     shirtSize: string,
     // The password
     password: string,
+    // The user's phone number
+    phoneNumber: string,
+    // The birthdate
+    birthDate: Date,
+    // The preferred pronoun
+    pronoun: string,
     // The database id (if new, leave blank / make '')
     id: string
 }
