@@ -17,6 +17,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import theme from '../theme';
 import 'react-phone-number-input/style.css'
 import 'react-day-picker/lib/style.css';
+import PronounInput from 'src/components/pronounComponent';
 
 
 interface ICreateAccountContainerState {
@@ -26,6 +27,7 @@ interface ICreateAccountContainerState {
     password: string;
     dietaryRestrictions: string[];
     shirtSize: ShirtSize;
+    pronoun: string;
     phone: string;
     birthdate: Date;
 }
@@ -40,6 +42,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             password: '',
             dietaryRestrictions: [],
             shirtSize: ShirtSize.M,
+            pronoun: '',
             phone: '',
             birthdate: new Date()
         };
@@ -52,6 +55,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPhoneChanged = this.onPhoneChanged.bind(this);
         this.onBirthDateChanged = this.onBirthDateChanged.bind(this);
+        this.onPronounChanged = this.onPronounChanged.bind(this);
     }
     public render() {
         return (
@@ -79,8 +83,9 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                         <DietaryRestrictionComponent
                             onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
                         />
-                        <ShirtSizeComponent
-                            onShirtSizeChanged={this.onShirtSizeChanged}
+                        <PronounInput
+                            placeholder="Preferred pronoun"
+                            onPronounChanged={this.onPronounChanged}
                         />
                         <ShirtSizeComponent
                             onShirtSizeChanged={this.onShirtSizeChanged}
@@ -114,7 +119,10 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                 password: this.state.password,
                 dietaryRestrictions: this.state.dietaryRestrictions,
                 shirtSize: this.state.shirtSize,
-                id: ''
+                id: '',
+                phoneNumber: this.state.phone,
+                birthDate: this.state.birthdate,
+                pronoun: this.state.pronoun
             }
         ).then((value: AxiosResponse) => {
             // Good response
@@ -147,7 +155,10 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.setState({ phone });
     }
     private onBirthDateChanged(birthdate: Date) {
-        this.setState({ birthdate })
+        this.setState({ birthdate });
+    }
+    private onPronounChanged(pronoun: string) {
+        this.setState({ pronoun });
     }
 }
 
