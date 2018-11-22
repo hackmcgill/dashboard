@@ -1,26 +1,27 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
 import StylizedSelect from 'src/shared/StyledCreatableSelect';
-import Genders from 'src/config/genders';
+// import Genders from 'src/config/genders';
 import Label from 'src/shared/Label';
 
-export interface IGenderProps {
-    label?: string
+export interface ICreateableSelectComponent {
+    label?: string;
+    options: any[];
 }
 
-const GenderComponent: React.StatelessComponent<IGenderProps & FieldProps> = (props) => {
-    const options: Array<{ label: string, value: string }> = [
-        { label: Genders.male, value: Genders.male },
-        { label: Genders.female, value: Genders.female },
-        { label: Genders.preferNotToSay, value: Genders.preferNotToSay },
-    ]
+const GenderComponent: React.StatelessComponent<ICreateableSelectComponent & FieldProps> = (props) => {
+    const options = props.options.map((option) => {
+        return { label: option, value: option };
+    });
+    // const options: Array<{ label: string, value: string }> = [
+    //     { label: Genders.male, value: Genders.male },
+    //     { label: Genders.female, value: Genders.female },
+    //     { label: Genders.preferNotToSay, value: Genders.preferNotToSay },
+    // ]
     return (
         <Label>
             {props.label ? props.label : 'What gender do you identify with?'}
             <StylizedSelect
-                className='react-select-container'
-                classNamePrefix='react-select'
-                id='gender-component'
                 onChange={handleChange(props)}
                 options={options}
             />
