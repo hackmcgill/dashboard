@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Input from 'src/shared/Input';
+import Checkbox from 'src/shared/Checkbox';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 
@@ -10,7 +10,7 @@ const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> =
     return (
         <Label>
             {props.label}
-            <Input type='checkbox' onChange={handleChange(props)} />
+            <Checkbox onChange={handleChange(props)} />
         </Label>
     )
 }

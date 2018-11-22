@@ -3,6 +3,9 @@ import { AxiosResponse } from 'axios';
 import { Formik, Field, FormikActions, FormikProps } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 
+import * as CONSTANTS from 'src/config/constants';
+
+
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
 import { IAccount, IHacker } from 'src/config/userTypes';
@@ -13,6 +16,7 @@ import CheckboxComponent from 'src/components/checkboxComponent';
 import LinkComponent from 'src/components/linkComponent';
 
 import Button from 'src/shared/Button';
+import jobInterestComponent from './jobInterestComponent';
 // const hackerSchema = {
 
 // }
@@ -44,53 +48,61 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
             <Field
                 id='schoolName'
                 name={'school'}
-                component={SchoolComponent} />
+                component={SchoolComponent}
+            />
             <Field
                 id='gender'
                 name={'gender'}
-                component={GenderComponent} />
+                component={GenderComponent}
+            />
             <Field
                 id='needsBus'
                 name={'bus'}
                 component={CheckboxComponent}
-                label={'Do you need a bus?'}
+                label={CONSTANTS.BUS_REQUEST_LABEL}
             />
             <Field
                 id='github'
                 name={'github'}
                 component={LinkComponent}
-                label='GitHub Username'
-                placeholder='https://www.github.com/'
+                label={CONSTANTS.GITHUB_LINK_LABEL}
+                placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
             />
             <Field
-                id='dropler' name={'dropler'}
+                id='dropler'
+                name={'dropler'}
                 component={LinkComponent}
-                label='Dropler Username'
-                placeholder='https://droplr.com/'
+                label={CONSTANTS.DROPLER_LINK_LABEL}
+                placeholder={CONSTANTS.DROPLER_LINK_PLACEHOLDER}
             />
             <Field
                 id='linkedIn'
                 name={'linkedIn'}
                 component={LinkComponent}
-                label='linkedIn'
-                placeholder='http://linkedin.com/in/'
+                label={CONSTANTS.LINKEDIN_LINK_LABEL}
+                placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
             />
             <Field
                 id='personal'
                 name={'personal'}
                 component={LinkComponent}
-                label='Personal'
-                placeholder='your website here...'
+                label={CONSTANTS.PERSONAL_LINK_LABEL}
+                placeholder={CONSTANTS.PERSONAL_LINK_PLACEHOLDER}
             />
             <Field
                 id='other'
                 name={'other'}
                 component={LinkComponent}
-                label='other'
-                placeholder='anything else!'
+                label={CONSTANTS.OTHER_LINK_LABEL}
+                placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
             />
-            {/* <Field id='jobInterest' name={'jobInterest'} component={} />
-            <Field id='skills' name={'skills'} component={} />
+            <Field
+                id='jobInterest'
+                name={'jobInterest'}
+                component={jobInterestComponent}
+                placeholder={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
+            />
+            {/* <Field id='skills' name={'skills'} component={} />
             <Field id='comments' name={'comments'} component={} />
             <Field id='essay' name={'essay'} component={} />
             <Field id='team' name={'team'} component={} /> */}

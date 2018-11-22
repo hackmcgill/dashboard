@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as Autosuggest from 'react-autosuggest';
 import Schools from 'src/config/schools';
 import { FieldProps } from 'formik';
 import Label from 'src/shared/Label';
+import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
 import '../styles/schoolComponentStyle.css';
 
 
@@ -39,7 +39,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         this.renderSuggestion = this.renderSuggestion.bind(this);
     }
     public render() {
-        const SchoolAutosuggest = Autosuggest as { new(): Autosuggest<string> }
+        const SchoolAutosuggest = StyledAutosuggest;
         const { value, suggestions } = this.state;
         const inputProps = {
             placeholder: 'School name',
@@ -118,8 +118,10 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         return suggestion;
     }
     private renderSuggestion(suggestion: string) {
-        return (<div>
-            {suggestion}
-        </div>);
+        return (
+            <AutosuggestItem>
+                {suggestion}
+            </AutosuggestItem>
+        );
     }
 }
