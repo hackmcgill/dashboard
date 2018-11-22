@@ -11,12 +11,10 @@ import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
 import { Flex, Box } from '@rebass/grid'
 import { ThemeProvider } from 'styled-components';
-import PhoneInput from 'react-phone-number-input';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { NumberFormatValues } from 'react-number-format';
+import NumberFormat from 'src/components/numberFormatComponent';
 
-import theme from '../theme';
-import 'react-phone-number-input/style.css'
-import 'react-day-picker/lib/style.css';
+import theme from 'src/theme';
 import PronounInput from 'src/components/pronounComponent';
 
 
@@ -90,14 +88,17 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                         <ShirtSizeComponent
                             onShirtSizeChanged={this.onShirtSizeChanged}
                         />
-                        <PhoneInput
-                            placeholder="Enter phone number"
-                            value={this.state.phone}
-                            onChange={this.onPhoneChanged} />
-                        <DayPickerInput
-                            placeholder="Enter your birthdate"
-                            onDayChange={this.onBirthDateChanged}
-                            format="MM-DD-YYYY"
+                        <NumberFormat
+                            label="Phone number:"
+                            placeholder="+# (###) ###-####"
+                            onValueChange={this.onPhoneChanged}
+                            format="+# (###) ###-####"
+                        />
+                        <NumberFormat
+                            label="Birth date:"
+                            placeholder="MM-DD-YYYY"
+                            onValueChange={this.onBirthDateChanged}
+                            format="##-##-####"
                         />
                         <Flex justifyContent={'center'}>
                             <Box>
@@ -151,11 +152,13 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     private onPasswordChanged(password: string) {
         this.setState({ password });
     }
-    private onPhoneChanged(phone: string) {
-        this.setState({ phone });
+    private onPhoneChanged(phone: NumberFormatValues) {
+        console.log(phone);
+        this.setState({ phone: phone.value });
     }
-    private onBirthDateChanged(birthdate: Date) {
-        this.setState({ birthdate });
+    private onBirthDateChanged(birthdate: NumberFormatValues) {
+        console.log(new Date(birthdate.formattedValue));
+        this.setState({ birthdate: new Date(birthdate.formattedValue) });
     }
     private onPronounChanged(pronoun: string) {
         this.setState({ pronoun });
