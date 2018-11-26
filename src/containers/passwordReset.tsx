@@ -5,10 +5,7 @@ import { Flex, Box } from '@rebass/grid';
 import H1 from 'src/shared/H1';
 import Paragraph from 'src/shared/Paragraph';
 import Container from 'src/shared/Container'
-import { ThemeProvider } from 'styled-components';
 import Button from 'src/shared/Button';
-
-import theme from '../theme';
 import { Link } from 'react-router-dom';
 
 export interface IPasswordResetContainerState {
