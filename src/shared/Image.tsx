@@ -4,7 +4,7 @@ const Image = styled.img`
     height: ${props => props.height};
     width: auto;
     padding: ${props => props.theme.padding};
-    padding: ${(props : {'padding': string}) => props.padding};
+    padding: ${(props: { 'padding': string }) => props.padding};
 `
 
 export default Image;

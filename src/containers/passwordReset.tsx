@@ -1,7 +1,7 @@
 import * as React from 'react';
 import resetLogo from 'src/passwordReset.svg';
 import Image from 'src/shared/Image';
-import {Flex, Box} from '@rebass/grid';
+import { Flex, Box } from '@rebass/grid';
 import H1 from 'src/shared/H1';
 import Paragraph from 'src/shared/Paragraph';
 import Container from 'src/shared/Container'
@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import Button from 'src/shared/Button';
 
 import theme from '../theme';
+import { Link } from 'react-router-dom';
 
 export interface IPasswordResetContainerState {
     redirectURL: string;
@@ -24,7 +25,6 @@ class PasswordResetContainer extends React.Component<{}, IPasswordResetContainer
     }
     public render() {
         return (
-        <ThemeProvider theme={theme}>
             <Container>
                 <Flex alignItems={'center'}>
                     <Flex flexWrap={'wrap'} justifyContent={'center'}>
@@ -39,21 +39,17 @@ class PasswordResetContainer extends React.Component<{}, IPasswordResetContainer
                             </Paragraph>
                         </Box>
                         <Box>
-                            <Image src={resetLogo} height={"6rem"} padding={'2.2rem'}/>
+                            <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
                         </Box>
                         <Box>
-                            <Button type='button' onClick={}>Submit</Button>
+                            <Link to="/login">
+                                <Button type='button'>Take me home!</Button>
+                            </Link>
                         </Box>
                     </Flex>
                 </Flex>
             </Container>
-        </ThemeProvider>
         )
     }
 }
-
-
 export default PasswordResetContainer;
-
-
-
