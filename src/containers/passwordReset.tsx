@@ -16,32 +16,30 @@ class PasswordResetContainer extends React.Component<{}, {}>{
         return (
             <Container>
                 <Flex alignItems={'center'}>
-                    <Flex flexWrap={'wrap'} justifyContent={'center'}>
-                        <Flex alignItems={'center'}>
-                            <Box>
-                                <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
+                    <Box>
+                        <Flex flexWrap={'wrap'} justifyContent={'center'}>
+                            <Flex alignItems={'center'}>
+                                <Box>
+                                    <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
+                                </Box>
+                                <Box>
+                                    <H1 color={'#F2463A'} fontSize={'45px'}>
+                                        Password reset
+                                    </H1>
+                                </Box>
+                            </Flex>
+                            <Box width={1}>
+                                <Paragraph fontSize={'23px'} center={true} paddingBottom={'32px'}>
+                                    We've sent you a link to reset your password. Check your inbox and follow the instructions there.
+                                </Paragraph>
                             </Box>
                             <Box>
-                                <H1 color={'#F2463A'} fontSize={'45px'}>
-                                    Password reset
-                                </H1>
+                                <Link to="/login">
+                                    <Button type='button'>Take me home!</Button>
+                                </Link>
                             </Box>
                         </Flex>
-                        <Box width={1}>
-                            <Paragraph fontSize={'23px'} center={true}>
-                                We've sent you a link to reset your password. Check your inbox and follow the instructions there.
-                            </Paragraph>
-                        </Box>
-                        <Box>
-                            <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
-                        </Box>
-                        <Box>
-                            <Link to="/login">
-                                <Button type='button'>Take me home!</Button>
-                            </Link>
-                            <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
-                        </Box>
-                    </Flex>
+                    </Box>
                 </Flex>
             </Container>
         )
