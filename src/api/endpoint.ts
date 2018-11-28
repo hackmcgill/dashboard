@@ -1,5 +1,7 @@
 import axios, { AxiosPromise } from 'axios';
 import { AxiosRequestConfig } from 'axios';
+axios.defaults.withCredentials = true;
+
 export default class Endpoint {
     private resourceURL: string;
     private name: string;
