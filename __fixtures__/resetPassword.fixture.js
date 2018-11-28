@@ -1,6 +1,6 @@
-import resetPassword from "src/containers/resetPassword";
+import resetPasswordComponent from "src/containers/resetPassword";
 
 export default {
-  component: resetPassword,
-  props: {}
+    component: resetPasswordComponent,
+    props: {}
 };

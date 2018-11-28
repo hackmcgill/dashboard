@@ -51,19 +51,23 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
             return;
         }
         // TODO: try/catch
-        const authToken: string = GetToken();
-        Auth.resetPassword(
-            this.state.password,
-            authToken
-        ).then((value: AxiosResponse) => {
-            // Good response
-            if (value.status === 200) {
-                // Probably want to redirect to login page or something
-                console.log('Reset password');
-            }
-        }).catch((reason) => {
-            console.error(reason);
-        });
+        try {
+            const authToken: string | string[] = GetToken();
+            Auth.resetPassword(
+                this.state.password,
+                authToken
+            ).then((value: AxiosResponse) => {
+                // Good response
+                if (value.status === 200) {
+                    // Probably want to redirect to login page or something
+                    console.log('Reset password');
+                }
+            }).catch((reason) => {
+                console.error(reason);
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
     /**
      * Callback that is called once password is updated.

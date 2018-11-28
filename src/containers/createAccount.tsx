@@ -11,16 +11,23 @@ import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
 import { Flex, Box } from '@rebass/grid'
 import { ThemeProvider } from 'styled-components';
+import { NumberFormatValues } from 'react-number-format';
+import NumberFormat from 'src/components/numberFormatComponent';
 
-import theme from '../theme';
+import theme from 'src/theme';
+import PronounInput from 'src/components/pronounComponent';
+
 
 interface ICreateAccountContainerState {
     firstName: string;
     lastName: string;
     email: string;
-    password: string
+    password: string;
     dietaryRestrictions: string[];
     shirtSize: ShirtSize;
+    pronoun: string;
+    phone: string;
+    birthdate: Date;
 }
 
 class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
@@ -32,7 +39,10 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             email: '',
             password: '',
             dietaryRestrictions: [],
-            shirtSize: ShirtSize.M
+            shirtSize: ShirtSize.M,
+            pronoun: '',
+            phone: '',
+            birthdate: new Date()
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
         this.onShirtSizeChanged = this.onShirtSizeChanged.bind(this);
@@ -41,6 +51,9 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.onLastNameChanged = this.onLastNameChanged.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onPhoneChanged = this.onPhoneChanged.bind(this);
+        this.onBirthDateChanged = this.onBirthDateChanged.bind(this);
+        this.onPronounChanged = this.onPronounChanged.bind(this);
     }
     public render() {
         return (
@@ -68,16 +81,31 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                         <DietaryRestrictionComponent
                             onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
                         />
+                        <PronounInput
+                            placeholder="Preferred pronoun"
+                            onPronounChanged={this.onPronounChanged}
+                        />
                         <ShirtSizeComponent
                             onShirtSizeChanged={this.onShirtSizeChanged}
+                        />
+                        <NumberFormat
+                            label="Phone number:"
+                            placeholder="+# (###) ###-####"
+                            onValueChange={this.onPhoneChanged}
+                            format="+# (###) ###-####"
+                        />
+                        <NumberFormat
+                            label="Birth date:"
+                            placeholder="MM-DD-YYYY"
+                            onValueChange={this.onBirthDateChanged}
+                            format="##-##-####"
                         />
                         <Flex justifyContent={'center'}>
                             <Box>
                                 <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                             </Box>
-                            
                         </Flex>
-                        
+
                     </form>
                 </Container>
             </ThemeProvider>
@@ -92,7 +120,10 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                 password: this.state.password,
                 dietaryRestrictions: this.state.dietaryRestrictions,
                 shirtSize: this.state.shirtSize,
-                id: ''
+                id: '',
+                phoneNumber: this.state.phone,
+                birthDate: this.state.birthdate,
+                pronoun: this.state.pronoun
             }
         ).then((value: AxiosResponse) => {
             // Good response
@@ -121,7 +152,17 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     private onPasswordChanged(password: string) {
         this.setState({ password });
     }
-
+    private onPhoneChanged(phone: NumberFormatValues) {
+        console.log(phone);
+        this.setState({ phone: phone.value });
+    }
+    private onBirthDateChanged(birthdate: NumberFormatValues) {
+        console.log(new Date(birthdate.formattedValue));
+        this.setState({ birthdate: new Date(birthdate.formattedValue) });
+    }
+    private onPronounChanged(pronoun: string) {
+        this.setState({ pronoun });
+    }
 }
 
 export default CreateAccountContainer;
