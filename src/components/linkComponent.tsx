@@ -11,7 +11,7 @@ const LinkComponent: React.StatelessComponent<ILinkComponentProp & FieldProps> =
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
         <Label>
-            {props.label}:
+            {props.label}
             <Input type='url' onChange={handleChange(props)} placeholder={placeholder} />
         </Label>
     )

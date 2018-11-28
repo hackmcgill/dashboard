@@ -2,9 +2,11 @@ import * as React from 'react';
 import { AxiosResponse } from 'axios';
 import { Formik, Field, FormikActions, FormikProps } from 'formik';
 import { Flex, Box } from '@rebass/grid'
+import * as Yup from "yup";
 
 import * as CONSTANTS from 'src/config/constants';
 
+import ErrorMessage from 'src/shared/ErrorMessage';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
@@ -17,10 +19,36 @@ import LinkComponent from 'src/components/linkComponent';
 
 import Button from 'src/shared/Button';
 import jobInterestComponent from './jobInterestComponent';
-// const hackerSchema = {
+import SkillsComponent from './skillsComponent';
+import TextareaComponent from './textAreaComponent';
+import FileUploadComponent from './fileUploadComponent';
 
-// }
 
+const hackerSchema = Yup.object().shape({
+    school: Yup.string()
+      .min(1, 'Select a school')
+      .required('Required'),
+    github: Yup.string().url('Must be a valid url').required(),
+    dropler: Yup.string().url('Must be a valid url'),
+    linkedIn: Yup.string().url('Must be a valid url'),
+    personal: Yup.string().url('Must be a valid url'),
+    other: Yup.string().url('Must be a valid url'),
+    jobInterest: Yup.string().required(),
+    resumeFile: Yup.mixed()
+        .required("A resume is required")
+        .test(
+        "fileSize",
+        "File too large",
+        value => value && value.size <= 4000000 // 4MB
+        )
+        .test(
+        "fileFormat",
+        "Unsupported Format",
+        value => value && value.type === "application/pdf"
+        )
+  });
+  
+  
 
 const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
     return (
@@ -34,10 +62,12 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
                 linkedIn: '',
                 personal: '',
                 other: '',
+                jobInterest: '',
+                skills: [],
             }}
             onSubmit={handleSubmit}
             render={renderFormik}
-        // validationSchema={hackerSchema}
+            validationSchema={hackerSchema}
         />
     )
 }
@@ -50,6 +80,9 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 name={'school'}
                 component={SchoolComponent}
             />
+            <ErrorMessage
+                name='school'
+            />
             <Field
                 id='gender'
                 name={'gender'}
@@ -61,6 +94,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 component={CheckboxComponent}
                 label={CONSTANTS.BUS_REQUEST_LABEL}
             />
+            
             <Field
                 id='github'
                 name={'github'}
@@ -68,6 +102,10 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 label={CONSTANTS.GITHUB_LINK_LABEL}
                 placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
             />
+            <ErrorMessage
+                name='github'
+            />
+
             <Field
                 id='dropler'
                 name={'dropler'}
@@ -100,15 +138,42 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 id='jobInterest'
                 name={'jobInterest'}
                 component={jobInterestComponent}
-                placeholder={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
+                placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
             />
-            {/* <Field id='skills' name={'skills'} component={} />
-            <Field id='comments' name={'comments'} component={} />
-            <Field id='essay' name={'essay'} component={} />
-            <Field id='team' name={'team'} component={} /> */}
+            <ErrorMessage 
+                name='jobInterest'
+            />
+            <Field 
+                id='skills'
+                name={'skills'}
+                component={SkillsComponent}
+                placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
+            />
+            <Field
+                id='comments'
+                name={'comments'}
+                component={TextareaComponent}
+                label={CONSTANTS.COMMENTS_REQUEST_LABEL}
+            />
+            <Field
+                id='essay'
+                name={'essay'}
+                component={TextareaComponent}
+                label={CONSTANTS.ESSAY_REQUEST_LABEL}
+            />
+            <Field
+                id='resumeFile'
+                name='resumeFile'
+                component={FileUploadComponent}
+                label={CONSTANTS.RESUME_REQUEST_LABEL}
+            />
+            <ErrorMessage 
+                name='resumeFile'
+            />
+
             <Flex justifyContent={'center'}>
                 <Box>
-                    <Button type='button' disabled={props.isSubmitting}>Submit</Button>
+                    <Button type='submit'>Submit</Button>
                 </Box>
             </Flex>
         </form>
@@ -116,6 +181,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
 }
 
 async function handleSubmit(values: any, actions: FormikActions<any>) {
+    console.log(values);
     const acctResponse: AxiosResponse<IAccount> = await Account.getSelf();
     if (acctResponse.status !== 200) {
         console.error("Error while getting current user");
@@ -123,13 +189,26 @@ async function handleSubmit(values: any, actions: FormikActions<any>) {
     }
     const hackerResponse: AxiosResponse<IHacker> = await Hacker.create(
         {
-            id: "",
+            id: '',
             accountId: acctResponse.data.id,
             status: HackerStatus.HACKER_STATUS_NONE,
             school: values.school,
             gender: values.gender,
             needsBus: values.needsBus,
-            application: values.application
+            application: {
+                portfolioURL: {
+                    resume: '',
+                    github: values.github,
+                    dropler: values.dropler,
+                    personal: values.personal,
+                    linkedIn: values.linkedIn,
+                    other: values.other    
+                },
+                jobInterest: values.jobInterest,
+                skills: values.skills,
+                comments: values.comments,
+                essay: values.essay,
+            },
         });
     if (hackerResponse.status !== 200) {
         console.error("Error while creating account");

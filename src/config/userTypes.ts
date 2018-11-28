@@ -48,8 +48,6 @@ export interface IHacker {
         comments?: string,
         // "Why do you want to come to our hackathon?"
         essay?: string,
-        // mongoose id referencing which team they are a part of
-        team?: string
     }
 }
 
