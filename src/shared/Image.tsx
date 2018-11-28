@@ -3,7 +3,6 @@ const Image = styled.img`
     src: ${props => props.src};
     height: ${props => props.height};
     width: auto;
-    padding: ${props => props.theme.padding};
     padding: ${(props: { 'padding': string }) => props.padding};
 `
 
