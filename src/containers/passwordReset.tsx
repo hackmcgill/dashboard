@@ -6,6 +6,7 @@ import H1 from 'src/shared/H1';
 import Paragraph from 'src/shared/Paragraph';
 import Container from 'src/shared/Container'
 import { ThemeProvider } from 'styled-components';
+import Button from 'src/shared/Button';
 
 import theme from '../theme';
 
@@ -40,28 +41,19 @@ class PasswordResetContainer extends React.Component<{}, IPasswordResetContainer
                         <Box>
                             <Image src={resetLogo} height={"6rem"} padding={'2.2rem'}/>
                         </Box>
+                        <Box>
+                            <Button type='button' onClick={}>Submit</Button>
+                        </Box>
                     </Flex>
                 </Flex>
             </Container>
         </ThemeProvider>
         )
     }
-    // private loginRedirect(redirectURL): void {
-    //     setTimeout(function () {
-    //         // after 5 seconds
-    //         window.location = redirectURL;
-    //      }, 5000)
-    // }
 }
 
 
 export default PasswordResetContainer;
 
-
-// <Box width={3}>
-//     <H1>
-//         Password reset
-//     </H1>
-// </Box>
 
 
