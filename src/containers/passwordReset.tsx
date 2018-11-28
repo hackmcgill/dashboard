@@ -17,11 +17,16 @@ class PasswordResetContainer extends React.Component<{}, {}>{
             <Container>
                 <Flex alignItems={'center'}>
                     <Flex flexWrap={'wrap'} justifyContent={'center'}>
-                        <Box>
-                            <H1 color={'#F2463A'} fontSize={'45px'}>
-                                Password reset
-                            </H1>
-                        </Box>
+                        <Flex alignItems={'center'}>
+                            <Box>
+                                <Image src={resetLogo} height={"6rem"} padding={'2.2rem'} />
+                            </Box>
+                            <Box>
+                                <H1 color={'#F2463A'} fontSize={'45px'}>
+                                    Password reset
+                                </H1>
+                            </Box>
+                        </Flex>
                         <Box width={1}>
                             <Paragraph fontSize={'23px'} center={true}>
                                 We've sent you a link to reset your password. Check your inbox and follow the instructions there.
