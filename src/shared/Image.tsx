@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 const Image = styled.img`
+    src: ${props => props.src};
     height: ${props => props.height};
-    width: ${props => props.width};
+    width: auto;
+    padding: ${props => props.theme.padding};
+    padding: ${(props : {'padding': string}) => props.padding};
 `
 
 export default Image;

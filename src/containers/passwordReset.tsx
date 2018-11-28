@@ -3,7 +3,11 @@ import resetLogo from 'src/passwordReset.svg';
 import Image from 'src/shared/Image';
 import {Flex, Box} from '@rebass/grid';
 import H1 from 'src/shared/H1';
-import H3 from 'src/shared/H3';
+import Paragraph from 'src/shared/Paragraph';
+import Container from 'src/shared/Container'
+import { ThemeProvider } from 'styled-components';
+
+import theme from '../theme';
 
 export interface IPasswordResetContainerState {
     redirectURL: string;
@@ -12,39 +16,52 @@ export interface IPasswordResetContainerState {
 class PasswordResetContainer extends React.Component<{}, IPasswordResetContainerState>{
     constructor(props: {}) {
         super(props);
-
+        // this.loginRedirect = this.loginRedirect.bind(this);
         this.state = {
             redirectURL: ""
         }
     }
     public render() {
         return (
-        <Flex flexWrap={'wrap'}>
-        <Box width={3}>
-            <H1>
-                <h1>Password reset</h1>
-            </H1>
-        </Box>
-        <Box width={3}>
-            <H3>
-                <h3>We've sent you a link to reset your password. Check your inbox and follow the instructions there.</h3>
-            </H3>
-        </Box>
-        <Box width={3}>
-            <Image>
-                <img src={resetLogo} height={'10px'} width={'10px'}/>
-            </Image>
-        </Box>
-        </Flex>
+        <ThemeProvider theme={theme}>
+            <Container>
+                <Flex alignItems={'center'}>
+                    <Flex flexWrap={'wrap'} justifyContent={'center'}>
+                        <Box>
+                            <H1 color={'#F2463A'} fontSize={'45px'}>
+                                Password reset
+                            </H1>
+                        </Box>
+                        <Box width={1}>
+                            <Paragraph fontSize={'23px'} center={true}>
+                                We've sent you a link to reset your password. Check your inbox and follow the instructions there.
+                            </Paragraph>
+                        </Box>
+                        <Box>
+                            <Image src={resetLogo} height={"6rem"} padding={'2.2rem'}/>
+                        </Box>
+                    </Flex>
+                </Flex>
+            </Container>
+        </ThemeProvider>
         )
     }
-    private loginRedirect(): void {
-        setTimeout(function () {
-            // after 2 seconds
-            // window.location = "/";
-         }, 2000)
-    }
+    // private loginRedirect(redirectURL): void {
+    //     setTimeout(function () {
+    //         // after 5 seconds
+    //         window.location = redirectURL;
+    //      }, 5000)
+    // }
 }
 
 
 export default PasswordResetContainer;
+
+
+// <Box width={3}>
+//     <H1>
+//         Password reset
+//     </H1>
+// </Box>
+
+
