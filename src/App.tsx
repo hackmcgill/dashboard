@@ -5,6 +5,7 @@ import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
 import HomeComponent from './components/HomeComponent';
 import LoginContainer from 'src/containers/login';
+import withAuthRedirect from 'src/hoc/withAuthRedirect';
 
 class App extends React.Component {
     
@@ -12,10 +13,10 @@ class App extends React.Component {
       return (
         <BrowserRouter>
           <Switch>
-            <Route exact={true} path="/" component={HomeComponent}/>
-            <Route path="/createAccount/" component={CreateAccount}/>
-            <Route path="/resetPassword/" component={resetPassword} />
-            <Route path='/login' component={LoginContainer} />
+            <Route exact={true} path="/" component={withAuthRedirect(HomeComponent)}/>
+            <Route path="/createAccount/" component={withAuthRedirect(CreateAccount, false)}/>
+            <Route path="/resetPassword/" component={withAuthRedirect(resetPassword, false)} />
+            <Route path='/login/' component={withAuthRedirect(LoginContainer, false)} />
           </Switch>
         </BrowserRouter>
       );
