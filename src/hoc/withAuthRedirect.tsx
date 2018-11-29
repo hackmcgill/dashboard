@@ -9,7 +9,7 @@ enum authStates {
   undefined
 }
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiresAuth:boolean = true) =>
+const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiredAuthState:boolean = true) =>
   class extends React.Component<P, { authState: authStates }> {
     constructor(props: any) {
       super(props);
@@ -39,9 +39,9 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
       const { authState } = this.state;
       switch(authState) {
         case authStates.authorized:
-          return requiresAuth ? <Component {...this.props} /> : (<Redirect to="/"/>);
+          return requiredAuthState ? <Component {...this.props} /> : (<Redirect to="/"/>);
         case authStates.unauthorized:
-          return requiresAuth ? (<Redirect to="/login/"/>) : <Component {...this.props} />;
+          return requiredAuthState ? (<Redirect to="/login/"/>) : <Component {...this.props} />;
         default:
           return <div/>;
       }
