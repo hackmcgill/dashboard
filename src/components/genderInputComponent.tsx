@@ -10,9 +10,9 @@ export interface IGenderProps {
 
 const GenderComponent: React.StatelessComponent<IGenderProps & FieldProps> = (props) => {
     const options: Array<{ label: string, value: string }> = [
-        { label: Genders.male, value: Genders.male },
-        { label: Genders.female, value: Genders.female },
-        { label: Genders.preferNotToSay, value: Genders.preferNotToSay },
+        { label: Genders.MALE, value: Genders.MALE },
+        { label: Genders.FEMALE, value: Genders.FEMALE },
+        { label: Genders.PREFER_NOT_TO_SAY, value: Genders.PREFER_NOT_TO_SAY },
     ]
     return (
         <Label>

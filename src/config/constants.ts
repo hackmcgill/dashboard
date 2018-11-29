@@ -17,3 +17,7 @@ export const SKILLS_REQUEST_PLACEHOLDER = 'What skills would you say you have?';
 export const COMMENTS_REQUEST_LABEL = 'Any comments?';
 export const ESSAY_REQUEST_LABEL = 'Why McHacks?';
 export const RESUME_REQUEST_LABEL = 'Upload a resume';
+export const ETHNICITY_REQUEST_LABEL = 'What ethnicity are you?';
+export const MAJOR_REQUEST_LABEL = 'What major are you?';
+export const MAJOR_PLACEHOLDER = 'major...';
+export const COC_REQUEST_LABEL = 'I accept the MLH terms, conditions and guidlelines'

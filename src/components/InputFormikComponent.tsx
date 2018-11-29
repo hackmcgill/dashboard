@@ -2,17 +2,19 @@ import * as React from 'react';
 import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
+import DebouncedUpdate from 'src/shared/DebouncedUpdate';
 
-export interface ILinkComponentProp {
+export interface IInputFormikComponentProp {
     label: string;
+    inputType: string;
     placeholder?: string;
 }
-const LinkComponent: React.StatelessComponent<ILinkComponentProp & FieldProps> = (props) => {
+const InputFormikComponent: React.StatelessComponent<IInputFormikComponentProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
         <Label>
             {props.label}
-            <Input type='url' onChange={handleChange(props)} placeholder={placeholder} />
+            <Input type={props.inputType} onChange={handleChange(props)} placeholder={placeholder} />
         </Label>
     )
 }
@@ -21,12 +23,11 @@ const LinkComponent: React.StatelessComponent<ILinkComponentProp & FieldProps> =
  * @param props The props passed into the Link component.
  * @returns the function that handles changes to the choices provided by the user.
  */
-function handleChange(props: ILinkComponentProp & FieldProps): (event: React.ChangeEvent<HTMLInputElement>) => void {
+function handleChange(props: IInputFormikComponentProp & FieldProps): (event: React.ChangeEvent<HTMLInputElement>) => void {
+    const debouncedUpdater = DebouncedUpdate(props, 150);
     return (event: React.ChangeEvent<HTMLInputElement>) => {
-        const field = props.field;
-        const form = props.form;
-        form.setFieldValue(field.name, event.target.value);
+        debouncedUpdater(event.target.value);
     }
 }
 
-export default LinkComponent;
+export default InputFormikComponent;

@@ -1,7 +1,7 @@
 enum Genders {
-    male = "Male",
-    female = "Female",
-    preferNotToSay = "Prefer not to say"
+    MALE = "Male",
+    FEMALE = "Female",
+    PREFER_NOT_TO_SAY = "Prefer not to say"
 }
 
 export default Genders;

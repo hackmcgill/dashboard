@@ -1,34 +1,28 @@
 import * as React from 'react';
-import StyledCreatableSelect from 'src/shared/StyledCreatableSelect';
-import Skills from 'src/config/skills';
-import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
+import StyledCreatableSelect from 'src/shared/StyledCreatableSelect';
+import Ethnicity from 'src/config/ethnicity';
+import Label from 'src/shared/Label';
 
-/**
- * DietaryRestrictionsComponent props
- */
-export interface ISkillsComponentProps {
+export interface IEthnicityProps {
     label?: string
 }
 
-/**
- * SkillsComponent renders a dropdown for users to select their dietary restrictions, and
- * potentially create their own restrictions.
- */
-const SkillsComponent: React.StatelessComponent<ISkillsComponentProps & FieldProps> = (props) => {
+const EthnicityComponent: React.StatelessComponent<IEthnicityProps & FieldProps> = (props) => {
     const options: Array<{ label: string, value: string }> = [
-        { label: Skills.HTML, value: Skills.HTML },
-        { label: Skills.CSS, value: Skills.CSS },
-        { label: Skills.JS, value: Skills.JS },
-        { label: Skills.TS, value: Skills.TS },
+        { label: Ethnicity.AFRO_AMER, value: Ethnicity.AFRO_AMER },
+        { label: Ethnicity.ASIAN_PI, value: Ethnicity.ASIAN_PI },
+        { label: Ethnicity.EUROPEAN, value: Ethnicity.EUROPEAN },
+        { label: Ethnicity.HISP, value: Ethnicity.HISP },
+        { label: Ethnicity.NO_ANS, value: Ethnicity.NO_ANS },
     ]
     return (
         <Label>
-            {props.label ? props.label : 'Skills'}
+            {props.label ? props.label : 'What Ethnicity do you identify with?'}
             <StyledCreatableSelect
                 className='react-select-container'
                 classNamePrefix='react-select'
-                id='skills'
+                id='Ethnicity-component'
                 isMulti={true}
                 onChange={handleChange(props)}
                 options={options}
@@ -38,16 +32,16 @@ const SkillsComponent: React.StatelessComponent<ISkillsComponentProps & FieldPro
 }
 /**
  * Function factory that generates function to handle changes in user's choice.
- * @param props The props passed into the Skills component.
+ * @param props The props passed into the EthnicityComponent component.
  * @returns the function that handles changes to the choices provided by the user.
  */
 function handleChange(props: FieldProps): (newValue: [{ label: string, value: string }]) => void {
     return (newValue: [{ label: string, value: string }]) => {
         const field = props.field;
         const form = props.form;
-        const skills = newValue.map((value) => value.value);
-        form.setFieldValue(field.name, skills);
+        const values = newValue.map<string>((option) => option.value);
+        form.setFieldValue(field.name, values);
     }
 }
 
-export default SkillsComponent;
+export default EthnicityComponent;

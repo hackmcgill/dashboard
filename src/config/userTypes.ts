@@ -48,7 +48,11 @@ export interface IHacker {
         comments?: string,
         // "Why do you want to come to our hackathon?"
         essay?: string,
-    }
+    },
+    ethnicity: string,
+    major: string,
+    graduationYear: number,
+    codeOfConduct: boolean
 }
 
 export interface ISponsor {

@@ -23,7 +23,8 @@ function handleChange(props: ICheckboxProps & FieldProps): (event: React.ChangeE
     return (event: React.ChangeEvent<HTMLInputElement>) => {
         const field = props.field;
         const form = props.form;
-        form.setFieldValue(field.name, event.target.value);
+        const value = (event.target.value === 'on') ? true : false;
+        form.setFieldValue(field.name, value);
     }
 }
 
