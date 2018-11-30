@@ -5,7 +5,7 @@ import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 
 /**
- * DietaryRestrictionsComponent props
+ * ISkillsComponent props
  */
 export interface ISkillsComponentProps {
     label?: string

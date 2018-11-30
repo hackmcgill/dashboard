@@ -14,7 +14,7 @@ import { IAccount, IHacker } from 'src/config/userTypes';
 import HackerStatus from 'src/config/hackerStatus';
 import SchoolComponent from 'src/components/schoolComponent';
 import GenderComponent from 'src/components/genderInputComponent';
-import CheckboxComponent from 'src/components/checkboxComponent';
+import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
 import NumberFormat from 'src/components/numberFormatFormikComponent';
 
@@ -253,7 +253,6 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
 }
 
 async function handleSubmit(values: any, actions: FormikActions<any>) {
-    console.log(values);
     const acctResponse: AxiosResponse<APIResponse<IAccount>> = await Account.getSelf();
     if (acctResponse.status !== 200) {
         console.error("Error while getting current user");
