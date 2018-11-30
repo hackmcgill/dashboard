@@ -4,6 +4,11 @@ import Auth from '../api/auth';
 import { AxiosResponse } from 'axios';
 import EmailInputComponent from 'src/components/emailInputComponent';
 import * as QueryString from 'query-string';
+import Button from 'src/shared/Button';
+import H1 from 'src/shared/H1';
+import { ThemeProvider } from 'styled-components';
+import Container from 'src/shared/Container';
+import theme from 'src/theme';
 
 export interface ILoginState {
     email: string;
@@ -22,19 +27,21 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
     }
     public render() {
         return (
-            <div>
-                <h2>Login</h2>
+            <Container>
+                <H1 color={'#F2463A'} fontSize={'45px'}>
+                    Login
+                    </H1>
                 <form>
                     <EmailInputComponent
                         onEmailChanged={this.onEmailChanged}
                     />
-
                     <PasswordInputComponent
                         onPasswordChanged={this.onPasswordChanged}
                     />
-                    <button type='button' onClick={this.handleSubmit}>Submit</button>
+                    <Button type='button' onClick={this.handleSubmit}>Submit</Button>
+                    <a href='/forgotPassword'>Forgot password?</a>
                 </form>
-            </div>
+            </Container>
         );
     }
     /**
