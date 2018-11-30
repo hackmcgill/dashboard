@@ -13,6 +13,7 @@ import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
+import Form from 'src/shared/Form';
 
 
 interface ICreateAccountContainerState {
@@ -55,7 +56,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     public render() {
         return (
             <Container>
-                <form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
                     <Flex flexWrap={'wrap'}>
                         <Box width={1}>
                             <FullNameInput
@@ -102,7 +103,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                         </Box>
                     </Flex>
 
-                </form>
+                </Form>
             </Container>
         )
     }

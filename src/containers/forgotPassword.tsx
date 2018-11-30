@@ -4,13 +4,12 @@ import { AxiosResponse } from 'axios';
 import EmailInputComponent from 'src/components/emailInputComponent';
 import Key from 'src/assets/images/key.svg';
 import Container from 'src/shared/Container';
-import { ThemeProvider } from 'styled-components';
-import theme from 'src/theme';
 import Button from 'src/shared/Button';
 import Image from 'src/shared/Image';
 import { Flex, Box } from '@rebass/grid';
 import Paragraph from 'src/shared/Paragraph';
 import H1 from 'src/shared/H1';
+import Form from 'src/shared/Form';
 
 export interface IForgotState {
     email: string;
@@ -27,45 +26,44 @@ export default class ForgotPasswordContainer extends React.Component<{}, IForgot
     }
     public render() {
         return (
-            <ThemeProvider theme={theme}>
-                <Container>
-                    <Flex flexWrap={'wrap'} justifyContent={'center'}>
-                        <Flex alignItems={'center'}>
-                            <Box>
-                                <Image src={Key} height={"6rem"} padding={'2.2rem'} />
-                            </Box>
-                        </Flex>
-                        <Box>
-                            <H1 color={'#F2463A'} fontSize={'45px'}>
-                                Password Reset
+            <Container>
+                <Flex flexWrap={'wrap'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                    <Box>
+                        <Image src={Key} height={"4rem"} padding={'1rem'} />
+                    </Box>
+                    <Box>
+                        <H1 color={'#F2463A'} fontSize={'36px'}>
+                            Password Reset
                                 </H1>
-                        </Box>
-                        <Box>
-                            <Paragraph
-                                fontSize={'20px'}
-                                center={true}
-                                paddingBottom={'32px'}
-                            >
-                                Enter your email and we will send you a link to reset your password
-                            </Paragraph>
-                        </Box>
-                        <form>
-                            <Flex alignItems={'center'}>
-                                <Box>
+                    </Box>
+                    <Box>
+                        <Paragraph
+                            fontSize={'16px'}
+                            center={true}
+                            paddingBottom={'32px'}
+                            color={'#4D4D4D'}
+                        >
+                            Enter your email and we will send you a link to reset your password
+                        </Paragraph>
+                    </Box>
+                    <Box width={'100%'}>
+                        <Form>
+                            <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                                <Box width={'80%'}>
                                     <EmailInputComponent
                                         onEmailChanged={this.onEmailChanged}
+                                        placeholder={'foo@bar.ca'}
                                     />
                                 </Box>
-                            </Flex>
-                            <Flex alignItems={'center'}>
                                 <Box>
                                     <Button type='button' onClick={this.handleSubmit}>Reset password</Button>
                                 </Box>
                             </Flex>
-                        </form>
-                    </Flex>
-                </Container>
-            </ThemeProvider>
+                        </Form>
+
+                    </Box>
+                </Flex>
+            </Container>
         );
     }
     /**

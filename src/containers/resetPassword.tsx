@@ -31,10 +31,14 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                 <h2>Reset your password</h2>
                 <form>
                     <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged} label={'New Password'}
+                        onPasswordChanged={this.onPasswordChanged}
+                        label={'New Password'}
+                        id={'new-password'}
                     />
                     <PasswordInputComponent
-                        onPasswordChanged={this.onConfirmationChanged} label={'Confirm Password'}
+                        onPasswordChanged={this.onConfirmationChanged}
+                        label={'Confirm Password'}
+                        id={'confirm-password'}
                     />
                     {!this.state.isValid && this.state.isSubmitted && 'Passwords must match!'}
                     <button type='button' onClick={this.handleSubmit}>Submit</button>
@@ -47,7 +51,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      */
     private handleSubmit(): void {
         const { isValid } = this.state;
-        this.setState({isSubmitted: true});
+        this.setState({ isSubmitted: true });
         if (!isValid) {
             return;
         }
@@ -82,7 +86,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
      * @param password The updated password
      */
     private onConfirmationChanged(confirmation: string) {
-        this.setState((state) => ({ isValid: state.password === confirmation && state.password.length > 0}));
+        this.setState((state) => ({ isValid: state.password === confirmation && state.password.length > 0 }));
     }
     /**
      * Returns the auth token that is present in the query, or undefined if it doesn't exist.

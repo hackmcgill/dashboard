@@ -6,9 +6,7 @@ import EmailInputComponent from 'src/components/emailInputComponent';
 import * as QueryString from 'query-string';
 import Button from 'src/shared/Button';
 import H1 from 'src/shared/H1';
-import { ThemeProvider } from 'styled-components';
 import Container from 'src/shared/Container';
-import theme from 'src/theme';
 
 export interface ILoginState {
     email: string;

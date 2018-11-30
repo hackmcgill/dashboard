@@ -1,5 +1,5 @@
 const theme = {
-  fontFamily: "sans-serif",
+  fontFamily: "Hind Siliguri,-apple-system,system-ui,BlinkMacSystemFont,sans-serif",
   grey: "#4D4D4D",
   greyLight: "#797979",
   inputBorderRadius: "20px",
