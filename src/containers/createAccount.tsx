@@ -10,11 +10,8 @@ import Button from 'src/shared/Button';
 import Container from 'src/shared/Container';
 import { AxiosResponse } from 'axios';
 import { Flex, Box } from '@rebass/grid'
-import { ThemeProvider } from 'styled-components';
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
-
-import theme from 'src/theme';
 import PronounInput from 'src/components/pronounComponent';
 
 
@@ -57,58 +54,56 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     }
     public render() {
         return (
-            <ThemeProvider theme={theme}>
-                <Container>
-                    <form onSubmit={this.handleSubmit}>
-                        <Flex flexWrap={'wrap'}>
-                            <Box width={1}>
-                                <FullNameInput
-                                    onFirstNameChanged={this.onFirstNameChanged}
-                                    onLastNameChanged={this.onLastNameChanged}
-                                />
-                            </Box>
-                            <Box width={1}>
-                                <EmailInput
-                                    onEmailChanged={this.onEmailChanged}
-                                />
-                            </Box>
-                            <Box width={1}>
-                                <PasswordInput
-                                    onPasswordChanged={this.onPasswordChanged}
-                                />
-                            </Box>
-                        </Flex>
-                        <DietaryRestrictionComponent
-                            onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
-                        />
-                        <PronounInput
-                            placeholder="Preferred pronoun"
-                            onPronounChanged={this.onPronounChanged}
-                        />
-                        <ShirtSizeComponent
-                            onShirtSizeChanged={this.onShirtSizeChanged}
-                        />
-                        <NumberFormat
-                            label="Phone number:"
-                            placeholder="+# (###) ###-####"
-                            onValueChange={this.onPhoneChanged}
-                            format="+# (###) ###-####"
-                        />
-                        <NumberFormat
-                            label="Birth date:"
-                            placeholder="MM-DD-YYYY"
-                            onValueChange={this.onBirthDateChanged}
-                            format="##-##-####"
-                        />
-                        <Flex justifyContent={'center'}>
-                            <Box>
-                                <Button type='button' onClick={this.handleSubmit}>Submit</Button>
-                            </Box>
-                        </Flex>
+            <Container>
+                <form onSubmit={this.handleSubmit}>
+                    <Flex flexWrap={'wrap'}>
+                        <Box width={1}>
+                            <FullNameInput
+                                onFirstNameChanged={this.onFirstNameChanged}
+                                onLastNameChanged={this.onLastNameChanged}
+                            />
+                        </Box>
+                        <Box width={1}>
+                            <EmailInput
+                                onEmailChanged={this.onEmailChanged}
+                            />
+                        </Box>
+                        <Box width={1}>
+                            <PasswordInput
+                                onPasswordChanged={this.onPasswordChanged}
+                            />
+                        </Box>
+                    </Flex>
+                    <DietaryRestrictionComponent
+                        onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+                    />
+                    <PronounInput
+                        placeholder="Preferred pronoun"
+                        onPronounChanged={this.onPronounChanged}
+                    />
+                    <ShirtSizeComponent
+                        onShirtSizeChanged={this.onShirtSizeChanged}
+                    />
+                    <NumberFormat
+                        label="Phone number:"
+                        placeholder="+# (###) ###-####"
+                        onValueChange={this.onPhoneChanged}
+                        format="+# (###) ###-####"
+                    />
+                    <NumberFormat
+                        label="Birth date:"
+                        placeholder="MM-DD-YYYY"
+                        onValueChange={this.onBirthDateChanged}
+                        format="##-##-####"
+                    />
+                    <Flex justifyContent={'center'}>
+                        <Box>
+                            <Button type='button' onClick={this.handleSubmit}>Submit</Button>
+                        </Box>
+                    </Flex>
 
-                    </form>
-                </Container>
-            </ThemeProvider>
+                </form>
+            </Container>
         )
     }
     private handleSubmit() {
