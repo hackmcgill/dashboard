@@ -10,23 +10,23 @@ import { ThemeProvider } from 'styled-components';
 import theme from 'src/theme';
 
 class App extends React.Component {
-    
-    public render() {
-      return (
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Switch>
-              <Route exact={true} path="/" component={withAuthRedirect(HomeComponent)}/>
-              <Route path="/createAccount/" component={withAuthRedirect(CreateAccount, false)}/>
-              <Route path="/resetPassword/" component={withAuthRedirect(resetPassword, false)} />
-              <Route path='/login/' component={withAuthRedirect(LoginContainer, false)} />
-            </Switch>
-          </BrowserRouter>
-        </ThemeProvider>
-      );
-      
-    }
-  
+
+  public render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact={true} path="/" component={withAuthRedirect(HomeComponent)} />
+            <Route path="/createAccount/" component={withAuthRedirect(CreateAccount, false)} />
+            <Route path="/resetPassword/" component={withAuthRedirect(resetPassword, false)} />
+            <Route path='/login/' component={withAuthRedirect(LoginContainer, false)} />
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
+    );
+
+  }
+
 
 }
 
