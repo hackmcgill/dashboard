@@ -7,5 +7,4 @@ const Container = styled(Box)`
   max-width: 600px;
   height: 100%;
 `
-
 export default Container;

@@ -13,6 +13,6 @@ background-color: ${props => props.theme.primary};
   &:hover {
     background-color: ${props => props.theme.primaryLight};
   }
-`
+`;
 
 export default Button;
