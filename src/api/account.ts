@@ -3,6 +3,7 @@ import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import Route from '../config/route';
 import API from './api';
 import APIResponse from './APIResponse';
+import IInviteInfo from 'src/config/inviteInfo';
 class AccountAPI {
     constructor() {
         API.createEntity(Route.ACCOUNT);
@@ -51,7 +52,7 @@ class AccountAPI {
      * Invites a user to create an account with the specified accountType.
      * @param {{email: string, accountType: string}} info
      */
-    public invite(info: { email: string; accountType: string; }): AxiosPromise {
+    public invite(info: IInviteInfo): AxiosPromise {
         return API.getEndpoint(Route.ACCOUNT_INVITE).create(info);
     }
 }
