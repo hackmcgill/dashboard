@@ -2,6 +2,7 @@ import { IHacker } from 'src/config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import Route from 'src/config/route';
 import API from 'src/api/api';
+import HackerStatus from 'src/config/hackerStatus';
 class AccountAPI {
     constructor() {
         API.createEntity(Route.HACKER);
@@ -38,6 +39,41 @@ class AccountAPI {
     public update(hacker: IHacker): AxiosPromise {
         return API.getEndpoint(Route.HACKER).patch(hacker, hacker);
     }
+
+    /**
+     * Update's a hacker's status any status to any status of type HackerStatus
+     * @param {String} id The id of the hacker to be updated
+     * @param {HackerStatus} status The new status of the hacker
+     */
+    public updateStatus(id: string, status: HackerStatus): AxiosPromise {
+        return API.getEndpoint(Route.HACKER_STATUS).patch({ id }, { "status": status });
+    }
+
+    /**
+     * Update's a hacker's status to checked-in if the hacker is accepted or confirmed.
+     * @param {String} id The id of the hacker to be updated
+     */
+    public checkinStatus(id: string): AxiosPromise {
+        return API.getEndpoint(Route.HACKER_CHECKIN).patch({ id }, undefined);
+    }
+
+    /**
+     * Allows an accepted hacker confirm attendance, and allow an confirmed hacker to unconfirm attendance.
+     * @param id The id of the hacker
+     * @param confirm Whether the hacker wishes to confirm their attendence or not.
+     */
+    public comfirm(id: string, confirm: boolean): AxiosPromise {
+        return API.getEndpoint(Route.HACKER_STATUS).patch({ id }, { "confirm": confirm })
+    }
+
+    /**
+     * Downloads a hacker's resume
+     * @param id The id of the hacker who the resume belongs to
+     */
+    public downloadResume(id: string): AxiosPromise {
+        return API.getEndpoint(Route.HACKER_RESUME).getOne({ id });
+    }
+
     public uploadResume(resume: File, hackerId: string): AxiosPromise {
         const data = new FormData();
         data.append('resume', resume);
