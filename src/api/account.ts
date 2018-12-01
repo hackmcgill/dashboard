@@ -6,6 +6,7 @@ class AccountAPI {
     constructor() {
         API.createEntity(Route.ACCOUNT);
         API.createEntity(Route.ACCOUNT_SELF);
+        API.createEntity(Route.ACCOUNT_INVITE);
     }
     /**
      * Create an account.
@@ -43,6 +44,14 @@ class AccountAPI {
      */
     public update(account: IAccount): AxiosPromise {
         return API.getEndpoint(Route.ACCOUNT).patch(account, account);
+    }
+
+    /**
+     * Invites a user to create an account with the specified accountType.
+     * @param {{email: string, accountType: string}} info
+     */
+    public invite(info: { email: string; accountType: string; }): AxiosPromise {
+        return API.getEndpoint(Route.ACCOUNT_INVITE).create(info);
     }
 }
 

@@ -7,6 +7,7 @@ enum Route {
     // Account routes
     ACCOUNT = 'account',
     ACCOUNT_SELF = 'account/self',
+    ACCOUNT_INVITE = 'account/invite',
     // Hacker routes
     HACKER = 'hacker',
     // Search routes
