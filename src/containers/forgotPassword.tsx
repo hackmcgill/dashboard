@@ -27,14 +27,21 @@ export default class ForgotPasswordContainer extends React.Component<{}, IForgot
     public render() {
         return (
             <Container>
-                <Flex flexWrap={'wrap'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                <Flex
+                    flexWrap={'wrap'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                    mt={'25%'}
+                    px={2}
+                >
                     <Box>
                         <Image src={Key} height={"4rem"} padding={'1rem'} />
                     </Box>
                     <Box>
                         <H1 color={'#F2463A'} fontSize={'36px'}>
                             Password Reset
-                                </H1>
+                        </H1>
                     </Box>
                     <Box>
                         <Paragraph
@@ -60,7 +67,6 @@ export default class ForgotPasswordContainer extends React.Component<{}, IForgot
                                 </Box>
                             </Flex>
                         </Form>
-
                     </Box>
                 </Flex>
             </Container>
