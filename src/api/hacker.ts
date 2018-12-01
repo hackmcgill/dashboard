@@ -38,12 +38,10 @@ class AccountAPI {
     public update(hacker: IHacker): AxiosPromise {
         return API.getEndpoint(Route.HACKER).patch(hacker, hacker);
     }
-
     public uploadResume(resume: File, hackerId: string): AxiosPromise {
         const data = new FormData();
         data.append('resume', resume);
         return API.getEndpoint(Route.HACKER_RESUME).create(data, { subURL: hackerId });
     }
 }
-
 export default new AccountAPI();
