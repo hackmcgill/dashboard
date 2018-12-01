@@ -2,6 +2,7 @@ import { IAccount } from '../config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import Route from '../config/route';
 import API from './api';
+import APIResponse from './APIResponse';
 class AccountAPI {
     constructor() {
         API.createEntity(Route.ACCOUNT);
@@ -13,7 +14,7 @@ class AccountAPI {
      * @param account The account that you want to create
      * @param authToken If there is an authentication token associated with the account creation, then provide it here.
      */
-    public create(account: IAccount, authToken?: string): AxiosPromise {
+    public create(account: IAccount, authToken?: string): AxiosPromise<APIResponse<IAccount>> {
         let config: AxiosRequestConfig = {};
         if (authToken) {
             config = {
@@ -22,19 +23,19 @@ class AccountAPI {
                 }
             };
         }
-        return API.getEndpoint(Route.ACCOUNT).create(account, config);
+        return API.getEndpoint(Route.ACCOUNT).create(account, { config });
     }
     /**
      * Get the logged-in user's information.
      */
-    public getSelf(): AxiosPromise {
+    public getSelf(): AxiosPromise<APIResponse<IAccount>> {
         return API.getEndpoint(Route.ACCOUNT_SELF).getAll();
     }
     /**
      * Get information about a user
      * @param id the ID of the account
      */
-    public get(id: string): AxiosPromise {
+    public get(id: string): AxiosPromise<APIResponse<IAccount>> {
         return API.getEndpoint(Route.ACCOUNT).getOne({ id });
     }
     /**
@@ -42,7 +43,7 @@ class AccountAPI {
      * so that it's not the entirety of the Account object.
      * @param {IAccount} account 
      */
-    public update(account: IAccount): AxiosPromise {
+    public update(account: IAccount): AxiosPromise<APIResponse<IAccount>> {
         return API.getEndpoint(Route.ACCOUNT).patch(account, account);
     }
 

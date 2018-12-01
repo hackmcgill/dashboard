@@ -28,10 +28,12 @@ export default class Endpoint {
     /**
      * Create a specified resource by calling axios.post
      * @param {*} toCreate object to create. 
-     * @param {AxiosRequestConfig} config 
+     * @param {subURL?: string, config?: AxiosRequestConfig} options a subURL, which is appended to resourceURL, and the AxiosRequestConfig. 
      */
-    public create(toCreate: any, config: AxiosRequestConfig = {}): AxiosPromise {
-        return axios.post(this.resourceURL, toCreate, config);
+    public create(toCreate: any, options?: { subURL?: string, config?: AxiosRequestConfig }): AxiosPromise {
+        const url = (options && options.subURL) ? `${this.resourceURL}/${options.subURL}` : this.resourceURL;
+        const config = (options && options.config) ? options.config : {};
+        return axios.post(url, toCreate, config);
     }
     /**
      * Update a specified resource by calling axios.put

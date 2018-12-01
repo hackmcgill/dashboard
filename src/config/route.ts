@@ -10,6 +10,8 @@ enum Route {
     ACCOUNT_INVITE = 'account/invite',
     // Hacker routes
     HACKER = 'hacker',
+    HACKER_SELF = 'hacker/self',
+    HACKER_RESUME = 'hacker/resume',
     // Search routes
     SEARCH = 'search',
     // Sponsor routes
