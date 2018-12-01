@@ -24,6 +24,7 @@ export interface IAccount {
 }
 
 export interface IHacker {
+    id: string,
     accountId: string,
     status: HackerStatus,
     school: string,
@@ -47,9 +48,12 @@ export interface IHacker {
         comments?: string,
         // "Why do you want to come to our hackathon?"
         essay?: string,
-        // mongoose id referencing which team they are a part of
-        team?: string
-    }
+    },
+    ethnicity: string,
+    major: string,
+    graduationYear: number,
+    codeOfConduct: boolean
+
 }
 
 export interface ISponsor {
