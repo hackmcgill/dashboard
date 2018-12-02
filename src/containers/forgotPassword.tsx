@@ -94,7 +94,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
     /**
      * Function that calls the login function once the form is submitted.
      */
-    private async handleSubmit() {
+    private handleSubmit(): void {
         Auth.forgotPassword(
             this.state.email
         ).then((value: AxiosResponse) => {
