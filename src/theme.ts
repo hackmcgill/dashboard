@@ -5,6 +5,7 @@ const theme = {
   inputBorderRadius: "20px",
   primary: "#F2463A",
   primaryLight: "#F89790",
+  secondary: "#797979"
 }
 
 export default theme;

@@ -1,14 +1,24 @@
 import * as React from 'react';
-import PasswordInputComponent from 'src/components/passwordInputComponent';
-import Auth from '../api/auth';
-import { AxiosResponse } from 'axios';
-import EmailInputComponent from 'src/components/emailInputComponent';
 import * as QueryString from 'query-string';
-import Button from 'src/shared/Button';
-import H1 from 'src/shared/H1';
-import Container from 'src/shared/Container';
-import FrontendRoute from 'src/config/FrontendRoute';
+import { AxiosResponse } from 'axios';
+import { Link } from 'react-router-dom';
+import { Flex, Box } from '@rebass/grid';
 
+import PasswordInputComponent from 'src/components/passwordInputComponent';
+import Auth from 'src/api/auth';
+import EmailInputComponent from 'src/components/emailInputComponent';
+import Button from 'src/shared/Button';
+import ButtonSecondary from 'src/shared/ButtonSecondary';
+import H1 from 'src/shared/H1';
+import FrontendRoute from 'src/config/FrontendRoute';
+import Form from 'src/shared/Form';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
+import LeftContainer from 'src/shared/LeftContainer';
+import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkComponent';
+import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
+import BackgroundImage from 'src/shared/BackgroundImage';
+import MediaQuery from 'react-responsive';
+import Container from 'src/shared/Container';
 export interface ILoginState {
     email: string;
     password: string;
@@ -26,23 +36,82 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
     }
     public render() {
         return (
-            <Container>
-                <H1 color={'#F2463A'} fontSize={'45px'}>
-                    Login
-                    </H1>
-                <form>
-                    <EmailInputComponent
-                        onEmailChanged={this.onEmailChanged}
-                    />
-                    <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged}
-                    />
-                    <Button type='button' onClick={this.handleSubmit}>Submit</Button>
-                    <a href={FrontendRoute.FORGOT_PASSWORD_PAGE}>Forgot password?</a>
-                </form>
-            </Container>
+            <Flex
+                justifyContent={'center'}
+                alignItems={'center'}
+                flexDirection={'column'}
+                pb={'25%'}
+            >
+
+                {this.renderLargeScreen()}
+                {this.renderSmallScreen()}
+            </Flex>
         );
     }
+    private renderForm() {
+        return (
+            <Form>
+                <Flex
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                >
+                    <MaxWidthBox width={'80%'} maxWidth={'500px'} ml={'12%'}>
+                        <H1 color={'#F2463A'} fontSize={'24px'} textAlign={'left'}>
+                            Sign in / Register
+            </H1>
+                    </MaxWidthBox>
+                    <MaxWidthBox width={'80%'} maxWidth={'500px'}>
+                        <EmailInputComponent
+                            onEmailChanged={this.onEmailChanged}
+                            isTight={true}
+                        />
+                    </MaxWidthBox>
+                    <MaxWidthBox width={'80%'} maxWidth={'500px'} pb={'30px'}>
+                        <PasswordInputComponent
+                            onPasswordChanged={this.onPasswordChanged}
+                            isTight={true}
+                        />
+                        <ForgotPasswordLinkComponent />
+                    </MaxWidthBox>
+                    <Flex>
+                        <Box pr={'5px'}>
+                            <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
+                        </Box>
+                        <Box pl={'5px'}>
+                            <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+                                <ButtonSecondary type='button' onClick={this.handleSubmit}>Register</ButtonSecondary>
+                            </Link>
+                        </Box>
+                    </Flex>
+                </Flex>
+            </Form>);
+
+    }
+
+    private renderLargeScreen() {
+        return (
+            <MediaQuery minDeviceWidth={1224}>
+                <Box width={1}>
+                    <LeftContainer>
+                        {this.renderForm()}
+                    </LeftContainer>
+                    <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} width={'100%'} height={'100%'} />
+                </Box>
+            </MediaQuery >
+        );
+    }
+    private renderSmallScreen() {
+        return (
+            <MediaQuery maxDeviceWidth={1224}>
+                <Box width={1}>
+                    <Container>
+                        {this.renderForm()}
+                    </Container>
+                </Box>
+            </MediaQuery>
+        );
+    }
+
     /**
      * Function that calls the login function once the form is submitted.
      */
