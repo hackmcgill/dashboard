@@ -39,7 +39,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                     <Image src={Key} height={"4rem"} padding={'0rem'} />
                 </Box>
                 <Box>
-                    <H1 color={'#F2463A'} fontSize={'36px'}>
+                    <H1>
                         Password Reset
                     </H1>
                 </Box>
@@ -54,7 +54,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                         </Paragraph>
                 </Box>
                 <Box width={'100%'}>
-                    <Form>
+                    <Form onSubmit={this.formSubmitHandler}>
                         <Flex
                             justifyContent={'center'}
                             alignItems={'center'}
@@ -77,20 +77,31 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
             </Flex>
         );
     }
+
+    private formSubmitHandler(e: any) {
+        e.preventDefault();
+    }
+
     /**
      * Function that calls the login function once the form is submitted.
      */
-    private handleSubmit(): void {
+    private async handleSubmit() {
         Auth.forgotPassword(
-            this.state.email,
+            this.state.email
         ).then((value: AxiosResponse) => {
             // Good response
             if (value.status === 200) {
-                // Probably want to redirect to login page or something
                 console.log('reset password');
-                const path = FrontendRoute.RESET_PASSWORD_EMAIL_SENT_PAGE;
-                this.props.history.push(path);
-
+                // Log them out, in case they were already logged in.
+                Auth.logout().then(() => {
+                    // Redirect to confirmation page that we sent an email
+                    window.localStorage.removeItem('data');
+                    console.log('logged out');
+                    const path = FrontendRoute.RESET_PASSWORD_EMAIL_SENT_PAGE;
+                    this.props.history.push(path);
+                }).catch((error) => {
+                    console.error('Could not log out', error);
+                });
             } else {
                 console.error(value);
             }

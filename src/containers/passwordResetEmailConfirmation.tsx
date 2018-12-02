@@ -6,6 +6,8 @@ import H1 from 'src/shared/H1';
 import Paragraph from 'src/shared/Paragraph';
 import Button from 'src/shared/Button';
 import { Link } from 'react-router-dom';
+import FrontendRoute from 'src/config/FrontendRoute';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 class PasswordResetContainer extends React.Component<{}, {}>{
     constructor(props: {}) {
@@ -16,22 +18,27 @@ class PasswordResetContainer extends React.Component<{}, {}>{
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                 <Flex alignItems={'center'}>
                     <Box>
-                        <Image src={resetLogo} height={"4rem"} padding={'2.0rem'} />
+                        <Image src={resetLogo} height={"3rem"} padding={'1.0rem'} />
                     </Box>
                     <Box>
-                        <H1 color={'#F2463A'} fontSize={'45px'}>
+                        <H1>
                             Password reset
-                                </H1>
+                        </H1>
                     </Box>
                 </Flex>
-                <Box width={1}>
-                    <Paragraph fontSize={'23px'} center={true} paddingBottom={'32px'}>
+                <MaxWidthBox maxWidth={'500px'} width={1}>
+                    <Paragraph
+                        fontSize={'20px'}
+                        center={true}
+                        paddingBottom={'20px'}
+                        color={'#4D4D4D'}
+                    >
                         We've sent you a link to reset your password. Check your inbox and follow the instructions there.
                     </Paragraph>
-                </Box>
+                </MaxWidthBox>
                 <Box>
-                    <Link to="/login">
-                        <Button type='button'>Take me home!</Button>
+                    <Link to={FrontendRoute.LOGIN_PAGE}>
+                        <Button type='button'>Login page</Button>
                     </Link>
                 </Box>
             </Flex>

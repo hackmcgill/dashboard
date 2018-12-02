@@ -1,0 +1,43 @@
+import * as React from "react";
+import { Redirect } from "react-router-dom";
+import getTokenFromQuery from 'src/config/authToken';
+
+enum authStates {
+    authorized,
+    unauthorized,
+    undefined
+}
+
+const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
+    class extends React.Component<P, { authState: authStates }> {
+        constructor(props: any) {
+            super(props);
+            this.state = {
+                authState: authStates.undefined
+            };
+        }
+
+        public async componentDidMount() {
+            try {
+                getTokenFromQuery();
+            } catch (e) {
+                this.setState({
+                    authState: authStates.unauthorized
+                });
+            }
+        }
+
+        public render() {
+            const { authState } = this.state;
+            switch (authState) {
+                case authStates.authorized:
+                    return <Component {...this.props} />;
+                case authStates.unauthorized:
+                    return (<Redirect to="/" />);
+                default:
+                    return <div />;
+            }
+        }
+    }
+
+export default withAuthRedirect;
