@@ -50,7 +50,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
 
     private renderLargeHeight() {
         return (
-            <MediaQuery minDeviceHeight={'500px'}>
+            <MediaQuery minHeight={'600px'}>
                 <Flex
                     justifyContent={'center'}
                     alignItems={'center'}
@@ -65,7 +65,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
     }
     private renderSmallHeight() {
         return (
-            <MediaQuery maxDeviceHeight={'500px'}>
+            <MediaQuery maxHeight={'600px'}>
                 <Flex
                     justifyContent={'center'}
                     alignItems={'center'}
