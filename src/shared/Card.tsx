@@ -12,7 +12,6 @@ const Card = styled(Flex)`
   margin: 15px;
   background-color: ${(props:ICardProps) => props.theme && props.theme.greyLight || 'grey'};
   position: relative;
-  cursor: pointer;
   &:hover {
     transform: translate(-2px, -2px);
     box-shadow: 5px 5px 20px #cccccc;
