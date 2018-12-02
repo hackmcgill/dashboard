@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import FrontendRoute from 'src/config/FrontendRoute';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 
-class PasswordResetContainer extends React.Component<{}, {}>{
+class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}>{
     constructor(props: {}) {
         super(props);
     }
@@ -26,7 +26,7 @@ class PasswordResetContainer extends React.Component<{}, {}>{
                         </H1>
                     </Box>
                 </Flex>
-                <MaxWidthBox maxWidth={'500px'} width={1}>
+                <MaxWidthBox width={1}>
                     <Paragraph
                         fontSize={'20px'}
                         center={true}
@@ -45,4 +45,4 @@ class PasswordResetContainer extends React.Component<{}, {}>{
         )
     }
 }
-export default PasswordResetContainer;
+export default PasswordResetEmailConfirmationContainer;

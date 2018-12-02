@@ -11,7 +11,7 @@ import H1 from 'src/shared/H1';
 import Form from 'src/shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-import PasswordResetContainer from 'src/containers/passwordResetEmailConfirmation';
+import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
 
 export interface IForgotState {
     email: string;
@@ -33,7 +33,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
     }
     public render() {
         if (this.state.sentEmail) {
-            return <PasswordResetContainer />
+            return <PasswordResetEmailConfirmationContainer />
         } else {
             return (
                 <Flex
@@ -69,7 +69,6 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                                 flexDirection={'column'}>
                                 <MaxWidthBox
                                     width={'80%'}
-                                    maxWidth={'600px'}
                                 >
                                     <EmailInputComponent
                                         onEmailChanged={this.onEmailChanged}

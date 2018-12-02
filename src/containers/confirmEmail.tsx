@@ -6,6 +6,7 @@ import constructionSVG from 'src/assets/images/construction.svg';
 import H1 from 'src/shared/H1';
 import Image from 'src/shared/Image';
 import Paragraph from 'src/shared/Paragraph';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 interface IConfirmationEmailSentState {
     buttonDisabled: boolean;
@@ -21,13 +22,14 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
             buttonDisabled: false
         }
         this.sendDelay = 10000; // 10,000ms
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     public render() {
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                <Flex alignItems={'center'}>
+                <Flex alignItems={'center'} flexDirection={'column'}>
                     <Box>
-                        <Image src={constructionSVG} height={"4rem"} padding={'2.0rem'} />
+                        <Image src={constructionSVG} height={"6rem"} padding={'0.5rem'} />
                     </Box>
                     <Box>
                         <H1 color={'#F2463A'} fontSize={'48px'}>
@@ -35,13 +37,15 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                         </H1>
                     </Box>
                 </Flex>
-                <Box width={1}>
-                    <Paragraph fontSize={'23px'} center={true} paddingBottom={'32px'}>
+                <MaxWidthBox width={1}>
+                    <Paragraph fontSize={'23px'} center={true} paddingBottom={'32px'} color={'#4D4D4D'}>
                         Please check your inbox for a confirmation email. Click the link in the email to confirm your email address.
                     </Paragraph>
-                </Box>
+                </MaxWidthBox>
                 <Box>
-                    <Button type='button' onClick={this.handleSubmit} disabled={(this.state.buttonDisabled)}>Resend confirmation email</Button>
+                    <Button type='button' onClick={this.handleSubmit} disabled={(this.state.buttonDisabled)}>
+                        {(this.state.buttonDisabled) ? 'Resend confirmation email' : 'Sent!'}
+                    </Button>
                 </Box>
             </Flex>
         )

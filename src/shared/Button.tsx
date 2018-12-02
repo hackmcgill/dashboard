@@ -10,7 +10,8 @@ background-color: ${props => props.theme.primary};
   min-width: 100px;
   cursor: pointer;
   transition: 0.15s linear background-color;
-
+  font-weight: bold;
+  
   &:hover {
     background-color: ${props => props.theme.primaryLight};
   }

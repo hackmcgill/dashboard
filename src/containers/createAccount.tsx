@@ -15,6 +15,7 @@ import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
 import Form from 'src/shared/Form';
 import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
+import Auth from 'src/api/auth';
 
 
 interface ICreateAccountContainerState {
@@ -138,9 +139,15 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             // Good response
             if (value.status === 200) {
                 console.log('Created an account');
-                this.setState({
-                    accountCreated: true
-                });
+                Auth.login(this.state.email, this.state.password).then(
+                    (success) => {
+                        this.setState({
+                            accountCreated: true
+                        });
+                    }, (reason) => {
+                        console.error(reason);
+                    }
+                );
             }
         }).catch((reason) => {
             console.error(reason);
