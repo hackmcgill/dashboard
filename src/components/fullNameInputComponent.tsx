@@ -17,13 +17,13 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
                     <Input type='text' onChange={handleChange(props, 'first')} />
                 </Label>
             </Box>
-            <Box ml={0} width={[1 / 2]}>
-                <Label >
+            <Box width={[1 / 2]}>
+                <Label>
                     Last Name:
                     <Input type='text' onChange={handleChange(props, 'last')} />
                 </Label>
             </Box>
-        </Flex >
+        </Flex>
     );
 }
 /**
