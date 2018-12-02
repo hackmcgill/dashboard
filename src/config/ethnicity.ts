@@ -4,7 +4,6 @@ enum IEthnicity {
     AFRO_AMER = 'Black or African American',
     HISP = 'Hispanic',
     EUROPEAN = 'White or Caucasian',
-    NO_ANS = 'Prefer not to answer' 
+    NO_ANS = 'Prefer not to answer'
 }
-
 export default IEthnicity; 
