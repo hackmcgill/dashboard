@@ -1,9 +1,10 @@
 enum Route {
     // Auth routes
-    LOGIN = 'auth/login',
-    LOGOUT = 'auth/logout',
-    FORGOT_PASS = 'auth/password/forgot',
-    RESET_PASS = 'auth/password/reset',
+    AUTH_LOGIN = 'auth/login',
+    AUTH_LOGOUT = 'auth/logout',
+    AUTH_FORGOT_PASS = 'auth/password/forgot',
+    AUTH_RESET_PASS = 'auth/password/reset',
+    AUTH_CONFIRM_ACCT = 'auth/confirm',
     // Account routes
     ACCOUNT = 'account',
     ACCOUNT_SELF = 'account/self',
