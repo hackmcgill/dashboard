@@ -8,4 +8,14 @@ const theme = {
   secondary: "#797979"
 }
 
+export interface ITheme {
+  fontFamily: string
+  grey: string
+  greyLight: string
+  inputBorderRadius: string
+  primary: string
+  primaryLight: string
+  secondary: string
+}
+
 export default theme;
