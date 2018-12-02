@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-4",
-    "@types/rebass__grid": "^6.0.0",
-    "@types/styled-components": "^4.0.1",
     "axios": "^0.18.0",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
@@ -31,6 +29,8 @@
     "@types/react-dom": "^16.0.8",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",
+    "@types/rebass__grid": "^6.0.0",
+    "@types/styled-components": "^4.0.1",
     "react-cosmos": "^4.6.4",
     "typescript": "^3.1.1"
   },

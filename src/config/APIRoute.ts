@@ -1,4 +1,4 @@
-enum Route {
+enum APIRoute {
     // Auth routes
     LOGIN = 'auth/login',
     LOGOUT = 'auth/logout',
@@ -19,4 +19,4 @@ enum Route {
     // Sponsor routes
     SPONSOR = 'sponsor',
 };
-export default Route;
+export default APIRoute;

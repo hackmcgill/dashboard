@@ -4,3 +4,4 @@ font-size: ${(props: { 'fontSize': string }) => props.fontSize};
     color: ${props => props.color};
 `
 export default H1;
+

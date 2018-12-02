@@ -5,5 +5,4 @@ const Image = styled.img`
     width: auto;
     padding: ${(props: { 'padding': string }) => props.padding};
 `
-
-export default Image;
+export default Image; 

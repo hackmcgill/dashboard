@@ -1,5 +1,5 @@
 import API from './api';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import { AxiosPromise } from 'axios';
 
 class AuthAPI {
