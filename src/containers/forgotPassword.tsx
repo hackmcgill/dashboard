@@ -10,11 +10,12 @@ import Paragraph from 'src/shared/Paragraph';
 import H1 from 'src/shared/H1';
 import Form from 'src/shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
-import FrontendRoute from 'src/config/FrontendRoute';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import PasswordResetContainer from 'src/containers/passwordResetEmailConfirmation';
 
 export interface IForgotState {
     email: string;
+    sentEmail: boolean;
 }
 
 /**
@@ -25,57 +26,65 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onEmailChanged = this.onEmailChanged.bind(this);
+        this.state = {
+            email: '',
+            sentEmail: false
+        }
     }
     public render() {
-        return (
-            <Flex
-                flexWrap={'wrap'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                flexDirection={'column'}
-                px={2}
-            >
-                <Box>
-                    <Image src={Key} height={"4rem"} padding={'0rem'} />
-                </Box>
-                <Box>
-                    <H1>
-                        Password Reset
-                    </H1>
-                </Box>
-                <Box>
-                    <Paragraph
-                        fontSize={'16px'}
-                        center={true}
-                        paddingBottom={'20px'}
-                        color={'#4D4D4D'}
-                    >
-                        Enter your email and we will send you a link to reset your password
+        if (this.state.sentEmail) {
+            return <PasswordResetContainer />
+        } else {
+            return (
+                <Flex
+                    flexWrap={'wrap'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                    px={2}
+                >
+                    <Box>
+                        <Image src={Key} height={"4rem"} padding={'0rem'} />
+                    </Box>
+                    <Box>
+                        <H1>
+                            Password Reset
+                        </H1>
+                    </Box>
+                    <Box>
+                        <Paragraph
+                            fontSize={'16px'}
+                            center={true}
+                            paddingBottom={'20px'}
+                            color={'#4D4D4D'}
+                        >
+                            Enter your email and we will send you a link to reset your password
                         </Paragraph>
-                </Box>
-                <Box width={'100%'}>
-                    <Form onSubmit={this.formSubmitHandler}>
-                        <Flex
-                            justifyContent={'center'}
-                            alignItems={'center'}
-                            flexDirection={'column'}>
-                            <MaxWidthBox
-                                width={'80%'}
-                                maxWidth={'600px'}
-                            >
-                                <EmailInputComponent
-                                    onEmailChanged={this.onEmailChanged}
-                                    placeholder={'foo@bar.ca'}
-                                />
-                            </MaxWidthBox>
-                            <Box>
-                                <Button type='button' onClick={this.handleSubmit}>Reset password</Button>
-                            </Box>
-                        </Flex>
-                    </Form>
-                </Box>
-            </Flex>
-        );
+                    </Box>
+                    <Box width={'100%'}>
+                        <Form onSubmit={this.formSubmitHandler}>
+                            <Flex
+                                justifyContent={'center'}
+                                alignItems={'center'}
+                                flexDirection={'column'}>
+                                <MaxWidthBox
+                                    width={'80%'}
+                                    maxWidth={'600px'}
+                                >
+                                    <EmailInputComponent
+                                        onEmailChanged={this.onEmailChanged}
+                                        placeholder={'foo@bar.ca'}
+                                    />
+                                </MaxWidthBox>
+                                <Box>
+                                    <Button type='button' onClick={this.handleSubmit}>Reset password</Button>
+                                </Box>
+                            </Flex>
+                        </Form>
+                    </Box>
+                </Flex>
+            );
+        }
     }
 
     private formSubmitHandler(e: any) {
@@ -97,8 +106,9 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                     // Redirect to confirmation page that we sent an email
                     window.localStorage.removeItem('data');
                     console.log('logged out');
-                    const path = FrontendRoute.RESET_PASSWORD_EMAIL_SENT_PAGE;
-                    this.props.history.push(path);
+                    this.setState({
+                        sentEmail: true
+                    });
                 }).catch((error) => {
                     console.error('Could not log out', error);
                 });

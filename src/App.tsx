@@ -11,7 +11,6 @@ import ForgotPasswordContainer from 'src/containers/forgotPassword';
 import { ThemeProvider } from 'styled-components';
 import theme from 'src/theme';
 import FrontendRoute from './config/FrontendRoute';
-import PasswordResetContainer from './containers/passwordResetEmailConfirmation';
 
 
 class App extends React.Component {
@@ -25,7 +24,6 @@ class App extends React.Component {
             <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withAuthRedirect(CreateAccount, false)} />
             <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
             <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={ForgotPasswordContainer} />
-            <Route exact={true} path={FrontendRoute.RESET_PASSWORD_EMAIL_SENT_PAGE} component={PasswordResetContainer} />
             <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withAuthRedirect(LoginContainer, false)} />
           </Switch>
         </BrowserRouter>
