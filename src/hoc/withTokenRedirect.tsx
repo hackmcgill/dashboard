@@ -8,7 +8,7 @@ enum authStates {
     undefined
 }
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
+const withTokenRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
     class extends React.Component<P, { authState: authStates }> {
         constructor(props: any) {
             super(props);
@@ -40,4 +40,4 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
         }
     }
 
-export default withAuthRedirect;
+export default withTokenRedirect;
