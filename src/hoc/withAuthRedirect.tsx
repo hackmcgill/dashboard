@@ -10,13 +10,16 @@ enum authStates {
   undefined
 }
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiredAuthState: boolean = true) =>
+
+const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiredAuthState: boolean = true, AuthVerification?: (acct: IAccount) => boolean) =>
   class extends React.Component<P, { authState: authStates }> {
+    private verification: (acct: IAccount) => boolean;
     constructor(props: any) {
       super(props);
       this.state = {
         authState: authStates.undefined
       };
+      this.verification = (AuthVerification) ? AuthVerification : (acct: IAccount) => true;
     }
 
     public async componentDidMount() {
@@ -24,9 +27,25 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
         if (!window.localStorage.getItem('data')) {
           const selfInfo: IAccount = (await account.getSelf()).data.data;
           window.localStorage.setItem('data', JSON.stringify(selfInfo));
-        } else {
+          const verified = this.verification(selfInfo);
           this.setState({
-            authState: authStates.authorized
+            authState: (verified) ? authStates.authorized : authStates.unauthorized
+          });
+        } else {
+          let strInfo: string;
+          const data = window.localStorage.getItem('data');
+          switch (data) {
+            case null:
+              strInfo = ''
+              break;
+            default:
+              strInfo = data;
+              break;
+          }
+          const selfInfo = JSON.parse(strInfo);
+          const verified = this.verification(selfInfo);
+          this.setState({
+            authState: (verified) ? authStates.authorized : authStates.unauthorized
           });
         }
       } catch (e) {

@@ -7,7 +7,7 @@ interface IMaxWidthBoxProps {
 }
 
 const MaxWidthBox = styled(Box)`
-    max-width: ${(props: IMaxWidthBoxProps) => props.maxWidth ? props.maxWidth : '800px'};
+    max-width: ${(props: IMaxWidthBoxProps) => props.maxWidth ? props.maxWidth : '600px'};
 `;
 
 export default MaxWidthBox;

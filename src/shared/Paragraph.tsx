@@ -8,7 +8,7 @@ export interface IParagraphProps {
 }
 
 const Paragraph = styled.p`
-    font-size: ${(props: IParagraphProps) => props.fontSize ? props.fontSize : '14px'};
+    font-size: ${(props: IParagraphProps) => props.fontSize ? props.fontSize : ''};
     color: ${props => props.color};
     text-align: ${(props: IParagraphProps) => props.center ? 'center' : 'left'};
     padding-bottom: ${(props: IParagraphProps) => props.paddingBottom ? props.paddingBottom : '0px'};

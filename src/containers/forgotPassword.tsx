@@ -11,7 +11,7 @@ import H1 from 'src/shared/H1';
 import Form from 'src/shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-import PasswordResetContainer from 'src/containers/passwordResetEmailConfirmation';
+import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
 
 export interface IForgotState {
     email: string;
@@ -33,7 +33,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
     }
     public render() {
         if (this.state.sentEmail) {
-            return <PasswordResetContainer />
+            return <PasswordResetEmailConfirmationContainer />
         } else {
             return (
                 <Flex
@@ -51,16 +51,15 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                             Password Reset
                         </H1>
                     </Box>
-                    <Box>
+                    <MaxWidthBox fontSize={[2, 3, 4]}>
                         <Paragraph
-                            fontSize={'16px'}
                             center={true}
                             paddingBottom={'20px'}
                             color={'#4D4D4D'}
                         >
                             Enter your email and we will send you a link to reset your password
                         </Paragraph>
-                    </Box>
+                    </MaxWidthBox>
                     <Box width={'100%'}>
                         <Form onSubmit={this.formSubmitHandler}>
                             <Flex
@@ -69,7 +68,6 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                                 flexDirection={'column'}>
                                 <MaxWidthBox
                                     width={'80%'}
-                                    maxWidth={'600px'}
                                 >
                                     <EmailInputComponent
                                         onEmailChanged={this.onEmailChanged}

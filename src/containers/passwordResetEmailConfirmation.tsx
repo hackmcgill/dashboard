@@ -1,5 +1,5 @@
 import * as React from 'react';
-import resetLogo from 'src/passwordReset.svg';
+import resetLogo from 'src/assets/images/passwordReset.svg';
 import Image from 'src/shared/Image';
 import { Flex, Box } from '@rebass/grid';
 import H1 from 'src/shared/H1';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import FrontendRoute from 'src/config/FrontendRoute';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 
-class PasswordResetContainer extends React.Component<{}, {}>{
+class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}>{
     constructor(props: {}) {
         super(props);
     }
@@ -26,9 +26,8 @@ class PasswordResetContainer extends React.Component<{}, {}>{
                         </H1>
                     </Box>
                 </Flex>
-                <MaxWidthBox maxWidth={'500px'} width={1}>
+                <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
                     <Paragraph
-                        fontSize={'20px'}
                         center={true}
                         paddingBottom={'20px'}
                         color={'#4D4D4D'}
@@ -45,4 +44,4 @@ class PasswordResetContainer extends React.Component<{}, {}>{
         )
     }
 }
-export default PasswordResetContainer;
+export default PasswordResetEmailConfirmationContainer;
