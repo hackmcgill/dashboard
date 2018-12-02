@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ButtonSecondary = styled.button`
-background-color: ${props => props.theme.secondary};
+  background-color: ${props => props.theme.secondary};
   font-size: 14px;
   color: white;
   padding: 10px 15px;

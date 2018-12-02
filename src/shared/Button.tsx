@@ -1,6 +1,13 @@
 import styled from 'styled-components';
-const Button = styled.button`
-background-color: ${props => props.theme.primary};
+import { ITheme } from 'src/theme';
+
+export interface IButtonProps {
+  secondary?: boolean
+  theme: ITheme
+}
+
+const Button = styled.button<{ secondary?: boolean }>`
+  background-color: ${(props:IButtonProps) => props.secondary ? props.theme.secondary : props.theme.primary};
   font-size: 14px;
   color: white;
   padding: 10px 15px;

@@ -8,7 +8,6 @@ import PasswordInputComponent from 'src/components/passwordInputComponent';
 import Auth from 'src/api/auth';
 import EmailInputComponent from 'src/components/emailInputComponent';
 import Button from 'src/shared/Button';
-import ButtonSecondary from 'src/shared/ButtonSecondary';
 import H1 from 'src/shared/H1';
 import FrontendRoute from 'src/config/FrontendRoute';
 import Form from 'src/shared/Form';
@@ -111,7 +110,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                         </Box>
                         <Box pl={'5px'}>
                             <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-                                <ButtonSecondary type='button' onClick={this.handleSubmit}>Register</ButtonSecondary>
+                                <Button type='button' onClick={this.handleSubmit} secondary={true}>Register</Button>
                             </Link>
                         </Box>
                     </Flex>
