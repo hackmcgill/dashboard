@@ -14,8 +14,7 @@ import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
 import Form from 'src/shared/Form';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import FrontendRoute from 'src/config/FrontendRoute';
+import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
 
 
 interface ICreateAccountContainerState {
@@ -28,10 +27,12 @@ interface ICreateAccountContainerState {
     pronoun: string;
     phone: string;
     birthdate: Date;
+
+    accountCreated: boolean;
 }
 
-class CreateAccountContainer extends React.Component<RouteComponentProps, ICreateAccountContainerState>{
-    constructor(props: RouteComponentProps) {
+class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
+    constructor(props: {}) {
         super(props);
         this.state = {
             firstName: '',
@@ -42,7 +43,8 @@ class CreateAccountContainer extends React.Component<RouteComponentProps, ICreat
             shirtSize: ShirtSize.M,
             pronoun: '',
             phone: '',
-            birthdate: new Date()
+            birthdate: new Date(),
+            accountCreated: false
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
         this.onShirtSizeChanged = this.onShirtSizeChanged.bind(this);
@@ -56,6 +58,14 @@ class CreateAccountContainer extends React.Component<RouteComponentProps, ICreat
         this.onPronounChanged = this.onPronounChanged.bind(this);
     }
     public render() {
+        if (this.state.accountCreated) {
+            return <ConfirmationEmailSentComponent />
+        } else {
+            return this.renderForm();
+        }
+    }
+
+    private renderForm() {
         return (
             <Container>
                 <Form onSubmit={this.handleSubmit}>
@@ -109,6 +119,7 @@ class CreateAccountContainer extends React.Component<RouteComponentProps, ICreat
             </Container>
         )
     }
+
     private handleSubmit() {
         Account.create(
             {
@@ -127,7 +138,9 @@ class CreateAccountContainer extends React.Component<RouteComponentProps, ICreat
             // Good response
             if (value.status === 200) {
                 console.log('Created an account');
-                this.props.history.push(FrontendRoute.CONFIRM_EMAIL_SENT_PAGE);
+                this.setState({
+                    accountCreated: true
+                });
             }
         }).catch((reason) => {
             console.error(reason);
@@ -164,4 +177,4 @@ class CreateAccountContainer extends React.Component<RouteComponentProps, ICreat
     }
 }
 
-export default withRouter<RouteComponentProps>(CreateAccountContainer);
+export default CreateAccountContainer;
