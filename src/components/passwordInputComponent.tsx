@@ -6,12 +6,13 @@ interface IPasswordInputProp {
     onPasswordChanged: (email: string) => void;
     label?: string;
     id?: string;
+    isTight?: boolean;
 }
 const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
         <Label>
             {props.label ? props.label : 'Password'}:
-            <Input type='password' onChange={handleChange(props)} id={props.id} />
+            <Input type='password' onChange={handleChange(props)} id={props.id} isTight={props.isTight} />
         </Label>
     )
 }

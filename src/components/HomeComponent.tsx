@@ -1,5 +1,5 @@
 import * as React from 'react';
-import logo from 'src/logo.svg';
+import logo from 'src/assets/images/logo.svg';
 import { Link } from 'react-router-dom';
 import FrontendRoute from 'src/config/FrontendRoute';
 

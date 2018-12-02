@@ -4,6 +4,7 @@ enum APIRoute {
     LOGOUT = 'auth/logout',
     FORGOT_PASS = 'auth/password/forgot',
     RESET_PASS = 'auth/password/reset',
+    RESEND_CONF_EMAIL = 'auth/confirm/resend',
     // Account routes
     ACCOUNT = 'account',
     ACCOUNT_SELF = 'account/self',
