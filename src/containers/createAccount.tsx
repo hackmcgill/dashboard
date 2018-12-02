@@ -14,6 +14,8 @@ import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
 import Form from 'src/shared/Form';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 
 interface ICreateAccountContainerState {
@@ -28,8 +30,8 @@ interface ICreateAccountContainerState {
     birthdate: Date;
 }
 
-class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
-    constructor(props: {}) {
+class CreateAccountContainer extends React.Component<RouteComponentProps, ICreateAccountContainerState>{
+    constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
             firstName: '',
@@ -125,6 +127,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             // Good response
             if (value.status === 200) {
                 console.log('Created an account');
+                this.props.history.push(FrontendRoute.CONFIRM_EMAIL_SENT_PAGE);
             }
         }).catch((reason) => {
             console.error(reason);
@@ -161,4 +164,4 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     }
 }
 
-export default CreateAccountContainer;
+export default withRouter<RouteComponentProps>(CreateAccountContainer);

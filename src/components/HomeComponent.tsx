@@ -1,6 +1,6 @@
 import * as React from 'react';
-import logo from 'src/logo.svg';
-import {Link} from 'react-router-dom';
+import logo from 'src/assets/images/logo.svg';
+import { Link } from 'react-router-dom';
 
 const HomeComponent: React.StatelessComponent<{}> = (props) => {
     return (
@@ -15,7 +15,7 @@ const HomeComponent: React.StatelessComponent<{}> = (props) => {
                     <li><Link to="/createAccount/">createAccount</Link></li>
                     <li><Link to="/resetPassword">resetPassword</Link></li>
                 </ul>
-            <hr/>
+                <hr />
             </div>
         </div>
     )

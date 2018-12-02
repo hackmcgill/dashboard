@@ -1,6 +1,7 @@
 import API from './api';
 import Route from '../config/APIRoute';
 import { AxiosPromise } from 'axios';
+import APIResponse from './APIResponse';
 
 class AuthAPI {
     constructor() {
@@ -8,6 +9,7 @@ class AuthAPI {
         API.createEntity(Route.LOGOUT);
         API.createEntity(Route.FORGOT_PASS);
         API.createEntity(Route.RESET_PASS);
+        API.createEntity(Route.RESEND_CONF_EMAIL);
     }
     /**
      * Logs in a user to the API.
@@ -49,6 +51,12 @@ class AuthAPI {
                 }
             }
         );
+    }
+    /**
+     * Resends the confirmation email.
+     */
+    public resendConfirmationEmail(): AxiosPromise<APIResponse> {
+        return API.getEndpoint(Route.RESEND_CONF_EMAIL).getAll();
     }
 }
 

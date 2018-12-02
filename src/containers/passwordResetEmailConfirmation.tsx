@@ -1,5 +1,5 @@
 import * as React from 'react';
-import resetLogo from 'src/passwordReset.svg';
+import resetLogo from 'src/assets/images/passwordReset.svg';
 import Image from 'src/shared/Image';
 import { Flex, Box } from '@rebass/grid';
 import H1 from 'src/shared/H1';
