@@ -40,14 +40,46 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                 justifyContent={'center'}
                 alignItems={'center'}
                 flexDirection={'column'}
-                pb={'25%'}
             >
-
-                {this.renderLargeScreen()}
-                {this.renderSmallScreen()}
-            </Flex>
+                <Box width={1}>
+                    {this.renderLargeHeight()}
+                    {this.renderSmallHeight()}
+                </Box>
+            </ Flex>
         );
     }
+
+    private renderLargeHeight() {
+        return (
+            <MediaQuery minDeviceHeight={'500px'}>
+                <Flex
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                    pb={'25%'}
+                >
+                    {this.renderLargeWidth()}
+                    {this.renderSmallWidth()}
+                </Flex>
+            </MediaQuery>
+        )
+    }
+    private renderSmallHeight() {
+        return (
+            <MediaQuery maxDeviceHeight={'500px'}>
+                <Flex
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                    pb={0}
+                >
+                    {this.renderLargeWidth()}
+                    {this.renderSmallWidth()}
+                </Flex>
+            </MediaQuery>
+        )
+    }
+
     private renderForm() {
         return (
             <Form>
@@ -58,7 +90,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                     <MaxWidthBox width={'80%'} maxWidth={'500px'} ml={'12%'}>
                         <H1 color={'#F2463A'} fontSize={'24px'} textAlign={'left'}>
                             Sign in / Register
-            </H1>
+                        </H1>
                     </MaxWidthBox>
                     <MaxWidthBox width={'80%'} maxWidth={'500px'}>
                         <EmailInputComponent
@@ -88,9 +120,9 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
 
     }
 
-    private renderLargeScreen() {
+    private renderLargeWidth() {
         return (
-            <MediaQuery minDeviceWidth={1224}>
+            <MediaQuery minWidth={1224}>
                 <Box width={1}>
                     <LeftContainer>
                         {this.renderForm()}
@@ -100,13 +132,14 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
             </MediaQuery >
         );
     }
-    private renderSmallScreen() {
+    private renderSmallWidth() {
         return (
-            <MediaQuery maxDeviceWidth={1224}>
+            <MediaQuery maxWidth={1224}>
                 <Box width={1}>
                     <Container>
                         {this.renderForm()}
                     </Container>
+                    <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} height={'100%'} />
                 </Box>
             </MediaQuery>
         );
