@@ -1,6 +1,7 @@
 import forgotPassword from "../src/containers/forgotPassword";
+import withThemeProvider from 'src/hoc/withThemeProvider';
 
 export default {
-    component: forgotPassword,
+    component: withThemeProvider(forgotPassword),
     props: {}
 };
