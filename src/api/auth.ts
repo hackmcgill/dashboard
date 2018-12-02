@@ -40,11 +40,15 @@ class AuthAPI {
      * @param {string} authToken 
      */
     public resetPassword(password: string, authToken: string): AxiosPromise {
-        return API.getEndpoint(Route.RESET_PASS).create({ password }, {
-            headers: {
-                Authentication: authToken
+        return API.getEndpoint(Route.RESET_PASS).create({ password },
+            {
+                config: {
+                    headers: {
+                        Authentication: authToken
+                    }
+                }
             }
-        });
+        );
     }
 }
 

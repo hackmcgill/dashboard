@@ -52,7 +52,7 @@ class AccountAPI {
      * Invites a user to create an account with the specified accountType.
      * @param {{email: string, accountType: string}} info
      */
-    public invite(info: IInviteInfo): AxiosPromise {
+    public invite(info: IInviteInfo): AxiosPromise<APIResponse<IAccount>> {
         return API.getEndpoint(Route.ACCOUNT_INVITE).create(info);
     }
 }
