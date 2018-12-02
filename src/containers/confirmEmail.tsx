@@ -26,7 +26,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
     }
     public render() {
         return (
-            <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+            <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'} mx={3}>
                 <Flex alignItems={'center'} flexDirection={'column'}>
                     <Box>
                         <Image src={constructionSVG} height={"6rem"} padding={'0.5rem'} />
@@ -37,14 +37,14 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                         </H1>
                     </Box>
                 </Flex>
-                <MaxWidthBox width={1}>
-                    <Paragraph fontSize={'23px'} center={true} paddingBottom={'32px'} color={'#4D4D4D'}>
+                <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
+                    <Paragraph center={true} paddingBottom={'32px'} color={'#4D4D4D'}>
                         Please check your inbox for a confirmation email. Click the link in the email to confirm your email address.
                     </Paragraph>
                 </MaxWidthBox>
                 <Box>
                     <Button type='button' onClick={this.handleSubmit} disabled={(this.state.buttonDisabled)}>
-                        {(this.state.buttonDisabled) ? 'Resend confirmation email' : 'Sent!'}
+                        {(!this.state.buttonDisabled) ? 'Resend confirmation email' : 'Sent!'}
                     </Button>
                 </Box>
             </Flex>

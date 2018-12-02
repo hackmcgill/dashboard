@@ -51,16 +51,15 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                             Password Reset
                         </H1>
                     </Box>
-                    <Box>
+                    <MaxWidthBox fontSize={[2, 3, 4]}>
                         <Paragraph
-                            fontSize={'16px'}
                             center={true}
                             paddingBottom={'20px'}
                             color={'#4D4D4D'}
                         >
                             Enter your email and we will send you a link to reset your password
                         </Paragraph>
-                    </Box>
+                    </MaxWidthBox>
                     <Box width={'100%'}>
                         <Form onSubmit={this.formSubmitHandler}>
                             <Flex
