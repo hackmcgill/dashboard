@@ -115,7 +115,6 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                             <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                         </Box>
                     </Flex>
-
                 </Form>
             </Container>
         )
