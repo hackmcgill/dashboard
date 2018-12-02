@@ -1,10 +1,21 @@
 const theme = {
-  fontFamily: "sans-serif",
+  fontFamily: "Hind Siliguri,-apple-system,system-ui,BlinkMacSystemFont,sans-serif",
   grey: "#4D4D4D",
   greyLight: "#797979",
   inputBorderRadius: "20px",
   primary: "#F2463A",
   primaryLight: "#F89790",
+  secondary: "#797979"
+}
+
+export interface ITheme {
+  fontFamily: string
+  grey: string
+  greyLight: string
+  inputBorderRadius: string
+  primary: string
+  primaryLight: string
+  secondary: string
 }
 
 export default theme;

@@ -1,6 +1,6 @@
 import { IAccount } from '../config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import API from './api';
 import APIResponse from './APIResponse';
 import IInviteInfo from 'src/config/inviteInfo';
