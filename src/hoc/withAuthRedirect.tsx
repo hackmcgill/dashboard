@@ -2,6 +2,7 @@ import * as React from "react";
 import account from "src/api/account";
 import { Redirect } from "react-router-dom";
 import { IAccount } from 'src/config/userTypes';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 enum authStates {
   authorized,
@@ -41,7 +42,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
         case authStates.authorized:
           return requiredAuthState ? <Component {...this.props} /> : (<Redirect to="/" />);
         case authStates.unauthorized:
-          return requiredAuthState ? (<Redirect to="/login/" />) : <Component {...this.props} />;
+          return requiredAuthState ? (<Redirect to={FrontendRoute.LOGIN_PAGE} />) : <Component {...this.props} />;
         default:
           return <div />;
       }

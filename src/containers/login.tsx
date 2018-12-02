@@ -7,6 +7,7 @@ import * as QueryString from 'query-string';
 import Button from 'src/shared/Button';
 import H1 from 'src/shared/H1';
 import Container from 'src/shared/Container';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export interface ILoginState {
     email: string;
@@ -37,7 +38,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                         onPasswordChanged={this.onPasswordChanged}
                     />
                     <Button type='button' onClick={this.handleSubmit}>Submit</Button>
-                    <a href='/forgotPassword'>Forgot password?</a>
+                    <a href={FrontendRoute.FORGOT_PASSWORD_PAGE}>Forgot password?</a>
                 </form>
             </Container>
         );

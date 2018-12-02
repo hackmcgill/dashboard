@@ -1,9 +1,8 @@
 enum FrontendRoute {
-    CREATE_ACCOUNT_PAGE = '/createAccount',
-    RESET_PASSWORD_PAGE = '/resetPassword',
-    FORGOT_PASSWORD_PAGE = '/forgotPassword',
+    CREATE_ACCOUNT_PAGE = '/account/create',
+    FORGOT_PASSWORD_PAGE = '/password/forgot',
+    RESET_PASSWORD_PAGE = '/password/reset',
     LOGIN_PAGE = '/login',
-    RESET_PASSWORD_EMAIL_SENT_PAGE = '/resetPasswordSuccessful'
 }
 
 export default FrontendRoute;
