@@ -10,7 +10,7 @@ interface IFullNameInput {
 }
 const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
     return (
-        <Flex flexWrap={'wrap'} name="outer-flex" width={9 / 10} m='auto'>
+        <Flex flexWrap={'wrap'} width={9 / 10} m='auto'>
             <Box width={[1 / 2]}>
                 <Label>
                     First Name:
