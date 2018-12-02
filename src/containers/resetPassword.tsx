@@ -30,10 +30,14 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                 <h2>Reset your password</h2>
                 <form>
                     <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged} label={'New Password'}
+                        onPasswordChanged={this.onPasswordChanged}
+                        label={'New Password'}
+                        id={'new-password'}
                     />
                     <PasswordInputComponent
-                        onPasswordChanged={this.onConfirmationChanged} label={'Confirm Password'}
+                        onPasswordChanged={this.onConfirmationChanged}
+                        label={'Confirm Password'}
+                        id={'confirm-password'}
                     />
                     {!this.state.isValid && this.state.isSubmitted && 'Passwords must match!'}
                     <button type='button' onClick={this.handleSubmit}>Submit</button>

@@ -1,4 +1,4 @@
-enum Route {
+enum APIRoute {
     // Auth routes
     LOGIN = 'auth/login',
     LOGOUT = 'auth/logout',
@@ -7,13 +7,16 @@ enum Route {
     // Account routes
     ACCOUNT = 'account',
     ACCOUNT_SELF = 'account/self',
+    ACCOUNT_INVITE = 'account/invite',
     // Hacker routes
     HACKER = 'hacker',
     HACKER_SELF = 'hacker/self',
     HACKER_RESUME = 'hacker/resume',
+    HACKER_STATUS = 'hacker/status',
+    HACKER_CHECKIN = 'hacker/checkin',
     // Search routes
     SEARCH = 'search',
     // Sponsor routes
     SPONSOR = 'sponsor',
 };
-export default Route;
+export default APIRoute;
