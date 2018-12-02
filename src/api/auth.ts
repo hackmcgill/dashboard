@@ -1,5 +1,5 @@
 import API from './api';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import { AxiosPromise } from 'axios';
 
 class AuthAPI {
@@ -41,8 +41,10 @@ class AuthAPI {
      */
     public resetPassword(password: string, authToken: string): AxiosPromise {
         return API.getEndpoint(Route.RESET_PASS).create({ password }, {
-            headers: {
-                Authentication: authToken
+            config: {
+                headers: {
+                    Authentication: authToken
+                }
             }
         });
     }

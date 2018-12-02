@@ -1,6 +1,6 @@
 import { IHacker } from 'src/config/userTypes';
 import { AxiosPromise, AxiosRequestConfig } from 'axios';
-import Route from 'src/config/route';
+import Route from 'src/config/APIRoute';
 import API from 'src/api/api';
 class AccountAPI {
     constructor() {
