@@ -13,6 +13,7 @@ import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
+import H1 from 'src/shared/H1';
 
 
 interface ICreateAccountContainerState {
@@ -56,6 +57,20 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         return (
             <Container>
                 <form onSubmit={this.handleSubmit}>
+                    <Flex flexWrap={'wrap'} name='Title wrap'>
+                        <Box width={1} ml={0.1} name='Title box'>
+                            <H1 color={'#F2463A'} fontSize={'24px'}>
+                                Your account
+                            </H1>
+                        </Box>
+                        <Box width={1} ml={0.9} name='Description box'>
+                            <H1 color={'#000000'} fontSize={'12px'}>
+                                create account
+                            </H1>
+                        </Box>
+                    </Flex>
+
+
                     <Flex flexWrap={'wrap'}>
                         <Box width={1}>
                             <FullNameInput
