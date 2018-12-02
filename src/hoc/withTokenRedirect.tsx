@@ -20,6 +20,9 @@ const withTokenRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
         public async componentDidMount() {
             try {
                 getTokenFromQuery();
+                this.setState({
+                    authState: authStates.authorized
+                });
             } catch (e) {
                 this.setState({
                     authState: authStates.unauthorized
