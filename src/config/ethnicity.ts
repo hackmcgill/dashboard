@@ -7,4 +7,4 @@ enum IEthnicity {
     NO_ANS = 'Prefer not to answer' 
 }
 
-export default IEthnicity;
+export default IEthnicity; 

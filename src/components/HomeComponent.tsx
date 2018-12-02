@@ -1,6 +1,7 @@
 import * as React from 'react';
 import logo from 'src/logo.svg';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 const HomeComponent: React.StatelessComponent<{}> = (props) => {
     return (
@@ -12,10 +13,10 @@ const HomeComponent: React.StatelessComponent<{}> = (props) => {
             <div className="container">
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/createAccount/">createAccount</Link></li>
-                    <li><Link to="/resetPassword">resetPassword</Link></li>
+                    <li><Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>create account</Link></li>
+                    <li><Link to={FrontendRoute.RESET_PASSWORD_PAGE}>Reset password</Link></li>
                 </ul>
-            <hr/>
+                <hr />
             </div>
         </div>
     )

@@ -1,8 +1,13 @@
 import * as React from 'react';
+import { AxiosResponse } from 'axios';
+
 import PasswordInputComponent from 'src/components/passwordInputComponent';
 import Auth from 'src/api/auth';
-import { AxiosResponse } from 'axios';
-import GetToken from 'src/config/authToken';
+import getTokenFromQuery from 'src/config/authToken';
+import H1 from 'src/shared/H1';
+import Button from 'src/shared/Button';
+import { Box, Flex } from '@rebass/grid';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 export interface IResetPasswordContainerState {
     isValid: boolean;
     isSubmitted: boolean;
@@ -26,23 +31,37 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
     }
     public render() {
         return (
-            <div>
-                <h2>Reset your password</h2>
-                <form>
-                    <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged}
-                        label={'New Password'}
-                        id={'new-password'}
-                    />
-                    <PasswordInputComponent
-                        onPasswordChanged={this.onConfirmationChanged}
-                        label={'Confirm Password'}
-                        id={'confirm-password'}
-                    />
-                    {!this.state.isValid && this.state.isSubmitted && 'Passwords must match!'}
-                    <button type='button' onClick={this.handleSubmit}>Submit</button>
-                </form>
-            </div>
+            <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                <MaxWidthBox maxWidth={'600px'} width={1} ml={'10%'}>
+                    <H1 fontSize='24px'>
+                        Reset your password
+                    </H1>
+                </MaxWidthBox>
+                <MaxWidthBox maxWidth={'600px'} width={1}>
+                    <form>
+                        <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                            <Box width={7 / 8}>
+                                <PasswordInputComponent
+                                    onPasswordChanged={this.onPasswordChanged}
+                                    label={'New password'}
+                                    id={'new-password'}
+                                />
+                            </Box>
+                            <Box width={7 / 8}>
+                                <PasswordInputComponent
+                                    onPasswordChanged={this.onConfirmationChanged}
+                                    label={'Confirm password'}
+                                    id={'confirm-password'}
+                                />
+                                {!this.state.isValid && this.state.isSubmitted && 'Passwords must match!'}
+                            </Box>
+                            <Box>
+                                <Button type='button' onClick={this.handleSubmit}>Submit</Button>
+                            </Box>
+                        </Flex>
+                    </form>
+                </MaxWidthBox>
+            </Flex>
         );
     }
     /**
@@ -56,7 +75,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         }
         // TODO: try/catch
         try {
-            const authToken: string | string[] = GetToken();
+            const authToken: string | string[] = getTokenFromQuery();
             Auth.resetPassword(
                 this.state.password,
                 authToken
