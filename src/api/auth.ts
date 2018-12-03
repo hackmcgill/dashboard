@@ -69,7 +69,7 @@ class AuthAPI {
             "oldPassword": oldPassword,
             "newPassword": newPassword
         };
-        return API.getEndpoint(Route.CHANGE_PASS).patch({ id: "" }, changePasswordObject);
+        return API.getEndpoint(Route.AUTH_CHANGE_PASS).patch({ id: "" }, changePasswordObject);
     }
 
     /**
