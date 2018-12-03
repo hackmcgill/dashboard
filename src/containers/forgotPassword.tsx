@@ -116,7 +116,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                 console.error(value);
             }
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-            if (response) {
+            if (response && response.data) {
                 ValidationErrorGenerator(response.data);
             }
         });

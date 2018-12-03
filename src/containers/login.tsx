@@ -5,7 +5,6 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
 
 import PasswordInputComponent from 'src/components/passwordInputComponent';
-import Auth from 'src/api/auth';
 import EmailInputComponent from 'src/components/emailInputComponent';
 import Button from 'src/shared/Button';
 import H1 from 'src/shared/H1';
@@ -21,6 +20,7 @@ import MediaQuery from 'react-responsive';
 import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
+import UserInfoController from 'src/config/UserInfoController';
 export interface ILoginState {
     email: string;
     password: string;
@@ -111,7 +111,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
      * Function that calls the login function once the form is submitted.
      */
     private handleSubmit(): void {
-        Auth.login(
+        UserInfoController.logIn(
             this.state.email,
             this.state.password
         ).then((value: AxiosResponse) => {
@@ -129,7 +129,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                 console.error(value);
             }
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-            if (response) {
+            if (response && response.data) {
                 ValidationErrorGenerator(response.data);
             }
         });
@@ -160,5 +160,4 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
         }
     }
 }
-
-export default withRouter<RouteComponentProps>(WithToasterContainer(LoginContainer));
+export default WithToasterContainer(withRouter<RouteComponentProps>(LoginContainer));

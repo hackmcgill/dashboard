@@ -157,7 +157,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                 );
             }
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-            if (response) {
+            if (response && response.data) {
                 ValidationErrorGenerator(response.data);
             }
         });
