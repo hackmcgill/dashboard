@@ -8,7 +8,7 @@ export interface ICheckboxProps {
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
     return (
-        <Label>
+        <Label fontWeight='normal'>
             {props.label}
             <Checkbox onChange={handleChange(props)} />
         </Label>

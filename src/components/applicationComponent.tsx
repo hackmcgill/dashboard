@@ -13,18 +13,21 @@ import Hacker from 'src/api/hacker';
 import { IAccount, IHacker } from 'src/config/userTypes';
 import HackerStatus from 'src/config/hackerStatus';
 import SchoolComponent from 'src/components/schoolComponent';
-import GenderComponent from 'src/components/genderInputComponent';
 import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
 import NumberFormat from 'src/components/numberFormatFormikComponent';
 
 import Button from 'src/shared/Button';
 import jobInterestComponent from './jobInterestComponent';
-import SkillsComponent from './skillsComponent';
 import TextareaComponent from './textAreaComponent';
 import FileUploadComponent from './fileUploadComponent';
 import APIResponse from 'src/api/APIResponse';
-import EthnicityComponent from './ethnicityComponent';
+import Ethnicity from 'src/config/ethnicity';
+import Genders from 'src/config/genders';
+import StylizedSelectFormikComponent from './StylizedSelectFormikComponent';
+import Majors from 'src/config/Majors';
+import Skills from 'src/config/skills';
+import Form from 'src/shared/Form';
 
 
 const hackerSchema = Yup.object().shape({
@@ -87,7 +90,7 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
 
 function renderFormik(props: FormikProps<any>): JSX.Element {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <Form onSubmit={props.handleSubmit}>
             <Field
                 id='schoolName'
                 name={'school'}
@@ -97,9 +100,61 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 name='school'
             />
             <Field
+                id='graduationYear'
+                name='graduationYear'
+                label="Graduation year:"
+                placeholder="YYYY"
+                format="####"
+                component={NumberFormat}
+            />
+            <ErrorMessage
+                name='graduationYear'
+            />
+            <Field
+                id='major'
+                name={'major'}
+                inputType='major'
+                options={Majors}
+                isMulti={true}
+                component={StylizedSelectFormikComponent}
+                label={CONSTANTS.MAJOR_REQUEST_LABEL}
+                placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
+            />
+            <ErrorMessage
+                name='major'
+            />
+            <Field
                 id='gender'
                 name={'gender'}
-                component={GenderComponent}
+                selectId={'genderSelect'}
+                label={CONSTANTS.GENDER_REQUEST_LABEL}
+                placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+                options={[
+                    { label: Genders.MALE, value: Genders.MALE },
+                    { label: Genders.FEMALE, value: Genders.FEMALE },
+                    { label: Genders.PREFER_NOT_TO_SAY, value: Genders.PREFER_NOT_TO_SAY },
+                    { label: Genders.NON_BINARY, value: Genders.NON_BINARY },
+                ]}
+                component={StylizedSelectFormikComponent}
+            />
+            <Field
+                id='ethnicity'
+                name={'ethnicity'}
+                selectId={'ethnicitySelect'}
+                isMulti={true}
+                options={[
+                    { label: Ethnicity.AFRO_AMER, value: Ethnicity.AFRO_AMER },
+                    { label: Ethnicity.ASIAN_PI, value: Ethnicity.ASIAN_PI },
+                    { label: Ethnicity.EUROPEAN, value: Ethnicity.EUROPEAN },
+                    { label: Ethnicity.HISP, value: Ethnicity.HISP },
+                    { label: Ethnicity.NO_ANS, value: Ethnicity.NO_ANS },
+                ]}
+                label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
+                placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
+                component={StylizedSelectFormikComponent}
+            />
+            <ErrorMessage
+                name='ethnicity'
             />
             <Field
                 id='needsBus'
@@ -166,9 +221,20 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 name='other'
             />
             <Field
+                id='resumeFile'
+                name='resumeFile'
+                component={FileUploadComponent}
+                label={CONSTANTS.RESUME_REQUEST_LABEL}
+            />
+            <ErrorMessage
+                name='resumeFile'
+            />
+
+            <Field
                 id='jobInterest'
                 name={'jobInterest'}
                 component={jobInterestComponent}
+                label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
                 placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
             />
             <ErrorMessage
@@ -177,14 +243,17 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
             <Field
                 id='skills'
                 name={'skills'}
-                component={SkillsComponent}
+                selectId={'skillsSelect'}
+                isMulti={true}
+                options={[
+                    { label: Skills.HTML, value: Skills.HTML },
+                    { label: Skills.CSS, value: Skills.CSS },
+                    { label: Skills.JS, value: Skills.JS },
+                    { label: Skills.TS, value: Skills.TS },
+                ]}
+                label={CONSTANTS.SKILLS_REQUEST_LABEL}
                 placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
-            />
-            <Field
-                id='comments'
-                name={'comments'}
-                component={TextareaComponent}
-                label={CONSTANTS.COMMENTS_REQUEST_LABEL}
+                component={StylizedSelectFormikComponent}
             />
             <Field
                 id='essay'
@@ -193,44 +262,10 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 label={CONSTANTS.ESSAY_REQUEST_LABEL}
             />
             <Field
-                id='graduationYear'
-                name='graduationYear'
-                label="Graduation year:"
-                placeholder="YYYY"
-                format="####"
-                component={NumberFormat}
-            />
-            <ErrorMessage
-                name='graduationYear'
-            />
-            <Field
-                id='ethnicity'
-                name={'ethnicity'}
-                component={EthnicityComponent}
-                label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
-            />
-            <ErrorMessage
-                name='ethnicity'
-            />
-            <Field
-                id='major'
-                name={'major'}
-                inputType='major'
-                component={InputFormikComponent}
-                label={CONSTANTS.MAJOR_REQUEST_LABEL}
-                placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
-            />
-            <ErrorMessage
-                name='major'
-            />
-            <Field
-                id='resumeFile'
-                name='resumeFile'
-                component={FileUploadComponent}
-                label={CONSTANTS.RESUME_REQUEST_LABEL}
-            />
-            <ErrorMessage
-                name='resumeFile'
+                id='comments'
+                name={'comments'}
+                component={TextareaComponent}
+                label={CONSTANTS.COMMENTS_REQUEST_LABEL}
             />
 
             <Field
@@ -248,7 +283,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                     <Button type='submit'>Submit</Button>
                 </Box>
             </Flex>
-        </form>
+        </Form>
     );
 }
 
