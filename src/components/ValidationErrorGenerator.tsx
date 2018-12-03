@@ -5,6 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import APIResponse from 'src/api/APIResponse';
 
 export default function ValidationErrorGenerator(response: APIResponse<ValidationError>) {
+    if (!response) {
+        return;
+    }
     const errors = response.data;
     toast.error(response.message, {
         position: toast.POSITION.TOP_RIGHT,
