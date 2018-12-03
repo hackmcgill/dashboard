@@ -92,7 +92,7 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
                     this.props.history.push(FrontendRoute.LOGIN_PAGE);
                 }
             }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-                if (response) {
+                if (response && response.data) {
                     ValidationErrorGenerator(response.data);
                 }
             });
