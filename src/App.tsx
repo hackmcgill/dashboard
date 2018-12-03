@@ -7,7 +7,6 @@ import LoginContainer from 'src/containers/login';
 import ConfirmAccountContainer from 'src/containers/confirmAccount';
 import withAuthRedirect from 'src/hoc/withAuthRedirect';
 import withTokenRedirect from 'src/hoc/withTokenRedirect';
-import withThemeProvider from 'src/hoc/withThemeProvider';
 import ForgotPasswordContainer from 'src/containers/forgotPassword';
 import FrontendRoute from './config/FrontendRoute';
 import DashboardContainer from './containers/dashboard';
@@ -23,7 +22,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withAuthRedirect(HomeComponent)} />
+          <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withAuthRedirect(DashboardContainer)} />
           <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(CreateAccount, { requiredAuthState: false }))} />
           <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
           <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirOnSuccess: true }))} />
