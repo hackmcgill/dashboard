@@ -1,6 +1,6 @@
 import * as React from "react";
 import Navbar from 'src/components/Navbar';
-import NavbarSisterContainer from 'src/shared/NavbarSisterContainer';
+// import NavbarSisterContainer from 'src/shared/NavbarSisterContainer';
 
 const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
     class extends React.Component<P> {
@@ -12,9 +12,7 @@ const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
             return (
                 [
                     <Navbar key={0} />,
-                    <NavbarSisterContainer key={1}>
-                        <Component {...this.props} />
-                    </NavbarSisterContainer>
+                    <Component key={1} {...this.props} />
                 ]
             )
         }
