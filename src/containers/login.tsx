@@ -17,7 +17,7 @@ import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkCompon
 import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
-import Container from 'src/shared/Container';
+// import Container from 'src/shared/Container';
 import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
@@ -138,9 +138,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
         return (
             <MediaQuery maxWidth={1224}>
                 <Box width={1}>
-                    <Container>
-                        {this.renderForm()}
-                    </Container>
+                    {this.renderForm()}
                     <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} height={'100%'} />
                 </Box>
             </MediaQuery>

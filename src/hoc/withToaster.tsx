@@ -14,7 +14,7 @@ const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =
             }
             return (
                 [
-                    <Component key={0} />,
+                    <Component key={0} {...this.props} />,
                     <div style={containerProperty} key={1}><ToastContainer /></div>
                 ]
             )
