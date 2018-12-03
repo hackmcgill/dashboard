@@ -28,7 +28,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                     px={3}
                 >
                     <Box>
-                        <Image src={Construction} height={"7rem"} padding={'0rem'} />
+                        <Image src={Construction} imgHeight={"7rem"} padding={'0rem'} />
                     </Box>
                     <Box>
                         <H1>

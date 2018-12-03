@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 const Image = styled.img`
     src: ${props => props.src};
-    height: ${props => props.height};
+    height: ${props => props.imgHeight};
     width: auto;
     padding: ${(props: { 'padding': string }) => props.padding};
 `
