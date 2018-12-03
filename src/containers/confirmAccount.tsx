@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Flex, Box } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 
-import resetLogo from 'src/passwordReset.svg';
+import resetLogo from 'src/assets/images/passwordReset.svg';
 import Image from 'src/shared/Image';
 import H1 from 'src/shared/H1';
 import Button from 'src/shared/Button';
