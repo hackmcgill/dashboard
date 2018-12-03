@@ -4,7 +4,7 @@
 
 .react-autosuggest__input {
     border-radius: 20px;
-    border: 2px solid #797979;
+    border: 2px solid #F4F4F4;
     box-sizing: border-box;
     display: block;
     font-size: 16px;
@@ -14,6 +14,10 @@
     min-height: 35px;
     padding-left: 16px;
     width: 80%;
+}
+
+.react-autosuggest__input:hover {
+    border: 2px solid #4D4D4D;
 }
 
 .react-autosuggest__input--focused {
@@ -46,14 +50,17 @@
 }
 
 .react-autosuggest__suggestion {
+    font-weight: normal;
     cursor: pointer;
     padding: 10px 20px;
 }
 
 .react-autosuggest__suggestion--highlighted {
+    font-weight: normal;
     background-color: #F89790;
 }
 
 .react-autosuggest__suggestion--selected {
+    font-weight: normal;
     background-color: #F2463A;
 }

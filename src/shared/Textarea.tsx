@@ -12,5 +12,8 @@ const Textarea = styled.textarea`
     padding-left: 16px;
     padding-right: 16px;
     width: 80%;
+    &:hover {
+        border: 2px solid ${props => props.theme.grey};
+    }
 `
 export default Textarea; 

@@ -5,6 +5,7 @@ const StyledCreatableSelect = styled(CreatableSelect)`
   .react-select__control {
     border: 2px solid ${props => props.theme.greyLight};
     border-radius: ${props => props.theme.inputBorderRadius};
+    font-weight: normal;
     padding-left: 10px;
     width: 80%;
     margin: 0 auto;
@@ -17,6 +18,7 @@ const StyledCreatableSelect = styled(CreatableSelect)`
   }
 
   .react-select__option {
+    font-weight: normal;
     &: hover {
       background-color: ${props => props.theme.primaryLight};
     }
