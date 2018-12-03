@@ -57,7 +57,6 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                     </Box>
                     <MaxWidthBox fontSize={[2, 3, 4]}>
                         <Paragraph
-                            center={true}
                             paddingBottom={'20px'}
                             color={'#4D4D4D'}
                         >

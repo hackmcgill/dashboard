@@ -11,7 +11,7 @@ interface IMaxWidthBoxProps {
 const MaxWidthBox = styled(Box)`
     max-width: ${(props: IMaxWidthBoxProps) => props.maxWidth ? props.maxWidth : '600px'};
     text-align: ${(props: IMaxWidthBoxProps) => props.textAlign ? props.textAlign : ''};
-    margin-bottom: ${(props: IMaxWidthBoxProps) => props.marginBottom ? props.marginBottom : '20px'};
+    margin-bottom: ${props => props.marginBottom || props.mb ? props.marginBottom || props.mb : '20px'};
 `;
 
 export default MaxWidthBox;

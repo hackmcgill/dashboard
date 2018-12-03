@@ -15,49 +15,48 @@ import { Link } from 'react-router-dom';
 class NotFoundContainer extends React.Component<RouteComponentProps>{
     constructor(props: RouteComponentProps) {
         super(props);
-        
+
     }
     public render() {
-        
-            return (
-                <Flex
-                    flexWrap={'wrap'}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    flexDirection={'column'}
-                    px={3}
-                >
-                    <Box>
-                        <Image src={Construction} height={"7rem"} padding={'0rem'} />
-                    </Box>
-                    <Box>
-                        <H1>
-                            404: Page not Found
+
+        return (
+            <Flex
+                flexWrap={'wrap'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                flexDirection={'column'}
+                px={3}
+            >
+                <Box>
+                    <Image src={Construction} height={"7rem"} padding={'0rem'} />
+                </Box>
+                <Box>
+                    <H1>
+                        404: Page not Found
                         </H1>
-                    </Box>
-                    <MaxWidthBox fontSize={[2, 3, 4]}>
-                        <Paragraph
-                            center={true}
-                            paddingBottom={'20px'}
-                            color={'#4D4D4D'}
-                        >
-                            The page you're looking for doesn't exist or has been moved
+                </Box>
+                <MaxWidthBox fontSize={[2, 3, 4]}>
+                    <Paragraph
+                        paddingBottom={'20px'}
+                        color={'#4D4D4D'}
+                    >
+                        The page you're looking for doesn't exist or has been moved
                         </Paragraph>
-                    </MaxWidthBox>
-                    <Box width={'100%'}>
-                        
-                            <Flex
-                                justifyContent={'center'}
-                                alignItems={'center'}
-                                flexDirection={'column'}>
-                                <Box>
-                                    <Link to={'/'}><Button type='button'>Click to go home</Button></Link>
-                                </Box>
-                            </Flex>
-                    </Box>
-                </Flex>
-            );
-        
+                </MaxWidthBox>
+                <Box width={'100%'}>
+
+                    <Flex
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                        flexDirection={'column'}>
+                        <Box>
+                            <Link to={'/'}><Button type='button'>Click to go home</Button></Link>
+                        </Box>
+                    </Flex>
+                </Box>
+            </Flex>
+        );
+
     }
 
 }

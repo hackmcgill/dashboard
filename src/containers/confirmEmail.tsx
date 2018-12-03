@@ -42,7 +42,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                     </Box>
                 </Flex>
                 <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
-                    <Paragraph center={true} paddingBottom={'32px'} color={'#4D4D4D'}>
+                    <Paragraph paddingBottom={'32px'} color={'#4D4D4D'}>
                         Please check your inbox for a confirmation email. Click the link in the email to confirm your email address.
                     </Paragraph>
                 </MaxWidthBox>

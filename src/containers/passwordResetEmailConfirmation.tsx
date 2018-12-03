@@ -28,7 +28,6 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}>{
                 </Flex>
                 <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
                     <Paragraph
-                        center={true}
                         paddingBottom={'20px'}
                         color={'#4D4D4D'}
                     >
