@@ -21,7 +21,7 @@ class App extends React.Component {
     return (
         <BrowserRouter>
           <Switch>
-            <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withAuthRedirect((DashboardContainer)} />
+            <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withAuthRedirect((DashboardContainer))} />
             <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withAuthRedirect(CreateAccount, { requiredAuthState: false })} />
             <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
             <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirOnSuccess: true })} />
