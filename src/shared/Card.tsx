@@ -12,6 +12,7 @@ const Card = styled(Flex)`
   margin: 15px;
   background-color: ${(props:ICardProps) => props.theme && props.theme.greyLight || 'grey'};
   position: relative;
+  padding: 20px;
   box-shadow: 5px 5px 20px #cccccc;
   &:hover {
     transform: translate(-2px, -2px);
