@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Nav = styled.nav<{ borderThickness?: string }>`
     z-index: 100000;
     background: #ffffff;
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     font-family: ${props => props.theme.fontFamily};
