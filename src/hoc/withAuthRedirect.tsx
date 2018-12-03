@@ -1,8 +1,8 @@
 import * as React from "react";
-import account from "src/api/account";
 import { Redirect } from "react-router-dom";
 import { IAccount } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
+import UserInfoController from 'src/config/UserInfoController';
 
 enum authStates {
   authorized,
@@ -10,42 +10,44 @@ enum authStates {
   undefined
 }
 
+export interface IAuthDirectOptions {
+  requiredAuthState?: boolean;
+  AuthVerification?: (acct: IAccount) => boolean;
+  redirOnSuccess?: boolean;
+}
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiredAuthState: boolean = true, AuthVerification?: (acct: IAccount) => boolean) =>
+const defaultOptions = {
+  requiredAuthState: true,
+  AuthVerification: (acct: IAccount) => true,
+  redirOnSuccess: false
+}
+
+const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, options: IAuthDirectOptions = defaultOptions) =>
   class extends React.Component<P, { authState: authStates }> {
+
     private verification: (acct: IAccount) => boolean;
+    private redirOnSuccess: string;
+
     constructor(props: any) {
       super(props);
       this.state = {
         authState: authStates.undefined
       };
-      this.verification = (AuthVerification) ? AuthVerification : (acct: IAccount) => true;
+      this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
+      this.redirOnSuccess = (options.redirOnSuccess) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
     }
 
     public async componentDidMount() {
       try {
-        if (!window.localStorage.getItem('data')) {
-          const selfInfo: IAccount = (await account.getSelf()).data.data;
-          window.localStorage.setItem('data', JSON.stringify(selfInfo));
+        const selfInfo = await UserInfoController.getUserInfo();
+        if (selfInfo) {
           const verified = this.verification(selfInfo);
           this.setState({
             authState: (verified) ? authStates.authorized : authStates.unauthorized
           });
         } else {
-          let strInfo: string;
-          const data = window.localStorage.getItem('data');
-          switch (data) {
-            case null:
-              strInfo = ''
-              break;
-            default:
-              strInfo = data;
-              break;
-          }
-          const selfInfo = JSON.parse(strInfo);
-          const verified = this.verification(selfInfo);
           this.setState({
-            authState: (verified) ? authStates.authorized : authStates.unauthorized
+            authState: authStates.unauthorized
           });
         }
       } catch (e) {
@@ -59,9 +61,9 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
       const { authState } = this.state;
       switch (authState) {
         case authStates.authorized:
-          return requiredAuthState ? <Component {...this.props} /> : (<Redirect to="/" />);
+          return options.requiredAuthState ? <Component {...this.props} /> : (<Redirect to={FrontendRoute.HOME_PAGE} />);
         case authStates.unauthorized:
-          return requiredAuthState ? (<Redirect to={FrontendRoute.LOGIN_PAGE} />) : <Component {...this.props} />;
+          return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`} />) : <Component {...this.props} />;
         default:
           return <div />;
       }

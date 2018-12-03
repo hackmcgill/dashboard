@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as QueryString from 'query-string';
 import { AxiosResponse } from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
 
 import PasswordInputComponent from 'src/components/passwordInputComponent';
@@ -18,6 +18,9 @@ import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
 import Container from 'src/shared/Container';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
 export interface ILoginState {
     email: string;
     password: string;
@@ -26,8 +29,8 @@ export interface ILoginState {
 /**
  * Container that renders form to log in.
  */
-export default class LoginContainer extends React.Component<{}, ILoginState>{
-    constructor(props: {}) {
+class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
+    constructor(props: RouteComponentProps) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
@@ -110,7 +113,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                         </Box>
                         <Box pl={'5px'}>
                             <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-                                <Button type='button' onClick={this.handleSubmit} secondary={true}>Register</Button>
+                                <Button type='button' secondary={true}>Register</Button>
                             </Link>
                         </Box>
                     </Flex>
@@ -156,17 +159,19 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
             if (value.status === 200) {
                 // Probably want to redirect to login page or something
                 console.log('Logged in');
-                // check if there's a redirect link
                 const redir = this.getRedirectLink();
                 if (redir) {
-                    console.log("requested redirect.")
-                    // TODO: implement redirect after react-router is implemented.
+                    this.props.history.push(redir);
+                } else {
+                    this.props.history.push(FrontendRoute.HOME_PAGE);
                 }
             } else {
                 console.error(value);
             }
-        }).catch((reason) => {
-            console.error(reason);
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response) {
+                ValidationErrorGenerator(response.data);
+            }
         });
     }
     /**
@@ -195,3 +200,5 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
         }
     }
 }
+
+export default withRouter<RouteComponentProps>(WithToasterContainer(LoginContainer));

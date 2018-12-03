@@ -5,16 +5,23 @@
   "dependencies": {
     "@rebass/grid": "^6.0.0-4",
     "@types/react-responsive": "^3.0.2",
+    "ajv": "^6.5.4",
     "axios": "^0.18.0",
+    "formik": "^1.3.2",
+    "lodash": "^4.17.11",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
+    "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^7.0.1",
     "react-number-format": "^4.0.4",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "^4.0.8",
     "react-select": "^2.1.0",
-    "styled-components": "^4.0.2"
+    "react-toastify": "^4.4.3",
+    "styled-components": "^4.0.2",
+    "yup": "^0.26.6"
   },
   "scripts": {
     "start": "PORT=1337 react-scripts-ts start",
@@ -24,15 +31,23 @@
     "eject": "PORT=1337 react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/react-toastify": "^4.0.1",
+    "@rebass/grid": "^6.0.0-4",
     "@types/jest": "^23.3.3",
+    "@types/lodash": "^4.14.118",
     "@types/node": "^10.11.4",
     "@types/query-string": "^6.1.0",
     "@types/react": "^16.4.14",
+    "@types/react-alert": "^2.4.2",
     "@types/react-dom": "^16.0.8",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",
+    "@types/react-virtualized-select": "^3.0.7",
+    "@types/react-autosuggest": "^9.3.6",
     "@types/rebass__grid": "^6.0.0",
     "@types/styled-components": "^4.0.1",
+    "@types/yup": "^0.26.0",
+    "file-loader": "^2.0.0",
     "react-cosmos": "^4.6.4",
     "typescript": "^3.1.1"
   },

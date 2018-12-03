@@ -5,10 +5,14 @@ import PasswordInputComponent from 'src/components/passwordInputComponent';
 import Auth from 'src/api/auth';
 import getTokenFromQuery from 'src/config/authToken';
 import H1 from 'src/shared/H1';
-// import Container from 'src/shared/Container';
 import Button from 'src/shared/Button';
 import { Box, Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export interface IResetPasswordContainerState {
     isValid: boolean;
@@ -19,8 +23,8 @@ export interface IResetPasswordContainerState {
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-export default class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainerState>{
-    constructor(props: {}) {
+class ResetPasswordContainer extends React.Component<RouteComponentProps, IResetPasswordContainerState>{
+    constructor(props: RouteComponentProps) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
@@ -83,11 +87,14 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
             ).then((value: AxiosResponse) => {
                 // Good response
                 if (value.status === 200) {
-                    // Probably want to redirect to login page or something
                     console.log('Reset password');
+                    // Redirec to login page
+                    this.props.history.push(FrontendRoute.LOGIN_PAGE);
                 }
-            }).catch((reason) => {
-                console.error(reason);
+            }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+                if (response) {
+                    ValidationErrorGenerator(response.data);
+                }
             });
         } catch (error) {
             console.error(error);
@@ -109,3 +116,5 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         this.setState((state) => ({ isValid: state.password === confirmation && state.password.length > 0 }));
     }
 }
+
+export default withRouter<RouteComponentProps>(WithToasterContainer(ResetPasswordContainer));
