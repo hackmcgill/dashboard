@@ -115,7 +115,6 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                             <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                         </Box>
                     </Flex>
-
                 </Form>
             </Container>
         )
@@ -176,8 +175,9 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.setState({ phone: phone.value });
     }
     private onBirthDateChanged(birthdate: NumberFormatValues) {
-        console.log(new Date(birthdate.formattedValue));
-        this.setState({ birthdate: new Date(birthdate.formattedValue) });
+        const dateFields = birthdate.formattedValue.split('-');
+        const date = new Date(Number(dateFields[2]), Number(dateFields[0])-1, Number(dateFields[1]));
+        this.setState({ birthdate: date });
     }
     private onPronounChanged(pronoun: string) {
         this.setState({ pronoun });
