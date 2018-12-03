@@ -28,7 +28,7 @@ class App extends React.Component {
             <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withAuthRedirect(ConfirmAccountContainer, true)} />
             <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={ForgotPasswordContainer} />
             <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withAuthRedirect(LoginContainer, false)} />
-            <Route path="*" component={NotFoundContainer}/>
+            <Route path="*" component={NotFoundContainer} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>

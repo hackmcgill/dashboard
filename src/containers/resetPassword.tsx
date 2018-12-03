@@ -9,6 +9,9 @@ import H1 from 'src/shared/H1';
 import Button from 'src/shared/Button';
 import { Box, Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
 
 export interface IResetPasswordContainerState {
     isValid: boolean;
@@ -19,7 +22,7 @@ export interface IResetPasswordContainerState {
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-export default class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainerState>{
+class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainerState>{
     constructor(props: {}) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -86,8 +89,10 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
                     // Probably want to redirect to login page or something
                     console.log('Reset password');
                 }
-            }).catch((reason) => {
-                console.error(reason);
+            }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+                if (response) {
+                    ValidationErrorGenerator(response.data);
+                }
             });
         } catch (error) {
             console.error(error);
@@ -109,3 +114,5 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         this.setState((state) => ({ isValid: state.password === confirmation && state.password.length > 0 }));
     }
 }
+
+export default WithToasterContainer(ResetPasswordContainer);

@@ -18,6 +18,9 @@ import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
 import Container from 'src/shared/Container';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
 export interface ILoginState {
     email: string;
     password: string;
@@ -26,7 +29,7 @@ export interface ILoginState {
 /**
  * Container that renders form to log in.
  */
-export default class LoginContainer extends React.Component<{}, ILoginState>{
+class LoginContainer extends React.Component<{}, ILoginState>{
     constructor(props: {}) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -110,7 +113,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                         </Box>
                         <Box pl={'5px'}>
                             <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-                                <Button type='button' onClick={this.handleSubmit} secondary={true}>Register</Button>
+                                <Button type='button' secondary={true}>Register</Button>
                             </Link>
                         </Box>
                     </Flex>
@@ -165,8 +168,10 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
             } else {
                 console.error(value);
             }
-        }).catch((reason) => {
-            console.error(reason);
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response) {
+                ValidationErrorGenerator(response.data);
+            }
         });
     }
     /**
@@ -195,3 +200,5 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
         }
     }
 }
+
+export default WithToasterContainer(LoginContainer);
