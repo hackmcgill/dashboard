@@ -2,7 +2,8 @@ import * as React from 'react';
 import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
 
-import { Flex, Box } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 interface IFullNameInput {
     onFirstNameChanged: (firstName: string) => void;
@@ -10,19 +11,19 @@ interface IFullNameInput {
 }
 const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
     return (
-        <Flex flexWrap={'wrap'} width={9 / 10} m='auto'>
-            <Box width={[1 / 2]}>
+        <Flex flexWrap={'wrap'} width={[1, 1 - 0.12]} m='auto' name='name_flex'>
+            <MaxWidthBox width={[1, 0.5]} m={'none'} marginBottom='0px'>
                 <Label>
                     First Name:
-                    <Input type='text' onChange={handleChange(props, 'first')} />
+                    <Input type='text' onChange={handleChange(props, 'first')} isTight={true} />
                 </Label>
-            </Box>
-            <Box width={[1 / 2]}>
+            </MaxWidthBox>
+            <MaxWidthBox width={[1, 0.5,]} m={'none'} marginBottom='0px' >
                 <Label>
                     Last Name:
-                    <Input type='text' onChange={handleChange(props, 'last')} />
+                        <Input type='text' onChange={handleChange(props, 'last')} isTight={true} />
                 </Label>
-            </Box>
+            </MaxWidthBox>
         </Flex>
     );
 }
