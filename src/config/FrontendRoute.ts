@@ -4,6 +4,7 @@ enum FrontendRoute {
     FORGOT_PASSWORD_PAGE = '/password/forgot',
     RESET_PASSWORD_PAGE = '/password/reset',
     LOGIN_PAGE = '/login',
+    CREATE_APPLICATION_PAGE = '/application/create',
 }
 
 export default FrontendRoute;

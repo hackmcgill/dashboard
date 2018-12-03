@@ -5,11 +5,9 @@ import PasswordInputComponent from 'src/components/passwordInputComponent';
 import Auth from 'src/api/auth';
 import getTokenFromQuery from 'src/config/authToken';
 import H1 from 'src/shared/H1';
-// import Container from 'src/shared/Container';
 import Button from 'src/shared/Button';
 import { Box, Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-
 export interface IResetPasswordContainerState {
     isValid: boolean;
     isSubmitted: boolean;
@@ -75,6 +73,7 @@ export default class ResetPasswordContainer extends React.Component<{}, IResetPa
         if (!isValid) {
             return;
         }
+        // TODO: try/catch
         try {
             const authToken: string | string[] = getTokenFromQuery();
             Auth.resetPassword(

@@ -110,7 +110,7 @@ export default class LoginContainer extends React.Component<{}, ILoginState>{
                         </Box>
                         <Box pl={'5px'}>
                             <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-                                <Button type='button' onClick={this.handleSubmit} secondary={true}>Register</Button>
+                                <Button type='button' secondary={true}>Register</Button>
                             </Link>
                         </Box>
                     </Flex>
