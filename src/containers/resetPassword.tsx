@@ -8,8 +8,12 @@ import H1 from 'src/shared/H1';
 import Button from 'src/shared/Button';
 import { Box, Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import FrontendRoute from 'src/config/FrontendRoute';
+
 export interface IResetPasswordContainerState {
     isValid: boolean;
     isSubmitted: boolean;
@@ -87,8 +91,10 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
                     // Redirec to login page
                     this.props.history.push(FrontendRoute.LOGIN_PAGE);
                 }
-            }).catch((reason) => {
-                console.error(reason);
+            }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+                if (response) {
+                    ValidationErrorGenerator(response.data);
+                }
             });
         } catch (error) {
             console.error(error);
@@ -111,4 +117,4 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
     }
 }
 
-export default withRouter<RouteComponentProps>(ResetPasswordContainer);
+export default withRouter<RouteComponentProps>(WithToasterContainer(ResetPasswordContainer));

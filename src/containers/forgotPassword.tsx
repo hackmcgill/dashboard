@@ -12,6 +12,9 @@ import Form from 'src/shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
+import WithToasterContainer from 'src/hoc/withToaster';
 
 export interface IForgotState {
     email: string;
@@ -113,8 +116,10 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
             } else {
                 console.error(value);
             }
-        }).catch((reason) => {
-            console.error(reason);
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response) {
+                ValidationErrorGenerator(response.data);
+            }
         });
     }
     /**
@@ -126,4 +131,4 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
     }
 }
 
-export default withRouter<RouteComponentProps>(ForgotPasswordContainer);
+export default WithToasterContainer(withRouter<RouteComponentProps>(ForgotPasswordContainer));
