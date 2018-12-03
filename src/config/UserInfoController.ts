@@ -65,6 +65,7 @@ class UserInfoController {
             this.setUserInfo(user);
             return true;
         } catch (error) {
+            console.error(error);
             this.deleteUserInfo();
             return false;
         }
