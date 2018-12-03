@@ -9,18 +9,13 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import { Link } from 'react-router-dom';
 
-// export interface IForgotState {
-//     email: string;
-//     sentEmail: boolean;
-// }
-
 /**
- * Container that renders form to log in.
+ * Container that renders 404 not found page.
  */
 class NotFoundContainer extends React.Component<RouteComponentProps>{
     constructor(props: RouteComponentProps) {
         super(props);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        
     }
     public render() {
         
@@ -30,7 +25,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                     justifyContent={'center'}
                     alignItems={'center'}
                     flexDirection={'column'}
-                    px={2}
+                    px={3}
                 >
                     <Box>
                         <Image src={Construction} height={"7rem"} padding={'0rem'} />
@@ -59,7 +54,6 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                                     <Link to={'/'}><Button type='button'>Click to go home</Button></Link>
                                 </Box>
                             </Flex>
-                        
                     </Box>
                 </Flex>
             );
@@ -67,14 +61,5 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
     }
 
 }
-
-    /**
-     * Function that calls the login function once the form is submitted.
-     */
-    // private handleSubmit(): void {
-       
-    // }
-   
-
 
 export default withRouter<RouteComponentProps>(NotFoundContainer);
