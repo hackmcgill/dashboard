@@ -7,6 +7,7 @@ import Paragraph from 'src/shared/Paragraph';
 import H1 from 'src/shared/H1';
 import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import { Link } from 'react-router-dom';
 
 // export interface IForgotState {
 //     email: string;
@@ -32,7 +33,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                     px={2}
                 >
                     <Box>
-                        <Image src={Construction} height={"4rem"} padding={'0rem'} />
+                        <Image src={Construction} height={"7rem"} padding={'0rem'} />
                     </Box>
                     <Box>
                         <H1>
@@ -55,7 +56,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                                 alignItems={'center'}
                                 flexDirection={'column'}>
                                 <Box>
-                                    <Button type='button'>Click to go home</Button>
+                                    <Link to={'/'}><Button type='button'>Click to go home</Button></Link>
                                 </Box>
                             </Flex>
                         
