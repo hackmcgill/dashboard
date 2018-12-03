@@ -10,16 +10,31 @@ enum authStates {
   undefined
 }
 
+export interface IAuthDirectOptions {
+  requiredAuthState?: boolean;
+  AuthVerification?: (acct: IAccount) => boolean;
+  redirOnSuccess?: boolean;
+}
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requiredAuthState: boolean = true, AuthVerification?: (acct: IAccount) => boolean) =>
+const defaultOptions = {
+  requiredAuthState: true,
+  AuthVerification: (acct: IAccount) => true,
+  redirOnSuccess: false
+}
+
+const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, options: IAuthDirectOptions = defaultOptions) =>
   class extends React.Component<P, { authState: authStates }> {
+
     private verification: (acct: IAccount) => boolean;
+    private redirOnSuccess: string;
+
     constructor(props: any) {
       super(props);
       this.state = {
         authState: authStates.undefined
       };
-      this.verification = (AuthVerification) ? AuthVerification : (acct: IAccount) => true;
+      this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
+      this.redirOnSuccess = (options.redirOnSuccess) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
     }
 
     public async componentDidMount() {
@@ -46,9 +61,9 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
       const { authState } = this.state;
       switch (authState) {
         case authStates.authorized:
-          return requiredAuthState ? <Component {...this.props} /> : (<Redirect to="/" />);
+          return options.requiredAuthState ? <Component {...this.props} /> : (<Redirect to={FrontendRoute.HOME_PAGE} />);
         case authStates.unauthorized:
-          return requiredAuthState ? (<Redirect to={FrontendRoute.LOGIN_PAGE} />) : <Component {...this.props} />;
+          return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`} />) : <Component {...this.props} />;
         default:
           return <div />;
       }

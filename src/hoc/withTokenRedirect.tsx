@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
 import getTokenFromQuery from 'src/config/authToken';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 enum authStates {
     authorized,
@@ -36,7 +37,7 @@ const withTokenRedirect = <P extends {}>(Component: React.ComponentType<P>) =>
                 case authStates.authorized:
                     return <Component {...this.props} />;
                 case authStates.unauthorized:
-                    return (<Redirect to="/" />);
+                    return (<Redirect to={FrontendRoute.HOME_PAGE} />);
                 default:
                     return <div />;
             }

@@ -23,14 +23,14 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact={true} path="/" component={withAuthRedirect(HomeComponent)} />
-            <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withAuthRedirect(CreateAccount, false)} />
+            <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withAuthRedirect(HomeComponent)} />
+            <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withAuthRedirect(CreateAccount, { requiredAuthState: false })} />
             <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
-            <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withAuthRedirect(ConfirmAccountContainer, true)} />
+            <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirOnSuccess: true })} />
             <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={ForgotPasswordContainer} />
-            <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE} component={withAuthRedirect(CreateApplicationContainer, true)} />
-            <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withAuthRedirect(LoginContainer, false)} />
-            <Route path="*" component={NotFoundContainer}/>
+            <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE} component={withAuthRedirect(CreateApplicationContainer, { requiredAuthState: true, redirOnSuccess: true })} />
+            <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withAuthRedirect(LoginContainer, { requiredAuthState: false })} />
+            <Route path="*" component={NotFoundContainer} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
