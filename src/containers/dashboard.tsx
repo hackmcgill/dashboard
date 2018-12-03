@@ -15,6 +15,7 @@ import MediaQuery from 'react-responsive';
 import hacker from 'src/api/hacker';
 import H1 from 'src/shared/H1';
 import { IHacker } from 'src/config/userTypes';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export interface IDashboardState {
     status: HackerStatus;
@@ -48,13 +49,13 @@ public render() {
         <Flex flexDirection={'column'} alignItems={'center'}>
             <H1>status: {status.toLowerCase()}</H1>
             <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
-                <Link to="/">
+                <Link to={FrontendRoute.CREATE_APPLICATION_PAGE}>
                 <Card width={"250px"} flexDirection={"column"}>
                     <H2 fontSize={"28px"}>Application</H2>
                     <Image src={iconApplication} height={"125px"} />
                 </Card>
                 </Link>
-                <Link to="/">
+                <Link to={FrontendRoute.HOME_PAGE}>
                 <Card width={"250px"} flexDirection={"column"}>
                     <H2 fontSize={"28px"}>Account</H2>
                     <Image src={iconAccount} height={"125px"} />
