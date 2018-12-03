@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
 import StylizedSelect from 'src/shared/StyledCreatableSelect';
-// import Genders from 'src/config/genders';
 import Label from 'src/shared/Label';
 
 export interface IStylizedSelectFormikProps {
@@ -24,7 +23,7 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
                 onChange={handleChange(props)}
                 options={props.options}
                 isMulti={props.isMulti}
-                placeholder={props.placeholder ? props.placeholder : 'Select...'}
+                placeholder={props.placeholder || 'Select...'}
             />
         </Label>
     );

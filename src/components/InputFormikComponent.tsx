@@ -10,7 +10,7 @@ export interface IInputFormikComponentProp {
     placeholder?: string;
 }
 const InputFormikComponent: React.StatelessComponent<IInputFormikComponentProp & FieldProps> = (props) => {
-    const placeholder = (props.placeholder) ? props.placeholder : '';
+    const placeholder = props.placeholder || '';
     return (
         <Label>
             {props.label}
