@@ -12,7 +12,7 @@ const HomeComponent: React.StatelessComponent<{}> = (props) => {
             </header>
             <div className="container">
                 <ul>
-                    <li><Link to="/">Home</Link></li>
+                    <li><Link to={FrontendRoute.HOME_PAGE}>Home</Link></li>
                     <li><Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>create account</Link></li>
                     <li><Link to={FrontendRoute.RESET_PASSWORD_PAGE}>Reset password</Link></li>
                 </ul>

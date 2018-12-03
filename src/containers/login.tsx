@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as QueryString from 'query-string';
 import { AxiosResponse } from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
 
 import PasswordInputComponent from 'src/components/passwordInputComponent';
@@ -29,8 +29,8 @@ export interface ILoginState {
 /**
  * Container that renders form to log in.
  */
-class LoginContainer extends React.Component<{}, ILoginState>{
-    constructor(props: {}) {
+class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
+    constructor(props: RouteComponentProps) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
@@ -159,11 +159,11 @@ class LoginContainer extends React.Component<{}, ILoginState>{
             if (value.status === 200) {
                 // Probably want to redirect to login page or something
                 console.log('Logged in');
-                // check if there's a redirect link
                 const redir = this.getRedirectLink();
                 if (redir) {
-                    console.log("requested redirect.")
-                    // TODO: implement redirect after react-router is implemented.
+                    this.props.history.push(redir);
+                } else {
+                    this.props.history.push(FrontendRoute.HOME_PAGE);
                 }
             } else {
                 console.error(value);
@@ -201,4 +201,4 @@ class LoginContainer extends React.Component<{}, ILoginState>{
     }
 }
 
-export default WithToasterContainer(LoginContainer);
+export default withRouter<RouteComponentProps>(WithToasterContainer(LoginContainer));

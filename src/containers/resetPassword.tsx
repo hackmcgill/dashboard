@@ -11,6 +11,8 @@ import MaxWidthBox from 'src/shared/MaxWidthBox';
 import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export interface IResetPasswordContainerState {
     isValid: boolean;
@@ -21,8 +23,8 @@ export interface IResetPasswordContainerState {
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainerState>{
-    constructor(props: {}) {
+class ResetPasswordContainer extends React.Component<RouteComponentProps, IResetPasswordContainerState>{
+    constructor(props: RouteComponentProps) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
@@ -77,7 +79,6 @@ class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainer
         if (!isValid) {
             return;
         }
-        // TODO: try/catch
         try {
             const authToken: string | string[] = getTokenFromQuery();
             Auth.resetPassword(
@@ -86,8 +87,9 @@ class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainer
             ).then((value: AxiosResponse) => {
                 // Good response
                 if (value.status === 200) {
-                    // Probably want to redirect to login page or something
                     console.log('Reset password');
+                    // Redirec to login page
+                    this.props.history.push(FrontendRoute.LOGIN_PAGE);
                 }
             }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
                 if (response) {
@@ -115,4 +117,4 @@ class ResetPasswordContainer extends React.Component<{}, IResetPasswordContainer
     }
 }
 
-export default WithToasterContainer(ResetPasswordContainer);
+export default withRouter<RouteComponentProps>(WithToasterContainer(ResetPasswordContainer));
