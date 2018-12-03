@@ -29,6 +29,7 @@ import StylizedSelectFormikComponent from './StylizedSelectFormikComponent';
 import Majors from 'src/config/Majors';
 import Skills from 'src/config/skills';
 import Form from 'src/shared/Form';
+import ValidationErrorGenerator from './ValidationErrorGenerator';
 
 
 const hackerSchema = Yup.object().shape({
@@ -71,9 +72,9 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
                 degree: '',
                 gender: '',
                 needsBus: false,
-                github: '',
-                dropler: '',
-                linkedIn: '',
+                github: 'https://github.com/',
+                dropler: 'https://droplr.com/',
+                linkedIn: 'https://linkedin.com/in/',
                 personal: '',
                 other: '',
                 jobInterest: '',
@@ -84,7 +85,7 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
                 codeOfConduct: false
 
             }}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmitSync}
             render={renderFormik}
             validationSchema={hackerSchema}
         />
@@ -305,11 +306,25 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
     );
 }
 
-async function handleSubmit(values: any, actions: FormikActions<any>) {
+function handleSubmitSync(values: any, actions: FormikActions<any>) {
+    handleSubmit(values, actions).then((success: boolean) => {
+        if (success) {
+            console.log("Submtted application");
+        } else {
+            console.error("Issue with submission of application");
+        }
+    }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+        if (response) {
+            ValidationErrorGenerator(response.data);
+        }
+    });
+}
+
+async function handleSubmit(values: any, actions: FormikActions<any>): Promise<boolean> {
     const acctResponse: AxiosResponse<APIResponse<IAccount>> = await Account.getSelf();
     if (acctResponse.status !== 200) {
         console.error("Error while getting current user");
-        return;
+        return false;
     }
     const account = acctResponse.data.data;
 
@@ -343,15 +358,17 @@ async function handleSubmit(values: any, actions: FormikActions<any>) {
         });
     if (hackerResponse.status !== 200) {
         console.error("Error while creating account");
-        return;
+        return false;
     }
     const hacker = hackerResponse.data.data;
     const resumeResponse: AxiosResponse<APIResponse<{}>> = await Hacker.uploadResume(values.resumeFile, hacker.id);
     if (resumeResponse.status !== 200) {
         console.error("Could not upload resume properly");
+        return false;
     } else {
         console.log("Uploaded application properly!");
     }
+    return true;
 }
 
 export default CreateApplicationForm
