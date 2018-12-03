@@ -1,5 +1,5 @@
 import API from './api';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import { AxiosPromise } from 'axios';
 import APIResponse from './APIResponse';
 
@@ -52,11 +52,16 @@ class AuthAPI {
             }
         );
     }
-
     public confirm(token: string): AxiosPromise<APIResponse<{}>> {
         return API.getEndpoint(Route.AUTH_CONFIRM_ACCT).create(undefined, {
             subURL: token
         });
+    }
+    /**
+     * Resends the confirmation email.
+     */
+    public resendConfirmationEmail(): AxiosPromise<APIResponse> {
+        return API.getEndpoint(Route.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }
 

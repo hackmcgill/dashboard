@@ -1,6 +1,6 @@
 import { ISponsor } from '../config/userTypes';
 import { AxiosPromise } from 'axios';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import API from './api';
 class SponsorAPI {
     constructor() {

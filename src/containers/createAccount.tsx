@@ -13,6 +13,9 @@ import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
 import PronounInput from 'src/components/pronounComponent';
+import Form from 'src/shared/Form';
+import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
+import Auth from 'src/api/auth';
 
 
 interface ICreateAccountContainerState {
@@ -25,6 +28,8 @@ interface ICreateAccountContainerState {
     pronoun: string;
     phone: string;
     birthdate: Date;
+
+    accountCreated: boolean;
 }
 
 class CreateAccountContainer extends React.Component<{}, ICreateAccountContainerState>{
@@ -39,7 +44,8 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             shirtSize: ShirtSize.M,
             pronoun: '',
             phone: '',
-            birthdate: new Date()
+            birthdate: new Date(),
+            accountCreated: false
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
         this.onShirtSizeChanged = this.onShirtSizeChanged.bind(this);
@@ -53,9 +59,17 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
         this.onPronounChanged = this.onPronounChanged.bind(this);
     }
     public render() {
+        if (this.state.accountCreated) {
+            return <ConfirmationEmailSentComponent />
+        } else {
+            return this.renderForm();
+        }
+    }
+
+    private renderForm() {
         return (
             <Container>
-                <form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
                     <Flex flexWrap={'wrap'}>
                         <Box width={1}>
                             <FullNameInput
@@ -101,11 +115,11 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                             <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                         </Box>
                     </Flex>
-
-                </form>
+                </Form>
             </Container>
         )
     }
+
     private handleSubmit() {
         Account.create(
             {
@@ -124,6 +138,15 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
             // Good response
             if (value.status === 200) {
                 console.log('Created an account');
+                Auth.login(this.state.email, this.state.password).then(
+                    (success) => {
+                        this.setState({
+                            accountCreated: true
+                        });
+                    }, (reason) => {
+                        console.error(reason);
+                    }
+                );
             }
         }).catch((reason) => {
             console.error(reason);

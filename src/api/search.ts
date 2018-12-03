@@ -1,5 +1,5 @@
 import { AxiosPromise } from 'axios';
-import Route from '../config/route';
+import Route from '../config/APIRoute';
 import API from './api';
 import ISearchParameter from 'src/config/searchParameter';
 class SearchAPI {

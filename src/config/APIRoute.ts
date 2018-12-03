@@ -1,10 +1,11 @@
-enum Route {
+enum APIRoute {
     // Auth routes
     AUTH_LOGIN = 'auth/login',
     AUTH_LOGOUT = 'auth/logout',
     AUTH_FORGOT_PASS = 'auth/password/forgot',
     AUTH_RESET_PASS = 'auth/password/reset',
     AUTH_CONFIRM_ACCT = 'auth/confirm',
+    AUTH_RESEND_CONF_EMAIL = 'auth/confirm/resend',
     // Account routes
     ACCOUNT = 'account',
     ACCOUNT_SELF = 'account/self',
@@ -20,4 +21,4 @@ enum Route {
     // Sponsor routes
     SPONSOR = 'sponsor',
 };
-export default Route;
+export default APIRoute;

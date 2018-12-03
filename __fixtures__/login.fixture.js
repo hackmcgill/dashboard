@@ -1,6 +1,7 @@
 import loginComponent from "src/containers/login";
+import withThemeProvider from 'src/hoc/withThemeProvider';
 
 export default {
-    component: loginComponent,
+    component: withThemeProvider(loginComponent),
     props: {}
 };
