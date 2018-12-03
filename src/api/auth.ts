@@ -10,6 +10,7 @@ class AuthAPI {
         API.createEntity(Route.AUTH_FORGOT_PASS);
         API.createEntity(Route.AUTH_RESET_PASS);
         API.createEntity(Route.AUTH_CONFIRM_ACCT);
+        API.createEntity(Route.AUTH_CHANGE_PASS);
     }
     /**
      * Logs in a user to the API.
@@ -57,6 +58,20 @@ class AuthAPI {
             subURL: token
         });
     }
+
+    /**
+     * Change the password of the logged in user from an old password to a new password.
+     * @param {string} oldPassword The current password of the user
+     * @param {string} newPassword The new password of the user
+     */
+    public changePassword(oldPassword: string, newPassword: string): AxiosPromise {
+        const changePasswordObject = {
+            "oldPassword": oldPassword,
+            "newPassword": newPassword
+        };
+        return API.getEndpoint(Route.CHANGE_PASS).patch({ id: "" }, changePasswordObject);
+    }
+
     /**
      * Resends the confirmation email.
      */
