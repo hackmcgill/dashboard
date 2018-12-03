@@ -1,8 +1,8 @@
 import * as React from "react";
-import account from "src/api/account";
 import { Redirect } from "react-router-dom";
 import { IAccount } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
+import UserInfoController from 'src/config/UserInfoController';
 
 enum authStates {
   authorized,
@@ -39,28 +39,15 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
 
     public async componentDidMount() {
       try {
-        if (!window.localStorage.getItem('data')) {
-          const selfInfo: IAccount = (await account.getSelf()).data.data;
-          window.localStorage.setItem('data', JSON.stringify(selfInfo));
+        const selfInfo = await UserInfoController.getUserInfo();
+        if (selfInfo) {
           const verified = this.verification(selfInfo);
           this.setState({
             authState: (verified) ? authStates.authorized : authStates.unauthorized
           });
         } else {
-          let strInfo: string;
-          const data = window.localStorage.getItem('data');
-          switch (data) {
-            case null:
-              strInfo = ''
-              break;
-            default:
-              strInfo = data;
-              break;
-          }
-          const selfInfo = JSON.parse(strInfo);
-          const verified = this.verification(selfInfo);
           this.setState({
-            authState: (verified) ? authStates.authorized : authStates.unauthorized
+            authState: authStates.unauthorized
           });
         }
       } catch (e) {
