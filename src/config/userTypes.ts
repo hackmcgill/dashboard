@@ -28,7 +28,8 @@ export interface IHacker {
     accountId: string,
     status: HackerStatus,
     school: string,
-    // no enum for this
+    degree: string,
+    // no enum for these
     gender?: string,
     needsBus?: boolean,
     application: {
