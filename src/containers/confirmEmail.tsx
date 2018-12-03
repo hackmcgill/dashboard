@@ -7,6 +7,10 @@ import H1 from 'src/shared/H1';
 import Image from 'src/shared/Image';
 import Paragraph from 'src/shared/Paragraph';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import { AxiosResponse } from 'axios';
+import APIResponse from 'src/api/APIResponse';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import WithToasterContainer from 'src/hoc/withToaster';
 
 interface IConfirmationEmailSentState {
     buttonDisabled: boolean;
@@ -61,11 +65,13 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                         buttonDisabled: false
                     });
                 }, this.sendDelay);
-            } else if (value.status === 422) {
-                console.log("Already confirmed");
             }
-        })
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response) {
+                ValidationErrorGenerator(response.data);
+            }
+        });
     }
 }
 
-export default ConfirmationEmailSentComponent;
+export default WithToasterContainer(ConfirmationEmailSentComponent);

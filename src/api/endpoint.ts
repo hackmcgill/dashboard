@@ -2,6 +2,12 @@ import axios, { AxiosPromise } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 axios.defaults.withCredentials = true;
 
+axios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    return Promise.reject(error.response);
+});
+
 export default class Endpoint {
     private resourceURL: string;
     private name: string;

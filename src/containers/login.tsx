@@ -18,6 +18,9 @@ import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
 import Container from 'src/shared/Container';
+import WithToasterContainer from 'src/hoc/withToaster';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import APIResponse from 'src/api/APIResponse';
 export interface ILoginState {
     email: string;
     password: string;
@@ -165,8 +168,10 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
             } else {
                 console.error(value);
             }
-        }).catch((reason) => {
-            console.error(reason);
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response) {
+                ValidationErrorGenerator(response.data);
+            }
         });
     }
     /**
@@ -196,4 +201,4 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     }
 }
 
-export default withRouter<RouteComponentProps>(LoginContainer);
+export default withRouter<RouteComponentProps>(WithToasterContainer(LoginContainer));
