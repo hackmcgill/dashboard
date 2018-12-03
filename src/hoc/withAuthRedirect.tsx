@@ -24,30 +24,12 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
 
     public async componentDidMount() {
       try {
-        if (!window.localStorage.getItem('data')) {
-          const selfInfo: IAccount = (await account.getSelf()).data.data;
-          window.localStorage.setItem('data', JSON.stringify(selfInfo));
-          const verified = this.verification(selfInfo);
-          this.setState({
-            authState: (verified) ? authStates.authorized : authStates.unauthorized
-          });
-        } else {
-          let strInfo: string;
-          const data = window.localStorage.getItem('data');
-          switch (data) {
-            case null:
-              strInfo = ''
-              break;
-            default:
-              strInfo = data;
-              break;
-          }
-          const selfInfo = JSON.parse(strInfo);
-          const verified = this.verification(selfInfo);
-          this.setState({
-            authState: (verified) ? authStates.authorized : authStates.unauthorized
-          });
-        }
+        const selfInfo: IAccount = (await account.getSelf()).data.data;
+        window.localStorage.setItem('data', JSON.stringify(selfInfo));
+        const verified = this.verification(selfInfo);
+        this.setState({
+          authState: (verified) ? authStates.authorized : authStates.unauthorized
+        });
       } catch (e) {
         this.setState({
           authState: authStates.unauthorized
