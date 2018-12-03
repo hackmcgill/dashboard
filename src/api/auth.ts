@@ -5,12 +5,12 @@ import APIResponse from './APIResponse';
 
 class AuthAPI {
     constructor() {
-        API.createEntity(Route.LOGIN);
-        API.createEntity(Route.LOGOUT);
-        API.createEntity(Route.FORGOT_PASS);
-        API.createEntity(Route.RESET_PASS);
-        API.createEntity(Route.RESEND_CONF_EMAIL);
-        API.createEntity(Route.CHANGE_PASS);
+        API.createEntity(Route.AUTH_LOGIN);
+        API.createEntity(Route.AUTH_LOGOUT);
+        API.createEntity(Route.AUTH_FORGOT_PASS);
+        API.createEntity(Route.AUTH_RESET_PASS);
+        API.createEntity(Route.AUTH_CONFIRM_ACCT);
+        API.createEntity(Route.AUTH_CHANGE_PASS);
     }
     /**
      * Logs in a user to the API.
@@ -18,7 +18,7 @@ class AuthAPI {
      * @param {String} password 
      */
     public login(email: string, password: string): AxiosPromise {
-        return API.getEndpoint(Route.LOGIN).create(
+        return API.getEndpoint(Route.AUTH_LOGIN).create(
             { email, password }
         );
     }
@@ -27,7 +27,7 @@ class AuthAPI {
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
     public logout(): AxiosPromise {
-        return API.getEndpoint(Route.LOGOUT).getOne({ id: '' });
+        return API.getEndpoint(Route.AUTH_LOGOUT).getOne({ id: '' });
 
     }
     /**
@@ -35,7 +35,7 @@ class AuthAPI {
      * @param {string} email 
      */
     public forgotPassword(email: string): AxiosPromise {
-        return API.getEndpoint(Route.FORGOT_PASS).create({ email });
+        return API.getEndpoint(Route.AUTH_FORGOT_PASS).create({ email });
     }
     /**
      * Reset a password given an authentication token (provided by API in email).
@@ -43,15 +43,20 @@ class AuthAPI {
      * @param {string} authToken 
      */
     public resetPassword(password: string, authToken: string): AxiosPromise {
-        return API.getEndpoint(Route.RESET_PASS).create({ password },
+        return API.getEndpoint(Route.AUTH_RESET_PASS).create({ password },
             {
                 config: {
                     headers: {
-                        Authentication: authToken
+                        'X-Reset-Token': authToken
                     }
                 }
             }
         );
+    }
+    public confirm(token: string): AxiosPromise<APIResponse<{}>> {
+        return API.getEndpoint(Route.AUTH_CONFIRM_ACCT).create(undefined, {
+            subURL: token
+        });
     }
 
     /**
@@ -64,14 +69,14 @@ class AuthAPI {
             "oldPassword": oldPassword,
             "newPassword": newPassword
         };
-        return API.getEndpoint(Route.CHANGE_PASS).patch({ id: "" }, changePasswordObject);
+        return API.getEndpoint(Route.AUTH_CHANGE_PASS).patch({ id: "" }, changePasswordObject);
     }
 
     /**
      * Resends the confirmation email.
      */
     public resendConfirmationEmail(): AxiosPromise<APIResponse> {
-        return API.getEndpoint(Route.RESEND_CONF_EMAIL).getAll();
+        return API.getEndpoint(Route.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }
 
