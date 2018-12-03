@@ -12,7 +12,7 @@ import Form from 'src/shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
-
+import UserInfoController from 'src/config/UserInfoController';
 export interface IForgotState {
     email: string;
     sentEmail: boolean;
@@ -100,10 +100,8 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
             if (value.status === 200) {
                 console.log('reset password');
                 // Log them out, in case they were already logged in.
-                Auth.logout().then(() => {
+                UserInfoController.logOut().then(() => {
                     // Redirect to confirmation page that we sent an email
-                    window.localStorage.removeItem('data');
-                    console.log('logged out');
                     this.setState({
                         sentEmail: true
                     });

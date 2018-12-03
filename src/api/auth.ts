@@ -17,7 +17,7 @@ class AuthAPI {
      * @param {String} email 
      * @param {String} password 
      */
-    public login(email: string, password: string): AxiosPromise {
+    public login(email: string, password: string): AxiosPromise<APIResponse> {
         return API.getEndpoint(APIRoute.AUTH_LOGIN).create(
             { email, password }
         );
@@ -26,7 +26,7 @@ class AuthAPI {
      * Logs out a user from the API
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public logout(): AxiosPromise {
+    public logout(): AxiosPromise<APIResponse> {
         return API.getEndpoint(APIRoute.AUTH_LOGOUT).getOne({ id: '' });
 
     }
