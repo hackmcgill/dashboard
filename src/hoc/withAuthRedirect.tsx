@@ -31,6 +31,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, requi
           authState: (verified) ? authStates.authorized : authStates.unauthorized
         });
       } catch (e) {
+        window.localStorage.removeItem('data');
         this.setState({
           authState: authStates.unauthorized
         });
