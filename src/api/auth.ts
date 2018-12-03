@@ -5,11 +5,12 @@ import APIResponse from './APIResponse';
 
 class AuthAPI {
     constructor() {
-        API.createEntity(APIRoute.LOGIN);
-        API.createEntity(APIRoute.LOGOUT);
-        API.createEntity(APIRoute.FORGOT_PASS);
-        API.createEntity(APIRoute.RESET_PASS);
-        API.createEntity(APIRoute.RESEND_CONF_EMAIL);
+        API.createEntity(Route.AUTH_LOGIN);
+        API.createEntity(Route.AUTH_LOGOUT);
+        API.createEntity(Route.AUTH_FORGOT_PASS);
+        API.createEntity(Route.AUTH_RESET_PASS);
+        API.createEntity(Route.AUTH_CONFIRM_ACCT);
+        API.createEntity(Route.AUTH_CHANGE_PASS);
     }
     /**
      * Logs in a user to the API.
@@ -17,7 +18,7 @@ class AuthAPI {
      * @param {String} password 
      */
     public login(email: string, password: string): AxiosPromise {
-        return API.getEndpoint(APIRoute.LOGIN).create(
+        return API.getEndpoint(Route.AUTH_LOGIN).create(
             { email, password }
         );
     }
@@ -26,7 +27,7 @@ class AuthAPI {
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
     public logout(): AxiosPromise {
-        return API.getEndpoint(APIRoute.LOGOUT).getOne({ id: '' });
+        return API.getEndpoint(Route.AUTH_LOGOUT).getOne({ id: '' });
 
     }
     /**
@@ -34,7 +35,7 @@ class AuthAPI {
      * @param {string} email 
      */
     public forgotPassword(email: string): AxiosPromise {
-        return API.getEndpoint(APIRoute.FORGOT_PASS).create({ email });
+        return API.getEndpoint(Route.AUTH_FORGOT_PASS).create({ email });
     }
     /**
      * Reset a password given an authentication token (provided by API in email).
@@ -49,11 +50,30 @@ class AuthAPI {
         }
         return API.getEndpoint(APIRoute.RESET_PASS).create({ password }, { config });
     }
+    public confirm(token: string): AxiosPromise<APIResponse<{}>> {
+        return API.getEndpoint(Route.AUTH_CONFIRM_ACCT).create(undefined, {
+            subURL: token
+        });
+    }
+
+    /**
+     * Change the password of the logged in user from an old password to a new password.
+     * @param {string} oldPassword The current password of the user
+     * @param {string} newPassword The new password of the user
+     */
+    public changePassword(oldPassword: string, newPassword: string): AxiosPromise {
+        const changePasswordObject = {
+            "oldPassword": oldPassword,
+            "newPassword": newPassword
+        };
+        return API.getEndpoint(Route.AUTH_CHANGE_PASS).patch({ id: "" }, changePasswordObject);
+    }
+
     /**
      * Resends the confirmation email.
      */
     public resendConfirmationEmail(): AxiosPromise<APIResponse> {
-        return API.getEndpoint(APIRoute.RESEND_CONF_EMAIL).getAll();
+        return API.getEndpoint(Route.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }
 
