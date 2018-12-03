@@ -67,7 +67,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                 }, this.sendDelay);
             }
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-            if (response) {
+            if (response && response.data) {
                 ValidationErrorGenerator(response.data);
             }
         });
