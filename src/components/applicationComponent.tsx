@@ -24,6 +24,7 @@ import FileUploadComponent from './fileUploadComponent';
 import APIResponse from 'src/api/APIResponse';
 import Ethnicity from 'src/config/ethnicity';
 import Genders from 'src/config/genders';
+import Degrees from 'src/config/degrees';
 import StylizedSelectFormikComponent from './StylizedSelectFormikComponent';
 import Majors from 'src/config/Majors';
 import Skills from 'src/config/skills';
@@ -34,6 +35,7 @@ const hackerSchema = Yup.object().shape({
     school: Yup.string()
         .min(1, 'Select a school')
         .required('Required'),
+    degree: Yup.string().required(),
     github: Yup.string().url('Must be a valid url').required(),
     dropler: Yup.string().url('Must be a valid url'),
     linkedIn: Yup.string().url('Must be a valid url'),
@@ -66,6 +68,7 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
         <Formik
             initialValues={{
                 school: '',
+                degree: '',
                 gender: '',
                 needsBus: false,
                 github: '',
@@ -98,6 +101,21 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
             />
             <ErrorMessage
                 name='school'
+            />
+            <Field
+                id='degree'
+                name={'degree'}
+                selectId={'degreeSelect'}
+                label={CONSTANTS.DEGREE_REQUEST_LABEL}
+                placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
+                options={[
+                    { label: Degrees.UNDERGRADUATE, value: Degrees.UNDERGRADUATE },
+                    { label: Degrees.MASTERS, value: Degrees.MASTERS },
+                    { label: Degrees.PHD, value: Degrees.PHD },
+                    { label: Degrees.HIGHSCHOOL, value: Degrees.HIGHSCHOOL },
+                    { label: Degrees.OTHER, value: Degrees.OTHER },
+                ]}
+                component={StylizedSelectFormikComponent}
             />
             <Field
                 id='graduationYear'
@@ -301,6 +319,7 @@ async function handleSubmit(values: any, actions: FormikActions<any>) {
             accountId: account.id,
             status: HackerStatus.HACKER_STATUS_NONE,
             school: values.school,
+            degree: values.degree,
             gender: values.gender,
             needsBus: values.needsBus,
             application: {
