@@ -16,7 +16,7 @@ import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkCompon
 import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
-import Container from 'src/shared/Container';
+// import Container from 'src/shared/Container';
 import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
@@ -38,48 +38,33 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     }
     public render() {
         return (
-            <Flex
-                justifyContent={'center'}
-                alignItems={'center'}
-                flexDirection={'column'}
-            >
-                <Box width={1}>
-                    {this.renderLargeHeight()}
-                    {this.renderSmallHeight()}
-                </Box>
-            </ Flex>
+            <MediaQuery minWidth={1224}>
+            {
+                (matches) => 
+                    matches ?
+                    <LeftContainer>
+                        {this.renderForm()}
+                        <BackgroundImage
+                            src={BackgroundLandscape}
+                            top={'0px'}
+                            left={'0px'}
+                            imgWidth={'100%'}
+                            imgHeight={'100%'}
+                            minHeight={'600px'}
+                        />
+                    </LeftContainer> :
+                <div>
+                    {this.renderForm()}
+                    <BackgroundImage
+                        src={BackgroundLandscape}
+                        top={'0px'}
+                        left={'0px'}
+                        imgHeight={'100%'}
+                    />
+                </div>  
+            }
+            </MediaQuery >
         );
-    }
-
-    private renderLargeHeight() {
-        return (
-            <MediaQuery minHeight={'600px'}>
-                <Flex
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    flexDirection={'column'}
-                    pb={'25%'}
-                >
-                    {this.renderLargeWidth()}
-                    {this.renderSmallWidth()}
-                </Flex>
-            </MediaQuery>
-        )
-    }
-    private renderSmallHeight() {
-        return (
-            <MediaQuery maxHeight={'600px'}>
-                <Flex
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    flexDirection={'column'}
-                    pb={0}
-                >
-                    {this.renderLargeWidth()}
-                    {this.renderSmallWidth()}
-                </Flex>
-            </MediaQuery>
-        )
     }
 
     private renderForm() {
@@ -120,31 +105,6 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                 </Flex>
             </Form>);
 
-    }
-
-    private renderLargeWidth() {
-        return (
-            <MediaQuery minWidth={1224}>
-                <Box width={1}>
-                    <LeftContainer>
-                        {this.renderForm()}
-                    </LeftContainer>
-                    <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} width={'100%'} height={'100%'} />
-                </Box>
-            </MediaQuery >
-        );
-    }
-    private renderSmallWidth() {
-        return (
-            <MediaQuery maxWidth={1224}>
-                <Box width={1}>
-                    <Container>
-                        {this.renderForm()}
-                    </Container>
-                    <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} height={'100%'} />
-                </Box>
-            </MediaQuery>
-        );
     }
 
     /**
@@ -200,5 +160,4 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
         }
     }
 }
-
 export default WithToasterContainer(withRouter<RouteComponentProps>(LoginContainer));

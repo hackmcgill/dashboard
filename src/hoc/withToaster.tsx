@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ToastContainer } from 'react-toastify';
-import { CSSProperties } from 'react';
+import { Box } from '@rebass/grid';
 
 const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =>
     class extends React.Component<P> {
@@ -9,14 +9,11 @@ const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =
         }
 
         public render() {
-            const containerProperty: CSSProperties = {
-                height: '0px'
-            }
             return (
-                [
-                    <Component key={0} />,
-                    <div style={containerProperty} key={1}><ToastContainer /></div>
-                ]
+                <Box mt={'50px'}>
+                    <Component {...this.props} />,
+                    <ToastContainer />
+                </Box>
             )
         }
     }

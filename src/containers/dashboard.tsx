@@ -52,19 +52,19 @@ public render() {
                 <Link to={FrontendRoute.CREATE_APPLICATION_PAGE}>
                 <Card width={"250px"} flexDirection={"column"}>
                     <H2 fontSize={"28px"}>Application</H2>
-                    <Image src={iconApplication} height={"125px"} />
+                    <Image src={iconApplication} imgHeight={"125px"} />
                 </Card>
                 </Link>
                 <Link to={FrontendRoute.HOME_PAGE}>
                 <Card width={"250px"} flexDirection={"column"}>
                     <H2 fontSize={"28px"}>Account</H2>
-                    <Image src={iconAccount} height={"125px"} />
+                    <Image src={iconAccount} imgHeight={"125px"} />
                 </Card>
                 </Link>
 
                 <MediaQuery minWidth={960}>
                     <Box width={1}>
-                        <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} width={'100%'} height={'100%'} />
+                        <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} />
                     </Box>
                 </MediaQuery>
             </Flex>

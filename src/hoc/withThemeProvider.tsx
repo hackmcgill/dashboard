@@ -11,7 +11,7 @@ const withThemeProvider = <P extends {}>(Component: React.ComponentType<P>) =>
     public render() {
       return (
         <ThemeProvider theme={theme}>
-          <Component/>
+          <Component {...this.props} />
         </ThemeProvider>
       )
     }
