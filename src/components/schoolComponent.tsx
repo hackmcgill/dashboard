@@ -44,7 +44,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         const inputProps = {
             placeholder: 'School name',
             value,
-            onChange: this.onChange
+            onChange: this.onChange,
         };
 
         return (
