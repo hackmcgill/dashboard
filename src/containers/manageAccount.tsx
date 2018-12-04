@@ -31,6 +31,7 @@ interface IManageAccountContainerState {
     mode: ManageAccountModes;
     accountCreated: boolean;
     accountDetails: IAccount;
+    oldPassword: string;
 }
 
 interface IManageAccountContainerProps {
@@ -56,13 +57,15 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
-            }
+            },
+            oldPassword: '',
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
         this.onShirtSizeChanged = this.onShirtSizeChanged.bind(this);
         this.onEmailChanged = this.onEmailChanged.bind(this);
         this.onFirstNameChanged = this.onFirstNameChanged.bind(this);
         this.onLastNameChanged = this.onLastNameChanged.bind(this);
+        this.onOldPasswordChanged = this.onOldPasswordChanged.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPhoneChanged = this.onPhoneChanged.bind(this);
@@ -135,10 +138,10 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                             /> :
                             (
                                 <MaxWidthBox>
-                                    {/* <PasswordInput
+                                    <PasswordInput
                                         label={'Old password'}
-                                        onPasswordChanged={this.onPasswordChanged}
-                                    /> */}
+                                        onPasswordChanged={this.onOldPasswordChanged}
+                                    />
                                     <PasswordInput
                                         label={'New password'}
                                         onPasswordChanged={this.onPasswordChanged}
@@ -213,6 +216,10 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         try {
             await Account.update(this.state.accountDetails);
             console.log('Created an account');
+            if (this.state.oldPassword && this.state.accountDetails.password) {
+                await Auth.changePassword(this.state.oldPassword, this.state.accountDetails.password);
+                console.log('Updated password');
+            }
             this.setState({ accountCreated: true });
         } catch (e) {
             if (e && e.data) {
@@ -239,6 +246,9 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     private onLastNameChanged(lastName: string) {
         const accountDetails = { ...this.state.accountDetails, lastName };
         this.setState({ accountDetails });
+    }
+    private onOldPasswordChanged(oldPassword: string) {
+        this.setState({ oldPassword });
     }
     private onPasswordChanged(password: string) {
         const accountDetails = { ...this.state.accountDetails, password };

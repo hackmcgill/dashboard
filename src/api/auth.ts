@@ -45,7 +45,7 @@ class AuthAPI {
     public resetPassword(password: string, authToken: string): AxiosPromise {
         const config = {
             headers: {
-                Authentication: authToken
+                "x-reset-token": authToken
             }
         }
         return API.getEndpoint(APIRoute.AUTH_RESET_PASS).create({ password }, { config });
