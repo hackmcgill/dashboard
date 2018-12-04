@@ -8,7 +8,7 @@ interface IInputProps {
 const Input = styled.input<IInputProps>`
   border-radius: 20px;
   border: 2px solid ${props => props.theme.greyLight};
-  font-weight: ${props => props.fontWeight ? props.fontWeight : 'normal'}
+  font-weight: ${props => props.fontWeight || 'normal'}
   box-sizing: border-box;
   display: block;
   font-size: 16px;

@@ -48,7 +48,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
         }
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                <MaxWidthBox hidden={this.state.wasConfirmed && !this.state.attempting}>
+                <MaxWidthBox hidden={this.state.wasConfirmed && !this.state.attempting} mb={'20px'}>
                     <Image src={constructionCone} imgHeight={'6rem'} />
                 </MaxWidthBox>
                 <MaxWidthBox mb={'0px'}>
@@ -56,7 +56,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
                         {result}
                     </H1>
                 </MaxWidthBox>
-                <MaxWidthBox hidden={this.state.attempting}>
+                <MaxWidthBox hidden={this.state.attempting} mb={'20px'}>
                     <Paragraph fontSize={'24px'} maxWidth={'600px'}>
                         {paragraphMessage}
                     </Paragraph>
