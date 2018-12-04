@@ -57,12 +57,17 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
     }
 
     public render() {
-        const { status } = this.state;
+        const { status, confirmed } = this.state;
         return (
             <Flex flexDirection={'column'} alignItems={'center'}>
                 <H1>status: {status.toLowerCase()}</H1>
                 <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
-                    {this.renderCreateApplicationCard()}
+                    <Link to={confirmed ? FrontendRoute.CREATE_APPLICATION_PAGE : FrontendRoute.HOME_PAGE} onClick={this.confirmAccountToastError} style={{ textDecoration: 'none' }}>
+                        <Card width={"250px"} flexDirection={"column"}>
+                            <H2 fontSize={"28px"}>Application</H2>
+                            <Image src={iconApplication} imgHeight={"125px"} />
+                        </Card>
+                    </Link>
                     <Link to={FrontendRoute.HOME_PAGE} style={{ textDecoration: 'none' }}>
                         <Card width={"250px"} flexDirection={"column"}>
                             <H2 fontSize={"28px"}>Account</H2>
@@ -79,30 +84,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
             </Flex>
         );
     }
-
-    public renderCreateApplicationCard() {
-        const { confirmed } = this.state;
-        if (confirmed) {
-            return (
-                <Link to={FrontendRoute.CREATE_APPLICATION_PAGE} style={{ textDecoration: 'none' }}>
-                    <Card width={"250px"} flexDirection={"column"}>
-                        <H2 fontSize={"28px"}>Application</H2>
-                        <Image src={iconApplication} imgHeight={"125px"} />
-                    </Card>
-                </Link>
-            );
-        } else {
-            return (
-                <Link to={FrontendRoute.HOME_PAGE} onClick={this.confirmAccountToastError} style={{ textDecoration: 'none' }}>
-                    <Card width={"250px"} flexDirection={"column"}>
-                        <H2 fontSize={"28px"}>Application</H2>
-                        <Image src={iconApplication} imgHeight={"125px"} />
-                    </Card>
-                </Link>
-            );
-        }
-    }
-
+    gi
     private confirmAccountToastError() {
         toast.error("You must confirm your account!");
     }
