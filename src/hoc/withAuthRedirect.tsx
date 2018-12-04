@@ -2,7 +2,7 @@ import * as React from "react";
 import { Redirect } from "react-router-dom";
 import { IAccount } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
-import UserInfoController from 'src/config/UserInfoController';
+import { getUserInfo } from 'src/util/UserInfoController';
 
 enum authStates {
   authorized,
@@ -43,7 +43,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
 
     public async componentDidMount() {
       try {
-        const selfInfo = await UserInfoController.getUserInfo();
+        const selfInfo = await getUserInfo();
         if (selfInfo) {
           const verified = this.verification(selfInfo);
           this.setState({

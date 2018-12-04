@@ -1,4 +1,5 @@
 export const API_URL = 'http://localhost:3000/api';
+export const CACHE_USER_KEY = 'userInfo';
 
 // Application creation
 export const BUS_REQUEST_LABEL = 'Do you need a bus?';

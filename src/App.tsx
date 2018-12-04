@@ -14,7 +14,7 @@ import NotFoundContainer from 'src/containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
-import UserInfoController from './config/UserInfoController';
+import { UserType, IAccount } from './config/userTypes';
 
 
 class App extends React.Component {
@@ -35,7 +35,7 @@ class App extends React.Component {
                 {
                   requiredAuthState: true,
                   redirAfterLogin: true,
-                  AuthVerification: UserInfoController.userCanAccessCreateApplicationPage
+                  AuthVerification: (user: IAccount) => user.confirmed && user.accountType === UserType.HACKER
                 }))
             }
           />
