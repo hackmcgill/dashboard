@@ -22,6 +22,7 @@ import Paragraph from 'src/shared/Paragraph';
 import APIResponse from 'src/api/APIResponse';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
+import { UserType } from 'src/config/userTypes';
 
 
 interface ICreateAccountContainerState {
@@ -131,6 +132,8 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     private handleSubmit() {
         Account.create(
             {
+                accountType: UserType.UNKNOWN,
+                confirmed: false,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 email: this.state.email,

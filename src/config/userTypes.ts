@@ -1,6 +1,8 @@
 import HackerStatus from './hackerStatus';
 import JobInterest from './jobInterests';
 export interface IAccount {
+    accountType: UserType,
+    confirmed: boolean,
     // The first name of the user
     firstName: string,
     // The last name of the user
@@ -70,6 +72,7 @@ export interface ISponsor {
 }
 
 export enum UserType {
+    UNKNOWN = 'Unknown',
     HACKER = 'Hacker',
     VOLUNTEER = 'Volunteer',
     STAFF = 'Staff',

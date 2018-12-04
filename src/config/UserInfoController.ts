@@ -3,7 +3,7 @@ import Auth from 'src/api/auth';
 
 import { AxiosResponse } from 'axios';
 import APIResponse from 'src/api/APIResponse';
-import { IAccount } from './userTypes';
+import { IAccount, UserType } from './userTypes';
 
 class UserInfoController {
     /**
@@ -24,6 +24,10 @@ class UserInfoController {
         this.querySelf();
     }
 
+    public userCanAccessCreateApplicationPage(user: IAccount) {
+        return user.confirmed && user.accountType === UserType.HACKER;
+    }
+
     public async isLoggedIn(): Promise<boolean> {
         try {
             const userInfo = await this.getUserInfo();
@@ -31,6 +35,18 @@ class UserInfoController {
                 return true;
             }
             return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns whether the current user is confirmed
+     */
+    public async isConfirmed(): Promise<boolean> {
+        try {
+            const user: IAccount | null = await this.getUserInfo();
+            return !!user && user.confirmed;
         } catch (error) {
             return false;
         }

@@ -11,10 +11,14 @@ enum authStates {
 }
 
 export interface IAuthDirectOptions {
+  // True, if user must be authorized, or False if user must not be authorized
   requiredAuthState?: boolean;
+  // Function that is called when user is authorized. This is used for further state verifications
   AuthVerification?: (acct: IAccount) => boolean;
-  redirOnSuccess?: boolean;
+  // True, if user should be redirected to original component if the user failed authentication.
+  redirAfterLogin?: boolean;
 }
+
 
 const defaultOptions = {
   requiredAuthState: true,
@@ -34,7 +38,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
         authState: authStates.undefined
       };
       this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
-      this.redirOnSuccess = (options.redirOnSuccess) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
+      this.redirOnSuccess = (options.redirAfterLogin) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
     }
 
     public async componentDidMount() {

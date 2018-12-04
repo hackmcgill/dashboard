@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const Nav = styled.nav<{ borderThickness?: string }>`
-    z-index: 100000;
+    z-index: 11;
     background: #ffffff;
     position: sticky;
     top: 0;
