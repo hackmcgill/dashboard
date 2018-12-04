@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledSelect = styled(Select)`
   .react-select__control {
     border: 2px solid ${props => props.theme.greyLight};
+    font-weight: normal;
     border-radius: 20px;
     padding-left: 10px;
     width: 80%;
@@ -16,6 +17,7 @@ const StyledSelect = styled(Select)`
   }
 
   .react-select__option {
+    font-weight: normal;
     &: hover {
       background-color: ${props => props.theme.primaryLight};
     }

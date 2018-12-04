@@ -12,13 +12,13 @@ interface IFullNameInput {
 const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
     return (
         <Flex flexWrap={'wrap'} width={[1, 1 - 0.12]} m='auto' name='name_flex'>
-            <MaxWidthBox width={[1, 0.5]} m={'none'} marginBottom='0px'>
+            <MaxWidthBox width={[1, 0.5]} m={'none'} mb='0px'>
                 <Label>
                     First Name:
                     <Input type='text' onChange={handleChange(props, 'first')} isTight={true} />
                 </Label>
             </MaxWidthBox>
-            <MaxWidthBox width={[1, 0.5,]} m={'none'} marginBottom='0px' >
+            <MaxWidthBox width={[1, 0.5,]} m={'none'} mb='0px' >
                 <Label>
                     Last Name:
                         <Input type='text' onChange={handleChange(props, 'last')} isTight={true} />

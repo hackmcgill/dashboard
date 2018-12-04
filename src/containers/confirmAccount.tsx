@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { Flex, Box } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 
-import resetLogo from 'src/assets/images/passwordReset.svg';
+import constructionCone from 'src/assets/images/construction-cone.svg';
 import Image from 'src/shared/Image';
 import H1 from 'src/shared/H1';
 import Button from 'src/shared/Button';
 import getTokenFromQuery from 'src/config/authToken';
 import AuthAPI from 'src/api/auth';
+import Paragraph from 'src/shared/Paragraph';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 interface IConfirmAccountState {
     attempting: boolean;
@@ -25,43 +27,47 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
     }
     public render() {
         let result;
+        let paragraphMessage;
         let buttonMessage;
         let link;
         if (this.state.wasConfirmed) {
-            result = 'Account confirmed!';
+            result = 'Account Confirmed';
+            paragraphMessage = 'Your account was successfully created! Click continue to start your application, view your teams or manage your account.';
             buttonMessage = 'Continue';
             link = '/';
         } else if (!this.state.attempting) {
             result = 'Unable to confirm account';
+            paragraphMessage = 'Something went wrong when we made your account. Please try again later.';
             buttonMessage = 'Create account';
             link = '/account/create';
         } else {
-            result = 'Attempting to confirm account...';
-            buttonMessage = ''
+            result = 'Confirming...';
+            paragraphMessage = '';
+            buttonMessage = '';
             link = '';
         }
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                <Flex alignItems={'center'}>
-                    {
-                        (this.state.wasConfirmed) ? (<Box>
-                            <Image src={resetLogo} imgHeight={"4rem"} padding={'2.0rem'} />
-                        </Box>
-                        ) : ''
-                    }
-                    <Box>
-                        <H1 color={'#F2463A'} fontSize={'40px'}>
-                            {result}
-                        </H1>
-                    </Box>
-                </Flex>
-                <Box hidden={this.state.attempting}>
+                <MaxWidthBox hidden={this.state.wasConfirmed && !this.state.attempting} mb={'20px'}>
+                    <Image src={constructionCone} imgHeight={'6rem'} />
+                </MaxWidthBox>
+                <MaxWidthBox mb={'0px'}>
+                    <H1 color={'#F2463A'} fontSize={'40px'}>
+                        {result}
+                    </H1>
+                </MaxWidthBox>
+                <MaxWidthBox hidden={this.state.attempting} mb={'20px'}>
+                    <Paragraph fontSize={'24px'} maxWidth={'600px'} textAlign={'center'}>
+                        {paragraphMessage}
+                    </Paragraph>
+                </MaxWidthBox>
+                <MaxWidthBox hidden={this.state.attempting}>
                     <Link to={link}>
                         <Button>
                             {buttonMessage}
                         </Button>
                     </Link>
-                </Box>
+                </MaxWidthBox>
             </Flex>
         )
     }

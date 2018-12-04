@@ -81,7 +81,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
                     </H1>
                 </MaxWidthBox>
                 <MaxWidthBox width={'80%'} maxWidth={'500px'} m={'auto'}>
-                    <Paragraph color={'#4D4D4D'} fontSize={'18px'} center={false} marginTop={'0px'} marginBottom={'20px'}>
+                    <Paragraph color={'#4D4D4D'} fontSize={'18px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'}>
                         Create Account
                     </Paragraph>
                 </MaxWidthBox>
