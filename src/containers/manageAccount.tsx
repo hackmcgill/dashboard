@@ -7,7 +7,7 @@ import ShirtSizeComponent from 'src/components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
 import Button from 'src/shared/Button';
-import Container from 'src/shared/Container';
+// import Container from 'src/shared/Container';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
@@ -108,13 +108,13 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         const { mode, accountDetails } = this.state;
         console.log(accountDetails);
         return (
-            <Container>
-                <MaxWidthBox width={'80%'} maxWidth={'500px'} m={'auto'}>
+            <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
                         Your Account
                     </H1>
                 </MaxWidthBox>
-                <MaxWidthBox width={'80%'} maxWidth={'500px'} m={'auto'}>
+                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <Paragraph color={'#4D4D4D'} fontSize={'18px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'}>
                         {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your account
                     </Paragraph>
@@ -182,7 +182,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         </Box>
                     </Flex>
                 </Form>
-            </Container>
+            </MaxWidthBox>
         )
     }
 
