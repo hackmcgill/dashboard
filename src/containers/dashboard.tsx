@@ -16,7 +16,7 @@ import hacker from 'src/api/hacker';
 import H1 from 'src/shared/H1';
 import { IHacker } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
-import { isConfirmed } from 'src/util/UserInfoController';
+import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { toast } from 'react-toastify';
 
