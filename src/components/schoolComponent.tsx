@@ -50,6 +50,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
             <Label>
                 <span>{this.props.label || 'Please enter the name of your school'}</span>
                 <SchoolAutosuggest
+                    shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -61,7 +62,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         );
     }
     private shouldRenderSuggestions(value: string): boolean {
-        return value.trim().length > 2;
+        return this.getSuggestions(value).length < 50;
     }
 
     private onChange(event: React.FormEvent<any>, data: any) {
@@ -86,7 +87,6 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         const field = this.props.field;
         const form = this.props.form;
         if (suggestion) {
-            console.log("1", suggestion);
             this.setState({ value: suggestion });
             form.setFieldValue(field.name, suggestion);
         } else {
@@ -98,15 +98,13 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
     private getSuggestions(selection: string): string[] {
         const inputValue = selection.trim().toLowerCase();
         const inputLength = inputValue.length;
-        return inputLength === 0 ? [] : Schools.filter(school =>
-            school.trim().toLowerCase().slice(0, inputLength) === inputValue
-        );
+        const suggestions = inputLength === 0 ? [] : Schools.filter(school => school.trim().toLowerCase().slice(0, inputLength) === inputValue);
+        return suggestions;
     }
 
     private onSuggestionsFetchRequested({ value }: { value: string }) {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        const suggestions = this.getSuggestions(value);
+        this.setState({ suggestions });
     };
     private onSuggestionsClearRequested() {
         this.setState({
