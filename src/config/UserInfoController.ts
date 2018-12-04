@@ -24,6 +24,18 @@ class UserInfoController {
         this.querySelf();
     }
 
+    public async isLoggedIn(): Promise<boolean> {
+        try {
+            const userInfo = await this.getUserInfo();
+            if (userInfo) {
+                return true;
+            }
+            return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
     /**
      * Returns whether the current user is confirmed
      */

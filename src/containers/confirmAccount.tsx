@@ -43,9 +43,12 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                 <Flex alignItems={'center'}>
-                    <Box>
-                        <Image src={resetLogo} height={"4rem"} padding={'2.0rem'} />
-                    </Box>
+                    {
+                        (this.state.wasConfirmed) ? (<Box>
+                            <Image src={resetLogo} imgHeight={"4rem"} padding={'2.0rem'} />
+                        </Box>
+                        ) : ''
+                    }
                     <Box>
                         <H1 color={'#F2463A'} fontSize={'40px'}>
                             {result}

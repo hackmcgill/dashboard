@@ -2,6 +2,7 @@ const theme = {
   fontFamily: "Hind Siliguri,-apple-system,system-ui,BlinkMacSystemFont,sans-serif",
   grey: "#4D4D4D",
   greyLight: "#F4F4F4",
+  greySuperLight: "#BCBCBC",
   inputBorderRadius: "20px",
   primary: "#F2463A",
   primaryLight: "#F89790",
