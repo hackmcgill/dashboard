@@ -14,6 +14,7 @@ export interface IAuthDirectOptions {
   requiredAuthState?: boolean;
   AuthVerification?: (acct: IAccount) => boolean;
   redirOnSuccess?: boolean;
+  redirComponent?: React.Component;
 }
 
 const defaultOptions = {
@@ -59,9 +60,10 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
 
     public render() {
       const { authState } = this.state;
+      const redir = options.redirComponent ? <Redirect to={options.redirComponent} /> : <Redirect to={FrontendRoute.HOME_PAGE} />;
       switch (authState) {
         case authStates.authorized:
-          return options.requiredAuthState ? <Component {...this.props} /> : (<Redirect to={FrontendRoute.HOME_PAGE} />);
+          return options.requiredAuthState ? <Component {...this.props} /> : redir;
         case authStates.unauthorized:
           return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`} />) : <Component {...this.props} />;
         default:

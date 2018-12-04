@@ -25,6 +25,18 @@ class UserInfoController {
     }
 
     /**
+     * Returns whether the current user is confirmed
+     */
+    public async isConfirmed(): Promise<boolean> {
+        try {
+            const user: IAccount | null = await this.getUserInfo();
+            return !!user && user.confirmed;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    /**
      * Gets a previously queried 
      */
     public async getUserInfo(): Promise<IAccount | null> {

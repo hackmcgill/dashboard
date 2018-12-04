@@ -1,6 +1,7 @@
 import HackerStatus from './hackerStatus';
 import JobInterest from './jobInterests';
 export interface IAccount {
+    confirmed: boolean,
     // The first name of the user
     firstName: string,
     // The last name of the user

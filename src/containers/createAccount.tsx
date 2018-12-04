@@ -131,6 +131,7 @@ class CreateAccountContainer extends React.Component<{}, ICreateAccountContainer
     private handleSubmit() {
         Account.create(
             {
+                confirmed: false,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 email: this.state.email,
