@@ -15,7 +15,7 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
     const handleChange = (props.isMulti) ? handleChangeMulti : handleChangeSingle;
     return (
         <Label>
-            {props.label}
+            <span>{props.label}</span>
             <StylizedSelect
                 className='react-select-container'
                 classNamePrefix='react-select'

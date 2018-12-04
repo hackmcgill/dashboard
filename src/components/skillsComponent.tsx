@@ -24,7 +24,7 @@ const SkillsComponent: React.StatelessComponent<ISkillsComponentProps & FieldPro
     ]
     return (
         <Label>
-            {props.label ? props.label : 'Skills'}
+            <span>{props.label || 'Skills'}</span>
             <StyledCreatableSelect
                 className='react-select-container'
                 classNamePrefix='react-select'

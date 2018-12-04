@@ -17,7 +17,7 @@ const jobInterestComponent: React.StatelessComponent<IJobInterestProps & FieldPr
     ]
     return (
         <Label>
-            {props.label}
+            <span>{props.label}</span>
             <StyledSelect
                 className='react-select-container'
                 classNamePrefix='react-select'
