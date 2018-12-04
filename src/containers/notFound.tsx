@@ -18,22 +18,22 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
 
     }
     public render() {
-
-        return (
-            <Flex
-                flexWrap={'wrap'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                flexDirection={'column'}
-                px={3}
-            >
+        
+            return (
+              <Flex
+                  flexWrap={'wrap'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  flexDirection={'column'}
+                  px={3}
+              >
                 <Box>
-                    <Image src={Construction} height={"7rem"} padding={'0rem'} />
+                    <Image src={Construction} imgHeight={"7rem"} padding={'0rem'} />
                 </Box>
                 <Box>
                     <H1>
                         404: Page not Found
-                        </H1>
+                      </H1>
                 </Box>
                 <MaxWidthBox fontSize={[2, 3, 4]}>
                     <Paragraph

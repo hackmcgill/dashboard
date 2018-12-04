@@ -33,7 +33,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'} mx={3}>
                 <Flex alignItems={'center'} flexDirection={'column'}>
                     <Box>
-                        <Image src={constructionSVG} height={"6rem"} padding={'0.5rem'} />
+                        <Image src={constructionSVG} imgHeight={"6rem"} padding={'0.5rem'} />
                     </Box>
                     <Box>
                         <H1 color={'#F2463A'} fontSize={'48px'}>

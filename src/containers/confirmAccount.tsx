@@ -49,7 +49,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                 <MaxWidthBox hidden={this.state.wasConfirmed && !this.state.attempting}>
-                    <Image src={constructionCone} height={'6rem'} />
+                    <Image src={constructionCone} imgHeight={'6rem'} />
                 </MaxWidthBox>
                 <MaxWidthBox mb={'0px'}>
                     <H1 color={'#F2463A'} fontSize={'40px'}>

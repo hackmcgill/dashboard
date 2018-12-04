@@ -48,7 +48,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                     px={2}
                 >
                     <Box>
-                        <Image src={Key} height={"4rem"} padding={'0rem'} />
+                        <Image src={Key} imgHeight={"4rem"} padding={'0rem'} />
                     </Box>
                     <Box>
                         <H1>

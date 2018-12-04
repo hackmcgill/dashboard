@@ -2,8 +2,8 @@
   text-align: center;
 }
 
-body > #root > div {
-  height: 100vh;
+body > #root {
+  min-height: 100vh;
 }
 
 .App-logo {

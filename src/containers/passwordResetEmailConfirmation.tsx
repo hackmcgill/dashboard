@@ -18,7 +18,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}>{
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                 <Flex alignItems={'center'}>
                     <Box>
-                        <Image src={resetLogo} height={"3rem"} padding={'1.0rem'} />
+                        <Image src={resetLogo} imgHeight={"3rem"} padding={'1.0rem'} />
                     </Box>
                     <Box>
                         <H1>
