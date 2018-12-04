@@ -13,7 +13,7 @@ const InputFormikComponent: React.StatelessComponent<IInputFormikComponentProp &
     const placeholder = props.placeholder || '';
     return (
         <Label>
-            {props.label}
+            <span>{props.label}</span>
             <Input type={props.inputType} onChange={handleChange(props)} placeholder={placeholder} />
         </Label>
     )

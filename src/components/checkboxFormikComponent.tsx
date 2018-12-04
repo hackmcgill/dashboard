@@ -11,7 +11,7 @@ const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> =
     return (
         <Box mb={'26px'}>
             <Label fontWeight='normal'>
-                {props.label}
+                <span>{props.label}</span>
                 <Checkbox onChange={handleChange(props)} />
             </Label>
         </Box>

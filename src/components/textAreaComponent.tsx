@@ -12,7 +12,7 @@ const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = 
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
         <Label>
-            {props.label}
+            <span>{props.label}</span>
             <Textarea onChange={handleChange(props)} placeholder={placeholder} />
         </Label>
     )

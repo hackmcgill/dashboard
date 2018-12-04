@@ -11,7 +11,7 @@ const EmailInput: React.StatelessComponent<IEmailInputProp> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : "";
     return (
         <Label>
-            Email:
+            <span>Email:</span>
             <Input type='email' onChange={handleChange(props)} placeholder={placeholder} isTight={props.isTight} />
         </Label>
     )

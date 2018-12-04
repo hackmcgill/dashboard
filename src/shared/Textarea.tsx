@@ -1,18 +1,10 @@
 import styled from 'styled-components';
+import inputStyles from 'src/shared/inputStyles';
+
 const Textarea = styled.textarea`
-    border-radius: 20px;
-    border: 2px solid ${props => props.theme.greyLight};
-    box-sizing: border-box;
-    display: block;
-    font-size: 16px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    min-height: 200px;
+    ${inputStyles}
     padding: 16px;
-    width: 80%;
-    &:hover {
-        border: 2px solid ${props => props.theme.grey};
-    }
+    min-height: 200px;
+    resize: none;
 `
 export default Textarea; 

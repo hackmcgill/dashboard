@@ -13,7 +13,7 @@ const FileUploadComponent: React.StatelessComponent<IUploadComponent & FieldProp
     return (
         <Box mb={'26px'}>
         <Label>
-            {props.label}:
+            <span>{props.label}:</span>
             <FileInput type='file' placeholder={placeholder} onChange={handleChange(props)}/>
         </Label>
 

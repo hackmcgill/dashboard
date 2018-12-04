@@ -19,7 +19,7 @@ const inputStyles = css`
   margin-bottom: ${(props: IInputProps) => (props.isTight) ? '0px' : '20px'};
   min-height: 35px;
   padding-left: 16px;
-  width: 80%;
+  width: 100%;
   transition: 0.25s border ease-in;
 
   &:focus,&:hover {

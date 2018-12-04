@@ -12,7 +12,7 @@ interface ILabelledNumberFormatProp {
 const LabelledNumberFormat: React.StatelessComponent<ILabelledNumberFormatProp & NumberFormatProps> = (props) => {
     return (
         <Label>
-            {props.label}
+            <span>{props.label}</span>
             <NumberFormat
                 {...props}
             />
