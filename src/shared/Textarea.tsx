@@ -9,8 +9,7 @@ const Textarea = styled.textarea`
     margin-top: 10px;
     margin-bottom: 20px;
     min-height: 200px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 16px;
     width: 80%;
     &:hover {
         border: 2px solid ${props => props.theme.grey};
