@@ -14,7 +14,7 @@ import NotFoundContainer from 'src/containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
-import { IAccount, UserType } from './config/userTypes';
+import UserInfoController from './config/UserInfoController';
 
 
 class App extends React.Component {
@@ -35,9 +35,10 @@ class App extends React.Component {
                 {
                   requiredAuthState: true,
                   redirAfterLogin: true,
-                  AuthVerification:
-                    (user: IAccount) => user.confirmed && user.accountType === UserType.HACKER
-                }))} />
+                  AuthVerification: UserInfoController.userCanAccessCreateApplicationPage
+                }))
+            }
+          />
           <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withNavbar(withAuthRedirect(LoginContainer, { requiredAuthState: false }))} />
           <Route path="*" component={NotFoundContainer} />
         </Switch>

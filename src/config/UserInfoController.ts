@@ -3,7 +3,7 @@ import Auth from 'src/api/auth';
 
 import { AxiosResponse } from 'axios';
 import APIResponse from 'src/api/APIResponse';
-import { IAccount } from './userTypes';
+import { IAccount, UserType } from './userTypes';
 
 class UserInfoController {
     /**
@@ -22,6 +22,10 @@ class UserInfoController {
         this.expiryTime = 60 * 60 * 500 // (30 min)
         this.userKey = 'userInfo';
         this.querySelf();
+    }
+
+    public userCanAccessCreateApplicationPage(user: IAccount) {
+        return user.confirmed && user.accountType === UserType.HACKER;
     }
 
     public async isLoggedIn(): Promise<boolean> {
