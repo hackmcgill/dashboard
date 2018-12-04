@@ -14,6 +14,7 @@ import NotFoundContainer from 'src/containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
+import { IAccount } from './config/userTypes';
 
 
 class App extends React.Component {
@@ -25,9 +26,9 @@ class App extends React.Component {
           <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withNavbar(withAuthRedirect(DashboardContainer))} />
           <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(CreateAccount, { requiredAuthState: false }))} />
           <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
-          <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirOnSuccess: true }))} />
+          <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirAfterLogin: true }))} />
           <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={withNavbar(ForgotPasswordContainer)} />
-          <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE} component={withNavbar(withAuthRedirect(CreateApplicationContainer, { requiredAuthState: true, redirOnSuccess: true }))} />
+          <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE} component={withNavbar(withAuthRedirect(CreateApplicationContainer, { requiredAuthState: true, redirAfterLogin: true, AuthVerification: (user: IAccount) => user.confirmed }))} />
           <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withNavbar(withAuthRedirect(LoginContainer, { requiredAuthState: false }))} />
           <Route path="*" component={NotFoundContainer} />
         </Switch>

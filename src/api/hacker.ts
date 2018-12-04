@@ -3,6 +3,7 @@ import { AxiosPromise, AxiosRequestConfig } from 'axios';
 import Route from 'src/config/APIRoute';
 import API from 'src/api/api';
 import HackerStatus from 'src/config/hackerStatus';
+import APIResponse from './APIResponse';
 class AccountAPI {
     constructor() {
         API.createEntity(Route.HACKER);
@@ -21,7 +22,7 @@ class AccountAPI {
     /**
      * Get the logged-in user's hacker information, if they have a hacker info.
      */
-    public getSelf(): AxiosPromise {
+    public getSelf(): AxiosPromise<APIResponse<IHacker>> {
         return API.getEndpoint(Route.HACKER_SELF).getAll();
     }
     /**
