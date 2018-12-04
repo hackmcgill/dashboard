@@ -27,7 +27,7 @@ class App extends React.Component {
           <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withNavbar(withAuthRedirect(DashboardContainer))} />
           <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(CreateAccount, { requiredAuthState: false }))} />
           <Route exact={true} path={FrontendRoute.EDIT_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(EditAccountContainer, { requiredAuthState: true }))} />
-          <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withTokenRedirect(resetPassword)} />
+          <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withNavbar(withTokenRedirect(resetPassword))} />
           <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirAfterLogin: true }))} />
           <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={withNavbar(ForgotPasswordContainer)} />
           <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE}

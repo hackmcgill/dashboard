@@ -13,6 +13,7 @@ import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import FrontendRoute from 'src/config/FrontendRoute';
+import Form from 'src/shared/Form';
 
 export interface IResetPasswordContainerState {
     isValid: boolean;
@@ -38,13 +39,11 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
     public render() {
         return (
             <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                <MaxWidthBox maxWidth={'600px'} width={1} ml={'10%'}>
-                    <H1 fontSize='24px'>
+                <MaxWidthBox maxWidth={'500px'} width={1}>
+                    <H1>
                         Reset your password
                     </H1>
-                </MaxWidthBox>
-                <MaxWidthBox maxWidth={'600px'} width={1}>
-                    <form>
+                    <Form>
                         <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                             <Box width={7 / 8}>
                                 <PasswordInputComponent
@@ -65,7 +64,7 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
                                 <Button type='button' onClick={this.handleSubmit}>Submit</Button>
                             </Box>
                         </Flex>
-                    </form>
+                    </Form>
                 </MaxWidthBox>
             </Flex>
         );
