@@ -3,7 +3,6 @@ import Schools from 'src/config/schools';
 import { FieldProps } from 'formik';
 import Label from 'src/shared/Label';
 import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
-import '../styles/schoolComponentStyle.css';
 
 
 /**
@@ -44,12 +43,12 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         const inputProps = {
             placeholder: 'School name',
             value,
-            onChange: this.onChange
+            onChange: this.onChange,
         };
 
         return (
             <Label>
-                {this.props.label ? this.props.label : 'Please enter the name of your school:'}
+                <span>{this.props.label || 'Please enter the name of your school'}</span>
                 <SchoolAutosuggest
                     suggestions={suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

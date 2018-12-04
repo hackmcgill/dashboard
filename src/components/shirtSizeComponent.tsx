@@ -19,7 +19,7 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
     ]
     return (
         <Label>
-            Shirt size:
+            <span>Shirt size</span>
             <StyledSelect
                 value={{ label: props.value }}
                 id={'shirt-size-selector'}

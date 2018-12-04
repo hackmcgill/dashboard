@@ -2,6 +2,7 @@ import * as React from 'react';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import FileInput from 'src/shared/FileInput';
+import { Box } from '@rebass/grid';
 
 export interface IUploadComponent {
     label: string;
@@ -10,10 +11,13 @@ export interface IUploadComponent {
 const FileUploadComponent: React.StatelessComponent<IUploadComponent & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
+        <Box mb={'26px'}>
         <Label>
-            {props.label}:
+            <span>{props.label}:</span>
             <FileInput type='file' placeholder={placeholder} onChange={handleChange(props)}/>
         </Label>
+
+        </Box>
     )
 }
 /**

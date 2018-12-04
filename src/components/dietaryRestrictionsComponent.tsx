@@ -26,7 +26,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
     ]
     return (
         <Label>
-            Dietary Restrictions:
+            <span>Dietary Restrictions</span>
             <StyledSelect
                 value={preselectOptions(options, props.value)}
                 className='react-select-container'

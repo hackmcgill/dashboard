@@ -32,6 +32,10 @@ export interface ILoginState {
 class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     constructor(props: RouteComponentProps) {
         super(props);
+        this.state = {
+            email: '',
+            password: ''
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.onEmailChanged = this.onEmailChanged.bind(this);
@@ -39,59 +43,58 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     public render() {
         return (
             <MediaQuery minWidth={1224}>
-            {
-                (matches) => 
-                    matches ?
-                    <LeftContainer>
-                        {this.renderForm()}
-                        <BackgroundImage
-                            src={BackgroundLandscape}
-                            top={'0px'}
-                            left={'0px'}
-                            imgWidth={'100%'}
-                            imgHeight={'100%'}
-                            minHeight={'600px'}
-                        />
-                    </LeftContainer> :
-                <div>
-                    {this.renderForm()}
-                    <BackgroundImage
-                        src={BackgroundLandscape}
-                        top={'0px'}
-                        left={'0px'}
-                        imgHeight={'100%'}
-                    />
-                </div>  
-            }
+                {
+                    (matches) =>
+                        matches ?
+                            <LeftContainer>
+                                {this.renderForm()}
+                                <BackgroundImage
+                                    src={BackgroundLandscape}
+                                    top={'0px'}
+                                    left={'0px'}
+                                    imgWidth={'100%'}
+                                    imgHeight={'100%'}
+                                    minHeight={'600px'}
+                                />
+                            </LeftContainer> :
+                            <div>
+                                {this.renderForm()}
+                                <BackgroundImage
+                                    src={BackgroundLandscape}
+                                    top={'0px'}
+                                    left={'0px'}
+                                    imgHeight={'100%'}
+                                />
+                            </div>
+                }
             </MediaQuery >
         );
     }
 
     private renderForm() {
         return (
+            <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
             <Form>
                 <Flex
                     alignItems={'center'}
                     flexDirection={'column'}
                 >
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'} ml={'12%'}>
-                        <H1 color={'#F2463A'} fontSize={'24px'} textAlign={'left'}>
+                    <Box alignSelf={'flex-start'}>
+                        <H1 color={'#F2463A'} fontSize={'24px'}>
                             Sign in / Register
                         </H1>
-                    </MaxWidthBox>
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'}>
-                        <EmailInputComponent
-                            onEmailChanged={this.onEmailChanged}
-                            isTight={true}
-                        />
-                    </MaxWidthBox>
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'} pb={'30px'}>
-                        <PasswordInputComponent
-                            onPasswordChanged={this.onPasswordChanged}
-                            isTight={true}
-                        />
+                    </Box>
+                    <EmailInputComponent
+                        onEmailChanged={this.onEmailChanged}
+                        isTight={true}
+                    />
+                    <PasswordInputComponent
+                        onPasswordChanged={this.onPasswordChanged}
+                        isTight={true}
+                    />
+                    <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
                         <ForgotPasswordLinkComponent />
-                    </MaxWidthBox>
+                    </Box>
                     <Flex>
                         <Box pr={'5px'}>
                             <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
@@ -103,8 +106,11 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         </Box>
                     </Flex>
                 </Flex>
-            </Form>);
+            </Form>
 
+
+            </MaxWidthBox>
+        )
     }
 
     /**

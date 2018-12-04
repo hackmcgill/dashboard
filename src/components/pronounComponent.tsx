@@ -11,7 +11,7 @@ interface IPronounInputProp {
 const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
     return (
         <Label>
-            {props.label ? props.label : 'Pronoun:'}
+            <span>{props.label || 'Pronoun'}</span>
             <Input type='text' onChange={handleChange(props)} placeholder={props.placeholder} value={props.value} />
         </Label>
     )
