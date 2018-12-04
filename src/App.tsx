@@ -40,7 +40,7 @@ class App extends React.Component {
             }
           />
           <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withNavbar(withAuthRedirect(LoginContainer, { requiredAuthState: false }))} />
-          <Route path="*" component={NotFoundContainer} />
+          <Route path="*" component={withNavbar(NotFoundContainer)} />
         </Switch>
       </BrowserRouter>
     );
