@@ -69,29 +69,28 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
 
     private renderForm() {
         return (
+            <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
             <Form>
                 <Flex
                     alignItems={'center'}
                     flexDirection={'column'}
                 >
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'} ml={'12%'}>
-                        <H1 color={'#F2463A'} fontSize={'24px'} textAlign={'left'}>
+                    <Box alignSelf={'flex-start'}>
+                        <H1 color={'#F2463A'} fontSize={'24px'}>
                             Sign in / Register
                         </H1>
-                    </MaxWidthBox>
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'}>
-                        <EmailInputComponent
-                            onEmailChanged={this.onEmailChanged}
-                            isTight={true}
-                        />
-                    </MaxWidthBox>
-                    <MaxWidthBox width={'80%'} maxWidth={'500px'} pb={'30px'}>
-                        <PasswordInputComponent
-                            onPasswordChanged={this.onPasswordChanged}
-                            isTight={true}
-                        />
+                    </Box>
+                    <EmailInputComponent
+                        onEmailChanged={this.onEmailChanged}
+                        isTight={true}
+                    />
+                    <PasswordInputComponent
+                        onPasswordChanged={this.onPasswordChanged}
+                        isTight={true}
+                    />
+                    <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
                         <ForgotPasswordLinkComponent />
-                    </MaxWidthBox>
+                    </Box>
                     <Flex>
                         <Box pr={'5px'}>
                             <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
@@ -103,8 +102,11 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         </Box>
                     </Flex>
                 </Flex>
-            </Form>);
+            </Form>
 
+
+            </MaxWidthBox>
+        )
     }
 
     /**

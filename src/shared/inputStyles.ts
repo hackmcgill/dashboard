@@ -16,7 +16,7 @@ const inputStyles = css`
   font-size: 16px;
   margin: auto;
   margin-top: 10px;
-  margin-bottom: ${(props: IInputProps) => (props.isTight) ? '0px' : '20px'};
+  margin-bottom: ${(props: IInputProps) => (props.isTight) ? '8px' : '20px'};
   min-height: 35px;
   padding-left: 16px;
   width: 100%;
