@@ -32,6 +32,10 @@ export interface ILoginState {
 class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     constructor(props: RouteComponentProps) {
         super(props);
+        this.state = {
+            email: '',
+            password: ''
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onPasswordChanged = this.onPasswordChanged.bind(this);
         this.onEmailChanged = this.onEmailChanged.bind(this);
@@ -39,30 +43,30 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     public render() {
         return (
             <MediaQuery minWidth={1224}>
-            {
-                (matches) => 
-                    matches ?
-                    <LeftContainer>
-                        {this.renderForm()}
-                        <BackgroundImage
-                            src={BackgroundLandscape}
-                            top={'0px'}
-                            left={'0px'}
-                            imgWidth={'100%'}
-                            imgHeight={'100%'}
-                            minHeight={'600px'}
-                        />
-                    </LeftContainer> :
-                <div>
-                    {this.renderForm()}
-                    <BackgroundImage
-                        src={BackgroundLandscape}
-                        top={'0px'}
-                        left={'0px'}
-                        imgHeight={'100%'}
-                    />
-                </div>  
-            }
+                {
+                    (matches) =>
+                        matches ?
+                            <LeftContainer>
+                                {this.renderForm()}
+                                <BackgroundImage
+                                    src={BackgroundLandscape}
+                                    top={'0px'}
+                                    left={'0px'}
+                                    imgWidth={'100%'}
+                                    imgHeight={'100%'}
+                                    minHeight={'600px'}
+                                />
+                            </LeftContainer> :
+                            <div>
+                                {this.renderForm()}
+                                <BackgroundImage
+                                    src={BackgroundLandscape}
+                                    top={'0px'}
+                                    left={'0px'}
+                                    imgHeight={'100%'}
+                                />
+                            </div>
+                }
             </MediaQuery >
         );
     }
