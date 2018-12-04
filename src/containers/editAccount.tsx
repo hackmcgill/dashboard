@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ManageAccount, {ManageAccountModes} from "src/containers/manageAccount";
 
-const CreateAccount = () =>
-  <ManageAccount mode={ManageAccountModes.CREATE}/>
+const EditAccount = () =>
+  <ManageAccount mode={ManageAccountModes.EDIT}/>
 
-export default CreateAccount;
+export default EditAccount;

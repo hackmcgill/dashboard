@@ -9,7 +9,7 @@ interface IFullNameInput {
     onFirstNameChanged: (firstName: string) => void;
     onLastNameChanged: (lastName: string) => void;
 }
-const FullNameInput: React.StatelessComponent<IFullNameInput> = (props) => {
+const FullNameInput: React.StatelessComponent<IFullNameInput> = (props: IFullNameInput) => {
     return (
         <Flex flexWrap={'wrap'} width={[1, 1 - 0.12]} m='auto' name='name_flex'>
             <MaxWidthBox width={[1, 0.5]} m={'none'} mb='0px'>
