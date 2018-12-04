@@ -17,28 +17,20 @@ export interface IAuthDirectOptions {
   AuthVerification?: (acct: IAccount) => boolean;
   // True, if user should be redirected to original component if the user failed authentication.
   redirAfterLogin?: boolean;
-  // If user must be authorized, but AuthVerifcation is failed, and we do not want to navigate to Home page, specify another link to redirect to.
-  redirLinkIfAuthStateFail?: string;
 }
+
 
 const defaultOptions = {
   requiredAuthState: true,
   AuthVerification: (acct: IAccount) => true,
-  redirAfterLogin: false,
-  redirLinkIfAuthStateFail: FrontendRoute.HOME_PAGE
+  redirOnSuccess: false
 }
 
-/**
- * 
- * @param Component The component to navigate to if options succeeds
- * @param options Options for specifying what sort of authentication redirect you want.
- */
 const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, options: IAuthDirectOptions = defaultOptions) =>
   class extends React.Component<P, { authState: authStates }> {
 
     private verification: (acct: IAccount) => boolean;
-    private redirLinkAfterLogin: string;
-    private redirLinkIfAuthStateFail: string;
+    private redirOnSuccess: string;
 
     constructor(props: any) {
       super(props);
@@ -46,8 +38,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
         authState: authStates.undefined
       };
       this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
-      this.redirLinkAfterLogin = (options.redirAfterLogin) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
-      this.redirLinkIfAuthStateFail = (options.redirLinkIfAuthStateFail) ? options.redirLinkIfAuthStateFail : defaultOptions.redirLinkIfAuthStateFail;
+      this.redirOnSuccess = (options.redirAfterLogin) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
     }
 
     public async componentDidMount() {
@@ -72,12 +63,11 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
 
     public render() {
       const { authState } = this.state;
-      const redirComponent = <Redirect to={this.redirLinkIfAuthStateFail} />;
       switch (authState) {
         case authStates.authorized:
-          return options.requiredAuthState ? <Component {...this.props} /> : redirComponent;
+          return options.requiredAuthState ? <Component {...this.props} /> : (<Redirect to={FrontendRoute.HOME_PAGE} />);
         case authStates.unauthorized:
-          return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirLinkAfterLogin}`} />) : <Component {...this.props} />;
+          return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`} />) : <Component {...this.props} />;
         default:
           return <div />;
       }
