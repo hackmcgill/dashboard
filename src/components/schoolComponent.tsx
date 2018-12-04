@@ -3,7 +3,6 @@ import Schools from 'src/config/schools';
 import { FieldProps } from 'formik';
 import Label from 'src/shared/Label';
 import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
-import '../styles/schoolComponentStyle.css';
 
 
 /**
