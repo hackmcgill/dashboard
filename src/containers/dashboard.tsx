@@ -84,7 +84,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
             </Flex>
         );
     }
-    gi
+
     private confirmAccountToastError() {
         toast.error("You must confirm your account!");
     }
