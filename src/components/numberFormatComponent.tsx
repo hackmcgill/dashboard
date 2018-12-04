@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import Label from 'src/shared/Label';
-import NumberFormat from 'src/shared/NumberFormat';
+import NumberFormat from 'src/shared/StyledNumberFormat';
 import { NumberFormatValues, NumberFormatProps } from 'react-number-format';
 
 interface ILabelledNumberFormatProp {

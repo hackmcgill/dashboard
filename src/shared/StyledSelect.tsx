@@ -1,19 +1,11 @@
 import Select from "react-select";
 import styled from "styled-components";
+import inputStyles from 'src/shared/inputStyles';
+
 const StyledSelect = styled(Select)`
   .react-select__control {
-    border: 2px solid ${props => props.theme.greyLight};
-    font-weight: normal;
-    border-radius: 20px;
-    padding-left: 10px;
-    width: 80%;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
-
-    &:hover {
-      border: 2px solid ${props => props.theme.grey};
-    }
+    ${inputStyles}
+    display: flex;
   }
 
   .react-select__option {
