@@ -5,6 +5,7 @@ import NumberFormat from 'src/shared/NumberFormat';
 import { NumberFormatValues, NumberFormatProps } from 'react-number-format';
 
 interface ILabelledNumberFormatProp {
+    value?: string;
     onValueChange: (value: NumberFormatValues) => void;
     label: string;
     placeholder: string;

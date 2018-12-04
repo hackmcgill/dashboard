@@ -6,6 +6,8 @@ import { Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 interface IFullNameInput {
+    firstNameValue?: string;
+    lastNameValue?: string;
     onFirstNameChanged: (firstName: string) => void;
     onLastNameChanged: (lastName: string) => void;
 }
@@ -15,13 +17,13 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props: IFullNam
             <MaxWidthBox width={[1, 0.5]} m={'none'} mb='0px'>
                 <Label>
                     First Name:
-                    <Input type='text' onChange={handleChange(props, 'first')} isTight={true} />
+                    <Input type='text' onChange={handleChange(props, 'first')} isTight={true} value={props.firstNameValue} />
                 </Label>
             </MaxWidthBox>
             <MaxWidthBox width={[1, 0.5,]} m={'none'} mb='0px' >
                 <Label>
                     Last Name:
-                        <Input type='text' onChange={handleChange(props, 'last')} isTight={true} />
+                        <Input type='text' onChange={handleChange(props, 'last')} isTight={true} value={props.lastNameValue} />
                 </Label>
             </MaxWidthBox>
         </Flex>

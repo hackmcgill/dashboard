@@ -18,7 +18,6 @@ const Input = styled.input<IInputProps>`
   min-height: 35px;
   padding-left: 16px;
   width: 80%;
-
   &:focus,&:hover {
     border: 2px solid ${props => props.theme.grey};
   }

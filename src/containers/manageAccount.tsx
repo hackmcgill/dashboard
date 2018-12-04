@@ -55,7 +55,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 password: '',
                 phoneNumber: '',
                 pronoun: '',
-                shirtSize: ShirtSize.M,
+                shirtSize: '',
             }
         };
         this.onDietaryRestrictionsChanged = this.onDietaryRestrictionsChanged.bind(this);
@@ -68,10 +68,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         this.onPhoneChanged = this.onPhoneChanged.bind(this);
         this.onBirthDateChanged = this.onBirthDateChanged.bind(this);
         this.onPronounChanged = this.onPronounChanged.bind(this);
+        this.dateToString = this.dateToString.bind(this);
     }
 
     public async componentDidMount() {
-        const {mode} = this.state;
+        const { mode } = this.state;
         if (mode === ManageAccountModes.EDIT) {
             try {
                 const response = await Account.getSelf();
@@ -80,10 +81,8 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
 
                 console.log(accountDetails);
 
-                this.setState({
-                    accountDetails:
-                    {...this.state.accountDetails, email: accountDetails.email}});
-            } catch(e) {
+                this.setState({ accountDetails });
+            } catch (e) {
                 if (e && e.data) {
                     ValidationErrorGenerator(e.data);
                 }
@@ -91,9 +90,9 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         }
     }
 
-    
+
     public render() {
-        const {mode, accountCreated} = this.state;
+        const { mode, accountCreated } = this.state;
 
         if (mode === ManageAccountModes.CREATE && accountCreated) {
             return <ConfirmationEmailSentComponent />
@@ -103,7 +102,8 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     }
 
     private renderForm() {
-        const {mode, accountDetails} = this.state;
+        const { mode, accountDetails } = this.state;
+        console.log(accountDetails);
         return (
             <Container>
                 <MaxWidthBox width={'80%'} maxWidth={'500px'} m={'auto'}>
@@ -118,33 +118,56 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 </MaxWidthBox>
                 <Form onSubmit={this.handleSubmit}>
                     <FullNameInput
+                        firstNameValue={accountDetails.firstName}
+                        lastNameValue={accountDetails.lastName}
                         onFirstNameChanged={this.onFirstNameChanged}
                         onLastNameChanged={this.onLastNameChanged}
                     />
                     <EmailInput
                         value={accountDetails.email}
                         onEmailChanged={this.onEmailChanged}
+                        disabled={mode === ManageAccountModes.EDIT}
                     />
-                    <PasswordInput
-                        onPasswordChanged={this.onPasswordChanged}
-                    />
+                    {
+                        (mode === ManageAccountModes.CREATE) ?
+                            <PasswordInput
+                                onPasswordChanged={this.onPasswordChanged}
+                            /> :
+                            (
+                                <MaxWidthBox>
+                                    {/* <PasswordInput
+                                        label={'Old password'}
+                                        onPasswordChanged={this.onPasswordChanged}
+                                    /> */}
+                                    <PasswordInput
+                                        label={'New password'}
+                                        onPasswordChanged={this.onPasswordChanged}
+                                    />
+                                </MaxWidthBox>
+                            )
+                    }
                     <DietaryRestrictionComponent
+                        value={accountDetails.dietaryRestrictions}
                         onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
                     />
                     <PronounInput
+                        value={accountDetails.pronoun}
                         placeholder="Preferred pronoun"
                         onPronounChanged={this.onPronounChanged}
                     />
                     <ShirtSizeComponent
+                        value={accountDetails.shirtSize}
                         onShirtSizeChanged={this.onShirtSizeChanged}
                     />
                     <NumberFormat
+                        value={accountDetails.phoneNumber}
                         label="Phone number:"
                         placeholder="+# (###) ###-####"
                         onValueChange={this.onPhoneChanged}
                         format="+# (###) ###-####"
                     />
                     <NumberFormat
+                        value={this.dateToString(new Date(accountDetails.birthDate))}
                         label="Birth date:"
                         placeholder="MM-DD-YYYY"
                         onValueChange={this.onBirthDateChanged}
@@ -161,7 +184,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     }
 
     private handleSubmit() {
-        const {mode} = this.state;
+        const { mode } = this.state;
         switch (mode) {
             case ManageAccountModes.CREATE:
                 this.handleCreate();
@@ -177,64 +200,84 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             await Account.create(this.state.accountDetails);
             console.log('Created an account');
             await Auth.login(this.state.accountDetails.email, this.state.accountDetails.password);
-            this.setState({accountCreated: true});
-        } catch(e) {
+            this.setState({ accountCreated: true });
+        } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
             }
         }
-            
+
     }
 
     private async handleEdit() {
         try {
             await Account.update(this.state.accountDetails);
             console.log('Created an account');
-            this.setState({accountCreated: true});
-        } catch(e) {
+            this.setState({ accountCreated: true });
+        } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
             }
         }
     }
     private onDietaryRestrictionsChanged(dietaryRestrictions: string[]) {
-        const accountDetails = {...this.state.accountDetails, dietaryRestrictions};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, dietaryRestrictions };
+        this.setState({ accountDetails });
     }
     private onShirtSizeChanged(shirtSize: ShirtSize) {
-        const accountDetails = {...this.state.accountDetails, shirtSize};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, shirtSize };
+        this.setState({ accountDetails });
     }
     private onEmailChanged(email: string) {
-        const accountDetails = {...this.state.accountDetails, email};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, email };
+        this.setState({ accountDetails });
     }
     private onFirstNameChanged(firstName: string) {
-        const accountDetails = {...this.state.accountDetails, firstName};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, firstName };
+        this.setState({ accountDetails });
     }
     private onLastNameChanged(lastName: string) {
-        const accountDetails = {...this.state.accountDetails, lastName};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, lastName };
+        this.setState({ accountDetails });
     }
     private onPasswordChanged(password: string) {
-        const accountDetails = {...this.state.accountDetails, password};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, password };
+        this.setState({ accountDetails });
     }
     private onPhoneChanged(phone: NumberFormatValues) {
-        const accountDetails = {...this.state.accountDetails, phoneNumber: phone.value};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, phoneNumber: phone.value };
+        this.setState({ accountDetails });
     }
     private onBirthDateChanged(birthdate: NumberFormatValues) {
         const dateFields = birthdate.formattedValue.split('-');
         const date = new Date(Number(dateFields[2]), Number(dateFields[0]) - 1, Number(dateFields[1]));
-        const accountDetails = {...this.state.accountDetails, birthDate: date};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, birthDate: date };
+        this.setState({ accountDetails });
     }
     private onPronounChanged(pronoun: string) {
-        const accountDetails = {...this.state.accountDetails, pronoun};
-        this.setState({accountDetails});
+        const accountDetails = { ...this.state.accountDetails, pronoun };
+        this.setState({ accountDetails });
     }
+
+    /**
+     * Date utility method
+     * @param birthdate 
+     */
+    private dateToString(birthdate: Date): string {
+        const month: string = this.padStart(2, "0", String(birthdate.getMonth() + 1));
+        const day: string = this.padStart(2, "0", String(birthdate.getDate()));
+        const year: string = this.padStart(4, "0", String(birthdate.getFullYear()));
+        return month + day + year;
+    }
+    private padStart(padNum: number, padValue: string, value: string): string {
+        if (value.length < padNum) {
+            const pad = String(padValue).repeat(padNum - value.length);
+            return pad + value;
+        }
+        return value;
+    }
+
+
 }
 
 export default WithToasterContainer(ManageAccountContainer);
