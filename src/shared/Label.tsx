@@ -10,6 +10,7 @@ interface ILabelProps {
 const Label = styled.label`
   span {
     margin-left: 10px;
+    display: inline-block;
   }
   font-weight: ${(props: ILabelProps) => props.fontWeight ? props.fontWeight : 'bold'};
   color: #4D4D4D;
