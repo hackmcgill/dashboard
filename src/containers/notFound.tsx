@@ -15,18 +15,17 @@ import { Link } from 'react-router-dom';
 class NotFoundContainer extends React.Component<RouteComponentProps>{
     constructor(props: RouteComponentProps) {
         super(props);
-
     }
     public render() {
-        
-            return (
-              <Flex
-                  flexWrap={'wrap'}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  flexDirection={'column'}
-                  px={3}
-              >
+
+        return (
+            <Flex
+                flexWrap={'wrap'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                flexDirection={'column'}
+                px={3}
+            >
                 <Box>
                     <Image src={Construction} imgHeight={"7rem"} padding={'0rem'} />
                 </Box>
@@ -39,6 +38,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                     <Paragraph
                         paddingBottom={'20px'}
                         color={'#4D4D4D'}
+                        textAlign={'center'}
                     >
                         The page you're looking for doesn't exist or has been moved
                         </Paragraph>
