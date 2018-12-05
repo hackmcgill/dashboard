@@ -86,7 +86,10 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
     }
 
     private confirmAccountToastError() {
-        toast.error("You must confirm your account!");
+        const { confirmed } = this.state;
+        if (!confirmed) {
+            toast.error("You must confirm your account!");
+        }
     }
 }
 
