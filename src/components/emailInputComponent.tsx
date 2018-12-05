@@ -4,15 +4,17 @@ import Label from 'src/shared/Label';
 
 interface IEmailInputProp {
     onEmailChanged: (email: string) => void;
+    disabled?: boolean;
+    value?: string;
     placeholder?: string;
     isTight?: boolean;
 }
-const EmailInput: React.StatelessComponent<IEmailInputProp> = (props) => {
+const EmailInput: React.StatelessComponent<IEmailInputProp> = (props: IEmailInputProp) => {
     const placeholder = (props.placeholder) ? props.placeholder : "";
     return (
         <Label>
             <span>Email:</span>
-            <Input type='email' onChange={handleChange(props)} placeholder={placeholder} isTight={props.isTight} />
+            <Input type='email' onChange={handleChange(props)} placeholder={placeholder} isTight={props.isTight} value={props.value} disabled={props.disabled} />
         </Label>
     )
 }

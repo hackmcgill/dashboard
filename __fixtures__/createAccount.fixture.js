@@ -1,4 +1,4 @@
-import createAccount from "../src/containers/createAccount";
+import createAccount from "../src/containers/manageAccount";
 
 export default {
     component: createAccount,

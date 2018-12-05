@@ -7,6 +7,7 @@ import Label from 'src/shared/Label';
  * DietaryRestrictionsComponent props
  */
 export interface IDietRestrictionProps {
+    value?: string[];
     onDietaryRestrictionsChanged: (selectedOptions: string[]) => void;
 }
 
@@ -27,9 +28,11 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
         <Label>
             <span>Dietary Restrictions</span>
             <StyledSelect
+                value={preselectOptions(options, props.value)}
                 className='react-select-container'
                 classNamePrefix='react-select'
                 id={'diet-restrictions'}
+                inputId={'diet-restrictions-input'}
                 isMulti={true}
                 onChange={handleChange(props)}
                 options={options}
@@ -37,6 +40,21 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
         </Label>
     );
 }
+function preselectOptions(originalOptions: Array<{ label: string, value: string }>, values: string[] | undefined): Array<{ label: string, value: string }> {
+    const selectedOpts: Array<{ label: string, value: string }> = [];
+    if (!values) {
+        return selectedOpts;
+    }
+    values.forEach((val: string) => {
+        const found = originalOptions.find((origOpt) => origOpt.label === val);
+        if (!found) {
+            originalOptions.push({ label: val, value: val });
+        }
+        selectedOpts.push({ label: val, value: val });
+    });
+    return selectedOpts;
+};
+
 /**
  * Function factory that generates function to handle changes in user's choice.
  * @param props The props passed into the DietaryRestrictions component.

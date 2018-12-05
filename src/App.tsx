@@ -5,6 +5,7 @@ import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
 import LoginContainer from 'src/containers/login';
 import ConfirmAccountContainer from 'src/containers/confirmAccount';
+import EditAccountContainer from 'src/containers/editAccount';
 import withAuthRedirect from 'src/hoc/withAuthRedirect';
 import withTokenRedirect from 'src/hoc/withTokenRedirect';
 import ForgotPasswordContainer from 'src/containers/forgotPassword';
@@ -25,6 +26,7 @@ class App extends React.Component {
         <Switch>
           <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withNavbar(withAuthRedirect(DashboardContainer))} />
           <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(CreateAccount, { requiredAuthState: false }))} />
+          <Route exact={true} path={FrontendRoute.EDIT_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(EditAccountContainer, { requiredAuthState: true }))} />
           <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withNavbar(withTokenRedirect(resetPassword))} />
           <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirAfterLogin: true }))} />
           <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={withNavbar(ForgotPasswordContainer)} />

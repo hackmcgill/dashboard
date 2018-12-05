@@ -68,7 +68,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
                             <Image src={iconApplication} imgHeight={"125px"} />
                         </Card>
                     </Link>
-                    <Link to={FrontendRoute.HOME_PAGE} style={{ textDecoration: 'none' }}>
+                    <Link to={FrontendRoute.EDIT_ACCOUNT_PAGE} style={{ textDecoration: 'none' }}>
                         <Card width={"250px"} flexDirection={"column"}>
                             <H2 fontSize={"28px"}>Account</H2>
                             <Image src={iconAccount} imgHeight={"125px"} />

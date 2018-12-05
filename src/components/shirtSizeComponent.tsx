@@ -4,6 +4,7 @@ import ShirtSize from '../config/shirtSizes';
 import Label from 'src/shared/Label';
 
 interface IShirtSizeProps {
+    value?: ShirtSize | string
     onShirtSizeChanged: (selectedOptions: ShirtSize) => void;
 }
 
@@ -20,6 +21,9 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
         <Label>
             <span>Shirt size</span>
             <StyledSelect
+                value={{ label: props.value }}
+                id={'shirt-size-selector'}
+                inputId={'shirt-size-selector-input'}
                 className='react-select-container'
                 classNamePrefix='react-select'
                 onChange={handleChange(props)}
@@ -28,6 +32,7 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
         </Label>
     );
 }
+
 /**
  * Function factory that generates function to handle changes in user's choice.
  * @param props The props passed into the ShirtSizeComponent component.

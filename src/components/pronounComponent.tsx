@@ -3,6 +3,7 @@ import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
 
 interface IPronounInputProp {
+    value?: string;
     onPronounChanged: (email: string) => void;
     label?: string;
     placeholder: string;
@@ -11,7 +12,7 @@ const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
     return (
         <Label>
             <span>{props.label || 'Pronoun'}</span>
-            <Input type='text' onChange={handleChange(props)} placeholder={props.placeholder} />
+            <Input type='text' onChange={handleChange(props)} placeholder={props.placeholder} value={props.value} />
         </Label>
     )
 }
