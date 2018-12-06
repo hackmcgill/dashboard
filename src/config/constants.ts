@@ -33,4 +33,4 @@ export const SKILLS_REQUEST_PLACEHOLDER = 'Javascript, iOS, Android...';
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';
 export const RESEND_CONF_EMAIL = 'Resend confirmation email';
-export const EMAIL_SENT = 'Sent!';
+export const EMAIL_SENT = 'Email sent!';
