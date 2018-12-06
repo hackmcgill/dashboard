@@ -21,7 +21,7 @@ const Button = styled.button<{ secondary?: boolean }>`
   font-weight: bold;
   
   &:hover {
-    background-color: ${props => props.theme.primaryLight};
+    background-color:  ${(props:IButtonProps) => props.secondary ? props.theme.primary : props.theme.primaryLight};
   }
 `;
 
