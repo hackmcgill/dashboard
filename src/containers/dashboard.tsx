@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AxiosResponse } from 'axios';
 import Card from "src/shared/Card";
 import { Flex, Box } from "@rebass/grid";
 import iconAccount from "src/assets/images/dashboard-account.svg";
@@ -19,6 +20,10 @@ import FrontendRoute from 'src/config/FrontendRoute';
 import UserInfoController from 'src/config/UserInfoController';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { toast } from 'react-toastify';
+import auth from 'src/api/auth';
+import APIResponse from 'src/api/APIResponse';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import { ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
 
 export interface IDashboardState {
     status: HackerStatus;
@@ -36,6 +41,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
             confirmed: true
         }
         this.confirmAccountToastError = this.confirmAccountToastError.bind(this);
+        this.resendConfirmationEmaill = this.resendConfirmationEmaill.bind(this);
     }
 
     public async componentDidMount() {
@@ -88,8 +94,26 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
     private confirmAccountToastError() {
         const { confirmed } = this.state;
         if (!confirmed) {
-            toast.error("You must confirm your account!");
+            const reactMsg = (
+                <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
+                    <Box mb={'3px'}>{ACCOUNT_NOT_CONFIRMED_MSG}</Box>
+                    <Box onClick={this.resendConfirmationEmaill} style={{ textDecoration: 'underline' }}>{RESEND_CONF_EMAIL}</Box>
+                </Flex>);
+            toast.error(reactMsg, {
+                autoClose: false,
+            });
         }
+    }
+    private resendConfirmationEmaill() {
+        auth.resendConfirmationEmail().then((value) => {
+            if (value.status === 200) {
+                toast.success(EMAIL_SENT);
+            }
+        }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+            if (response && response.data) {
+                ValidationErrorGenerator(response.data);
+            }
+        });
     }
 }
 

@@ -11,6 +11,7 @@ class AuthAPI {
         API.createEntity(APIRoute.AUTH_RESET_PASS);
         API.createEntity(APIRoute.AUTH_CONFIRM_ACCT);
         API.createEntity(APIRoute.AUTH_CHANGE_PASS);
+        API.createEntity(APIRoute.AUTH_RESEND_CONF_EMAIL);
     }
     /**
      * Logs in a user to the API.

@@ -29,3 +29,8 @@ export const PERSONAL_LINK_PLACEHOLDER = 'your website here...';
 export const RESUME_REQUEST_LABEL = 'Upload a resume';
 export const SKILLS_REQUEST_LABEL = 'What skills do you have?';
 export const SKILLS_REQUEST_PLACEHOLDER = 'Javascript, iOS, Android...';
+
+// Dashboard page
+export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';
+export const RESEND_CONF_EMAIL = 'Resend confirmation email';
+export const EMAIL_SENT = 'Email sent!';
