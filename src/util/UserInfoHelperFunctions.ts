@@ -8,10 +8,7 @@ export function userCanAccessCreateApplicationPage(user: IAccount) {
 export async function isLoggedIn(): Promise<boolean> {
     try {
         const userInfo = await getUserInfo();
-        if (userInfo) {
-            return true;
-        }
-        return false;
+        return Boolean(userInfo);
     } catch (error) {
         return false;
     }
@@ -24,7 +21,7 @@ export async function isConfirmed(): Promise<boolean> {
     try {
         const response = await Account.getSelf();
         const user = response.data.data;
-        return !!user && user.confirmed;
+        return Boolean(user) && user.confirmed;
     } catch (error) {
         return false;
     }
