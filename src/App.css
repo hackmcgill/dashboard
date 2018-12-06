@@ -1,15 +1,15 @@
 @font-face {
-  font-family: Brown;
+  font-family: 'Brown';
   font-style: normal;
   font-weight: regular;
-  src: url("/assets/fonts/lineto-brown-regular.ttf");
+  src: url("./assets/fonts/lineto-brown-regular.ttf");
 }
 
 @font-face {
-  font-family: Brown;
+  font-family: 'Brown';
   font-style: normal;
   font-weight: bold;
-  src: url("/assets/fonts/lineto-brown-bold.ttf");
+  src: url("./assets/fonts/lineto-brown-bold.ttf");
 }
 
 .App {
