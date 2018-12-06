@@ -1,7 +1,9 @@
 import API from 'src/api/api';
 import APIRoute from 'src/config/APIRoute';
-import { AxiosPromise } from 'axios';
+import { AxiosPromise, AxiosResponse } from 'axios';
 import APIResponse from './APIResponse';
+import LocalCache from 'src/util/LocalCache';
+import { CACHE_USER_KEY } from 'src/config/constants';
 
 class AuthAPI {
     constructor() {
@@ -27,9 +29,10 @@ class AuthAPI {
      * Logs out a user from the API
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public logout(): AxiosPromise<APIResponse> {
-        return API.getEndpoint(APIRoute.AUTH_LOGOUT).getOne({ id: '' });
-
+    public async logout(): Promise<AxiosResponse<APIResponse>> {
+        const value = await API.getEndpoint(APIRoute.AUTH_LOGOUT).getOne({ id: '' });
+        LocalCache.remove(CACHE_USER_KEY);
+        return value;
     }
     /**
      * Sends a request for a reset-password email.

@@ -20,7 +20,7 @@ import MediaQuery from 'react-responsive';
 import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
-import UserInfoController from 'src/config/UserInfoController';
+import auth from 'src/api/auth';
 export interface ILoginState {
     email: string;
     password: string;
@@ -74,39 +74,39 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
     private renderForm() {
         return (
             <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
-            <Form>
-                <Flex
-                    alignItems={'center'}
-                    flexDirection={'column'}
-                >
-                    <Box alignSelf={'flex-start'}>
-                        <H1 color={'#F2463A'} fontSize={'24px'}>
-                            Sign in / Register
+                <Form>
+                    <Flex
+                        alignItems={'center'}
+                        flexDirection={'column'}
+                    >
+                        <Box alignSelf={'flex-start'}>
+                            <H1 color={'#F2463A'} fontSize={'24px'}>
+                                Sign in / Register
                         </H1>
-                    </Box>
-                    <EmailInputComponent
-                        onEmailChanged={this.onEmailChanged}
-                        isTight={true}
-                    />
-                    <PasswordInputComponent
-                        onPasswordChanged={this.onPasswordChanged}
-                        isTight={true}
-                    />
-                    <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
-                        <ForgotPasswordLinkComponent />
-                    </Box>
-                    <Flex>
-                        <Box pr={'5px'}>
-                            <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
                         </Box>
-                        <Box pl={'5px'}>
-                            <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-                                <Button type='button' secondary={true}>Register</Button>
-                            </Link>
+                        <EmailInputComponent
+                            onEmailChanged={this.onEmailChanged}
+                            isTight={true}
+                        />
+                        <PasswordInputComponent
+                            onPasswordChanged={this.onPasswordChanged}
+                            isTight={true}
+                        />
+                        <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
+                            <ForgotPasswordLinkComponent />
                         </Box>
+                        <Flex>
+                            <Box pr={'5px'}>
+                                <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
+                            </Box>
+                            <Box pl={'5px'}>
+                                <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+                                    <Button type='button' secondary={true}>Register</Button>
+                                </Link>
+                            </Box>
+                        </Flex>
                     </Flex>
-                </Flex>
-            </Form>
+                </Form>
 
 
             </MaxWidthBox>
@@ -117,7 +117,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
      * Function that calls the login function once the form is submitted.
      */
     private handleSubmit(): void {
-        UserInfoController.logIn(
+        auth.login(
             this.state.email,
             this.state.password
         ).then((value: AxiosResponse) => {

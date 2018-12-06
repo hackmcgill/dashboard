@@ -17,7 +17,7 @@ import hacker from 'src/api/hacker';
 import H1 from 'src/shared/H1';
 import { IHacker } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
-import UserInfoController from 'src/config/UserInfoController';
+import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { toast } from 'react-toastify';
 import auth from 'src/api/auth';
@@ -55,7 +55,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
             }
         }
         try {
-            const confirmed = await UserInfoController.isConfirmed();
+            const confirmed = await isConfirmed();
             this.setState({ confirmed });
         } catch (e) {
             this.setState({ confirmed: false });

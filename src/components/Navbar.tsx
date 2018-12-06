@@ -3,7 +3,7 @@ import * as React from 'react';
 import FrontendRoute from 'src/config/FrontendRoute';
 import Image from 'src/shared/Image';
 import Martlett from 'src/assets/images/mchacks-martlet-tight.svg';
-import UserInfoController from 'src/config/UserInfoController';
+import { isLoggedIn } from 'src/util/UserInfoHelperFunctions';
 import LogoutBtn from 'src/components/logoutButton';
 import { Nav } from 'src/shared/Nav';
 import { Flex, Box } from '@rebass/grid';
@@ -42,7 +42,7 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
         );
     }
     private checkLoggedIn() {
-        UserInfoController.isLoggedIn().then((result) => {
+        isLoggedIn().then((result) => {
             this.setState({
                 loggedIn: result
             });
