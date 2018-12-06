@@ -1,9 +1,36 @@
+@font-face {
+  font-family: Brown;
+  font-style: normal;
+  font-weight: regular;
+  src: url("/assets/fonts/lineto-brown-regular.ttf");
+}
+
+@font-face {
+  font-family: Brown;
+  font-style: normal;
+  font-weight: bold;
+  src: url("/assets/fonts/lineto-brown-bold.ttf");
+}
+
 .App {
   text-align: center;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Brown', sans-serif;
+}
+
 body > #root {
+  font-family: 'Hind Siliguri', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  font-family: 'Hind Siliguri', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
 }
 
 .App-logo {
