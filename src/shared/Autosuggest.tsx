@@ -12,7 +12,6 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__input {
     ${inputStyles};
-    font-family: ${props => props.theme.fontFamily};
   }
 
   .react-autosuggest__input:hover {
