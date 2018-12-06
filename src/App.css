@@ -29,10 +29,6 @@ a {
   text-decoration: none;
 }
 
-input {
-  font-family: 'Hind Siliguri', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;

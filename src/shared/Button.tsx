@@ -9,7 +9,7 @@ export interface IButtonProps {
 const Button = styled.button<{ secondary?: boolean }>`
   background-color: ${(props:IButtonProps) => props.secondary ? props.theme.secondary : props.theme.primary};
   font-size: 14px;
-  font-family: Brown, Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+  font-family: ${props => props.theme.headerFont};
   color: white;
   padding: 10px 15px;
   margin: 5px;

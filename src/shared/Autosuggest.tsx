@@ -12,7 +12,7 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__input {
     ${inputStyles};
-    font-family: Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    font-family: ${props => props.theme.fontFamily};
   }
 
   .react-autosuggest__input:hover {
