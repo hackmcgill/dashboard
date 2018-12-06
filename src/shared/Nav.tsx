@@ -7,6 +7,5 @@ export const Nav = styled.nav<{ borderThickness?: string }>`
     position: sticky;
     top: 0;
     width: 100%;
-    font-family: ${props => props.theme.fontFamily};
     border-bottom: ${props => props.borderThickness ? props.borderThickness : '1px'} solid ${props => props.theme.greySuperLight};
 `;

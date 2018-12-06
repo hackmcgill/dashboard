@@ -9,6 +9,7 @@ export interface IButtonProps {
 const Button = styled.button<{ secondary?: boolean }>`
   background-color: ${(props:IButtonProps) => props.secondary ? props.theme.secondary : props.theme.primary};
   font-size: 14px;
+  font-family: ${props => props.theme.headerFont};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -20,7 +21,7 @@ const Button = styled.button<{ secondary?: boolean }>`
   font-weight: bold;
   
   &:hover {
-    background-color: ${props => props.theme.primaryLight};
+    background-color:  ${(props:IButtonProps) => props.secondary ? props.theme.primary : props.theme.primaryLight};
   }
 `;
 

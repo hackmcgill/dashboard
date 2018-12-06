@@ -21,6 +21,7 @@ const inputStyles = css`
   padding-left: 16px;
   width: 100%;
   transition: 0.25s border ease-in;
+  font-family: ${props => props.theme.fontFamily};
 
   &:focus,&:hover {
     border: 2px solid ${(props: IInputProps) => props.theme ? props.theme.grey : 'grey'};
