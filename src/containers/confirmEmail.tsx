@@ -11,6 +11,7 @@ import { AxiosResponse } from 'axios';
 import APIResponse from 'src/api/APIResponse';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
+import { RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
 
 interface IConfirmationEmailSentState {
     buttonDisabled: boolean;
@@ -48,7 +49,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                 </MaxWidthBox>
                 <Box>
                     <Button type='button' onClick={this.handleSubmit} disabled={(this.state.buttonDisabled)}>
-                        {(!this.state.buttonDisabled) ? 'Resend confirmation email' : 'Sent!'}
+                        {(!this.state.buttonDisabled) ? RESEND_CONF_EMAIL : EMAIL_SENT}
                     </Button>
                 </Box>
             </Flex>
