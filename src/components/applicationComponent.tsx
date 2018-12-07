@@ -52,16 +52,16 @@ const hackerSchema = Yup.object().shape({
     jobInterest: Yup.string()
         .required(),
     resumeFile: Yup.mixed()
+        .required("Please upload a resume pdf.")
         .test(
             "fileSize",
-            "File too large",
+            "File too large (<4MB only)",
             value => value && value.size <= 4000000 // 4MB
         )
         .test(
             "fileFormat",
-            "Unsupported Format",
-            value => value && value.type === "application/pdf")
-        .required(),
+            "Unsupported Format (PDF only)",
+            value => value && value.type === "application/pdf"),
     ethnicity: Yup.array()
         .required(),
     major: Yup.string()
@@ -91,6 +91,7 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
                 github: '',
                 dropler: '',
                 linkedIn: '',
+                resumeFile: undefined,
                 personal: '',
                 other: '',
                 jobInterest: '',
@@ -103,6 +104,7 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
             }}
             onSubmit={handleSubmitSync}
             render={renderFormik}
+            validateOnChange={true}
             validationSchema={hackerSchema}
         />
     )
