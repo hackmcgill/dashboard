@@ -10,7 +10,7 @@ const StyledCreatableSelect = styled(CreatableSelect)`
 
   .react-select__option {
     font-weight: normal;
-    &: hover {
+    &:hover {
       background-color: ${props => props.theme.colors.primaryLight};
     }
 
