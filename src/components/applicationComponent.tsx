@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { AxiosResponse } from 'axios';
-import { Formik, Field, FormikActions, FormikProps } from 'formik';
+import { Formik, Field, FormikActions, FormikProps, ErrorMessage } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 
 import * as CONSTANTS from 'src/config/constants';
 
-import ErrorMessage from 'src/shared/ErrorMessage';
+import FormikError from 'src/shared/FormikError';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
@@ -35,16 +35,23 @@ import ValidationErrorGenerator from './ValidationErrorGenerator';
 const hackerSchema = Yup.object().shape({
     school: Yup.string()
         .min(1, 'Select a school')
-        .required('Required'),
-    degree: Yup.string().required(),
-    github: Yup.string().url('Must be a valid url').required(),
-    dropler: Yup.string().url('Must be a valid url'),
-    linkedIn: Yup.string().url('Must be a valid url'),
-    personal: Yup.string().url('Must be a valid url'),
-    other: Yup.string().url('Must be a valid url'),
-    jobInterest: Yup.string().required(),
+        .required(),
+    degree: Yup.string()
+        .required(),
+    github: Yup.string()
+        .url('Must be a valid URL')
+        .required(),
+    dropler: Yup.string()
+        .url('Must be a valid URL'),
+    linkedIn: Yup.string()
+        .url('Must be a valid URL'),
+    personal: Yup.string()
+        .url('Must be a valid URL'),
+    other: Yup.string()
+        .url('Must be a valid URL'),
+    jobInterest: Yup.string()
+        .required(),
     resumeFile: Yup.mixed()
-        .required("A resume is required")
         .test(
             "fileSize",
             "File too large",
@@ -53,16 +60,20 @@ const hackerSchema = Yup.object().shape({
         .test(
             "fileFormat",
             "Unsupported Format",
-            value => value && value.type === "application/pdf"),
-    ethnicity: Yup.array().required('Required'),
-    major: Yup.string().required('Required'),
-    graduationYear: Yup.number().required('Required').min(2018).max(2025),
-    codeOfConduct: Yup.boolean().required('Required')
-
-
+            value => value && value.type === "application/pdf")
+        .required(),
+    ethnicity: Yup.array()
+        .required(),
+    major: Yup.string()
+        .required(),
+    graduationYear: Yup.number()
+        .min(2018)
+        .max(2025)
+        .required(),
+    codeOfConduct: Yup
+        .boolean()
+        .required()
 });
-
-
 
 const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
     return (
@@ -101,6 +112,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 component={SchoolComponent}
             />
             <ErrorMessage
+                component={FormikError}
                 name='school'
             />
             <Field
@@ -118,6 +130,10 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 ]}
                 component={StylizedSelectFormikComponent}
             />
+            <ErrorMessage
+                component={FormikError}
+                name='degree'
+            />
             <Field
                 id='graduationYear'
                 name='graduationYear'
@@ -127,6 +143,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 component={NumberFormat}
             />
             <ErrorMessage
+                component={FormikError}
                 name='graduationYear'
             />
             <Field
@@ -140,6 +157,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='major'
             />
             <Field
@@ -156,6 +174,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 ]}
                 component={StylizedSelectFormikComponent}
             />
+            
             <Field
                 id='ethnicity'
                 name={'ethnicity'}
@@ -173,6 +192,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 component={StylizedSelectFormikComponent}
             />
             <ErrorMessage
+                component={FormikError}
                 name='ethnicity'
             />
             <Field
@@ -191,6 +211,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='github'
             />
 
@@ -203,6 +224,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.DROPLER_LINK_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='dropler'
             />
             <Field
@@ -214,6 +236,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='linkedIn'
             />
 
@@ -226,6 +249,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.PERSONAL_LINK_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='personal'
             />
             <Field
@@ -237,6 +261,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='other'
             />
             <Field
@@ -246,6 +271,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 label={CONSTANTS.RESUME_REQUEST_LABEL}
             />
             <ErrorMessage
+                component={FormikError}
                 name='resumeFile'
             />
 
@@ -257,6 +283,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
             />
             <ErrorMessage
+                component={FormikError}
                 name='jobInterest'
             />
             <Field
@@ -294,6 +321,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 label={CONSTANTS.COC_REQUEST_LABEL}
             />
             <ErrorMessage
+                component={FormikError}
                 name='codeOfConduct'
             />
 
