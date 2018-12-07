@@ -52,7 +52,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
                     <Image src={constructionCone} imgHeight={'6rem'} />
                 </MaxWidthBox>
                 <MaxWidthBox mb={'0px'}>
-                    <H1 color={'#F2463A'} fontSize={'40px'}>
+                    <H1 fontSize={'40px'}>
                         {result}
                     </H1>
                 </MaxWidthBox>

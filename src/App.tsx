@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
