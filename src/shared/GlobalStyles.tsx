@@ -6,6 +6,8 @@ interface IGlobalStylesProps {
 }
 
 const GlobalStyles = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');
+
   @font-face {
     font-family: 'Brown';
     font-style: normal;
