@@ -1,24 +1,27 @@
 const theme = {
-  bodyFont: "Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif",
-  headerFont: "Brown, Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif",
-  grey: "#4D4D4D",
-  greyLight: "#F4F4F4",
-  greySuperLight: "#BCBCBC",
+  colors: {
+    greyLighter: "#F4F4F4",
+    greyLight: "#BCBCBC",
+    grey: "#797979",
+    greyDark: "#4D4D4D",
+    primaryLight: "#F89790",
+    primary: "#F2463A",
+    white: "#FFFFFF",
+  },
   inputBorderRadius: "20px",
-  primary: "#F2463A",
-  primaryLight: "#F89790",
-  secondary: "#797979"
-}
+};
 
 export interface ITheme {
-  bodyFont: string
-  headerFont: string
-  grey: string
-  greyLight: string
-  inputBorderRadius: string
-  primary: string
-  primaryLight: string
-  secondary: string
+  colors: {
+    greyLighter: string;
+    greyLight: string;
+    grey: string;
+    greyDark: string;
+    primaryLight: string;
+    primary: string;
+    white: string;
+  }
+  inputBorderRadius: string;
 }
 
 export default theme;

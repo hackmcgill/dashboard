@@ -1,9 +1,8 @@
-import {createGlobalStyle} from 'styled-components';
-// import { ITheme } from 'src/theme';
-
-// interface GlobalStylesProps {
-//     theme?: ITheme
-// }
+import { createGlobalStyle } from "styled-components";
+import { ITheme } from "src/theme";
+interface IGlobalStylesProps {
+  theme?: ITheme;
+}
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -20,10 +19,6 @@ const GlobalStyles = createGlobalStyle`
     src: url("src/assets/fonts/lineto-brown-bold.ttf");
   }
 
-  a {
-    color: #FFFFFF;
-  }
-
   body {
     font-family: 'Hind Siliguri', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
     margin: 0;
@@ -34,12 +29,25 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  a {
+    color: ${(props: IGlobalStylesProps) =>
+      (props.theme && props.theme.colors.greyDark) || "grey"};
+
+    &:hover {
+      color: ${(props: IGlobalStylesProps) =>
+        (props.theme && props.theme.colors.greyLight) || "grey"};
+
+    }
+
+    transition: 0.15s color ease-in-out;
+  }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Brown', sans-serif;
+    font-family: 'Brown', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
   }
 
   .toast-notification {
     z-index: 100000;
   }
-`
-export default GlobalStyles
+`;
+export default GlobalStyles;

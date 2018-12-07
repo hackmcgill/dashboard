@@ -32,12 +32,11 @@ class NotFoundContainer extends React.Component<RouteComponentProps>{
                 <Box>
                     <H1>
                         404: Page not Found
-                      </H1>
+                    </H1>
                 </Box>
                 <MaxWidthBox fontSize={[2, 3, 4]}>
                     <Paragraph
                         paddingBottom={'20px'}
-                        color={'#4D4D4D'}
                         textAlign={'center'}
                     >
                         The page you're looking for doesn't exist or has been moved

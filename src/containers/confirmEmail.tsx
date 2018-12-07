@@ -37,7 +37,7 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                         <Image src={constructionSVG} imgHeight={"6rem"} padding={'0.5rem'} />
                     </Box>
                     <Box>
-                        <H1 color={'#F2463A'} fontSize={'48px'}>
+                        <H1 fontSize={'48px'}>
                             Confirm your Email
                         </H1>
                     </Box>
