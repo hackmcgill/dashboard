@@ -88,9 +88,9 @@ const CreateApplicationForm: React.StatelessComponent<{}> = ({ }) => {
                 degree: '',
                 gender: '',
                 needsBus: false,
-                github: 'https://github.com/',
-                dropler: 'https://droplr.com/',
-                linkedIn: 'https://linkedin.com/in/',
+                github: '',
+                dropler: '',
+                linkedIn: '',
                 personal: '',
                 other: '',
                 jobInterest: '',
@@ -179,7 +179,7 @@ function renderFormik(props: FormikProps<any>): JSX.Element {
                 ]}
                 component={StylizedSelectFormikComponent}
             />
-            
+
             <Field
                 id='ethnicity'
                 name={'ethnicity'}
