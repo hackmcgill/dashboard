@@ -48,7 +48,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
 
         return (
             <Label>
-                <span>{this.props.label || 'Please enter the name of your school'}</span>
+                <span>{this.props.label || 'What school do you go to?'}</span>
                 <SchoolAutosuggest
                     shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}
