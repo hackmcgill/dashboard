@@ -72,6 +72,11 @@ const hackerSchema = Yup.object().shape({
         .required(),
     codeOfConduct: Yup
         .boolean()
+        .test(
+            'is-checked',
+            'You must accept the terms and conditions',
+            value => value
+        )
         .required()
 });
 
