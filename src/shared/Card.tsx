@@ -14,10 +14,10 @@ const Card = styled(Flex)`
     (props.theme && props.theme.colors.greyLight) || "grey"};
   position: relative;
   padding: 20px;
-  box-shadow: 5px 5px 20px #cccccc;
+  box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.grey : 'grey'};
   &:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 20px #bbbbbb;
+    box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.greyDark : 'grey'};
     transition: 0.1s all ease-in;
   }
 `;
