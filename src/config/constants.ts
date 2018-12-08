@@ -1,5 +1,6 @@
 export const API_URL = 'http://localhost:3000/api';
 export const CACHE_USER_KEY = 'userInfo';
+export const CACHE_HACKER_KEY = 'hackerInfo';
 
 // Application creation
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
