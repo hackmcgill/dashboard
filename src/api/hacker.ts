@@ -22,7 +22,7 @@ class AccountAPI {
     public async create(hacker: IHacker): Promise<AxiosResponse<APIResponse<IHacker>>> {
         const config: AxiosRequestConfig = {};
         // return API.getEndpoint(Route.HACKER).create(hacker, { config });
-        const value = await API.getEndpoint(Route.ACCOUNT).create(hacker, { config });
+        const value = await API.getEndpoint(Route.HACKER).create(hacker, { config });
         LocalCache.set(CACHE_HACKER_KEY, value);
         return value;
     }

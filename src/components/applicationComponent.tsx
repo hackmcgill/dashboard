@@ -142,7 +142,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     }}
                     onSubmit={this.handleSubmit}
                     render={this.renderFormik}
-                    validationSchema={this.getValidationSchema}
+                    validationSchema={this.getValidationSchema(mode)}
                 />
             </MaxWidthBox>
         );
@@ -452,6 +452,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         }
         const account = acctResponse.data.data;
         const application = this.convertFormikToHacker(values, '', '', account.id);
+        console.log(values, application);
         const hackerResponse: AxiosResponse<APIResponse<IHacker>> = await Hacker.create(application);
         if (hackerResponse.status !== 200) {
             console.error("Error while creating account");
