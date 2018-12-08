@@ -80,7 +80,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         flexDirection={'column'}
                     >
                         <Box alignSelf={'flex-start'}>
-                            <H1 color={'#F2463A'} fontSize={'24px'}>
+                            <H1 fontSize={'24px'}>
                                 Sign in / Register
                         </H1>
                         </Box>

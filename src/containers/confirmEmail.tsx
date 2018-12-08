@@ -37,13 +37,13 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
                         <Image src={constructionSVG} imgHeight={"6rem"} padding={'0.5rem'} />
                     </Box>
                     <Box>
-                        <H1 color={'#F2463A'} fontSize={'48px'}>
+                        <H1 fontSize={'48px'}>
                             Confirm your Email
                         </H1>
                     </Box>
                 </Flex>
                 <MaxWidthBox width={1} fontSize={[2, 3, 4]} mb={'20px'}>
-                    <Paragraph paddingBottom={'32px'} color={'#4D4D4D'} textAlign={'center'}>
+                    <Paragraph paddingBottom={'32px'} textAlign={'center'}>
                         Please check your inbox for a confirmation email. Click the link in the email to confirm your email address.
                     </Paragraph>
                 </MaxWidthBox>
