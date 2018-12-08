@@ -6,13 +6,14 @@ import { Box } from '@rebass/grid';
 
 export interface ICheckboxProps {
     label: string;
+    value?: boolean;
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
     return (
         <Box mb={'26px'}>
             <Label fontWeight='normal'>
                 <span>{props.label}</span>
-                <Checkbox onChange={handleChange(props)} />
+                <Checkbox onChange={handleChange(props)} checked={props.value} />
             </Label>
         </Box>
     )
