@@ -37,7 +37,7 @@ class App extends React.Component {
               withNavbar(withAuthRedirect(
                 withHackerRedirect(CreateApplicationContainer,
                   {
-                    AuthVerification: (hacker: IHacker) => hacker.status === HackerStatus.HACKER_STATUS_NONE
+                    requiredAuthState: false
                   }
                 ),
                 {
