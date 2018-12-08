@@ -14,7 +14,10 @@ import NotFoundContainer from 'src/containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
-import { UserType, IAccount } from './config/userTypes';
+import withHackerRedirect from './hoc/withHackerRedirect';
+import { UserType, IAccount, IHacker } from './config/userTypes';
+import HackerStatus from './config/hackerStatus';
+import EditApplicationContainer from './containers/editApplication';
 
 
 class App extends React.Component {
@@ -32,7 +35,25 @@ class App extends React.Component {
           <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE}
             component={
               withNavbar(withAuthRedirect(
-                CreateApplicationContainer,
+                withHackerRedirect(CreateApplicationContainer,
+                  {
+                    AuthVerification: (hacker: IHacker) => hacker.status === HackerStatus.HACKER_STATUS_NONE
+                  }
+                ),
+                {
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) => user.confirmed && user.accountType === UserType.HACKER
+                }))
+            }
+          />
+          <Route exact={true} path={FrontendRoute.EDIT_APPLICATION_PAGE}
+            component={
+              withNavbar(withAuthRedirect(
+                withHackerRedirect(EditApplicationContainer,
+                  {
+                    AuthVerification: (hacker: IHacker) => hacker.status === HackerStatus.HACKER_STATUS_APPLIED
+                  }
+                ),
                 {
                   requiredAuthState: true,
                   redirAfterLogin: true,
