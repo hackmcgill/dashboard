@@ -176,12 +176,12 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             graduationYear: Yup.number().required('Required').min(2018).max(2025),
             codeOfConduct_MLH: Yup.boolean().required('Required').test(
                 "true",
-                "You must accept the code of conduct",
+                "You must accept the MLH policies",
                 value => value === true
             ),
             codeOfConduct_MCHACKS: Yup.boolean().required('Required').test(
                 "true",
-                "You must accept the code of conduct",
+                "You must accept the McHacks policies",
                 value => value === true
             )
         });
