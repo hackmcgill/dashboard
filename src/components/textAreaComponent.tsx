@@ -3,17 +3,18 @@ import Label from 'src/shared/Label';
 
 import { FieldProps } from 'formik';
 import Textarea from 'src/shared/Textarea';
-import DebouncedUpdate from 'src/shared/DebouncedUpdate';
+
 export interface ITextAreaProp {
     label: string;
     placeholder?: string;
+    value?: string;
 }
 const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
         <Label>
             <span>{props.label}</span>
-            <Textarea onChange={handleChange(props)} placeholder={placeholder} />
+            <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} />
         </Label>
     )
 }
@@ -23,9 +24,10 @@ const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = 
  * @returns the function that handles changes to the choices provided by the user.
  */
 function handleChange(props: ITextAreaProp & FieldProps): (event: React.ChangeEvent<HTMLTextAreaElement>) => void {
-    const debouncedUpdater = DebouncedUpdate(props, 150);
     return (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        debouncedUpdater(event.target.value);
+        const field = props.field;
+        const form = props.form;
+        form.setFieldValue(field.name, event.target.value);
     };
 }
 

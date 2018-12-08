@@ -10,11 +10,11 @@ import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
  */
 export interface ISchoolComponentProps {
     name: string;
+    value: string
     label?: string;
 }
 interface ISchoolComponentState {
     suggestions: string[];
-    value: string
 }
 
 /**
@@ -24,7 +24,6 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
     constructor(props: ISchoolComponentProps & FieldProps) {
         super(props);
         this.state = {
-            value: '',
             suggestions: []
         }
         // this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
@@ -39,7 +38,8 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
     }
     public render() {
         const SchoolAutosuggest = StyledAutosuggest;
-        const { value, suggestions } = this.state;
+        const { suggestions } = this.state;
+        const { value } = this.props;
         const inputProps = {
             placeholder: 'School name',
             value,
@@ -69,15 +69,9 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         const field = this.props.field;
         const form = this.props.form;
         if (data) {
-            this.setState({
-                value: data.newValue
-            })
             form.setFieldValue(field.name, data.newValue);
         } else {
             form.setFieldValue(field.name, '');
-            this.setState({
-                value: ''
-            })
         }
     }
     /**
@@ -87,11 +81,9 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
         const field = this.props.field;
         const form = this.props.form;
         if (suggestion) {
-            this.setState({ value: suggestion });
             form.setFieldValue(field.name, suggestion);
         } else {
             form.setFieldValue(field.name, '');
-            this.setState({ value: '' })
         }
     }
 

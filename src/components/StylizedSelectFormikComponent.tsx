@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
-import StylizedSelect from 'src/shared/StyledCreatableSelect';
+import StylizedCreatableSelect from 'src/shared/StyledCreatableSelect';
+import StylizedSelect from 'src/shared/StyledSelect';
 import Label from 'src/shared/Label';
 
 export interface IStylizedSelectFormikProps {
@@ -9,14 +10,17 @@ export interface IStylizedSelectFormikProps {
     options: Array<{ label: string, value: string }>
     isMulti: boolean;
     placeholder?: string;
+    value?: string | string[];
+    creatable: boolean;
 }
 
 const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFormikProps & FieldProps> = (props) => {
     const handleChange = (props.isMulti) ? handleChangeMulti : handleChangeSingle;
+    const SelectComponent = (props.creatable) ? StylizedCreatableSelect : StylizedSelect;
     return (
         <Label>
             <span>{props.label}</span>
-            <StylizedSelect
+            <SelectComponent
                 className='react-select-container'
                 classNamePrefix='react-select'
                 id={props.selectId}
@@ -24,10 +28,22 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
                 options={props.options}
                 isMulti={props.isMulti}
                 placeholder={props.placeholder || 'Select...'}
+                value={generateValue(props.value)}
             />
         </Label>
     );
 }
+
+function generateValue(value: string | string[] | undefined) {
+    if (value && typeof value === 'string') {
+        return { label: value, value };
+    } else if (value && Array.isArray(value)) {
+        return value.map((val) => ({ label: val, value: val }));
+    } else {
+        return '';
+    }
+}
+
 /**
  * Function factory that generates function to handle changes in user's choice.
  * @param props The props passed into the component.
