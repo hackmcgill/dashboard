@@ -148,6 +148,10 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         );
     }
 
+    /**
+     * Returns a yup object that is conditional based on what mode we're in.
+     * @param mode What management of the application we're doing.
+     */
     private getValidationSchema(mode: ManageApplicationModes) {
         const resumeSchema = (mode === ManageApplicationModes.CREATE) ? Yup.mixed().required("A resume is required") : Yup.mixed();
 
@@ -179,6 +183,10 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         });
     }
 
+    /**
+     * The function to pass into the formik component to render the form.
+     * @param fp the formik props.
+     */
     private renderFormik(fp: FormikProps<any>) {
         return (
             <Form onSubmit={fp.handleSubmit}>
@@ -420,6 +428,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         );
     }
 
+    /**
+     * Function called when formik form is submitted.
+     * @param values the formik values
+     * @param actions the formik actions
+     */
     private handleSubmit(values: any, actions: FormikActions<any>) {
         const { mode } = this.state;
         let handler: Promise<boolean>;
@@ -444,6 +457,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             }
         });
     }
+    /**
+     * Handles the creation of the application.
+     * @param values the formik values
+     * @param actions the formik actions
+     */
     private async handleCreate(values: any, actions: FormikActions<any>): Promise<boolean> {
         const acctResponse: AxiosResponse<APIResponse<IAccount>> = await Account.getSelf();
         if (acctResponse.status !== 200) {
@@ -451,11 +469,10 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             return false;
         }
         const account = acctResponse.data.data;
-        const application = this.convertFormikToHacker(values, '', '', account.id);
-        console.log(values, application);
+        const application = this.convertFormikToHacker(values, account.id);
         const hackerResponse: AxiosResponse<APIResponse<IHacker>> = await Hacker.create(application);
         if (hackerResponse.status !== 200) {
-            console.error("Error while creating account");
+            console.error("Error while creating application");
             return false;
         }
         const hacker = hackerResponse.data.data;
@@ -468,6 +485,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         }
         return true;
     }
+    /**
+     * Handles the editing of the application.
+     * @param values Formik values
+     * @param actions Formik actions
+     */
     private async handleEdit(values: any, actions: FormikActions<any>): Promise<boolean> {
         const acctResponse: AxiosResponse<APIResponse<IAccount>> = await Account.getSelf();
         if (acctResponse.status !== 200) {
@@ -477,13 +499,16 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         const account = acctResponse.data.data;
         const resumeLink = this.state.hackerDetails.application.portfolioURL.resume;
         const hackerId = this.state.hackerDetails.id;
-        const application = this.convertFormikToHacker(values, resumeLink, hackerId, account.id);
+
+        // convert the formik values to the application object.
+        const application = this.convertFormikToHacker(values, account.id, resumeLink, hackerId);
         const hackerResponse: AxiosResponse<APIResponse<IHacker>> = await Hacker.update(application);
         if (hackerResponse.status !== 200) {
-            console.error("Error while updating account");
+            console.error("Error while updating application");
             return false;
         }
         if (values.resumeFile) {
+            // only upload a resume if they have added a resume to the form.
             const resumeResponse: AxiosResponse<APIResponse<{}>> = await Hacker.uploadResume(hackerId, values.resumeFile);
             if (resumeResponse.status !== 200) {
                 console.error("Could not upload resume properly");
@@ -495,7 +520,14 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         return true;
     }
 
-    private convertFormikToHacker(values: any, resumeLink: string, hackerId: string, accountId: string): IHacker {
+    /**
+     * This converts the formik values object into the IHacker object.
+     * @param values Formik values
+     * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
+     * @param hackerId the hacker id. Used only when the hacker is updating their application.
+     * @param accountId the account id associated with this hacker.
+     */
+    private convertFormikToHacker(values: any, accountId: string, resumeLink: string = '', hackerId: string = ''): IHacker {
         return {
             id: hackerId,
             accountId,
