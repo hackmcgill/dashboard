@@ -1,5 +1,6 @@
 import Account from 'src/api/account';
-import { IAccount, UserType } from 'src/config/userTypes';
+import Hacker from 'src/api/hacker';
+import { IAccount, UserType, IHacker } from 'src/config/userTypes';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
     return user.confirmed && user.accountType === UserType.HACKER;
@@ -30,6 +31,15 @@ export async function isConfirmed(): Promise<boolean> {
 export async function getUserInfo(): Promise<IAccount | null> {
     try {
         const response = await Account.getSelf();
+        return response.data.data;
+    } catch (error) {
+        return null;
+    }
+}
+
+export async function getHackerInfo(): Promise<IHacker | null> {
+    try {
+        const response = await Hacker.getSelf();
         return response.data.data;
     } catch (error) {
         return null;
