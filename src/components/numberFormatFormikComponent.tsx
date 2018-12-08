@@ -7,6 +7,7 @@ export interface INumberFormatFormikComponent {
     label: string;
     format: string;
     placeholder?: string;
+    value?: string;
 }
 const NumberFormatFormikComponent: React.StatelessComponent<INumberFormatFormikComponent & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
@@ -16,6 +17,7 @@ const NumberFormatFormikComponent: React.StatelessComponent<INumberFormatFormikC
             label={props.label}
             placeholder={placeholder}
             format={props.format}
+            value={props.value}
         />
     )
 }
@@ -25,7 +27,7 @@ const NumberFormatFormikComponent: React.StatelessComponent<INumberFormatFormikC
  * @returns the function that handles changes to the choices provided by the user.
  */
 function handleChange(props: INumberFormatFormikComponent & FieldProps): (value: NumberFormatValues) => void {
-    return(value: NumberFormatValues) => {
+    return (value: NumberFormatValues) => {
         const field = props.field;
         const form = props.form;
         form.setFieldValue(field.name, parseInt(value.value, 10));

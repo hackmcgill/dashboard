@@ -15,7 +15,6 @@ import BackgroundImage from "src/shared/BackgroundImage";
 import MediaQuery from 'react-responsive';
 import hacker from 'src/api/hacker';
 import H1 from 'src/shared/H1';
-import { IHacker } from 'src/config/userTypes';
 import FrontendRoute from 'src/config/FrontendRoute';
 import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
 import WithToasterContainer from 'src/hoc/withToaster';
@@ -47,7 +46,6 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
     public async componentDidMount() {
         try {
             const response = await hacker.getSelf();
-            saveHackerInfo(response.data.data);
             this.setState({ status: response.data.data.status })
         } catch (e) {
             if (e.status === 401) {
@@ -64,11 +62,21 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
 
     public render() {
         const { status, confirmed } = this.state;
+
+        let applicationBtnLink;
+        if (status === HackerStatus.HACKER_STATUS_APPLIED) {
+            applicationBtnLink = FrontendRoute.EDIT_APPLICATION_PAGE;
+        } else if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
+            applicationBtnLink = FrontendRoute.CREATE_APPLICATION_PAGE;
+        } else {
+            applicationBtnLink = FrontendRoute.HOME_PAGE;
+        }
+
         return (
             <Flex flexDirection={'column'} alignItems={'center'}>
                 <H1>status: {status.toLowerCase()}</H1>
                 <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
-                    <Link to={confirmed ? FrontendRoute.CREATE_APPLICATION_PAGE : FrontendRoute.HOME_PAGE} onClick={this.confirmAccountToastError} style={{ textDecoration: 'none' }}>
+                    <Link to={applicationBtnLink} onClick={this.confirmAccountToastError} style={{ textDecoration: 'none' }}>
                         <Card width={"250px"} flexDirection={"column"}>
                             <H2 fontSize={"28px"}>Application</H2>
                             <Image src={iconApplication} imgHeight={"125px"} />
@@ -92,7 +100,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
     }
 
     private confirmAccountToastError() {
-        const { confirmed } = this.state;
+        const { status, confirmed } = this.state;
         if (!confirmed) {
             const reactMsg = (
                 <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
@@ -102,6 +110,9 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
             toast.error(reactMsg, {
                 autoClose: false,
             });
+        } else if (!(status === HackerStatus.HACKER_STATUS_NONE || status === HackerStatus.HACKER_STATUS_APPLIED)) {
+            // can only access application if their status is NONE, or APPLIED.
+            toast.error('You can no longer access your application.');
         }
     }
     private resendConfirmationEmaill() {
@@ -116,9 +127,4 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         });
     }
 }
-
-function saveHackerInfo(info: IHacker) {
-    console.log(info);
-}
-
 export default WithToasterContainer(DashboardContainer);

@@ -39,6 +39,7 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
       };
       this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
       this.redirOnSuccess = (options.redirAfterLogin) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
+      options.requiredAuthState = (options.requiredAuthState !== undefined) ? options.requiredAuthState : defaultOptions.requiredAuthState
     }
 
     public async componentDidMount() {

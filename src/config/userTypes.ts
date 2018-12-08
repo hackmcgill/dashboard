@@ -52,7 +52,7 @@ export interface IHacker {
         // "Why do you want to come to our hackathon?"
         essay?: string,
     },
-    ethnicity: string,
+    ethnicity: string[],
     major: string,
     graduationYear: number,
     codeOfConduct: boolean
