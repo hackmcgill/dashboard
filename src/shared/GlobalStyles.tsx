@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Hind Siliguri', serif;
+    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.body};
     margin: 0;
     padding: 0;
     
@@ -46,7 +46,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: Brown, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.header};
   }
 
   .toast-notification {
