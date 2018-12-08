@@ -18,7 +18,6 @@ import ErrorMessage from 'src/shared/ErrorMessage';
 import Button from 'src/shared/Button';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import H1 from 'src/shared/H1';
-import Paragraph from 'src/shared/Paragraph';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
@@ -110,13 +109,8 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        Your Application
+                        {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
                     </H1>
-                </MaxWidthBox>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <Paragraph color={'#4D4D4D'} fontSize={'18px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'}>
-                        {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your application
-                    </Paragraph>
                 </MaxWidthBox>
                 <Formik
                     enableReinitialize={true}
