@@ -10,7 +10,7 @@ import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
  */
 export interface ISchoolComponentProps {
     name: string;
-    value: string
+    value: string;
     label?: string;
 }
 interface ISchoolComponentState {

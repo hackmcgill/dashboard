@@ -3,38 +3,38 @@ import { AxiosResponse } from 'axios';
 import { Formik, FormikActions, FormikProps, FastField } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
+import { toast } from 'react-toastify';
 
 import * as CONSTANTS from 'src/config/constants';
+import Ethnicity from 'src/config/ethnicity';
+import Genders from 'src/config/genders';
+import Degrees from 'src/config/degrees';
+import Majors from 'src/config/Majors';
+import Skills from 'src/config/skills';
+import jobInterests from 'src/config/jobInterests';
 
+import Form from 'src/shared/Form';
 import ErrorMessage from 'src/shared/ErrorMessage';
+import Button from 'src/shared/Button';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
+import H1 from 'src/shared/H1';
+import Paragraph from 'src/shared/Paragraph';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
+import APIResponse from 'src/api/APIResponse';
+
 import { IAccount, IHacker } from 'src/config/userTypes';
 import HackerStatus from 'src/config/hackerStatus';
 import SchoolComponent from 'src/components/schoolComponent';
 import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
 import NumberFormat from 'src/components/numberFormatFormikComponent';
+import TextareaComponent from 'src/components/textAreaComponent';
+import FileUploadComponent from 'src/components/fileUploadComponent';
+import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
-import Button from 'src/shared/Button';
-import TextareaComponent from './textAreaComponent';
-import FileUploadComponent from './fileUploadComponent';
-import APIResponse from 'src/api/APIResponse';
-import Ethnicity from 'src/config/ethnicity';
-import Genders from 'src/config/genders';
-import Degrees from 'src/config/degrees';
-import StylizedSelectFormikComponent from './StylizedSelectFormikComponent';
-import Majors from 'src/config/Majors';
-import Skills from 'src/config/skills';
-import jobInterests from 'src/config/jobInterests';
-import Form from 'src/shared/Form';
-import ValidationErrorGenerator from './ValidationErrorGenerator';
-import JobInterest from 'src/config/jobInterests';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import H1 from 'src/shared/H1';
-import Paragraph from 'src/shared/Paragraph';
-import { toast } from 'react-toastify';
 import WithToasterContainer from 'src/hoc/withToaster';
 
 
@@ -75,7 +75,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         personal: 'https://my.website.com/',
                         other: 'https://my.other.website.com/',
                     },
-                    jobInterest: JobInterest.NONE,
+                    jobInterest: jobInterests.NONE,
                     skills: [],
                     essay: '',
                     comments: '',
