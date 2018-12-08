@@ -9,6 +9,10 @@ const theme = {
     white: "#FFFFFF",
   },
   inputBorderRadius: "20px",
+  fonts: {
+    header: "Brown, -apple-system, system-ui, BlinkMacSystemFont, sans-serif",
+    body: "Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;"
+  }
 };
 
 export interface ITheme {
@@ -20,6 +24,10 @@ export interface ITheme {
     primaryLight: string;
     primary: string;
     white: string;
+  }
+  fonts: {
+    header: string;
+    body: string;
   }
   inputBorderRadius: string;
 }

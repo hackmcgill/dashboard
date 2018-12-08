@@ -11,13 +11,13 @@ const Card = styled(Flex)`
   max-width: 250px;
   margin: 15px;
   background-color: ${(props: ICardProps) =>
-    (props.theme && props.theme.colors.greyLight) || "grey"};
+    (props.theme && props.theme.colors.greyLighter) || "grey"};
   position: relative;
   padding: 20px;
-  box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.grey : 'grey'};
+  box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.greyLight : 'grey'};
   &:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.greyDark : 'grey'};
+    box-shadow: 5px 5px 20px ${(props: ICardProps) => props.theme ? props.theme.colors.grey : 'grey'};
     transition: 0.1s all ease-in;
   }
 `;

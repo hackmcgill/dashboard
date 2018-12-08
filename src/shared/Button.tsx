@@ -3,14 +3,14 @@ import { ITheme } from "src/theme";
 
 export interface IButtonProps {
   secondary?: boolean;
-  theme: ITheme;
+  theme?: ITheme;
 }
 
-const Button = styled.button<{ secondary?: boolean }>`
-  background-color: ${(props: IButtonProps) =>
-    props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+const Button = styled.button`
+  background-color: ${(props: IButtonProps) => props.theme &&
+    (props.secondary ? props.theme.colors.grey : props.theme.colors.primary)};
   font-size: 14px;
-  font-family: ${props => props.theme.headerFont};
+  font-family: ${(props: IButtonProps) => props.theme && props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -22,10 +22,10 @@ const Button = styled.button<{ secondary?: boolean }>`
   font-weight: bold;
 
   &:hover {
-    background-color: ${(props: IButtonProps) =>
-      props.secondary
+    background-color: ${(props: IButtonProps) => props.theme &&
+      (props.secondary
         ? props.theme.colors.primary
-        : props.theme.colors.primaryLight};
+        : props.theme.colors.primaryLight)};
   }
 `;
 

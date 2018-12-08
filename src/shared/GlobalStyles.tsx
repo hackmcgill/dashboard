@@ -1,26 +1,29 @@
 import { createGlobalStyle } from "styled-components";
 import { ITheme } from "src/theme";
+
 interface IGlobalStylesProps {
   theme?: ITheme;
 }
 
 const GlobalStyles = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');
+
   @font-face {
     font-family: 'Brown';
     font-style: normal;
     font-weight: regular;
-    src: url("src/assets/fonts/lineto-brown-regular.ttf");
+    src: url('/fonts/lineto-brown-bold.ttf');
   }
 
   @font-face {
     font-family: 'Brown';
     font-style: normal;
     font-weight: bold;
-    src: url("src/assets/fonts/lineto-brown-bold.ttf");
+    src: url("/fonts/lineto-brown-bold.ttf");
   }
 
   body {
-    font-family: 'Hind Siliguri', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.body};
     margin: 0;
     padding: 0;
     
@@ -43,7 +46,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Brown', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.header};
   }
 
   .toast-notification {
