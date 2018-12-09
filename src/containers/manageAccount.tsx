@@ -7,7 +7,6 @@ import ShirtSizeComponent from 'src/components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
 import Button from 'src/shared/Button';
-// import Container from 'src/shared/Container';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
@@ -21,6 +20,7 @@ import Paragraph from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
+import { RouteProps } from 'react-router';
 
 export enum ManageAccountModes {
     CREATE,
@@ -34,7 +34,7 @@ interface IManageAccountContainerState {
     oldPassword: string;
 }
 
-interface IManageAccountContainerProps {
+interface IManageAccountContainerProps extends RouteProps {
     mode: ManageAccountModes
 }
 
@@ -49,11 +49,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 birthDate: new Date(),
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: '',
+                email: props && props.location && props.location.state.email || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: '',
+                password: props && props.location && props.location.state.password || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
@@ -135,6 +135,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         (mode === ManageAccountModes.CREATE) ?
                             <PasswordInput
                                 onPasswordChanged={this.onPasswordChanged}
+                                value={accountDetails.password}
                             /> :
                             (
                                 <MaxWidthBox>
