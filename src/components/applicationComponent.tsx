@@ -35,6 +35,8 @@ import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikCo
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
 import WithToasterContainer from 'src/hoc/withToaster';
+import { Redirect } from 'react-router';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -42,6 +44,7 @@ export enum ManageApplicationModes {
 }
 interface IManageApplicationState {
     mode: ManageApplicationModes;
+    submitted: boolean;
     hackerDetails: IHacker;
 }
 
@@ -53,6 +56,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         super(props);
         this.state = {
             mode: props.mode,
+            submitted: false,
             hackerDetails: {
                 id: '',
                 accountId: '',
@@ -103,8 +107,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
     }
 
     public render() {
-        const { mode, hackerDetails } = this.state;
+        const { mode, hackerDetails, submitted } = this.state;
         return (
+            submitted ? <Redirect to={FrontendRoute.HOME_PAGE}/> :
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
@@ -474,10 +479,12 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         handler.then((success: boolean) => {
             if (success) {
                 console.log("Submitted application");
-                toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`)
+                toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`);
+                this.setState({submitted: true});
             } else {
                 toast.error(`There was an error when submitting the application.`);
             }
+
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
             if (response) {
                 ValidationErrorGenerator(response.data);
