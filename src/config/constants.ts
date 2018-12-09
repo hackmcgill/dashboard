@@ -5,7 +5,9 @@ export const CACHE_HACKER_KEY = 'hackerInfo';
 // Application creation
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE = 'We will be sending busses to Toronto, Waterloo, London, Ottawa, Kingston, and Boston.'
-export const COC_REQUEST_LABEL = 'I accept the MLH terms, conditions and guidelines.';
+export const COC_ACCEPTANCE_PHRASE = 'I accept the';
+export const COC_MCHACKS_REQUEST_LABEL = 'McHacks Code of Conduct';
+export const COC_MLH_REQUEST_LABEL = 'MLH terms, conditions and guidelines.';
 export const COMMENTS_REQUEST_LABEL = 'Anything else you would like us to know?';
 export const DEGREE_REQUEST_LABEL = 'What type of degree are you currently pursuing?';
 export const DEGREE_REQUEST_PLACEHOLDER = 'Undergraduate';
