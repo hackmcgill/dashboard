@@ -292,15 +292,13 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={FormikError}
                     name='ethnicity'
                 />
-                <Box mb={'26px'}>
-                    <FastField
-                        id='needsBus'
-                        name={'needsBus'}
-                        component={CheckboxComponent}
-                        label={CONSTANTS.BUS_REQUEST_LABEL}
-                        value={fp.values.needsBus}
-                    />
-                </Box>
+                <FastField
+                    id='needsBus'
+                    name={'needsBus'}
+                    component={CheckboxComponent}
+                    label={CONSTANTS.BUS_REQUEST_LABEL}
+                    value={fp.values.needsBus}
+                />
                 <FastField
                     id='github'
                     name={'github'}
@@ -425,34 +423,33 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.COMMENTS_REQUEST_LABEL}
                     value={fp.values.comments}
                 />
-                <Box mb={'26px'}>
-                    <FastField
-                        id='codeOfConduct_MCHACKS'
-                        name={'codeOfConduct_MCHACKS'}
-                        component={CheckboxComponent}
-                        label={<span>
-                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
-                        </span>}
-                        value={fp.values.codeOfConduct_MCHACKS}
-                    />
-                    <ErrorMessage
-                        component={FormikError}
-                        name='codeOfConduct_MCHACKS'
-                    />
-                    <FastField
-                        id='codeOfConduct_MLH'
-                        name={'codeOfConduct_MLH'}
-                        component={CheckboxComponent}
-                        label={<span>
-                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
-                        </span>}
-                        value={fp.values.codeOfConduct_MLH}
-                    />
-                    <ErrorMessage
-                        component={FormikError}
-                        name='codeOfConduct_MLH'
-                    />
-                </Box>
+                <FastField
+                    id='codeOfConduct_MCHACKS'
+                    name={'codeOfConduct_MCHACKS'}
+                    component={CheckboxComponent}
+                    label={<span>
+                        {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
+                    </span>}
+                    isTight={true}
+                    value={fp.values.codeOfConduct_MCHACKS}
+                />
+                <ErrorMessage
+                    component={FormikError}
+                    name='codeOfConduct_MCHACKS'
+                />
+                <FastField
+                    id='codeOfConduct_MLH'
+                    name={'codeOfConduct_MLH'}
+                    component={CheckboxComponent}
+                    label={<span>
+                        {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
+                    </span>}
+                    value={fp.values.codeOfConduct_MLH}
+                />
+                <ErrorMessage
+                    component={FormikError}
+                    name='codeOfConduct_MLH'
+                />
                 <Flex justifyContent={'center'}>
                     <Box>
                         <Button type='submit'>Submit</Button>

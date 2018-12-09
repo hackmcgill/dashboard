@@ -2,18 +2,23 @@ import * as React from 'react';
 import Checkbox from 'src/shared/Checkbox';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
+import { Box } from '@rebass/grid';
 
 export interface ICheckboxProps {
     label: string | React.Component;
     value?: boolean;
+    isTight?: boolean;
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
-    const label = (typeof props.label === 'string') ? (<span>props.label</span>) : props.label;
+    const { isTight } = props;
+    const label = (typeof props.label === 'string') ? (<span>{props.label}</span>) : props.label;
     return (
-        <Label fontWeight='normal'>
-            {label}
-            <Checkbox onChange={handleChange(props)} checked={props.value} />
-        </Label>
+        <Box mb={isTight ? 0 : '20px'}>
+            <Label fontWeight='normal'>
+                {label}
+                <Checkbox onChange={handleChange(props)} checked={props.value} />
+            </Label>
+        </Box>
     )
 }
 /**
