@@ -14,22 +14,35 @@ export interface IStylizedSelectFormikProps {
     creatable: boolean;
 }
 
+
 const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFormikProps & FieldProps> = (props) => {
     const handleChange = (props.isMulti) ? handleChangeMulti : handleChangeSingle;
-    const SelectComponent = (props.creatable) ? StylizedCreatableSelect : StylizedSelect;
+
+    const commonProps = {
+        className:'react-select-container',
+        classNamePrefix:'react-select',
+        id: props.selectId,
+        onChange: handleChange(props),
+        options: props.options,
+        isMulti: props.isMulti,
+        placeholder: props.placeholder || 'Select...',
+        value: generateValue(props.value)
+    }
     return (
         <Label>
             <span>{props.label}</span>
-            <SelectComponent
-                className='react-select-container'
-                classNamePrefix='react-select'
-                id={props.selectId}
-                onChange={handleChange(props)}
-                options={props.options}
-                isMulti={props.isMulti}
-                placeholder={props.placeholder || 'Select...'}
-                value={generateValue(props.value)}
+            {props.creatable ?
+            <StylizedCreatableSelect
+                {...commonProps}
+                allowCreateWhileLoading={true}
+                createOptionPosition={'first'}
             />
+            :
+            <StylizedSelect
+                {...commonProps}
+            />
+            }
+            
         </Label>
     );
 }
