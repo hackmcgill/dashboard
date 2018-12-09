@@ -1,15 +1,19 @@
 
 import { REQUIRED_INPUT } from 'src/config/constants';
 import * as React from 'react';
+import RequiredInputLabel from 'src/shared/RequiredInputLabel';
 
 export interface ILabelTextProps {
     label: any;
     required?: boolean;
 }
 const LabelTextComponent: React.StatelessComponent<ILabelTextProps> = (props: ILabelTextProps) => {
-    const requiredText = <span style={{ fontWeight: 'lighter', color: 'red', marginLeft: '1px' }}>{props.required ? REQUIRED_INPUT : ''}</span>
+    const requiredText = <RequiredInputLabel>{props.required ? REQUIRED_INPUT : ''}</RequiredInputLabel>
     return (
-        <span>{props.label}{requiredText}</span>
+        <span>
+            {props.label}
+            {requiredText}
+        </span>
     )
 }
 
