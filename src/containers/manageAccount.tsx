@@ -20,7 +20,7 @@ import Paragraph from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
-import { padStart } from 'src/util/utils';
+import { padStart } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,
