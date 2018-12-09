@@ -4,6 +4,8 @@ import Label from 'src/shared/Label';
 
 import { Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
+import LabelTextComponent from './LabelTextComponent';
+import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from 'src/config/constants';
 
 interface IFullNameInput {
     firstNameValue?: string;
@@ -16,13 +18,13 @@ const FullNameInput: React.StatelessComponent<IFullNameInput> = (props: IFullNam
         <Flex flexWrap={'wrap'} width={1} m='auto' name='name_flex'>
             <MaxWidthBox width={[1, 0.5]} mb={'20px'} pr={[0, '10px']}>
                 <Label>
-                    <span>First Name</span>
+                    <LabelTextComponent label={FIRST_NAME_LABEL} required={true} />
                     <Input type='text' onChange={handleChange(props, 'first')} isTight={true} value={props.firstNameValue} />
                 </Label>
             </MaxWidthBox>
             <MaxWidthBox width={[1, 0.5]} mb={'20px'} pl={[0, '10px']}>
                 <Label>
-                    <span>Last Name</span>
+                    <LabelTextComponent label={LAST_NAME_LABEL} required={true} />
                     <Input type='text' onChange={handleChange(props, 'last')} isTight={true} value={props.lastNameValue} />
                 </Label>
             </MaxWidthBox>

@@ -21,6 +21,7 @@ import Paragraph from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
+import * as CONSTANTS from 'src/config/constants';
 
 export enum ManageAccountModes {
     CREATE,
@@ -127,57 +128,68 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         onLastNameChanged={this.onLastNameChanged}
                     />
                     <EmailInput
-                        label={"Email:"}
+                        label={CONSTANTS.EMAIL_LABEL}
                         value={accountDetails.email}
                         onEmailChanged={this.onEmailChanged}
                         disabled={mode === ManageAccountModes.EDIT}
+                        required={true}
                     />
                     {
                         (mode === ManageAccountModes.CREATE) ?
                             <PasswordInput
+                                label={CONSTANTS.PASSWORD_LABEL}
                                 onPasswordChanged={this.onPasswordChanged}
+                                required={true}
                             /> :
                             (
                                 <MaxWidthBox>
                                     <PasswordInput
-                                        label={'Old password'}
+                                        label={CONSTANTS.OLD_PASSWORD_LABEL}
                                         onPasswordChanged={this.onOldPasswordChanged}
+                                        required={true}
                                     />
                                     <PasswordInput
-                                        label={'New password'}
+                                        label={CONSTANTS.NEW_PASSWORD_LABEL}
                                         onPasswordChanged={this.onPasswordChanged}
+                                        required={true}
                                     />
                                 </MaxWidthBox>
                             )
                     }
                     <DietaryRestrictionComponent
-                        label={'Dietary Restrictions'}
+                        label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
                         value={accountDetails.dietaryRestrictions}
                         onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+                        required={true}
                     />
                     <PronounInput
+                        label={CONSTANTS.PRONOUN_LABEL}
                         value={accountDetails.pronoun}
-                        placeholder="Preferred pronoun"
+                        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
                         onPronounChanged={this.onPronounChanged}
+                        required={true}
                     />
                     <ShirtSizeComponent
-                        label={"Shirt size:"}
+                        label={CONSTANTS.SHIRT_SIZE_LABEL}
                         value={accountDetails.shirtSize}
                         onShirtSizeChanged={this.onShirtSizeChanged}
+                        required={true}
                     />
                     <NumberFormat
                         value={accountDetails.phoneNumber}
-                        label="Phone number:"
+                        label={CONSTANTS.PHONE_NUMBER_LABEL}
                         placeholder="+# (###) ###-####"
                         onValueChange={this.onPhoneChanged}
                         format="+# (###) ###-####"
+                        required={true}
                     />
                     <NumberFormat
                         value={this.dateToString(new Date(accountDetails.birthDate))}
-                        label="Birth date:"
+                        label={CONSTANTS.BIRTH_DATE_LABEL}
                         placeholder="MM-DD-YYYY"
                         onValueChange={this.onBirthDateChanged}
                         format="##-##-####"
+                        required={true}
                     />
                     <Flex justifyContent={'center'}>
                         <Box>

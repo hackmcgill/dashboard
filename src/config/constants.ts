@@ -2,7 +2,23 @@ export const API_URL = 'http://localhost:3000/api';
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 
-// Application creation
+// Used in multiple locations:
+export const EMAIL_LABEL = 'Email';
+export const PASSWORD_LABEL = 'Password';
+
+// Account management 
+export const OLD_PASSWORD_LABEL = 'Old password';
+export const NEW_PASSWORD_LABEL = 'New password';
+export const DIETARY_RESTRICTIONS_LABEL = 'Dietary Restrictions';
+export const PRONOUN_LABEL = 'Preferred pronoun';
+export const PRONOUN_PLACEHOLDER = 'Preferred pronoun';
+export const SHIRT_SIZE_LABEL = 'Shirt size:';
+export const PHONE_NUMBER_LABEL = 'Phone number:';
+export const BIRTH_DATE_LABEL = 'Birth date';
+export const FIRST_NAME_LABEL = 'First Name';
+export const LAST_NAME_LABEL = 'Last Name';
+
+// Application management
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE = 'We will be sending busses to Toronto, Waterloo, London, Ottawa, Kingston, and Boston.'
 export const COC_ACCEPTANCE_PHRASE = 'I accept the';
@@ -33,6 +49,7 @@ export const PERSONAL_LINK_PLACEHOLDER = 'Your website here...';
 export const RESUME_REQUEST_LABEL = 'Upload a resume';
 export const SKILLS_REQUEST_LABEL = 'What skills do you have?';
 export const SKILLS_REQUEST_PLACEHOLDER = 'Javascript, iOS, Android...';
+export const SCHOOL_REQUEST_LABEL = 'What school do you go to?';
 
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';

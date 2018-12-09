@@ -200,6 +200,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={SchoolComponent}
                     value={fp.values.school}
                     required={true}
+                    label={CONSTANTS.SCHOOL_REQUEST_LABEL}
                 />
                 <ErrorMessage
                     name='school'

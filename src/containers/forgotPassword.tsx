@@ -15,6 +15,7 @@ import PasswordResetEmailConfirmationContainer from 'src/containers/passwordRese
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
 import WithToasterContainer from 'src/hoc/withToaster';
+import { EMAIL_LABEL } from 'src/config/constants';
 
 export interface IForgotState {
     email: string;
@@ -72,7 +73,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                                     width={'80%'}
                                 >
                                     <EmailInputComponent
-                                        label={'Email'}
+                                        label={EMAIL_LABEL}
                                         required={true}
                                         onEmailChanged={this.onEmailChanged}
                                         placeholder={'foo@bar.ca'}
