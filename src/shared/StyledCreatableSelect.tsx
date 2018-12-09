@@ -10,15 +10,7 @@ const StyledCreatableSelect = styled(CreatableSelect)`
 
   .react-select__option {
     font-weight: normal;
-    &:hover {
-      background-color: ${props => props.theme.colors.primaryLight};
-    }
-
-    &--is-focused {
-      background-color: ${props => props.theme.colors.primaryLight};
-    }
-
-    &--is-selected {
+    &:hover, &--is-focused, &--is-selected {
       background-color: ${props => props.theme.colors.primary};
     }
   }
