@@ -1,23 +1,19 @@
 import styled from "src/shared/styled-components";
-import { ITheme } from "src/theme";
 
 interface ILabelProps {
   width?: string;
   fontWeight?: string;
-  theme?: ITheme;
 }
 
-const Label = styled.label`
+const Label = styled.label<ILabelProps>`
   span {
     margin-left: 10px;
     display: inline-block;
   }
-  font-weight: ${(props: ILabelProps) =>
-    props.fontWeight ? props.fontWeight : "bold"};
-  color: ${(props: ILabelProps) =>
-    props.theme ? props.theme.colors.greyDark : "grey"};
+  font-weight: ${props => props.fontWeight || "bold"};
+  color: ${props => props.theme.colors.greyDark};
   display: block;
-  width: ${(props: ILabelProps) => (props.width ? props.width : "100%")};
+  width: ${props => props.width || "100%"};
 `;
 
 export default Label;

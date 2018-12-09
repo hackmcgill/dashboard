@@ -3,7 +3,7 @@ import styled from "src/shared/styled-components";
 import inputStyles from "src/shared/inputStyles";
 
 const StyledNumberFormat = styled(NumberFormat)`
-  ${inputStyles};
+    ${inputStyles};
 `;
 
 export default StyledNumberFormat;

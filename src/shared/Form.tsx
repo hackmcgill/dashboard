@@ -4,8 +4,8 @@ interface IFormProps {
   width?: string | number;
 }
 
-const Form = styled.form`
-  width: ${(props: IFormProps) => props.width || "100%"};
+const Form = styled.form<IFormProps>`
+  width: ${props => props.width || "100%"};
 `;
 
 export default Form;
