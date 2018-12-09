@@ -4,13 +4,14 @@ import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 
 export interface ICheckboxProps {
-    label: any;
+    label: string | React.Component;
     value?: boolean;
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
+    const label = (typeof props.label === 'string') ? (<span>props.label</span>) : props.label;
     return (
         <Label fontWeight='normal'>
-            <span>{props.label}</span>
+            {label}
             <Checkbox onChange={handleChange(props)} checked={props.value} />
         </Label>
     )
