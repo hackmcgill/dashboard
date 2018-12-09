@@ -63,6 +63,8 @@ const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
                 classNamePrefix='react-select'
                 onChange={handleChange(props)}
                 options={options}
+                allowCreateWhileLoading={true}
+                createOptionPosition={'first'}
             />
         </Label>
     );
