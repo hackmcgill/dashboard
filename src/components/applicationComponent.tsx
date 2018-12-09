@@ -177,12 +177,12 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             codeOfConduct_MLH: Yup.boolean().required('Required').test(
                 "true",
                 "You must accept the MLH policies",
-                value => value === true
+                value => value
             ),
             codeOfConduct_MCHACKS: Yup.boolean().required('Required').test(
                 "true",
                 "You must accept the McHacks policies",
-                value => value === true
+                value => value
             )
         });
     }
