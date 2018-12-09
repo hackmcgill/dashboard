@@ -436,6 +436,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         value={fp.values.codeOfConduct_MCHACKS}
                     />
                     <ErrorMessage
+                        component={FormikError}
                         name='codeOfConduct_MCHACKS'
                     />
                     <FastField
@@ -448,6 +449,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         value={fp.values.codeOfConduct_MLH}
                     />
                     <ErrorMessage
+                        component={FormikError}
                         name='codeOfConduct_MLH'
                     />
                 </Box>
