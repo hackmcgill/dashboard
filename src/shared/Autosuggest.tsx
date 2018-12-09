@@ -1,13 +1,13 @@
-import * as React from 'react';
-import styled from "styled-components";
-import * as Autosuggest from 'react-autosuggest';
-import inputStyles from 'src/shared/inputStyles';
-import { ITheme } from 'src/theme';
+import * as React from "react";
+import styled from "src/shared/styled-components";
+import * as Autosuggest from "react-autosuggest";
+import inputStyles from "src/shared/inputStyles";
+import { ITheme } from "src/theme";
 
 interface IAutosuggestProps {
   theme?: ITheme;
 }
-const StringAutosuggester = Autosuggest as { new(): Autosuggest<string> };
+const StringAutosuggester = Autosuggest as { new (): Autosuggest<string> };
 
 const AutosuggestWrapper = styled.div`
   .react-autosuggest__container {
@@ -19,7 +19,9 @@ const AutosuggestWrapper = styled.div`
   }
 
   .react-autosuggest__input:hover {
-    border: 2px solid ${(props: IAutosuggestProps) => props.theme ? props.theme.colors.greyDark : 'grey'};
+    border: 2px solid
+      ${(props: IAutosuggestProps) =>
+        props.theme ? props.theme.colors.greyDark : "grey"};
   }
 
   .react-autosuggest__input--focused {
@@ -37,10 +39,13 @@ const AutosuggestWrapper = styled.div`
     position: absolute;
     width: 100%;
     align-self: center;
-    background: ${(props: IAutosuggestProps) => props.theme ? props.theme.colors.white : 'white'};
+    background: ${(props: IAutosuggestProps) =>
+      props.theme ? props.theme.colors.white : "white"};
     overflow-y: auto;
     max-height: 200px;
-    border: 1px solid ${(props: IAutosuggestProps) => props.theme ? props.theme.colors.greyLight : 'grey'};
+    border: 1px solid
+      ${(props: IAutosuggestProps) =>
+        props.theme ? props.theme.colors.greyLight : "grey"};
     border-radius: 2px;
     z-index: 10;
   }
@@ -59,19 +64,21 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__suggestion--highlighted {
     font-weight: normal;
-    background-color: ${(props: IAutosuggestProps) => props.theme ? props.theme.colors.primaryLight : 'coral'};
+    background-color: ${(props: IAutosuggestProps) =>
+      props.theme ? props.theme.colors.primaryLight : "coral"};
   }
 
   .react-autosuggest__suggestion--selected {
     font-weight: normal;
-    background-color: ${(props: IAutosuggestProps) => props.theme ? props.theme.colors.primary : 'red'};
+    background-color: ${(props: IAutosuggestProps) =>
+      props.theme ? props.theme.colors.primary : "red"};
   }
 `;
 
 export const StyledAutosuggest = (props: any) => (
   <AutosuggestWrapper>
-    <StringAutosuggester {...props}/>
+    <StringAutosuggester {...props} />
   </AutosuggestWrapper>
-)
+);
 
 export const AutosuggestItem = styled.div``;

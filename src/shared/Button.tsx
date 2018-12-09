@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "src/shared/styled-components";
 import { ITheme } from "src/theme";
 
 export interface IButtonProps {
@@ -7,10 +7,12 @@ export interface IButtonProps {
 }
 
 const Button = styled.button`
-  background-color: ${(props: IButtonProps) => props.theme &&
+  background-color: ${(props: IButtonProps) =>
+    props.theme &&
     (props.secondary ? props.theme.colors.grey : props.theme.colors.primary)};
   font-size: 14px;
-  font-family: ${(props: IButtonProps) => props.theme && props.theme.fonts.header};
+  font-family: ${(props: IButtonProps) =>
+    props.theme && props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -22,7 +24,8 @@ const Button = styled.button`
   font-weight: bold;
 
   &:hover {
-    background-color: ${(props: IButtonProps) => props.theme &&
+    background-color: ${(props: IButtonProps) =>
+      props.theme &&
       (props.secondary
         ? props.theme.colors.primary
         : props.theme.colors.primaryLight)};
