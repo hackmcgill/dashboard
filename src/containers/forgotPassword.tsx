@@ -72,6 +72,8 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                                     width={'80%'}
                                 >
                                     <EmailInputComponent
+                                        label={'Email'}
+                                        required={true}
                                         onEmailChanged={this.onEmailChanged}
                                         placeholder={'foo@bar.ca'}
                                     />

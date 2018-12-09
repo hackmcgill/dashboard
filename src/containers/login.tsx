@@ -85,6 +85,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         </H1>
                         </Box>
                         <EmailInputComponent
+                            label={"Email"}
                             onEmailChanged={this.onEmailChanged}
                             isTight={true}
                         />

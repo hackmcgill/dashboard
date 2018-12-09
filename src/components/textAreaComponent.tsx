@@ -3,17 +3,19 @@ import Label from 'src/shared/Label';
 
 import { FieldProps } from 'formik';
 import Textarea from 'src/shared/Textarea';
+import LabelTextComponent from './LabelTextComponent';
 
 export interface ITextAreaProp {
     label: string;
     placeholder?: string;
     value?: string;
+    required?: boolean;
 }
 const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
     return (
         <Label>
-            <span>{props.label}</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} />
         </Label>
     )

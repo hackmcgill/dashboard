@@ -1,17 +1,19 @@
 import * as React from 'react';
 import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
+import LabelTextComponent from './LabelTextComponent';
 
 interface IPasswordInputProp {
     onPasswordChanged: (email: string) => void;
     label?: string;
+    required?: boolean;
     id?: string;
     isTight?: boolean;
 }
 const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
         <Label>
-            <span>{props.label || 'Password:'}</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <Input type='password' onChange={handleChange(props)} id={props.id} isTight={props.isTight} />
         </Label>
     )

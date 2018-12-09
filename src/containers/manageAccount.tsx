@@ -127,6 +127,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         onLastNameChanged={this.onLastNameChanged}
                     />
                     <EmailInput
+                        label={"Email:"}
                         value={accountDetails.email}
                         onEmailChanged={this.onEmailChanged}
                         disabled={mode === ManageAccountModes.EDIT}
@@ -150,6 +151,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                             )
                     }
                     <DietaryRestrictionComponent
+                        label={'Dietary Restrictions'}
                         value={accountDetails.dietaryRestrictions}
                         onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
                     />
@@ -159,6 +161,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         onPronounChanged={this.onPronounChanged}
                     />
                     <ShirtSizeComponent
+                        label={"Shirt size:"}
                         value={accountDetails.shirtSize}
                         onShirtSizeChanged={this.onShirtSizeChanged}
                     />

@@ -2,18 +2,20 @@ import * as React from 'react';
 import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
+import LabelTextComponent from './LabelTextComponent';
 
 export interface IInputFormikComponentProp {
     label: string;
     inputType: string;
     placeholder?: string;
     value?: string;
+    required?: boolean;
 }
 const InputFormikComponent: React.StatelessComponent<IInputFormikComponentProp & FieldProps> = (props) => {
     const placeholder = props.placeholder || '';
     return (
         <Label>
-            <span>{props.label}</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <Input type={props.inputType} onChange={handleChange(props)} placeholder={placeholder} value={props.value} />
         </Label>
     )
