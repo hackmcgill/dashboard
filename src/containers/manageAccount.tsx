@@ -21,6 +21,8 @@ import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
 import { padStart } from 'src/util';
+import { Redirect } from 'react-router';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export enum ManageAccountModes {
     CREATE,
@@ -29,7 +31,7 @@ export enum ManageAccountModes {
 
 interface IManageAccountContainerState {
     mode: ManageAccountModes;
-    accountCreated: boolean;
+    formSubmitted: boolean;
     accountDetails: IAccount;
     oldPassword: string;
 }
@@ -42,7 +44,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     constructor(props: IManageAccountContainerProps) {
         super(props);
         this.state = {
-            accountCreated: props.mode !== ManageAccountModes.CREATE,
+            formSubmitted: false,
             mode: props.mode,
             accountDetails: {
                 accountType: UserType.UNKNOWN,
@@ -91,10 +93,12 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
 
 
     public render() {
-        const { mode, accountCreated } = this.state;
+        const { mode, formSubmitted } = this.state;
 
-        if (mode === ManageAccountModes.CREATE && accountCreated) {
+        if (mode === ManageAccountModes.CREATE && formSubmitted) {
             return <ConfirmationEmailSentComponent />
+        } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
+            return <Redirect to={FrontendRoute.HOME_PAGE}/>
         } else {
             return this.renderForm();
         }
@@ -205,7 +209,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             await Account.create(payload);
             console.log('Created an account');
             await Auth.login(payload.email, payload.password);
-            this.setState({ accountCreated: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
@@ -221,7 +224,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 await Auth.changePassword(this.state.oldPassword, payload.password);
                 console.log('Updated password');
             }
-            this.setState({ accountCreated: true });
+            this.setState({ formSubmitted: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
