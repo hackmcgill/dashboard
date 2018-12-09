@@ -1,11 +1,11 @@
 import * as React from 'react';
-import StyledSelect from '../shared/StyledSelect';
+import StyledSelect from '../shared/StyledCreatableSelect';
 import Pronouns from '../config/pronouns';
 import Label from 'src/shared/Label';
 
 interface IPronounInputProp {
     value?: Pronouns | string;
-    onPronounChanged: (selectedOptions: Pronouns) => void;
+    onPronounChanged: (selectedOptions: string) => void;
     label?: string;
     placeholder: string;
 }
@@ -56,7 +56,7 @@ const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
         <Label>
             <span>{props.label || 'Pronoun'}</span>
             <StyledSelect
-                value={{ label: props.value }}
+                value={{label: props.value, value: props.value}}
                 id={'pronoun-selector'}
                 inputId={'pronoun-selector-input'}
                 className='react-select-container'
@@ -68,8 +68,8 @@ const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
     );
 }
 
-function handleChange(props: IPronounInputProp): (newValue: { label: Pronouns, value: Pronouns }) => void {
-    return (newValue: { label: Pronouns, value: Pronouns }) => props.onPronounChanged(newValue.value);
+function handleChange(props: IPronounInputProp): (newValue: { label: string, value: string }) => void {
+    return (newValue: { label: string, value: string }) => props.onPronounChanged(String(newValue.value || ''));
 }
 
 export default PronounInput;
