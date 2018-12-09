@@ -12,6 +12,7 @@ const StyledCreatableSelect = styled(CreatableSelect)`
     font-weight: normal;
     &:hover, &--is-focused, &--is-selected {
       background-color: ${props => props.theme.colors.primary};
+      color: ${props => props.theme.colors.white};
     }
   }
 `;
