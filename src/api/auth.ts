@@ -46,18 +46,22 @@ class AuthAPI {
      * @param {string} password 
      * @param {string} authToken 
      */
-    public resetPassword(password: string, authToken: string): AxiosPromise {
+    public async resetPassword(password: string, authToken: string): Promise<AxiosResponse<APIResponse<{}>>> {
         const config = {
             headers: {
                 "x-reset-token": authToken
             }
         }
-        return API.getEndpoint(APIRoute.AUTH_RESET_PASS).create({ password }, { config });
+        const result = await API.getEndpoint(APIRoute.AUTH_RESET_PASS).create({ password }, { config });
+        LocalCache.remove(CACHE_USER_KEY);
+        return result;
     }
-    public confirm(token: string): AxiosPromise<APIResponse<{}>> {
-        return API.getEndpoint(APIRoute.AUTH_CONFIRM_ACCT).create(undefined, {
+    public async confirm(token: string): Promise<AxiosResponse<APIResponse<{}>>> {
+        const result = await API.getEndpoint(APIRoute.AUTH_CONFIRM_ACCT).create(undefined, {
             subURL: token
         });
+        LocalCache.remove(CACHE_USER_KEY);
+        return result;
     }
 
     /**

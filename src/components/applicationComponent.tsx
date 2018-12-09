@@ -131,7 +131,8 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         skills: hackerDetails.application.skills,
                         essay: hackerDetails.application.essay,
                         comments: hackerDetails.application.comments,
-                        codeOfConduct: hackerDetails.codeOfConduct
+                        codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
+                        codeOfConduct_MLH: hackerDetails.codeOfConduct
                     }}
                     onSubmit={this.handleSubmit}
                     render={this.renderFormik}
@@ -171,18 +172,17 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     value => !value || value.type === "application/pdf"),
             ethnicity: Yup.array().required('Required'),
             major: Yup.string().required('Required'),
-            graduationYear: Yup.number()
-                .min(2018)
-                .max(2025)
-                .required(),
-            codeOfConduct: Yup
-                .boolean()
-                .test(
-                    'is-checked',
-                    'You must accept the terms and conditions',
-                    value => value
-                )
-                .required()
+            graduationYear: Yup.number().required('Required').min(2018).max(2025),
+            codeOfConduct_MLH: Yup.boolean().required('Required').test(
+                "true",
+                "You must accept the MLH policies",
+                value => value
+            ),
+            codeOfConduct_MCHACKS: Yup.boolean().required('Required').test(
+                "true",
+                "You must accept the McHacks policies",
+                value => value
+            )
         });
     }
 
@@ -287,14 +287,15 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={FormikError}
                     name='ethnicity'
                 />
-                <FastField
-                    id='needsBus'
-                    name={'bus'}
-                    component={CheckboxComponent}
-                    label={CONSTANTS.BUS_REQUEST_LABEL}
-                    value={fp.values.needsBus}
-                />
-
+                <Box mb={'26px'}>
+                    <FastField
+                        id='needsBus'
+                        name={'needsBus'}
+                        component={CheckboxComponent}
+                        label={CONSTANTS.BUS_REQUEST_LABEL}
+                        value={fp.values.needsBus}
+                    />
+                </Box>
                 <FastField
                     id='github'
                     name={'github'}
@@ -419,19 +420,32 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.COMMENTS_REQUEST_LABEL}
                     value={fp.values.comments}
                 />
-
-                <FastField
-                    id='codeOfConduct'
-                    name={'codeOfConduct'}
-                    component={CheckboxComponent}
-                    label={CONSTANTS.COC_REQUEST_LABEL}
-                    value={fp.values.codeOfConduct}
-                />
-                <ErrorMessage
-                    component={FormikError}
-                    name='codeOfConduct'
-                />
-
+                <Box mb={'26px'}>
+                    <FastField
+                        id='codeOfConduct_MCHACKS'
+                        name={'codeOfConduct_MCHACKS'}
+                        component={CheckboxComponent}
+                        label={<span>
+                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
+                        </span>}
+                        value={fp.values.codeOfConduct_MCHACKS}
+                    />
+                    <ErrorMessage
+                        name='codeOfConduct_MCHACKS'
+                    />
+                    <FastField
+                        id='codeOfConduct_MLH'
+                        name={'codeOfConduct_MLH'}
+                        component={CheckboxComponent}
+                        label={<span>
+                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
+                        </span>}
+                        value={fp.values.codeOfConduct_MLH}
+                    />
+                    <ErrorMessage
+                        name='codeOfConduct_MLH'
+                    />
+                </Box>
                 <Flex justifyContent={'center'}>
                     <Box>
                         <Button type='submit'>Submit</Button>
@@ -459,7 +473,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         }
         handler.then((success: boolean) => {
             if (success) {
-                console.log("Submtted application");
+                console.log("Submitted application");
                 toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`)
             } else {
                 toast.error(`There was an error when submitting the application.`);
@@ -566,7 +580,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             ethnicity: values.ethnicity,
             major: values.major,
             graduationYear: values.graduationYear,
-            codeOfConduct: values.codeOfConduct,
+            codeOfConduct: values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS,
         }
     }
 
