@@ -36,6 +36,8 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
                 isMulti={true}
                 onChange={handleChange(props)}
                 options={options}
+                allowCreateWhileLoading={true}
+                createOptionPosition={'first'}
             />
         </Label>
     );
