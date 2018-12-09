@@ -81,9 +81,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 const response = await Account.getSelf();
                 const accountDetails = response.data.data;
 
-
-                console.log(accountDetails);
-
                 this.setState({ accountDetails });
             } catch (e) {
                 if (e && e.data) {
@@ -106,7 +103,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
 
     private renderForm() {
         const { mode, accountDetails } = this.state;
-        console.log(accountDetails);
         return (
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
@@ -215,7 +211,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     private async handleEdit() {
         try {
             await Account.update(this.state.accountDetails);
-            console.log('Created an account');
+            console.log('Edited account');
             if (this.state.oldPassword && this.state.accountDetails.password) {
                 await Auth.changePassword(this.state.oldPassword, this.state.accountDetails.password);
                 console.log('Updated password');
