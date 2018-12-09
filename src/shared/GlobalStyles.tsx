@@ -49,6 +49,10 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.header};
   }
 
+  input, textarea, select {
+    font-family: inherit;
+  }
+
   .toast-notification {
     z-index: 100000;
   }
