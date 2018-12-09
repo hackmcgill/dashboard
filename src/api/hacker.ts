@@ -60,6 +60,7 @@ class AccountAPI {
     public update(hacker: IHacker): AxiosPromise {
         const key = CACHE_HACKER_KEY + '-' + hacker.id;
         const value = API.getEndpoint(Route.HACKER).patch(hacker, hacker);
+        LocalCache.remove(CACHE_HACKER_KEY);
         LocalCache.remove(key);
         return value;
     }
@@ -72,6 +73,7 @@ class AccountAPI {
     public updateStatus(id: string, status: HackerStatus): AxiosPromise {
         const key = CACHE_HACKER_KEY + '-' + id;
         const value = API.getEndpoint(Route.HACKER_STATUS).patch({ id }, { "status": status });
+        LocalCache.remove(CACHE_HACKER_KEY);
         LocalCache.remove(key);
         return value;
     }
@@ -83,6 +85,7 @@ class AccountAPI {
     public checkinStatus(id: string): AxiosPromise {
         const key = CACHE_HACKER_KEY + '-' + id;
         const value = API.getEndpoint(Route.HACKER_CHECKIN).patch({ id }, undefined);
+        LocalCache.remove(CACHE_HACKER_KEY);
         LocalCache.remove(key);
         return value;
     }
@@ -95,6 +98,7 @@ class AccountAPI {
     public confirm(id: string, confirm: boolean): AxiosPromise {
         const key = CACHE_HACKER_KEY + '-' + id;
         const value = API.getEndpoint(Route.HACKER_STATUS).patch({ id }, { "confirm": confirm });
+        LocalCache.remove(CACHE_HACKER_KEY);
         LocalCache.remove(key);
         return value;
     }
