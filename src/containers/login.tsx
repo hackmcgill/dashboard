@@ -88,12 +88,14 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         <EmailInputComponent
                             label={EMAIL_LABEL}
                             onEmailChanged={this.onEmailChanged}
+                            value={this.state.email}
                             isTight={true}
                             required={true}
                         />
                         <PasswordInputComponent
                             label={PASSWORD_LABEL}
                             onPasswordChanged={this.onPasswordChanged}
+                            value={this.state.password}
                             isTight={true}
                             required={true}
                         />
@@ -105,7 +107,10 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                                 <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
                             </Box>
                             <Box pl={'5px'}>
-                                <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+                                <Link to={{
+                                    pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
+                                    state: {...this.state}
+                                }}>
                                     <Button type='button' secondary={true}>Register</Button>
                                 </Link>
                             </Box>

@@ -7,7 +7,6 @@ import ShirtSizeComponent from 'src/components/shirtSizeComponent';
 import FullNameInput from 'src/components/fullNameInputComponent';
 import PasswordInput from 'src/components/passwordInputComponent';
 import Button from 'src/shared/Button';
-// import Container from 'src/shared/Container';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import NumberFormat from 'src/components/numberFormatComponent';
@@ -22,6 +21,8 @@ import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
 import * as CONSTANTS from 'src/config/constants';
+import { RouteProps } from 'react-router';
+import { padStart } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,
@@ -35,7 +36,7 @@ interface IManageAccountContainerState {
     oldPassword: string;
 }
 
-interface IManageAccountContainerProps {
+interface IManageAccountContainerProps extends RouteProps {
     mode: ManageAccountModes
 }
 
@@ -47,14 +48,14 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             mode: props.mode,
             accountDetails: {
                 accountType: UserType.UNKNOWN,
-                birthDate: new Date(),
+                birthDate: '',
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: '',
+                email: props && props.location && props.location.state.email || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: '',
+                password: props && props.location && props.location.state.password || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
@@ -72,7 +73,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         this.onPhoneChanged = this.onPhoneChanged.bind(this);
         this.onBirthDateChanged = this.onBirthDateChanged.bind(this);
         this.onPronounChanged = this.onPronounChanged.bind(this);
-        this.dateToString = this.dateToString.bind(this);
     }
 
     public async componentDidMount() {
@@ -81,10 +81,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             try {
                 const response = await Account.getSelf();
                 const accountDetails = response.data.data;
-
-
-                console.log(accountDetails);
-
+                accountDetails.birthDate = this.date2input(accountDetails.birthDate);
                 this.setState({ accountDetails });
             } catch (e) {
                 if (e && e.data) {
@@ -107,7 +104,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
 
     private renderForm() {
         const { mode, accountDetails } = this.state;
-        console.log(accountDetails);
         return (
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
@@ -139,6 +135,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                             <PasswordInput
                                 label={CONSTANTS.PASSWORD_LABEL}
                                 onPasswordChanged={this.onPasswordChanged}
+                                value={accountDetails.password}
                                 required={true}
                             /> :
                             (
@@ -146,12 +143,10 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                                     <PasswordInput
                                         label={CONSTANTS.OLD_PASSWORD_LABEL}
                                         onPasswordChanged={this.onOldPasswordChanged}
-                                        required={true}
                                     />
                                     <PasswordInput
                                         label={CONSTANTS.NEW_PASSWORD_LABEL}
                                         onPasswordChanged={this.onPasswordChanged}
-                                        required={true}
                                     />
                                 </MaxWidthBox>
                             )
@@ -184,7 +179,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         required={true}
                     />
                     <NumberFormat
-                        value={this.dateToString(new Date(accountDetails.birthDate))}
+                        value={accountDetails.birthDate}
                         label={CONSTANTS.BIRTH_DATE_LABEL}
                         placeholder="MM-DD-YYYY"
                         onValueChange={this.onBirthDateChanged}
@@ -202,37 +197,43 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     }
 
     private handleSubmit() {
-        const { mode } = this.state;
+        const { mode, accountDetails } = this.state;
+
+        // special formatting for date
+        const formattedDetails = {
+            ...accountDetails,
+            birthDate: this.input2date(accountDetails.birthDate)
+        };
+
         switch (mode) {
             case ManageAccountModes.CREATE:
-                this.handleCreate();
+                this.handleCreate(formattedDetails);
                 break;
             case ManageAccountModes.EDIT:
-                this.handleEdit();
+                this.handleEdit(formattedDetails);
                 break;
         }
     }
 
-    private async handleCreate() {
+    private async handleCreate(payload: IAccount) {
         try {
-            await Account.create(this.state.accountDetails);
+            await Account.create(payload);
             console.log('Created an account');
-            await Auth.login(this.state.accountDetails.email, this.state.accountDetails.password);
+            await Auth.login(payload.email, payload.password);
             this.setState({ accountCreated: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
             }
         }
-
     }
 
-    private async handleEdit() {
+    private async handleEdit(payload: IAccount) {
         try {
-            await Account.update(this.state.accountDetails);
-            console.log('Created an account');
-            if (this.state.oldPassword && this.state.accountDetails.password) {
-                await Auth.changePassword(this.state.oldPassword, this.state.accountDetails.password);
+            await Account.update(payload);
+            console.log('Edited account');
+            if (this.state.oldPassword && payload.password) {
+                await Auth.changePassword(this.state.oldPassword, payload.password);
                 console.log('Updated password');
             }
             this.setState({ accountCreated: true });
@@ -274,9 +275,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         this.setState({ accountDetails });
     }
     private onBirthDateChanged(birthdate: NumberFormatValues) {
-        const dateFields = birthdate.formattedValue.split('-');
-        const date = new Date(Number(dateFields[2]), Number(dateFields[0]) - 1, Number(dateFields[1]));
-        const accountDetails = { ...this.state.accountDetails, birthDate: date };
+        const accountDetails = { ...this.state.accountDetails, birthDate: birthdate.formattedValue };
         this.setState({ accountDetails });
     }
     private onPronounChanged(pronoun: string) {
@@ -284,25 +283,19 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         this.setState({ accountDetails });
     }
 
-    /**
-     * Date utility method
-     * @param birthdate 
-     */
-    private dateToString(birthdate: Date): string {
-        const month: string = this.padStart(2, "0", String(birthdate.getMonth() + 1));
-        const day: string = this.padStart(2, "0", String(birthdate.getDate()));
-        const year: string = this.padStart(4, "0", String(birthdate.getFullYear()));
-        return month + day + year;
-    }
-    private padStart(padNum: number, padValue: string, value: string): string {
-        if (value.length < padNum) {
-            const pad = String(padValue).repeat(padNum - value.length);
-            return pad + value;
-        }
-        return value;
+    private input2date(date: string): string {
+        const dateFields = date.split('-');
+        const formattedDate = new Date(Number(dateFields[2]), Number(dateFields[0]) - 1, Number(dateFields[1]));
+        return formattedDate.toString();
     }
 
-
+    private date2input(date: string): string {
+        const parsed = new Date(date);
+        const day = padStart(2, '0', String(parsed.getDate()));
+        const month = padStart(2, '0', String(parsed.getMonth() + 1));
+        const year = parsed.getUTCFullYear();
+        return `${month}-${day}-${year}`;
+    }
 }
 
 export default WithToasterContainer(ManageAccountContainer);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AxiosResponse } from 'axios';
-import { Formik, FormikActions, FormikProps, FastField } from 'formik';
+import { Formik, FormikActions, FormikProps, FastField, ErrorMessage } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
@@ -13,8 +13,8 @@ import Majors from 'src/config/Majors';
 import Skills from 'src/config/skills';
 import jobInterests from 'src/config/jobInterests';
 
+import FormikError from 'src/shared/FormikError';
 import Form from 'src/shared/Form';
-import ErrorMessage from 'src/shared/ErrorMessage';
 import Button from 'src/shared/Button';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import H1 from 'src/shared/H1';
@@ -35,7 +35,8 @@ import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikCo
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
 import WithToasterContainer from 'src/hoc/withToaster';
-
+import { Redirect } from 'react-router';
+import FrontendRoute from 'src/config/FrontendRoute';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -43,6 +44,7 @@ export enum ManageApplicationModes {
 }
 interface IManageApplicationState {
     mode: ManageApplicationModes;
+    submitted: boolean;
     hackerDetails: IHacker;
 }
 
@@ -54,6 +56,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         super(props);
         this.state = {
             mode: props.mode,
+            submitted: false,
             hackerDetails: {
                 id: '',
                 accountId: '',
@@ -104,42 +107,43 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
     }
 
     public render() {
-        const { mode, hackerDetails } = this.state;
+        const { mode, hackerDetails, submitted } = this.state;
         return (
-            <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
+            submitted ? <Redirect to={FrontendRoute.HOME_PAGE} /> :
+                <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+                    <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+                        <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
+                            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
                     </H1>
+                    </MaxWidthBox>
+                    <Formik
+                        enableReinitialize={true}
+                        initialValues={{
+                            school: hackerDetails.school,
+                            degree: hackerDetails.degree,
+                            graduationYear: hackerDetails.graduationYear,
+                            major: hackerDetails.major,
+                            gender: hackerDetails.gender,
+                            ethnicity: hackerDetails.ethnicity,
+                            needsBus: hackerDetails.needsBus,
+                            github: hackerDetails.application.portfolioURL.github,
+                            dropler: hackerDetails.application.portfolioURL.dropler,
+                            linkedIn: hackerDetails.application.portfolioURL.linkedIn,
+                            personal: hackerDetails.application.portfolioURL.personal,
+                            other: hackerDetails.application.portfolioURL.other,
+                            resumeFile: undefined,
+                            jobInterest: hackerDetails.application.jobInterest,
+                            skills: hackerDetails.application.skills,
+                            essay: hackerDetails.application.essay,
+                            comments: hackerDetails.application.comments,
+                            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
+                            codeOfConduct_MLH: hackerDetails.codeOfConduct
+                        }}
+                        onSubmit={this.handleSubmit}
+                        render={this.renderFormik}
+                        validationSchema={this.getValidationSchema(mode)}
+                    />
                 </MaxWidthBox>
-                <Formik
-                    enableReinitialize={true}
-                    initialValues={{
-                        school: hackerDetails.school,
-                        degree: hackerDetails.degree,
-                        graduationYear: hackerDetails.graduationYear,
-                        major: hackerDetails.major,
-                        gender: hackerDetails.gender,
-                        ethnicity: hackerDetails.ethnicity,
-                        needsBus: hackerDetails.needsBus,
-                        github: hackerDetails.application.portfolioURL.github,
-                        dropler: hackerDetails.application.portfolioURL.dropler,
-                        linkedIn: hackerDetails.application.portfolioURL.linkedIn,
-                        personal: hackerDetails.application.portfolioURL.personal,
-                        other: hackerDetails.application.portfolioURL.other,
-                        resumeFile: undefined,
-                        jobInterest: hackerDetails.application.jobInterest,
-                        skills: hackerDetails.application.skills,
-                        essay: hackerDetails.application.essay,
-                        comments: hackerDetails.application.comments,
-                        codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
-                        codeOfConduct_MLH: hackerDetails.codeOfConduct
-                    }}
-                    onSubmit={this.handleSubmit}
-                    render={this.renderFormik}
-                    validationSchema={this.getValidationSchema(mode)}
-                />
-            </MaxWidthBox>
         );
     }
 
@@ -203,6 +207,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.SCHOOL_REQUEST_LABEL}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='school'
                 />
                 <FastField
@@ -234,6 +239,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={true}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='graduationYear'
                 />
                 <FastField
@@ -250,6 +256,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={true}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='major'
                 />
                 <FastField
@@ -289,18 +296,17 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={true}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='ethnicity'
                 />
-                <Box mb={'26px'}>
-                    <FastField
-                        id='needsBus'
-                        name={'needsBus'}
-                        component={CheckboxComponent}
-                        label={CONSTANTS.BUS_REQUEST_LABEL}
-                        value={fp.values.needsBus}
-                        required={false}
-                    />
-                </Box>
+                <FastField
+                    id='needsBus'
+                    name={'needsBus'}
+                    component={CheckboxComponent}
+                    label={CONSTANTS.BUS_REQUEST_LABEL}
+                    value={fp.values.needsBus}
+                    required={false}
+                />
                 <FastField
                     id='github'
                     name={'github'}
@@ -312,6 +318,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={true}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='github'
                 />
 
@@ -325,6 +332,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     value={fp.values.dropler}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='dropler'
                 />
                 <FastField
@@ -337,6 +345,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     value={fp.values.linkedIn}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='linkedIn'
                 />
 
@@ -350,6 +359,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     value={fp.values.personal}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='personal'
                 />
                 <FastField
@@ -361,7 +371,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
                     value={fp.values.other}
                 />
-                <ErrorMessage
+                <ErrorMessage component={FormikError}
                     name='other'
                 />
                 <FastField
@@ -372,9 +382,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={this.props.mode === ManageApplicationModes.CREATE}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='resumeFile'
                 />
-
                 <FastField
                     id='jobInterest'
                     name={'jobInterest'}
@@ -390,6 +400,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     required={true}
                 />
                 <ErrorMessage
+                    component={FormikError}
                     name='jobInterest'
                 />
                 <FastField
@@ -399,8 +410,38 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     isMulti={true}
                     creatable={true}
                     options={[
-                        { label: Skills.HTML, value: Skills.HTML },
+                        { label: Skills.Android, value: Skills.Android },
+                        { label: Skills.ArtificialIntelligence, value: Skills.ArtificialIntelligence },
+                        { label: Skills.BackEnd, value: Skills.BackEnd },
+                        { label: Skills.C, value: Skills.C },
+                        { label: Skills.CSharp, value: Skills.CSharp },
+                        { label: Skills.CPlusPlus, value: Skills.CPlusPlus },
                         { label: Skills.CSS, value: Skills.CSS },
+                        { label: Skills.DataScience, value: Skills.DataScience },
+                        { label: Skills.DesktopApps, value: Skills.DesktopApps },
+                        { label: Skills.Django, value: Skills.Django },
+                        { label: Skills.Excel, value: Skills.Excel },
+                        { label: Skills.FrontEnd, value: Skills.FrontEnd },
+                        { label: Skills.HTML, value: Skills.HTML },
+                        { label: Skills.iOS, value: Skills.iOS },
+                        { label: Skills.Java, value: Skills.Java },
+                        { label: Skills.Javascrips, value: Skills.Javascrips },
+                        { label: Skills.MachineLearning, value: Skills.MachineLearning },
+                        { label: Skills.MobileApps, value: Skills.MobileApps },
+                        { label: Skills.MongoDB, value: Skills.MongoDB },
+                        { label: Skills.NaturalLanguageProcessing, value: Skills.NaturalLanguageProcessing },
+                        { label: Skills.NodeJS, value: Skills.NodeJS },
+                        { label: Skills.PHP, value: Skills.PHP },
+                        { label: Skills.ProductManagement, value: Skills.ProductManagement },
+                        { label: Skills.Python, value: Skills.Python },
+                        { label: Skills.React, value: Skills.React },
+                        { label: Skills.Robotics, value: Skills.Robotics },
+                        { label: Skills.Ruby, value: Skills.Ruby },
+                        { label: Skills.RubyonRails, value: Skills.RubyonRails },
+                        { label: Skills.Swift, value: Skills.Swift },
+                        { label: Skills.Typescript, value: Skills.Typescript },
+                        { label: Skills.UIDesign, value: Skills.UIDesign },
+                        { label: Skills.UXDesign, value: Skills.UXDesign },
                         { label: Skills.JS, value: Skills.JS },
                         { label: Skills.TS, value: Skills.TS },
                     ]}
@@ -425,34 +466,35 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     value={fp.values.comments}
                     required={false}
                 />
-                <Box mb={'26px'}>
-                    <FastField
-                        id='codeOfConduct_MCHACKS'
-                        name={'codeOfConduct_MCHACKS'}
-                        component={CheckboxComponent}
-                        label={<span>
-                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
-                        </span>}
-                        value={fp.values.codeOfConduct_MCHACKS}
-                        required={true}
-                    />
-                    <ErrorMessage
-                        name='codeOfConduct_MCHACKS'
-                    />
-                    <FastField
-                        id='codeOfConduct_MLH'
-                        name={'codeOfConduct_MLH'}
-                        component={CheckboxComponent}
-                        label={<span>
-                            {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
-                        </span>}
-                        value={fp.values.codeOfConduct_MLH}
-                        required={true}
-                    />
-                    <ErrorMessage
-                        name='codeOfConduct_MLH'
-                    />
-                </Box>
+
+                <FastField
+                    id='codeOfConduct_MCHACKS'
+                    name={'codeOfConduct_MCHACKS'}
+                    component={CheckboxComponent}
+                    label={<span>
+                        {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
+                    </span>}
+                    value={fp.values.codeOfConduct_MCHACKS}
+                    required={true}
+                />
+                <ErrorMessage
+                    component={FormikError}
+                    name='codeOfConduct_MCHACKS'
+                />
+                <FastField
+                    id='codeOfConduct_MLH'
+                    name={'codeOfConduct_MLH'}
+                    component={CheckboxComponent}
+                    label={<span>
+                        {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
+                    </span>}
+                    value={fp.values.codeOfConduct_MLH}
+                    required={true}
+                />
+                <ErrorMessage
+                    component={FormikError}
+                    name='codeOfConduct_MLH'
+                />
                 <Flex justifyContent={'center'}>
                     <Box>
                         <Button type='submit'>Submit</Button>
@@ -481,10 +523,12 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
         handler.then((success: boolean) => {
             if (success) {
                 console.log("Submitted application");
-                toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`)
+                toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`);
+                this.setState({ submitted: true });
             } else {
                 toast.error(`There was an error when submitting the application.`);
             }
+
         }).catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
             if (response) {
                 ValidationErrorGenerator(response.data);
@@ -592,5 +636,4 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
     }
 
 }
-
 export default WithToasterContainer(ManageApplicationContainer);

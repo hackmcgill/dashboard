@@ -18,7 +18,7 @@ export interface IAccount {
     // The user's phone number
     phoneNumber: string,
     // The birthdate
-    birthDate: Date,
+    birthDate: string,
     // The preferred pronoun
     pronoun: string,
     // The database id (if new, leave blank / make '')

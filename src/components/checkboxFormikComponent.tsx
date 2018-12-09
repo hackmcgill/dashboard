@@ -3,18 +3,24 @@ import Checkbox from 'src/shared/Checkbox';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
+import { Box } from '@rebass/grid';
 
 export interface ICheckboxProps {
-    label: any;
+    label: string | React.Component;
     value?: boolean;
     required?: boolean;
+    isTight?: boolean;
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
+    const { isTight } = props;
+    const label = (typeof props.label === 'string') ? (<span>{props.label}</span>) : props.label;
     return (
-        <Label fontWeight='normal'>
-            <LabelTextComponent label={props.label} required={props.required} />
-            <Checkbox onChange={handleChange(props)} checked={props.value} />
-        </Label>
+        <Box mb={isTight ? 0 : '20px'}>
+            <Label fontWeight='normal'>
+                <LabelTextComponent label={label} required={props.required} />
+                <Checkbox onChange={handleChange(props)} checked={props.value} />
+            </Label>
+        </Box>
     )
 }
 /**

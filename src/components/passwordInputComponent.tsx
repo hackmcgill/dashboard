@@ -9,12 +9,13 @@ interface IPasswordInputProp {
     required?: boolean;
     id?: string;
     isTight?: boolean;
+    value?: string;
 }
 const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
     return (
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
-            <Input type='password' onChange={handleChange(props)} id={props.id} isTight={props.isTight} />
+            <Input type='password' onChange={handleChange(props)} id={props.id} isTight={props.isTight} value={props.value} />
         </Label>
     )
 }
