@@ -86,10 +86,12 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         </Box>
                         <EmailInputComponent
                             onEmailChanged={this.onEmailChanged}
+                            value={this.state.email}
                             isTight={true}
                         />
                         <PasswordInputComponent
                             onPasswordChanged={this.onPasswordChanged}
+                            value={this.state.password}
                             isTight={true}
                         />
                         <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
