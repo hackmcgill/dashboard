@@ -430,7 +430,6 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={<span>
                         {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
                     </span>}
-                    isTight={true}
                     value={fp.values.codeOfConduct_MCHACKS}
                 />
                 <ErrorMessage
