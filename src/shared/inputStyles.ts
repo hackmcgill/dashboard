@@ -1,24 +1,20 @@
 import { css } from "styled-components";
-import { ITheme } from "src/theme";
 
 export interface IInputProps {
   isTight?: boolean;
   fontWeight?: string;
-  theme?: ITheme;
 }
 
-const inputStyles = css`
+const inputStyles = css<IInputProps>`
   border-radius: 20px;
-  border: 2px solid
-    ${(props: IInputProps) =>
-      props.theme ? props.theme.colors.greyLight : "grey"};
+  border: 2px solid ${props => props.theme.colors.greyLight};
   font-weight: ${props => props.fontWeight || "normal"};
   box-sizing: border-box;
   display: block;
   font-size: 16px;
   margin: auto;
   margin-top: 10px;
-  margin-bottom: ${(props: IInputProps) => (props.isTight ? "8px" : "20px")};
+  margin-bottom: ${props => (props.isTight ? "8px" : "20px")};
   min-height: 35px;
   padding-left: 16px;
   width: 100%;
@@ -26,9 +22,7 @@ const inputStyles = css`
 
   &:focus,
   &:hover {
-    border: 2px solid
-      ${(props: IInputProps) =>
-        props.theme ? props.theme.colors.grey : "grey"};
+    border: 2px solid ${props => props.theme.colors.grey};
   }
 `;
 

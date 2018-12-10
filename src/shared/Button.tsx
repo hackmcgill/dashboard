@@ -1,16 +1,13 @@
-import styled from "styled-components";
-import { ITheme } from "src/theme";
+import styled from "src/shared/styled-components";
 
-export interface IButtonProps {
+interface IButtonProps {
   secondary?: boolean;
-  theme?: ITheme;
 }
 
-const Button = styled.button`
-  background-color: ${(props: IButtonProps) => props.theme &&
-    (props.secondary ? props.theme.colors.grey : props.theme.colors.primary)};
+const Button = styled.button<IButtonProps>`
+  background-color: ${props => props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
   font-size: 14px;
-  font-family: ${(props: IButtonProps) => props.theme && props.theme.fonts.header};
+  font-family: ${props => props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -22,10 +19,7 @@ const Button = styled.button`
   font-weight: bold;
 
   &:hover {
-    background-color: ${(props: IButtonProps) => props.theme &&
-      (props.secondary
-        ? props.theme.colors.primary
-        : props.theme.colors.primaryLight)};
+    background-color: ${props => props.secondary ? props.theme.colors.primary : props.theme.colors.primaryLight};
   }
 `;
 
