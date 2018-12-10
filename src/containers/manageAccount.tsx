@@ -155,7 +155,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
                         value={accountDetails.dietaryRestrictions}
                         onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
-                        required={true}
+                        required={false}
                     />
                     <PronounInput
                         label={CONSTANTS.PRONOUN_LABEL}

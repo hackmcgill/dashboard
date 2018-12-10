@@ -20,6 +20,7 @@ export interface IDietRestrictionProps {
  */
 const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionProps> = (props) => {
     const options: Array<{ label: string, value: string }> = [
+        { label: DietaryRestriction.NONE, value: DietaryRestriction.NONE },
         { label: DietaryRestriction.DAIRY_FREE, value: DietaryRestriction.DAIRY_FREE },
         { label: DietaryRestriction.GLUTEN_FREE, value: DietaryRestriction.GLUTEN_FREE },
         { label: DietaryRestriction.HALAL, value: DietaryRestriction.HALAL },
