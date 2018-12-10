@@ -102,7 +102,10 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                                 <Button type='button' onClick={this.handleSubmit}>Sign in</Button>
                             </Box>
                             <Box pl={'5px'}>
-                                <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+                                <Link to={{
+                                    pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
+                                    state: {...this.state}
+                                }}>
                                     <Button type='button' secondary={true}>Register</Button>
                                 </Link>
                             </Box>

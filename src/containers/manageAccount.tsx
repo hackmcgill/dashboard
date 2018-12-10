@@ -20,9 +20,10 @@ import Paragraph from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
-import { padStart } from 'src/util';
 import { Redirect } from 'react-router';
 import FrontendRoute from 'src/config/FrontendRoute';
+import { RouteProps } from 'react-router';
+import { padStart, getNestedProp } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,
@@ -36,7 +37,7 @@ interface IManageAccountContainerState {
     oldPassword: string;
 }
 
-interface IManageAccountContainerProps {
+interface IManageAccountContainerProps extends RouteProps {
     mode: ManageAccountModes
 }
 
@@ -51,11 +52,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 birthDate: '',
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: '',
+                email: getNestedProp(props, ['location','state','email']) || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: '',
+                password: getNestedProp(props, ['location','state','password']) || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
@@ -134,6 +135,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         (mode === ManageAccountModes.CREATE) ?
                             <PasswordInput
                                 onPasswordChanged={this.onPasswordChanged}
+                                value={accountDetails.password}
                             /> :
                             (
                                 <MaxWidthBox>
