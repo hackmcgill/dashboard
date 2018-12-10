@@ -71,11 +71,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 application: {
                     portfolioURL: {
                         resume: '',
-                        github: 'https://github.com/',
-                        dropler: 'https://dribbble.com/',
-                        linkedIn: 'https://linkedin.com/in/',
-                        personal: 'https://my.website.com/',
-                        other: 'https://my.other.website.com/',
+                        github: '',
+                        dropler: '',
+                        linkedIn: '',
+                        personal: '',
+                        other: '',
                     },
                     jobInterest: jobInterests.NONE,
                     skills: [],

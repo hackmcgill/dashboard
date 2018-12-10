@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "src/shared/styled-components";
 
 export interface IParagraphProps {
   fontSize?: string;
@@ -11,17 +11,13 @@ export interface IParagraphProps {
 }
 
 const Paragraph = styled.p<IParagraphProps>`
-  font-size: ${props => (props.fontSize ? props.fontSize : "24px")};
-  color: ${props => (props.color ? props.color : props.theme.colors.greyDark)};
-  text-align: ${props => (props.textAlign ? props.textAlign : "left")};
-  padding-bottom: ${(props: IParagraphProps) =>
-    props.paddingBottom ? props.paddingBottom : "0px"};
-  max-width: ${(props: IParagraphProps) =>
-    props.maxWidth ? props.maxWidth : "800px"};
-  margin-bottom: ${(props: IParagraphProps) =>
-    props.marginBottom ? props.marginBottom : "18px"};
-  margin-top: ${(props: IParagraphProps) =>
-    props.marginTop ? props.marginTop : "18px"};
+  font-size: ${props => (props.fontSize || "24px")};
+  color: ${props => (props.color || props.theme.colors.greyDark)};
+  text-align: ${props => (props.textAlign || "left")};
+  padding-bottom: ${props => props.paddingBottom || "0px"};
+  max-width: ${props => props.maxWidth || "600px"};
+  margin-bottom: ${props => props.marginBottom || "18px"};
+  margin-top: ${props => props.marginTop || "18px"};
 `;
 
 export default Paragraph;

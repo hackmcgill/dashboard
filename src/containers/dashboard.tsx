@@ -78,13 +78,13 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
                 <Flex flexWrap={"wrap"} alignItems={"center"} justifyContent={"center"}>
                     <Link to={applicationBtnLink} onClick={this.confirmAccountToastError} style={{ textDecoration: 'none' }}>
                         <Card width={"250px"} flexDirection={"column"}>
-                            <H2 fontSize={"28px"}>Application</H2>
+                            <H2 fontSize={"28px"} marginBottom={"30px"} textAlign={"center"}>Application</H2>
                             <Image src={iconApplication} imgHeight={"125px"} />
                         </Card>
                     </Link>
                     <Link to={FrontendRoute.EDIT_ACCOUNT_PAGE} style={{ textDecoration: 'none' }}>
                         <Card width={"250px"} flexDirection={"column"}>
-                            <H2 fontSize={"28px"}>Account</H2>
+                            <H2 fontSize={"28px"} marginBottom={"30px"} textAlign={"center"}>Account</H2>
                             <Image src={iconAccount} imgHeight={"125px"} />
                         </Card>
                     </Link>

@@ -1,9 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import { ITheme } from "src/theme";
-
-interface IGlobalStylesProps {
-  theme?: ITheme;
-}
+import { createGlobalStyle } from "src/shared/styled-components";
 
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');
@@ -23,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.body};
+    font-family: ${props => props.theme.fonts.body};
     margin: 0;
     padding: 0;
     
@@ -33,12 +28,10 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(props: IGlobalStylesProps) =>
-      (props.theme && props.theme.colors.greyDark) || "grey"};
+    color: ${props => props.theme.colors.greyDark};
 
     &:hover {
-      color: ${(props: IGlobalStylesProps) =>
-        (props.theme && props.theme.colors.greyLight) || "grey"};
+      color: ${props => props.theme.colors.greyLight};
 
     }
 
@@ -46,7 +39,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: ${(props: IGlobalStylesProps) => props.theme && props.theme.fonts.header};
+    font-family: ${props => props.theme.fonts.header};
   }
 
   input, textarea, select {
