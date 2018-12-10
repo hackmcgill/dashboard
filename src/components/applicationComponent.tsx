@@ -71,11 +71,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 application: {
                     portfolioURL: {
                         resume: '',
-                        github: 'https://github.com/',
-                        dropler: 'https://dribbble.com/',
-                        linkedIn: 'https://linkedin.com/in/',
-                        personal: 'https://my.website.com/',
-                        other: 'https://my.other.website.com/',
+                        github: '',
+                        dropler: '',
+                        linkedIn: '',
+                        personal: '',
+                        other: '',
                     },
                     jobInterest: jobInterests.NONE,
                     skills: [],
@@ -109,41 +109,41 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
     public render() {
         const { mode, hackerDetails, submitted } = this.state;
         return (
-            submitted ? <Redirect to={FrontendRoute.HOME_PAGE}/> :
-            <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
+            submitted ? <Redirect to={FrontendRoute.HOME_PAGE} /> :
+                <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+                    <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+                        <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
+                            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
                     </H1>
+                    </MaxWidthBox>
+                    <Formik
+                        enableReinitialize={true}
+                        initialValues={{
+                            school: hackerDetails.school,
+                            degree: hackerDetails.degree,
+                            graduationYear: hackerDetails.graduationYear,
+                            major: hackerDetails.major,
+                            gender: hackerDetails.gender,
+                            ethnicity: hackerDetails.ethnicity,
+                            needsBus: hackerDetails.needsBus,
+                            github: hackerDetails.application.portfolioURL.github,
+                            dropler: hackerDetails.application.portfolioURL.dropler,
+                            linkedIn: hackerDetails.application.portfolioURL.linkedIn,
+                            personal: hackerDetails.application.portfolioURL.personal,
+                            other: hackerDetails.application.portfolioURL.other,
+                            resumeFile: undefined,
+                            jobInterest: hackerDetails.application.jobInterest,
+                            skills: hackerDetails.application.skills,
+                            essay: hackerDetails.application.essay,
+                            comments: hackerDetails.application.comments,
+                            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
+                            codeOfConduct_MLH: hackerDetails.codeOfConduct
+                        }}
+                        onSubmit={this.handleSubmit}
+                        render={this.renderFormik}
+                        validationSchema={this.getValidationSchema(mode)}
+                    />
                 </MaxWidthBox>
-                <Formik
-                    enableReinitialize={true}
-                    initialValues={{
-                        school: hackerDetails.school,
-                        degree: hackerDetails.degree,
-                        graduationYear: hackerDetails.graduationYear,
-                        major: hackerDetails.major,
-                        gender: hackerDetails.gender,
-                        ethnicity: hackerDetails.ethnicity,
-                        needsBus: hackerDetails.needsBus,
-                        github: hackerDetails.application.portfolioURL.github,
-                        dropler: hackerDetails.application.portfolioURL.dropler,
-                        linkedIn: hackerDetails.application.portfolioURL.linkedIn,
-                        personal: hackerDetails.application.portfolioURL.personal,
-                        other: hackerDetails.application.portfolioURL.other,
-                        resumeFile: undefined,
-                        jobInterest: hackerDetails.application.jobInterest,
-                        skills: hackerDetails.application.skills,
-                        essay: hackerDetails.application.essay,
-                        comments: hackerDetails.application.comments,
-                        codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
-                        codeOfConduct_MLH: hackerDetails.codeOfConduct
-                    }}
-                    onSubmit={this.handleSubmit}
-                    render={this.renderFormik}
-                    validationSchema={this.getValidationSchema(mode)}
-                />
-            </MaxWidthBox>
         );
     }
 
@@ -508,7 +508,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             if (success) {
                 console.log("Submitted application");
                 toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`);
-                this.setState({submitted: true});
+                this.setState({ submitted: true });
             } else {
                 toast.error(`There was an error when submitting the application.`);
             }
