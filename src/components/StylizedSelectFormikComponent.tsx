@@ -3,6 +3,7 @@ import { FieldProps } from 'formik';
 import StylizedCreatableSelect from 'src/shared/StyledCreatableSelect';
 import StylizedSelect from 'src/shared/StyledSelect';
 import Label from 'src/shared/Label';
+import LabelTextComponent from 'src/components/LabelTextComponent';
 
 export interface IStylizedSelectFormikProps {
     selectId: string;
@@ -12,6 +13,7 @@ export interface IStylizedSelectFormikProps {
     placeholder?: string;
     value?: string | string[];
     creatable: boolean;
+    required?: boolean;
 }
 
 
@@ -19,8 +21,8 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
     const handleChange = (props.isMulti) ? handleChangeMulti : handleChangeSingle;
 
     const commonProps = {
-        className:'react-select-container',
-        classNamePrefix:'react-select',
+        className: 'react-select-container',
+        classNamePrefix: 'react-select',
         id: props.selectId,
         onChange: handleChange(props),
         options: props.options,
@@ -30,19 +32,19 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
     }
     return (
         <Label>
-            <span>{props.label}</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             {props.creatable ?
-            <StylizedCreatableSelect
-                {...commonProps}
-                allowCreateWhileLoading={true}
-                createOptionPosition={'first'}
-            />
-            :
-            <StylizedSelect
-                {...commonProps}
-            />
+                <StylizedCreatableSelect
+                    {...commonProps}
+                    allowCreateWhileLoading={true}
+                    createOptionPosition={'first'}
+                />
+                :
+                <StylizedSelect
+                    {...commonProps}
+                />
             }
-            
+
         </Label>
     );
 }

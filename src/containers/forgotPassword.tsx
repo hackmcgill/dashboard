@@ -14,6 +14,7 @@ import MaxWidthBox from 'src/shared/MaxWidthBox';
 import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
+import { EMAIL_LABEL } from 'src/config/constants';
 
 export interface IForgotState {
     email: string;
@@ -71,6 +72,7 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
                                     width={'80%'}
                                 >
                                     <EmailInputComponent
+                                        label={EMAIL_LABEL}
                                         onEmailChanged={this.onEmailChanged}
                                         placeholder={'foo@bar.ca'}
                                     />

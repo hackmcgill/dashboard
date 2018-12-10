@@ -3,12 +3,14 @@ import StyledCreatableSelect from 'src/shared/StyledCreatableSelect';
 import Skills from 'src/config/skills';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
+import LabelTextComponent from './LabelTextComponent';
 
 /**
  * ISkillsComponent props
  */
 export interface ISkillsComponentProps {
     label?: string
+    required?: boolean;
 }
 
 /**
@@ -54,7 +56,7 @@ const SkillsComponent: React.StatelessComponent<ISkillsComponentProps & FieldPro
     ]
     return (
         <Label>
-            <span>{props.label || 'Skills'}</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <StyledCreatableSelect
                 className='react-select-container'
                 classNamePrefix='react-select'

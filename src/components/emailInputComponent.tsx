@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Input from 'src/shared/Input';
 import Label from 'src/shared/Label';
+import LabelTextComponent from './LabelTextComponent';
 
 interface IEmailInputProp {
     onEmailChanged: (email: string) => void;
@@ -8,12 +9,14 @@ interface IEmailInputProp {
     value?: string;
     placeholder?: string;
     isTight?: boolean;
+    label: string;
+    required?: boolean;
 }
 const EmailInput: React.StatelessComponent<IEmailInputProp> = (props: IEmailInputProp) => {
     const placeholder = (props.placeholder) ? props.placeholder : "";
     return (
         <Label>
-            <span>Email:</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <Input type='email' onChange={handleChange(props)} placeholder={placeholder} isTight={props.isTight} value={props.value} disabled={props.disabled} />
         </Label>
     )

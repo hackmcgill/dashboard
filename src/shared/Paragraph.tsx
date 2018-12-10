@@ -26,4 +26,12 @@ const Paragraph = styled.p<IParagraphProps>`
   margin-top: ${props => props.marginTop || "18px"};
 `;
 
+const FormDescription = styled(Paragraph)`
+  font-size: 14px;
+  margin-top: 4px;
+  margin-left: 10px;
+  font-style: italic;
+`
+
 export default Paragraph;
+export { FormDescription };
