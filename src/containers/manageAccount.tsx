@@ -16,7 +16,7 @@ import Form from 'src/shared/Form';
 import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
 import Auth from 'src/api/auth';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-import Paragraph from 'src/shared/Paragraph';
+import { FormDescription } from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
@@ -112,13 +112,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        Your Account
+                        {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your Account
                     </H1>
-                </MaxWidthBox>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <Paragraph color={'#4D4D4D'} fontSize={'18px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'}>
-                        {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your account
-                    </Paragraph>
+                    <FormDescription>
+                        {CONSTANTS.REQUIRED_DESCRIPTION}
+                    </FormDescription>
                 </MaxWidthBox>
                 <Form onSubmit={this.handleSubmit}>
                     <FullNameInput

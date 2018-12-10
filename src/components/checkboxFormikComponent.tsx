@@ -4,7 +4,7 @@ import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
 import { Box } from '@rebass/grid';
-import Paragraph from 'src/shared/Paragraph';
+import { FormDescription } from 'src/shared/Paragraph';
 
 export interface ICheckboxProps {
     label: string | React.Component;
@@ -22,9 +22,9 @@ const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> =
                 <LabelTextComponent label={label} required={props.required} />
                 <Checkbox onChange={handleChange(props)} checked={props.value} />
             </Label>
-            <Paragraph fontSize={'14px'} marginTop={'4px'} marginLeft={'10px'} italic={true}>
+            <FormDescription>
                 {subtitle}
-            </Paragraph>
+            </FormDescription>
         </Box>
     )
 }

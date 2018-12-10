@@ -5,6 +5,7 @@ export const CACHE_HACKER_KEY = 'hackerInfo';
 // Used in multiple locations:
 export const EMAIL_LABEL = 'Email';
 export const PASSWORD_LABEL = 'Password';
+export const REQUIRED_DESCRIPTION = 'Required fields are denoted with an asterisk (*)';
 
 // Account management 
 export const OLD_PASSWORD_LABEL = 'Old password';
