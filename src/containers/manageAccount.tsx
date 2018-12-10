@@ -22,7 +22,7 @@ import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
 import * as CONSTANTS from 'src/config/constants';
 import { RouteProps } from 'react-router';
-import { padStart } from 'src/util';
+import { padStart, getNestedProp } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,
@@ -51,11 +51,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 birthDate: '',
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: props && props.location && props.location.state && props.location.state.email || '',
+                email: getNestedProp(props, ['location','state','email']) || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: props && props.location && props.location.state && props.location.state.password || '',
+                password: getNestedProp(props, ['location','state','password']) || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
