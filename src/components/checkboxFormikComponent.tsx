@@ -4,15 +4,17 @@ import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
 import { Box } from '@rebass/grid';
+import Paragraph from 'src/shared/Paragraph';
 
 export interface ICheckboxProps {
     label: string | React.Component;
     value?: boolean;
     required?: boolean;
     isTight?: boolean;
+    subtitle?: string;
 }
 const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> = (props) => {
-    const { isTight } = props;
+    const { isTight, subtitle } = props;
     const label = (typeof props.label === 'string') ? (<span>{props.label}</span>) : props.label;
     return (
         <Box mb={isTight ? 0 : '20px'}>
@@ -20,6 +22,9 @@ const CheckboxComponent: React.StatelessComponent<ICheckboxProps & FieldProps> =
                 <LabelTextComponent label={label} required={props.required} />
                 <Checkbox onChange={handleChange(props)} checked={props.value} />
             </Label>
+            <Paragraph fontSize={'14px'} marginTop={'4px'} marginLeft={'10px'} italic={true}>
+                {subtitle}
+            </Paragraph>
         </Box>
     )
 }

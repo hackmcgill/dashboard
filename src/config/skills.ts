@@ -14,7 +14,7 @@ enum Skills {
     HTML = 'HTML',
     iOS = 'iOS',
     Java = 'Java',
-    Javascrips = 'Javascrips',
+    Javascript = 'Javascript',
     JS = 'JS',
     MachineLearning = 'Machine Learning',
     MobileApps = 'Mobile Apps',

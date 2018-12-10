@@ -304,6 +304,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     name={'needsBus'}
                     component={CheckboxComponent}
                     label={CONSTANTS.BUS_REQUEST_LABEL}
+                    subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
                     value={fp.values.needsBus}
                     required={false}
                 />
