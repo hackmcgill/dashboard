@@ -63,7 +63,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 school: '',
                 degree: '',
                 status: HackerStatus.HACKER_STATUS_NONE,
-                graduationYear: 2019,
+                graduationYear: NaN,
                 major: '',
                 gender: '',
                 ethnicity: [],
