@@ -34,7 +34,7 @@ const SkillsComponent: React.StatelessComponent<ISkillsComponentProps & FieldPro
         { label: Skills.HTML, value: Skills.HTML },
         { label: Skills.iOS, value: Skills.iOS },
         { label: Skills.Java, value: Skills.Java },
-        { label: Skills.Javascrips, value: Skills.Javascrips },
+        { label: Skills.Javascript, value: Skills.Javascript },
         { label: Skills.MachineLearning, value: Skills.MachineLearning },
         { label: Skills.MobileApps, value: Skills.MobileApps },
         { label: Skills.MongoDB, value: Skills.MongoDB },
