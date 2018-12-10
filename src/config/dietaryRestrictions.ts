@@ -1,5 +1,5 @@
 enum DietaryRestriction {
-    NONE = 'NONE',
+    NONE = 'None',
     VEGETARIAN = 'Vegetarian',
     VEGAN = 'Vegan',
     DAIRY_FREE = 'Dairy-Free',
