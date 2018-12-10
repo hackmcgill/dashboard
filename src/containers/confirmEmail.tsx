@@ -10,7 +10,6 @@ import MaxWidthBox from 'src/shared/MaxWidthBox';
 import { AxiosResponse } from 'axios';
 import APIResponse from 'src/api/APIResponse';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import WithToasterContainer from 'src/hoc/withToaster';
 import { RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
 
 interface IConfirmationEmailSentState {
@@ -75,4 +74,4 @@ class ConfirmationEmailSentComponent extends React.Component<{}, IConfirmationEm
     }
 }
 
-export default WithToasterContainer(ConfirmationEmailSentComponent);
+export default ConfirmationEmailSentComponent;

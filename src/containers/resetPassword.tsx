@@ -8,7 +8,6 @@ import H1 from 'src/shared/H1';
 import Button from 'src/shared/Button';
 import { Box, Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -116,4 +115,4 @@ class ResetPasswordContainer extends React.Component<RouteComponentProps, IReset
     }
 }
 
-export default withRouter<RouteComponentProps>(WithToasterContainer(ResetPasswordContainer));
+export default withRouter<RouteComponentProps>(ResetPasswordContainer);

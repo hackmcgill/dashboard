@@ -18,7 +18,6 @@ import Auth from 'src/api/auth';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import Paragraph from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
 import { Redirect } from 'react-router';
 import FrontendRoute from 'src/config/FrontendRoute';
@@ -288,4 +287,4 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     }
 }
 
-export default WithToasterContainer(ManageAccountContainer);
+export default ManageAccountContainer;

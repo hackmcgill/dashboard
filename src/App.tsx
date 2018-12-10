@@ -15,6 +15,7 @@ import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
 import withHackerRedirect from './hoc/withHackerRedirect';
+import withToast from 'src/hoc/withToast';
 import { UserType, IAccount, IHacker } from './config/userTypes';
 import HackerStatus from './config/hackerStatus';
 import EditApplicationContainer from './containers/editApplication';
@@ -70,4 +71,4 @@ class App extends React.Component {
   }
 }
 
-export default withThemeProvider(App);
+export default withThemeProvider(withToast(App));

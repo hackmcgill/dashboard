@@ -14,7 +14,6 @@ import MaxWidthBox from 'src/shared/MaxWidthBox';
 import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
-import WithToasterContainer from 'src/hoc/withToaster';
 
 export interface IForgotState {
     email: string;
@@ -128,4 +127,4 @@ class ForgotPasswordContainer extends React.Component<RouteComponentProps, IForg
     }
 }
 
-export default WithToasterContainer(withRouter<RouteComponentProps>(ForgotPasswordContainer));
+export default withRouter<RouteComponentProps>(ForgotPasswordContainer);

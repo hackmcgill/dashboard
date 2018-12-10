@@ -17,7 +17,6 @@ import hacker from 'src/api/hacker';
 import H1 from 'src/shared/H1';
 import FrontendRoute from 'src/config/FrontendRoute';
 import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
-import WithToasterContainer from 'src/hoc/withToaster';
 import { toast } from 'react-toastify';
 import auth from 'src/api/auth';
 import APIResponse from 'src/api/APIResponse';
@@ -127,4 +126,4 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         });
     }
 }
-export default WithToasterContainer(DashboardContainer);
+export default DashboardContainer;

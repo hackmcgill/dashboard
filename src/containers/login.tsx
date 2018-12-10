@@ -16,8 +16,6 @@ import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkCompon
 import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
-// import Container from 'src/shared/Container';
-import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
 import auth from 'src/api/auth';
@@ -171,4 +169,4 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
         }
     }
 }
-export default WithToasterContainer(withRouter<RouteComponentProps>(LoginContainer));
+export default withRouter<RouteComponentProps>(LoginContainer);

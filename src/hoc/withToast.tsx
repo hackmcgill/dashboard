@@ -1,8 +1,7 @@
 import * as React from "react";
 import { ToastContainer } from 'react-toastify';
-import { Box } from '@rebass/grid';
 
-const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =>
+const withToast = <P extends {}>(Component: React.ComponentType<P>) =>
     class extends React.Component<P> {
         constructor(props: any) {
             super(props);
@@ -10,14 +9,14 @@ const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =
 
         public render() {
             return (
-                <Box mt={'50px'}>
+                <div>
                     <Component {...this.props} />,
                     <ToastContainer
                         toastClassName='toast-notification'
                     />
-                </Box>
+                </div>
             )
         }
     }
 
-export default WithToasterContainer;
+export default withToast;
