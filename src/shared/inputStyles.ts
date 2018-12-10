@@ -15,7 +15,7 @@ const inputStyles = css<IInputProps>`
   margin: auto;
   margin-top: 10px;
   margin-bottom: ${props => (props.isTight ? "8px" : "20px")};
-  min-height: 35px;
+  min-height: 42px;
   padding-left: 16px;
   width: 100%;
   transition: 0.25s border ease-in;
