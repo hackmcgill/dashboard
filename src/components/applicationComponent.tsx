@@ -18,6 +18,7 @@ import Form from 'src/shared/Form';
 import Button from 'src/shared/Button';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import H1 from 'src/shared/H1';
+import { FormDescription } from 'src/shared/Paragraph';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
@@ -63,7 +64,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 school: '',
                 degree: '',
                 status: HackerStatus.HACKER_STATUS_NONE,
-                graduationYear: 2019,
+                graduationYear: NaN,
                 major: '',
                 gender: '',
                 ethnicity: [],
@@ -114,7 +115,10 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                         <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
                             {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
-                    </H1>
+                        </H1>
+                        <FormDescription>
+                            {CONSTANTS.REQUIRED_DESCRIPTION}
+                        </FormDescription>
                     </MaxWidthBox>
                     <Formik
                         enableReinitialize={true}
@@ -203,6 +207,8 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     name={'school'}
                     component={SchoolComponent}
                     value={fp.values.school}
+                    required={true}
+                    label={CONSTANTS.SCHOOL_REQUEST_LABEL}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -224,6 +230,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     ]}
                     component={StylizedSelectFormikComponent}
                     value={fp.values.degree}
+                    required={true}
                 />
                 <FastField
                     id='graduationYear'
@@ -233,6 +240,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     format="####"
                     component={NumberFormat}
                     value={fp.values.graduationYear}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -249,6 +257,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.MAJOR_REQUEST_LABEL}
                     placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
                     value={fp.values.major}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -269,6 +278,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     ]}
                     component={StylizedSelectFormikComponent}
                     value={fp.values.gender}
+                    required={true}
                 />
                 <FastField
                     id='ethnicity'
@@ -287,6 +297,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
                     component={StylizedSelectFormikComponent}
                     value={fp.values.ethnicity}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -299,6 +310,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.BUS_REQUEST_LABEL}
                     subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
                     value={fp.values.needsBus}
+                    required={false}
                 />
                 <FastField
                     id='github'
@@ -308,6 +320,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.GITHUB_LINK_LABEL}
                     placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
                     value={fp.values.github}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -371,6 +384,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     name='resumeFile'
                     component={FileUploadComponent}
                     label={CONSTANTS.RESUME_REQUEST_LABEL}
+                    required={this.props.mode === ManageApplicationModes.CREATE}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -388,6 +402,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
                     placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
                     value={fp.values.jobInterest}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -446,6 +461,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.ESSAY_REQUEST_LABEL}
                     value={fp.values.essay}
+                    required={true}
                 />
                 <FastField
                     id='comments'
@@ -453,7 +469,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.COMMENTS_REQUEST_LABEL}
                     value={fp.values.comments}
+                    required={false}
                 />
+
                 <FastField
                     id='codeOfConduct_MCHACKS'
                     name={'codeOfConduct_MCHACKS'}
@@ -462,6 +480,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://mchacks.ca/code-of-conduct" target="_blank">{CONSTANTS.COC_MCHACKS_REQUEST_LABEL}</a>
                     </span>}
                     value={fp.values.codeOfConduct_MCHACKS}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -475,6 +494,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         {CONSTANTS.COC_ACCEPTANCE_PHRASE} <a href="https://github.com/MLH/mlh-policies" target="_blank">{CONSTANTS.COC_MLH_REQUEST_LABEL}</a>
                     </span>}
                     value={fp.values.codeOfConduct_MLH}
+                    required={true}
                 />
                 <ErrorMessage
                     component={FormikError}

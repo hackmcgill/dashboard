@@ -2,9 +2,12 @@ import * as React from 'react';
 import StyledSelect from '../shared/StyledSelect';
 import ShirtSize from '../config/shirtSizes';
 import Label from 'src/shared/Label';
+import LabelTextComponent from './LabelTextComponent';
 
 interface IShirtSizeProps {
     value?: ShirtSize | string
+    label: string;
+    required?: boolean;
     onShirtSizeChanged: (selectedOptions: ShirtSize) => void;
 }
 
@@ -19,7 +22,7 @@ const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (props) =>
     ]
     return (
         <Label>
-            <span>Shirt size</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <StyledSelect
                 value={{ label: props.value }}
                 id={'shirt-size-selector'}

@@ -21,6 +21,7 @@ import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import APIResponse from 'src/api/APIResponse';
 import auth from 'src/api/auth';
+import { EMAIL_LABEL, PASSWORD_LABEL } from 'src/config/constants';
 export interface ILoginState {
     email: string;
     password: string;
@@ -85,11 +86,13 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                         </H1>
                         </Box>
                         <EmailInputComponent
+                            label={EMAIL_LABEL}
                             onEmailChanged={this.onEmailChanged}
                             value={this.state.email}
                             isTight={true}
                         />
                         <PasswordInputComponent
+                            label={PASSWORD_LABEL}
                             onPasswordChanged={this.onPasswordChanged}
                             value={this.state.password}
                             isTight={true}
