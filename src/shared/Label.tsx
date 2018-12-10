@@ -6,7 +6,7 @@ interface ILabelProps {
 }
 
 const Label = styled.label<ILabelProps>`
-  span {
+  & > span {
     margin-left: 10px;
     display: inline-block;
   }
