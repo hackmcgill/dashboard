@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AxiosResponse } from 'axios';
-import { Formik, FormikActions, FormikProps, FastField, ErrorMessage } from 'formik';
+import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
@@ -30,13 +30,13 @@ import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
 import NumberFormat from 'src/components/numberFormatFormikComponent';
 import TextareaComponent from 'src/components/textAreaComponent';
-import FileUploadComponent from 'src/components/fileUploadComponent';
 import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
 import WithToasterContainer from 'src/hoc/withToaster';
 import { Redirect } from 'react-router';
 import FrontendRoute from 'src/config/FrontendRoute';
+import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -109,41 +109,41 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
     public render() {
         const { mode, hackerDetails, submitted } = this.state;
         return (
-            submitted ? <Redirect to={FrontendRoute.HOME_PAGE}/> :
-            <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
+            submitted ? <Redirect to={FrontendRoute.HOME_PAGE} /> :
+                <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+                    <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+                        <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
+                            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your Application
                     </H1>
+                    </MaxWidthBox>
+                    <Formik
+                        enableReinitialize={true}
+                        initialValues={{
+                            school: hackerDetails.school,
+                            degree: hackerDetails.degree,
+                            graduationYear: hackerDetails.graduationYear,
+                            major: hackerDetails.major,
+                            gender: hackerDetails.gender,
+                            ethnicity: hackerDetails.ethnicity,
+                            needsBus: hackerDetails.needsBus,
+                            github: hackerDetails.application.portfolioURL.github,
+                            dropler: hackerDetails.application.portfolioURL.dropler,
+                            linkedIn: hackerDetails.application.portfolioURL.linkedIn,
+                            personal: hackerDetails.application.portfolioURL.personal,
+                            other: hackerDetails.application.portfolioURL.other,
+                            resumeFile: undefined,
+                            jobInterest: hackerDetails.application.jobInterest,
+                            skills: hackerDetails.application.skills,
+                            essay: hackerDetails.application.essay,
+                            comments: hackerDetails.application.comments,
+                            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
+                            codeOfConduct_MLH: hackerDetails.codeOfConduct
+                        }}
+                        onSubmit={this.handleSubmit}
+                        render={this.renderFormik}
+                        validationSchema={this.getValidationSchema(mode)}
+                    />
                 </MaxWidthBox>
-                <Formik
-                    enableReinitialize={true}
-                    initialValues={{
-                        school: hackerDetails.school,
-                        degree: hackerDetails.degree,
-                        graduationYear: hackerDetails.graduationYear,
-                        major: hackerDetails.major,
-                        gender: hackerDetails.gender,
-                        ethnicity: hackerDetails.ethnicity,
-                        needsBus: hackerDetails.needsBus,
-                        github: hackerDetails.application.portfolioURL.github,
-                        dropler: hackerDetails.application.portfolioURL.dropler,
-                        linkedIn: hackerDetails.application.portfolioURL.linkedIn,
-                        personal: hackerDetails.application.portfolioURL.personal,
-                        other: hackerDetails.application.portfolioURL.other,
-                        resumeFile: undefined,
-                        jobInterest: hackerDetails.application.jobInterest,
-                        skills: hackerDetails.application.skills,
-                        essay: hackerDetails.application.essay,
-                        comments: hackerDetails.application.comments,
-                        codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
-                        codeOfConduct_MLH: hackerDetails.codeOfConduct
-                    }}
-                    onSubmit={this.handleSubmit}
-                    render={this.renderFormik}
-                    validationSchema={this.getValidationSchema(mode)}
-                />
-            </MaxWidthBox>
         );
     }
 
@@ -365,11 +365,13 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 <ErrorMessage component={FormikError}
                     name='other'
                 />
-                <FastField
+                <Field
                     id='resumeFile'
                     name='resumeFile'
-                    component={FileUploadComponent}
+                    component={ResumeComponent}
                     label={CONSTANTS.RESUME_REQUEST_LABEL}
+                    mode={this.state.mode}
+                    hackerId={this.state.hackerDetails.id}
                 />
                 <ErrorMessage
                     component={FormikError}
@@ -508,7 +510,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
             if (success) {
                 console.log("Submitted application");
                 toast.success(`Account ${(mode === ManageApplicationModes.EDIT) ? 'edited'! : 'created!'}`);
-                this.setState({submitted: true});
+                this.setState({ submitted: true });
             } else {
                 toast.error(`There was an error when submitting the application.`);
             }
