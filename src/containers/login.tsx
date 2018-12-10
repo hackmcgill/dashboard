@@ -90,14 +90,12 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                             onEmailChanged={this.onEmailChanged}
                             value={this.state.email}
                             isTight={true}
-                            required={true}
                         />
                         <PasswordInputComponent
                             label={PASSWORD_LABEL}
                             onPasswordChanged={this.onPasswordChanged}
                             value={this.state.password}
                             isTight={true}
-                            required={true}
                         />
                         <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
                             <ForgotPasswordLinkComponent />
