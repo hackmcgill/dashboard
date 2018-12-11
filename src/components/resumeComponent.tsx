@@ -4,9 +4,8 @@ import * as React from 'react';
 import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import FileUploadComponent from './fileUploadComponent';
-import { RESUME_REQUEST_LABEL } from 'src/config/constants';
 import { ManageApplicationModes } from './applicationComponent';
-import DownloadResumeComponent from './downloadResumeComponent';
+import DownloadResumeComponent from './viewPDFComponent';
 import { Flex, Box } from '@rebass/grid';
 
 export interface IResumeProps {
@@ -16,25 +15,21 @@ export interface IResumeProps {
     value?: boolean;
 }
 const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (props) => {
-    console.log(props);
-    const viewResume = (props.mode === ManageApplicationModes.EDIT) ?
-        (<Box>
-            <DownloadResumeComponent {...props} />
-        </Box>) : '';
+    const viewResume = <DownloadResumeComponent {...props} />;
     return (
-        <Label>
-            <span>{props.label}</span>
-            <Flex>
-                {viewResume}
-                <Box>
-                    <Label>
-                        <span>{RESUME_REQUEST_LABEL}</span>
-                        <FileUploadComponent {...props} />
-                    </Label>
-                </Box>
-            </Flex>
-
-        </Label>
+        <Flex>
+            {(props.mode === ManageApplicationModes.EDIT) && viewResume}
+            <Label>
+                <span>{props.label}</span>
+                <Flex flexDirection={'column'}>
+                    <Box>
+                        <Label>
+                            <FileUploadComponent {...props} />
+                        </Label>
+                    </Box>
+                </Flex>
+            </Label>
+        </Flex>
     )
 }
 export default ResumeComponent;

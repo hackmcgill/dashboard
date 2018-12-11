@@ -1,15 +1,16 @@
 
 import * as React from 'react';
 import HackerAPI from 'src/api/hacker';
+import Button from 'src/shared/Button';
 
 export interface IDownloadResumeProps {
     hackerId: string;
 }
 const DownloadResumeComponent: React.StatelessComponent<IDownloadResumeProps> = (props) => {
     return (
-        <a onClick={handleClick(props)}>
-            View Resume
-        </a>
+        <Button type="button" onClick={handleClick(props)}>
+            View Current Resume
+        </Button>
     )
 }
 /**
@@ -18,17 +19,15 @@ const DownloadResumeComponent: React.StatelessComponent<IDownloadResumeProps> = 
  * @returns the function that handles changes to the choices provided by the user.
  */
 function handleClick(props: IDownloadResumeProps): (event: React.MouseEvent<any>) => void {
-    return (event: React.MouseEvent<any>) => {
+    return () => {
         HackerAPI.downloadResume(props.hackerId).then((response) => {
             const resume = response.data.data.resume;
             const bufferObj = Buffer.from(resume[0].data);
-            const blob = new Blob([bufferObj]);
-            const url = window.URL.createObjectURL(blob);
-            const tempLink = document.createElement('a');
-            tempLink.href = url;
-            // thoughts on changing the pdf name?
-            tempLink.setAttribute('download', 'resume.pdf');
-            tempLink.click();
+            const pdf = (bufferObj.toString('base64'));
+            const pdfWindow = window.open('');
+            if (pdfWindow) {
+                pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(pdf) + "'></iframe>")
+            }
         });
     }
 }
