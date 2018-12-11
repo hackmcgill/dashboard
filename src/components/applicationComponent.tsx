@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AxiosResponse } from 'axios';
-import { Formik, FormikActions, FormikProps, FastField, ErrorMessage } from 'formik';
+import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
@@ -31,13 +31,13 @@ import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
 import NumberFormat from 'src/components/numberFormatFormikComponent';
 import TextareaComponent from 'src/components/textAreaComponent';
-import FileUploadComponent from 'src/components/fileUploadComponent';
 import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
 import WithToasterContainer from 'src/hoc/withToaster';
 import { Redirect } from 'react-router';
 import FrontendRoute from 'src/config/FrontendRoute';
+import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -379,11 +379,13 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 <ErrorMessage component={FormikError}
                     name='other'
                 />
-                <FastField
+                <Field
                     id='resumeFile'
                     name='resumeFile'
-                    component={FileUploadComponent}
+                    component={ResumeComponent}
                     label={CONSTANTS.RESUME_REQUEST_LABEL}
+                    mode={this.state.mode}
+                    hackerId={this.state.hackerDetails.id}
                     required={this.props.mode === ManageApplicationModes.CREATE}
                 />
                 <ErrorMessage

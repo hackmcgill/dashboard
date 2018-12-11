@@ -1,6 +1,8 @@
 interface IResumeResponse {
     id: string;
-    resume: Buffer;
+    resume: [{
+        data: Uint8Array
+    }];
 }
 
 export default IResumeResponse;
