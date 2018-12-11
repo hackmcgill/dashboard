@@ -44,7 +44,7 @@ const Button = styled.button<IButtonProps>`
       margin-top: -10px;
       margin-left: -10px;
       border-radius: 50%;
-      border: 3px solid ${props.theme.colors.primaryLight};
+      border: 3px solid ${props.secondary ? props.theme.colors.greyLight : props.theme.colors.primaryLight};
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
     }`
