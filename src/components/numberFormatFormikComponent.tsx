@@ -8,6 +8,7 @@ export interface INumberFormatFormikComponent {
     format: string;
     placeholder?: string;
     value?: string;
+    required?: boolean;
 }
 const NumberFormatFormikComponent: React.StatelessComponent<INumberFormatFormikComponent & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
@@ -18,6 +19,7 @@ const NumberFormatFormikComponent: React.StatelessComponent<INumberFormatFormikC
             placeholder={placeholder}
             format={props.format}
             value={props.value}
+            required={props.required}
         />
     )
 }

@@ -2,12 +2,15 @@ import * as React from 'react';
 import StyledSelect from 'src/shared/StyledCreatableSelect';
 import DietaryRestriction from 'src/config/dietaryRestrictions';
 import Label from 'src/shared/Label';
+import LabelTextComponent from './LabelTextComponent';
 
 /**
  * DietaryRestrictionsComponent props
  */
 export interface IDietRestrictionProps {
     value?: string[];
+    label: string;
+    required?: boolean;
     onDietaryRestrictionsChanged: (selectedOptions: string[]) => void;
 }
 
@@ -17,6 +20,7 @@ export interface IDietRestrictionProps {
  */
 const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionProps> = (props) => {
     const options: Array<{ label: string, value: string }> = [
+        { label: DietaryRestriction.NONE, value: DietaryRestriction.NONE },
         { label: DietaryRestriction.DAIRY_FREE, value: DietaryRestriction.DAIRY_FREE },
         { label: DietaryRestriction.GLUTEN_FREE, value: DietaryRestriction.GLUTEN_FREE },
         { label: DietaryRestriction.HALAL, value: DietaryRestriction.HALAL },
@@ -26,7 +30,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
     ]
     return (
         <Label>
-            <span>Dietary Restrictions</span>
+            <LabelTextComponent label={props.label} required={props.required} />
             <StyledSelect
                 value={preselectOptions(options, props.value)}
                 className='react-select-container'

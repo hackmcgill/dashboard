@@ -1,16 +1,14 @@
-import styled from "styled-components";
-import { ITheme } from "src/theme";
+import styled from "src/shared/styled-components";
 
-export interface IButtonProps {
+interface IButtonProps {
   secondary?: boolean;
-  theme?: ITheme;
+  isLoading?: boolean;
 }
 
-const Button = styled.button`
-  background-color: ${(props: IButtonProps) => props.theme &&
-    (props.secondary ? props.theme.colors.grey : props.theme.colors.primary)};
+const Button = styled.button<IButtonProps>`
+  background-color: ${props => props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
   font-size: 14px;
-  font-family: ${(props: IButtonProps) => props.theme && props.theme.fonts.header};
+  font-family: ${props => props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -18,14 +16,38 @@ const Button = styled.button`
   border-radius: 4px;
   min-width: 100px;
   cursor: pointer;
-  transition: 0.15s linear background-color;
+  transition: 0.15s linear all;
   font-weight: bold;
+  position: relative;
 
   &:hover {
-    background-color: ${(props: IButtonProps) => props.theme &&
-      (props.secondary
-        ? props.theme.colors.primary
-        : props.theme.colors.primaryLight)};
+    background-color: ${props => props.secondary ? props.theme.colors.primary : props.theme.colors.primaryLight};
+  }
+
+  @keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+
+  ${props => props.isLoading && `
+    color: ${props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+    &:hover {
+      color: ${props.secondary ? props.theme.colors.primary : props.theme.colors.primaryLight};
+    }
+    &:before {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      margin-left: -10px;
+      border-radius: 50%;
+      border: 3px solid ${props.theme.colors.primaryLight};
+      border-top-color: ${props.theme.colors.white};
+      animation: spinner .8s ease infinite;
+    }`
   }
 `;
 

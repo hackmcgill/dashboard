@@ -33,6 +33,7 @@
     "@types/react-toastify": "^4.0.1",
     "@rebass/grid": "^6.0.0-4",
     "@types/jest": "^23.3.3",
+    "@types/lodash": "^4.14.118",
     "@types/node": "^10.11.4",
     "@types/query-string": "^6.1.0",
     "@types/react": "^16.4.14",

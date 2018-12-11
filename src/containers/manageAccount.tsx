@@ -16,12 +16,15 @@ import Form from 'src/shared/Form';
 import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
 import Auth from 'src/api/auth';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
-import Paragraph from 'src/shared/Paragraph';
+import { FormDescription } from 'src/shared/Paragraph';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 import WithToasterContainer from 'src/hoc/withToaster';
 import { UserType, IAccount } from 'src/config/userTypes';
+import * as CONSTANTS from 'src/config/constants';
+import { Redirect } from 'react-router';
+import FrontendRoute from 'src/config/FrontendRoute';
 import { RouteProps } from 'react-router';
-import { padStart } from 'src/util';
+import { padStart, getNestedProp } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,
@@ -30,7 +33,7 @@ export enum ManageAccountModes {
 
 interface IManageAccountContainerState {
     mode: ManageAccountModes;
-    accountCreated: boolean;
+    formSubmitted: boolean;
     accountDetails: IAccount;
     oldPassword: string;
 }
@@ -43,18 +46,18 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
     constructor(props: IManageAccountContainerProps) {
         super(props);
         this.state = {
-            accountCreated: props.mode !== ManageAccountModes.CREATE,
+            formSubmitted: false,
             mode: props.mode,
             accountDetails: {
                 accountType: UserType.UNKNOWN,
                 birthDate: '',
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: props && props.location && props.location.state.email || '',
+                email: getNestedProp(props, ['location','state','email']) || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: props && props.location && props.location.state.password || '',
+                password: getNestedProp(props, ['location','state','password']) || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
@@ -92,10 +95,12 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
 
 
     public render() {
-        const { mode, accountCreated } = this.state;
+        const { mode, formSubmitted } = this.state;
 
-        if (mode === ManageAccountModes.CREATE && accountCreated) {
+        if (mode === ManageAccountModes.CREATE && formSubmitted) {
             return <ConfirmationEmailSentComponent />
+        } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
+            return <Redirect to={FrontendRoute.HOME_PAGE}/>
         } else {
             return this.renderForm();
         }
@@ -107,13 +112,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             <MaxWidthBox m={'auto'} maxWidth={'500px'}>
                 <MaxWidthBox maxWidth={'500px'} m={'auto'}>
                     <H1 color={'#F2463A'} fontSize={'30px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'} marginLeft={'0px'}>
-                        Your Account
+                        {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your Account
                     </H1>
-                </MaxWidthBox>
-                <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-                    <Paragraph color={'#4D4D4D'} fontSize={'18px'} textAlign={'left'} marginTop={'0px'} marginBottom={'20px'}>
-                        {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your account
-                    </Paragraph>
+                    <FormDescription>
+                        {CONSTANTS.REQUIRED_DESCRIPTION}
+                    </FormDescription>
                 </MaxWidthBox>
                 <Form onSubmit={this.handleSubmit}>
                     <FullNameInput
@@ -123,55 +126,67 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                         onLastNameChanged={this.onLastNameChanged}
                     />
                     <EmailInput
+                        label={CONSTANTS.EMAIL_LABEL}
                         value={accountDetails.email}
                         onEmailChanged={this.onEmailChanged}
                         disabled={mode === ManageAccountModes.EDIT}
+                        required={true}
                     />
                     {
                         (mode === ManageAccountModes.CREATE) ?
                             <PasswordInput
+                                label={CONSTANTS.PASSWORD_LABEL}
                                 onPasswordChanged={this.onPasswordChanged}
                                 value={accountDetails.password}
+                                required={true}
                             /> :
                             (
                                 <MaxWidthBox>
                                     <PasswordInput
-                                        label={'Old password'}
+                                        label={CONSTANTS.OLD_PASSWORD_LABEL}
                                         onPasswordChanged={this.onOldPasswordChanged}
                                     />
                                     <PasswordInput
-                                        label={'New password'}
+                                        label={CONSTANTS.NEW_PASSWORD_LABEL}
                                         onPasswordChanged={this.onPasswordChanged}
                                     />
                                 </MaxWidthBox>
                             )
                     }
                     <DietaryRestrictionComponent
+                        label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
                         value={accountDetails.dietaryRestrictions}
                         onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+                        required={false}
                     />
                     <PronounInput
+                        label={CONSTANTS.PRONOUN_LABEL}
                         value={accountDetails.pronoun}
-                        placeholder="Preferred pronoun"
+                        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
                         onPronounChanged={this.onPronounChanged}
+                        required={true}
                     />
                     <ShirtSizeComponent
+                        label={CONSTANTS.SHIRT_SIZE_LABEL}
                         value={accountDetails.shirtSize}
                         onShirtSizeChanged={this.onShirtSizeChanged}
+                        required={true}
                     />
                     <NumberFormat
                         value={accountDetails.phoneNumber}
-                        label="Phone number:"
+                        label={CONSTANTS.PHONE_NUMBER_LABEL}
                         placeholder="+# (###) ###-####"
                         onValueChange={this.onPhoneChanged}
                         format="+# (###) ###-####"
+                        required={true}
                     />
                     <NumberFormat
                         value={accountDetails.birthDate}
-                        label="Birth date:"
+                        label={CONSTANTS.BIRTH_DATE_LABEL}
                         placeholder="MM-DD-YYYY"
                         onValueChange={this.onBirthDateChanged}
                         format="##-##-####"
+                        required={true}
                     />
                     <Flex justifyContent={'center'}>
                         <Box>
@@ -207,7 +222,6 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             await Account.create(payload);
             console.log('Created an account');
             await Auth.login(payload.email, payload.password);
-            this.setState({ accountCreated: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
@@ -223,7 +237,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 await Auth.changePassword(this.state.oldPassword, payload.password);
                 console.log('Updated password');
             }
-            this.setState({ accountCreated: true });
+            this.setState({ formSubmitted: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);

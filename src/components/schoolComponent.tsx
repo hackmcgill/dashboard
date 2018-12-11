@@ -3,6 +3,7 @@ import Schools from 'src/config/schools';
 import { FieldProps } from 'formik';
 import Label from 'src/shared/Label';
 import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
+import LabelTextComponent from 'src/components/LabelTextComponent';
 
 
 /**
@@ -11,7 +12,8 @@ import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
 export interface ISchoolComponentProps {
     name: string;
     value: string;
-    label?: string;
+    label: string;
+    required?: boolean;
 }
 interface ISchoolComponentState {
     suggestions: string[];
@@ -48,7 +50,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
 
         return (
             <Label>
-                <span>{this.props.label || 'What school do you go to?'}</span>
+                <LabelTextComponent label={this.props.label} required={this.props.required} />
                 <SchoolAutosuggest
                     shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}

@@ -1,5 +1,5 @@
 import Select from "react-select";
-import styled from "styled-components";
+import styled from "src/shared/styled-components";
 import inputStyles from "src/shared/inputStyles";
 
 const StyledSelect = styled(Select)`
@@ -10,7 +10,9 @@ const StyledSelect = styled(Select)`
 
   .react-select__option {
     font-weight: normal;
-    &:hover, &--is-focused, &--is-selected {
+    &:hover,
+    &--is-focused,
+    &--is-selected {
       background-color: ${props => props.theme.colors.primary};
     }
   }
