@@ -8,7 +8,7 @@ export interface IDownloadResumeProps {
 }
 const DownloadResumeComponent: React.StatelessComponent<IDownloadResumeProps> = (props) => {
     return (
-        <Button type="button" onClick={handleClick(props)}>
+        <Button type="button" secondary={true} onClick={handleClick(props)}>
             View Current Resume
         </Button>
     )
