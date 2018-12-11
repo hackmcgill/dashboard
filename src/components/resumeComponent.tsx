@@ -17,18 +17,16 @@ export interface IResumeProps {
 const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (props) => {
     const viewResume = <ViewPDFComponent {...props} />;
     return (
-        <Flex>
-            {(props.mode === ManageApplicationModes.EDIT) && viewResume}
-            <Label>
-                <span>{props.label}</span>
-                <Flex flexDirection={'column'}>
-                    <Box>
-                        <Label>
-                            <FileUploadComponent {...props} />
-                        </Label>
-                    </Box>
-                </Flex>
-            </Label>
+        <Flex mb={'20px'}>
+            <Box>
+                {(props.mode === ManageApplicationModes.EDIT) && viewResume}
+            </Box>
+            <Box>
+                <Label>
+                    <span>{props.label}</span>
+                        <FileUploadComponent {...props} />
+                </Label>
+            </Box>
         </Flex>
     )
 }
