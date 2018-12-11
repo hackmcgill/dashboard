@@ -21,7 +21,13 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
 
     public render() {
         return (
-            <Button isLoading={this.state.isLoading} type="button" secondary={true} onClick={this.handleClick(this.props)}>
+            <Button
+                isLoading={this.state.isLoading}
+                disabled={this.state.isLoading} 
+                secondary={true}
+                type="button" 
+                onClick={this.handleClick(this.props)}
+            >
                 View Current Resume
             </Button>
         )
