@@ -5,7 +5,7 @@ import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import FileUploadComponent from './fileUploadComponent';
 import { ManageApplicationModes } from './applicationComponent';
-import DownloadResumeComponent from './viewPDFComponent';
+import ViewPDFComponent from './viewPDFComponent';
 import { Flex, Box } from '@rebass/grid';
 
 export interface IResumeProps {
@@ -15,7 +15,7 @@ export interface IResumeProps {
     value?: boolean;
 }
 const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (props) => {
-    const viewResume = <DownloadResumeComponent {...props} />;
+    const viewResume = <ViewPDFComponent {...props} />;
     return (
         <Flex>
             {(props.mode === ManageApplicationModes.EDIT) && viewResume}
