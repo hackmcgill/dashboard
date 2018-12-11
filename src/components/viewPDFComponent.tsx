@@ -32,11 +32,12 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
             this.setState({
                 isLoading: true
             })
+            const pdfWindow = window.open('');
+            
             HackerAPI.downloadResume(props.hackerId).then((response) => {
                 const resume = response.data.data.resume;
                 const bufferObj = Buffer.from(resume[0].data);
                 const pdf = (bufferObj.toString('base64'));
-                const pdfWindow = window.open('');
                 if (pdfWindow) {
                     pdfWindow.document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64, " + encodeURI(pdf) + "'></iframe>")
                 }
