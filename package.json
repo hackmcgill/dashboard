@@ -22,11 +22,11 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "PORT=1337 react-scripts start",
+    "build": "PORT=1337 react-scripts build",
     "cosmos": "cosmos",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "PORT=1337 react-scripts test",
+    "eject": "PORT=1337 react-scripts eject"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
