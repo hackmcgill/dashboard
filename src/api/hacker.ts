@@ -107,8 +107,9 @@ class AccountAPI {
      * Downloads a hacker's resume
      * @param id The id of the hacker who the resume belongs to
      */
-    public downloadResume(id: string): AxiosPromise<AxiosResponse<APIResponse<IResumeResponse>>> {
-        return API.getEndpoint(Route.HACKER_RESUME).getOne({ id });
+    public async downloadResume(id: string): Promise<AxiosResponse<APIResponse<IResumeResponse>>> {
+        const result = await API.getEndpoint(Route.HACKER_RESUME).getOne({ id });
+        return result;
     }
 
     public async uploadResume(id: string, resume: File): Promise<AxiosResponse<APIResponse<{}>>> {
