@@ -1,12 +1,12 @@
-import { IHacker } from 'src/config/userTypes';
+import { IHacker } from '../config/userTypes';
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
-import Route from 'src/config/APIRoute';
-import API from 'src/api/api';
-import HackerStatus from 'src/config/hackerStatus';
+import Route from '../config/APIRoute';
+import API from './api';
+import HackerStatus from '../config/hackerStatus';
 import APIResponse from './APIResponse';
-import LocalCache from 'src/util/LocalCache';
-import { CACHE_HACKER_KEY } from 'src/config/constants';
-import IResumeResponse from 'src/config/resumeResponse';
+import LocalCache from '../util/LocalCache';
+import { CACHE_HACKER_KEY } from '../config/constants';
+import IResumeResponse from '../config/resumeResponse';
 
 class AccountAPI {
     constructor() {

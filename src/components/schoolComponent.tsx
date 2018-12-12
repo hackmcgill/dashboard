@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Schools from 'src/config/schools';
+import Schools from '../config/schools';
 import { FieldProps } from 'formik';
-import Label from 'src/shared/Label';
-import { StyledAutosuggest, AutosuggestItem } from 'src/shared/Autosuggest';
-import LabelTextComponent from 'src/components/LabelTextComponent';
+import Label from '../shared/Label';
+import { StyledAutosuggest, AutosuggestItem } from '../shared/Autosuggest';
+import LabelTextComponent from '../components/LabelTextComponent';
 
 
 /**

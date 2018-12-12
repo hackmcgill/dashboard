@@ -1,7 +1,7 @@
 import * as React from 'react';
 import StyledSelect from '../shared/StyledSelect';
 import ShirtSize from '../config/shirtSizes';
-import Label from 'src/shared/Label';
+import Label from '../shared/Label';
 import LabelTextComponent from './LabelTextComponent';
 
 interface IShirtSizeProps {

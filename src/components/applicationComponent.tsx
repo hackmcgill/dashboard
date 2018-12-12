@@ -5,39 +5,39 @@ import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
 
-import * as CONSTANTS from 'src/config/constants';
-import Ethnicity from 'src/config/ethnicity';
-import Genders from 'src/config/genders';
-import Degrees from 'src/config/degrees';
-import Majors from 'src/config/Majors';
-import Skills from 'src/config/skills';
-import jobInterests from 'src/config/jobInterests';
+import * as CONSTANTS from '../config/constants';
+import Ethnicity from '../config/ethnicity';
+import Genders from '../config/genders';
+import Degrees from '../config/degrees';
+import Majors from '../config/Majors';
+import Skills from '../config/skills';
+import jobInterests from '../config/jobInterests';
 
-import FormikError from 'src/shared/FormikError';
-import Form from 'src/shared/Form';
-import Button from 'src/shared/Button';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import H1 from 'src/shared/H1';
-import { FormDescription } from 'src/shared/Paragraph';
+import FormikError from '../shared/FormikError';
+import Form from '../shared/Form';
+import Button from '../shared/Button';
+import MaxWidthBox from '../shared/MaxWidthBox';
+import H1 from '../shared/H1';
+import { FormDescription } from '../shared/Paragraph';
 
-import Account from 'src/api/account';
-import Hacker from 'src/api/hacker';
-import APIResponse from 'src/api/APIResponse';
+import Account from '../api/account';
+import Hacker from '../api/hacker';
+import APIResponse from '../api/APIResponse';
 
-import { IAccount, IHacker } from 'src/config/userTypes';
-import HackerStatus from 'src/config/hackerStatus';
-import SchoolComponent from 'src/components/schoolComponent';
-import CheckboxComponent from 'src/components/checkboxFormikComponent';
-import InputFormikComponent from 'src/components/InputFormikComponent';
-import NumberFormat from 'src/components/numberFormatFormikComponent';
-import TextareaComponent from 'src/components/textAreaComponent';
-import FileUploadComponent from 'src/components/fileUploadComponent';
-import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import { IAccount, IHacker } from '../config/userTypes';
+import HackerStatus from '../config/hackerStatus';
+import SchoolComponent from '../components/schoolComponent';
+import CheckboxComponent from '../components/checkboxFormikComponent';
+import InputFormikComponent from '../components/InputFormikComponent';
+import NumberFormat from '../components/numberFormatFormikComponent';
+import TextareaComponent from '../components/textAreaComponent';
+import FileUploadComponent from '../components/fileUploadComponent';
+import StylizedSelectFormikComponent from '../components/StylizedSelectFormikComponent';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import WithToasterContainer from '../hoc/withToaster';
 import { Redirect } from 'react-router';
-import FrontendRoute from 'src/config/FrontendRoute';
+import FrontendRoute from '../config/FrontendRoute';
 
 export enum ManageApplicationModes {
     CREATE,

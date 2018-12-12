@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Input from 'src/shared/Input';
-import Label from 'src/shared/Label';
+import Input from '../shared/Input';
+import Label from '../shared/Label';
 
 import { Flex } from '@rebass/grid';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
+import MaxWidthBox from '../shared/MaxWidthBox';
 import LabelTextComponent from './LabelTextComponent';
-import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from 'src/config/constants';
+import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from '../config/constants';
 
 interface IFullNameInput {
     firstNameValue?: string;
