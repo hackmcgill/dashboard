@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Label from 'src/shared/Label';
+import Label from '../shared/Label';
 
 import { FieldProps } from 'formik';
-import Textarea from 'src/shared/Textarea';
+import Textarea from '../shared/Textarea';
 import LabelTextComponent from './LabelTextComponent';
 
 export interface ITextAreaProp {
@@ -10,13 +10,15 @@ export interface ITextAreaProp {
     placeholder?: string;
     value?: string;
     required?: boolean;
+    maxLength?: number;
 }
 const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
+    const charLeft = (props.maxLength && props.value) ? `${props.value.length}/${props.maxLength} characters` : '';
     return (
         <Label>
-            <LabelTextComponent label={props.label} required={props.required} />
-            <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} />
+            <LabelTextComponent label={props.label} required={props.required} secondaryInfo={charLeft} />
+            <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} maxLength={props.maxLength} />
         </Label>
     )
 }

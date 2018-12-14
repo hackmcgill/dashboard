@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Input from 'src/shared/Input';
-import Label from 'src/shared/Label';
+import Input from '../shared/Input';
+import Label from '../shared/Label';
 import LabelTextComponent from './LabelTextComponent';
 
 interface IPasswordInputProp {

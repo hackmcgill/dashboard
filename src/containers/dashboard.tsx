@@ -1,28 +1,28 @@
 import * as React from "react";
 import { AxiosResponse } from 'axios';
-import Card from "src/shared/Card";
+import Card from "../shared/Card";
 import { Flex, Box } from "@rebass/grid";
-import iconAccount from "src/assets/images/dashboard-account.svg";
-import iconApplication from "src/assets/images/dashboard-application.svg";
-// import iconTeam from 'src/assets/images/dashboard-team.svg';
-import BackgroundLandscape from "src/assets/images/backgroundLandscape.svg";
-import H2 from "src/shared/H2";
-import Image from "src/shared/Image";
+import iconAccount from "../assets/images/dashboard-account.svg";
+import iconApplication from "../assets/images/dashboard-application.svg";
+// import iconTeam from '../assets/images/dashboard-team.svg';
+import BackgroundLandscape from "../assets/images/backgroundLandscape.svg";
+import H2 from "../shared/H2";
+import Image from "../shared/Image";
 import { Link } from "react-router-dom";
-import HackerStatus from "src/config/hackerStatus";
-import BackgroundImage from "src/shared/BackgroundImage";
+import HackerStatus from "../config/hackerStatus";
+import BackgroundImage from "../shared/BackgroundImage";
 
 import MediaQuery from 'react-responsive';
-import hacker from 'src/api/hacker';
-import H1 from 'src/shared/H1';
-import FrontendRoute from 'src/config/FrontendRoute';
-import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
-import WithToasterContainer from 'src/hoc/withToaster';
+import hacker from '../api/hacker';
+import H1 from '../shared/H1';
+import FrontendRoute from '../config/FrontendRoute';
+import { isConfirmed } from '../util/UserInfoHelperFunctions';
+import WithToasterContainer from '../hoc/withToaster';
 import { toast } from 'react-toastify';
-import auth from 'src/api/auth';
-import APIResponse from 'src/api/APIResponse';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import { ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
+import auth from '../api/auth';
+import APIResponse from '../api/APIResponse';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
+import { ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from '../config/constants';
 
 export interface IDashboardState {
     status: HackerStatus;
@@ -116,7 +116,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         }
     }
     private resendConfirmationEmaill() {
-        auth.resendConfirmationEmail().then((value) => {
+        auth.resendConfirmationEmail().then((value: AxiosResponse<APIResponse<{}>>) => {
             if (value.status === 200) {
                 toast.success(EMAIL_SENT);
             }

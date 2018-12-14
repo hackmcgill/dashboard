@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Checkbox from 'src/shared/Checkbox';
-import Label from 'src/shared/Label';
+import Checkbox from '../shared/Checkbox';
+import Label from '../shared/Label';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
 import { Box } from '@rebass/grid';
-import { FormDescription } from 'src/shared/Paragraph';
+import { FormDescription } from '../shared/Paragraph';
 
 export interface ICheckboxProps {
     label: string | React.Component;
