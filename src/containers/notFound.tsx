@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Construction from 'src/assets/images/construction-notfound.svg'
-import Button from 'src/shared/Button';
-import Image from 'src/shared/Image';
+import Construction from '../assets/images/construction-notfound.svg'
+import Button from '../shared/Button';
+import Image from '../shared/Image';
 import { Flex, Box } from '@rebass/grid';
-import Paragraph from 'src/shared/Paragraph';
-import H1 from 'src/shared/H1';
+import Paragraph from '../shared/Paragraph';
+import H1 from '../shared/H1';
 import { withRouter, RouteComponentProps } from 'react-router';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
+import MaxWidthBox from '../shared/MaxWidthBox';
 import { Link } from 'react-router-dom';
 
 /**

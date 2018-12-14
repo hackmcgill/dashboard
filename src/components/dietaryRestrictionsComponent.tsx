@@ -1,7 +1,7 @@
 import * as React from 'react';
-import StyledSelect from 'src/shared/StyledCreatableSelect';
-import DietaryRestriction from 'src/config/dietaryRestrictions';
-import Label from 'src/shared/Label';
+import StyledSelect from '../shared/StyledCreatableSelect';
+import DietaryRestriction from '../config/dietaryRestrictions';
+import Label from '../shared/Label';
 import LabelTextComponent from './LabelTextComponent';
 
 /**

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
-import FileInput from 'src/shared/FileInput';
+import FileInput from '../shared/FileInput';
 
 export interface IUploadComponent {
     placeholder?: string;

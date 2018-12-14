@@ -1,7 +1,7 @@
 
-import { REQUIRED_INPUT } from 'src/config/constants';
+import { REQUIRED_INPUT } from '../config/constants';
 import * as React from 'react';
-import RequiredInputLabel from 'src/shared/RequiredInputLabel';
+import RequiredInputLabel from '../shared/RequiredInputLabel';
 
 export interface ILabelTextProps {
     label: any;
