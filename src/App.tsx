@@ -8,15 +8,13 @@ import EditAccountContainer from 'src/containers/editAccount';
 import withAuthRedirect from 'src/hoc/withAuthRedirect';
 import withTokenRedirect from 'src/hoc/withTokenRedirect';
 import ForgotPasswordContainer from 'src/containers/forgotPassword';
-import FrontendRoute from './config/FrontendRoute';
+import { FrontendRoute, UserType, IAccount, IHacker, HackerStatus } from './config';
 import DashboardContainer from './containers/dashboard';
 import NotFoundContainer from 'src/containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
 import withHackerRedirect from './hoc/withHackerRedirect';
-import { UserType, IAccount, IHacker } from './config/userTypes';
-import HackerStatus from './config/hackerStatus';
 import EditApplicationContainer from './containers/editApplication';
 
 

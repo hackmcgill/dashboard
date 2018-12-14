@@ -1,30 +1,30 @@
 import * as React from 'react';
 import Account from 'src/api/account';
-import EmailInput from 'src/components/emailInputComponent';
-import DietaryRestrictionComponent from 'src/components/dietaryRestrictionsComponent';
-import ShirtSize from 'src/config/shirtSizes';
-import ShirtSizeComponent from 'src/components/shirtSizeComponent';
-import FullNameInput from 'src/components/fullNameInputComponent';
-import PasswordInput from 'src/components/passwordInputComponent';
-import Button from 'src/shared/Button';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
+import { Redirect, RouteProps } from 'react-router';
+
+import DietaryRestrictionComponent from 'src/components/dietaryRestrictionsComponent';
+import EmailInput from 'src/components/emailInputComponent';
+import FullNameInput from 'src/components/fullNameInputComponent';
 import NumberFormat from 'src/components/numberFormatComponent';
+import PasswordInput from 'src/components/passwordInputComponent';
 import PronounInput from 'src/components/pronounComponent';
-import H1 from 'src/shared/H1';
-import Form from 'src/shared/Form';
-import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
-import Auth from 'src/api/auth';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import { FormDescription } from 'src/shared/Paragraph';
+import ShirtSizeComponent from 'src/components/shirtSizeComponent';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import WithToasterContainer from 'src/hoc/withToaster';
-import { UserType, IAccount } from 'src/config/userTypes';
+
+import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
+
+import { ShirtSize, UserType, IAccount, FrontendRoute } from 'src/config';
 import * as CONSTANTS from 'src/config/constants';
-import { Redirect } from 'react-router';
-import FrontendRoute from 'src/config/FrontendRoute';
-import { RouteProps } from 'react-router';
-import { padStart, getNestedProp } from 'src/util/util';
+
+import { Button, H1, Form, MaxWidthBox, FormDescription } from 'src/shared';
+
+import Auth from 'src/api/auth';
+
+import WithToasterContainer from 'src/hoc/withToaster';
+
+import { padStart, getNestedProp } from 'src/util';
 
 export enum ManageAccountModes {
     CREATE,

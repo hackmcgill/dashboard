@@ -1,4 +1,4 @@
-export default interface IValidationError {
+export interface IValidationError {
     status: number;
     message: string;
     data: {
@@ -19,3 +19,5 @@ export function instanceOfIValidationErrorItem(object: any): object is IValidati
         return false;
     }
 }
+
+export default IValidationError;

@@ -1,5 +1,5 @@
 // Took this from hackprinceton's website...
-const Schools: string[] = ["21st Century Cyber Charter School",
+export const Schools: string[] = ["21st Century Cyber Charter School",
     "Azusa Pacific University",
     "Adventist University of Health Sciences",
     "Arizona Christian University",

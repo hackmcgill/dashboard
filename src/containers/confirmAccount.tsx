@@ -3,13 +3,9 @@ import { Flex } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 
 import constructionCone from 'src/assets/images/construction-cone.svg';
-import Image from 'src/shared/Image';
-import H1 from 'src/shared/H1';
-import Button from 'src/shared/Button';
-import getTokenFromQuery from 'src/config/authToken';
+import { H1, Image, Button, Paragraph, MaxWidthBox } from 'src/shared';
+import { getTokenFromQuery } from 'src/config';
 import AuthAPI from 'src/api/auth';
-import Paragraph from 'src/shared/Paragraph';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
 
 interface IConfirmAccountState {
     attempting: boolean;

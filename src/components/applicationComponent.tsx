@@ -1,26 +1,19 @@
 import * as React from 'react';
-import { AxiosResponse } from 'axios';
-import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
-import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
+import { AxiosResponse } from 'axios';
+import { Redirect } from 'react-router';
+import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
+import { Flex, Box } from '@rebass/grid'
 
 import * as CONSTANTS from 'src/config/constants';
-import Ethnicity from 'src/config/ethnicity';
-import Genders from 'src/config/genders';
-import Degrees from 'src/config/degrees';
-import Majors from 'src/config/Majors';
-import Skills from 'src/config/skills';
-import jobInterests from 'src/config/jobInterests';
 
+import { Degrees, FrontendRoute, Genders, HackerStatus, IAccount, IEthnicity, IHacker, JobInterest, Majors, Skills } from 'src/config';
 import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from 'src/shared';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';
 import APIResponse from 'src/api/APIResponse';
-
-import { IAccount, IHacker } from 'src/config/userTypes';
-import HackerStatus from 'src/config/hackerStatus';
 import SchoolComponent from 'src/components/schoolComponent';
 import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';
@@ -30,8 +23,6 @@ import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikCo
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
 import WithToasterContainer from 'src/hoc/withToaster';
-import { Redirect } from 'react-router';
-import FrontendRoute from 'src/config/FrontendRoute';
 import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {
@@ -73,7 +64,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         personal: '',
                         other: '',
                     },
-                    jobInterest: jobInterests.NONE,
+                    jobInterest: JobInterest.NONE,
                     skills: [],
                     essay: '',
                     comments: '',
@@ -282,11 +273,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     isMulti={true}
                     creatable={true}
                     options={[
-                        { label: Ethnicity.AFRO_AMER, value: Ethnicity.AFRO_AMER },
-                        { label: Ethnicity.ASIAN_PI, value: Ethnicity.ASIAN_PI },
-                        { label: Ethnicity.EUROPEAN, value: Ethnicity.EUROPEAN },
-                        { label: Ethnicity.HISP, value: Ethnicity.HISP },
-                        { label: Ethnicity.NO_ANS, value: Ethnicity.NO_ANS },
+                        { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
+                        { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
+                        { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
+                        { label: IEthnicity.HISP, value: IEthnicity.HISP },
+                        { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
                     ]}
                     label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
                     placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
@@ -391,9 +382,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     id='jobInterest'
                     name={'jobInterest'}
                     options={[
-                        { label: jobInterests.NONE, value: jobInterests.NONE },
-                        { label: jobInterests.INTERNSHIP, value: jobInterests.INTERNSHIP },
-                        { label: jobInterests.FULL_TIME, value: jobInterests.FULL_TIME },
+                        { label: JobInterest.NONE, value: JobInterest.NONE },
+                        { label: JobInterest.INTERNSHIP, value: JobInterest.INTERNSHIP },
+                        { label: JobInterest.FULL_TIME, value: JobInterest.FULL_TIME },
                     ]}
                     component={StylizedSelectFormikComponent}
                     label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}

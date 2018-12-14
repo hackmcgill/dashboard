@@ -3,25 +3,26 @@ import * as QueryString from 'query-string';
 import { AxiosResponse } from 'axios';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
+import MediaQuery from 'react-responsive';
+
 
 import PasswordInputComponent from 'src/components/passwordInputComponent';
 import EmailInputComponent from 'src/components/emailInputComponent';
-import Button from 'src/shared/Button';
-import H1 from 'src/shared/H1';
-import FrontendRoute from 'src/config/FrontendRoute';
-import Form from 'src/shared/Form';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import LeftContainer from 'src/shared/LeftContainer';
 import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkComponent';
-import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
-import BackgroundImage from 'src/shared/BackgroundImage';
-import MediaQuery from 'react-responsive';
-// import Container from 'src/shared/Container';
-import WithToasterContainer from 'src/hoc/withToaster';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+
+import { BackgroundImage, Button, H1, MaxWidthBox, LeftContainer } from 'src/shared';
+import Form from 'src/shared/Form';
+
+import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
+
+import WithToasterContainer from 'src/hoc/withToaster';
+
 import APIResponse from 'src/api/APIResponse';
 import auth from 'src/api/auth';
-import { EMAIL_LABEL, PASSWORD_LABEL } from 'src/config/constants';
+
+import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from 'src/config';
+
 export interface ILoginState {
     email: string;
     password: string;
@@ -107,7 +108,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                             <Box pl={'5px'}>
                                 <Link to={{
                                     pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                                    state: {...this.state}
+                                    state: { ...this.state }
                                 }}>
                                     <Button type='button' secondary={true}>Register</Button>
                                 </Link>

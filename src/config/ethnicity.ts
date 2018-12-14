@@ -1,4 +1,4 @@
-enum IEthnicity {
+export enum IEthnicity {
     NATIVE_AM = 'Indigenous or Inuit',
     ASIAN_PI = ' Asian or Pacific Islander',
     AFRO_AMER = 'Black or African American',

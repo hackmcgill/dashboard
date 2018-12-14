@@ -1,10 +1,11 @@
 import * as React from 'react';
-import FrontendRoute from 'src/config/FrontendRoute';
+import { Flex, Box } from '@rebass/grid';
+
+import { FrontendRoute } from 'src/config/FrontendRoute';
 import { Image, Nav } from 'src/shared';
 import Martlett from 'src/assets/images/mchacks-martlet-tight.svg';
 import { isLoggedIn } from 'src/util/UserInfoHelperFunctions';
 import LogoutBtn from 'src/components/logoutButton';
-import { Flex, Box } from '@rebass/grid';
 
 interface INavbarState {
     loggedIn: boolean

@@ -17,8 +17,10 @@ export enum BooleanOperations {
     EQUALS = 'equals',
     NOT_EQUALS = 'ne'
 }
-export default interface ISearchParameter {
+export interface ISearchParameter {
     parameter: string;
     operation: StringOperations | NumberOperations | BooleanOperations;
     value: string | boolean | number;
 }
+
+export default ISearchParameter;

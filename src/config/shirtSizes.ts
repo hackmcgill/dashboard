@@ -1,4 +1,4 @@
-enum ShirtSize {
+export enum ShirtSize {
     XS = 'XS',
     S = 'S',
     M = 'M',

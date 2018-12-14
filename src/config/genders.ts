@@ -1,4 +1,4 @@
-enum Genders {
+export enum Genders {
     MALE = "Male",
     FEMALE = "Female",
     NON_BINARY = "Non-binary",

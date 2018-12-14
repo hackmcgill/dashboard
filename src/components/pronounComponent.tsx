@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Pronouns from '../config/pronouns';
+import { Pronouns } from '../config';
 import { Label, StyledSelect } from 'src/shared';
 import LabelTextComponent from './LabelTextComponent';
 

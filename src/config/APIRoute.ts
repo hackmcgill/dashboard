@@ -1,4 +1,4 @@
-enum APIRoute {
+export enum APIRoute {
     // Auth routes
     AUTH_LOGIN = 'auth/login',
     AUTH_LOGOUT = 'auth/logout',

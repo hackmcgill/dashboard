@@ -4,7 +4,7 @@ import { Input, Label } from 'src/shared';
 import { Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';
 import LabelTextComponent from './LabelTextComponent';
-import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from 'src/config/constants';
+import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from 'src/config';
 
 interface IFullNameInput {
     firstNameValue?: string;

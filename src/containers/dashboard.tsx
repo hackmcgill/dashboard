@@ -1,28 +1,28 @@
 import * as React from "react";
 import { AxiosResponse } from 'axios';
-import Card from "src/shared/Card";
 import { Flex, Box } from "@rebass/grid";
+import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import MediaQuery from 'react-responsive';
+
 import iconAccount from "src/assets/images/dashboard-account.svg";
 import iconApplication from "src/assets/images/dashboard-application.svg";
-// import iconTeam from 'src/assets/images/dashboard-team.svg';
 import BackgroundLandscape from "src/assets/images/backgroundLandscape.svg";
-import H2 from "src/shared/H2";
-import Image from "src/shared/Image";
-import { Link } from "react-router-dom";
-import HackerStatus from "src/config/hackerStatus";
-import BackgroundImage from "src/shared/BackgroundImage";
+// import iconTeam from 'src/assets/images/dashboard-team.svg';
 
-import MediaQuery from 'react-responsive';
-import hacker from 'src/api/hacker';
-import H1 from 'src/shared/H1';
-import FrontendRoute from 'src/config/FrontendRoute';
-import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
-import WithToasterContainer from 'src/hoc/withToaster';
-import { toast } from 'react-toastify';
-import auth from 'src/api/auth';
+
+import { BackgroundImage, Card, H1, H2, Image } from "src/shared";
+import { HackerStatus, FrontendRoute, ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from "src/config";
+
 import APIResponse from 'src/api/APIResponse';
+import auth from 'src/api/auth';
+import hacker from 'src/api/hacker';
+
+import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
+
+import WithToasterContainer from 'src/hoc/withToaster';
+
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import { ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
 
 export interface IDashboardState {
     status: HackerStatus;

@@ -1,4 +1,4 @@
-enum Skills {
+export enum Skills {
     Android = 'Android',
     ArtificialIntelligence = 'Artificial Intelligence',
     BackEnd = 'Back-End',
