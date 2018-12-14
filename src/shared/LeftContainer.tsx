@@ -1,4 +1,4 @@
-import styled from "./styled-components";
+import styled from "src/shared/styled-components";
 import { Box } from "@rebass/grid";
 
 const LeftContainer = styled(Box)`

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NumberFormat from '../components/numberFormatComponent';
+import NumberFormat from 'src/components/numberFormatComponent';
 import { FieldProps } from 'formik';
 import { NumberFormatValues } from 'react-number-format';
 

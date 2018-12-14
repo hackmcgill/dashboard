@@ -1,7 +1,7 @@
 import * as React from 'react';
 import StyledSelect from '../shared/StyledCreatableSelect';
 import Pronouns from '../config/pronouns';
-import Label from '../shared/Label';
+import Label from 'src/shared/Label';
 import LabelTextComponent from './LabelTextComponent';
 
 interface IPronounInputProp {

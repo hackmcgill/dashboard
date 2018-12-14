@@ -1,7 +1,7 @@
 
 
 import * as React from 'react';
-import Label from '../shared/Label';
+import Label from 'src/shared/Label';
 import { FieldProps } from 'formik';
 import FileUploadComponent from './fileUploadComponent';
 import { ManageApplicationModes } from './applicationComponent';

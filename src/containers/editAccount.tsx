@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ManageAccount, {ManageAccountModes} from "../containers/manageAccount";
+import ManageAccount, {ManageAccountModes} from "src/containers/manageAccount";
 
 const EditAccount = () =>
   <ManageAccount mode={ManageAccountModes.EDIT}/>
