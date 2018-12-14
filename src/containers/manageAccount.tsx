@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Account from 'src/api/account';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import { Redirect, RouteProps } from 'react-router';
@@ -20,7 +19,7 @@ import * as CONSTANTS from 'src/config/constants';
 
 import { Button, H1, Form, MaxWidthBox, FormDescription } from 'src/shared';
 
-import Auth from 'src/api/auth';
+import { Account, Auth } from 'src/api';
 
 import WithToasterContainer from 'src/hoc/withToaster';
 

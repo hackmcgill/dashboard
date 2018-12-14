@@ -6,8 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import PasswordInputComponent from 'src/components/passwordInputComponent';
 import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
-import Auth from 'src/api/auth';
-import APIResponse from 'src/api/APIResponse';
+import { Auth, APIResponse } from 'src/api';
 
 import { getTokenFromQuery, FrontendRoute } from 'src/config';
 import { H1, Button, MaxWidthBox, Form } from 'src/shared';

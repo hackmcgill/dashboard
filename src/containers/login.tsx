@@ -18,8 +18,7 @@ import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from 'src/hoc/withToaster';
 
-import APIResponse from 'src/api/APIResponse';
-import auth from 'src/api/auth';
+import { APIResponse, auth } from 'src/api';
 
 import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from 'src/config';
 

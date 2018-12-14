@@ -3,8 +3,7 @@ import Button from 'src/shared/Button';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { FrontendRoute } from 'src/config';
-import APIResponse from 'src/api/APIResponse';
-import Auth from 'src/api/auth';
+import { APIResponse, Auth } from 'src/api';
 import ValidationErrorGenerator from './ValidationErrorGenerator';
 
 const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (props: RouteComponentProps) => {

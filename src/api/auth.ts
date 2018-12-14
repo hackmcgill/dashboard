@@ -83,5 +83,5 @@ class AuthAPI {
         return API.getEndpoint(APIRoute.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }
-
-export default new AuthAPI();
+export const Auth = new AuthAPI();
+export default Auth;

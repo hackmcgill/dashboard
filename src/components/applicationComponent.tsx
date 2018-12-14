@@ -11,9 +11,8 @@ import * as CONSTANTS from 'src/config/constants';
 import { Degrees, FrontendRoute, Genders, HackerStatus, IAccount, IEthnicity, IHacker, JobInterest, Majors, Skills } from 'src/config';
 import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from 'src/shared';
 
-import Account from 'src/api/account';
-import Hacker from 'src/api/hacker';
-import APIResponse from 'src/api/APIResponse';
+import { Account, Hacker, APIResponse } from 'src/api';
+
 import SchoolComponent from 'src/components/schoolComponent';
 import CheckboxComponent from 'src/components/checkboxFormikComponent';
 import InputFormikComponent from 'src/components/InputFormikComponent';

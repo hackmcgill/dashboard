@@ -4,8 +4,7 @@ import { Flex, Box } from '@rebass/grid';
 import EmailInputComponent from 'src/components/emailInputComponent';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import APIResponse from 'src/api/APIResponse';
-import Auth from '../api/auth';
+import { APIResponse, Auth } from 'src/api';
 
 import Key from 'src/assets/images/key.svg';
 

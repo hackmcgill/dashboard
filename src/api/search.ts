@@ -22,5 +22,5 @@ class SearchAPI {
         return encodeURIComponent(stringifiedParams);
     }
 }
-
-export default new SearchAPI();
+export const Search = new SearchAPI();
+export default Search;

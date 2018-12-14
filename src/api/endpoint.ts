@@ -8,7 +8,7 @@ axios.interceptors.response.use((response) => {
     return Promise.reject(error.response);
 });
 
-export default class Endpoint {
+export class Endpoint {
     private resourceURL: string;
     private name: string;
 

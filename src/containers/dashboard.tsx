@@ -14,9 +14,7 @@ import BackgroundLandscape from "src/assets/images/backgroundLandscape.svg";
 import { BackgroundImage, Card, H1, H2, Image } from "src/shared";
 import { HackerStatus, FrontendRoute, ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from "src/config";
 
-import APIResponse from 'src/api/APIResponse';
-import auth from 'src/api/auth';
-import hacker from 'src/api/hacker';
+import { APIResponse, Auth, Hacker } from 'src/api';
 
 import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
 
@@ -45,7 +43,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
 
     public async componentDidMount() {
         try {
-            const response = await hacker.getSelf();
+            const response = await Hacker.getSelf();
             this.setState({ status: response.data.data.status })
         } catch (e) {
             if (e.status === 401) {
@@ -116,7 +114,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         }
     }
     private resendConfirmationEmaill() {
-        auth.resendConfirmationEmail().then((value) => {
+        Auth.resendConfirmationEmail().then((value) => {
             if (value.status === 200) {
                 toast.success(EMAIL_SENT);
             }

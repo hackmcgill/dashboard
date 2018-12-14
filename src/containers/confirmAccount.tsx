@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import constructionCone from 'src/assets/images/construction-cone.svg';
 import { H1, Image, Button, Paragraph, MaxWidthBox } from 'src/shared';
 import { getTokenFromQuery } from 'src/config';
-import AuthAPI from 'src/api/auth';
+import { Auth } from 'src/api';
 
 interface IConfirmAccountState {
     attempting: boolean;
@@ -71,7 +71,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
     public async componentDidMount() {
         try {
             const token = getTokenFromQuery();
-            const response = await AuthAPI.confirm(token);
+            const response = await Auth.confirm(token);
             if (response.status === 200) {
                 console.log("Confirmed account");
                 this.setState({

@@ -74,5 +74,5 @@ class AccountAPI {
         return API.getEndpoint(APIRoute.ACCOUNT_INVITE).create(info);
     }
 }
-
-export default new AccountAPI();
+export const Account = new AccountAPI();
+export default Account;

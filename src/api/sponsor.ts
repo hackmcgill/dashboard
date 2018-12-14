@@ -20,5 +20,5 @@ class SponsorAPI {
         return API.getEndpoint(APIRoute.SPONSOR).getOne({ id });
     }
 }
-
-export default new SponsorAPI();
+export const Sponsor = new SponsorAPI();
+export default Sponsor;

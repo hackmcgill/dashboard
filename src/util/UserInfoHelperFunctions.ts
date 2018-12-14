@@ -1,5 +1,5 @@
-import Account from 'src/api/account';
-import Hacker from 'src/api/hacker';
+import { Account, Hacker } from 'src/api';
+
 import { IAccount, UserType, IHacker } from 'src/config';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {

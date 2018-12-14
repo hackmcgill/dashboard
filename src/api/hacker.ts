@@ -4,7 +4,7 @@ import API from 'src/api/api';
 import APIResponse from './APIResponse';
 import LocalCache from 'src/util/LocalCache';
 
-class AccountAPI {
+class HackerAPI {
     constructor() {
         API.createEntity(APIRoute.HACKER);
         API.createEntity(APIRoute.HACKER_SELF);
@@ -117,4 +117,7 @@ class AccountAPI {
         return value;
     }
 }
-export default new AccountAPI();
+
+export const Hacker = new HackerAPI();
+
+export default Hacker;
