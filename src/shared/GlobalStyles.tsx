@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "src/shared/styled-components";
+import { createGlobalStyle } from "./styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');

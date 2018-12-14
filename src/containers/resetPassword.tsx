@@ -3,15 +3,15 @@ import { AxiosResponse } from 'axios';
 import { Box, Flex } from '@rebass/grid';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import PasswordInputComponent from 'src/components/passwordInputComponent';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import PasswordInputComponent from '../components/passwordInputComponent';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
-import { Auth, APIResponse } from 'src/api';
+import { Auth, APIResponse } from '../api';
 
-import { getTokenFromQuery, FrontendRoute } from 'src/config';
-import { H1, Button, MaxWidthBox, Form } from 'src/shared';
+import { getTokenFromQuery, FrontendRoute } from '../config';
+import { H1, Button, MaxWidthBox, Form } from '../shared';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import WithToasterContainer from '../hoc/withToaster';
 
 export interface IResetPasswordContainerState {
     isValid: boolean;

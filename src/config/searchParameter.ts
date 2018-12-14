@@ -22,5 +22,3 @@ export interface ISearchParameter {
     operation: StringOperations | NumberOperations | BooleanOperations;
     value: string | boolean | number;
 }
-
-export default ISearchParameter;

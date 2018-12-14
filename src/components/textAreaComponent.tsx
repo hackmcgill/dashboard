@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
 
-import { Textarea, Label } from 'src/shared';
-
+import { Textarea, Label } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 export interface ITextAreaProp {

@@ -6,22 +6,22 @@ import { Redirect } from 'react-router';
 import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
 import { Flex, Box } from '@rebass/grid'
 
-import * as CONSTANTS from 'src/config/constants';
+import * as CONSTANTS from '../config/constants';
 
-import { Degrees, FrontendRoute, Genders, HackerStatus, IAccount, IEthnicity, IHacker, JobInterest, Majors, Skills } from 'src/config';
-import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from 'src/shared';
+import { Degrees, FrontendRoute, Genders, HackerStatus, IAccount, IEthnicity, IHacker, JobInterest, Majors, Skills } from '../config';
+import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from '../shared';
 
-import { Account, Hacker, APIResponse } from 'src/api';
+import { Account, Hacker, APIResponse } from '../api';
 
-import SchoolComponent from 'src/components/schoolComponent';
-import CheckboxComponent from 'src/components/checkboxFormikComponent';
-import InputFormikComponent from 'src/components/InputFormikComponent';
-import NumberFormat from 'src/components/numberFormatFormikComponent';
-import TextareaComponent from 'src/components/textAreaComponent';
-import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import SchoolComponent from '../components/schoolComponent';
+import CheckboxComponent from '../components/checkboxFormikComponent';
+import InputFormikComponent from '../components/InputFormikComponent';
+import NumberFormat from '../components/numberFormatFormikComponent';
+import TextareaComponent from '../components/textAreaComponent';
+import StylizedSelectFormikComponent from '../components/StylizedSelectFormikComponent';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import WithToasterContainer from '../hoc/withToaster';
 import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {

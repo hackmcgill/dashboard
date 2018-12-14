@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Skills } from 'src/config';
-import { Label, StyledCreatableSelect } from 'src/shared';
 import { FieldProps } from 'formik';
+import { Skills } from '../config';
+import { Label, StyledCreatableSelect } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 /**

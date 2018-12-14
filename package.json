@@ -4,8 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rebass/grid": "^6.0.0-4",
-    "@types/react-responsive": "^3.0.2",
+    "@rebass/grid": "^6.0.0-7",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",
     "formik": "^1.3.2",
@@ -18,32 +17,32 @@
     "react-number-format": "^4.0.4",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "^4.0.8",
+    "react-scripts": "^2.1.1",
     "react-select": "^2.1.0",
     "react-toastify": "^4.4.3",
     "styled-components": "^4.0.2",
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "PORT=1337 react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "start": "PORT=1337 react-scripts start",
+    "build": "PORT=1337 react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "cosmos": "cosmos",
-    "test": "PORT=1337 react-scripts-ts test --env=jsdom",
-    "eject": "PORT=1337 react-scripts-ts eject",
-    "generate-barrels": "barrelsby --delete -d ./src -l all -q"
+    "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
+    "test": "PORT=1337 react-scripts test",
+    "eject": "PORT=1337 react-scripts eject"
   },
   "devDependencies": {
-    "@rebass/grid": "^6.0.0-4",
-    "@types/jest": "^23.3.3",
+    "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.118",
-    "@types/node": "^10.11.4",
+    "@types/node": "^10.12.12",
     "@types/query-string": "^6.1.0",
-    "@types/react": "^16.4.14",
+    "@types/react": "^16.7.13",
     "@types/react-alert": "^2.4.2",
     "@types/react-autosuggest": "^9.3.6",
-    "@types/react-dom": "^16.0.8",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-responsive": "^3.0.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",
     "@types/react-toastify": "^4.0.1",
@@ -54,7 +53,7 @@
     "barrelsby": "^1.0.2",
     "file-loader": "^2.0.0",
     "react-cosmos": "^4.6.4",
-    "typescript": "^3.1.1"
+    "typescript": "^3.2.2"
   },
   "browserslist": [
     ">0.2%",

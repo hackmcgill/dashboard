@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Input, Label } from 'src/shared';
+import { Input, Label } from '../shared';
+
 import LabelTextComponent from './LabelTextComponent';
 
 interface IEmailInputProp {

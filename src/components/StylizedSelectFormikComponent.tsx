@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
-import { Label, StyledSelect, StyledCreatableSelect } from 'src/shared';
-import LabelTextComponent from 'src/components/LabelTextComponent';
+import { Label, StyledSelect, StyledCreatableSelect } from '../shared';
+import LabelTextComponent from '../components/LabelTextComponent';
 
 export interface IStylizedSelectFormikProps {
     selectId: string;

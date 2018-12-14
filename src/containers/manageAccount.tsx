@@ -3,27 +3,27 @@ import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
 import { Redirect, RouteProps } from 'react-router';
 
-import DietaryRestrictionComponent from 'src/components/dietaryRestrictionsComponent';
-import EmailInput from 'src/components/emailInputComponent';
-import FullNameInput from 'src/components/fullNameInputComponent';
-import NumberFormat from 'src/components/numberFormatComponent';
-import PasswordInput from 'src/components/passwordInputComponent';
-import PronounInput from 'src/components/pronounComponent';
-import ShirtSizeComponent from 'src/components/shirtSizeComponent';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import DietaryRestrictionComponent from '../components/dietaryRestrictionsComponent';
+import EmailInput from '../components/emailInputComponent';
+import FullNameInput from '../components/fullNameInputComponent';
+import NumberFormat from '../components/numberFormatComponent';
+import PasswordInput from '../components/passwordInputComponent';
+import PronounInput from '../components/pronounComponent';
+import ShirtSizeComponent from '../components/shirtSizeComponent';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
-import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
+import ConfirmationEmailSentComponent from '../containers/confirmEmail';
 
-import { ShirtSize, UserType, IAccount, FrontendRoute } from 'src/config';
-import * as CONSTANTS from 'src/config/constants';
+import { ShirtSize, UserType, IAccount, FrontendRoute } from '../config';
+import * as CONSTANTS from '../config/constants';
 
-import { Button, H1, Form, MaxWidthBox, FormDescription } from 'src/shared';
+import { Button, H1, Form, MaxWidthBox, FormDescription } from '../shared';
 
-import { Account, Auth } from 'src/api';
+import { Account, Auth } from '../api';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import WithToasterContainer from '../hoc/withToaster';
 
-import { padStart, getNestedProp } from 'src/util';
+import { padStart, getNestedProp } from '../util';
 
 export enum ManageAccountModes {
     CREATE,

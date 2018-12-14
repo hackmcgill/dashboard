@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Input, Label } from 'src/shared';
+import { Input, Label } from '../shared';
 
 import { Flex } from '@rebass/grid';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
+import MaxWidthBox from '../shared/MaxWidthBox';
 import LabelTextComponent from './LabelTextComponent';
-import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from 'src/config';
+import { FIRST_NAME_LABEL, LAST_NAME_LABEL } from '../config';
 
 interface IFullNameInput {
     firstNameValue?: string;
@@ -14,7 +14,7 @@ interface IFullNameInput {
 }
 const FullNameInput: React.StatelessComponent<IFullNameInput> = (props: IFullNameInput) => {
     return (
-        <Flex flexWrap={'wrap'} width={1} m='auto' name='name_flex'>
+        <Flex flexWrap={'wrap'} width={1} m='auto'>
             <MaxWidthBox width={[1, 0.5]} mb={'20px'} pr={[0, '10px']}>
                 <Label>
                     <LabelTextComponent label={FIRST_NAME_LABEL} required={true} />

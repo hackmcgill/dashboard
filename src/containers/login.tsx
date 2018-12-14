@@ -5,22 +5,21 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
 import MediaQuery from 'react-responsive';
 
+import PasswordInputComponent from '../components/passwordInputComponent';
+import EmailInputComponent from '../components/emailInputComponent';
+import ForgotPasswordLinkComponent from '../components/forgotPasswordLinkComponent';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
-import PasswordInputComponent from 'src/components/passwordInputComponent';
-import EmailInputComponent from 'src/components/emailInputComponent';
-import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkComponent';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import { BackgroundImage, Button, H1, MaxWidthBox, LeftContainer } from '../shared';
+import Form from '../shared/Form';
 
-import { BackgroundImage, Button, H1, MaxWidthBox, LeftContainer } from 'src/shared';
-import Form from 'src/shared/Form';
+import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
 
-import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
+import WithToasterContainer from '../hoc/withToaster';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import { APIResponse, Auth } from '../api';
 
-import { APIResponse, Auth } from 'src/api';
-
-import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from 'src/config';
+import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from '../config';
 
 export interface ILoginState {
     email: string;

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
-import { Hacker } from 'src/api';
-import Button from 'src/shared/Button';
+import { Hacker } from '../api';
+import Button from '../shared/Button';
 
 interface IViewPDFProps {
     hackerId: string;

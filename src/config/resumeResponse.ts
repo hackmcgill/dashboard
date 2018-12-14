@@ -4,5 +4,3 @@ export interface IResumeResponse {
         data: Uint8Array
     }];
 }
-
-export default IResumeResponse;

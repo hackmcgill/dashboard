@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Checkbox, Label, FormDescription } from 'src/shared';
+import { Checkbox, Label, FormDescription } from '../shared';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
 import { Box } from '@rebass/grid';

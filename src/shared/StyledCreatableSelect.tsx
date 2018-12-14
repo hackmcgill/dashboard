@@ -1,6 +1,6 @@
 import CreatableSelect from "react-select/lib/Creatable";
-import styled from "src/shared/styled-components";
-import { inputStyles } from "src/shared/inputStyles";
+import styled from "./styled-components";
+import { inputStyles } from "./inputStyles";
 
 export const StyledCreatableSelect = styled(CreatableSelect)`
   .react-select__control {

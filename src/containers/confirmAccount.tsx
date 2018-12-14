@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Flex } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 
-import constructionCone from 'src/assets/images/construction-cone.svg';
-import { H1, Image, Button, Paragraph, MaxWidthBox } from 'src/shared';
-import { getTokenFromQuery } from 'src/config';
-import { Auth } from 'src/api';
+import constructionCone from '../assets/images/construction-cone.svg';
+import { H1, Image, Button, Paragraph, MaxWidthBox } from '../shared';
+import { getTokenFromQuery } from '../config';
+import { Auth } from '../api';
 
 interface IConfirmAccountState {
     attempting: boolean;

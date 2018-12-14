@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { inputStyles } from 'src/shared/inputStyles';
+import { inputStyles } from './inputStyles';
+import styled from './styled-components';
 
 export const Input = styled.input`
   ${inputStyles}

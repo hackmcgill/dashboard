@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import inputStyles from 'src/shared/inputStyles';
+import styled from './styled-components';
+import inputStyles from './inputStyles';
 
 export const Textarea = styled.textarea`
     ${inputStyles}

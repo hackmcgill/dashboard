@@ -19,5 +19,3 @@ export function instanceOfIValidationErrorItem(object: any): object is IValidati
         return false;
     }
 }
-
-export default IValidationError;

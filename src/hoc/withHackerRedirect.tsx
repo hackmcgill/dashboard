@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
-import { IHacker, FrontendRoute } from 'src/config';
-import { getHackerInfo } from 'src/util/UserInfoHelperFunctions';
+import { IHacker, FrontendRoute } from '../config';
+import { getHackerInfo } from '../util/UserInfoHelperFunctions';
 
 enum authStates {
     authorized,

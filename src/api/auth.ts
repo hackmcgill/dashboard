@@ -1,8 +1,8 @@
-import API from 'src/api/api';
+import API from './api';
 import { AxiosPromise, AxiosResponse } from 'axios';
 import APIResponse from './APIResponse';
-import LocalCache from 'src/util/LocalCache';
-import { APIRoute, CACHE_USER_KEY } from 'src/config';
+import LocalCache from '../util/LocalCache';
+import { APIRoute, CACHE_USER_KEY } from '../config';
 
 class AuthAPI {
     constructor() {
@@ -19,7 +19,7 @@ class AuthAPI {
      * @param {String} email 
      * @param {String} password 
      */
-    public login(email: string, password: string): AxiosPromise<APIResponse> {
+    public login(email: string, password: string): AxiosPromise<APIResponse<{}>> {
         return API.getEndpoint(APIRoute.AUTH_LOGIN).create(
             { email, password }
         );
@@ -28,7 +28,7 @@ class AuthAPI {
      * Logs out a user from the API
      * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
      */
-    public async logout(): Promise<AxiosResponse<APIResponse>> {
+    public async logout(): Promise<AxiosResponse<APIResponse<{}>>> {
         const value = await API.getEndpoint(APIRoute.AUTH_LOGOUT).getOne({ id: '' });
         LocalCache.remove(CACHE_USER_KEY);
         return value;
@@ -79,7 +79,7 @@ class AuthAPI {
     /**
      * Resends the confirmation email.
      */
-    public resendConfirmationEmail(): AxiosPromise<APIResponse> {
+    public resendConfirmationEmail(): AxiosPromise<APIResponse<{}>> {
         return API.getEndpoint(APIRoute.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }

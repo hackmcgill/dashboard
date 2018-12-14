@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import MediaQuery from 'react-responsive';
 
-import iconAccount from "src/assets/images/dashboard-account.svg";
-import iconApplication from "src/assets/images/dashboard-application.svg";
-import BackgroundLandscape from "src/assets/images/backgroundLandscape.svg";
-// import iconTeam from 'src/assets/images/dashboard-team.svg';
+import iconAccount from "../assets/images/dashboard-account.svg";
+import iconApplication from "../assets/images/dashboard-application.svg";
+import BackgroundLandscape from "../assets/images/backgroundLandscape.svg";
+// import iconTeam from '../assets/images/dashboard-team.svg';
 
 
-import { BackgroundImage, Card, H1, H2, Image } from "src/shared";
-import { HackerStatus, FrontendRoute, ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from "src/config";
+import { BackgroundImage, Card, H1, H2, Image } from "../shared";
+import { HackerStatus, FrontendRoute, ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from "../config";
 
-import { APIResponse, Auth, Hacker } from 'src/api';
+import { APIResponse, Auth, Hacker } from '../api';
 
-import { isConfirmed } from 'src/util/UserInfoHelperFunctions';
+import { isConfirmed } from '../util/UserInfoHelperFunctions';
 
-import WithToasterContainer from 'src/hoc/withToaster';
+import WithToasterContainer from '../hoc/withToaster';
 
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
 
 export interface IDashboardState {
     status: HackerStatus;
@@ -114,7 +114,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         }
     }
     private resendConfirmationEmaill() {
-        Auth.resendConfirmationEmail().then((value) => {
+        Auth.resendConfirmationEmail().then((value: AxiosResponse<APIResponse<{}>>) => {
             if (value.status === 200) {
                 toast.success(EMAIL_SENT);
             }

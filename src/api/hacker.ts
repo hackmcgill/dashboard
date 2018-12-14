@@ -1,8 +1,8 @@
-import { IHacker, APIRoute, HackerStatus, CACHE_HACKER_KEY, IResumeResponse } from 'src/config';
+import { IHacker, APIRoute, HackerStatus, CACHE_HACKER_KEY, IResumeResponse } from '../config';
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
-import API from 'src/api/api';
+import API from './api';
 import APIResponse from './APIResponse';
-import LocalCache from 'src/util/LocalCache';
+import LocalCache from '../util/LocalCache';
 
 class HackerAPI {
     constructor() {
