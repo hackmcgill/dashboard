@@ -10,13 +10,16 @@ export interface ITextAreaProp {
     placeholder?: string;
     value?: string;
     required?: boolean;
+    maxLength?: number;
 }
 const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
+    const charLeft = (props.maxLength && props.value) ? `${props.value.length}/${props.maxLength} chararacters` : '';
     return (
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
-            <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} />
+            <span>{charLeft}</span>
+            <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} maxLength={props.maxLength} />
         </Label>
     )
 }
