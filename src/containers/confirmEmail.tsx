@@ -1,17 +1,17 @@
 import * as React from 'react';
-import Auth from '../api/auth';
-import Button from '../shared/Button';
+import Auth from 'src/api/auth';
+import Button from 'src/shared/Button';
 import { Flex, Box } from '@rebass/grid'
-import constructionSVG from '../assets/images/construction.svg';
-import H1 from '../shared/H1';
-import Image from '../shared/Image';
-import Paragraph from '../shared/Paragraph';
-import MaxWidthBox from '../shared/MaxWidthBox';
+import constructionSVG from 'src/assets/images/construction.svg';
+import H1 from 'src/shared/H1';
+import Image from 'src/shared/Image';
+import Paragraph from 'src/shared/Paragraph';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
 import { AxiosResponse } from 'axios';
-import APIResponse from '../api/APIResponse';
-import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
-import WithToasterContainer from '../hoc/withToaster';
-import { RESEND_CONF_EMAIL, EMAIL_SENT } from '../config/constants';
+import APIResponse from 'src/api/APIResponse';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
+import WithToasterContainer from 'src/hoc/withToaster';
+import { RESEND_CONF_EMAIL, EMAIL_SENT } from 'src/config/constants';
 
 interface IConfirmationEmailSentState {
     buttonDisabled: boolean;

@@ -5,39 +5,39 @@ import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
 
-import * as CONSTANTS from '../config/constants';
-import Ethnicity from '../config/ethnicity';
-import Genders from '../config/genders';
-import Degrees from '../config/degrees';
-import Majors from '../config/Majors';
-import Skills from '../config/skills';
-import jobInterests from '../config/jobInterests';
+import * as CONSTANTS from 'src/config/constants';
+import Ethnicity from 'src/config/ethnicity';
+import Genders from 'src/config/genders';
+import Degrees from 'src/config/degrees';
+import Majors from 'src/config/Majors';
+import Skills from 'src/config/skills';
+import jobInterests from 'src/config/jobInterests';
 
-import FormikError from '../shared/FormikError';
-import Form from '../shared/Form';
-import Button from '../shared/Button';
-import MaxWidthBox from '../shared/MaxWidthBox';
-import H1 from '../shared/H1';
-import { FormDescription } from '../shared/Paragraph';
+import FormikError from 'src/shared/FormikError';
+import Form from 'src/shared/Form';
+import Button from 'src/shared/Button';
+import MaxWidthBox from 'src/shared/MaxWidthBox';
+import H1 from 'src/shared/H1';
+import { FormDescription } from 'src/shared/Paragraph';
 
-import Account from '../api/account';
-import Hacker from '../api/hacker';
-import APIResponse from '../api/APIResponse';
+import Account from 'src/api/account';
+import Hacker from 'src/api/hacker';
+import APIResponse from 'src/api/APIResponse';
 
-import { IAccount, IHacker } from '../config/userTypes';
-import HackerStatus from '../config/hackerStatus';
-import SchoolComponent from '../components/schoolComponent';
-import CheckboxComponent from '../components/checkboxFormikComponent';
-import InputFormikComponent from '../components/InputFormikComponent';
-import NumberFormat from '../components/numberFormatFormikComponent';
-import TextareaComponent from '../components/textAreaComponent';
-import StylizedSelectFormikComponent from '../components/StylizedSelectFormikComponent';
-import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
-import ResumeComponent from './resumeComponent';
+import { IAccount, IHacker } from 'src/config/userTypes';
+import HackerStatus from 'src/config/hackerStatus';
+import SchoolComponent from 'src/components/schoolComponent';
+import CheckboxComponent from 'src/components/checkboxFormikComponent';
+import InputFormikComponent from 'src/components/InputFormikComponent';
+import NumberFormat from 'src/components/numberFormatFormikComponent';
+import TextareaComponent from 'src/components/textAreaComponent';
+import StylizedSelectFormikComponent from 'src/components/StylizedSelectFormikComponent';
+import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
 
-import WithToasterContainer from '../hoc/withToaster';
+import WithToasterContainer from 'src/hoc/withToaster';
 import { Redirect } from 'react-router';
-import FrontendRoute from '../config/FrontendRoute';
+import FrontendRoute from 'src/config/FrontendRoute';
+import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -191,16 +191,6 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 "true",
                 "You must accept the McHacks policies",
                 value => value
-            ),
-            essay: Yup.string().required('Required').test(
-                "length",
-                "At most 2000 characters",
-                value => value.length < 2000
-            ),
-            comments: Yup.string().test(
-                "length",
-                "At most 500 characters",
-                value => value.length < 500
             )
         });
     }
@@ -473,12 +463,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.ESSAY_REQUEST_LABEL}
                     value={fp.values.essay}
-                    maxLength={2000}
                     required={true}
-                />
-                <ErrorMessage
-                    component={FormikError}
-                    name='essay'
                 />
                 <FastField
                     id='comments'
@@ -486,13 +471,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.COMMENTS_REQUEST_LABEL}
                     value={fp.values.comments}
-                    maxLength={500}
                     required={false}
                 />
-                <ErrorMessage
-                    component={FormikError}
-                    name='comments'
-                />
+
                 <FastField
                     id='codeOfConduct_MCHACKS'
                     name={'codeOfConduct_MCHACKS'}

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
-import { IAccount } from '../config/userTypes';
-import FrontendRoute from '../config/FrontendRoute';
-import { getUserInfo } from '../util/UserInfoHelperFunctions';
+import { IAccount } from 'src/config/userTypes';
+import FrontendRoute from 'src/config/FrontendRoute';
+import { getUserInfo } from 'src/util/UserInfoHelperFunctions';
 
 enum authStates {
   authorized,

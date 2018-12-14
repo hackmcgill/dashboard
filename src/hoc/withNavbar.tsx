@@ -1,6 +1,6 @@
 import * as React from "react";
-import Navbar from '../components/Navbar';
-// import NavbarSisterContainer from '../shared/NavbarSisterContainer';
+import Navbar from 'src/components/Navbar';
+// import NavbarSisterContainer from 'src/shared/NavbarSisterContainer';
 
 const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
     class extends React.Component<P> {
