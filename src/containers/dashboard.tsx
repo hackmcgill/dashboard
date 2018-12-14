@@ -90,9 +90,16 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
                     </Link>
 
                     <MediaQuery minWidth={960}>
-                        <Box width={1}>
-                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} />
-                        </Box>
+                        {
+                            (matches) =>
+                                <Box width={1}>
+                                    {
+                                        matches ?
+                                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} /> :
+                                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgHeight={'100%'} />
+                                    }
+                                </Box>
+                        }
                     </MediaQuery>
                 </Flex>
             </Flex>
