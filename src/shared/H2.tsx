@@ -9,7 +9,7 @@ interface IH2Props {
   marginBottom?: string;
 }
 
-const H2 = styled.h2<IH2Props>`
+export const H2 = styled.h2<IH2Props>`
   font-size: ${props => props.fontSize || "24px"};
   text-align: ${props => props.textAlign || "left"};
   color: ${props => props.color || props.theme.colors.primary};
@@ -17,4 +17,5 @@ const H2 = styled.h2<IH2Props>`
   margin-bottom: ${props => props.marginBottom || "12px"};
   margin-top: ${props => props.marginTop || "initial"};
 `;
+
 export default H2;

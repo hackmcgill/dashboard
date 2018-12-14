@@ -5,7 +5,7 @@ interface ILabelProps {
   fontWeight?: string;
 }
 
-const Label = styled.label<ILabelProps>`
+export const Label = styled.label<ILabelProps>`
   & > span {
     margin-left: 10px;
     display: inline-block;

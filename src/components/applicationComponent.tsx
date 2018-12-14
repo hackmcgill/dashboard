@@ -13,12 +13,7 @@ import Majors from 'src/config/Majors';
 import Skills from 'src/config/skills';
 import jobInterests from 'src/config/jobInterests';
 
-import FormikError from 'src/shared/FormikError';
-import Form from 'src/shared/Form';
-import Button from 'src/shared/Button';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import H1 from 'src/shared/H1';
-import { FormDescription } from 'src/shared/Paragraph';
+import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from 'src/shared';
 
 import Account from 'src/api/account';
 import Hacker from 'src/api/hacker';

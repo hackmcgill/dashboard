@@ -2,7 +2,7 @@ import styled from "src/shared/styled-components";
 import { Flex } from "@rebass/grid";
 
 
-const Card = styled(Flex)`
+export const Card = styled(Flex)`
   height: 300px;
   max-width: 250px;
   margin: 15px;

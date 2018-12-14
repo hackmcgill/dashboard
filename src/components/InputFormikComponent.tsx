@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Input from 'src/shared/Input';
-import Label from 'src/shared/Label';
+import { Input, Label } from 'src/shared';
 import { FieldProps } from 'formik';
 import LabelTextComponent from './LabelTextComponent';
 

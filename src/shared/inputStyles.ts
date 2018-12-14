@@ -5,7 +5,7 @@ export interface IInputProps {
   fontWeight?: string;
 }
 
-const inputStyles = css<IInputProps>`
+export const inputStyles = css<IInputProps>`
   border-radius: 20px;
   border: 2px solid ${props => props.theme.colors.greyLight};
   font-weight: ${props => props.fontWeight || "normal"};

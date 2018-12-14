@@ -31,10 +31,10 @@
     "deploy": "gh-pages -d build",
     "cosmos": "cosmos",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
-    "eject": "PORT=1337 react-scripts-ts eject"
+    "eject": "PORT=1337 react-scripts-ts eject",
+    "generate-barrels": "barrelsby --delete -d ./src -l all -q"
   },
   "devDependencies": {
-    "@types/react-toastify": "^4.0.1",
     "@rebass/grid": "^6.0.0-4",
     "@types/jest": "^23.3.3",
     "@types/lodash": "^4.14.118",
@@ -42,14 +42,16 @@
     "@types/query-string": "^6.1.0",
     "@types/react": "^16.4.14",
     "@types/react-alert": "^2.4.2",
+    "@types/react-autosuggest": "^9.3.6",
     "@types/react-dom": "^16.0.8",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",
+    "@types/react-toastify": "^4.0.1",
     "@types/react-virtualized-select": "^3.0.7",
-    "@types/react-autosuggest": "^9.3.6",
     "@types/rebass__grid": "^6.0.0",
     "@types/styled-components": "^4.0.1",
     "@types/yup": "^0.26.0",
+    "barrelsby": "^1.0.2",
     "file-loader": "^2.0.0",
     "react-cosmos": "^4.6.4",
     "typescript": "^3.1.1"

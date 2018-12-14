@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import inputStyles from 'src/shared/inputStyles';
+import { inputStyles } from 'src/shared/inputStyles';
 
-const Input = styled.input`
+export const Input = styled.input`
   ${inputStyles}
 `
-
 export default Input;

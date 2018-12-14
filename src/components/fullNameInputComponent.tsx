@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Input from 'src/shared/Input';
-import Label from 'src/shared/Label';
+import { Input, Label } from 'src/shared';
 
 import { Flex } from '@rebass/grid';
 import MaxWidthBox from 'src/shared/MaxWidthBox';

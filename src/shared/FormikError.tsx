@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FormikError = styled.div`
+export const FormikError = styled.div`
   color: red;
   margin-left: 10px;
   margin-top: -15px;

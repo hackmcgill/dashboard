@@ -1,7 +1,7 @@
 
 
 import * as React from 'react';
-import Label from 'src/shared/Label';
+import { Label } from 'src/shared';
 import { FieldProps } from 'formik';
 import FileUploadComponent from './fileUploadComponent';
 import { ManageApplicationModes } from './applicationComponent';
@@ -24,7 +24,7 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (pr
             <Box>
                 <Label>
                     <span>{props.label}</span>
-                        <FileUploadComponent {...props} />
+                    <FileUploadComponent {...props} />
                 </Label>
             </Box>
         </Flex>
