@@ -1,30 +1,30 @@
 import * as React from 'react';
-import Account from 'src/api/account';
-import EmailInput from 'src/components/emailInputComponent';
-import DietaryRestrictionComponent from 'src/components/dietaryRestrictionsComponent';
-import ShirtSize from 'src/config/shirtSizes';
-import ShirtSizeComponent from 'src/components/shirtSizeComponent';
-import FullNameInput from 'src/components/fullNameInputComponent';
-import PasswordInput from 'src/components/passwordInputComponent';
-import Button from 'src/shared/Button';
+import Account from '../api/account';
+import EmailInput from '../components/emailInputComponent';
+import DietaryRestrictionComponent from '../components/dietaryRestrictionsComponent';
+import ShirtSize from '../config/shirtSizes';
+import ShirtSizeComponent from '../components/shirtSizeComponent';
+import FullNameInput from '../components/fullNameInputComponent';
+import PasswordInput from '../components/passwordInputComponent';
+import Button from '../shared/Button';
 import { Flex, Box } from '@rebass/grid'
 import { NumberFormatValues } from 'react-number-format';
-import NumberFormat from 'src/components/numberFormatComponent';
-import PronounInput from 'src/components/pronounComponent';
-import H1 from 'src/shared/H1';
-import Form from 'src/shared/Form';
-import ConfirmationEmailSentComponent from 'src/containers/confirmEmail';
-import Auth from 'src/api/auth';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import { FormDescription } from 'src/shared/Paragraph';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import WithToasterContainer from 'src/hoc/withToaster';
-import { UserType, IAccount } from 'src/config/userTypes';
-import * as CONSTANTS from 'src/config/constants';
+import NumberFormat from '../components/numberFormatComponent';
+import PronounInput from '../components/pronounComponent';
+import H1 from '../shared/H1';
+import Form from '../shared/Form';
+import ConfirmationEmailSentComponent from '../containers/confirmEmail';
+import Auth from '../api/auth';
+import MaxWidthBox from '../shared/MaxWidthBox';
+import { FormDescription } from '../shared/Paragraph';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
+import WithToasterContainer from '../hoc/withToaster';
+import { UserType, IAccount } from '../config/userTypes';
+import * as CONSTANTS from '../config/constants';
 import { Redirect } from 'react-router';
-import FrontendRoute from 'src/config/FrontendRoute';
+import FrontendRoute from '../config/FrontendRoute';
 import { RouteProps } from 'react-router';
-import { padStart, getNestedProp } from 'src/util';
+import { padStart, getNestedProp } from '../util';
 
 export enum ManageAccountModes {
     CREATE,

@@ -1,4 +1,4 @@
-import styled from "src/shared/styled-components";
+import styled from "./styled-components";
 import { Flex } from "@rebass/grid";
 
 

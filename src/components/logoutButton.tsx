@@ -1,11 +1,12 @@
 import * as React from 'react';
-import Button from 'src/shared/Button';
+import Button from '../shared/Button';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import FrontendRoute from 'src/config/FrontendRoute';
+import FrontendRoute from '../config/FrontendRoute';
 import { AxiosResponse } from 'axios';
-import APIResponse from 'src/api/APIResponse';
+import APIResponse from '../api/APIResponse';
 import ValidationErrorGenerator from './ValidationErrorGenerator';
-import Auth from 'src/api/auth';
+import Auth from '../api/auth';
+import IValidationError from '../config/ValidationError';
 
 const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (props: RouteComponentProps) => {
     return (
@@ -19,7 +20,7 @@ function handleLogout(props: RouteComponentProps): () => void {
     return () => {
         Auth.logout().then(() => {
             props.history.push(FrontendRoute.LOGIN_PAGE);
-        }).catch((response: AxiosResponse<APIResponse>) => {
+        }).catch((response: AxiosResponse<APIResponse<IValidationError>>) => {
             if (response && response.data) {
                 ValidationErrorGenerator(response.data);
             }

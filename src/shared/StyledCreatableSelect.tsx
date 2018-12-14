@@ -1,6 +1,6 @@
 import CreatableSelect from "react-select/lib/Creatable";
-import styled from "src/shared/styled-components";
-import inputStyles from "src/shared/inputStyles";
+import styled from "./styled-components";
+import inputStyles from "./inputStyles";
 
 const StyledCreatableSelect = styled(CreatableSelect)`
   .react-select__control {
@@ -10,11 +10,14 @@ const StyledCreatableSelect = styled(CreatableSelect)`
 
   .react-select__option {
     font-weight: normal;
-    &:hover,
-    &--is-focused,
     &--is-selected {
       background-color: ${props => props.theme.colors.primary};
       color: ${props => props.theme.colors.white};
+    }
+    &--is-focused,
+    &:hover {
+      background-color: ${props => props.theme.colors.primaryLight};
+      color: ${props => props.theme.colors.white};      
     }
   }
 
