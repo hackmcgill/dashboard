@@ -53,11 +53,11 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
                 birthDate: '',
                 confirmed: false,
                 dietaryRestrictions: [],
-                email: getNestedProp(props, ['location','state','email']) || '',
+                email: getNestedProp(props, ['location', 'state', 'email']) || '',
                 firstName: '',
                 id: '',
                 lastName: '',
-                password: getNestedProp(props, ['location','state','password']) || '',
+                password: getNestedProp(props, ['location', 'state', 'password']) || '',
                 phoneNumber: '',
                 pronoun: '',
                 shirtSize: '',
@@ -100,7 +100,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
         if (mode === ManageAccountModes.CREATE && formSubmitted) {
             return <ConfirmationEmailSentComponent />
         } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
-            return <Redirect to={FrontendRoute.HOME_PAGE}/>
+            return <Redirect to={FrontendRoute.HOME_PAGE} />
         } else {
             return this.renderForm();
         }
@@ -222,6 +222,7 @@ class ManageAccountContainer extends React.Component<IManageAccountContainerProp
             await Account.create(payload);
             console.log('Created an account');
             await Auth.login(payload.email, payload.password);
+            this.setState({ formSubmitted: true });
         } catch (e) {
             if (e && e.data) {
                 ValidationErrorGenerator(e.data);
