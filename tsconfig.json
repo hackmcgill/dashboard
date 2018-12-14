@@ -19,7 +19,9 @@
     "alwaysStrict": false,
     "strictFunctionTypes": false,
     "strictPropertyInitialization": false,
-    "strict": true
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true
   },
   "include": [
     "src"

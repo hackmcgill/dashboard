@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AxiosResponse, AxiosPromise } from 'axios';
+import { AxiosResponse } from 'axios';
 import Card from "../shared/Card";
 import { Flex, Box } from "@rebass/grid";
 import iconAccount from "../assets/images/dashboard-account.svg";
