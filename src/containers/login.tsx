@@ -18,7 +18,7 @@ import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from 'src/hoc/withToaster';
 
-import { APIResponse, auth } from 'src/api';
+import { APIResponse, Auth } from 'src/api';
 
 import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from 'src/config';
 
@@ -125,7 +125,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
      * Function that calls the login function once the form is submitted.
      */
     private handleSubmit(): void {
-        auth.login(
+        Auth.login(
             this.state.email,
             this.state.password
         ).then((value: AxiosResponse) => {

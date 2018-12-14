@@ -1,5 +1,5 @@
 import { LOCAL_API_URL, PROD_API_URL } from '../config';
-import { Endpoint } from './';
+import Endpoint from './endpoint';
 /**
  * Inspired by https://github.com/FrancescoSaverioZuppichini/API-Class
  */
