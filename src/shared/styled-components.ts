@@ -1,7 +1,7 @@
 // styled-components.ts
 import * as styledComponents from "styled-components";
 import { ThemedStyledComponentsModule } from "styled-components";
-import { ITheme } from "src/theme";
+import { ITheme } from "../theme";
 
 const {
   default: styled,

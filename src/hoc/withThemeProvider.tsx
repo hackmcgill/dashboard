@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ThemeProvider } from 'styled-components';
-import theme from 'src/theme';
-import GlobalStyles from 'src/shared/GlobalStyles';
+import theme from '../theme';
+import GlobalStyles from '../shared/GlobalStyles';
 
 const withThemeProvider = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {

@@ -1,6 +1,6 @@
-import Account from 'src/api/account';
-import Hacker from 'src/api/hacker';
-import { IAccount, UserType, IHacker } from 'src/config/userTypes';
+import Account from '../api/account';
+import Hacker from '../api/hacker';
+import { IAccount, UserType, IHacker } from '../config/userTypes';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
     return user.confirmed && user.accountType === UserType.HACKER;
