@@ -14,11 +14,10 @@ export interface ITextAreaProp {
 }
 const TextareaComponent: React.StatelessComponent<ITextAreaProp & FieldProps> = (props) => {
     const placeholder = (props.placeholder) ? props.placeholder : '';
-    const charLeft = (props.maxLength && props.value) ? `${props.value.length}/${props.maxLength} chararacters` : '';
+    const charLeft = (props.maxLength && props.value) ? `${props.value.length}/${props.maxLength} characters` : '';
     return (
         <Label>
-            <LabelTextComponent label={props.label} required={props.required} />
-            <span>{charLeft}</span>
+            <LabelTextComponent label={props.label} required={props.required} secondaryInfo={charLeft} />
             <Textarea onChange={handleChange(props)} placeholder={placeholder} value={props.value} maxLength={props.maxLength} />
         </Label>
     )
