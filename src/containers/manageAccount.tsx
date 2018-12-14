@@ -24,7 +24,7 @@ import * as CONSTANTS from 'src/config/constants';
 import { Redirect } from 'react-router';
 import FrontendRoute from 'src/config/FrontendRoute';
 import { RouteProps } from 'react-router';
-import { padStart, getNestedProp } from 'src/util';
+import { padStart, getNestedProp } from 'src/util/util';
 
 export enum ManageAccountModes {
     CREATE,
