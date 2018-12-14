@@ -96,7 +96,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
                                     {
                                         matches ?
                                             <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} /> :
-                                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgHeight={'100%'} />
+                                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgHeight={'100%'} overflow={'auto'} />
                                     }
                                 </Box>
                         }

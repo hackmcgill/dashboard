@@ -9,6 +9,7 @@ interface IBackgroundImageProps {
     imgHeight?: string | number;
     minWidth?: string | number;
     imgWidth?: string | number;
+    overflow?: string | number;
 }
 
 const BackgroundImage = styled.img`
@@ -22,6 +23,7 @@ const BackgroundImage = styled.img`
     min-height: ${(props: IBackgroundImageProps) => props.minHeight || ''};
     min-width: ${(props: IBackgroundImageProps) => props.minWidth || ''};
     height: ${(props: IBackgroundImageProps) => props.imgHeight || 'auto'};
+    overflow: ${(props: IBackgroundImageProps) => props.overflow || ''};
     width: ${props => props.imgWidth || 'auto'};
     src: ${props => props.src};
 `
