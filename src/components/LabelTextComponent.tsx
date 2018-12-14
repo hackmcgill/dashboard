@@ -12,16 +12,14 @@ export interface ILabelTextProps {
 }
 const LabelTextComponent: React.StatelessComponent<ILabelTextProps> = (props: ILabelTextProps) => {
     const requiredText = <RequiredInputLabel>{props.required ? REQUIRED_INPUT : ''}</RequiredInputLabel>
-    const secondaryInfo = <SecondaryInfoText>{props.secondaryInfo || ''}</SecondaryInfoText>
+    const secondaryInfo = <SecondaryInfoText>{props.secondaryInfo}</SecondaryInfoText>
     return (
         <Flex flexDirection={'row'} justifyContent={'space-between'}>
             <Box ml='10px'>
                 {props.label}
                 {requiredText}
             </Box>
-            <Box mr='10px'>
-                {secondaryInfo}
-            </Box>
+            {props.secondaryInfo && <Box mr='10px'>{secondaryInfo}</Box>}
         </Flex>
     )
 }
