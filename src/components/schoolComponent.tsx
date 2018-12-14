@@ -92,7 +92,7 @@ export default class SchoolComponent extends React.Component<ISchoolComponentPro
     private getSuggestions(selection: string): string[] {
         const inputValue = selection.trim().toLowerCase();
         const inputLength = inputValue.length;
-        const suggestions = inputLength === 0 ? [] : Schools.filter(school => school.trim().toLowerCase().slice(0, inputLength) === inputValue);
+        const suggestions = inputLength === 0 ? [] : Schools.filter(school => school.trim().toLowerCase().includes(inputValue));
         return suggestions;
     }
 
