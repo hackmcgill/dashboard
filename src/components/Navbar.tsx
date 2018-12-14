@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FrontendRoute from '../config/FrontendRoute';
 import Image from '../shared/Image';
-import Martlett from '../assets/images/mchacks-martlet-tight.svg';
+import Martlett from '../../assets/images/mchacks-martlet-tight.svg';
 import { isLoggedIn } from '../util/UserInfoHelperFunctions';
 import LogoutBtn from '../components/logoutButton';
 import { Nav } from '../shared/Nav';
