@@ -1,5 +1,6 @@
 import * as React from "react";
 import Navbar from 'src/components/Navbar';
+import Footer from 'src/components/Footer';
 // import NavbarSisterContainer from 'src/shared/NavbarSisterContainer';
 
 const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
@@ -12,7 +13,8 @@ const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
             return (
                 [
                     <Navbar key={0} />,
-                    <Component key={1} {...this.props} />
+                    <Component key={1} {...this.props} />,
+                    <Footer key={2} />
                 ]
             )
         }
