@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import FrontendRoute from 'src/config/FrontendRoute';
+import FrontendRoute from '../config/FrontendRoute';
 
 const ForgotPasswordLinkComponent: React.StatelessComponent<{}> = (props) => {
     return (

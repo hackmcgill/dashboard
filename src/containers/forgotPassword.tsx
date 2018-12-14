@@ -1,21 +1,21 @@
 import * as React from 'react';
 import Auth from '../api/auth';
 import { AxiosResponse } from 'axios';
-import EmailInputComponent from 'src/components/emailInputComponent';
-import Key from 'src/assets/images/key.svg';
-import Button from 'src/shared/Button';
-import Image from 'src/shared/Image';
+import EmailInputComponent from '../components/emailInputComponent';
+import Key from '../assets/images/key.svg';
+import Button from '../shared/Button';
+import Image from '../shared/Image';
 import { Flex, Box } from '@rebass/grid';
-import Paragraph from 'src/shared/Paragraph';
-import H1 from 'src/shared/H1';
-import Form from 'src/shared/Form';
+import Paragraph from '../shared/Paragraph';
+import H1 from '../shared/H1';
+import Form from '../shared/Form';
 import { withRouter, RouteComponentProps } from 'react-router';
-import MaxWidthBox from 'src/shared/MaxWidthBox';
-import PasswordResetEmailConfirmationContainer from 'src/containers/passwordResetEmailConfirmation';
-import ValidationErrorGenerator from 'src/components/ValidationErrorGenerator';
-import APIResponse from 'src/api/APIResponse';
-import WithToasterContainer from 'src/hoc/withToaster';
-import { EMAIL_LABEL } from 'src/config/constants';
+import MaxWidthBox from '../shared/MaxWidthBox';
+import PasswordResetEmailConfirmationContainer from '../containers/passwordResetEmailConfirmation';
+import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
+import APIResponse from '../api/APIResponse';
+import WithToasterContainer from '../hoc/withToaster';
+import { EMAIL_LABEL } from '../config/constants';
 
 export interface IForgotState {
     email: string;

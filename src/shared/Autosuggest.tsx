@@ -1,9 +1,10 @@
 import * as React from "react";
-import styled from "src/shared/styled-components";
+import styled from "./styled-components";
 import * as Autosuggest from "react-autosuggest";
-import inputStyles from "src/shared/inputStyles";
+import inputStyles from "./inputStyles";
 
-const StringAutosuggester = Autosuggest as { new (): Autosuggest<string> };
+// Confused? https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14224#issuecomment-428814136
+const StringAutosuggester = (Autosuggest as unknown) as { new (): Autosuggest<string> };
 
 const AutosuggestWrapper = styled.div`
   .react-autosuggest__container {

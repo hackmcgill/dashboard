@@ -1,14 +1,14 @@
 // import * as React from 'react';
-import ValidationError, { IValidationErrorItem, instanceOfIValidationErrorItem } from 'src/config/ValidationError';
+import ValidationError, { IValidationErrorItem, instanceOfIValidationErrorItem } from '../config/ValidationError';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import APIResponse from 'src/api/APIResponse';
+import APIResponse from '../api/APIResponse';
 
 export default function ValidationErrorGenerator(response: APIResponse<ValidationError>) {
     if (!response) {
         return;
     }
-    const errors = response.data;
+    const errors: any = response.data;
     toast.error(response.message, {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: false
@@ -27,4 +27,3 @@ export default function ValidationErrorGenerator(response: APIResponse<Validatio
 function validationErrorItem(key: string, errorItem: IValidationErrorItem) {
     return `Invalid ${key}: ${errorItem.msg}`;
 }
-
