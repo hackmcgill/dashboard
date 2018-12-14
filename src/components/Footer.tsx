@@ -1,15 +1,15 @@
 import * as React from 'react';
-import Footer from 'src/shared/Footer';
+import Footer from '../shared/Footer';
 import { Flex, Box } from '@rebass/grid';
 
-import Image from 'src/shared/Image';
+import Image from '../shared/Image';
 
-import Facebook from 'src/assets/images/facebook.svg';
-import Twitter from 'src/assets/images/twitter.svg';
-import Instagram from 'src/assets/images/instagram.svg';
-import Github from 'src/assets/images/github.svg';
-import Mailto from 'src/assets/images/mailto.svg';
-import SocialLink from 'src/shared/SocialLink';
+import Facebook from '../assets/images/facebook.svg';
+import Twitter from '../assets/images/twitter.svg';
+import Instagram from '../assets/images/instagram.svg';
+import Github from '../assets/images/github.svg';
+import Mailto from '../assets/images/mailto.svg';
+import SocialLink from '../shared/SocialLink';
 
 interface IFooterProps {
     showDivider?: boolean;
