@@ -6,6 +6,7 @@ import iconAccount from "src/assets/images/dashboard-account.svg";
 import iconApplication from "src/assets/images/dashboard-application.svg";
 // import iconTeam from 'src/assets/images/dashboard-team.svg';
 import BackgroundLandscape from "src/assets/images/backgroundLandscape.svg";
+import BackgroundMobile from "src/assets/images/background-mobile.svg";
 import H2 from "src/shared/H2";
 import Image from "src/shared/Image";
 import { Link } from "react-router-dom";
@@ -96,7 +97,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
                                     {
                                         matches ?
                                             <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} /> :
-                                            <BackgroundImage src={BackgroundLandscape} top={'0px'} left={'0px'} imgHeight={'100%'} overflow={'auto'} />
+                                            <BackgroundImage src={BackgroundMobile} bottom={'0px'} left={'0px'} imgWidth={'100%'} imgHeight={'100%'} />
                                     }
                                 </Box>
                         }

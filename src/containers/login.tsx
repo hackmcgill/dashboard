@@ -14,6 +14,7 @@ import MaxWidthBox from 'src/shared/MaxWidthBox';
 import LeftContainer from 'src/shared/LeftContainer';
 import ForgotPasswordLinkComponent from 'src/components/forgotPasswordLinkComponent';
 import BackgroundLandscape from 'src/assets/images/backgroundLandscape.svg';
+import BackgroundMobile from "src/assets/images/background-mobile.svg";
 import BackgroundImage from 'src/shared/BackgroundImage';
 import MediaQuery from 'react-responsive';
 // import Container from 'src/shared/Container';
@@ -61,9 +62,10 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                             <div>
                                 {this.renderForm()}
                                 <BackgroundImage
-                                    src={BackgroundLandscape}
-                                    top={'0px'}
+                                    src={BackgroundMobile}
+                                    bottom={'-20%'}
                                     left={'0px'}
+                                    imgWidth={'100%'}
                                     imgHeight={'100%'}
                                 />
                             </div>
@@ -107,7 +109,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                             <Box pl={'5px'}>
                                 <Link to={{
                                     pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                                    state: {...this.state}
+                                    state: { ...this.state }
                                 }}>
                                     <Button type='button' secondary={true}>Register</Button>
                                 </Link>

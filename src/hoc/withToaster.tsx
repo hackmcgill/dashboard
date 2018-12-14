@@ -11,7 +11,7 @@ const WithToasterContainer = <P extends {}>(Component: React.ComponentType<P>) =
         public render() {
             return (
                 <Box mt={'50px'}>
-                    <Component {...this.props} />,
+                    <Component {...this.props} />
                     <ToastContainer
                         toastClassName='toast-notification'
                     />
