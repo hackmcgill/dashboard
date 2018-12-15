@@ -4,21 +4,21 @@ import GlobalStyles from '../shared/GlobalStyles';
 import theme from '../theme';
 
 const withThemeProvider = <P extends {}>(Component: React.ComponentType<P>) =>
-    class extends React.Component<P> {
-        constructor(props: any) {
-            super(props);
-        }
+  class extends React.Component<P> {
+    constructor(props: any) {
+      super(props);
+    }
 
-        public render() {
-            return (
-                <ThemeProvider theme={theme}>
-                    <div>
-                        <GlobalStyles />
-                        <Component {...this.props} />
-                    </div>
-                </ThemeProvider>
-            );
-        }
-    };
+    public render() {
+      return (
+        <ThemeProvider theme={theme}>
+          <div>
+            <GlobalStyles />
+            <Component {...this.props} />
+          </div>
+        </ThemeProvider>
+      );
+    }
+  };
 
 export default withThemeProvider;

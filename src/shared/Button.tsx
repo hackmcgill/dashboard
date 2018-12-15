@@ -1,50 +1,50 @@
 import styled from './styled-components';
 
 interface IButtonProps {
-    secondary?: boolean;
-    isLoading?: boolean;
+  secondary?: boolean;
+  isLoading?: boolean;
 }
 
 export const Button = styled.button<IButtonProps>`
+  background-color: ${(props) =>
+    props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+  font-size: 14px;
+  font-family: ${(props) => props.theme.fonts.header};
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: 0.15s linear all;
+  font-weight: bold;
+  position: relative;
+
+  &:hover {
     background-color: ${(props) =>
-        props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
-    font-size: 14px;
-    font-family: ${(props) => props.theme.fonts.header};
-    color: white;
-    padding: 10px 15px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    min-width: 100px;
-    cursor: pointer;
-    transition: 0.15s linear all;
-    font-weight: bold;
-    position: relative;
+      props.secondary
+        ? props.theme.colors.primary
+        : props.theme.colors.primaryLight};
+  }
 
-    &:hover {
-        background-color: ${(props) =>
-            props.secondary
-                ? props.theme.colors.primary
-                : props.theme.colors.primaryLight};
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
     }
+  }
 
-    @keyframes spinner {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    ${(props) =>
-        props.isLoading &&
-        `
+  ${(props) =>
+    props.isLoading &&
+    `
     color: ${
-        props.secondary ? props.theme.colors.grey : props.theme.colors.primary
+      props.secondary ? props.theme.colors.grey : props.theme.colors.primary
     };
     &:hover {
       color: ${
-          props.secondary
-              ? props.theme.colors.primary
-              : props.theme.colors.primaryLight
+        props.secondary
+          ? props.theme.colors.primary
+          : props.theme.colors.primaryLight
       };
     }
     &:before {
@@ -59,9 +59,9 @@ export const Button = styled.button<IButtonProps>`
       margin-left: -10px;
       border-radius: 50%;
       border: 3px solid ${
-          props.secondary
-              ? props.theme.colors.greyLight
-              : props.theme.colors.primaryLight
+        props.secondary
+          ? props.theme.colors.greyLight
+          : props.theme.colors.primaryLight
       };
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
