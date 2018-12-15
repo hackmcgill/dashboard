@@ -1,16 +1,16 @@
 import styled from './styled-components';
 
 export interface IParagraphProps {
-  fontSize?: string;
-  textAlign?: string;
-  italic?: boolean;
-  paddingBottom?: string;
-  maxWidth?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  color?: string;
+    fontSize?: string;
+    textAlign?: string;
+    italic?: boolean;
+    paddingBottom?: string;
+    maxWidth?: string;
+    marginTop?: string;
+    marginBottom?: string;
+    marginLeft?: string;
+    marginRight?: string;
+    color?: string;
 }
 
 export const Paragraph = styled.p<IParagraphProps>`
@@ -27,9 +27,9 @@ export const Paragraph = styled.p<IParagraphProps>`
 `;
 
 export const FormDescription = styled(Paragraph)`
-  font-size: 14px;
-  margin-top: 4px;
-  margin-left: 10px;
-  font-style: italic;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-left: 10px;
+    font-style: italic;
 `;
 export default Paragraph;

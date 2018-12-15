@@ -4,11 +4,11 @@ import { ThemedStyledComponentsModule } from 'styled-components';
 import { ITheme } from '../theme';
 
 const {
-  default: styled,
-  css,
-  createGlobalStyle,
-  keyframes,
-  ThemeProvider,
+    default: styled,
+    css,
+    createGlobalStyle,
+    keyframes,
+    ThemeProvider,
 } = styledComponents as ThemedStyledComponentsModule<ITheme>;
 
 export { css, createGlobalStyle, keyframes, ThemeProvider };

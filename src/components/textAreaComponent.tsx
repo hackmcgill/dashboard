@@ -5,35 +5,35 @@ import { Label, Textarea } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 export interface ITextAreaProp {
-  label: string;
-  placeholder?: string;
-  value?: string;
-  required?: boolean;
-  maxLength?: number;
+    label: string;
+    placeholder?: string;
+    value?: string;
+    required?: boolean;
+    maxLength?: number;
 }
 const TextareaComponent: React.StatelessComponent<
-  ITextAreaProp & FieldProps
+    ITextAreaProp & FieldProps
 > = (props) => {
-  const placeholder = props.placeholder ? props.placeholder : '';
-  const charLeft =
-    props.maxLength && props.value
-      ? `${props.value.length}/${props.maxLength} characters`
-      : '';
-  return (
-    <Label>
-      <LabelTextComponent
-        label={props.label}
-        required={props.required}
-        secondaryInfo={charLeft}
-      />
-      <Textarea
-        onChange={handleChange(props)}
-        placeholder={placeholder}
-        value={props.value}
-        maxLength={props.maxLength}
-      />
-    </Label>
-  );
+    const placeholder = props.placeholder ? props.placeholder : '';
+    const charLeft =
+        props.maxLength && props.value
+            ? `${props.value.length}/${props.maxLength} characters`
+            : '';
+    return (
+        <Label>
+            <LabelTextComponent
+                label={props.label}
+                required={props.required}
+                secondaryInfo={charLeft}
+            />
+            <Textarea
+                onChange={handleChange(props)}
+                placeholder={placeholder}
+                value={props.value}
+                maxLength={props.maxLength}
+            />
+        </Label>
+    );
 };
 /**
  * Function factory that generates function to handle changes in user's choice.
@@ -41,13 +41,13 @@ const TextareaComponent: React.StatelessComponent<
  * @returns the function that handles changes to the choices provided by the user.
  */
 function handleChange(
-  props: ITextAreaProp & FieldProps
+    props: ITextAreaProp & FieldProps
 ): (event: React.ChangeEvent<HTMLTextAreaElement>) => void {
-  return (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const field = props.field;
-    const form = props.form;
-    form.setFieldValue(field.name, event.target.value);
-  };
+    return (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const field = props.field;
+        const form = props.form;
+        form.setFieldValue(field.name, event.target.value);
+    };
 }
 
 export default TextareaComponent;

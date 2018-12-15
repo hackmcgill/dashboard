@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ManageApplication, {
-  ManageApplicationModes,
+    ManageApplicationModes,
 } from '../components/applicationComponent';
 
 const CreateApplication = () => (
-  <ManageApplication mode={ManageApplicationModes.CREATE} />
+    <ManageApplication mode={ManageApplicationModes.CREATE} />
 );
 
 export default CreateApplication;
