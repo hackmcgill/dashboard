@@ -191,6 +191,16 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                 "true",
                 "You must accept the McHacks policies",
                 value => value
+            ),
+            essay: Yup.string().required('Required').test(
+                "length",
+                "At most 2000 characters",
+                value => value.length < 2000
+            ),
+            comments: Yup.string().test(
+                "length",
+                "At most 500 characters",
+                value => value.length < 500
             )
         });
     }
@@ -463,7 +473,12 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.ESSAY_REQUEST_LABEL}
                     value={fp.values.essay}
+                    maxLength={2000}
                     required={true}
+                />
+                <ErrorMessage
+                    component={FormikError}
+                    name='essay'
                 />
                 <FastField
                     id='comments'
@@ -471,9 +486,13 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     component={TextareaComponent}
                     label={CONSTANTS.COMMENTS_REQUEST_LABEL}
                     value={fp.values.comments}
+                    maxLength={500}
                     required={false}
                 />
-
+                <ErrorMessage
+                    component={FormikError}
+                    name='comments'
+                />
                 <FastField
                     id='codeOfConduct_MCHACKS'
                     name={'codeOfConduct_MCHACKS'}
