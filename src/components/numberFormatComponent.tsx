@@ -1,25 +1,24 @@
-
 import * as React from 'react';
-import { NumberFormatValues, NumberFormatProps } from 'react-number-format';
+import { NumberFormatProps, NumberFormatValues } from 'react-number-format';
 
-import { StyledNumberFormat, Label } from '../shared';
+import { Label, StyledNumberFormat } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 interface ILabelledNumberFormatProp {
-    value?: string;
-    onValueChange: (value: NumberFormatValues) => void;
-    label: string;
-    placeholder: string;
-    required?: boolean;
+  value?: string;
+  onValueChange: (value: NumberFormatValues) => void;
+  label: string;
+  placeholder: string;
+  required?: boolean;
 }
-const LabelledNumberFormat: React.StatelessComponent<ILabelledNumberFormatProp & NumberFormatProps> = (props) => {
-    return (
-        <Label>
-            <LabelTextComponent label={props.label} required={props.required} />
-            <StyledNumberFormat
-                {...props}
-            />
-        </Label>
-    )
-}
+const LabelledNumberFormat: React.StatelessComponent<
+  ILabelledNumberFormatProp & NumberFormatProps
+> = (props) => {
+  return (
+    <Label>
+      <LabelTextComponent label={props.label} required={props.required} />
+      <StyledNumberFormat {...props} />
+    </Label>
+  );
+};
 export default LabelledNumberFormat;
