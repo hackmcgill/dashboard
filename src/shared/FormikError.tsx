@@ -7,6 +7,6 @@ export const FormikError = styled.div`
   margin-bottom: 15px;
   font-style: italic;
   text-align: left;
-`
+`;
 
 export default FormikError;

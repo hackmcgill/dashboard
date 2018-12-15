@@ -1,6 +1,6 @@
-import Select from "react-select";
-import styled from "./styled-components";
-import inputStyles from "./inputStyles";
+import Select from 'react-select';
+import inputStyles from './inputStyles';
+import styled from './styled-components';
 
 export const StyledSelect = styled(Select)`
   .react-select__control {
@@ -11,13 +11,13 @@ export const StyledSelect = styled(Select)`
   .react-select__option {
     font-weight: normal;
     &--is-selected {
-      background-color: ${props => props.theme.colors.primary};
-      color: ${props => props.theme.colors.white};
+      background-color: ${(props) => props.theme.colors.primary};
+      color: ${(props) => props.theme.colors.white};
     }
     &--is-focused,
     &:hover {
-      background-color: ${props => props.theme.colors.primaryLight};
-      color: ${props => props.theme.colors.white};      
+      background-color: ${(props) => props.theme.colors.primaryLight};
+      color: ${(props) => props.theme.colors.white};
     }
   }
 `;

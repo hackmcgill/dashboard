@@ -22,7 +22,6 @@
     "react-select": "^2.1.0",
     "react-toastify": "^4.4.3",
     "styled-components": "^4.0.2",
-    "tslint-config-prettier": "^1.17.0",
     "yup": "^0.26.6"
   },
   "scripts": {
@@ -34,7 +33,7 @@
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
     "eject": "PORT=1337 react-scripts-ts eject",
-    "lint": "tslint 'src/**/*.{ts,tsx}'"
+    "lint": "tslint --fix 'src/**/*.{ts,tsx}' --force"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
@@ -56,6 +55,11 @@
     "barrelsby": "^1.0.2",
     "file-loader": "^2.0.0",
     "react-cosmos": "^4.6.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.2.2"
   },
   "browserslist": [
