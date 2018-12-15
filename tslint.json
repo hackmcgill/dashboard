@@ -5,7 +5,8 @@
     "prettier": true,
     "interface-name": true,
     "object-literal-sort-keys": false,
-    "no-console": false
+    "no-console": false,
+    "object-literal-shorthand": true
   },
   "linterOptions": {
     "exclude": [
