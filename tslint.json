@@ -3,7 +3,9 @@
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
     "prettier": true,
-    "interface-name": false
+    "interface-name": true,
+    "object-literal-sort-keys": false,
+    "no-console": false
   },
   "linterOptions": {
     "exclude": [
