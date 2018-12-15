@@ -40,7 +40,9 @@ class App extends React.Component {
             exact={true}
             path={FrontendRoute.CREATE_ACCOUNT_PAGE}
             component={withNavbar(
-              withAuthRedirect(CreateAccount, { requiredAuthState: false })
+              withAuthRedirect(CreateAccount, {
+                requiredAuthState: false,
+              })
             )}
           />
           <Route
@@ -110,7 +112,9 @@ class App extends React.Component {
             exact={true}
             path={FrontendRoute.LOGIN_PAGE}
             component={withNavbar(
-              withAuthRedirect(LoginContainer, { requiredAuthState: false })
+              withAuthRedirect(LoginContainer, {
+                requiredAuthState: false,
+              })
             )}
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />

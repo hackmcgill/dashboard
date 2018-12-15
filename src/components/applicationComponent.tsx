@@ -256,10 +256,16 @@ class ManageApplicationContainer extends React.Component<
           placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
           creatable={true}
           options={[
-            { label: Degrees.UNDERGRADUATE, value: Degrees.UNDERGRADUATE },
+            {
+              label: Degrees.UNDERGRADUATE,
+              value: Degrees.UNDERGRADUATE,
+            },
             { label: Degrees.MASTERS, value: Degrees.MASTERS },
             { label: Degrees.PHD, value: Degrees.PHD },
-            { label: Degrees.HIGHSCHOOL, value: Degrees.HIGHSCHOOL },
+            {
+              label: Degrees.HIGHSCHOOL,
+              value: Degrees.HIGHSCHOOL,
+            },
             { label: Degrees.OTHER, value: Degrees.OTHER },
           ]}
           component={StylizedSelectFormikComponent}
@@ -305,7 +311,10 @@ class ManageApplicationContainer extends React.Component<
               label: Genders.PREFER_NOT_TO_SAY,
               value: Genders.PREFER_NOT_TO_SAY,
             },
-            { label: Genders.NON_BINARY, value: Genders.NON_BINARY },
+            {
+              label: Genders.NON_BINARY,
+              value: Genders.NON_BINARY,
+            },
           ]}
           component={StylizedSelectFormikComponent}
           value={fp.values.gender}
@@ -318,9 +327,18 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           options={[
-            { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
-            { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
-            { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
+            {
+              label: IEthnicity.AFRO_AMER,
+              value: IEthnicity.AFRO_AMER,
+            },
+            {
+              label: IEthnicity.ASIAN_PI,
+              value: IEthnicity.ASIAN_PI,
+            },
+            {
+              label: IEthnicity.EUROPEAN,
+              value: IEthnicity.EUROPEAN,
+            },
             { label: IEthnicity.HISP, value: IEthnicity.HISP },
             { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
           ]}
@@ -408,8 +426,14 @@ class ManageApplicationContainer extends React.Component<
           name={'jobInterest'}
           options={[
             { label: JobInterest.NONE, value: JobInterest.NONE },
-            { label: JobInterest.INTERNSHIP, value: JobInterest.INTERNSHIP },
-            { label: JobInterest.FULL_TIME, value: JobInterest.FULL_TIME },
+            {
+              label: JobInterest.INTERNSHIP,
+              value: JobInterest.INTERNSHIP,
+            },
+            {
+              label: JobInterest.FULL_TIME,
+              value: JobInterest.FULL_TIME,
+            },
           ]}
           component={StylizedSelectFormikComponent}
           label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
@@ -435,8 +459,14 @@ class ManageApplicationContainer extends React.Component<
             { label: Skills.CSharp, value: Skills.CSharp },
             { label: Skills.CPlusPlus, value: Skills.CPlusPlus },
             { label: Skills.CSS, value: Skills.CSS },
-            { label: Skills.DataScience, value: Skills.DataScience },
-            { label: Skills.DesktopApps, value: Skills.DesktopApps },
+            {
+              label: Skills.DataScience,
+              value: Skills.DataScience,
+            },
+            {
+              label: Skills.DesktopApps,
+              value: Skills.DesktopApps,
+            },
             { label: Skills.Django, value: Skills.Django },
             { label: Skills.Excel, value: Skills.Excel },
             { label: Skills.FrontEnd, value: Skills.FrontEnd },
@@ -444,7 +474,10 @@ class ManageApplicationContainer extends React.Component<
             { label: Skills.iOS, value: Skills.iOS },
             { label: Skills.Java, value: Skills.Java },
             { label: Skills.Javascript, value: Skills.Javascript },
-            { label: Skills.MachineLearning, value: Skills.MachineLearning },
+            {
+              label: Skills.MachineLearning,
+              value: Skills.MachineLearning,
+            },
             { label: Skills.MobileApps, value: Skills.MobileApps },
             { label: Skills.MongoDB, value: Skills.MongoDB },
             {
@@ -461,7 +494,10 @@ class ManageApplicationContainer extends React.Component<
             { label: Skills.React, value: Skills.React },
             { label: Skills.Robotics, value: Skills.Robotics },
             { label: Skills.Ruby, value: Skills.Ruby },
-            { label: Skills.RubyonRails, value: Skills.RubyonRails },
+            {
+              label: Skills.RubyonRails,
+              value: Skills.RubyonRails,
+            },
             { label: Skills.Swift, value: Skills.Swift },
             { label: Skills.Typescript, value: Skills.Typescript },
             { label: Skills.UIDesign, value: Skills.UIDesign },

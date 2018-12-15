@@ -130,7 +130,9 @@ class HackerAPI {
   public async downloadResume(
     id: string
   ): Promise<AxiosResponse<APIResponse<IResumeResponse>>> {
-    const result = await API.getEndpoint(APIRoute.HACKER_RESUME).getOne({ id });
+    const result = await API.getEndpoint(APIRoute.HACKER_RESUME).getOne({
+      id,
+    });
     return result;
   }
 
