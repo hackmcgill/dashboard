@@ -3,24 +3,24 @@ import * as QueryString from 'query-string';
 import { AxiosResponse } from 'axios';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { Flex, Box } from '@rebass/grid';
+import MediaQuery from 'react-responsive';
 
 import PasswordInputComponent from '../components/passwordInputComponent';
 import EmailInputComponent from '../components/emailInputComponent';
-import Button from '../shared/Button';
-import H1 from '../shared/H1';
-import FrontendRoute from '../config/FrontendRoute';
-import Form from '../shared/Form';
-import MaxWidthBox from '../shared/MaxWidthBox';
-import LeftContainer from '../shared/LeftContainer';
 import ForgotPasswordLinkComponent from '../components/forgotPasswordLinkComponent';
-import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
-import BackgroundImage from '../shared/BackgroundImage';
-import MediaQuery from 'react-responsive';
-import WithToasterContainer from '../hoc/withToaster';
 import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
-import APIResponse from '../api/APIResponse';
-import auth from '../api/auth';
-import { EMAIL_LABEL, PASSWORD_LABEL } from '../config/constants';
+
+import { BackgroundImage, Button, H1, MaxWidthBox, LeftContainer } from '../shared';
+import Form from '../shared/Form';
+
+import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
+
+import WithToasterContainer from '../hoc/withToaster';
+
+import { APIResponse, Auth } from '../api';
+
+import { FrontendRoute, EMAIL_LABEL, PASSWORD_LABEL } from '../config';
+
 export interface ILoginState {
     email: string;
     password: string;
@@ -106,7 +106,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
                             <Box pl={'5px'}>
                                 <Link to={{
                                     pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                                    state: {...this.state}
+                                    state: { ...this.state }
                                 }}>
                                     <Button type='button' secondary={true}>Register</Button>
                                 </Link>
@@ -124,7 +124,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState>{
      * Function that calls the login function once the form is submitted.
      */
     private handleSubmit(): void {
-        auth.login(
+        Auth.login(
             this.state.email,
             this.state.password
         ).then((value: AxiosResponse) => {

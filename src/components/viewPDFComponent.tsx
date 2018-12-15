@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import HackerAPI from '../api/hacker';
+import { Hacker } from '../api';
 import Button from '../shared/Button';
 
 interface IViewPDFProps {
@@ -23,9 +23,9 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
         return (
             <Button
                 isLoading={this.state.isLoading}
-                disabled={this.state.isLoading} 
+                disabled={this.state.isLoading}
                 secondary={true}
-                type="button" 
+                type="button"
                 onClick={this.handleClick(this.props)}
             >
                 View Current Resume
@@ -42,8 +42,8 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
             if (pdfWindow) {
                 pdfWindow.document.write("<h1>Loading PDF...</h1>");
             }
-            
-            HackerAPI.downloadResume(props.hackerId).then((response) => {
+
+            Hacker.downloadResume(props.hackerId).then((response) => {
                 const resume = response.data.data.resume;
                 const bufferObj = Buffer.from(resume[0].data);
                 const pdf = (bufferObj.toString('base64'));

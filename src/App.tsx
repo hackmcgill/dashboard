@@ -2,21 +2,22 @@ import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
+
 import LoginContainer from './containers/login';
 import ConfirmAccountContainer from './containers/confirmAccount';
 import EditAccountContainer from './containers/editAccount';
-import withAuthRedirect from './hoc/withAuthRedirect';
-import withTokenRedirect from './hoc/withTokenRedirect';
-import ForgotPasswordContainer from './containers/forgotPassword';
-import FrontendRoute from './config/FrontendRoute';
 import DashboardContainer from './containers/dashboard';
 import NotFoundContainer from './containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
+
+import withAuthRedirect from './hoc/withAuthRedirect';
+import withTokenRedirect from './hoc/withTokenRedirect';
+import ForgotPasswordContainer from './containers/forgotPassword';
+import { FrontendRoute, UserType, IAccount, IHacker, HackerStatus } from './config';
+
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
 import withHackerRedirect from './hoc/withHackerRedirect';
-import { UserType, IAccount, IHacker } from './config/userTypes';
-import HackerStatus from './config/hackerStatus';
 import EditApplicationContainer from './containers/editApplication';
 
 

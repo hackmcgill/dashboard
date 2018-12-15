@@ -1,7 +1,7 @@
 import * as React from 'react';
-import StyledSelect from '../shared/StyledCreatableSelect';
-import DietaryRestriction from '../config/dietaryRestrictions';
-import Label from '../shared/Label';
+
+import { DietaryRestriction } from '../config';
+import { Label, StyledCreatableSelect } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 /**
@@ -31,7 +31,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<IDietRestrictionPro
     return (
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
-            <StyledSelect
+            <StyledCreatableSelect
                 value={preselectOptions(options, props.value)}
                 className='react-select-container'
                 classNamePrefix='react-select'

@@ -5,7 +5,7 @@ interface IButtonProps {
   isLoading?: boolean;
 }
 
-const Button = styled.button<IButtonProps>`
+export const Button = styled.button<IButtonProps>`
   background-color: ${props => props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
   font-size: 14px;
   font-family: ${props => props.theme.fonts.header};

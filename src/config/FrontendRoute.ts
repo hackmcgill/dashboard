@@ -1,4 +1,4 @@
-enum FrontendRoute {
+export enum FrontendRoute {
     HOME_PAGE = '/',
     CREATE_ACCOUNT_PAGE = '/account/create',
     EDIT_ACCOUNT_PAGE = '/account/edit',

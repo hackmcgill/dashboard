@@ -1,9 +1,5 @@
-export default class APIResponse<T> {
+export class APIResponse<T = any> {
     public data: T;
     public message: string;
-
-    constructor() {
-        this.data = null as any;
-        this.message = '';
-    }
 }
+export default APIResponse;

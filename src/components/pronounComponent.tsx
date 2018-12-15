@@ -1,7 +1,6 @@
 import * as React from 'react';
-import StyledSelect from '../shared/StyledCreatableSelect';
-import Pronouns from '../config/pronouns';
-import Label from '../shared/Label';
+import { Pronouns } from '../config';
+import { Label, StyledCreatableSelect } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 interface IPronounInputProp {
@@ -57,7 +56,7 @@ const PronounInput: React.StatelessComponent<IPronounInputProp> = (props) => {
     return (
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
-            <StyledSelect
+            <StyledCreatableSelect
                 value={{ label: props.value, value: props.value }}
                 id={'pronoun-selector'}
                 inputId={'pronoun-selector-input'}

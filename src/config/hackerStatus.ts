@@ -1,4 +1,4 @@
-enum HackerStatus {
+export enum HackerStatus {
     HACKER_STATUS_NONE = 'None',
     HACKER_STATUS_APPLIED = 'Applied',
     HACKER_STATUS_ACCEPTED = 'Accepted',

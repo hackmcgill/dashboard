@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import Label from '../shared/Label';
-import NumberFormat from '../shared/StyledNumberFormat';
 import { NumberFormatValues, NumberFormatProps } from 'react-number-format';
+
+import { StyledNumberFormat, Label } from '../shared';
 import LabelTextComponent from './LabelTextComponent';
 
 interface ILabelledNumberFormatProp {
@@ -16,7 +16,7 @@ const LabelledNumberFormat: React.StatelessComponent<ILabelledNumberFormatProp &
     return (
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
-            <NumberFormat
+            <StyledNumberFormat
                 {...props}
             />
         </Label>

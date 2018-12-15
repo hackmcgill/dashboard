@@ -51,5 +51,5 @@ const MajorsList = [
     'Advertising And Public Relations',
     'Psychology']
 
-const Majors = MajorsList.map((v) => ({ label: v, value: v }));
+export const Majors = MajorsList.map((v) => ({ label: v, value: v }));
 export default Majors;

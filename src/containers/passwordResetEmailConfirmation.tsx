@@ -1,13 +1,11 @@
 import * as React from 'react';
-import resetLogo from '../assets/images/passwordReset.svg';
-import Image from '../shared/Image';
-import { Flex, Box } from '@rebass/grid';
-import H1 from '../shared/H1';
-import Paragraph from '../shared/Paragraph';
-import Button from '../shared/Button';
 import { Link } from 'react-router-dom';
-import FrontendRoute from '../config/FrontendRoute';
-import MaxWidthBox from '../shared/MaxWidthBox';
+import { Flex, Box } from '@rebass/grid';
+
+import resetLogo from '../assets/images/passwordReset.svg';
+
+import { H1, Paragraph, Button, MaxWidthBox, Image } from '../shared/';
+import { FrontendRoute } from '../config';
 
 class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}>{
     constructor(props: {}) {

@@ -2,7 +2,7 @@ import Select from "react-select";
 import styled from "./styled-components";
 import inputStyles from "./inputStyles";
 
-const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)`
   .react-select__control {
     ${inputStyles}
     display: flex;

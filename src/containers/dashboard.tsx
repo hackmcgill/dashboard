@@ -1,28 +1,26 @@
 import * as React from "react";
 import { AxiosResponse } from 'axios';
-import Card from "../shared/Card";
 import { Flex, Box } from "@rebass/grid";
+import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import MediaQuery from 'react-responsive';
+
 import iconAccount from "../assets/images/dashboard-account.svg";
 import iconApplication from "../assets/images/dashboard-application.svg";
-// import iconTeam from '../assets/images/dashboard-team.svg';
 import BackgroundLandscape from "../assets/images/backgroundLandscape.svg";
-import H2 from "../shared/H2";
-import Image from "../shared/Image";
-import { Link } from "react-router-dom";
-import HackerStatus from "../config/hackerStatus";
-import BackgroundImage from "../shared/BackgroundImage";
+// import iconTeam from '../assets/images/dashboard-team.svg';
 
-import MediaQuery from 'react-responsive';
-import hacker from '../api/hacker';
-import H1 from '../shared/H1';
-import FrontendRoute from '../config/FrontendRoute';
+
+import { BackgroundImage, Card, H1, H2, Image } from "../shared";
+import { HackerStatus, FrontendRoute, ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from "../config";
+
+import { APIResponse, Auth, Hacker } from '../api';
+
 import { isConfirmed } from '../util/UserInfoHelperFunctions';
+
 import WithToasterContainer from '../hoc/withToaster';
-import { toast } from 'react-toastify';
-import auth from '../api/auth';
-import APIResponse from '../api/APIResponse';
+
 import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
-import { ACCOUNT_NOT_CONFIRMED_MSG, RESEND_CONF_EMAIL, EMAIL_SENT } from '../config/constants';
 
 export interface IDashboardState {
     status: HackerStatus;
@@ -45,7 +43,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
 
     public async componentDidMount() {
         try {
-            const response = await hacker.getSelf();
+            const response = await Hacker.getSelf();
             this.setState({ status: response.data.data.status })
         } catch (e) {
             if (e.status === 401) {
@@ -116,7 +114,7 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
         }
     }
     private resendConfirmationEmaill() {
-        auth.resendConfirmationEmail().then((value: AxiosResponse<APIResponse<{}>>) => {
+        Auth.resendConfirmationEmail().then((value: AxiosResponse<APIResponse<{}>>) => {
             if (value.status === 200) {
                 toast.success(EMAIL_SENT);
             }

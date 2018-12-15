@@ -1,14 +1,13 @@
 import { AxiosPromise } from 'axios';
-import Route from '../config/APIRoute';
+import { APIRoute, ISearchParameter } from '../config';
 import API from './api';
-import ISearchParameter from '../config/searchParameter';
 class SearchAPI {
     constructor() {
-        API.createEntity(Route.SEARCH);
+        API.createEntity(APIRoute.SEARCH);
     }
     public search(parameters: ISearchParameter[]): AxiosPromise {
         const escapedSearch: string = this.encodeParameters(parameters);
-        return API.getEndpoint(Route.SEARCH).getAll({
+        return API.getEndpoint(APIRoute.SEARCH).getAll({
             params: {
                 'q': escapedSearch
             }
@@ -23,5 +22,5 @@ class SearchAPI {
         return encodeURIComponent(stringifiedParams);
     }
 }
-
-export default new SearchAPI();
+export const Search = new SearchAPI();
+export default Search;

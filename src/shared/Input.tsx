@@ -1,8 +1,7 @@
+import { inputStyles } from './inputStyles';
 import styled from './styled-components';
-import inputStyles from './inputStyles';
 
-const Input = styled.input`
+export const Input = styled.input`
   ${inputStyles}
 `
-
 export default Input;

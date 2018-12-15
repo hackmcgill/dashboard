@@ -11,7 +11,7 @@ interface IBackgroundImageProps {
     imgWidth?: string | number;
 }
 
-const BackgroundImage = styled.img`
+export const BackgroundImage = styled.img`
     position: absolute;
     z-index: -1000;
     user-select: none;
@@ -25,4 +25,5 @@ const BackgroundImage = styled.img`
     width: ${props => props.imgWidth || 'auto'};
     src: ${props => props.src};
 `
+
 export default BackgroundImage;

@@ -1,31 +1,18 @@
 import * as React from 'react';
-import { AxiosResponse } from 'axios';
-import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
-import { Flex, Box } from '@rebass/grid'
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
+import { AxiosResponse } from 'axios';
+import { Redirect } from 'react-router';
+import { Formik, FormikActions, FormikProps, FastField, ErrorMessage, Field } from 'formik';
+import { Flex, Box } from '@rebass/grid'
 
 import * as CONSTANTS from '../config/constants';
-import Ethnicity from '../config/ethnicity';
-import Genders from '../config/genders';
-import Degrees from '../config/degrees';
-import Majors from '../config/Majors';
-import Skills from '../config/skills';
-import jobInterests from '../config/jobInterests';
 
-import FormikError from '../shared/FormikError';
-import Form from '../shared/Form';
-import Button from '../shared/Button';
-import MaxWidthBox from '../shared/MaxWidthBox';
-import H1 from '../shared/H1';
-import { FormDescription } from '../shared/Paragraph';
+import { Degrees, FrontendRoute, Genders, HackerStatus, IAccount, IEthnicity, IHacker, JobInterest, Majors, Skills } from '../config';
+import { FormikError, Form, Button, MaxWidthBox, H1, FormDescription } from '../shared';
 
-import Account from '../api/account';
-import Hacker from '../api/hacker';
-import APIResponse from '../api/APIResponse';
+import { Account, Hacker, APIResponse } from '../api';
 
-import { IAccount, IHacker } from '../config/userTypes';
-import HackerStatus from '../config/hackerStatus';
 import SchoolComponent from '../components/schoolComponent';
 import CheckboxComponent from '../components/checkboxFormikComponent';
 import InputFormikComponent from '../components/InputFormikComponent';
@@ -33,11 +20,9 @@ import NumberFormat from '../components/numberFormatFormikComponent';
 import TextareaComponent from '../components/textAreaComponent';
 import StylizedSelectFormikComponent from '../components/StylizedSelectFormikComponent';
 import ValidationErrorGenerator from '../components/ValidationErrorGenerator';
-import ResumeComponent from './resumeComponent';
 
 import WithToasterContainer from '../hoc/withToaster';
-import { Redirect } from 'react-router';
-import FrontendRoute from '../config/FrontendRoute';
+import ResumeComponent from './resumeComponent';
 
 export enum ManageApplicationModes {
     CREATE,
@@ -78,7 +63,7 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                         personal: '',
                         other: '',
                     },
-                    jobInterest: jobInterests.NONE,
+                    jobInterest: JobInterest.NONE,
                     skills: [],
                     essay: '',
                     comments: '',
@@ -297,11 +282,11 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     isMulti={true}
                     creatable={true}
                     options={[
-                        { label: Ethnicity.AFRO_AMER, value: Ethnicity.AFRO_AMER },
-                        { label: Ethnicity.ASIAN_PI, value: Ethnicity.ASIAN_PI },
-                        { label: Ethnicity.EUROPEAN, value: Ethnicity.EUROPEAN },
-                        { label: Ethnicity.HISP, value: Ethnicity.HISP },
-                        { label: Ethnicity.NO_ANS, value: Ethnicity.NO_ANS },
+                        { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
+                        { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
+                        { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
+                        { label: IEthnicity.HISP, value: IEthnicity.HISP },
+                        { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
                     ]}
                     label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
                     placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
@@ -406,9 +391,9 @@ class ManageApplicationContainer extends React.Component<IManageApplicationProps
                     id='jobInterest'
                     name={'jobInterest'}
                     options={[
-                        { label: jobInterests.NONE, value: jobInterests.NONE },
-                        { label: jobInterests.INTERNSHIP, value: jobInterests.INTERNSHIP },
-                        { label: jobInterests.FULL_TIME, value: jobInterests.FULL_TIME },
+                        { label: JobInterest.NONE, value: JobInterest.NONE },
+                        { label: JobInterest.INTERNSHIP, value: JobInterest.INTERNSHIP },
+                        { label: JobInterest.FULL_TIME, value: JobInterest.FULL_TIME },
                     ]}
                     component={StylizedSelectFormikComponent}
                     label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}

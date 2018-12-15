@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
-import getTokenFromQuery from '../config/authToken';
-import FrontendRoute from '../config/FrontendRoute';
+import { getTokenFromQuery, FrontendRoute } from '../config';
 
 enum authStates {
     authorized,

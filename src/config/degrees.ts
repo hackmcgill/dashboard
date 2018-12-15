@@ -1,4 +1,4 @@
-enum Degrees {
+export enum Degrees {
     UNDERGRADUATE = "Undergraduate",
     MASTERS = "Masters",
     PHD = "PhD",

@@ -13,3 +13,5 @@ export const Nav = styled.nav<INavProps>`
     border-bottom: ${props => props.borderThickness || "1px"} solid
         ${props => props.theme.colors.greyLighter};
 `;
+
+export default Nav;

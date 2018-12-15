@@ -1,9 +1,8 @@
 import API from './api';
-import APIRoute from '../config/APIRoute';
 import { AxiosPromise, AxiosResponse } from 'axios';
 import APIResponse from './APIResponse';
 import LocalCache from '../util/LocalCache';
-import { CACHE_USER_KEY } from '../config/constants';
+import { APIRoute, CACHE_USER_KEY } from '../config';
 
 class AuthAPI {
     constructor() {
@@ -84,5 +83,5 @@ class AuthAPI {
         return API.getEndpoint(APIRoute.AUTH_RESEND_CONF_EMAIL).getAll();
     }
 }
-
-export default new AuthAPI();
+export const Auth = new AuthAPI();
+export default Auth;

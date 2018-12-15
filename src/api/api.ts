@@ -1,4 +1,4 @@
-import * as CONSTANTS from '../config/constants';
+import { LOCAL_API_URL, PROD_API_URL } from '../config';
 import Endpoint from './endpoint';
 /**
  * Inspired by https://github.com/FrancescoSaverioZuppichini/API-Class
@@ -44,9 +44,9 @@ class API {
 
 let API_URL;
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "") {
-    API_URL = CONSTANTS.LOCAL_API_URL;
+    API_URL = LOCAL_API_URL;
 } else {
-    API_URL = CONSTANTS.PROD_API_URL;
+    API_URL = PROD_API_URL;
 }
 
 export default new API(API_URL);

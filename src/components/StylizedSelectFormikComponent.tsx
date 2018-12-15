@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
-import StylizedCreatableSelect from '../shared/StyledCreatableSelect';
-import StylizedSelect from '../shared/StyledSelect';
-import Label from '../shared/Label';
+import { Label, StyledSelect, StyledCreatableSelect } from '../shared';
 import LabelTextComponent from '../components/LabelTextComponent';
 
 export interface IStylizedSelectFormikProps {
@@ -34,13 +32,13 @@ const StylizedSelectFormikComponent: React.StatelessComponent<IStylizedSelectFor
         <Label>
             <LabelTextComponent label={props.label} required={props.required} />
             {props.creatable ?
-                <StylizedCreatableSelect
+                <StyledCreatableSelect
                     {...commonProps}
                     allowCreateWhileLoading={true}
                     createOptionPosition={'first'}
                 />
                 :
-                <StylizedSelect
+                <StyledSelect
                     {...commonProps}
                 />
             }

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "./styled-components";
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');
 
   @font-face {
@@ -50,4 +50,5 @@ const GlobalStyles = createGlobalStyle`
     z-index: 100000;
   }
 `;
+
 export default GlobalStyles;

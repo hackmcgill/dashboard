@@ -5,7 +5,7 @@ interface ILabelProps {
   fontWeight?: string;
 }
 
-const Label = styled.label<ILabelProps>`
+export const Label = styled.label<ILabelProps>`
   font-weight: ${props => props.fontWeight || "bold"};
   color: ${props => props.theme.colors.greyDark};
   display: block;

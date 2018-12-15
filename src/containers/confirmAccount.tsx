@@ -3,13 +3,9 @@ import { Flex } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 
 import constructionCone from '../assets/images/construction-cone.svg';
-import Image from '../shared/Image';
-import H1 from '../shared/H1';
-import Button from '../shared/Button';
-import getTokenFromQuery from '../config/authToken';
-import AuthAPI from '../api/auth';
-import Paragraph from '../shared/Paragraph';
-import MaxWidthBox from '../shared/MaxWidthBox';
+import { H1, Image, Button, Paragraph, MaxWidthBox } from '../shared';
+import { getTokenFromQuery } from '../config';
+import { Auth } from '../api';
 
 interface IConfirmAccountState {
     attempting: boolean;
@@ -75,7 +71,7 @@ class ConfirmAccountContainer extends React.Component<{}, IConfirmAccountState>{
     public async componentDidMount() {
         try {
             const token = getTokenFromQuery();
-            const response = await AuthAPI.confirm(token);
+            const response = await Auth.confirm(token);
             if (response.status === 200) {
                 console.log("Confirmed account");
                 this.setState({

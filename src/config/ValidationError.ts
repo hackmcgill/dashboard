@@ -1,4 +1,4 @@
-export default interface IValidationError {
+export interface IValidationError {
     status: number;
     message: string;
     data: {

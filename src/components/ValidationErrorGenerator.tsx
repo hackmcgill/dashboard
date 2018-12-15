@@ -1,10 +1,9 @@
-// import * as React from 'react';
-import ValidationError, { IValidationErrorItem, instanceOfIValidationErrorItem } from '../config/ValidationError';
+import { IValidationError, IValidationErrorItem, instanceOfIValidationErrorItem } from '../config';
 import { toast } from 'react-toastify';
+import { APIResponse } from '../api';
 import 'react-toastify/dist/ReactToastify.css';
-import APIResponse from '../api/APIResponse';
 
-export default function ValidationErrorGenerator(response: APIResponse<ValidationError>) {
+export default function ValidationErrorGenerator(response: APIResponse<IValidationError>) {
     if (!response) {
         return;
     }

@@ -31,6 +31,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "cosmos": "cosmos",
+    "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
     "eject": "PORT=1337 react-scripts-ts eject",
     "lint": "tslint 'src/**/*.{ts,tsx}'"
@@ -52,6 +53,7 @@
     "@types/rebass__grid": "^6.0.0",
     "@types/styled-components": "^4.0.1",
     "@types/yup": "^0.26.0",
+    "barrelsby": "^1.0.2",
     "file-loader": "^2.0.0",
     "react-cosmos": "^4.6.4",
     "typescript": "^3.2.2"

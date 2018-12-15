@@ -1,7 +1,7 @@
 
-import { REQUIRED_INPUT } from '../config/constants';
 import * as React from 'react';
-import RequiredInputLabel from '../shared/RequiredInputLabel';
+import { REQUIRED_INPUT } from '../config';
+import { RequiredInputLabel } from '../shared';
 import { Flex, Box } from '@rebass/grid';
 import SecondaryInfoText from '../shared/SecondaryInfoText';
 

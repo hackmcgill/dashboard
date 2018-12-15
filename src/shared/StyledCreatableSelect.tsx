@@ -1,8 +1,8 @@
 import CreatableSelect from "react-select/lib/Creatable";
 import styled from "./styled-components";
-import inputStyles from "./inputStyles";
+import { inputStyles } from "./inputStyles";
 
-const StyledCreatableSelect = styled(CreatableSelect)`
+export const StyledCreatableSelect = styled(CreatableSelect)`
   .react-select__control {
     ${inputStyles}
     display: flex;
