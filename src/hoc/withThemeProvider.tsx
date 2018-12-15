@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
-import theme from '../theme';
 import GlobalStyles from '../shared/GlobalStyles';
+import theme from '../theme';
 
 const withThemeProvider = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {
@@ -13,12 +13,12 @@ const withThemeProvider = <P extends {}>(Component: React.ComponentType<P>) =>
       return (
         <ThemeProvider theme={theme}>
           <div>
-            <GlobalStyles/>
+            <GlobalStyles />
             <Component {...this.props} />
           </div>
         </ThemeProvider>
-      )
+      );
     }
-  }
+  };
 
 export default withThemeProvider;

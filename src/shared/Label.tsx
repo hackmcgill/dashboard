@@ -1,4 +1,4 @@
-import styled from "./styled-components";
+import styled from './styled-components';
 
 interface ILabelProps {
   width?: string;
@@ -6,10 +6,10 @@ interface ILabelProps {
 }
 
 export const Label = styled.label<ILabelProps>`
-  font-weight: ${props => props.fontWeight || "bold"};
-  color: ${props => props.theme.colors.greyDark};
+  font-weight: ${(props) => props.fontWeight || 'bold'};
+  color: ${(props) => props.theme.colors.greyDark};
   display: block;
-  width: ${props => props.width || "100%"};
+  width: ${(props) => props.width || '100%'};
 `;
 
 export default Label;

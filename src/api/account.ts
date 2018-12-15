@@ -1,8 +1,8 @@
-import { IAccount, APIRoute, IInviteInfo, CACHE_USER_KEY } from '../config';
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { APIRoute, CACHE_USER_KEY, IAccount, IInviteInfo } from '../config';
+import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
-import LocalCache from '../util/LocalCache';
 
 class AccountAPI {
   constructor() {
@@ -23,12 +23,12 @@ class AccountAPI {
     if (authToken) {
       config = {
         headers: {
-          Authentication: authToken
-        }
+          Authentication: authToken,
+        },
       };
     }
     const value = await API.getEndpoint(APIRoute.ACCOUNT).create(account, {
-      config
+      config,
     });
     LocalCache.set(CACHE_USER_KEY, value);
     return value;
@@ -55,7 +55,7 @@ class AccountAPI {
     id: string,
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<IAccount>>> {
-    const key = CACHE_USER_KEY + "-" + id;
+    const key = CACHE_USER_KEY + '-' + id;
     const cached: any = LocalCache.get(key);
     if (cached && !overrideCache) {
       return cached as AxiosResponse<APIResponse<IAccount>>;
@@ -72,7 +72,10 @@ class AccountAPI {
   public async update(
     account: IAccount
   ): Promise<AxiosResponse<APIResponse<IAccount>>> {
-    const value = await API.getEndpoint(APIRoute.ACCOUNT).patch(account, account);
+    const value = await API.getEndpoint(APIRoute.ACCOUNT).patch(
+      account,
+      account
+    );
     LocalCache.remove(CACHE_USER_KEY);
     return value;
   }

@@ -1,10 +1,12 @@
-import * as React from "react";
-import styled from "./styled-components";
-import * as Autosuggest from "react-autosuggest";
-import inputStyles from "./inputStyles";
+import * as React from 'react';
+import * as Autosuggest from 'react-autosuggest';
+import inputStyles from './inputStyles';
+import styled from './styled-components';
 
 // Confused? https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14224#issuecomment-428814136
-const StringAutosuggester = (Autosuggest as unknown) as { new (): Autosuggest<string> };
+const StringAutosuggester = (Autosuggest as unknown) as {
+  new (): Autosuggest<string>;
+};
 
 const AutosuggestWrapper = styled.div`
   .react-autosuggest__container {
@@ -16,8 +18,7 @@ const AutosuggestWrapper = styled.div`
   }
 
   .react-autosuggest__input:hover {
-    border: 2px solid
-      ${props => props.theme.colors.greyDark};
+    border: 2px solid ${(props) => props.theme.colors.greyDark};
   }
 
   .react-autosuggest__input--focused {
@@ -35,11 +36,10 @@ const AutosuggestWrapper = styled.div`
     position: absolute;
     width: 100%;
     align-self: center;
-    background: ${props => props.theme.colors.white};
+    background: ${(props) => props.theme.colors.white};
     overflow-y: auto;
     max-height: 200px;
-    border: 1px solid
-      ${props => props.theme.colors.greyLight};
+    border: 1px solid ${(props) => props.theme.colors.greyLight};
     border-radius: 2px;
     z-index: 10;
   }
@@ -58,14 +58,14 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__suggestion--highlighted {
     font-weight: normal;
-    background-color: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.white};
   }
 
   .react-autosuggest__suggestion--selected {
     font-weight: normal;
-    background-color: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.white};
   }
 `;
 

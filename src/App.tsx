@@ -3,71 +3,120 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CreateAccount from './containers/createAccount';
 import resetPassword from './containers/resetPassword';
 
-import LoginContainer from './containers/login';
 import ConfirmAccountContainer from './containers/confirmAccount';
-import EditAccountContainer from './containers/editAccount';
-import DashboardContainer from './containers/dashboard';
-import NotFoundContainer from './containers/notFound';
 import CreateApplicationContainer from './containers/createApplication';
+import DashboardContainer from './containers/dashboard';
+import EditAccountContainer from './containers/editAccount';
+import LoginContainer from './containers/login';
+import NotFoundContainer from './containers/notFound';
 
+import {
+  FrontendRoute,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  UserType,
+} from './config';
+import ForgotPasswordContainer from './containers/forgotPassword';
 import withAuthRedirect from './hoc/withAuthRedirect';
 import withTokenRedirect from './hoc/withTokenRedirect';
-import ForgotPasswordContainer from './containers/forgotPassword';
-import { FrontendRoute, UserType, IAccount, IHacker, HackerStatus } from './config';
 
+import EditApplicationContainer from './containers/editApplication';
+import withHackerRedirect from './hoc/withHackerRedirect';
 import withNavbar from './hoc/withNavbar';
 import withThemeProvider from './hoc/withThemeProvider';
-import withHackerRedirect from './hoc/withHackerRedirect';
-import EditApplicationContainer from './containers/editApplication';
-
 
 class App extends React.Component {
-
   public render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact={true} path={FrontendRoute.HOME_PAGE} component={withNavbar(withAuthRedirect(DashboardContainer))} />
-          <Route exact={true} path={FrontendRoute.CREATE_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(CreateAccount, { requiredAuthState: false }))} />
-          <Route exact={true} path={FrontendRoute.EDIT_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(EditAccountContainer, { requiredAuthState: true }))} />
-          <Route exact={true} path={FrontendRoute.RESET_PASSWORD_PAGE} component={withNavbar(withTokenRedirect(resetPassword))} />
-          <Route exact={true} path={FrontendRoute.CONFIRM_ACCOUNT_PAGE} component={withNavbar(withAuthRedirect(ConfirmAccountContainer, { requiredAuthState: true, redirAfterLogin: true }))} />
-          <Route exact={true} path={FrontendRoute.FORGOT_PASSWORD_PAGE} component={withNavbar(ForgotPasswordContainer)} />
-          <Route exact={true} path={FrontendRoute.CREATE_APPLICATION_PAGE}
-            component={
-              withNavbar(withAuthRedirect(
-                withHackerRedirect(CreateApplicationContainer,
-                  {
-                    requiredAuthState: false
-                  }
-                ),
+          <Route
+            exact={true}
+            path={FrontendRoute.HOME_PAGE}
+            component={withNavbar(withAuthRedirect(DashboardContainer))}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CREATE_ACCOUNT_PAGE}
+            component={withNavbar(
+              withAuthRedirect(CreateAccount, { requiredAuthState: false })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.EDIT_ACCOUNT_PAGE}
+            component={withNavbar(
+              withAuthRedirect(EditAccountContainer, {
+                requiredAuthState: true,
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.RESET_PASSWORD_PAGE}
+            component={withNavbar(withTokenRedirect(resetPassword))}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CONFIRM_ACCOUNT_PAGE}
+            component={withNavbar(
+              withAuthRedirect(ConfirmAccountContainer, {
+                requiredAuthState: true,
+                redirAfterLogin: true,
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.FORGOT_PASSWORD_PAGE}
+            component={withNavbar(ForgotPasswordContainer)}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CREATE_APPLICATION_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(CreateApplicationContainer, {
+                  requiredAuthState: false,
+                }),
                 {
                   redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) => user.confirmed && user.accountType === UserType.HACKER
-                }))
-            }
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
+            )}
           />
-          <Route exact={true} path={FrontendRoute.EDIT_APPLICATION_PAGE}
-            component={
-              withNavbar(withAuthRedirect(
-                withHackerRedirect(EditApplicationContainer,
-                  {
-                    AuthVerification: (hacker: IHacker) => hacker.status === HackerStatus.HACKER_STATUS_APPLIED
-                  }
-                ),
+          <Route
+            exact={true}
+            path={FrontendRoute.EDIT_APPLICATION_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(EditApplicationContainer, {
+                  AuthVerification: (hacker: IHacker) =>
+                    hacker.status === HackerStatus.HACKER_STATUS_APPLIED,
+                }),
                 {
                   requiredAuthState: true,
                   redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) => user.confirmed && user.accountType === UserType.HACKER
-                }))
-            }
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
+            )}
           />
-          <Route exact={true} path={FrontendRoute.LOGIN_PAGE} component={withNavbar(withAuthRedirect(LoginContainer, { requiredAuthState: false }))} />
+          <Route
+            exact={true}
+            path={FrontendRoute.LOGIN_PAGE}
+            component={withNavbar(
+              withAuthRedirect(LoginContainer, { requiredAuthState: false })
+            )}
+          />
           <Route path="*" component={withNavbar(NotFoundContainer)} />
         </Switch>
       </BrowserRouter>
     );
-
   }
 }
 
