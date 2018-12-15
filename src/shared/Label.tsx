@@ -6,10 +6,6 @@ interface ILabelProps {
 }
 
 export const Label = styled.label<ILabelProps>`
-  & > span {
-    margin-left: 10px;
-    display: inline-block;
-  }
   font-weight: ${props => props.fontWeight || "bold"};
   color: ${props => props.theme.colors.greyDark};
   display: block;
