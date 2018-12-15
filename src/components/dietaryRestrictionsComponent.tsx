@@ -38,6 +38,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<
       label: DietaryRestriction.VEGETARIAN,
       value: DietaryRestriction.VEGETARIAN,
     },
+    { label: DietaryRestriction.PORKFREE, value: DietaryRestriction.PORKFREE },
   ];
   return (
     <Label>

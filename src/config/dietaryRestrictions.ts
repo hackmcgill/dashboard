@@ -6,5 +6,6 @@ export enum DietaryRestriction {
   GLUTEN_FREE = 'Gluten-Free',
   HALAL = 'Halal',
   KOSHER = 'Kosher',
+  PORKFREE = 'Pork-Free',
 }
 export default DietaryRestriction;

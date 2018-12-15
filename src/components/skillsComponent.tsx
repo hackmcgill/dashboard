@@ -13,7 +13,7 @@ export interface ISkillsComponentProps {
 }
 
 /**
- * SkillsComponent renders a dropdown for users to select their dietary restrictions, and
+ * SkillsComponent renders a dropdown for users to select their Skills, and
  * potentially create their own restrictions.
  */
 const SkillsComponent: React.StatelessComponent<
