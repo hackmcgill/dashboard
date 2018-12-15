@@ -82,8 +82,8 @@ class AuthAPI {
     newPassword: string
   ): AxiosPromise {
     const changePasswordObject = {
-      oldPassword: oldPassword,
-      newPassword: newPassword,
+      oldPassword,
+      newPassword,
     };
     return API.getEndpoint(APIRoute.AUTH_CHANGE_PASS).patch(
       { id: '' },

@@ -85,7 +85,7 @@ class HackerAPI {
     const key = CACHE_HACKER_KEY + '-' + id;
     const value = API.getEndpoint(APIRoute.HACKER_STATUS).patch(
       { id },
-      { status: status }
+      { status }
     );
     LocalCache.remove(CACHE_HACKER_KEY);
     LocalCache.remove(key);
@@ -116,7 +116,7 @@ class HackerAPI {
     const key = CACHE_HACKER_KEY + '-' + id;
     const value = API.getEndpoint(APIRoute.HACKER_STATUS).patch(
       { id },
-      { confirm: confirm }
+      { confirm }
     );
     LocalCache.remove(CACHE_HACKER_KEY);
     LocalCache.remove(key);
