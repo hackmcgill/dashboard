@@ -327,19 +327,12 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           options={[
-            {
-              label: IEthnicity.AFRO_AMER,
-              value: IEthnicity.AFRO_AMER,
-            },
-            {
-              label: IEthnicity.ASIAN_PI,
-              value: IEthnicity.ASIAN_PI,
-            },
-            {
-              label: IEthnicity.EUROPEAN,
-              value: IEthnicity.EUROPEAN,
-            },
+            { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
+            { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
+            { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
             { label: IEthnicity.HISP, value: IEthnicity.HISP },
+            { label: IEthnicity.MID_EAST, value: IEthnicity.MID_EAST },
+            { label: IEthnicity.NATIVE_AM, value: IEthnicity.NATIVE_AM },
             { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
           ]}
           label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
