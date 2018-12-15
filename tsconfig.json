@@ -12,6 +12,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "typeRoots": [
+      "./typings"
+    ],
     "lib": [
       "es2015",
       "dom"

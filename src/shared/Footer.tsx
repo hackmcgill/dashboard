@@ -5,7 +5,7 @@ interface IFooterProps {
 }
 const Footer = styled.footer<IFooterProps>`
     z-index: 11;
-    position: sticky;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
