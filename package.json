@@ -33,7 +33,7 @@
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
     "eject": "PORT=1337 react-scripts-ts eject",
-    "lint": "tslint --fix 'src/**/*.{ts,tsx}'"
+    "lint": "tslint --fix 'src/**/*.{ts,tsx}' --force"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
