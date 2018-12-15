@@ -22,6 +22,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<
   IDietRestrictionProps
 > = (props) => {
   const options: Array<{ label: string; value: string }> = [
+    { label: DietaryRestriction.NONE, value: DietaryRestriction.NONE },
     {
       label: DietaryRestriction.DAIRY_FREE,
       value: DietaryRestriction.DAIRY_FREE,
@@ -32,7 +33,6 @@ const DietaryRestrictionsComponent: React.StatelessComponent<
     },
     { label: DietaryRestriction.HALAL, value: DietaryRestriction.HALAL },
     { label: DietaryRestriction.KOSHER, value: DietaryRestriction.KOSHER },
-    { label: DietaryRestriction.NONE, value: DietaryRestriction.NONE },
     { label: DietaryRestriction.PORKFREE, value: DietaryRestriction.PORKFREE },
     { label: DietaryRestriction.VEGAN, value: DietaryRestriction.VEGAN },
     {
