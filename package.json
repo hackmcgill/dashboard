@@ -39,7 +39,7 @@
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.118",
     "@types/node": "^10.12.12",
-    "@types/query-string": "^6.1.0",
+    "@types/query-string": "^6.1.1",
     "@types/react": "^16.7.13",
     "@types/react-alert": "^2.4.2",
     "@types/react-autosuggest": "^9.3.6",
