@@ -33,6 +33,7 @@ const DietaryRestrictionsComponent: React.StatelessComponent<
     },
     { label: DietaryRestriction.HALAL, value: DietaryRestriction.HALAL },
     { label: DietaryRestriction.KOSHER, value: DietaryRestriction.KOSHER },
+    { label: DietaryRestriction.PORKFREE, value: DietaryRestriction.PORKFREE },
     { label: DietaryRestriction.VEGAN, value: DietaryRestriction.VEGAN },
     {
       label: DietaryRestriction.VEGETARIAN,

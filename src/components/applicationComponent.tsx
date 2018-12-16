@@ -327,19 +327,12 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           options={[
-            {
-              label: IEthnicity.AFRO_AMER,
-              value: IEthnicity.AFRO_AMER,
-            },
-            {
-              label: IEthnicity.ASIAN_PI,
-              value: IEthnicity.ASIAN_PI,
-            },
-            {
-              label: IEthnicity.EUROPEAN,
-              value: IEthnicity.EUROPEAN,
-            },
+            { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
+            { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
+            { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
             { label: IEthnicity.HISP, value: IEthnicity.HISP },
+            { label: IEthnicity.MID_EAST, value: IEthnicity.MID_EAST },
+            { label: IEthnicity.NATIVE_AM, value: IEthnicity.NATIVE_AM },
             { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
           ]}
           label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
@@ -456,34 +449,28 @@ class ManageApplicationContainer extends React.Component<
             },
             { label: Skills.BackEnd, value: Skills.BackEnd },
             { label: Skills.C, value: Skills.C },
-            { label: Skills.CSharp, value: Skills.CSharp },
             { label: Skills.CPlusPlus, value: Skills.CPlusPlus },
+            { label: Skills.CSharp, value: Skills.CSharp },
             { label: Skills.CSS, value: Skills.CSS },
-            {
-              label: Skills.DataScience,
-              value: Skills.DataScience,
-            },
-            {
-              label: Skills.DesktopApps,
-              value: Skills.DesktopApps,
-            },
+            { label: Skills.DataScience, value: Skills.DataScience },
+            { label: Skills.DesktopApps, value: Skills.DesktopApps },
             { label: Skills.Django, value: Skills.Django },
             { label: Skills.Excel, value: Skills.Excel },
+            { label: Skills.FPGA, value: Skills.FPGA },
             { label: Skills.FrontEnd, value: Skills.FrontEnd },
             { label: Skills.HTML, value: Skills.HTML },
             { label: Skills.iOS, value: Skills.iOS },
             { label: Skills.Java, value: Skills.Java },
             { label: Skills.Javascript, value: Skills.Javascript },
-            {
-              label: Skills.MachineLearning,
-              value: Skills.MachineLearning,
-            },
+            { label: Skills.JS, value: Skills.JS },
+            { label: Skills.MachineLearning, value: Skills.MachineLearning },
             { label: Skills.MobileApps, value: Skills.MobileApps },
             { label: Skills.MongoDB, value: Skills.MongoDB },
             {
               label: Skills.NaturalLanguageProcessing,
               value: Skills.NaturalLanguageProcessing,
             },
+            { label: Skills.NeuralNets, value: Skills.NeuralNets },
             { label: Skills.NodeJS, value: Skills.NodeJS },
             { label: Skills.PHP, value: Skills.PHP },
             {
@@ -492,18 +479,16 @@ class ManageApplicationContainer extends React.Component<
             },
             { label: Skills.Python, value: Skills.Python },
             { label: Skills.React, value: Skills.React },
+            { label: Skills.RNN, value: Skills.RNN },
             { label: Skills.Robotics, value: Skills.Robotics },
             { label: Skills.Ruby, value: Skills.Ruby },
-            {
-              label: Skills.RubyonRails,
-              value: Skills.RubyonRails,
-            },
+            { label: Skills.RubyonRails, value: Skills.RubyonRails },
             { label: Skills.Swift, value: Skills.Swift },
+            { label: Skills.TS, value: Skills.TS },
             { label: Skills.Typescript, value: Skills.Typescript },
             { label: Skills.UIDesign, value: Skills.UIDesign },
+            { label: Skills.Unity, value: Skills.Unity },
             { label: Skills.UXDesign, value: Skills.UXDesign },
-            { label: Skills.JS, value: Skills.JS },
-            { label: Skills.TS, value: Skills.TS },
           ]}
           label={CONSTANTS.SKILLS_REQUEST_LABEL}
           placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
