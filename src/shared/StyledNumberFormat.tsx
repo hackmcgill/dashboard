@@ -1,9 +1,9 @@
-import NumberFormat from "react-number-format";
-import styled from "src/shared/styled-components";
-import inputStyles from "src/shared/inputStyles";
+import NumberFormat from 'react-number-format';
+import inputStyles from './inputStyles';
+import styled from './styled-components';
 
-const StyledNumberFormat = styled(NumberFormat)`
-    ${inputStyles};
+export const StyledNumberFormat = styled(NumberFormat)`
+  ${inputStyles};
 `;
 
 export default StyledNumberFormat;

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import ManageAccount, {ManageAccountModes} from "src/containers/manageAccount";
+import ManageAccount, { ManageAccountModes } from '../containers/manageAccount';
 
-const EditAccount = () =>
-  <ManageAccount mode={ManageAccountModes.EDIT}/>
+const EditAccount = () => <ManageAccount mode={ManageAccountModes.EDIT} />;
 
 export default EditAccount;

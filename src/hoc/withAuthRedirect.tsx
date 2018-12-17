@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Redirect } from "react-router-dom";
-import { IAccount } from 'src/config/userTypes';
-import FrontendRoute from 'src/config/FrontendRoute';
-import { getUserInfo } from 'src/util/UserInfoHelperFunctions';
+import * as React from 'react';
+import { Redirect } from 'react-router-dom';
+
+import { FrontendRoute, IAccount } from '../config';
+import { getUserInfo } from '../util/UserInfoHelperFunctions';
 
 enum authStates {
   authorized,
   unauthorized,
-  undefined
+  undefined,
 }
 
 export interface IAuthDirectOptions {
@@ -19,27 +19,37 @@ export interface IAuthDirectOptions {
   redirAfterLogin?: boolean;
 }
 
-
 const defaultOptions = {
   requiredAuthState: true,
   AuthVerification: (acct: IAccount) => true,
-  redirOnSuccess: false
-}
+  redirOnSuccess: false,
+};
 
-const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, options: IAuthDirectOptions = defaultOptions) =>
+const withAuthRedirect = <P extends {}>(
+  Component: React.ComponentType<P>,
+  options: IAuthDirectOptions = defaultOptions
+) =>
   class extends React.Component<P, { authState: authStates }> {
-
     private verification: (acct: IAccount) => boolean;
     private redirOnSuccess: string;
 
     constructor(props: any) {
       super(props);
       this.state = {
-        authState: authStates.undefined
+        authState: authStates.undefined,
       };
-      this.verification = (options.AuthVerification) ? options.AuthVerification : defaultOptions.AuthVerification;
-      this.redirOnSuccess = (options.redirAfterLogin) ? `?redir=${encodeURIComponent(window.location.pathname + window.location.search)}` : '';
-      options.requiredAuthState = (options.requiredAuthState !== undefined) ? options.requiredAuthState : defaultOptions.requiredAuthState
+      this.verification = options.AuthVerification
+        ? options.AuthVerification
+        : defaultOptions.AuthVerification;
+      this.redirOnSuccess = options.redirAfterLogin
+        ? `?redir=${encodeURIComponent(
+            window.location.pathname + window.location.search
+          )}`
+        : '';
+      options.requiredAuthState =
+        options.requiredAuthState !== undefined
+          ? options.requiredAuthState
+          : defaultOptions.requiredAuthState;
     }
 
     public async componentDidMount() {
@@ -48,16 +58,18 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
         if (selfInfo) {
           const verified = this.verification(selfInfo);
           this.setState({
-            authState: (verified) ? authStates.authorized : authStates.unauthorized
+            authState: verified
+              ? authStates.authorized
+              : authStates.unauthorized,
           });
         } else {
           this.setState({
-            authState: authStates.unauthorized
+            authState: authStates.unauthorized,
           });
         }
       } catch (e) {
         this.setState({
-          authState: authStates.unauthorized
+          authState: authStates.unauthorized,
         });
       }
     }
@@ -66,13 +78,23 @@ const withAuthRedirect = <P extends {}>(Component: React.ComponentType<P>, optio
       const { authState } = this.state;
       switch (authState) {
         case authStates.authorized:
-          return options.requiredAuthState ? <Component {...this.props} /> : (<Redirect to={FrontendRoute.HOME_PAGE} />);
+          return options.requiredAuthState ? (
+            <Component {...this.props} />
+          ) : (
+            <Redirect to={FrontendRoute.HOME_PAGE} />
+          );
         case authStates.unauthorized:
-          return options.requiredAuthState ? (<Redirect to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`} />) : <Component {...this.props} />;
+          return options.requiredAuthState ? (
+            <Redirect
+              to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`}
+            />
+          ) : (
+            <Component {...this.props} />
+          );
         default:
           return <div />;
       }
     }
-  }
+  };
 
 export default withAuthRedirect;

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import ManageAccount, { ManageAccountModes } from "src/containers/manageAccount";
 import { RouteProps } from 'react-router';
+import ManageAccount, { ManageAccountModes } from '../containers/manageAccount';
 
 const CreateAccount = (props: RouteProps) => {
-    return <ManageAccount mode={ManageAccountModes.CREATE} {...props} />
-}
+  return <ManageAccount mode={ManageAccountModes.CREATE} {...props} />;
+};
 
 export default CreateAccount;

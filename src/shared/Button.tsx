@@ -1,14 +1,15 @@
-import styled from "src/shared/styled-components";
+import styled from './styled-components';
 
 interface IButtonProps {
   secondary?: boolean;
   isLoading?: boolean;
 }
 
-const Button = styled.button<IButtonProps>`
-  background-color: ${props => props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+export const Button = styled.button<IButtonProps>`
+  background-color: ${(props) =>
+    props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
   font-size: 14px;
-  font-family: ${props => props.theme.fonts.header};
+  font-family: ${(props) => props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -21,17 +22,30 @@ const Button = styled.button<IButtonProps>`
   position: relative;
 
   &:hover {
-    background-color: ${props => props.secondary ? props.theme.colors.primary : props.theme.colors.primaryLight};
+    background-color: ${(props) =>
+      props.secondary
+        ? props.theme.colors.primary
+        : props.theme.colors.primaryLight};
   }
 
   @keyframes spinner {
-    to {transform: rotate(360deg);}
+    to {
+      transform: rotate(360deg);
+    }
   }
 
-  ${props => props.isLoading && `
-    color: ${props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+  ${(props) =>
+    props.isLoading &&
+    `
+    color: ${
+      props.secondary ? props.theme.colors.grey : props.theme.colors.primary
+    };
     &:hover {
-      color: ${props.secondary ? props.theme.colors.primary : props.theme.colors.primaryLight};
+      color: ${
+        props.secondary
+          ? props.theme.colors.primary
+          : props.theme.colors.primaryLight
+      };
     }
     &:before {
       content: '';
@@ -44,11 +58,14 @@ const Button = styled.button<IButtonProps>`
       margin-top: -10px;
       margin-left: -10px;
       border-radius: 50%;
-      border: 3px solid ${props.secondary ? props.theme.colors.greyLight : props.theme.colors.primaryLight};
+      border: 3px solid ${
+        props.secondary
+          ? props.theme.colors.greyLight
+          : props.theme.colors.primaryLight
+      };
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
-    }`
-  }
+    }`}
 `;
 
 export default Button;
