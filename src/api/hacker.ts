@@ -2,11 +2,11 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   APIRoute,
   CACHE_HACKER_KEY,
+  CACHE_STATS_KEY,
   HackerStatus,
   IHacker,
   IResumeResponse,
   IStatsResponse,
-  CACHE_STATS_KEY
 } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
