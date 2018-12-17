@@ -17,4 +17,5 @@ export * from './schools';
 export * from './searchParameter';
 export * from './shirtSizes';
 export * from './skills';
+export * from './statsResponse';
 export * from './userTypes';
