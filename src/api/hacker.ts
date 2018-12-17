@@ -2,9 +2,11 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   APIRoute,
   CACHE_HACKER_KEY,
+  CACHE_STATS_KEY,
   HackerStatus,
   IHacker,
   IResumeResponse,
+  IStatsResponse,
 } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
@@ -15,6 +17,7 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER);
     API.createEntity(APIRoute.HACKER_SELF);
     API.createEntity(APIRoute.HACKER_RESUME);
+    API.createEntity(APIRoute.HACKER_STATS);
   }
   /**
    * Create an account.
@@ -147,6 +150,13 @@ class HackerAPI {
       subURL: id,
     });
     LocalCache.remove(key);
+    return value;
+  }
+
+  public async getStats(): Promise<AxiosResponse<APIResponse<IStatsResponse>>> {
+    const key = CACHE_STATS_KEY;
+    const value = await API.getEndpoint(APIRoute.HACKER_STATS).getAll();
+    LocalCache.set(key, value, new Date(Date.now() + 5 * 60 * 1000));
     return value;
   }
 }
