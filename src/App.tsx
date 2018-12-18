@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CreateAccount from './containers/createAccount';
-import resetPassword from './containers/resetPassword';
+import CreateAccount from './Account/AccountCreation';
+import resetPassword from './Login/PasswordReset';
 
-import ConfirmAccountContainer from './containers/confirmAccount';
-import CreateApplicationContainer from './containers/createApplication';
-import DashboardContainer from './containers/dashboard';
-import EditAccountContainer from './containers/editAccount';
-import LoginContainer from './containers/login';
-import NotFoundContainer from './containers/notFound';
+import NotFoundContainer from './404/404';
+import EditAccountContainer from './Account/AccountEdition';
+import ConfirmAccountContainer from './Account/EmailConfirmed';
+import CreateApplicationContainer from './Application/ApplicationCreation';
+import DashboardContainer from './Dashboard/Dashboard';
+import LoginContainer from './Login/Login';
 
 import {
   FrontendRoute,
@@ -17,14 +17,14 @@ import {
   IHacker,
   UserType,
 } from './config';
-import ForgotPasswordContainer from './containers/forgotPassword';
-import withAuthRedirect from './hoc/withAuthRedirect';
-import withTokenRedirect from './hoc/withTokenRedirect';
+import ForgotPasswordContainer from './Login/PasswordForgot';
+import withAuthRedirect from './shared/HOC/withAuthRedirect';
+import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
-import EditApplicationContainer from './containers/editApplication';
-import withHackerRedirect from './hoc/withHackerRedirect';
-import withNavbar from './hoc/withNavbar';
-import withThemeProvider from './hoc/withThemeProvider';
+import EditApplicationContainer from './Application/ApplicationEdition';
+import withHackerRedirect from './shared/HOC/withHackerRedirect';
+import withNavbar from './shared/HOC/withNavbar';
+import withThemeProvider from './shared/HOC/withThemeProvider';
 
 class App extends React.Component {
   public render() {
