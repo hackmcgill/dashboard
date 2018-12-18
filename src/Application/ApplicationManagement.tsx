@@ -214,12 +214,12 @@ class ManageApplicationContainer extends React.Component<
         .test(
           'length',
           'At most 2000 characters',
-          (value) => value.length < 2000
+          (value) => value && value.length < 2000
         ),
       comments: Yup.string().test(
         'length',
         'At most 500 characters',
-        (value) => value.length < 500
+        (value) => !value || value.length < 500
       ),
     });
   }
