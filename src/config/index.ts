@@ -1,6 +1,6 @@
 export * from './APIRoute';
 export * from './frontendRoutes';
-export * from './majors';
+export * from '../majors';
 export * from './validationError';
 export * from './authToken';
 export * from './constants';
