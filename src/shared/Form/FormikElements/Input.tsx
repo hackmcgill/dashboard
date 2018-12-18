@@ -1,6 +1,6 @@
+import { FieldProps } from 'formik';
 import * as React from 'react';
 import { Input, Label, LabelText } from '..';
-import { FieldProps } from 'formik';
 
 interface IInputFormikComponentProp {
   label: string;

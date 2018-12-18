@@ -9,7 +9,9 @@ interface IPasswordInputProp {
   isTight?: boolean;
   value?: string;
 }
-export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (props) => {
+export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (
+  props
+) => {
   return (
     <Label>
       <LabelText label={props.label} required={props.required} />

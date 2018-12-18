@@ -522,7 +522,10 @@ class ManageApplicationContainer extends React.Component<
           value={fp.values.codeOfConduct_MCHACKS}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="codeOfConduct_MCHACKS" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="codeOfConduct_MCHACKS"
+        />
         <FastField
           id="codeOfConduct_MLH"
           name={'codeOfConduct_MLH'}
@@ -538,7 +541,10 @@ class ManageApplicationContainer extends React.Component<
           value={fp.values.codeOfConduct_MLH}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="codeOfConduct_MLH" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="codeOfConduct_MLH"
+        />
         <Flex justifyContent={'center'}>
           <Box>
             <Button type="submit">Submit</Button>

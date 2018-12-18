@@ -5,8 +5,8 @@ import * as React from 'react';
 import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import ForgotPasswordLinkComponent from './ForgotPasswordLink';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import ForgotPasswordLinkComponent from './ForgotPasswordLink';
 
 import {
   BackgroundImage,

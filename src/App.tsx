@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CreateAccount from './Account/AccountCreation';
 import resetPassword from './Login/PasswordReset';
 
+import NotFoundContainer from './404/404';
+import EditAccountContainer from './Account/AccountEdition';
 import ConfirmAccountContainer from './Account/EmailConfirmed';
 import CreateApplicationContainer from './Application/ApplicationCreation';
 import DashboardContainer from './Dashboard/Dashboard';
-import EditAccountContainer from './Account/AccountEdition';
 import LoginContainer from './Login/Login';
-import NotFoundContainer from './404/404';
 
 import {
   FrontendRoute,

@@ -3,19 +3,24 @@ import * as React from 'react';
 import { NumberFormatValues } from 'react-number-format';
 import { Redirect, RouteProps } from 'react-router';
 
-import DietaryRestrictionComponent from './DietRestrictionSelect';
-import FullNameInput from './FullName';
-import PronounInput from './PronounSelect';
-import ShirtSizeComponent from './ShirtSizeSelect';
-import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import ConfirmationEmailSentComponent from './EmailConfirmationSent';
+import { Account, Auth } from '../api';
 import { FrontendRoute, IAccount, ShirtSize, UserType } from '../config';
 import * as CONSTANTS from '../config/constants';
 import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
-import { NumberFormatInput, EmailInput, PasswordInput, Form } from '../shared/Form';
-import { Account, Auth } from '../api';
+import {
+  EmailInput,
+  Form,
+  NumberFormatInput,
+  PasswordInput,
+} from '../shared/Form';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { getNestedProp, padStart } from '../util';
+import DietaryRestrictionComponent from './DietRestrictionSelect';
+import ConfirmationEmailSentComponent from './EmailConfirmationSent';
+import FullNameInput from './FullName';
+import PronounInput from './PronounSelect';
+import ShirtSizeComponent from './ShirtSizeSelect';
 
 export enum ManageAccountModes {
   CREATE,

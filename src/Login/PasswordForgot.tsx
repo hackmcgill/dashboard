@@ -8,7 +8,7 @@ import { APIResponse, Auth } from '../api';
 
 import Key from '../assets/images/key.svg';
 
-import { Button,  H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
+import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
 
 import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
 

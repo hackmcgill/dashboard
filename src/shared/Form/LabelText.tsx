@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Box, Flex } from '@rebass/grid';
+import * as React from 'react';
 import { REQUIRED_INPUT } from '../../config';
 import { RequiredInputLabel, SecondaryInfoText } from './';
 

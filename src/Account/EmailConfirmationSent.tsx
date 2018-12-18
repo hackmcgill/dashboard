@@ -4,10 +4,10 @@ import * as React from 'react';
 
 import { APIResponse, Auth } from '../api';
 import constructionSVG from '../assets/images/construction.svg';
-import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import { EMAIL_SENT, RESEND_CONF_EMAIL } from '../config';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import WithToasterContainer from '../shared/HOC/withToaster';
 
 interface IConfirmationEmailSentState {
   buttonDisabled: boolean;

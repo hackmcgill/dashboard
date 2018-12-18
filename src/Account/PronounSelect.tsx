@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pronouns } from '../config';
-import { Label, StyledCreatableSelect, LabelText } from '../shared/Form';
+import { Label, LabelText, StyledCreatableSelect } from '../shared/Form';
 
 interface IPronounInputProp {
   value?: Pronouns | string;

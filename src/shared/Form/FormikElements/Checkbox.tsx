@@ -12,9 +12,9 @@ interface ICheckboxProps {
   subtitle?: string;
 }
 
-const FormikCheckbox: React.StatelessComponent<
-  ICheckboxProps & FieldProps
-> = (props) => {
+const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = (
+  props
+) => {
   const { isTight, subtitle } = props;
   const label =
     typeof props.label === 'string' ? <span>{props.label}</span> : props.label;

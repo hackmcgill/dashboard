@@ -1,9 +1,9 @@
 import { Box, Flex } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
-import { Label, FileUpload } from '../shared/Form';
-import { ManageApplicationModes } from './ApplicationManagement';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
+import { FileUpload, Label } from '../shared/Form';
+import { ManageApplicationModes } from './ApplicationManagement';
 
 export interface IResumeProps {
   label: string;

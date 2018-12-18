@@ -1,7 +1,12 @@
 import { FieldProps } from 'formik';
 import * as React from 'react';
 import { Schools } from '../config';
-import { AutosuggestItem, Label, LabelText, StyledAutosuggest } from '../shared/Form';
+import {
+  AutosuggestItem,
+  Label,
+  LabelText,
+  StyledAutosuggest,
+} from '../shared/Form';
 
 /**
  * SchoolComponent props
@@ -54,10 +59,7 @@ export default class SchoolComponent extends React.Component<
 
     return (
       <Label>
-        <LabelText
-          label={this.props.label}
-          required={this.props.required}
-        />
+        <LabelText label={this.props.label} required={this.props.required} />
         <SchoolAutosuggest
           shouldRenderSuggestions={this.shouldRenderSuggestions}
           suggestions={suggestions}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ShirtSize } from '../config';
-import { Label, StyledSelect, LabelText } from '../shared/Form';
+import { Label, LabelText, StyledSelect } from '../shared/Form';
 
 interface IShirtSizeProps {
   value?: ShirtSize | string;
