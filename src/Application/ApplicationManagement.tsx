@@ -1,19 +1,13 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import {
-  ErrorMessage,
-  FastField,
-  Field,
-  Formik,
-  FormikActions,
-  FormikProps,
-} from 'formik';
+import { ErrorMessage, FastField, Field, Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { Redirect } from 'react-router';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import * as CONSTANTS from '../config/constants';
+import { getOptionsFromEnum } from '../util';
 
 import {
   Degrees,
@@ -247,19 +241,7 @@ class ManageApplicationContainer extends React.Component<
           label={CONSTANTS.DEGREE_REQUEST_LABEL}
           placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
           creatable={true}
-          options={[
-            {
-              label: Degrees.UNDERGRADUATE,
-              value: Degrees.UNDERGRADUATE,
-            },
-            { label: Degrees.MASTERS, value: Degrees.MASTERS },
-            { label: Degrees.PHD, value: Degrees.PHD },
-            {
-              label: Degrees.HIGHSCHOOL,
-              value: Degrees.HIGHSCHOOL,
-            },
-            { label: Degrees.OTHER, value: Degrees.OTHER },
-          ]}
+          options={getOptionsFromEnum(Degrees)}
           component={FormikElements.Select}
           value={fp.values.degree}
           required={true}
@@ -296,18 +278,7 @@ class ManageApplicationContainer extends React.Component<
           label={CONSTANTS.GENDER_REQUEST_LABEL}
           placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
           creatable={true}
-          options={[
-            { label: Genders.MALE, value: Genders.MALE },
-            { label: Genders.FEMALE, value: Genders.FEMALE },
-            {
-              label: Genders.PREFER_NOT_TO_SAY,
-              value: Genders.PREFER_NOT_TO_SAY,
-            },
-            {
-              label: Genders.NON_BINARY,
-              value: Genders.NON_BINARY,
-            },
-          ]}
+          options={getOptionsFromEnum(Genders)}
           component={FormikElements.Select}
           value={fp.values.gender}
           required={true}
@@ -318,15 +289,7 @@ class ManageApplicationContainer extends React.Component<
           selectId={'ethnicitySelect'}
           isMulti={true}
           creatable={true}
-          options={[
-            { label: IEthnicity.AFRO_AMER, value: IEthnicity.AFRO_AMER },
-            { label: IEthnicity.ASIAN_PI, value: IEthnicity.ASIAN_PI },
-            { label: IEthnicity.EUROPEAN, value: IEthnicity.EUROPEAN },
-            { label: IEthnicity.HISP, value: IEthnicity.HISP },
-            { label: IEthnicity.MID_EAST, value: IEthnicity.MID_EAST },
-            { label: IEthnicity.NATIVE_AM, value: IEthnicity.NATIVE_AM },
-            { label: IEthnicity.NO_ANS, value: IEthnicity.NO_ANS },
-          ]}
+          options={getOptionsFromEnum(IEthnicity)}
           label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
           placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
@@ -409,17 +372,7 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           id="jobInterest"
           name={'jobInterest'}
-          options={[
-            { label: JobInterest.NONE, value: JobInterest.NONE },
-            {
-              label: JobInterest.INTERNSHIP,
-              value: JobInterest.INTERNSHIP,
-            },
-            {
-              label: JobInterest.FULL_TIME,
-              value: JobInterest.FULL_TIME,
-            },
-          ]}
+          options={getOptionsFromEnum(JobInterest)}
           component={FormikElements.Select}
           label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
           placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
@@ -433,55 +386,7 @@ class ManageApplicationContainer extends React.Component<
           selectId={'skillsSelect'}
           isMulti={true}
           creatable={true}
-          options={[
-            { label: Skills.Android, value: Skills.Android },
-            {
-              label: Skills.ArtificialIntelligence,
-              value: Skills.ArtificialIntelligence,
-            },
-            { label: Skills.BackEnd, value: Skills.BackEnd },
-            { label: Skills.C, value: Skills.C },
-            { label: Skills.CPlusPlus, value: Skills.CPlusPlus },
-            { label: Skills.CSharp, value: Skills.CSharp },
-            { label: Skills.CSS, value: Skills.CSS },
-            { label: Skills.DataScience, value: Skills.DataScience },
-            { label: Skills.DesktopApps, value: Skills.DesktopApps },
-            { label: Skills.Django, value: Skills.Django },
-            { label: Skills.Excel, value: Skills.Excel },
-            { label: Skills.FPGA, value: Skills.FPGA },
-            { label: Skills.FrontEnd, value: Skills.FrontEnd },
-            { label: Skills.HTML, value: Skills.HTML },
-            { label: Skills.iOS, value: Skills.iOS },
-            { label: Skills.Java, value: Skills.Java },
-            { label: Skills.Javascript, value: Skills.Javascript },
-            { label: Skills.JS, value: Skills.JS },
-            { label: Skills.MachineLearning, value: Skills.MachineLearning },
-            { label: Skills.MobileApps, value: Skills.MobileApps },
-            { label: Skills.MongoDB, value: Skills.MongoDB },
-            {
-              label: Skills.NaturalLanguageProcessing,
-              value: Skills.NaturalLanguageProcessing,
-            },
-            { label: Skills.NeuralNets, value: Skills.NeuralNets },
-            { label: Skills.NodeJS, value: Skills.NodeJS },
-            { label: Skills.PHP, value: Skills.PHP },
-            {
-              label: Skills.ProductManagement,
-              value: Skills.ProductManagement,
-            },
-            { label: Skills.Python, value: Skills.Python },
-            { label: Skills.React, value: Skills.React },
-            { label: Skills.RNN, value: Skills.RNN },
-            { label: Skills.Robotics, value: Skills.Robotics },
-            { label: Skills.Ruby, value: Skills.Ruby },
-            { label: Skills.RubyonRails, value: Skills.RubyonRails },
-            { label: Skills.Swift, value: Skills.Swift },
-            { label: Skills.TS, value: Skills.TS },
-            { label: Skills.Typescript, value: Skills.Typescript },
-            { label: Skills.UIDesign, value: Skills.UIDesign },
-            { label: Skills.Unity, value: Skills.Unity },
-            { label: Skills.UXDesign, value: Skills.UXDesign },
-          ]}
+          options={getOptionsFromEnum(Skills)}
           label={CONSTANTS.SKILLS_REQUEST_LABEL}
           placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
@@ -559,18 +464,21 @@ class ManageApplicationContainer extends React.Component<
    * @param values the formik values
    * @param actions the formik actions
    */
-  private handleSubmit(values: any, actions: FormikActions<any>) {
+  private handleSubmit(values: any) {
     const { mode } = this.state;
-    let handler: Promise<boolean>;
+    let handler;
     switch (mode) {
       case ManageApplicationModes.EDIT:
-        handler = this.handleEdit(values, actions);
+        handler = this.handleEdit;
+        break;
+      case ManageApplicationModes.CREATE:
+        handler = this.handleCreate;
         break;
       default:
-        handler = this.handleCreate(values, actions);
-        break;
+        return;
     }
-    handler
+
+    handler(values)
       .then((success: boolean) => {
         if (success) {
           console.log('Submitted application');
@@ -595,10 +503,7 @@ class ManageApplicationContainer extends React.Component<
    * @param values the formik values
    * @param actions the formik actions
    */
-  private async handleCreate(
-    values: any,
-    actions: FormikActions<any>
-  ): Promise<boolean> {
+  private async handleCreate(values: any): Promise<boolean> {
     const acctResponse: AxiosResponse<
       APIResponse<IAccount>
     > = await Account.getSelf();
@@ -632,10 +537,7 @@ class ManageApplicationContainer extends React.Component<
    * @param values Formik values
    * @param actions Formik actions
    */
-  private async handleEdit(
-    values: any,
-    actions: FormikActions<any>
-  ): Promise<boolean> {
+  private async handleEdit(values: any): Promise<boolean> {
     const acctResponse: AxiosResponse<
       APIResponse<IAccount>
     > = await Account.getSelf();

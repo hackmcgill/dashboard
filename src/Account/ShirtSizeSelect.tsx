@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ShirtSize } from '../config';
 import { Label, LabelText, StyledSelect } from '../shared/Form';
+import { getOptionsFromEnum } from '../util';
 
 interface IShirtSizeProps {
   value?: ShirtSize | string;
@@ -12,14 +13,7 @@ interface IShirtSizeProps {
 const ShirtSizeComponent: React.StatelessComponent<IShirtSizeProps> = (
   props
 ) => {
-  const options: Array<{ label: string; value: string }> = [
-    { label: ShirtSize.XS, value: ShirtSize.XS },
-    { label: ShirtSize.S, value: ShirtSize.S },
-    { label: ShirtSize.M, value: ShirtSize.M },
-    { label: ShirtSize.L, value: ShirtSize.L },
-    { label: ShirtSize.XL, value: ShirtSize.XL },
-    { label: ShirtSize.XXL, value: ShirtSize.XXL },
-  ];
+  const options = getOptionsFromEnum(ShirtSize);
   return (
     <Label>
       <LabelText label={props.label} required={props.required} />
