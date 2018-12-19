@@ -10,10 +10,10 @@ import {
 import * as React from 'react';
 import { Redirect } from 'react-router';
 import { toast } from 'react-toastify';
-import * as Yup from 'yup';
 
 import * as CONSTANTS from '../config/constants';
 import { getOptionsFromEnum } from '../util';
+import getValidationSchema from './validationSchema';
 
 import {
   Degrees,
@@ -92,7 +92,6 @@ class ManageApplicationContainer extends React.Component<
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getValidationSchema = this.getValidationSchema.bind(this);
   }
   public async componentDidMount() {
     const { mode } = this.state;
@@ -148,75 +147,12 @@ class ManageApplicationContainer extends React.Component<
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
-          validationSchema={this.getValidationSchema(mode)}
+          validationSchema={getValidationSchema(
+            mode === ManageApplicationModes.CREATE
+          )}
         />
       </MaxWidthBox>
     );
-  }
-
-  /**
-   * Returns a yup object that is conditional based on what mode we're in.
-   * @param mode What management of the application we're doing.
-   */
-  private getValidationSchema(mode: ManageApplicationModes) {
-    const resumeSchema =
-      mode === ManageApplicationModes.CREATE
-        ? Yup.mixed().required('A resume is required')
-        : Yup.mixed();
-
-    return Yup.object().shape({
-      school: Yup.string()
-        .min(1, 'Select a school')
-        .required('Required'),
-      degree: Yup.string().required(),
-      application: Yup.object().shape({
-        portfolioURL: Yup.object().shape({
-          github: Yup.string()
-            .url('Must be a valid url')
-            .required(),
-          dropler: Yup.string().url('Must be a valid url'),
-          linkedIn: Yup.string().url('Must be a valid url'),
-          personal: Yup.string().url('Must be a valid url'),
-          other: Yup.string().url('Must be a valid url'),
-        }),
-        jobInterest: Yup.string().required(),
-        essay: Yup.string()
-          .required('Required')
-          .test(
-            'length',
-            'At most 2000 characters',
-            (value) => value && value.length < 2000
-          ),
-        comments: Yup.string().test(
-          'length',
-          'At most 500 characters',
-          (value) => !value || value.length < 500
-        ),
-      }),
-      resumeFile: resumeSchema
-        .test(
-          'fileSize',
-          'File too large (<4MB only)',
-          (value) => !value || value.size <= 4000000 // 4MB
-        )
-        .test(
-          'fileFormat',
-          'Unsupported Format (PDF only)',
-          (value) => !value || value.type === 'application/pdf'
-        ),
-      ethnicity: Yup.array().required('Required'),
-      major: Yup.string().required('Required'),
-      graduationYear: Yup.number()
-        .required('Required')
-        .min(2018)
-        .max(2025),
-      codeOfConduct_MLH: Yup.boolean()
-        .required('Required')
-        .test('true', 'You must accept the MLH policies', (value) => value),
-      codeOfConduct_MCHACKS: Yup.boolean()
-        .required('Required')
-        .test('true', 'You must accept the McHacks policies', (value) => value),
-    });
   }
 
   /**
