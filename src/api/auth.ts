@@ -1,5 +1,5 @@
 import { AxiosPromise, AxiosResponse } from 'axios';
-import { APIRoute, CACHE_USER_KEY } from '../config';
+import { APIRoute, CACHE_USER_KEY, CACHE_HACKER_KEY } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
@@ -31,6 +31,7 @@ class AuthAPI {
       id: '',
     });
     LocalCache.remove(CACHE_USER_KEY);
+    LocalCache.remove(CACHE_HACKER_KEY);
     return value;
   }
   /**
