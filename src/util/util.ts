@@ -16,7 +16,7 @@ function getNestedProp(obj: any, props: string[]) {
 function getOptionsFromEnum(options: any) {
   return Object.keys(options).map((o) => ({
     label: options[o],
-    value: o,
+    value: options[o],
   }));
 }
 
