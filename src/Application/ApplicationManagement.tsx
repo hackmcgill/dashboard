@@ -469,10 +469,10 @@ class ManageApplicationContainer extends React.Component<
     let handler;
     switch (mode) {
       case ManageApplicationModes.EDIT:
-        handler = this.handleEdit;
+        handler = this.handleEdit.bind(this);
         break;
       case ManageApplicationModes.CREATE:
-        handler = this.handleCreate;
+        handler = this.handleCreate.bind(this);
         break;
       default:
         return;
