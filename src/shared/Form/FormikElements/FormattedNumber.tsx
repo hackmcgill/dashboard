@@ -31,12 +31,8 @@ const NumberFormatFormikComponent: React.StatelessComponent<
  * @param props The props passed into the Textarea component.
  * @returns the function that handles changes to the choices provided by the user.
  */
-function handleChange(
-  props: INumberFormatFormikComponent & FieldProps
-): (value: NumberFormatValues) => void {
+function handleChange({ field, form }: FieldProps) {
   return (value: NumberFormatValues) => {
-    const field = props.field;
-    const form = props.form;
     form.setFieldValue(field.name, parseInt(value.value, 10));
   };
 }
