@@ -144,6 +144,7 @@ class ManageApplicationContainer extends React.Component<
             application: hackerDetails.application,
             codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
             codeOfConduct_MLH: hackerDetails.codeOfConduct,
+            resumeFile: undefined,
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
