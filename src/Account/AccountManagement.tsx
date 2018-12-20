@@ -100,6 +100,8 @@ class ManageAccountContainer extends React.Component<
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
         }
+        // For some reason we could not get self. We should switch our state to CREATE.
+        this.setState({ mode: ManageAccountModes.CREATE });
       }
     }
   }
@@ -150,85 +152,91 @@ class ManageAccountContainer extends React.Component<
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
-          validationSchema={this.getValidationSchema(mode)}
-        />
-        <Form onSubmit={this.handleSubmit}>
-          <FullNameInput
-            firstNameValue={accountDetails.firstName}
-            lastNameValue={accountDetails.lastName}
-            onFirstNameChanged={this.onFirstNameChanged}
-            onLastNameChanged={this.onLastNameChanged}
-          />
-          <EmailInput
-            label={CONSTANTS.EMAIL_LABEL}
-            value={accountDetails.email}
-            onEmailChanged={this.onEmailChanged}
-            disabled={mode === ManageAccountModes.EDIT}
-            required={true}
-          />
-          {mode === ManageAccountModes.CREATE ? (
-            <PasswordInput
-              label={CONSTANTS.PASSWORD_LABEL}
-              onPasswordChanged={this.onPasswordChanged}
-              value={accountDetails.password}
-              required={true}
-            />
-          ) : (
-            <MaxWidthBox>
-              <PasswordInput
-                label={CONSTANTS.OLD_PASSWORD_LABEL}
-                onPasswordChanged={this.onOldPasswordChanged}
-              />
-              <PasswordInput
-                label={CONSTANTS.NEW_PASSWORD_LABEL}
-                onPasswordChanged={this.onPasswordChanged}
-              />
-            </MaxWidthBox>
+          validationSchema={this.getValidationSchema(
+            mode === ManageAccountModes.CREATE
           )}
-          <DietaryRestrictionComponent
-            label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-            value={accountDetails.dietaryRestrictions}
-            onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
-            required={false}
-          />
-          <PronounInput
-            label={CONSTANTS.PRONOUN_LABEL}
-            value={accountDetails.pronoun}
-            placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-            onPronounChanged={this.onPronounChanged}
-            required={true}
-          />
-          <ShirtSizeComponent
-            label={CONSTANTS.SHIRT_SIZE_LABEL}
-            value={accountDetails.shirtSize}
-            onShirtSizeChanged={this.onShirtSizeChanged}
-            required={true}
-          />
-          <NumberFormatInput
-            value={accountDetails.phoneNumber}
-            label={CONSTANTS.PHONE_NUMBER_LABEL}
-            placeholder="+# (###) ###-####"
-            onValueChange={this.onPhoneChanged}
-            format="+# (###) ###-####"
-            required={true}
-          />
-          <NumberFormatInput
-            value={accountDetails.birthDate}
-            label={CONSTANTS.BIRTH_DATE_LABEL}
-            placeholder="MM-DD-YYYY"
-            onValueChange={this.onBirthDateChanged}
-            format="##-##-####"
-            required={true}
-          />
-          <Flex justifyContent={'center'}>
-            <Box>
-              <Button type="button" onClick={this.handleSubmit}>
-                Submit
-              </Button>
-            </Box>
-          </Flex>
-        </Form>
+        />
       </MaxWidthBox>
+    );
+  }
+  private renderFormik(fp: FormikProps<any>) {
+    return (
+      <Form onSubmit={fp.handleSubmit}>
+        <FullNameInput
+          firstNameValue={accountDetails.firstName}
+          lastNameValue={accountDetails.lastName}
+          onFirstNameChanged={this.onFirstNameChanged}
+          onLastNameChanged={this.onLastNameChanged}
+        />
+        <EmailInput
+          label={CONSTANTS.EMAIL_LABEL}
+          value={accountDetails.email}
+          onEmailChanged={this.onEmailChanged}
+          disabled={mode === ManageAccountModes.EDIT}
+          required={true}
+        />
+        {mode === ManageAccountModes.CREATE ? (
+          <PasswordInput
+            label={CONSTANTS.PASSWORD_LABEL}
+            onPasswordChanged={this.onPasswordChanged}
+            value={accountDetails.password}
+            required={true}
+          />
+        ) : (
+          <MaxWidthBox>
+            <PasswordInput
+              label={CONSTANTS.OLD_PASSWORD_LABEL}
+              onPasswordChanged={this.onOldPasswordChanged}
+            />
+            <PasswordInput
+              label={CONSTANTS.NEW_PASSWORD_LABEL}
+              onPasswordChanged={this.onPasswordChanged}
+            />
+          </MaxWidthBox>
+        )}
+        <DietaryRestrictionComponent
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          value={accountDetails.dietaryRestrictions}
+          onDietaryRestrictionsChanged={this.onDietaryRestrictionsChanged}
+          required={false}
+        />
+        <PronounInput
+          label={CONSTANTS.PRONOUN_LABEL}
+          value={accountDetails.pronoun}
+          placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+          onPronounChanged={this.onPronounChanged}
+          required={true}
+        />
+        <ShirtSizeComponent
+          label={CONSTANTS.SHIRT_SIZE_LABEL}
+          value={accountDetails.shirtSize}
+          onShirtSizeChanged={this.onShirtSizeChanged}
+          required={true}
+        />
+        <NumberFormatInput
+          value={accountDetails.phoneNumber}
+          label={CONSTANTS.PHONE_NUMBER_LABEL}
+          placeholder="+# (###) ###-####"
+          onValueChange={this.onPhoneChanged}
+          format="+# (###) ###-####"
+          required={true}
+        />
+        <NumberFormatInput
+          value={accountDetails.birthDate}
+          label={CONSTANTS.BIRTH_DATE_LABEL}
+          placeholder="MM-DD-YYYY"
+          onValueChange={this.onBirthDateChanged}
+          format="##-##-####"
+          required={true}
+        />
+        <Flex justifyContent={'center'}>
+          <Box>
+            <Button type="button" onClick={this.handleSubmit}>
+              Submit
+            </Button>
+          </Box>
+        </Flex>
+      </Form>
     );
   }
 
