@@ -1,5 +1,5 @@
 export const LOCAL_API_URL = 'http://localhost:3000/api';
-export const PROD_API_URL = 'https://api.mchacks.ca/api/';
+export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
 //
 
