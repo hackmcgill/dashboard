@@ -92,6 +92,8 @@ class ManageApplicationContainer extends React.Component<
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
   }
   public async componentDidMount() {
     const { mode } = this.state;
@@ -404,10 +406,10 @@ class ManageApplicationContainer extends React.Component<
     let handler;
     switch (mode) {
       case ManageApplicationModes.EDIT:
-        handler = this.handleEdit.bind(this);
+        handler = this.handleEdit;
         break;
       case ManageApplicationModes.CREATE:
-        handler = this.handleCreate.bind(this);
+        handler = this.handleCreate;
         break;
       default:
         return;
