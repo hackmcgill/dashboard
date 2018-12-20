@@ -13,4 +13,11 @@ function getNestedProp(obj: any, props: string[]) {
   );
 }
 
-export { padStart, getNestedProp };
+function getOptionsFromEnum(options: any) {
+  return Object.keys(options).map((o) => ({
+    label: options[o],
+    value: options[o],
+  }));
+}
+
+export { padStart, getNestedProp, getOptionsFromEnum };

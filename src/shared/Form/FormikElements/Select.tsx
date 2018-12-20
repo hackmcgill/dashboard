@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Label, LabelText, StyledCreatableSelect, StyledSelect } from '..';
 
 interface IStylizedSelectFormikProps {
-  selectId: string;
   label: string;
   options: Array<{ label: string; value: string }>;
   isMulti: boolean;
@@ -21,7 +20,6 @@ const StylizedSelectFormikComponent: React.StatelessComponent<
   const commonProps = {
     className: 'react-select-container',
     classNamePrefix: 'react-select',
-    id: props.selectId,
     onChange: handleChange(props),
     options: props.options,
     isMulti: props.isMulti,

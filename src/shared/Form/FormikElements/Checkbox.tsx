@@ -12,35 +12,23 @@ interface ICheckboxProps {
   subtitle?: string;
 }
 
-const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = (
-  props
-) => {
-  const { isTight, subtitle } = props;
-  const label =
-    typeof props.label === 'string' ? <span>{props.label}</span> : props.label;
+const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
+  isTight,
+  subtitle,
+  label,
+  required,
+  field,
+}) => {
+  const labelElement = typeof label === 'string' ? <span>{label}</span> : label;
   return (
     <Box mb={isTight ? 0 : '20px'}>
       <Label fontWeight="normal">
-        <LabelText label={label} required={props.required} />
-        <Checkbox onChange={handleChange(props)} checked={props.value} />
+        <LabelText label={labelElement} required={required} />
+        <Checkbox {...field} checked={field.value} />
       </Label>
       <FormDescription>{subtitle}</FormDescription>
     </Box>
   );
 };
-/**
- * Function factory that generates function to handle changes in user's choice.
- * @param props The props passed into the checkbox component.
- * @returns the function that handles changes to the choices provided by the user.
- */
-function handleChange(
-  props: ICheckboxProps & FieldProps
-): (event: React.ChangeEvent<HTMLInputElement>) => void {
-  return (event: React.ChangeEvent<HTMLInputElement>) => {
-    const field = props.field;
-    const form = props.form;
-    form.setFieldValue(field.name, event.target.checked);
-  };
-}
 
 export { FormikCheckbox as Checkbox };
