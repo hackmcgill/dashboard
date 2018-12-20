@@ -1,31 +1,24 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
-import MediaQuery from 'react-responsive';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
-import iconAccount from '../assets/images/dashboard-account.svg';
-import iconApplication from '../assets/images/dashboard-application.svg';
-// import iconTeam from '../assets/images/dashboard-team.svg';
 
 import {
   ACCOUNT_NOT_CONFIRMED_MSG,
   EMAIL_SENT,
-  FrontendRoute,
+  FrontendRoute as routes,
   HackerStatus,
   RESEND_CONF_EMAIL,
 } from '../config';
-import { BackgroundImage, Card, H1, H2, Image } from '../shared/Elements';
 
 import { APIResponse, Auth, Hacker } from '../api';
-
-import { isConfirmed } from '../util/UserInfoHelperFunctions';
-
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import WithToasterContainer from '../shared/HOC/withToaster';
+import { isConfirmed } from '../util/UserInfoHelperFunctions';
+import DashboardView, { IDashboardCard } from './View';
+
+import AccountIcon from '../assets/images/dashboard-account.svg';
+import ApplicationIcon from '../assets/images/dashboard-application.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
@@ -42,8 +35,6 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
     };
-    this.confirmAccountToastError = this.confirmAccountToastError.bind(this);
-    this.resendConfirmationEmaill = this.resendConfirmationEmaill.bind(this);
   }
 
   public async componentDidMount() {
@@ -65,68 +56,50 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
 
   public render() {
     const { status, confirmed } = this.state;
-
-    let applicationBtnLink;
-    if (status === HackerStatus.HACKER_STATUS_APPLIED) {
-      applicationBtnLink = FrontendRoute.EDIT_APPLICATION_PAGE;
-    } else if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
-      applicationBtnLink = FrontendRoute.CREATE_APPLICATION_PAGE;
-    } else {
-      applicationBtnLink = FrontendRoute.HOME_PAGE;
-    }
-
     return (
-      <Flex flexDirection={'column'} alignItems={'center'}>
-        <H1>status: {status.toLowerCase()}</H1>
-        <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
-          <Link
-            to={applicationBtnLink}
-            onClick={this.confirmAccountToastError}
-            style={{ textDecoration: 'none' }}
-          >
-            <Card width={'250px'} flexDirection={'column'}>
-              <H2 fontSize={'28px'} marginBottom={'30px'} textAlign={'center'}>
-                Application
-              </H2>
-              <Image src={iconApplication} imgHeight={'125px'} />
-            </Card>
-          </Link>
-          <Link
-            to={FrontendRoute.EDIT_ACCOUNT_PAGE}
-            style={{ textDecoration: 'none' }}
-          >
-            <Card width={'250px'} flexDirection={'column'}>
-              <H2 fontSize={'28px'} marginBottom={'30px'} textAlign={'center'}>
-                Account
-              </H2>
-              <Image src={iconAccount} imgHeight={'125px'} />
-            </Card>
-          </Link>
-
-          <MediaQuery minWidth={960}>
-            <Box width={1}>
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgWidth={'100%'}
-                imgHeight={'100%'}
-              />
-            </Box>
-          </MediaQuery>
-        </Flex>
-      </Flex>
+      <DashboardView
+        cards={this.generateCards(status, confirmed)}
+        status={status}
+      />
     );
   }
 
-  private confirmAccountToastError() {
+  private generateCards(status: HackerStatus, confirmed: boolean) {
+    let applicationRoute;
+
+    if (status === HackerStatus.HACKER_STATUS_APPLIED) {
+      applicationRoute = routes.EDIT_APPLICATION_PAGE;
+    } else if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
+      applicationRoute = routes.CREATE_APPLICATION_PAGE;
+    } else {
+      applicationRoute = routes.HOME_PAGE;
+    }
+
+    const cards: IDashboardCard[] = [
+      {
+        title: 'Application',
+        route: applicationRoute,
+        imageSrc: ApplicationIcon,
+        validation: this.confirmAccountToastError,
+      },
+      {
+        title: 'Account',
+        route: routes.EDIT_ACCOUNT_PAGE,
+        imageSrc: AccountIcon,
+      },
+    ];
+
+    return cards;
+  }
+
+  private confirmAccountToastError = () => {
     const { status, confirmed } = this.state;
     if (!confirmed) {
       const reactMsg = (
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
           <Box mb={'3px'}>{ACCOUNT_NOT_CONFIRMED_MSG}</Box>
           <Box
-            onClick={this.resendConfirmationEmaill}
+            onClick={this.resendConfirmationEmail}
             style={{ textDecoration: 'underline' }}
           >
             {RESEND_CONF_EMAIL}
@@ -145,8 +118,9 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
       // can only access application if their status is NONE, or APPLIED.
       toast.error('You can no longer access your application.');
     }
-  }
-  private resendConfirmationEmaill() {
+  };
+
+  private resendConfirmationEmail = () => {
     Auth.resendConfirmationEmail()
       .then((value: AxiosResponse<APIResponse<{}>>) => {
         if (value.status === 200) {
@@ -158,6 +132,6 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
           ValidationErrorGenerator(response.data);
         }
       });
-  }
+  };
 }
 export default WithToasterContainer(DashboardContainer);

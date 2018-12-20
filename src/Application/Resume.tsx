@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
-import { FileUpload, Label } from '../shared/Form';
+import { FileUpload, Label, LabelText } from '../shared/Form';
 import { ManageApplicationModes } from './ApplicationManagement';
 
 export interface IResumeProps {
@@ -10,6 +10,7 @@ export interface IResumeProps {
   mode: ManageApplicationModes;
   hackerId: string;
   value?: boolean;
+  required?: boolean;
 }
 const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
   props
@@ -20,7 +21,7 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
       <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
       <Box>
         <Label>
-          <span>{props.label}</span>
+          <LabelText label={props.label} required={props.required} />
           <FileUpload {...props} />
         </Label>
       </Box>

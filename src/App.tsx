@@ -7,7 +7,7 @@ import NotFoundContainer from './404/404';
 import EditAccountContainer from './Account/AccountEdition';
 import ConfirmAccountContainer from './Account/EmailConfirmed';
 import CreateApplicationContainer from './Application/ApplicationCreation';
-import DashboardContainer from './Dashboard/Dashboard';
+import DashboardContainer from './Dashboard/Main';
 import LoginContainer from './Login/Login';
 
 import {

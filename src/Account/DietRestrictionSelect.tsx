@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { DietaryRestriction } from '../config';
 import { Label, LabelText, StyledCreatableSelect } from '../shared/Form';
+import { getOptionsFromEnum } from '../util';
 
 /**
  * DietaryRestrictionsComponent props
@@ -17,28 +18,10 @@ export interface IDietRestrictionProps {
  * DietaryRestrictionsComponent renders a dropdown for users to select their dietary restrictions, and
  * potentially create their own restrictions.
  */
-const DietaryRestrictionsComponent: React.StatelessComponent<
-  IDietRestrictionProps
-> = (props) => {
-  const options: Array<{ label: string; value: string }> = [
-    { label: DietaryRestriction.NONE, value: DietaryRestriction.NONE },
-    {
-      label: DietaryRestriction.DAIRY_FREE,
-      value: DietaryRestriction.DAIRY_FREE,
-    },
-    {
-      label: DietaryRestriction.GLUTEN_FREE,
-      value: DietaryRestriction.GLUTEN_FREE,
-    },
-    { label: DietaryRestriction.HALAL, value: DietaryRestriction.HALAL },
-    { label: DietaryRestriction.KOSHER, value: DietaryRestriction.KOSHER },
-    { label: DietaryRestriction.PORKFREE, value: DietaryRestriction.PORKFREE },
-    { label: DietaryRestriction.VEGAN, value: DietaryRestriction.VEGAN },
-    {
-      label: DietaryRestriction.VEGETARIAN,
-      value: DietaryRestriction.VEGETARIAN,
-    },
-  ];
+const DietaryRestrictionsComponent: React.SFC<IDietRestrictionProps> = (
+  props
+) => {
+  const options = getOptionsFromEnum(DietaryRestriction);
   return (
     <Label>
       <LabelText label={props.label} required={props.required} />
