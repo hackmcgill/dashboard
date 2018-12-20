@@ -13,6 +13,16 @@ import {
   NumberFormatInput,
   PasswordInput,
 } from '../shared/Form';
+
+import {
+  ErrorMessage,
+  FastField,
+  Field,
+  Formik,
+  FormikActions,
+  FormikProps,
+} from 'formik';
+
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { getNestedProp, padStart } from '../util';
@@ -124,6 +134,24 @@ class ManageAccountContainer extends React.Component<
           </H1>
           <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
         </MaxWidthBox>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            firstName: accountDetails.firstName,
+            lastName: accountDetails.lastName,
+            email: accountDetails.email,
+            newPassword: '',
+            oldPassword: '',
+            dietaryRestrictions: accountDetails.dietaryRestrictions,
+            pronoun: accountDetails.pronoun,
+            shirtSize: accountDetails.shirtSize,
+            phoneNumber: accountDetails.phoneNumber,
+            birthDate: accountDetails.birthDate,
+          }}
+          onSubmit={this.handleSubmit}
+          render={this.renderFormik}
+          validationSchema={this.getValidationSchema(mode)}
+        />
         <Form onSubmit={this.handleSubmit}>
           <FullNameInput
             firstNameValue={accountDetails.firstName}
