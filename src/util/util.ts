@@ -32,8 +32,6 @@ function input2date(date: number) {
     Number(dateFields[0]) - 1,
     Number(dateFields[1])
   );
-  console.log(dateStr.substr(2, 2));
-  console.log(dateFields, formattedDate);
   return formattedDate.toString();
 }
 

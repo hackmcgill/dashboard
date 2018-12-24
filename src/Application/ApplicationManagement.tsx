@@ -36,7 +36,8 @@ import { Account, APIResponse, Hacker } from '../api';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 
-import { ResumeComponent, SchoolComponent } from './';
+import ResumeComponent from './Resume';
+import SchoolComponent from './SchoolSelect';
 
 import WithToasterContainer from '../shared/HOC/withToaster';
 

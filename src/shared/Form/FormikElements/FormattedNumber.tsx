@@ -33,7 +33,7 @@ const NumberFormatFormikComponent: React.StatelessComponent<
  */
 function handleChange({ field, form }: FieldProps) {
   return (value: NumberFormatValues) => {
-    form.setFieldValue(field.name, parseInt(value.value, 10));
+    form.setFieldValue(field.name, value.value);
   };
 }
 
