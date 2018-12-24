@@ -28,4 +28,5 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
     </Flex>
   );
 };
+export { ResumeComponent };
 export default ResumeComponent;
