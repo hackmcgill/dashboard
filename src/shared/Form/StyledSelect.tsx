@@ -20,6 +20,10 @@ export const StyledSelect = styled(Select)`
       color: ${(props) => props.theme.colors.white};
     }
   }
+
+  .react-select__value-container {
+    padding-left: 0;
+  }
 `;
 
 export default StyledSelect;
