@@ -22,6 +22,7 @@ import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
+import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
@@ -115,6 +116,25 @@ class App extends React.Component {
               withAuthRedirect(LoginContainer, {
                 requiredAuthState: false,
               })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CONFIRM_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(ConfirmAttendanceContainer, {
+                  requiredAuthState: true,
+                  AuthVerification: (user: IHacker) =>
+                    // user must have been accepted in order to confirm.
+                    user.status === HackerStatus.HACKER_STATUS_ACCEPTED,
+                }),
+                {
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
             )}
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />

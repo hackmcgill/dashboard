@@ -19,6 +19,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
@@ -89,6 +90,13 @@ class DashboardContainer extends React.Component<{}, IDashboardState> {
       },
     ];
 
+    if (status === HackerStatus.HACKER_STATUS_ACCEPTED) {
+      cards.push({
+        title: 'Confirmation',
+        route: routes.CONFIRM_HACKER_PAGE,
+        imageSrc: ConfirmIcon,
+      });
+    }
     return cards;
   }
 
