@@ -132,3 +132,5 @@ export default class SchoolComponent extends React.Component<
     return <AutosuggestItem>{suggestion}</AutosuggestItem>;
   }
 }
+
+export { SchoolComponent };
