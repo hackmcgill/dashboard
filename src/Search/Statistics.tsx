@@ -1,7 +1,7 @@
 // import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Hacker } from '../api';
-import { IStats, HackerStatus, JobInterest } from '../config';
+import { HackerStatus, IStats, JobInterest } from '../config';
 import { getNestedAttribute } from '../util';
 
 interface IStatsState {
