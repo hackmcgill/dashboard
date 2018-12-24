@@ -10,7 +10,6 @@ const getValidationSchema = (isCreate: boolean) => {
         then: string().required('Required to change password'),
         otherwise: string(),
       });
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   return object().shape({
     firstName: string().required('Required'),
@@ -24,7 +23,9 @@ const getValidationSchema = (isCreate: boolean) => {
     pronoun: string(),
     shirtSize: string().required('Required'),
     phoneNumber: string()
-      .matches(phoneRegExp, 'Phone number is not valid')
+      .test('validPhone', 'Must be a valid phone number', (value) => {
+        return value && value.length === 11;
+      })
       .required('Required'),
     birthDate: string()
       .test('validDate', 'Must be valid date', (value) => {
