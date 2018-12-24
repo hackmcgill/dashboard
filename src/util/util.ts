@@ -6,8 +6,8 @@ function padStart(padNum: number, padValue: string, value: string): string {
   return value;
 }
 
-function getNestedProp(obj: any, props: string[]) {
-  return props.reduce(
+function getNestedAttribute(obj: any, attributeChain: string[]) {
+  return attributeChain.reduce(
     (nested, next) => (nested && nested[next] ? nested[next] : null),
     obj
   );
@@ -20,4 +20,4 @@ function getOptionsFromEnum(options: any) {
   }));
 }
 
-export { padStart, getNestedProp, getOptionsFromEnum };
+export { padStart, getNestedAttribute, getOptionsFromEnum };
