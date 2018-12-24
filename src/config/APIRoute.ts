@@ -18,6 +18,7 @@ export enum APIRoute {
   HACKER_RESUME = 'hacker/resume',
   HACKER_STATUS = 'hacker/status',
   HACKER_CHECKIN = 'hacker/checkin',
+  HACKER_STATS = 'hacker/stats',
   // Search routes
   SEARCH = 'search',
   // Sponsor routes
