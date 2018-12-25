@@ -12,13 +12,14 @@ import {
   StringOperations,
 } from '../config';
 import { GradYears } from '../config';
-import { Button, H1, MaxWidthBox } from '../shared/Elements';
+import { Button, H1 } from '../shared/Elements';
 import { Form } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
 import { getOptionsFromEnum } from '../util';
 
 interface IFilterProps {
   onChange: (newFilters: ISearchParameter[]) => void;
+  loading: boolean;
 }
 
 class FilterComponent extends React.Component<IFilterProps, {}> {
@@ -30,19 +31,16 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   }
   public render() {
     return (
-      <MaxWidthBox m={'auto'} maxWidth={'255px'}>
-        <MaxWidthBox m={'auto'} maxWidth={'255px'}>
-          <H1
-            color={'#F2463A'}
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-          >
-            Filters
-          </H1>
-        </MaxWidthBox>
+      <Box m={'auto'}>
+        <H1
+          color={'#F2463A'}
+          fontSize={'30px'}
+          textAlign={'left'}
+          marginTop={'0px'}
+          marginBottom={'20px'}
+        >
+          Filters
+        </H1>
         <Formik
           initialValues={{
             school: [],
@@ -55,7 +53,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
         />
-      </MaxWidthBox>
+      </Box>
     );
   }
   private renderFormik(fp: FormikProps<any>) {
@@ -124,8 +122,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           <Box>
             <Button
               type="submit"
-              isLoading={fp.isSubmitting}
-              disabled={fp.isSubmitting}
+              isLoading={this.props.loading}
+              disabled={this.props.loading}
             >
               Submit
             </Button>
