@@ -1,4 +1,4 @@
-import { Box } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
 import { Checkbox, Label, LabelText } from '..';
@@ -23,8 +23,10 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
   return (
     <Box mb={isTight ? 0 : '20px'}>
       <Label fontWeight="normal">
-        <LabelText label={labelElement} required={required} />
-        <Checkbox {...field} checked={field.value} />
+        <Flex flexDirection={'row'} alignItems={'center'}>
+          <LabelText label={labelElement} required={required} />
+          <Checkbox {...field} checked={field.value} />
+        </Flex>
       </Label>
       <FormDescription>{subtitle}</FormDescription>
     </Box>
