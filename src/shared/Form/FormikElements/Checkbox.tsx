@@ -23,7 +23,11 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
   return (
     <Box mb={isTight ? 0 : '20px'}>
       <Label fontWeight="normal">
-        <Flex flexDirection={'row'} alignItems={'center'}>
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
           <LabelText label={labelElement} required={required} />
           <Checkbox {...field} checked={field.value} />
         </Flex>
