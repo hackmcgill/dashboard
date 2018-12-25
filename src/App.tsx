@@ -22,6 +22,7 @@ import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
+import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
@@ -114,6 +115,19 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(LoginContainer, {
                 requiredAuthState: false,
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.ADMIN_SEARCH_PAGE}
+            component={withNavbar(
+              withAuthRedirect(SearchContainer, {
+                requiredAuthState: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed &&
+                  (user.accountType === UserType.STAFF ||
+                    user.accountType === UserType.SPONSOR),
               })
             )}
           />

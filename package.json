@@ -20,6 +20,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1",
     "react-select": "^2.1.0",
+    "react-table": "^6.8.6",
     "react-toastify": "^4.4.3",
     "styled-components": "^4.0.2",
     "yup": "^0.26.6"
