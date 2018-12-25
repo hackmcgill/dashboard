@@ -40,7 +40,7 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, status }) => {
             </Card>
           </Link>
         ))}
-        <MediaQuery minWidth={960}>
+        <MediaQuery minWidth={720}>
           <Box width={1}>
             <BackgroundImage
               src={BackgroundLandscape}
@@ -51,7 +51,7 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, status }) => {
             />
           </Box>
         </MediaQuery>
-        <MediaQuery maxWidth={960}>
+        <MediaQuery maxWidth={720}>
           <BackgroundImage
             src={BackgroundMobile}
             bottom={'0px'}
