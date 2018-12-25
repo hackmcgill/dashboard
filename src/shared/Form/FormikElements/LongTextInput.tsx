@@ -1,7 +1,7 @@
 import { FieldProps } from 'formik';
 import * as React from 'react';
-import { Textarea } from '../Elements';
-import { Label, LabelText } from './';
+import { Label, LabelText } from '../';
+import { Textarea } from '../../Elements';
 
 export interface ITextAreaProp {
   label: string;

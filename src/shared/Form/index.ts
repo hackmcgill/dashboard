@@ -7,7 +7,6 @@ export * from './Form';
 export * from './Input';
 export * from './Label';
 export * from './LabelText';
-export * from './LongTextInput';
 export * from './NumberFormatInput';
 export * from './PasswordInput';
 export * from './RequiredInputLabel';
