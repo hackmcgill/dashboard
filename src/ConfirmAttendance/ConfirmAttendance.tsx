@@ -5,7 +5,7 @@ import { boolean, object } from 'yup';
 
 import { Redirect } from 'react-router';
 import { Hacker } from '../api';
-import { FrontendRoute, HackerStatus } from '../config';
+import { FrontendRoute } from '../config';
 import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { Form } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
@@ -13,27 +13,23 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 
-interface IConfirmAttendanceProps {
-  status: HackerStatus;
-}
-
 interface IConfirmAttendanceState {
-  confirmed: boolean;
+  isConfirmed: boolean;
 }
 
-class ManageAccountContainer extends React.Component<
-  IConfirmAttendanceProps,
+class ConfirmAttendanceContainer extends React.Component<
+  {},
   IConfirmAttendanceState
 > {
-  constructor(props: IConfirmAttendanceProps) {
+  constructor(props: {}) {
     super(props);
     this.state = {
-      confirmed: false,
+      isConfirmed: false,
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
   public render() {
-    if (this.state.confirmed) {
+    if (this.state.isConfirmed) {
       return <Redirect to={FrontendRoute.HOME_PAGE} />;
     }
     return (
@@ -45,16 +41,15 @@ class ManageAccountContainer extends React.Component<
         <MaxWidthBox width={1}>
           <H1 textAlign={'center'}>Confirm your Attendance</H1>
           <Paragraph fontSize={'16px'}>
-            We are excited to offer you a spot at McHacks 6 taking place on
-            February 2-3rd 2019 at the Theatre St. James in the Old Port of
-            Montreal.
+            We are excited to offer you a spot at McHacks 6, taking place on
+            February 2-3, 2019 at Theatre St. James in the Old Port of Montreal.
           </Paragraph>
           <Paragraph fontSize={'16px'}>
-            Please confirm your attendance before January 15th.
+            Please confirm your attendance before January 15, 2019.
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
-          <H2 color={theme.colors.greyDark}>Libaility and Photo Release</H2>
+          <H2 color={theme.colors.greyDark}>Liability and Photo Release</H2>
           <Paragraph fontSize={'14px'}>
             *Students under the age of 18 must have their parent or legal
             guardian review the following document.
@@ -105,14 +100,12 @@ class ManageAccountContainer extends React.Component<
   private async onSubmit() {
     try {
       const hackerId = (await Hacker.getSelf()).data.data.id;
-      console.log('Got hacker id', hackerId);
       await Hacker.confirm(hackerId, true);
-      console.log('confirmed!');
-      this.setState({ confirmed: true });
+      this.setState({ isConfirmed: true });
     } catch (e) {
       ValidationErrorGenerator(e.data);
     }
   }
 }
 
-export default WithToasterContainer(ManageAccountContainer);
+export default WithToasterContainer(ConfirmAttendanceContainer);
