@@ -1,60 +1,75 @@
-import { Box } from '@rebass/grid';
 import * as React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import { IHacker } from '../config';
-import { H1 } from '../shared/Elements';
+import { IHacker, UserType } from '../config';
 
 interface IResultsTableProps {
-  results: IHacker[];
+  results: Array<{
+    selected: boolean;
+    hacker: IHacker;
+  }>;
   loading: boolean;
+  userType: UserType;
 }
 
+const adminColumns = [
+  {
+    Header: 'First Name',
+    accessor: 'hacker.accountId.firstName',
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'hacker.accountId.lastName',
+  },
+  {
+    Header: 'School',
+    accessor: 'hacker.school',
+  },
+  {
+    Header: 'Major',
+    accessor: 'hacker.major',
+  },
+  {
+    Header: 'Grad Year',
+    accessor: 'hacker.graduationYear',
+  },
+  {
+    Header: 'Status',
+    accessor: 'hacker.status',
+  },
+];
+
+const volunteerColumns = [
+  {
+    Header: 'First Name',
+    accessor: 'hacker.accountId.firstName',
+  },
+];
+
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
-  const columns = [
-    {
-      Header: 'First Name',
-      accessor: 'accountId.firstName',
-    },
-    {
-      Header: 'Last Name',
-      accessor: 'accountId.lastName',
-    },
-    {
-      Header: 'School',
-      accessor: 'school',
-    },
-    {
-      Header: 'Major',
-      accessor: 'major',
-    },
-    {
-      Header: 'Grad Year',
-      accessor: 'graduationYear',
-    },
-    {
-      Header: 'Status',
-      accessor: 'status',
-    },
-  ];
   return (
-    <Box>
-      <H1
-        color={'#F2463A'}
-        fontSize={'30px'}
-        textAlign={'left'}
-        marginTop={'0px'}
-        marginBottom={'20px'}
-      >
-        Hackers
-      </H1>
-      <ReactTable
-        data={props.results}
-        columns={columns}
-        loading={props.loading}
-      />
-    </Box>
+    <ReactTable
+      data={props.results}
+      columns={
+        props.userType === UserType.STAFF ? adminColumns : volunteerColumns
+      }
+      loading={props.loading}
+      defaultPageSize={10}
+      // filterable={true}
+      // defaultFilterMethod={filterer}
+    />
   );
 };
+
+// function filterer(filter: Filter, row: any, column: any): boolean {
+//   return String(row[filter.id])
+//     .trim()
+//     .toLowerCase()
+//     .includes(
+//       String(filter.value)
+//         .trim()
+//         .toLowerCase()
+//     );
+// }
 
 export { ResultsTable };

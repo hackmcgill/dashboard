@@ -26,6 +26,7 @@ export interface IAccount {
 }
 
 export interface IHacker {
+  [key: string]: any;
   id: string;
   accountId: string;
   status: HackerStatus;
