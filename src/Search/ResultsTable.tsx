@@ -1,7 +1,6 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 import { IHacker, UserType } from '../config';
+import { StyledTable } from '../shared/Elements';
 
 interface IResultsTableProps {
   results: Array<{
@@ -48,7 +47,7 @@ const volunteerColumns = [
 
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   return (
-    <ReactTable
+    <StyledTable
       data={props.results}
       columns={
         props.userType === UserType.STAFF ? adminColumns : volunteerColumns
