@@ -77,6 +77,5 @@ export enum UserType {
   HACKER = 'Hacker',
   VOLUNTEER = 'Volunteer',
   STAFF = 'Staff',
-  GOD_STAFF = 'GodStaff',
   SPONSOR = 'Sponsor',
 }
