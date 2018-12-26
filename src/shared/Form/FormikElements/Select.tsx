@@ -10,6 +10,7 @@ interface IStylizedSelectFormikProps {
   value?: string | string[];
   creatable: boolean;
   required?: boolean;
+  isDisabled?: boolean;
 }
 
 const StylizedSelectFormikComponent: React.StatelessComponent<
@@ -25,6 +26,7 @@ const StylizedSelectFormikComponent: React.StatelessComponent<
     isMulti: props.isMulti,
     placeholder: props.placeholder || 'Select...',
     value: generateValue(props.value),
+    isDisabled: props.isDisabled,
   };
   return (
     <Label>

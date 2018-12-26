@@ -183,7 +183,7 @@ class ManageAccountContainer extends React.Component<
           label={CONSTANTS.EMAIL_LABEL}
           value={fp.values.email}
           component={FormikElements.Input}
-          disabled={mode === ManageAccountModes.EDIT}
+          isDisabled={mode === ManageAccountModes.EDIT}
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="email" />
