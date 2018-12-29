@@ -9,7 +9,7 @@ import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
 
 interface IDashboardView {
   cards: IDashboardCard[];
-  status: string;
+  title: string;
 }
 
 export interface IDashboardCard {
@@ -19,10 +19,10 @@ export interface IDashboardCard {
   validation?: () => void;
 }
 
-const DashboardView: React.SFC<IDashboardView> = ({ cards, status }) => {
+const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
-      <H1>status: {status.toLowerCase()}</H1>
+      <H1>{title}</H1>
       <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
         {cards.map((card) => (
           <Link

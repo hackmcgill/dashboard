@@ -7,7 +7,7 @@ import NotFoundContainer from './404/404';
 import EditAccountContainer from './Account/AccountEdition';
 import ConfirmAccountContainer from './Account/EmailConfirmed';
 import CreateApplicationContainer from './Application/ApplicationCreation';
-import DashboardContainer from './Dashboard/Main';
+import Dashboard from './Dashboard/Main';
 import LoginContainer from './Login/Login';
 
 import {
@@ -35,7 +35,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.HOME_PAGE}
-            component={withNavbar(withAuthRedirect(DashboardContainer))}
+            component={withNavbar(withAuthRedirect(Dashboard))}
           />
           <Route
             exact={true}
