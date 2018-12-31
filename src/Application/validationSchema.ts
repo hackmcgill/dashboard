@@ -11,9 +11,7 @@ const getValidationSchema = (isCreate: boolean) => {
     degree: string().required(),
     application: object().shape({
       portfolioURL: object().shape({
-        github: string()
-          .url('Must be a valid url')
-          .required(),
+        github: string().url('Must be a valid url'),
         dropler: string().url('Must be a valid url'),
         linkedIn: string().url('Must be a valid url'),
         personal: string().url('Must be a valid url'),
