@@ -7,5 +7,6 @@ export * from './Image';
 export * from './LeftContainer';
 export * from './MaxWidthBox';
 export * from './Paragraph';
+export * from './Table';
 export * from './Textarea';
 export * from './ViewPDF';

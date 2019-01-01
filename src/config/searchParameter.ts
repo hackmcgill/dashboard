@@ -18,7 +18,7 @@ export enum BooleanOperations {
   NOT_EQUALS = 'ne',
 }
 export interface ISearchParameter {
-  parameter: string;
+  param: string;
   operation: StringOperations | NumberOperations | BooleanOperations;
-  value: string | boolean | number;
+  value: string | boolean | number | string[] | number[];
 }

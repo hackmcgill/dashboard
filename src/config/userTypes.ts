@@ -26,6 +26,7 @@ export interface IAccount {
 }
 
 export interface IHacker {
+  [key: string]: any;
   id: string;
   accountId: string;
   status: HackerStatus;
@@ -76,6 +77,5 @@ export enum UserType {
   HACKER = 'Hacker',
   VOLUNTEER = 'Volunteer',
   STAFF = 'Staff',
-  GOD_STAFF = 'GodStaff',
   SPONSOR = 'Sponsor',
 }
