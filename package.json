@@ -51,7 +51,7 @@
     "@types/react-virtualized-select": "^3.0.7",
     "@types/rebass__grid": "^6.0.2",
     "@types/styled-components": "^4.1.4",
-    "@types/yup": "^0.26.0",
+    "@types/yup": "^0.26.4",
     "barrelsby": "^1.0.2",
     "file-loader": "^3.0.1",
     "react-cosmos": "^4.6.4",
