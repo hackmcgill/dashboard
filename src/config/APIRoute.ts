@@ -23,5 +23,7 @@ export enum APIRoute {
   SEARCH = 'search',
   // Sponsor routes
   SPONSOR = 'sponsor',
+
+  TEAM = 'team',
 }
 export default APIRoute;

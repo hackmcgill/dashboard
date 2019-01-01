@@ -9,6 +9,7 @@ import ConfirmAccountContainer from './Account/EmailConfirmed';
 import CreateApplicationContainer from './Application/ApplicationCreation';
 import DashboardContainer from './Dashboard/Main';
 import LoginContainer from './Login/Login';
+import TeamContainer from './Team/Main';
 
 import {
   FrontendRoute,
@@ -96,6 +97,24 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
+                  AuthVerification: (hacker: IHacker) =>
+                    hacker.status === HackerStatus.HACKER_STATUS_APPLIED,
+                }),
+                {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.TEAM_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(TeamContainer, {
                   AuthVerification: (hacker: IHacker) =>
                     hacker.status === HackerStatus.HACKER_STATUS_APPLIED,
                 }),

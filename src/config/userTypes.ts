@@ -1,5 +1,6 @@
 import HackerStatus from './hackerStatus';
 import JobInterest from './jobInterests';
+import { ITeam } from './team';
 export interface IAccount {
   accountType: UserType;
   confirmed: boolean;
@@ -56,6 +57,7 @@ export interface IHacker {
   major: string;
   graduationYear: number;
   codeOfConduct: boolean;
+  teamId?: string | ITeam;
 }
 
 export interface ISponsor {
