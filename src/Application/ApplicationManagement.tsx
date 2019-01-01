@@ -241,7 +241,6 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Input}
           label={CONSTANTS.GITHUB_LINK_LABEL}
           placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-          required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
