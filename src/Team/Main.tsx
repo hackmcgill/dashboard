@@ -116,7 +116,11 @@ class TeamContainer extends React.Component<{}, ITeamState> {
             <Box width={firstColumnWidth}>Team name:</Box>
             <Box>
               {(this.state.team as ITeam).teamName}
-              <Image src={CopyImage} padding={'0rem'} />
+              <Image
+                imgHeight={'15px'}
+                src={CopyImage}
+                padding={'0 0 0 10px'}
+              />
             </Box>
           </Flex>
         </Box>
