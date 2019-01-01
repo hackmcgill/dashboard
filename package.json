@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",
+    "@types/styled-react-modal": "^1.1.0",
     "ajv": "^6.6.2",
     "axios": "^0.18.0",
     "formik": "^1.4.1",
@@ -16,7 +17,6 @@
     "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
     "react-dropzone": "^7.0.1",
-    "react-modal": "^3.8.1",
     "react-number-format": "^4.0.4",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
@@ -25,6 +25,7 @@
     "react-table": "^6.8.6",
     "react-toastify": "^4.5.1",
     "styled-components": "^4.0.2",
+    "styled-react-modal": "^1.2.1",
     "yup": "^0.26.6"
   },
   "scripts": {
@@ -47,6 +48,7 @@
     "@types/react-alert": "^2.4.2",
     "@types/react-autosuggest": "^9.3.6",
     "@types/react-dom": "^16.0.11",
+    "@types/react-styled-modal": "^3.6.0",
     "@types/react-responsive": "^3.0.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",

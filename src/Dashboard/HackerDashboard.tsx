@@ -19,6 +19,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import TeamIcon from '../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
@@ -88,6 +89,14 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         imageSrc: AccountIcon,
       },
     ];
+
+    if (status !== HackerStatus.HACKER_STATUS_NONE) {
+      cards.push({
+        title: 'Team',
+        route: routes.TEAM_PAGE,
+        imageSrc: TeamIcon,
+      });
+    }
 
     return cards;
   }

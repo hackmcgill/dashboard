@@ -1,7 +1,8 @@
 import { Box, Flex } from '@rebass/grid';
 import React from 'react';
+
 import { Hacker } from '../api';
-// import Team from '../api/team';
+import Team from '../api/team';
 import { ITeam } from '../config';
 import {
   Button,
@@ -10,16 +11,12 @@ import {
   Image,
   MaxWidthBox,
 } from '../shared/Elements';
+import { ModalState, TeamModal } from './Modal';
+
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 
 import CopyImage from '../assets/images/copy-icon.svg';
-
-enum ModalState {
-  CLOSED,
-  CREATE,
-  JOIN,
-}
 
 export interface ITeamState {
   team: ITeam | null;
@@ -36,7 +33,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
     this.state = {
       team: null,
       isLoading: true,
-      modalState: ModalState.CLOSED,
+      modalState: ModalState.CREATE,
     };
     this.onClickFactory = this.onClickFactory.bind(this);
   }
@@ -53,6 +50,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
         ) : (
           this.renderTeamDescription()
         )}
+        <TeamModal modalState={this.state.modalState} />
       </MaxWidthBox>
     );
   }
@@ -60,14 +58,9 @@ class TeamContainer extends React.Component<{}, ITeamState> {
   public async componentDidMount() {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
-      if (hacker) {
-        // && hacker.teamId) {
-        // const id = String(hacker.teamId);
-        const team = {
-          teamName: 'Hackboard 6',
-          members: [],
-        };
-        // (await Team.get(id)).data.data;
+      if (hacker && hacker.teamId) {
+        const id = String(hacker.teamId);
+        const team = (await Team.get(id)).data.data;
         this.setState({
           team,
         });
@@ -84,7 +77,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
 
   private onClickFactory(modalState: ModalState): (e: any) => void {
     return (e) => {
-      this.setState({ modalState: ModalState.JOIN });
+      this.setState({ modalState });
     };
   }
 
