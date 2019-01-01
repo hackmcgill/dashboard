@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",
-    "ajv": "^6.5.4",
+    "ajv": "^6.6.2",
     "axios": "^0.18.0",
     "formik": "^1.4.1",
     "gh-pages": "^2.0.1",
