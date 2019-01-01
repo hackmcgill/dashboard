@@ -116,10 +116,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         expand: true,
         limit: 1000,
       });
-      const tableData = response.data.data.map((v) => ({
-        selected: true,
-        hacker: v,
-      }));
+      const isArray = Array.isArray(response.data.data);
+      const tableData = isArray
+        ? response.data.data.map((v) => ({
+            selected: true,
+            hacker: v,
+          }))
+        : [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
       ValidationErrorGenerator(e.data);
