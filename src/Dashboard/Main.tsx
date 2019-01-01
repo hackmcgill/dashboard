@@ -1,137 +1,53 @@
-import { Box, Flex } from '@rebass/grid';
-import { AxiosResponse } from 'axios';
 import * as React from 'react';
-import { toast } from 'react-toastify';
+import { Redirect } from 'react-router';
+import { UserType } from '../config';
+import { H1 } from '../shared/Elements';
+import { getUserInfo } from '../util';
+import HackerDashboardContainer from './HackerDashboard';
+import StaffDashboardContainer from './StaffDashboard';
 
-import {
-  ACCOUNT_NOT_CONFIRMED_MSG,
-  EMAIL_SENT,
-  FrontendRoute as routes,
-  HackerStatus,
-  RESEND_CONF_EMAIL,
-} from '../config';
-
-import { APIResponse, Auth, Hacker } from '../api';
-import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
-import { isConfirmed } from '../util/UserInfoHelperFunctions';
-import DashboardView, { IDashboardCard } from './View';
-
-import AccountIcon from '../assets/images/dashboard-account.svg';
-import ApplicationIcon from '../assets/images/dashboard-application.svg';
-
-export interface IDashboardState {
-  status: HackerStatus;
-  confirmed: boolean;
+interface IDashboardState {
+  accountType: UserType;
+  loading: boolean;
 }
 
-/**
- * Container that renders form to log in.
- */
-class DashboardContainer extends React.Component<{}, IDashboardState> {
+class Dashboard extends React.Component<{}, IDashboardState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      status: HackerStatus.HACKER_STATUS_NONE,
-      confirmed: true,
+      accountType: UserType.UNKNOWN,
+      loading: true,
     };
   }
-
   public async componentDidMount() {
     try {
-      const response = await Hacker.getSelf();
-      this.setState({ status: response.data.data.status });
-    } catch (e) {
-      if (e.status === 401) {
-        this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
+      const userInfo = await getUserInfo();
+      if (userInfo) {
+        this.setState({
+          accountType: userInfo.accountType,
+        });
       }
-    }
-    try {
-      const confirmed = await isConfirmed();
-      this.setState({ confirmed });
+      this.setState({
+        loading: false,
+      });
     } catch (e) {
-      this.setState({ confirmed: false });
+      this.setState({
+        loading: false,
+      });
     }
   }
-
   public render() {
-    const { status, confirmed } = this.state;
-    return (
-      <DashboardView
-        cards={this.generateCards(status, confirmed)}
-        status={status}
-      />
-    );
-  }
-
-  private generateCards(status: HackerStatus, confirmed: boolean) {
-    let applicationRoute;
-
-    if (status === HackerStatus.HACKER_STATUS_APPLIED) {
-      applicationRoute = routes.EDIT_APPLICATION_PAGE;
-    } else if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
-      applicationRoute = routes.CREATE_APPLICATION_PAGE;
-    } else {
-      applicationRoute = routes.HOME_PAGE;
+    switch (this.state.accountType) {
+      case UserType.HACKER:
+        return <HackerDashboardContainer />;
+      case UserType.STAFF:
+        return <StaffDashboardContainer />;
     }
-
-    const cards: IDashboardCard[] = [
-      {
-        title: 'Application',
-        route: applicationRoute,
-        imageSrc: ApplicationIcon,
-        validation: this.confirmAccountToastError,
-      },
-      {
-        title: 'Account',
-        route: routes.EDIT_ACCOUNT_PAGE,
-        imageSrc: AccountIcon,
-      },
-    ];
-
-    return cards;
-  }
-
-  private confirmAccountToastError = () => {
-    const { status, confirmed } = this.state;
-    if (!confirmed) {
-      const reactMsg = (
-        <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
-          <Box mb={'3px'}>{ACCOUNT_NOT_CONFIRMED_MSG}</Box>
-          <Box
-            onClick={this.resendConfirmationEmail}
-            style={{ textDecoration: 'underline' }}
-          >
-            {RESEND_CONF_EMAIL}
-          </Box>
-        </Flex>
-      );
-      toast.error(reactMsg, {
-        autoClose: false,
-      });
-    } else if (
-      !(
-        status === HackerStatus.HACKER_STATUS_NONE ||
-        status === HackerStatus.HACKER_STATUS_APPLIED
-      )
-    ) {
-      // can only access application if their status is NONE, or APPLIED.
-      toast.error('You can no longer access your application.');
+    if (this.state.loading) {
+      return <H1>Loading...</H1>;
     }
-  };
-
-  private resendConfirmationEmail = () => {
-    Auth.resendConfirmationEmail()
-      .then((value: AxiosResponse<APIResponse<{}>>) => {
-        if (value.status === 200) {
-          toast.success(EMAIL_SENT);
-        }
-      })
-      .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-        if (response && response.data) {
-          ValidationErrorGenerator(response.data);
-        }
-      });
-  };
+    return <Redirect to={'/404'} />;
+  }
 }
-export default WithToasterContainer(DashboardContainer);
+
+export default Dashboard;

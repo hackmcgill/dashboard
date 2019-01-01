@@ -6,8 +6,8 @@ function padStart(padNum: number, padValue: string, value: string): string {
   return value;
 }
 
-function getNestedProp(obj: any, props: string[]) {
-  return props.reduce(
+function getNestedAttr(obj: any, nestedAttr: string[]) {
+  return nestedAttr.reduce(
     (nested, next) => (nested && nested[next] ? nested[next] : null),
     obj
   );
@@ -43,4 +43,4 @@ function date2input(date: string) {
   return `${month}${day}${year}`;
 }
 
-export { padStart, getNestedProp, getOptionsFromEnum, input2date, date2input };
+export { padStart, getNestedAttr, getOptionsFromEnum, input2date, date2input };

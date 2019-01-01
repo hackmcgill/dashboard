@@ -3546,3 +3546,5 @@ export const Schools: string[] = [
 ];
 
 export default Schools;
+
+export const SchoolsLVpair = Schools.map((v) => ({ label: v, value: v }));
