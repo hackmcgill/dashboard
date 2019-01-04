@@ -25,5 +25,6 @@ export enum APIRoute {
   SPONSOR = 'sponsor',
 
   TEAM = 'team',
+  TEAM_JOIN = 'team/join',
 }
 export default APIRoute;
