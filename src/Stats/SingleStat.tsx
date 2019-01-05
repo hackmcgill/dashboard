@@ -44,7 +44,12 @@ class SingleStatComponent extends React.Component<
     return (
       <Box width={500}>
         <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
-        <PieChart width={500} height={300}>
+        <PieChart
+          width={500}
+          height={300}
+          onClick={this.handleClick}
+          style={this.props.searchReference ? { cursor: 'pointer' } : {}}
+        >
           <Pie
             nameKey={'name'}
             dataKey={'value'}
@@ -55,7 +60,6 @@ class SingleStatComponent extends React.Component<
             activeShape={ActiveShapeComponent}
             activeIndex={this.state.activeIndex}
             isAnimationActive={false}
-            onClick={this.handleClick}
           >
             {this.state.data.map((entry, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />

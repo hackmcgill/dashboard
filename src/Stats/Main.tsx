@@ -90,11 +90,7 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
               stat={stats.degree}
               searchReference="degree"
             />
-            <SingleStatComponent
-              statName="Gender"
-              stat={stats.gender}
-              searchReference="accountId.gender"
-            />
+            <SingleStatComponent statName="Gender" stat={stats.gender} />
             <SingleStatComponent
               statName="Needs bus"
               stat={stats.needsBus}
@@ -123,18 +119,9 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
             <SingleStatComponent
               statName="Dietary Restrictions"
               stat={stats.dietaryRestrictions}
-              searchReference="accountId.dietaryRestrictions"
             />
-            <SingleStatComponent
-              statName="Shirt Size"
-              stat={stats.shirtSize}
-              searchReference="accountId.shirtSize"
-            />
-            <SingleStatComponent
-              statName="Age"
-              stat={stats.age}
-              searchReference="accountId.age"
-            />
+            <SingleStatComponent statName="Shirt Size" stat={stats.shirtSize} />
+            <SingleStatComponent statName="Age" stat={stats.age} />
           </Flex>
         </Box>
       </Flex>
