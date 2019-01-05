@@ -87,7 +87,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
   private getSearchFromQuery(): ISearchParameter[] {
     const search = getValueFromQuery('q');
-    console.log(search);
     if (!search) {
       return [];
     }
@@ -165,6 +164,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.setState({
       query: newFilters,
     });
+    window.location.search = `q=${encodeURIComponent(
+      JSON.stringify(newFilters)
+    )}`;
     this.triggerSearch();
   }
 }

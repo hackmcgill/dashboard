@@ -63,7 +63,6 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         initFilters
       ),
     };
-    console.log(initVals);
     return initVals;
   }
 
