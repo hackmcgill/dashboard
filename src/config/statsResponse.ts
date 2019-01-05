@@ -15,7 +15,7 @@ export interface IStats {
   jobInterest: { [key in JobInterest]: number };
   major: { [key: string]: number };
   graduationYear: { [key: string]: number };
-  dietaryRestriction: { [key in DietaryRestriction & string]: number };
-  ShirtSize: { [key in ShirtSize]: number };
+  dietaryRestrictions: { [key in DietaryRestriction & string]: number };
+  shirtSize: { [key in ShirtSize]: number };
   age: { [key: string]: number };
 }
