@@ -65,7 +65,7 @@ class SingleStatComponent extends React.Component<
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
+          <Tooltip position={{ x: 0, y: 0 }} />
         </PieChart>
       </Box>
     );
