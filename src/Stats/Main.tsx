@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { Hacker } from '../api';
 import { IStats } from '../config';
+import { H1, H2 } from '../shared/Elements';
 import { getNestedAttr } from '../util';
 import { SingleStatComponent } from './SingleStat';
 
@@ -65,23 +66,43 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
      *  age: { [key: string]: number };
      */
     return (
-      <Flex flexWrap={'wrap'}>
-        <Box>Total applicants: {stats.total}</Box>
-        <SingleStatComponent statName="Status" stat={stats.status} />
-        <SingleStatComponent statName="School" stat={stats.school} />
-        <SingleStatComponent statName="Degree" stat={stats.degree} />
-        <SingleStatComponent statName="Gender" stat={stats.gender} />
-        <SingleStatComponent statName="Needs bus" stat={stats.needsBus} />
-        <SingleStatComponent statName="Ethnicity" stat={stats.ethnicity} />
-        <SingleStatComponent statName="Job interest" stat={stats.jobInterest} />
-        <SingleStatComponent statName="Majors" stat={stats.major} />
-        <SingleStatComponent statName="Grad Year" stat={stats.graduationYear} />
-        <SingleStatComponent
-          statName="Dietary Restrictions"
-          stat={stats.dietaryRestrictions}
-        />
-        <SingleStatComponent statName="Shirt Size" stat={stats.shirtSize} />
-        <SingleStatComponent statName="Age" stat={stats.age} />
+      <Flex flexDirection={'column'}>
+        <Box>
+          <H1>Hacker Statistics</H1>
+        </Box>
+        <Box>
+          <H2>Total applicants: {stats.total}</H2>
+        </Box>
+        <Box>
+          <Flex
+            flexWrap={'wrap'}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            mx={'10px'}
+          >
+            <SingleStatComponent statName="Status" stat={stats.status} />
+            <SingleStatComponent statName="School" stat={stats.school} />
+            <SingleStatComponent statName="Degree" stat={stats.degree} />
+            <SingleStatComponent statName="Gender" stat={stats.gender} />
+            <SingleStatComponent statName="Needs bus" stat={stats.needsBus} />
+            <SingleStatComponent statName="Ethnicity" stat={stats.ethnicity} />
+            <SingleStatComponent
+              statName="Job interest"
+              stat={stats.jobInterest}
+            />
+            <SingleStatComponent statName="Majors" stat={stats.major} />
+            <SingleStatComponent
+              statName="Grad Year"
+              stat={stats.graduationYear}
+            />
+            <SingleStatComponent
+              statName="Dietary Restrictions"
+              stat={stats.dietaryRestrictions}
+            />
+            <SingleStatComponent statName="Shirt Size" stat={stats.shirtSize} />
+            <SingleStatComponent statName="Age" stat={stats.age} />
+          </Flex>
+        </Box>
       </Flex>
     );
   }
