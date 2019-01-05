@@ -34,16 +34,18 @@ export default class SingleStatComponent extends React.Component<
         value: this.props.stat[k],
       };
     });
+    data.sort((a, b) => b.value - a.value);
     return (
-      <Box>
+      <Box width={500}>
         <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
-        <PieChart width={300} height={300}>
+        {/* <ResponsiveContainer width={'100%'} height={'300px'}> */}
+        <PieChart width={500} height={300}>
           <Pie
             nameKey={'name'}
             dataKey={'value'}
             data={data}
-            innerRadius={'40%'}
-            outerRadius={'50%'}
+            innerRadius={'50%'}
+            outerRadius={'60%'}
             onMouseEnter={this.onPieEnter}
             activeShape={ActiveShapeComponent}
             activeIndex={this.state.activeIndex}
@@ -55,6 +57,7 @@ export default class SingleStatComponent extends React.Component<
           </Pie>
           <Tooltip />
         </PieChart>
+        {/* </ResponsiveContainer> */}
       </Box>
     );
   }

@@ -17,10 +17,12 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 20) * cos;
-  const my = cy + (outerRadius + 20) * sin;
+  const activeRadiusStart = 4;
+  const activeRadiusEnd = 6;
+  const sx = cx + (outerRadius + activeRadiusEnd) * cos;
+  const sy = cy + (outerRadius + activeRadiusEnd) * sin;
+  const mx = cx + (outerRadius + activeRadiusEnd + 10) * cos;
+  const my = cy + (outerRadius + activeRadiusEnd + 10) * sin;
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
@@ -48,8 +50,8 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
         cy={cy}
         startAngle={startAngle}
         endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
+        innerRadius={outerRadius + activeRadiusStart}
+        outerRadius={outerRadius + activeRadiusEnd}
         fill={fill}
       />
       <path

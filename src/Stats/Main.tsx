@@ -71,15 +71,10 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
           <H1>Hacker Statistics</H1>
         </Box>
         <Box>
-          <H2>Total applicants: {stats.total}</H2>
+          <H2 marginLeft={'10px'}>Total applicants: {stats.total}</H2>
         </Box>
         <Box>
-          <Flex
-            flexWrap={'wrap'}
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            mx={'10px'}
-          >
+          <Flex flexWrap={'wrap'} justifyContent={'center'} mx={'10px'}>
             <SingleStatComponent statName="Status" stat={stats.status} />
             <SingleStatComponent statName="School" stat={stats.school} />
             <SingleStatComponent statName="Degree" stat={stats.degree} />
