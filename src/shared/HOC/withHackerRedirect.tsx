@@ -60,7 +60,6 @@ const withHackerRedirect = <P extends {}>(
 
     public render() {
       const { authState } = this.state;
-      console.log(authState, options.requiredAuthState);
       switch (authState) {
         case authStates.authorized:
           return options.requiredAuthState ? (

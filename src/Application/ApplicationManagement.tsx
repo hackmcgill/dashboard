@@ -29,16 +29,17 @@ import {
 
 import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 
-import { Form, LongTextInput } from '../shared/Form/';
+import { Form } from '../shared/Form/';
 import * as FormikElements from '../shared/Form/FormikElements';
 
 import { Account, APIResponse, Hacker } from '../api';
 
-import SchoolComponent from '../Account/SchoolSelect';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 
-import WithToasterContainer from '../shared/HOC/withToaster';
 import ResumeComponent from './Resume';
+import SchoolComponent from './SchoolSelect';
+
+import WithToasterContainer from '../shared/HOC/withToaster';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -240,7 +241,6 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Input}
           label={CONSTANTS.GITHUB_LINK_LABEL}
           placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-          required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
@@ -329,7 +329,7 @@ class ManageApplicationContainer extends React.Component<
         />
         <FastField
           name={'application.essay'}
-          component={LongTextInput}
+          component={FormikElements.LongTextInput}
           label={CONSTANTS.ESSAY_REQUEST_LABEL}
           value={fp.values.application.essay}
           maxLength={2000}
@@ -341,7 +341,7 @@ class ManageApplicationContainer extends React.Component<
         />
         <FastField
           name={'application.comments'}
-          component={LongTextInput}
+          component={FormikElements.LongTextInput}
           label={CONSTANTS.COMMENTS_REQUEST_LABEL}
           value={fp.values.application.comments}
           maxLength={500}
