@@ -19,6 +19,7 @@ import theme from '../shared/Styles/theme';
 import { getOptionsFromEnum } from '../util';
 
 interface IFilterProps {
+  initFilters: ISearchParameter[];
   onChange: (newFilters: ISearchParameter[]) => void;
   loading: boolean;
 }
@@ -43,20 +44,29 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           Filters
         </H1>
         <Formik
-          initialValues={{
-            school: [],
-            gradYear: [],
-            degree: [],
-            status: [],
-            skills: [],
-            jobInterest: [],
-          }}
+          initialValues={this.parseInitialValues(this.props.initFilters)}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
         />
       </Box>
     );
   }
+  private parseInitialValues(initFilters: ISearchParameter[]) {
+    const initVals = {
+      school: this.searchParam2List('school', initFilters),
+      gradYear: this.searchParam2List('graduationYear', initFilters),
+      degree: this.searchParam2List('degree', initFilters),
+      status: this.searchParam2List('status', initFilters),
+      skills: this.searchParam2List('application.skills', initFilters),
+      jobInterest: this.searchParam2List(
+        'application.jobInterest',
+        initFilters
+      ),
+    };
+    console.log(initVals);
+    return initVals;
+  }
+
   private renderFormik(fp: FormikProps<any>) {
     return (
       <Form onSubmit={fp.handleSubmit}>
@@ -193,6 +203,22 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           },
         ]
       : [];
+  }
+  private searchParam2List(
+    param: string,
+    searchParamList: ISearchParameter[]
+  ): Array<string | number | boolean> {
+    let searches: Array<string | number | boolean> = [];
+    searchParamList.forEach((searchParam) => {
+      if (searchParam.param === param) {
+        if (Array.isArray(searchParam.value)) {
+          searches = searches.concat(searchParam.value);
+        } else {
+          searches.push(searchParam.value);
+        }
+      }
+    });
+    return searches;
   }
 }
 

@@ -22,3 +22,14 @@ export interface ISearchParameter {
   operation: StringOperations | NumberOperations | BooleanOperations;
   value: string | boolean | number | string[] | number[];
 }
+
+export function isValidSearchParameter(parameter: any) {
+  if (!parameter) {
+    return false;
+  }
+  const { param, operation, value } = parameter;
+  if (param && typeof param === 'string' && operation && value) {
+    return true;
+  }
+  return false;
+}

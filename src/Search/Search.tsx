@@ -3,12 +3,17 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 
 import { Search } from '../api';
-import { IHacker, ISearchParameter, UserType } from '../config';
+import {
+  IHacker,
+  ISearchParameter,
+  isValidSearchParameter,
+  UserType,
+} from '../config';
 import { Button, H1 } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
-import { getNestedAttr } from '../util';
+import { getNestedAttr, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
 interface ISearchState {
@@ -30,7 +35,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     super(props);
     this.state = {
       model: 'hacker',
-      query: [],
+      query: this.getSearchFromQuery(),
       results: [],
       loading: false,
     };
@@ -43,6 +48,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       <Flex>
         <Box width={1 / 6} mx={'20px'}>
           <FilterComponent
+            initFilters={this.state.query}
             onChange={this.onFilterChange}
             loading={this.state.loading}
           />
@@ -73,6 +79,31 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         </Box>
       </Flex>
     );
+  }
+  public componentDidMount() {
+    if (this.state.query.length > 0) {
+      this.triggerSearch();
+    }
+  }
+  private getSearchFromQuery(): ISearchParameter[] {
+    const search = getValueFromQuery('q');
+    console.log(search);
+    if (!search) {
+      return [];
+    }
+    const searchParam = JSON.parse(search);
+    if (!Array.isArray(searchParam)) {
+      return [];
+    }
+    const isValidSearch =
+      searchParam
+        .map(
+          (value: any): boolean => {
+            return isValidSearchParameter(value);
+          }
+        )
+        .indexOf(false) === -1;
+    return isValidSearch ? searchParam : [];
   }
 
   private downloadData(): void {
@@ -110,6 +141,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private async triggerSearch(): Promise<void> {
+    this.setState({ loading: true });
     const { model, query } = this.state;
     try {
       const response = await Search.search(model, query, {
@@ -132,7 +164,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
-      loading: true,
     });
     this.triggerSearch();
   }
