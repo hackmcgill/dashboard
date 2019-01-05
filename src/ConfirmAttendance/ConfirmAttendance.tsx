@@ -90,7 +90,13 @@ class ConfirmAttendanceContainer extends React.Component<
         <ErrorMessage component={FormikElements.Error} name="liability" />
         <Flex justifyContent={'center'}>
           <Box>
-            <Button type="submit">Confirm my Attendance</Button>
+            <Button
+              type="submit"
+              isLoading={fp.isSubmitting}
+              disabled={fp.isSubmitting}
+            >
+              Confirm my Attendance
+            </Button>
           </Box>
         </Flex>
       </Form>
