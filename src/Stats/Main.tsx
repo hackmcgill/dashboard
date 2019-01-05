@@ -5,7 +5,7 @@ import { Hacker } from '../api';
 import { IStats } from '../config';
 import { H1, H2 } from '../shared/Elements';
 import { getNestedAttr } from '../util';
-import { SingleStatComponent } from './SingleStat';
+import SingleStatComponent from './SingleStat';
 
 interface IStatsState {
   stats: IStats | null;
@@ -75,27 +75,66 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
         </Box>
         <Box>
           <Flex flexWrap={'wrap'} justifyContent={'center'} mx={'10px'}>
-            <SingleStatComponent statName="Status" stat={stats.status} />
-            <SingleStatComponent statName="School" stat={stats.school} />
-            <SingleStatComponent statName="Degree" stat={stats.degree} />
-            <SingleStatComponent statName="Gender" stat={stats.gender} />
-            <SingleStatComponent statName="Needs bus" stat={stats.needsBus} />
-            <SingleStatComponent statName="Ethnicity" stat={stats.ethnicity} />
+            <SingleStatComponent
+              statName="Status"
+              stat={stats.status}
+              searchReference="status"
+            />
+            <SingleStatComponent
+              statName="School"
+              stat={stats.school}
+              searchReference="school"
+            />
+            <SingleStatComponent
+              statName="Degree"
+              stat={stats.degree}
+              searchReference="degree"
+            />
+            <SingleStatComponent
+              statName="Gender"
+              stat={stats.gender}
+              searchReference="accountId.gender"
+            />
+            <SingleStatComponent
+              statName="Needs bus"
+              stat={stats.needsBus}
+              searchReference="needsBus"
+            />
+            <SingleStatComponent
+              statName="Ethnicity"
+              stat={stats.ethnicity}
+              searchReference="ethnicity"
+            />
             <SingleStatComponent
               statName="Job interest"
               stat={stats.jobInterest}
+              searchReference="application.jobInterest"
             />
-            <SingleStatComponent statName="Majors" stat={stats.major} />
+            <SingleStatComponent
+              statName="Majors"
+              stat={stats.major}
+              searchReference="major"
+            />
             <SingleStatComponent
               statName="Grad Year"
               stat={stats.graduationYear}
+              searchReference="graduationYear"
             />
             <SingleStatComponent
               statName="Dietary Restrictions"
               stat={stats.dietaryRestrictions}
+              searchReference="accountId.dietaryRestrictions"
             />
-            <SingleStatComponent statName="Shirt Size" stat={stats.shirtSize} />
-            <SingleStatComponent statName="Age" stat={stats.age} />
+            <SingleStatComponent
+              statName="Shirt Size"
+              stat={stats.shirtSize}
+              searchReference="accountId.shirtSize"
+            />
+            <SingleStatComponent
+              statName="Age"
+              stat={stats.age}
+              searchReference="accountId.age"
+            />
           </Flex>
         </Box>
       </Flex>

@@ -2,32 +2,30 @@ import { Box } from '@rebass/grid';
 import * as React from 'react';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
+import { RouteComponentProps, withRouter } from 'react-router';
+import { FrontendRoute, StringOperations } from '../config';
 import { H2 } from '../shared/Elements';
 import { ActiveShapeComponent } from './ActiveShape';
 
-interface IStatComponentProps {
+interface IStatComponentProps extends RouteComponentProps {
   statName: string;
+  searchReference?: string;
   stat: { [key: string]: number };
 }
 
 interface IStatComponentState {
   activeIndex: number;
+  data: Array<{ name: string; value: number }>;
 }
 
 const COLORS = ['#3DCC91', '#FFB366', '#FF7373', '#FFCC00', '#3B22FF'];
 
-export default class SingleStatComponent extends React.Component<
+class SingleStatComponent extends React.Component<
   IStatComponentProps,
   IStatComponentState
 > {
   constructor(props: IStatComponentProps) {
     super(props);
-    this.state = {
-      activeIndex: 0,
-    };
-    this.onPieEnter = this.onPieEnter.bind(this);
-  }
-  public render() {
     const data = Object.keys(this.props.stat).map((k: string, index) => {
       return {
         name: k,
@@ -35,29 +33,36 @@ export default class SingleStatComponent extends React.Component<
       };
     });
     data.sort((a, b) => b.value - a.value);
+    this.state = {
+      activeIndex: 0,
+      data,
+    };
+    this.onPieEnter = this.onPieEnter.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  public render() {
     return (
       <Box width={500}>
         <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
-        {/* <ResponsiveContainer width={'100%'} height={'300px'}> */}
         <PieChart width={500} height={300}>
           <Pie
             nameKey={'name'}
             dataKey={'value'}
-            data={data}
+            data={this.state.data}
             innerRadius={'50%'}
             outerRadius={'60%'}
             onMouseEnter={this.onPieEnter}
             activeShape={ActiveShapeComponent}
             activeIndex={this.state.activeIndex}
             isAnimationActive={false}
+            onClick={this.handleClick}
           >
-            {data.map((entry, index) => (
+            {this.state.data.map((entry, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip />
         </PieChart>
-        {/* </ResponsiveContainer> */}
       </Box>
     );
   }
@@ -66,6 +71,23 @@ export default class SingleStatComponent extends React.Component<
       activeIndex: index,
     });
   }
+
+  private handleClick(e: any) {
+    if (this.props.searchReference) {
+      const query = [
+        {
+          param: this.props.searchReference,
+          operation: StringOperations.IN,
+          value: [this.state.data[this.state.activeIndex].name],
+        },
+      ];
+      this.props.history.push(
+        `${FrontendRoute.ADMIN_SEARCH_PAGE}?q=${encodeURIComponent(
+          JSON.stringify(query)
+        )}`
+      );
+    }
+  }
 }
 
-export { SingleStatComponent };
+export default withRouter<IStatComponentProps>(SingleStatComponent);
