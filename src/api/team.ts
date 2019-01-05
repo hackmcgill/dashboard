@@ -27,7 +27,8 @@ class TeamAPI {
    * @param id the ID of the team
    */
   public get(id: string): AxiosPromise<APIResponse<ITeam>> {
-    return API.getEndpoint(APIRoute.TEAM).getOne({ id });
+    console.log(id);
+    return API.getEndpoint(APIRoute.TEAM).getAll({ data: { id } });
   }
 }
 

@@ -15,6 +15,7 @@ import { IHacker } from '../config';
 import Team from '../api/team';
 import { Form } from '../shared/Form';
 import { Error as ErrorComponent, Input } from '../shared/Form/FormikElements';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import getValidationSchema from './validationSchema';
 
 interface IJoinCreateTeamProps {
@@ -111,6 +112,7 @@ class JoinCreateTeam extends React.Component<
       } catch (e) {
         if (e.status === 409) {
           console.log(e);
+          ValidationErrorGenerator(e.data);
         } else {
           console.log(e);
         }
