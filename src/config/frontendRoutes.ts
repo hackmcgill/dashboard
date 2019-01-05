@@ -1,14 +1,15 @@
 export enum FrontendRoute {
-  HOME_PAGE = '/',
-  CREATE_ACCOUNT_PAGE = '/account/create',
-  EDIT_ACCOUNT_PAGE = '/account/edit',
+  ADMIN_SEARCH_PAGE = '/admin/search',
   CONFIRM_ACCOUNT_PAGE = '/account/confirm',
-  FORGOT_PASSWORD_PAGE = '/password/forgot',
-  RESET_PASSWORD_PAGE = '/password/reset',
-  LOGIN_PAGE = '/login',
+  CREATE_ACCOUNT_PAGE = '/account/create',
   CREATE_APPLICATION_PAGE = '/application/create',
-  EDIT_APPLICATION_PAGE = '/application/edit',
   CONFIRM_HACKER_PAGE = '/application/confirm',
+  EDIT_ACCOUNT_PAGE = '/account/edit',
+  EDIT_APPLICATION_PAGE = '/application/edit',
+  FORGOT_PASSWORD_PAGE = '/password/forgot',
+  HOME_PAGE = '/',
+  LOGIN_PAGE = '/login',
+  RESET_PASSWORD_PAGE = '/password/reset',
 }
 
 export default FrontendRoute;
