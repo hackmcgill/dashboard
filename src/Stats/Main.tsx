@@ -1,4 +1,6 @@
+import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+
 import { Hacker } from '../api';
 import { IStats } from '../config';
 import { getNestedAttr } from '../util';
@@ -62,10 +64,9 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
      *  ShirtSize: { [key in ShirtSize]: number };
      *  age: { [key: string]: number };
      */
-    const total = <div>{stats.total}</div>;
     return (
-      <div>
-        Total applicants: {total}
+      <Flex flexWrap={'wrap'}>
+        <Box>Total applicants: {stats.total}</Box>
         <SingleStatComponent statName="Status" stat={stats.status} />
         <SingleStatComponent statName="School" stat={stats.school} />
         <SingleStatComponent statName="Degree" stat={stats.degree} />
@@ -81,7 +82,7 @@ export default class StatsComponent extends React.Component<{}, IStatsState> {
         />
         <SingleStatComponent statName="Shirt Size" stat={stats.shirtSize} />
         <SingleStatComponent statName="Age" stat={stats.age} />
-      </div>
+      </Flex>
     );
   }
 }
