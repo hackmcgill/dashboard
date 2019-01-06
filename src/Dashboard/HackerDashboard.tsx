@@ -82,7 +82,6 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: applicationRoute,
         imageSrc: ApplicationIcon,
         validation: this.confirmAccountToastError,
-        hidden: true,
       },
       {
         title: 'Account',
