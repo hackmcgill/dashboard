@@ -42,23 +42,29 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
       if (pdfWindow) {
         pdfWindow.document.write('<h1>Loading PDF...</h1>');
       }
-
-      Hacker.downloadResume(props.hackerId).then((response) => {
-        const resume = response.data.data.resume;
-        const bufferObj = Buffer.from(resume[0].data);
-        const pdf = bufferObj.toString('base64');
-        if (pdfWindow) {
-          pdfWindow.document.body.innerHTML = '';
-          pdfWindow.document.write(
-            "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-              encodeURI(pdf) +
-              "'></iframe>"
-          );
-        }
-        this.setState({
-          isLoading: false,
+      Hacker.downloadResume(props.hackerId)
+        .then((response) => {
+          const resume = response.data.data.resume;
+          const bufferObj = Buffer.from(resume[0].data);
+          const pdf = bufferObj.toString('base64');
+          if (pdfWindow) {
+            pdfWindow.document.body.innerHTML = '';
+            pdfWindow.document.write(
+              "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+                encodeURI(pdf) +
+                "'></iframe>"
+            );
+          }
+          this.setState({
+            isLoading: false,
+          });
+        })
+        .catch((error) => {
+          this.setState({
+            isLoading: false,
+          });
+          console.error(error);
         });
-      });
     };
   }
 }
