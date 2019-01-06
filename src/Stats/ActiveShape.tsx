@@ -14,6 +14,7 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
     fill,
     payload,
     value,
+    percent,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -27,13 +28,15 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
 
-  const centerText = `${payload.name.substr(0, 10)}${
+  const centerText = `${payload.name.substr(0, 30)}${
     payload.name.length > 10 ? '...' : ''
   }`;
 
+  const percentVal = Math.round(percent * 100);
+
   return (
     <g>
-      <Text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} fontSize={18}>
+      <Text x={18} y={18} dy={8} textAnchor="start" fill={fill} fontSize={20}>
         {centerText}
       </Text>
       <Sector
@@ -66,7 +69,7 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
         textAnchor={textAnchor}
         fill={fill}
       >
-        {value}
+        {value} ({percentVal === 0 ? '<1' : percentVal}%)
       </text>
     </g>
   );

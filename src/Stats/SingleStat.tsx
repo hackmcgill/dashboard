@@ -1,6 +1,6 @@
 import { Box } from '@rebass/grid';
 import * as React from 'react';
-import { Cell, Pie, PieChart, Tooltip } from 'recharts';
+import { Cell, Pie, PieChart } from 'recharts';
 
 import { RouteComponentProps, withRouter } from 'react-router';
 import { FrontendRoute, StringOperations } from '../config';
@@ -42,10 +42,10 @@ class SingleStatComponent extends React.Component<
   }
   public render() {
     return (
-      <Box width={500}>
+      <Box width={400}>
         <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
         <PieChart
-          width={500}
+          width={400}
           height={300}
           onClick={this.handleClick}
           style={this.props.searchReference ? { cursor: 'pointer' } : {}}
@@ -54,8 +54,8 @@ class SingleStatComponent extends React.Component<
             nameKey={'name'}
             dataKey={'value'}
             data={this.state.data}
-            innerRadius={'50%'}
-            outerRadius={'60%'}
+            innerRadius={'30%'}
+            outerRadius={'50%'}
             onMouseEnter={this.onPieEnter}
             activeShape={ActiveShapeComponent}
             activeIndex={this.state.activeIndex}
@@ -65,7 +65,6 @@ class SingleStatComponent extends React.Component<
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip position={{ x: 0, y: 0 }} />
         </PieChart>
       </Box>
     );
