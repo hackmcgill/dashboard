@@ -42,6 +42,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
+    this.onResetForm = this.onResetForm.bind(this);
   }
   public render() {
     return (
@@ -50,6 +51,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           <FilterComponent
             initFilters={this.state.query}
             onChange={this.onFilterChange}
+            onResetForm={this.onResetForm}
             loading={this.state.loading}
           />
         </Box>
@@ -164,17 +166,26 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.setState({ loading: false });
     }
   }
+  private onResetForm() {
+    this.setState({ query: [] });
+    this.updateQueryURL([]);
+  }
+
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
     });
+    this.updateQueryURL(newFilters);
+    this.triggerSearch();
+  }
+
+  private updateQueryURL(newFilters: ISearchParameter[]) {
     const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
     window.history.pushState(
       null,
       '',
       window.location.href.split('?')[0] + newSearch
     );
-    this.triggerSearch();
   }
 }
 

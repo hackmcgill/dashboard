@@ -21,6 +21,7 @@ import { getOptionsFromEnum } from '../util';
 interface IFilterProps {
   initFilters: ISearchParameter[];
   onChange: (newFilters: ISearchParameter[]) => void;
+  onResetForm: () => void;
   loading: boolean;
 }
 
@@ -44,6 +45,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           Filters
         </H1>
         <Formik
+          enableReinitialize={true}
           initialValues={this.parseInitialValues(this.props.initFilters)}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
@@ -150,6 +152,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   private resetForm(fp: FormikProps<any>): () => void {
     return () => {
       fp.resetForm();
+      this.props.onResetForm();
     };
   }
   /**
