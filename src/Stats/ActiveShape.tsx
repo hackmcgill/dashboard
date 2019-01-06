@@ -29,7 +29,7 @@ const ActiveShapeComponent: React.StatelessComponent<any> = (props) => {
   const textAnchor = cos >= 0 ? 'start' : 'end';
 
   const centerText = `${payload.name.substr(0, 30)}${
-    payload.name.length > 10 ? '...' : ''
+    payload.name.length > 30 ? '...' : ''
   }`;
 
   const percentVal = Math.round(percent * 100);
