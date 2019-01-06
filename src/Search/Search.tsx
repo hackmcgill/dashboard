@@ -90,19 +90,23 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     if (!search) {
       return [];
     }
-    const searchParam = JSON.parse(search);
-    if (!Array.isArray(searchParam)) {
+    try {
+      const searchParam = JSON.parse(search);
+      if (!Array.isArray(searchParam)) {
+        return [];
+      }
+      const isValidSearch =
+        searchParam
+          .map(
+            (value: any): boolean => {
+              return isValidSearchParameter(value);
+            }
+          )
+          .indexOf(false) === -1;
+      return isValidSearch ? searchParam : [];
+    } catch (e) {
       return [];
     }
-    const isValidSearch =
-      searchParam
-        .map(
-          (value: any): boolean => {
-            return isValidSearchParameter(value);
-          }
-        )
-        .indexOf(false) === -1;
-    return isValidSearch ? searchParam : [];
   }
 
   private downloadData(): void {
@@ -164,9 +168,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.setState({
       query: newFilters,
     });
-    window.location.search = `q=${encodeURIComponent(
-      JSON.stringify(newFilters)
-    )}`;
+    const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
+    window.history.pushState(
+      null,
+      '',
+      window.location.href.split('?')[0] + newSearch
+    );
     this.triggerSearch();
   }
 }
