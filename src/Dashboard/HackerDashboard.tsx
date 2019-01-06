@@ -82,21 +82,20 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: applicationRoute,
         imageSrc: ApplicationIcon,
         validation: this.confirmAccountToastError,
+        hidden: true,
       },
       {
         title: 'Account',
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },
-    ];
-
-    if (status === HackerStatus.HACKER_STATUS_ACCEPTED) {
-      cards.push({
+      {
         title: 'Confirmation',
         route: routes.CONFIRM_HACKER_PAGE,
         imageSrc: ConfirmIcon,
-      });
-    }
+        hidden: status !== HackerStatus.HACKER_STATUS_ACCEPTED,
+      },
+    ];
 
     return cards;
   }

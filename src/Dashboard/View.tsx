@@ -17,6 +17,7 @@ export interface IDashboardCard {
   route: string;
   imageSrc: any;
   validation?: () => void;
+  hidden?: boolean;
 }
 
 const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
@@ -30,6 +31,7 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
             onClick={card.validation}
             style={{ textDecoration: 'none' }}
             key={card.title}
+            hidden={card.hidden}
           >
             <Card width={'250px'} flexDirection={'column'}>
               <H2 fontSize={'28px'} marginBottom={'30px'} textAlign={'center'}>
