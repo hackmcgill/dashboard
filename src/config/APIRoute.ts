@@ -14,11 +14,12 @@ export enum APIRoute {
   ACCOUNT_INVITE = 'account/invite',
   // Hacker routes
   HACKER = 'hacker',
-  HACKER_SELF = 'hacker/self',
-  HACKER_RESUME = 'hacker/resume',
-  HACKER_STATUS = 'hacker/status',
   HACKER_CHECKIN = 'hacker/checkin',
+  HACKER_CONFIRMATION = 'hacker/confirmation',
+  HACKER_RESUME = 'hacker/resume',
+  HACKER_SELF = 'hacker/self',
   HACKER_STATS = 'hacker/stats',
+  HACKER_STATUS = 'hacker/status',
   // Search routes
   SEARCH = 'search',
   // Sponsor routes

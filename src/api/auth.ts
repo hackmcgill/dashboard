@@ -1,5 +1,5 @@
 import { AxiosPromise, AxiosResponse } from 'axios';
-import { APIRoute, CACHE_USER_KEY, CACHE_HACKER_KEY } from '../config';
+import { APIRoute, CACHE_HACKER_KEY, CACHE_USER_KEY } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
