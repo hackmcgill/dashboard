@@ -181,7 +181,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private updateQueryURL(newFilters: ISearchParameter[]) {
     const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
-    window.history.pushState(
+    window.history.replaceState(
       null,
       '',
       window.location.href.split('?')[0] + newSearch
