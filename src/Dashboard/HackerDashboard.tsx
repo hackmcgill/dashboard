@@ -24,6 +24,7 @@ import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
+  appsOpen: boolean;
 }
 
 /**
@@ -35,6 +36,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     this.state = {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
+      appsOpen: false,
     };
   }
 
@@ -81,7 +83,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Application',
         route: applicationRoute,
         imageSrc: ApplicationIcon,
-        validation: this.confirmAccountToastError,
+        validation: this.applicationAccessValidation,
       },
       {
         title: 'Account',
@@ -99,8 +101,9 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     return cards;
   }
 
-  private confirmAccountToastError = () => {
-    const { status, confirmed } = this.state;
+  private applicationAccessValidation = (): boolean => {
+    const { appsOpen, status, confirmed } = this.state;
+    let hasAccess = true;
     if (!confirmed) {
       const reactMsg = (
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
@@ -116,15 +119,19 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       toast.error(reactMsg, {
         autoClose: false,
       });
+      hasAccess = false;
     } else if (
       !(
         status === HackerStatus.HACKER_STATUS_NONE ||
         status === HackerStatus.HACKER_STATUS_APPLIED
-      )
+      ) ||
+      !appsOpen
     ) {
       // can only access application if their status is NONE, or APPLIED.
       toast.error('You can no longer access your application.');
+      hasAccess = false;
     }
+    return hasAccess;
   };
 
   private resendConfirmationEmail = () => {
