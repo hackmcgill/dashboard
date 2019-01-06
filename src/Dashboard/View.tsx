@@ -23,6 +23,7 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
       <H1>{title}</H1>
+      <H2>Applications are now closed!</H2>
       <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
         {cards.map((card) => (
           <Link
