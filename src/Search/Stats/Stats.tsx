@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 
 import { IStats } from '../../config';
-import { H1, H2 } from '../../shared/Elements';
+import { H2 } from '../../shared/Elements';
 import SingleStatComponent from './SingleStat';
 
 interface IStatsProps {
@@ -40,10 +40,7 @@ function renderStats(stats: IStats) {
   return (
     <Flex flexDirection={'column'}>
       <Box>
-        <H1>Hacker Statistics</H1>
-      </Box>
-      <Box>
-        <H2 marginLeft={'10px'}>Total applicants: {stats.total}</H2>
+        <H2 marginLeft={'10px'}>Total results: {stats.total}</H2>
       </Box>
       <Box>
         <Flex flexWrap={'wrap'} justifyContent={'center'} mx={'10px'}>

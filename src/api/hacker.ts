@@ -2,6 +2,7 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   APIRoute,
   CACHE_HACKER_KEY,
+  CACHE_STATS_KEY,
   HackerStatus,
   IHacker,
   IResumeResponse,
@@ -158,15 +159,21 @@ class HackerAPI {
   }
 
   public async getStats(
-    parameters: ISearchParameter[]
+    parameters: ISearchParameter[],
+    overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<IStatsResponse>>> {
-    const value = await API.getEndpoint(APIRoute.HACKER_STATS).getAll({
-      params: {
-        model: 'hacker',
-        q: JSON.stringify(parameters),
-      },
+    const model = 'hacker';
+    const q = JSON.stringify(parameters);
+    const key = `${CACHE_STATS_KEY}-${model}-${q}`;
+    const cached: any = LocalCache.get(key);
+    if (cached && !overrideCache) {
+      return cached as Promise<AxiosResponse<APIResponse<IStatsResponse>>>;
+    }
+    const result = await API.getEndpoint(APIRoute.HACKER_STATS).getAll({
+      params: { model, q },
     });
-    return value;
+    LocalCache.set(key, result, new Date(Date.now() + 5 * 60 * 1000));
+    return result;
   }
 }
 

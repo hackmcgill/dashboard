@@ -23,7 +23,7 @@ import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
 import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
-import SearchContainer from './Search/Search';
+import SearchContainer from './Search/Main';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';

@@ -1,8 +1,10 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 
+import fileDownload from 'js-file-download';
 import { Hacker, Search } from '../api';
 import { IHacker, ISearchParameter, IStats, UserType } from '../config';
+import { Button } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { getNestedAttr } from '../util';
@@ -36,7 +38,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     super(props);
     this.state = {
       model: 'hacker',
-      mode: SearchMode.STATS,
+      mode: SearchMode.TABLE,
       query: [],
       dataTableResults: [],
       loading: false,
@@ -44,22 +46,51 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     };
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
-    this.triggerSearch();
+    this.downloadData = this.downloadData.bind(this);
+    this.switchSearchMode = this.switchSearchMode.bind(this);
   }
   public render() {
+    const { loading, mode } = this.state;
     return (
       <Flex>
         <Box width={1 / 6} mx={'20px'}>
-          <FilterComponent
-            onChange={this.onFilterChange}
-            loading={this.state.loading}
-          />
+          <FilterComponent onChange={this.onFilterChange} loading={loading} />
         </Box>
         <Box width={5 / 6}>
-          {this.state.mode === SearchMode.TABLE ? (
+          <Flex justifyContent={'space-between'}>
+            <Box>
+              <Flex justifyContent={'space-between'}>
+                <Box>
+                  <Button
+                    secondary={mode !== SearchMode.TABLE}
+                    onClick={this.switchSearchMode(SearchMode.TABLE)}
+                    isLoading={loading}
+                    disabled={loading}
+                  >
+                    Table
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    secondary={mode !== SearchMode.STATS}
+                    onClick={this.switchSearchMode(SearchMode.STATS)}
+                    isLoading={loading}
+                    disabled={loading}
+                  >
+                    Stats
+                  </Button>
+                </Box>
+              </Flex>
+            </Box>
+            <Box mr={'10px'}>
+              <Button>Update Status</Button>
+              <Button onClick={this.downloadData}>Export Hackers</Button>
+            </Box>
+          </Flex>
+          {mode === SearchMode.TABLE ? (
             <ResultsTable
               results={this.state.dataTableResults}
-              loading={this.state.loading}
+              loading={loading}
               userType={UserType.STAFF}
             />
           ) : (
@@ -72,14 +103,24 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       </Flex>
     );
   }
+  private switchSearchMode(
+    mode: SearchMode
+  ): (e: React.MouseEvent<HTMLButtonElement>) => void {
+    return (e: React.MouseEvent<HTMLButtonElement>) => {
+      this.setState({ mode }, this.triggerSearch);
+    };
+  }
+
   private async triggerStatsSearch(): Promise<void> {
     try {
+      this.setState({ loading: true });
       const statsResponse = await Hacker.getStats(this.state.query);
       const stats: IStats | null = getNestedAttr(statsResponse, [
         'data',
         'data',
         'stats',
       ]);
+      console.log(statsResponse);
       this.setState({ statsResults: stats, loading: false });
     } catch (e) {
       console.log('Error while getting stats', e);
@@ -90,6 +131,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   private async triggerTableSearch(): Promise<void> {
     const { model, query } = this.state;
     try {
+      this.setState({ loading: true });
       const response = await Search.search(model, query, {
         expand: true,
         limit: 1000,
@@ -120,9 +162,42 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
-      loading: true,
     });
     this.triggerSearch();
+  }
+
+  private downloadData() {
+    const headers = [
+      '_id',
+      'accountId.firstName',
+      'accountId.lastName',
+      'accountId.email',
+      'needsBus',
+      'major',
+      'school',
+      'graduationYear',
+      'degree',
+      'gender',
+      'needsBus',
+    ];
+    const csvData: string[] = [headers.join('\t')];
+    this.state.dataTableResults.forEach((result) => {
+      if (result.selected) {
+        const row: string[] = [];
+        headers.forEach((header) => {
+          let value;
+          if (header.indexOf('.') >= 0) {
+            const nestedAttr = header.split('.');
+            value = getNestedAttr(result.hacker, nestedAttr);
+          } else {
+            value = result.hacker[header];
+          }
+          row.push(value);
+        });
+        csvData.push(row.join('\t'));
+      }
+    });
+    fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
   }
 }
 
