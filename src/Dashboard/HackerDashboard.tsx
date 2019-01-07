@@ -44,20 +44,30 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   public async componentDidMount() {
+    let hacker = null;
+    // set hacker status
     try {
       const response = await Hacker.getSelf();
-      this.setState({ status: response.data.data.status });
+      hacker = response.data.data;
+      this.setState({ status: hacker.status });
     } catch (e) {
       if (e.status === 401) {
         this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
       }
     }
+    // set confirmed
     try {
       const confirmed = await isConfirmed();
-      const hasAppAccess = await canAccessApplication();
-      this.setState({ confirmed, hasAppAccess });
+      this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });
+    }
+    // determine whether the user has app access
+    if (hacker) {
+      const hasAppAccess = canAccessApplication(hacker);
+      this.setState({ hasAppAccess });
+    } else {
+      this.setState({ hasAppAccess: false });
     }
   }
 

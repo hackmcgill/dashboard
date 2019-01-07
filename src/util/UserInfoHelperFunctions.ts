@@ -46,19 +46,13 @@ export async function getHackerInfo(): Promise<IHacker | null> {
   }
 }
 
-export async function canAccessApplication(): Promise<boolean> {
-  try {
-    const APPS_OPEN = false;
-    const response = await Hacker.getSelf();
-    const user = response.data.data;
-    const { status } = user;
+export function canAccessApplication(hacker: IHacker): boolean {
+  const APPS_OPEN = false;
+  const { status } = hacker;
 
-    return (
-      APPS_OPEN &&
-      (status === HackerStatus.HACKER_STATUS_NONE ||
-        status === HackerStatus.HACKER_STATUS_APPLIED)
-    );
-  } catch (error) {
-    return false;
-  }
+  return (
+    APPS_OPEN &&
+    (status === HackerStatus.HACKER_STATUS_NONE ||
+      status === HackerStatus.HACKER_STATUS_APPLIED)
+  );
 }
