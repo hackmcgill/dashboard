@@ -119,7 +119,6 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
 
   private applicationAccessValidation = (): boolean => {
     const { confirmed, hasAppAccess } = this.state;
-    let hasAccessAndConfirmed = true;
     if (!confirmed) {
       const reactMsg = (
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
@@ -135,13 +134,11 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       toast.error(reactMsg, {
         autoClose: false,
       });
-      hasAccessAndConfirmed = false;
     } else if (!hasAppAccess) {
       // can only access application if their status is NONE, or APPLIED.
       toast.error('You can no longer access your application.');
-      hasAccessAndConfirmed = false;
     }
-    return hasAccessAndConfirmed;
+    return hasAppAccess && confirmed;
   };
 
   private resendConfirmationEmail = () => {
