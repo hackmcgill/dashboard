@@ -27,6 +27,7 @@ import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
+import { canAccessApplication } from './util';
 
 class App extends React.Component {
   public render() {
@@ -98,8 +99,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
-                  AuthVerification: (hacker: IHacker) =>
-                    hacker.status === HackerStatus.HACKER_STATUS_APPLIED,
+                  AuthVerification: canAccessApplication,
                 }),
                 {
                   requiredAuthState: true,
