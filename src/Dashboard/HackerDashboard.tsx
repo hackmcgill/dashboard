@@ -14,7 +14,10 @@ import {
 import { APIResponse, Auth, Hacker } from '../api';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
-import { isConfirmed } from '../util/UserInfoHelperFunctions';
+import {
+  canAccessApplication,
+  isConfirmed,
+} from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
@@ -24,7 +27,7 @@ import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
-  appsOpen: boolean;
+  hasAppAccess: boolean;
 }
 
 /**
@@ -36,7 +39,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     this.state = {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
-      appsOpen: false,
+      hasAppAccess: true,
     };
   }
 
@@ -51,7 +54,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
     try {
       const confirmed = await isConfirmed();
-      this.setState({ confirmed });
+      const hasAppAccess = await canAccessApplication();
+      this.setState({ confirmed, hasAppAccess });
     } catch (e) {
       this.setState({ confirmed: false });
     }
@@ -68,6 +72,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
+    const { hasAppAccess } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -84,6 +89,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: applicationRoute,
         imageSrc: ApplicationIcon,
         validation: this.applicationAccessValidation,
+        disabled: !hasAppAccess,
       },
       {
         title: 'Account',
@@ -102,8 +108,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private applicationAccessValidation = (): boolean => {
-    const { appsOpen, status, confirmed } = this.state;
-    let hasAccess = true;
+    const { confirmed, hasAppAccess } = this.state;
+    let hasAccessAndConfirmed = true;
     if (!confirmed) {
       const reactMsg = (
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
@@ -119,19 +125,13 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       toast.error(reactMsg, {
         autoClose: false,
       });
-      hasAccess = false;
-    } else if (
-      !(
-        status === HackerStatus.HACKER_STATUS_NONE ||
-        status === HackerStatus.HACKER_STATUS_APPLIED
-      ) ||
-      !appsOpen
-    ) {
+      hasAccessAndConfirmed = false;
+    } else if (!hasAppAccess) {
       // can only access application if their status is NONE, or APPLIED.
       toast.error('You can no longer access your application.');
-      hasAccess = false;
+      hasAccessAndConfirmed = false;
     }
-    return hasAccess;
+    return hasAccessAndConfirmed;
   };
 
   private resendConfirmationEmail = () => {
