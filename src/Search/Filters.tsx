@@ -33,13 +33,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   public render() {
     return (
       <Box m={'auto'}>
-        <H1
-          color={theme.colors.primary}
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-        >
+        <H1 color={theme.colors.primary} textAlign={'left'}>
           Filters
         </H1>
         <Formik

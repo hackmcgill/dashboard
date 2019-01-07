@@ -27,7 +27,6 @@ import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
-import StatsComponent from './Stats/Main';
 
 class App extends React.Component {
   public render() {
@@ -145,20 +144,6 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(SearchContainer, {
                 requiredAuthState: true,
-                AuthVerification: (user: IAccount) =>
-                  user.confirmed &&
-                  (user.accountType === UserType.STAFF ||
-                    user.accountType === UserType.SPONSOR),
-              })
-            )}
-          />
-          <Route
-            exact={true}
-            path={FrontendRoute.ADMIN_STATS_PAGE}
-            component={withNavbar(
-              withAuthRedirect(StatsComponent, {
-                requiredAuthState: true,
-                redirAfterLogin: true,
                 AuthVerification: (user: IAccount) =>
                   user.confirmed &&
                   (user.accountType === UserType.STAFF ||

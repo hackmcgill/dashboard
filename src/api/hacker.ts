@@ -2,10 +2,10 @@ import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   APIRoute,
   CACHE_HACKER_KEY,
-  CACHE_STATS_KEY,
   HackerStatus,
   IHacker,
   IResumeResponse,
+  ISearchParameter,
   IStatsResponse,
 } from '../config';
 import LocalCache from '../util/LocalCache';
@@ -157,10 +157,15 @@ class HackerAPI {
     return value;
   }
 
-  public async getStats(): Promise<AxiosResponse<APIResponse<IStatsResponse>>> {
-    const key = CACHE_STATS_KEY;
-    const value = await API.getEndpoint(APIRoute.HACKER_STATS).getAll();
-    LocalCache.set(key, value, new Date(Date.now() + 5 * 60 * 1000));
+  public async getStats(
+    parameters: ISearchParameter[]
+  ): Promise<AxiosResponse<APIResponse<IStatsResponse>>> {
+    const value = await API.getEndpoint(APIRoute.HACKER_STATS).getAll({
+      params: {
+        model: 'hacker',
+        q: JSON.stringify(parameters),
+      },
+    });
     return value;
   }
 }

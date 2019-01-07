@@ -3,8 +3,8 @@ import * as React from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
 
 import { RouteComponentProps, withRouter } from 'react-router';
-import { FrontendRoute, StringOperations } from '../config';
-import { H2 } from '../shared/Elements';
+import { FrontendRoute, StringOperations } from '../../config';
+import { H2 } from '../../shared/Elements';
 import { ActiveShapeComponent } from './ActiveShape';
 
 interface IStatComponentProps extends RouteComponentProps {
