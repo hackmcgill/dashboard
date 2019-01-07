@@ -1,6 +1,6 @@
 import { Account, Hacker } from '../api';
 
-import { IAccount, IHacker, UserType } from '../config';
+import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -43,5 +43,22 @@ export async function getHackerInfo(): Promise<IHacker | null> {
     return response.data.data;
   } catch (error) {
     return null;
+  }
+}
+
+export async function canAccessApplication(): Promise<boolean> {
+  try {
+    const APPS_OPEN = false;
+    const response = await Hacker.getSelf();
+    const user = response.data.data;
+    const { status } = user;
+
+    return (
+      APPS_OPEN &&
+      (status === HackerStatus.HACKER_STATUS_NONE ||
+        status === HackerStatus.HACKER_STATUS_APPLIED)
+    );
+  } catch (error) {
+    return false;
   }
 }
