@@ -117,10 +117,9 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Team',
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
-        hidden: status !== HackerStatus.HACKER_STATUS_NONE,
+        hidden: status === HackerStatus.HACKER_STATUS_NONE,
       },
     ];
-
     return cards;
   }
 

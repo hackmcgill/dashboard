@@ -20,6 +20,7 @@ import getValidationSchema from './validationSchema';
 
 interface IJoinCreateTeamProps {
   hacker: IHacker;
+  onTeamChange: () => void;
 }
 
 interface IJoinCreateTeamState {
@@ -104,25 +105,29 @@ class JoinCreateTeam extends React.Component<
   private async handleSubmit(values: FormikValues) {
     if (this.state.submissionBtn === 0) {
       try {
-        const response = await Team.create({
+        await Team.create({
           name: values.name,
           members: [this.props.hacker.id],
         });
-        console.log(response);
+        this.props.onTeamChange();
       } catch (e) {
         if (e.status === 409) {
           console.log(e);
-          ValidationErrorGenerator(e.data);
+          if (e && e.data) {
+            ValidationErrorGenerator(e.data);
+          }
         } else {
           console.log(e);
         }
       }
     } else {
       try {
-        const response = await Team.join(values.name);
-        console.log(response);
+        await Team.join(values.name);
+        this.props.onTeamChange();
       } catch (e) {
-        console.log(e);
+        if (e && e.data) {
+          ValidationErrorGenerator(e.data);
+        }
       }
     }
   }

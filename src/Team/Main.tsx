@@ -29,21 +29,36 @@ class TeamContainer extends React.Component<{}, ITeamState> {
       members: [],
       isLoading: true,
     };
+    this.onLeaveTeam = this.onLeaveTeam.bind(this);
+    this.getTeam = this.getTeam.bind(this);
   }
   public render() {
     if (this.state.isLoading) {
       return <div>Loading...</div>;
     } else if (!this.state.team && this.state.hacker) {
-      return <JoinCreateTeam hacker={this.state.hacker} />;
+      return (
+        <JoinCreateTeam
+          hacker={this.state.hacker}
+          onTeamChange={this.getTeam}
+        />
+      );
     } else if (this.state.team) {
       return (
-        <TeamDescription team={this.state.team} members={this.state.members} />
+        <TeamDescription
+          team={this.state.team}
+          members={this.state.members}
+          onLeaveTeam={this.onLeaveTeam}
+        />
       );
     }
     return <div />;
   }
 
-  public async componentDidMount() {
+  public componentDidMount() {
+    return this.getTeam();
+  }
+
+  private async getTeam() {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
       if (hacker && hacker.teamId) {
@@ -55,7 +70,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
           members: teamResponse.members,
         });
       } else if (hacker) {
-        this.setState({ hacker });
+        this.setState({ hacker, team: null, members: [] });
       }
       this.setState({ isLoading: false });
     } catch (e) {
@@ -64,6 +79,17 @@ class TeamContainer extends React.Component<{}, ITeamState> {
       }
       this.setState({ isLoading: false });
     }
+  }
+
+  private async onLeaveTeam() {
+    try {
+      await Team.leave();
+    } catch (e) {
+      if (e && e.data) {
+        ValidationErrorGenerator(e.data);
+      }
+    }
+    return this.getTeam();
   }
 }
 

@@ -27,5 +27,6 @@ export enum APIRoute {
 
   TEAM = 'team',
   TEAM_JOIN = 'team/join',
+  TEAM_LEAVE = 'team/leave',
 }
 export default APIRoute;
