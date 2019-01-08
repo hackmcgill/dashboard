@@ -109,6 +109,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             <StatsComponent
               stats={this.state.statsResults}
               loading={this.state.loading}
+              onFilterChange={this.onFilterChange}
             />
           )}
         </Box>
@@ -160,10 +161,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         'data',
         'stats',
       ]);
-      console.log(statsResponse);
       this.setState({ statsResults: stats, loading: false });
     } catch (e) {
-      console.log('Error while getting stats', e);
+      ValidationErrorGenerator(e.data);
       this.setState({ loading: false });
     }
   }
@@ -200,11 +200,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     }
   }
   private onFilterChange(newFilters: ISearchParameter[]) {
-    this.setState({
-      query: newFilters,
-    });
     this.updateQueryURL(newFilters);
-    this.triggerSearch();
+    this.setState(
+      {
+        query: newFilters,
+      },
+      this.triggerSearch
+    );
   }
   private onResetForm() {
     this.setState({ query: [] });

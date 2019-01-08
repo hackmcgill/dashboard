@@ -1,27 +1,31 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 
-import { IStats } from '../../config';
+import { ISearchParameter, IStats } from '../../config';
 import { H2 } from '../../shared/Elements';
 import SingleStatComponent from './SingleStat';
 
 interface IStatsProps {
   stats: IStats | null;
   loading: boolean;
+  onFilterChange: (newFilters: ISearchParameter[]) => void;
 }
 
 const StatsComponent: React.StatelessComponent<IStatsProps> = (props) => {
-  const { stats, loading } = props;
+  const { stats, loading, onFilterChange } = props;
   if (loading) {
     return <div>loading...</div>;
   } else if (stats !== null) {
-    return renderStats(stats);
+    return renderStats(stats, onFilterChange);
   } else {
     return <div>Error</div>;
   }
 };
 
-function renderStats(stats: IStats) {
+function renderStats(
+  stats: IStats,
+  onFilterChange: (newFilters: ISearchParameter[]) => void
+) {
   /*
    *   total: number;
    *  status: { [key in HackerStatus]: number };
@@ -48,42 +52,40 @@ function renderStats(stats: IStats) {
             statName="Status"
             stat={stats.status}
             searchReference="status"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent
             statName="School"
             stat={stats.school}
             searchReference="school"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent
             statName="Degree"
             stat={stats.degree}
             searchReference="degree"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent statName="Gender" stat={stats.gender} />
-          <SingleStatComponent
-            statName="Needs bus"
-            stat={stats.needsBus}
-            searchReference="needsBus"
-          />
-          <SingleStatComponent
-            statName="Ethnicity"
-            stat={stats.ethnicity}
-            searchReference="ethnicity"
-          />
+          <SingleStatComponent statName="Needs bus" stat={stats.needsBus} />
+          <SingleStatComponent statName="Ethnicity" stat={stats.ethnicity} />
           <SingleStatComponent
             statName="Job interest"
             stat={stats.jobInterest}
             searchReference="application.jobInterest"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent
             statName="Majors"
             stat={stats.major}
             searchReference="major"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent
             statName="Grad Year"
             stat={stats.graduationYear}
             searchReference="graduationYear"
+            onFilterChange={onFilterChange}
           />
           <SingleStatComponent
             statName="Dietary Restrictions"

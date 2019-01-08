@@ -2,14 +2,14 @@ import { Box } from '@rebass/grid';
 import * as React from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
 
-import { RouteComponentProps, withRouter } from 'react-router';
-import { FrontendRoute, StringOperations } from '../../config';
+import { ISearchParameter, StringOperations } from '../../config';
 import { H2 } from '../../shared/Elements';
 import { ActiveShapeComponent } from './ActiveShape';
 
-interface IStatComponentProps extends RouteComponentProps {
+interface IStatComponentProps {
   statName: string;
   searchReference?: string;
+  onFilterChange?: (newFilters: ISearchParameter[]) => void;
   stat: { [key: string]: number };
 }
 
@@ -76,7 +76,7 @@ class SingleStatComponent extends React.Component<
   }
 
   private handleClick(e: any) {
-    if (this.props.searchReference) {
+    if (this.props.searchReference && this.props.onFilterChange) {
       const query = [
         {
           param: this.props.searchReference,
@@ -84,13 +84,9 @@ class SingleStatComponent extends React.Component<
           value: [this.state.data[this.state.activeIndex].name],
         },
       ];
-      this.props.history.push(
-        `${FrontendRoute.ADMIN_SEARCH_PAGE}?q=${encodeURIComponent(
-          JSON.stringify(query)
-        )}`
-      );
+      this.props.onFilterChange(query);
     }
   }
 }
 
-export default withRouter<IStatComponentProps>(SingleStatComponent);
+export default SingleStatComponent;
