@@ -209,8 +209,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
   private onResetForm() {
-    this.setState({ query: [] });
     this.updateQueryURL([]);
+    this.setState({ query: [] }, this.triggerSearch);
   }
 
   private updateQueryURL(newFilters: ISearchParameter[]) {
