@@ -4,3 +4,8 @@ export interface ITeam {
   devpostURL?: string;
   projectName?: string;
 }
+
+export interface IMemberName {
+  firstName: string;
+  lastName: string;
+}

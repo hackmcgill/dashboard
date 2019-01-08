@@ -8,6 +8,7 @@
     "@types/styled-react-modal": "^1.1.0",
     "ajv": "^6.6.2",
     "axios": "^0.18.0",
+    "clipboard": "^2.0.4",
     "formik": "^1.4.1",
     "gh-pages": "^2.0.1",
     "js-file-download": "^0.4.4",
@@ -25,7 +26,6 @@
     "react-table": "^6.8.6",
     "react-toastify": "^4.5.1",
     "styled-components": "^4.0.2",
-    "styled-react-modal": "^1.2.1",
     "yup": "^0.26.6"
   },
   "scripts": {
@@ -48,7 +48,6 @@
     "@types/react-alert": "^2.4.2",
     "@types/react-autosuggest": "^9.3.6",
     "@types/react-dom": "^16.0.11",
-    "@types/react-styled-modal": "^3.6.0",
     "@types/react-responsive": "^3.0.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",

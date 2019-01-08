@@ -1,5 +1,6 @@
 import { AxiosPromise } from 'axios';
 import { APIRoute, ITeam } from '../config';
+import { ITeamResponse } from '../config/teamGETResponse';
 import API from './api';
 import APIResponse from './APIResponse';
 
@@ -24,11 +25,11 @@ class TeamAPI {
   }
   /**
    * Get information about a team
-   * @param id the ID of the team
+   * @param id the ID of the hacker in a team
    */
-  public get(id: string): AxiosPromise<APIResponse<ITeam>> {
+  public get(id: string): AxiosPromise<APIResponse<ITeamResponse>> {
     console.log(id);
-    return API.getEndpoint(APIRoute.TEAM).getAll({ data: { id } });
+    return API.getEndpoint(APIRoute.TEAM).getOne({ id });
   }
 }
 

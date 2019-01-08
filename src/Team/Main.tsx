@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Hacker } from '../api';
 import Team from '../api/team';
-import { IHacker, ITeam } from '../config';
+import { IHacker, IMemberName, ITeam } from '../config';
 
+import { ITeamResponse } from '../config/teamGETResponse';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { JoinCreateTeam } from './JoinCreateTeam';
@@ -12,6 +13,7 @@ import { TeamDescription } from './TeamDescription';
 export interface ITeamState {
   hacker: IHacker | null;
   team: ITeam | null;
+  members: IMemberName[];
   isLoading: boolean;
 }
 
@@ -24,6 +26,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
     this.state = {
       hacker: null,
       team: null,
+      members: [],
       isLoading: true,
     };
   }
@@ -33,7 +36,9 @@ class TeamContainer extends React.Component<{}, ITeamState> {
     } else if (!this.state.team && this.state.hacker) {
       return <JoinCreateTeam hacker={this.state.hacker} />;
     } else if (this.state.team) {
-      return <TeamDescription team={this.state.team} />;
+      return (
+        <TeamDescription team={this.state.team} members={this.state.members} />
+      );
     }
     return <div />;
   }
@@ -43,10 +48,11 @@ class TeamContainer extends React.Component<{}, ITeamState> {
       const hacker = (await Hacker.getSelf()).data.data;
       if (hacker && hacker.teamId) {
         const id = String(hacker.teamId);
-        const team = (await Team.get(id)).data.data;
+        const teamResponse: ITeamResponse = (await Team.get(id)).data.data;
         this.setState({
           hacker,
-          team,
+          team: teamResponse.team,
+          members: teamResponse.members,
         });
       } else if (hacker) {
         this.setState({ hacker });

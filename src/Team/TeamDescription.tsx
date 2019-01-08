@@ -1,20 +1,23 @@
+import * as React from 'react';
+
 import { Box, Flex } from '@rebass/grid';
 
-import { ITeam } from '../config';
+import { IMemberName, ITeam } from '../config';
 import { H1, Image, MaxWidthBox } from '../shared/Elements';
 
 import CopyImage from '../assets/images/copy-icon.svg';
 
 interface ITeamDescriptionProps {
   team: ITeam;
+  members: IMemberName[];
 }
 
 const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   const firstColumnWidth = 0.3;
-  const nameList = props.team.members.map((member, index) => (
-    <Box key={index}>{member}</Box>
+  const nameList = props.members.map((member, index) => (
+    <Box key={index}>{member.firstName}</Box>
   ));
   return (
     <MaxWidthBox maxWidth={'500px'} m={'auto'}>
