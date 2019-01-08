@@ -1,3 +1,5 @@
+import * as QueryString from 'query-string';
+
 function padStart(padNum: number, padValue: string, value: string): string {
   if (value.length < padNum) {
     const pad = String(padValue).repeat(padNum - value.length);
@@ -43,4 +45,16 @@ function date2input(date: string) {
   return `${month}${day}${year}`;
 }
 
-export { padStart, getNestedAttr, getOptionsFromEnum, input2date, date2input };
+function getValueFromQuery(key: string): string | undefined {
+  const queries: any = QueryString.parse(location.search);
+  return queries[key];
+}
+
+export {
+  padStart,
+  getNestedAttr,
+  getOptionsFromEnum,
+  getValueFromQuery,
+  input2date,
+  date2input,
+};

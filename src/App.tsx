@@ -23,10 +23,12 @@ import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
+import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
+import { canAccessApplication } from './util';
 
 class App extends React.Component {
   public render() {
@@ -98,8 +100,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
-                  AuthVerification: (hacker: IHacker) =>
-                    hacker.status === HackerStatus.HACKER_STATUS_APPLIED,
+                  AuthVerification: canAccessApplication,
                 }),
                 {
                   requiredAuthState: true,
@@ -135,6 +136,25 @@ class App extends React.Component {
               withAuthRedirect(LoginContainer, {
                 requiredAuthState: false,
               })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CONFIRM_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(ConfirmAttendanceContainer, {
+                  requiredAuthState: true,
+                  AuthVerification: (user: IHacker) =>
+                    // user must have been accepted in order to confirm.
+                    user.status === HackerStatus.HACKER_STATUS_ACCEPTED,
+                }),
+                {
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
             )}
           />
           <Route

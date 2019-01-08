@@ -14,10 +14,11 @@ import APIResponse from './APIResponse';
 
 class HackerAPI {
   constructor() {
-    API.createEntity(APIRoute.HACKER);
-    API.createEntity(APIRoute.HACKER_SELF);
+    API.createEntity(APIRoute.HACKER_CONFIRMATION);
     API.createEntity(APIRoute.HACKER_RESUME);
+    API.createEntity(APIRoute.HACKER_SELF);
     API.createEntity(APIRoute.HACKER_STATS);
+    API.createEntity(APIRoute.HACKER);
   }
   /**
    * Create an account.
@@ -115,9 +116,12 @@ class HackerAPI {
    * @param id The id of the hacker
    * @param confirm Whether the hacker wishes to confirm their attendence or not.
    */
-  public confirm(id: string, confirm: boolean): AxiosPromise {
+  public async confirm(
+    id: string,
+    confirm: boolean
+  ): Promise<AxiosResponse<APIResponse<{}>>> {
     const key = CACHE_HACKER_KEY + '-' + id;
-    const value = API.getEndpoint(APIRoute.HACKER_STATUS).patch(
+    const value = await API.getEndpoint(APIRoute.HACKER_CONFIRMATION).patch(
       { id },
       { confirm }
     );

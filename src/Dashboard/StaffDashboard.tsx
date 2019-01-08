@@ -44,16 +44,12 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   public render() {
-    const { confirmed } = this.state;
     return (
-      <DashboardView
-        cards={this.generateCards(confirmed)}
-        title={'Staff Dashboard'}
-      />
+      <DashboardView cards={this.generateCards()} title={'Staff Dashboard'} />
     );
   }
 
-  private generateCards(confirmed: boolean) {
+  private generateCards() {
     const cards: IDashboardCard[] = [
       {
         title: 'Search',
@@ -71,7 +67,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
     return cards;
   }
 
-  private confirmAccountToastError = () => {
+  private confirmAccountToastError = (): boolean => {
     const { confirmed } = this.state;
     if (!confirmed) {
       const reactMsg = (
@@ -89,6 +85,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
         autoClose: false,
       });
     }
+    return confirmed;
   };
 
   private resendConfirmationEmail = () => {

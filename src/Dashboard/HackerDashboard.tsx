@@ -14,16 +14,21 @@ import {
 import { APIResponse, Auth, Hacker } from '../api';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
-import { isConfirmed } from '../util/UserInfoHelperFunctions';
+import {
+  canAccessApplication,
+  isConfirmed,
+} from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 import TeamIcon from '../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
+  hasAppAccess: boolean;
 }
 
 /**
@@ -35,23 +40,35 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     this.state = {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
+      hasAppAccess: true,
     };
   }
 
   public async componentDidMount() {
+    let hacker = null;
+    // set hacker status
     try {
       const response = await Hacker.getSelf();
-      this.setState({ status: response.data.data.status });
+      hacker = response.data.data;
+      this.setState({ status: hacker.status });
     } catch (e) {
       if (e.status === 401) {
         this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
       }
     }
+    // set confirmed
     try {
       const confirmed = await isConfirmed();
       this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });
+    }
+    // determine whether the user has app access
+    if (hacker) {
+      const hasAppAccess = canAccessApplication(hacker);
+      this.setState({ hasAppAccess });
+    } else {
+      this.setState({ hasAppAccess: false });
     }
   }
 
@@ -66,6 +83,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
+    const { hasAppAccess } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -81,28 +99,33 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Application',
         route: applicationRoute,
         imageSrc: ApplicationIcon,
-        validation: this.confirmAccountToastError,
+        validation: this.applicationAccessValidation,
+        disabled: !hasAppAccess,
       },
       {
         title: 'Account',
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },
-    ];
-
-    if (status !== HackerStatus.HACKER_STATUS_NONE) {
-      cards.push({
+      {
+        title: 'Confirmation',
+        route: routes.CONFIRM_HACKER_PAGE,
+        imageSrc: ConfirmIcon,
+        hidden: status !== HackerStatus.HACKER_STATUS_ACCEPTED,
+      },
+      {
         title: 'Team',
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
-      });
-    }
+        hidden: status !== HackerStatus.HACKER_STATUS_NONE,
+      },
+    ];
 
     return cards;
   }
 
-  private confirmAccountToastError = () => {
-    const { status, confirmed } = this.state;
+  private applicationAccessValidation = (): boolean => {
+    const { confirmed, hasAppAccess } = this.state;
     if (!confirmed) {
       const reactMsg = (
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
@@ -118,15 +141,11 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       toast.error(reactMsg, {
         autoClose: false,
       });
-    } else if (
-      !(
-        status === HackerStatus.HACKER_STATUS_NONE ||
-        status === HackerStatus.HACKER_STATUS_APPLIED
-      )
-    ) {
+    } else if (!hasAppAccess) {
       // can only access application if their status is NONE, or APPLIED.
       toast.error('You can no longer access your application.');
     }
+    return hasAppAccess && confirmed;
   };
 
   private resendConfirmationEmail = () => {

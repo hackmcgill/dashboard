@@ -16,7 +16,9 @@ export interface IDashboardCard {
   title: string;
   route: string;
   imageSrc: any;
-  validation?: () => void;
+  validation?: () => boolean;
+  hidden?: boolean;
+  disabled?: boolean;
 }
 
 const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
@@ -27,11 +29,16 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
         {cards.map((card) => (
           <Link
             to={card.route}
-            onClick={card.validation}
+            onClick={eventHandleWrapperFactory(card)}
             style={{ textDecoration: 'none' }}
             key={card.title}
+            hidden={card.hidden}
           >
-            <Card width={'250px'} flexDirection={'column'}>
+            <Card
+              width={'250px'}
+              flexDirection={'column'}
+              disabled={card.disabled}
+            >
               <H2 fontSize={'28px'} marginBottom={'30px'} textAlign={'center'}>
                 {card.title}
               </H2>
@@ -54,5 +61,13 @@ const DashboardView: React.SFC<IDashboardView> = ({ cards, title }) => {
     </Flex>
   );
 };
+
+function eventHandleWrapperFactory(card: IDashboardCard) {
+  return (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (card.validation && !card.validation()) {
+      e.preventDefault();
+    }
+  };
+}
 
 export default DashboardView;
