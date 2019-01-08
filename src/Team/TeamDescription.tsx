@@ -29,7 +29,7 @@ const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
     <Box key={index}>{member.firstName}</Box>
   ));
   return (
-    <MaxWidthBox maxWidth={'600px'} mx={[5, 'auto']}>
+    <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
       <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
         Your Team
       </H1>
@@ -45,7 +45,7 @@ const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
             </Box>
           </Flex>
         </Box>
-        <Box>
+        <Box mt={'10px'}>
           <Flex justifyContent={'space-between'}>
             <Box width={firstColumnWidth}>
               <Bold>{TEAM_MEMBERS}</Bold>
