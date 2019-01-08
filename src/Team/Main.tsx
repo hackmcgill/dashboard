@@ -72,11 +72,11 @@ class TeamContainer extends React.Component<{}, ITeamState> {
       } else if (hacker) {
         this.setState({ hacker, team: null, members: [] });
       }
-      this.setState({ isLoading: false });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+    } finally {
       this.setState({ isLoading: false });
     }
   }
