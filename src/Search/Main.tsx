@@ -3,11 +3,17 @@ import * as React from 'react';
 
 import fileDownload from 'js-file-download';
 import { Hacker, Search } from '../api';
-import { IHacker, ISearchParameter, IStats, UserType } from '../config';
+import {
+  IHacker,
+  ISearchParameter,
+  IStats,
+  isValidSearchParameter,
+  UserType,
+} from '../config';
 import { Button } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
-import { getNestedAttr } from '../util';
+import { getNestedAttr, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
 import { StatsComponent } from './Stats/Stats';
@@ -39,22 +45,28 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.state = {
       model: 'hacker',
       mode: SearchMode.TABLE,
-      query: [],
+      query: this.getSearchFromQuery(),
       dataTableResults: [],
-      loading: false,
       statsResults: null,
+      loading: false,
     };
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
     this.switchSearchMode = this.switchSearchMode.bind(this);
+    this.onResetForm = this.onResetForm.bind(this);
   }
   public render() {
     const { loading, mode } = this.state;
     return (
       <Flex>
         <Box width={1 / 6} mx={'20px'}>
-          <FilterComponent onChange={this.onFilterChange} loading={loading} />
+          <FilterComponent
+            initFilters={this.state.query}
+            onChange={this.onFilterChange}
+            onResetForm={this.onResetForm}
+            loading={loading}
+          />
         </Box>
         <Box width={5 / 6}>
           <Flex justifyContent={'space-between'}>
@@ -102,6 +114,34 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         </Box>
       </Flex>
     );
+  }
+  public componentDidMount() {
+    if (this.state.query.length > 0) {
+      this.triggerSearch();
+    }
+  }
+  private getSearchFromQuery(): ISearchParameter[] {
+    const search = getValueFromQuery('q');
+    if (!search) {
+      return [];
+    }
+    try {
+      const searchParam = JSON.parse(search);
+      if (!Array.isArray(searchParam)) {
+        return [];
+      }
+      const isValidSearch =
+        searchParam
+          .map(
+            (value: any): boolean => {
+              return isValidSearchParameter(value);
+            }
+          )
+          .indexOf(false) === -1;
+      return isValidSearch ? searchParam : [];
+    } catch (e) {
+      return [];
+    }
   }
   private switchSearchMode(
     mode: SearchMode
@@ -163,7 +203,21 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.setState({
       query: newFilters,
     });
+    this.updateQueryURL(newFilters);
     this.triggerSearch();
+  }
+  private onResetForm() {
+    this.setState({ query: [] });
+    this.updateQueryURL([]);
+  }
+
+  private updateQueryURL(newFilters: ISearchParameter[]) {
+    const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
+    window.history.replaceState(
+      null,
+      '',
+      window.location.href.split('?')[0] + newSearch
+    );
   }
 
   private downloadData() {
