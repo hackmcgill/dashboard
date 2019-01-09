@@ -1,4 +1,4 @@
-export default interface IInviteInfo {
-    email: string;
-    accountType: string;
+export interface IInviteInfo {
+  email: string;
+  accountType: string;
 }
