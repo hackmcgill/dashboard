@@ -16,6 +16,7 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  isAppOpen,
   isConfirmed,
 } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
@@ -74,6 +75,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       <DashboardView
         cards={this.generateCards(status, confirmed)}
         title={`status: ${status.toLowerCase()}`}
+        subtitle={!isAppOpen() ? 'Applications are now closed' : undefined}
       />
     );
   }
