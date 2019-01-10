@@ -45,9 +45,12 @@ export async function getHackerInfo(): Promise<IHacker | null> {
     return null;
   }
 }
+export function isAppOpen(): boolean {
+  return false;
+}
 
 export function canAccessApplication(hacker: IHacker): boolean {
-  const APPS_OPEN = false;
+  const APPS_OPEN = isAppOpen();
   const { status } = hacker;
 
   return (
