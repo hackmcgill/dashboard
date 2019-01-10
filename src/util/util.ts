@@ -50,6 +50,15 @@ function getValueFromQuery(key: string): string | undefined {
   return queries[key];
 }
 
+function normalizeArray<T>(array: T[], indexKey: keyof T) {
+  const normalizedObject: any = {};
+  for (const el of array) {
+    const key = el[indexKey];
+    normalizedObject[key] = el;
+  }
+  return normalizedObject as { [key: string]: T };
+}
+
 export {
   padStart,
   getNestedAttr,
@@ -57,4 +66,5 @@ export {
   getValueFromQuery,
   input2date,
   date2input,
+  normalizeArray,
 };

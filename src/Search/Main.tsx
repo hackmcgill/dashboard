@@ -110,6 +110,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               stats={this.state.statsResults}
               loading={this.state.loading}
               onFilterChange={this.onFilterChange}
+              existingFilters={this.state.query}
             />
           )}
         </Box>
@@ -199,6 +200,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         return this.triggerTableSearch();
     }
   }
+
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.updateQueryURL(newFilters);
     this.setState(
@@ -208,6 +210,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.triggerSearch
     );
   }
+
   private onResetForm() {
     this.updateQueryURL([]);
     this.setState({ query: [] }, this.triggerSearch);
