@@ -23,7 +23,7 @@ class AccountAPI {
     if (authToken) {
       config = {
         headers: {
-          Authentication: authToken,
+          token: authToken,
         },
       };
     }

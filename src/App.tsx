@@ -164,9 +164,7 @@ class App extends React.Component {
               withAuthRedirect(SearchContainer, {
                 requiredAuthState: true,
                 AuthVerification: (user: IAccount) =>
-                  user.confirmed &&
-                  (user.accountType === UserType.STAFF ||
-                    user.accountType === UserType.SPONSOR),
+                  user.confirmed && user.accountType === UserType.STAFF,
               })
             )}
           />
