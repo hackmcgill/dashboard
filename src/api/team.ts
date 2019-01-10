@@ -24,6 +24,7 @@ class TeamAPI {
    * @param name the team name
    */
   public join(name: string): AxiosPromise<APIResponse<{}>> {
+    LocalCache.remove(CACHE_HACKER_KEY);
     return API.getEndpoint(APIRoute.TEAM_JOIN).patch({ id: '' }, { name });
   }
   /**
