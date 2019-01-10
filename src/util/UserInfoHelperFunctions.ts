@@ -49,9 +49,9 @@ export function isAppOpen(): boolean {
   return false;
 }
 
-export function canAccessApplication(hacker: IHacker): boolean {
+export function canAccessApplication(hacker?: IHacker): boolean {
   const APPS_OPEN = isAppOpen();
-  const { status } = hacker;
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
 
   return (
     APPS_OPEN &&
