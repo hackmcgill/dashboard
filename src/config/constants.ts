@@ -70,3 +70,10 @@ export const EMAIL_SENT = 'Email sent!';
 // LabelTextComponent page
 export const REQUIRED_INPUT = '*';
 export const OPTIONAL_INPUT = '(Optional)';
+
+// Team page
+export const TEAM_NAME = 'Team name:';
+export const TEAM_NAME_SUBTITLE =
+  'Other hackers can join your team with this string.';
+export const TEAM_MEMBERS = 'Team members:';
+export const TEAM_MAX_SIZE = 'Max 4 Hackers';

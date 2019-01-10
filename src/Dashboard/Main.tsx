@@ -27,10 +27,9 @@ class Dashboard extends React.Component<{}, IDashboardState> {
           accountType: userInfo.accountType,
         });
       }
-      this.setState({
-        loading: false,
-      });
     } catch (e) {
+      console.error(e);
+    } finally {
       this.setState({
         loading: false,
       });
