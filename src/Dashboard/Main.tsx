@@ -4,8 +4,8 @@ import { UserType } from '../config';
 import { H1 } from '../shared/Elements';
 import { getUserInfo } from '../util';
 import HackerDashboardContainer from './HackerDashboard';
-import StaffDashboardContainer from './StaffDashboard';
 import SponsorDashboard from './SponsorDashboard';
+import StaffDashboardContainer from './StaffDashboard';
 
 interface IDashboardState {
   accountType: UserType;
