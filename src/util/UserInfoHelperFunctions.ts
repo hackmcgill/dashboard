@@ -2,6 +2,8 @@ import { Account, Hacker } from '../api';
 
 import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 
+import * as QRCode from 'qrcode';
+
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
 }
@@ -58,4 +60,9 @@ export function canAccessApplication(hacker: IHacker): boolean {
     (status === HackerStatus.HACKER_STATUS_NONE ||
       status === HackerStatus.HACKER_STATUS_APPLIED)
   );
+}
+
+export async function generateHackerQRCode(hacker: IHacker) {
+  const response = await QRCode.toString(hacker.id);
+  console.log(response);
 }

@@ -23,6 +23,7 @@ import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
+import CheckinContainer from './Checkin/Main';
 import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
@@ -167,6 +168,19 @@ class App extends React.Component {
                   user.confirmed &&
                   (user.accountType === UserType.STAFF ||
                     user.accountType === UserType.SPONSOR),
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CHECKIN_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(CheckinContainer, {
+                requiredAuthState: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed &&
+                  (user.accountType === UserType.STAFF ||
+                    user.accountType === UserType.VOLUNTEER),
               })
             )}
           />

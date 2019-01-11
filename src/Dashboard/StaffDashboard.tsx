@@ -18,6 +18,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 
 export interface IDashboardState {
   confirmed: boolean;
@@ -61,6 +62,11 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Account',
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
+      },
+      {
+        title: 'Checkin',
+        route: routes.CHECKIN_HACKER_PAGE,
+        imageSrc: ConfirmIcon,
       },
     ];
 
