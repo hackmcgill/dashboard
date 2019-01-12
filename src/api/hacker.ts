@@ -19,6 +19,7 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER_SELF);
     API.createEntity(APIRoute.HACKER_STATS);
     API.createEntity(APIRoute.HACKER_EMAIL);
+    API.createEntity(APIRoute.HACKER_CHECKIN);
     API.createEntity(APIRoute.HACKER);
   }
   /**
@@ -116,11 +117,12 @@ class HackerAPI {
    * Update's a hacker's status to checked-in if the hacker is accepted or confirmed.
    * @param {String} id The id of the hacker to be updated
    */
-  public checkin(id: string): AxiosPromise {
+  public async checkin(id: string): Promise<AxiosResponse<APIResponse<{}>>> {
     const key = CACHE_HACKER_KEY + '-' + id;
-    const value = API.getEndpoint(APIRoute.HACKER_CHECKIN).patch(
+    console.log(id);
+    const value = await API.getEndpoint(APIRoute.HACKER_CHECKIN).patch(
       { id },
-      undefined
+      {}
     );
     LocalCache.remove(CACHE_HACKER_KEY);
     LocalCache.remove(key);

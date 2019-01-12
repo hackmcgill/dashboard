@@ -9,7 +9,7 @@ import * as React from 'react';
 import { object, string } from 'yup';
 
 import { EMAIL_LABEL } from '../config';
-import { Form } from '../shared/Form';
+import { Form, SubmitBtn } from '../shared/Form';
 import { Error as ErrorComponent, Input } from '../shared/Form/FormikElements';
 
 interface IEmailProps {
@@ -21,7 +21,6 @@ export const Email: React.StatelessComponent<IEmailProps> = (
 ) => {
   return (
     <Formik
-      enableReinitialize={true}
       initialValues={{ email: '' }}
       onSubmit={handleSubmitFactory(props)}
       render={renderFormik}
@@ -32,9 +31,13 @@ export const Email: React.StatelessComponent<IEmailProps> = (
 
 function handleSubmitFactory(
   props: IEmailProps
-): (values: FormikValues) => void {
-  return (values) => {
-    props.onSubmit(values.email);
+): (
+  values: FormikValues,
+  { setSubmitting }: FormikProps<any>
+) => Promise<void> {
+  return async (values, { setSubmitting }: FormikProps<any>) => {
+    await props.onSubmit(values.email);
+    setSubmitting(false);
   };
 }
 
@@ -49,6 +52,9 @@ function renderFormik(fp: FormikProps<any>) {
         required={true}
       />
       <ErrorMessage component={ErrorComponent} name="email" />
+      <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        Check in
+      </SubmitBtn>
     </Form>
   );
 }

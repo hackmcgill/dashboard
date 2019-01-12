@@ -61,8 +61,13 @@ export function canAccessApplication(hacker?: IHacker): boolean {
       status === HackerStatus.HACKER_STATUS_APPLIED)
   );
 }
-
-export async function generateHackerQRCode(hacker: IHacker) {
-  const response = await QRCode.toString(hacker.id);
+/**
+ * Generate a QR code for a given hacker.
+ * @param hacker The hacker you wanna generate the code for
+ * @returns an svg string.
+ */
+export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
+  const response = await QRCode.toString(hacker.id, { type: 'svg' });
   console.log(response);
+  return response;
 }

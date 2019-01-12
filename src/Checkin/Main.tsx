@@ -1,16 +1,17 @@
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { toast } from 'react-toastify';
 import { Hacker } from '../api';
-import { MaxWidthBox } from '../shared/Elements';
+import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
+import theme from '../shared/Styles/theme';
+import { generateHackerQRCode } from '../util';
 import { Email } from './Email';
 import { Reader } from './Reader';
 
 interface ICheckinState {
   loading: boolean;
-  useCamera: boolean;
 }
 
 class CheckinContainer extends React.Component<{}, ICheckinState> {
@@ -18,22 +19,64 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     super(props);
     this.state = {
       loading: false,
-      useCamera: false,
     };
     this.handleScanError = this.handleScanError.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    this.checkinHacker = this.checkinHacker.bind(this);
   }
   public render() {
     return (
-      <Flex>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-          {this.state.useCamera ? (
-            <Reader onError={this.handleScanError} onScan={this.handleScan} />
-          ) : (
-            <Email onSubmit={this.handleEmail} />
-          )}
-        </MaxWidthBox>
+      <Flex flexDirection={'column'}>
+        <Box>
+          <H1
+            fontSize={'30px'}
+            textAlign={'center'}
+            marginBottom={'20px'}
+            marginLeft={'0px'}
+          >
+            Check in Hacker
+          </H1>
+        </Box>
+        <Box>
+          <Flex
+            flexWrap={'wrap'}
+            justifyContent={'space-evenly'}
+            alignItems={'flex-start'}
+          >
+            <MaxWidthBox maxWidth={'330px'} width={1}>
+              <H1
+                color={theme.colors.greyDark}
+                fontSize={'24px'}
+                textAlign={'left'}
+                marginBottom={'20px'}
+                marginLeft={'0px'}
+              >
+                By QR Code:
+              </H1>
+              <Box>
+                <Reader
+                  onError={this.handleScanError}
+                  onScan={this.handleScan}
+                />
+              </Box>
+            </MaxWidthBox>
+            <MaxWidthBox maxWidth={'330px'} width={1}>
+              <H1
+                color={theme.colors.greyDark}
+                fontSize={'24px'}
+                textAlign={'left'}
+                marginBottom={'20px'}
+                marginLeft={'0px'}
+              >
+                By Email:
+              </H1>
+              <Box alignSelf={'center'}>
+                <Email onSubmit={this.handleEmail} />
+              </Box>
+            </MaxWidthBox>
+          </Flex>
+        </Box>
       </Flex>
     );
   }
@@ -49,6 +92,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
       this.setState({ loading: true });
       await Hacker.checkin(id);
       checkedIn = true;
+      toast.success('Hacker checked in.');
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
@@ -77,6 +121,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     try {
       this.setState({ loading: true });
       const hacker = (await Hacker.getByEmail(email)).data.data;
+      generateHackerQRCode(hacker);
       await this.checkinHacker(hacker.id);
     } catch (e) {
       if (e && e.data) {

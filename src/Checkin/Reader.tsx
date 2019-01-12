@@ -1,4 +1,3 @@
-import { Box } from '@rebass/grid';
 import * as React from 'react';
 import QrReader from 'react-qr-reader';
 
@@ -11,13 +10,11 @@ export const Reader: React.StatelessComponent<IReaderProps> = (
   props: IReaderProps
 ) => {
   return (
-    <Box width={0.3}>
-      <QrReader
-        delay={500}
-        onError={props.onError}
-        onScan={props.onScan}
-        style={{ width: '100%' }}
-      />
-    </Box>
+    <QrReader
+      delay={500}
+      onError={props.onError}
+      onScan={props.onScan}
+      style={{ width: '100%' }}
+    />
   );
 };
