@@ -47,6 +47,7 @@
     "@types/react-alert": "^2.4.2",
     "@types/react-autosuggest": "^9.3.6",
     "@types/react-dom": "^16.0.11",
+    "@types/react-modal": "^3.8.0",
     "@types/react-responsive": "^3.0.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-select": "^2.0.4",
