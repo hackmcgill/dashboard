@@ -1,6 +1,8 @@
 import * as React from 'react';
+
 import { IHacker, UserType } from '../config';
 import { StyledTable } from '../shared/Elements';
+import SingleHackerModal from './SingleHackerModal';
 
 interface IResultsTableProps {
   results: Array<{
@@ -35,6 +37,10 @@ const adminColumns = [
   {
     Header: 'Status',
     accessor: 'hacker.status',
+  },
+  {
+    Header: 'Applicant Info',
+    Cell: ({ original }: any) => <SingleHackerModal hacker={original.hacker} />,
   },
 ];
 
