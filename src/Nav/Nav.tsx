@@ -5,7 +5,7 @@ interface INavProps {
 }
 
 export const Nav = styled.nav<INavProps>`
-  z-index: 11;
+  z-index: 2;
   background: ${(props) => props.theme.colors.white};
   position: sticky;
   top: 0;
