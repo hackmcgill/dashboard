@@ -16,6 +16,7 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  canAccessTeam,
   isAppOpen,
   isConfirmed,
 } from '../util/UserInfoHelperFunctions';
@@ -30,6 +31,7 @@ export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
   hasAppAccess: boolean;
+  hasTeamAccess: boolean;
 }
 
 /**
@@ -42,6 +44,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
       hasAppAccess: true,
+      hasTeamAccess: false,
     };
   }
 
@@ -66,7 +69,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
     // determine whether the user has app access
     const hasAppAccess = canAccessApplication(hacker);
-    this.setState({ hasAppAccess });
+    const hasTeamAccess = canAccessTeam(hacker);
+    this.setState({ hasAppAccess, hasTeamAccess });
   }
 
   public render() {
@@ -81,7 +85,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
-    const { hasAppAccess } = this.state;
+    const { hasAppAccess, hasTeamAccess } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -115,7 +119,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Team',
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
-        hidden: status === HackerStatus.HACKER_STATUS_NONE,
+        hidden: !hasTeamAccess,
       },
     ];
     return cards;
