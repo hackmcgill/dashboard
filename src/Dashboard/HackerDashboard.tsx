@@ -16,9 +16,9 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  canAccessTeam,
   isAppOpen,
   isConfirmed,
-  canAccessTeam,
 } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
@@ -119,7 +119,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title: 'Team',
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
-        hidden: hasTeamAccess,
+        hidden: !hasTeamAccess,
       },
     ];
     return cards;
