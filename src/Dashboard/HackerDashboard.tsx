@@ -16,6 +16,7 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  canAccessHackerPass,
   isAppOpen,
   isConfirmed,
 } from '../util/UserInfoHelperFunctions';
@@ -24,12 +25,14 @@ import DashboardView, { IDashboardCard } from './View';
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
 import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
+import HackPassIcon from '../assets/images/dashboard-hackpass.svg';
 import TeamIcon from '../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
   hasAppAccess: boolean;
+  hasPassAccess: boolean;
 }
 
 /**
@@ -41,7 +44,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     this.state = {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
-      hasAppAccess: true,
+      hasAppAccess: false,
+      hasPassAccess: false,
     };
   }
 
@@ -66,7 +70,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
     // determine whether the user has app access
     const hasAppAccess = canAccessApplication(hacker);
-    this.setState({ hasAppAccess });
+    const hasPassAccess = canAccessHackerPass(hacker);
+    this.setState({ hasAppAccess, hasPassAccess });
   }
 
   public render() {
@@ -81,7 +86,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
-    const { hasAppAccess } = this.state;
+    const { hasAppAccess, hasPassAccess } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -116,6 +121,12 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
         hidden: status === HackerStatus.HACKER_STATUS_NONE,
+      },
+      {
+        title: 'HackerPass',
+        route: routes.PASS_HACKER_PAGE,
+        imageSrc: HackPassIcon,
+        hidden: !hasPassAccess,
       },
     ];
     return cards;

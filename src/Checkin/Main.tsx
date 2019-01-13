@@ -6,7 +6,6 @@ import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
-import { generateHackerQRCode } from '../util';
 import { Email } from './Email';
 import { Reader } from './Reader';
 
@@ -121,7 +120,6 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     try {
       this.setState({ loading: true });
       const hacker = (await Hacker.getByEmail(email)).data.data;
-      generateHackerQRCode(hacker);
       await this.checkinHacker(hacker.id);
     } catch (e) {
       if (e && e.data) {

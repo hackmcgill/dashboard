@@ -25,11 +25,12 @@ import withTokenRedirect from './shared/HOC/withTokenRedirect';
 import EditApplicationContainer from './Application/ApplicationEdition';
 import CheckinContainer from './Checkin/Main';
 import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
+import HackPassContainer from './HackPass/Main';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
-import { canAccessApplication } from './util';
+import { canAccessHackerPass } from './util';
 
 class App extends React.Component {
   public render() {
@@ -101,7 +102,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
-                  AuthVerification: canAccessApplication,
+                  AuthVerification: canAccessHackerPass,
                 }),
                 {
                   requiredAuthState: true,
@@ -182,6 +183,23 @@ class App extends React.Component {
                   (user.accountType === UserType.STAFF ||
                     user.accountType === UserType.VOLUNTEER),
               })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.PASS_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(HackPassContainer, {
+                  requiredAuthState: true,
+                  AuthVerification: canAccessHackerPass,
+                }),
+                {
+                  requiredAuthState: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
+                }
+              )
             )}
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />
