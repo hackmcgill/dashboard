@@ -26,7 +26,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       <div>
         <Button type="button" onClick={this.handleOpenModal}>
-          Hello
+          See more
         </Button>
         <Modal
           appElement={document.getElementById('root') || undefined}
