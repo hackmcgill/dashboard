@@ -13,45 +13,46 @@ interface IResultsTableProps {
   userType: UserType;
 }
 
-const adminColumns = [
-  {
-    Header: 'First Name',
-    accessor: 'hacker.accountId.firstName',
-  },
-  {
-    Header: 'Last Name',
-    accessor: 'hacker.accountId.lastName',
-  },
-  {
-    Header: 'School',
-    accessor: 'hacker.school',
-  },
-  {
-    Header: 'Major',
-    accessor: 'hacker.major',
-  },
-  {
-    Header: 'Grad Year',
-    accessor: 'hacker.graduationYear',
-  },
-  {
-    Header: 'Status',
-    accessor: 'hacker.status',
-  },
-  {
-    Header: 'Applicant Info',
-    Cell: ({ original }: any) => <SingleHackerModal hacker={original.hacker} />,
-  },
-];
-
-const volunteerColumns = [
-  {
-    Header: 'First Name',
-    accessor: 'hacker.accountId.firstName',
-  },
-];
-
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
+  const adminColumns = [
+    {
+      Header: 'First Name',
+      accessor: 'hacker.accountId.firstName',
+    },
+    {
+      Header: 'Last Name',
+      accessor: 'hacker.accountId.lastName',
+    },
+    {
+      Header: 'School',
+      accessor: 'hacker.school',
+    },
+    {
+      Header: 'Major',
+      accessor: 'hacker.major',
+    },
+    {
+      Header: 'Grad Year',
+      accessor: 'hacker.graduationYear',
+    },
+    {
+      Header: 'Status',
+      accessor: 'hacker.status',
+    },
+    {
+      Header: 'Applicant Info',
+      Cell: ({ original }: any) => (
+        <SingleHackerModal hacker={original.hacker} />
+      ),
+    },
+  ];
+
+  const volunteerColumns = [
+    {
+      Header: 'First Name',
+      accessor: 'hacker.accountId.firstName',
+    },
+  ];
   return (
     <StyledTable
       data={props.results}
