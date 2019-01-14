@@ -1,8 +1,9 @@
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
-//
+export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
 
+//
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';

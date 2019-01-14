@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import {
   ACCOUNT_NOT_CONFIRMED_MSG,
+  BUS_SHOPIFY_PAGE,
   EMAIL_SENT,
   FrontendRoute as routes,
   HackerStatus,
@@ -16,6 +17,7 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  canAccessBus,
   canAccessTeam,
   isAppOpen,
   isConfirmed,
@@ -24,6 +26,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import BusIcon from '../assets/images/dashboard-bus.svg';
 import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
 import TeamIcon from '../assets/images/dashboard-team.svg';
 
@@ -32,6 +35,7 @@ export interface IDashboardState {
   confirmed: boolean;
   hasAppAccess: boolean;
   hasTeamAccess: boolean;
+  needsBus: boolean;
 }
 
 /**
@@ -45,6 +49,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       confirmed: true,
       hasAppAccess: true,
       hasTeamAccess: false,
+      needsBus: false,
     };
   }
 
@@ -70,7 +75,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     // determine whether the user has app access
     const hasAppAccess = canAccessApplication(hacker);
     const hasTeamAccess = canAccessTeam(hacker);
-    this.setState({ hasAppAccess, hasTeamAccess });
+    const needsBus = canAccessBus(hacker);
+    this.setState({ hasAppAccess, hasTeamAccess, needsBus });
   }
 
   public render() {
@@ -85,7 +91,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
-    const { hasAppAccess, hasTeamAccess } = this.state;
+    const { hasAppAccess, hasTeamAccess, needsBus } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -120,6 +126,12 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
         hidden: !hasTeamAccess,
+      },
+      {
+        title: 'Bus Deposit',
+        route: BUS_SHOPIFY_PAGE,
+        imageSrc: BusIcon,
+        hidden: !needsBus,
       },
     ];
     return cards;

@@ -10,3 +10,4 @@ export * from './Paragraph';
 export * from './Table';
 export * from './Textarea';
 export * from './ViewPDF';
+export * from './LinkDuo';
