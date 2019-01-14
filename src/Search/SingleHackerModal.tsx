@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { Flex } from '@rebass/grid';
 import Modal from 'react-modal';
 
 import { IHacker } from '../config';
@@ -35,9 +37,11 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
           shouldCloseOnEsc={true}
           shouldCloseOnOverlayClick={true}
         >
-          <Button type="button" onClick={this.handleCloseModal}>
-            close
-          </Button>
+          <Flex width="100%" justifyContent="flex-end">
+            <Button type="button" onClick={this.handleCloseModal}>
+              Close
+            </Button>
+          </Flex>
           <SingleHackerView hacker={this.props.hacker} />
         </Modal>
       </div>
