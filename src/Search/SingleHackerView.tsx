@@ -47,10 +47,7 @@ class SingleHackerView extends React.Component<
     const account = hacker.accountId as IAccount;
     return (
       <article style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <Flex justifyContent="space-between">
-          <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
-          <ViewPDFComponent hackerId={hacker.id} />
-        </Flex>
+        <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
         <Form>
           <Flex
             width="100%"
@@ -72,7 +69,7 @@ class SingleHackerView extends React.Component<
                 }}
               />
             </Box>
-            <Box width={[1, 1 / 2]}>
+            <Flex width={[1, 1 / 2]} justifyContent={['center', 'flex-start']}>
               <Button
                 type="button"
                 onClick={this.submit}
@@ -81,7 +78,7 @@ class SingleHackerView extends React.Component<
               >
                 Change status
               </Button>
-            </Box>
+            </Flex>
           </Flex>
         </Form>
         <hr />
@@ -170,6 +167,7 @@ class SingleHackerView extends React.Component<
               )}
             </Box>
           </Flex>
+          <ViewPDFComponent hackerId={hacker.id} />
           <hr />
           <H2 color={theme.colors.grey}>Additional Information</H2>
           <Box width={1}>
