@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { Account, Hacker } from '../api';
 import { IAccount, IHacker } from '../config';
-import { H1 } from '../shared/Elements';
+import { H1, MaxWidthBox } from '../shared/Elements';
+import { SubmitBtn } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import { generateHackerQRCode, generateHackPass } from '../util';
 import { Pass } from './Pass';
@@ -45,13 +46,22 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
     const { qrData, account, hacker, downloadingPass } = this.state;
     if (qrData && account && hacker) {
       return (
-        <Pass
-          account={account}
-          hacker={hacker}
-          qrData={qrData}
-          onDownloadPass={this.handleDownloadPass}
-          isDownloading={downloadingPass}
-        />
+        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+          <H1 textAlign={'center'}>Your HackPass:</H1>
+          <Pass
+            account={account}
+            hacker={hacker}
+            qrData={qrData}
+            onDownloadPass={this.handleDownloadPass}
+            isDownloading={downloadingPass}
+          />
+          <SubmitBtn
+            onClick={this.handleDownloadPass}
+            isLoading={downloadingPass}
+          >
+            Download pass
+          </SubmitBtn>
+        </MaxWidthBox>
       );
     }
     if (this.state.loadingHacker) {

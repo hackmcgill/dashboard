@@ -17,8 +17,8 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
-  canAccessHackerPass,
   canAccessBus,
+  canAccessHackerPass,
   canAccessTeam,
   isAppOpen,
   isConfirmed,

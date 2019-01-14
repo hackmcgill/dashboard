@@ -117,20 +117,18 @@ export async function generateHackPass(
   });
   const qrData = await generateHackerQRCode(hacker);
   doc.addImage(qrData, 'png', 0, 15, 21, 21);
-  doc.setFontSize(6);
+
+  doc.setFontSize(9);
   const name: string[] = doc.splitTextToSize(account.firstName, 18);
+  doc.text(2, 4, name);
+
+  doc.setFontSize(2);
   const pronoun: string[] = doc.splitTextToSize(account.pronoun, 18);
   const school: string[] = doc.splitTextToSize(hacker.school, 18);
   const email: string[] = doc.splitTextToSize(account.email, 18);
-  doc.text(
-    2,
-    3,
-    name
-      .concat(pronoun)
-      .concat(school)
-      .concat(email)
-  );
+  doc.text(2, 5, pronoun.concat(school).concat(email));
+
   doc.autoPrint();
-  doc.save('hackPass.pdf');
+  doc.save(`hackPass_${hacker.id}.pdf`);
   return doc;
 }
