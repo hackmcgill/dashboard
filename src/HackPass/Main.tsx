@@ -30,7 +30,7 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
       const response = await Hacker.getSelf();
       const hacker = response.data.data;
       const qrData = await generateHackerQRCode(hacker);
-      this.setState({ qrData });
+      this.setState({ hacker, qrData });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
