@@ -1,36 +1,38 @@
 import * as React from 'react';
 
-import { Hacker } from '../api';
-import { IHacker } from '../config';
+import { Account, Hacker } from '../api';
+import { IAccount, IHacker } from '../config';
 import { H1 } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import { generateHackerQRCode, generateHackPass } from '../util';
 import { Pass } from './Pass';
 
 interface IDashboardState {
+  account: IAccount | null;
   hacker: IHacker | null;
   qrData: string;
   loadingHacker: boolean;
-  loadingPass: boolean;
+  downloadingPass: boolean;
 }
 
 class HackPassContainer extends React.Component<{}, IDashboardState> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      account: null,
       hacker: null,
       qrData: '',
       loadingHacker: true,
-      loadingPass: false,
+      downloadingPass: false,
     };
     this.handleDownloadPass = this.handleDownloadPass.bind(this);
   }
   public async componentDidMount() {
     try {
-      const response = await Hacker.getSelf();
-      const hacker = response.data.data;
+      const account = (await Account.getSelf()).data.data;
+      const hacker = (await Hacker.getSelf()).data.data;
       const qrData = await generateHackerQRCode(hacker);
-      this.setState({ hacker, qrData });
+      this.setState({ account, hacker, qrData });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
@@ -40,12 +42,15 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
     }
   }
   public render() {
-    if (this.state.qrData) {
+    const { qrData, account, hacker, downloadingPass } = this.state;
+    if (qrData && account && hacker) {
       return (
         <Pass
-          qrData={this.state.qrData}
+          account={account}
+          hacker={hacker}
+          qrData={qrData}
           onDownloadPass={this.handleDownloadPass}
-          isDownloading={this.state.loadingPass}
+          isDownloading={downloadingPass}
         />
       );
     }
@@ -56,13 +61,13 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
   }
 
   private async handleDownloadPass(): Promise<void> {
-    const { hacker } = this.state;
-    if (!hacker) {
+    const { account, hacker } = this.state;
+    if (!hacker || !account) {
       return;
     }
-    this.setState({ loadingPass: true });
-    await generateHackPass(hacker);
-    this.setState({ loadingPass: false });
+    this.setState({ downloadingPass: true });
+    await generateHackPass(account, hacker);
+    this.setState({ downloadingPass: false });
   }
 }
 

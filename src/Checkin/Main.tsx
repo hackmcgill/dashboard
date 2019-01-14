@@ -1,11 +1,12 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { Hacker } from '../api';
+import { Account, Hacker } from '../api';
 import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
+import { generateHackPass } from '../util';
 import { Email } from './Email';
 import { Reader } from './Reader';
 
@@ -92,6 +93,9 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
       await Hacker.checkin(id);
       checkedIn = true;
       toast.success('Hacker checked in.');
+      const hacker = (await Hacker.get(id)).data.data;
+      const account = (await Account.get(hacker.accountId)).data.data;
+      await generateHackPass(account, hacker);
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);

@@ -91,16 +91,30 @@ export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
  * @param hacker The hacker you wanna generate the code for
  * @returns an svg string.
  */
-export async function generateHackPass(hacker: IHacker): Promise<jsPDF> {
+export async function generateHackPass(
+  account: IAccount,
+  hacker: IHacker
+): Promise<jsPDF> {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
     format: [59, 102],
   });
   const qrData = await generateHackerQRCode(hacker);
-  doc.setFontSize(8);
-  doc.addImage(qrData, 'png', 5, 5, 10, 10);
-  doc.text(2, 5, 'McHack Pass');
+  doc.addImage(qrData, 'png', 0, 15, 21, 21);
+  doc.setFontSize(6);
+  const name: string[] = doc.splitTextToSize(account.firstName, 18);
+  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 18);
+  const school: string[] = doc.splitTextToSize(hacker.school, 18);
+  const email: string[] = doc.splitTextToSize(account.email, 18);
+  doc.text(
+    2,
+    3,
+    name
+      .concat(pronoun)
+      .concat(school)
+      .concat(email)
+  );
   doc.autoPrint();
   doc.save('hackPass.pdf');
   return doc;
