@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import {
   ACCOUNT_NOT_CONFIRMED_MSG,
   EMAIL_SENT,
+  FrontendRoute,
   FrontendRoute as routes,
   HackerStatus,
   RESEND_CONF_EMAIL,
@@ -54,7 +55,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     try {
       const response = await Hacker.getSelf();
       hacker = response.data.data;
-      this.setState({ status: hacker.status });
+      this.setState({ status: hacker.status }, this.confirmAttendanceToast);
     } catch (e) {
       if (e.status === 401) {
         this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
@@ -161,6 +162,26 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
           ValidationErrorGenerator(response.data);
         }
       });
+  };
+
+  private confirmAttendanceToast = () => {
+    if (this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED) {
+      const reactMsg = (
+        <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
+          <Box style={{ textDecoration: 'underline' }}>
+            <a
+              href={FrontendRoute.CONFIRM_HACKER_PAGE}
+              style={{ color: 'white' }}
+            >
+              You must confirm your attendance
+            </a>
+          </Box>
+        </Flex>
+      );
+      toast.error(reactMsg, {
+        autoClose: false,
+      });
+    }
   };
 }
 export default WithToasterContainer(HackerDashboardContainer);
