@@ -31,7 +31,11 @@ import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
 import { canAccessHackerPass } from './util';
-import { canAccessApplication, canAccessHackerPass, canAccessTeam } from './util';
+import {
+  canAccessApplication,
+  canAccessHackerPass,
+  canAccessTeam,
+} from './util';
 
 class App extends React.Component {
   public render() {
@@ -103,7 +107,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
-                  AuthVerification: canAccessHackerPass,
+                  AuthVerification: canAccessApplication,
                 }),
                 {
                   requiredAuthState: true,
