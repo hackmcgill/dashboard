@@ -70,3 +70,7 @@ export function canAccessTeam(hacker?: IHacker): boolean {
     status === HackerStatus.HACKER_STATUS_CHECKED_IN
   );
 }
+
+export function canAccessBus(hacker?: IHacker): boolean {
+  return hacker ? Boolean(hacker.needsBus) : false;
+}

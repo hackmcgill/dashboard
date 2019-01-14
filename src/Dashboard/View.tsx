@@ -1,9 +1,15 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
-import { Link } from 'react-router-dom';
 
-import { BackgroundImage, Card, H1, H2, Image } from '../shared/Elements';
+import {
+  BackgroundImage,
+  Card,
+  H1,
+  H2,
+  Image,
+  LinkDuo,
+} from '../shared/Elements';
 
 import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
 import theme from '../shared/Styles/theme';
@@ -42,7 +48,7 @@ const DashboardView: React.SFC<IDashboardView> = ({
       )}
       <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
         {cards.map((card) => (
-          <Link
+          <LinkDuo
             to={card.route}
             onClick={eventHandleWrapperFactory(card)}
             style={{ textDecoration: 'none' }}
@@ -59,7 +65,7 @@ const DashboardView: React.SFC<IDashboardView> = ({
               </H2>
               <Image src={card.imageSrc} imgHeight={'125px'} />
             </Card>
-          </Link>
+          </LinkDuo>
         ))}
         <MediaQuery minWidth={960}>
           <Box width={1}>
