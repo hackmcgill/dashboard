@@ -64,6 +64,17 @@ export function canAccessApplication(hacker?: IHacker): boolean {
   );
 }
 
+export function canAccessTeam(hacker?: IHacker): boolean {
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
+
+  return (
+    status === HackerStatus.HACKER_STATUS_APPLIED ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+    status === HackerStatus.HACKER_STATUS_CHECKED_IN
+  );
+}
+
 export function canAccessHackerPass(hacker?: IHacker): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
 
