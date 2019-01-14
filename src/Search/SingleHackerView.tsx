@@ -44,7 +44,7 @@ class SingleHackerView extends React.Component<
 
   public render() {
     const { hacker } = this.props;
-    const account = hacker.accountId as IAccount;
+    const account = (hacker.accountId as IAccount) || {};
     return (
       <article style={{ maxWidth: '800px', margin: '0 auto' }}>
         <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
