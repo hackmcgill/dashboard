@@ -92,11 +92,15 @@ export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
  * @returns an svg string.
  */
 export async function generateHackPass(hacker: IHacker): Promise<jsPDF> {
-  const doc = new jsPDF('p', 'mm');
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: [59, 102],
+  });
   const qrData = await generateHackerQRCode(hacker);
-  doc.setFontSize(30);
-  doc.addImage(qrData, 'png', 5, 20, 200, 200);
-  doc.text(100, 20, 'McHack Pass', undefined, undefined, 'center');
+  doc.setFontSize(8);
+  doc.addImage(qrData, 'png', 5, 5, 10, 10);
+  doc.text(2, 5, 'McHack Pass');
   doc.autoPrint();
   doc.save('hackPass.pdf');
   return doc;
