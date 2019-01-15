@@ -45,7 +45,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
         </Button>
         <Modal
           appElement={document.getElementById('root') || undefined}
-          style={{ overlay: { zIndex: 3 } }}
+          style={{ overlay: { zIndex: 20 } }}
           isOpen={this.state.showModal}
           contentLabel="Example Modal"
           onRequestClose={this.handleCloseModal}
