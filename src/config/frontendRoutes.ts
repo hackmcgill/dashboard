@@ -10,6 +10,7 @@ export enum FrontendRoute {
   HOME_PAGE = '/',
   LOGIN_PAGE = '/login',
   RESET_PASSWORD_PAGE = '/password/reset',
+  SPONSOR_SEARCH_PAGE = '/sponsor/search',
   TEAM_PAGE = '/team',
 }
 
