@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Flex } from '@rebass/grid';
 
-import { IHacker } from '../../config';
-import { Button, Image, StyledModal } from '../../shared/Elements';
+import { IHacker } from '../config';
+import { Button, Image, StyledModal } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
 import Arrow from '../../assets/images/backarrow.svg';

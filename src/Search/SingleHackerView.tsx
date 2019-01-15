@@ -3,14 +3,14 @@ import * as React from 'react';
 import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
-import { Hacker } from '../../api';
-import { HackerStatus, IAccount, IHacker } from '../../config';
-import { Button, H1, H2, MaxWidthBox } from '../../shared/Elements';
-import ViewPDFComponent from '../../shared/Elements/ViewPDF';
-import { Form, StyledSelect } from '../../shared/Form';
-import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import theme from '../../shared/Styles/theme';
-import { getOptionsFromEnum } from '../../util';
+import { Hacker } from '../api';
+import { HackerStatus, IAccount, IHacker } from '../config';
+import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
+import ViewPDFComponent from '../shared/Elements/ViewPDF';
+import { Form, StyledSelect } from '../shared/Form';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import theme from '../shared/Styles/theme';
+import { getOptionsFromEnum } from '../util';
 
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';

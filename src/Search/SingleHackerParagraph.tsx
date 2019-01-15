@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Box } from '@rebass/grid';
-import { Paragraph } from '../../shared/Elements';
+import { Paragraph } from '../shared/Elements';
 
 interface IParagraphProps {
   text: string | number | undefined;
