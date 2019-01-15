@@ -63,12 +63,7 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
           this.setState({
             isLoading: false,
           });
-          if (pdfWindow) {
-            pdfWindow.document.body.innerHTML = '';
-            pdfWindow.document.write(
-              '<h1>Could not find Resume. If you are the hacker, please upload it again.</h1>'
-            );
-          }
+          console.error(error);
         });
     };
   }
