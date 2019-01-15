@@ -46,9 +46,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
         <div>
           <SingleHackerModal
             hacker={original.hacker}
-            allHackers={filter(props.results, props.filter).map(
-              (r) => r.hacker
-            )}
+            allHackers={props.results.map((r) => r.hacker)}
           />
         </div>
       ),
@@ -63,7 +61,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   ];
   return (
     <StyledTable
-      data={filter(props.results, props.filter)}
+      data={props.results}
       columns={
         props.userType === UserType.STAFF ? adminColumns : volunteerColumns
       }
@@ -72,39 +70,5 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
     />
   );
 };
-
-function filter(
-  results: Array<{
-    selected: boolean;
-    hacker: IHacker;
-  }>,
-  search: string
-): Array<{
-  selected: boolean;
-  hacker: IHacker;
-}> {
-  return results.filter(({ hacker }) => {
-    const { accountId } = hacker;
-    const foundAcct =
-      typeof accountId !== 'string'
-        ? accountId.firstName.includes(search) ||
-          accountId.lastName.includes(search) ||
-          `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
-          accountId.email.includes(search) ||
-          String(accountId.phoneNumber).includes(search) ||
-          accountId.shirtSize.includes(search) ||
-          (accountId._id && accountId._id.includes(search))
-        : false;
-
-    return (
-      foundAcct ||
-      hacker.id.includes(search) ||
-      hacker.major.includes(search) ||
-      hacker.school.includes(search) ||
-      hacker.status.includes(search) ||
-      String(hacker.graduationYear).includes(search)
-    );
-  });
-}
 
 export { ResultsTable };

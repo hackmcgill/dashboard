@@ -86,7 +86,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             </Box>
           </Flex>
           <ResultsTable
-            results={this.state.results}
+            results={this.filter(this.state.results, this.state.searchBar)}
             loading={this.state.loading}
             userType={UserType.STAFF}
             filter={this.state.searchBar}
@@ -144,7 +144,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'needsBus',
     ];
     const csvData: string[] = [headers.join('\t')];
-    this.state.results.forEach((result) => {
+    this.filter(this.state.results, this.state.searchBar).forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
@@ -212,6 +212,40 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       '',
       window.location.href.split('?')[0] + newSearch
     );
+  }
+
+  private filter(
+    results: Array<{
+      selected: boolean;
+      hacker: IHacker;
+    }>,
+    search: string
+  ): Array<{
+    selected: boolean;
+    hacker: IHacker;
+  }> {
+    return results.filter(({ hacker }) => {
+      const { accountId } = hacker;
+      const foundAcct =
+        typeof accountId !== 'string'
+          ? accountId.firstName.includes(search) ||
+            accountId.lastName.includes(search) ||
+            `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
+            accountId.email.includes(search) ||
+            String(accountId.phoneNumber).includes(search) ||
+            accountId.shirtSize.includes(search) ||
+            (accountId._id && accountId._id.includes(search))
+          : false;
+
+      return (
+        foundAcct ||
+        hacker.id.includes(search) ||
+        hacker.major.includes(search) ||
+        hacker.school.includes(search) ||
+        hacker.status.includes(search) ||
+        String(hacker.graduationYear).includes(search)
+      );
+    });
   }
 }
 
