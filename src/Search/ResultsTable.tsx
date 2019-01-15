@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { IHacker, UserType } from '../config';
 import { StyledTable } from '../shared/Elements/Table';
-import SingleHackerModal from './SingleHacker/SingleHackerModal';
+import SingleHackerModal from './SingleHackerModal';
 
 interface IResultsTableProps {
   results: Array<{
