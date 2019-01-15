@@ -43,15 +43,15 @@ class Dashboard extends React.Component<{}, IDashboardState> {
       case UserType.STAFF:
         return <StaffDashboardContainer />;
       case UserType.SPONSOR_T1:
-        return <SponsorDashboard />;
+        return <SponsorDashboard userType={UserType.SPONSOR_T1} />;
       case UserType.SPONSOR_T2:
-        return <SponsorDashboard />;
+        return <SponsorDashboard userType={UserType.SPONSOR_T2} />;
       case UserType.SPONSOR_T3:
-        return <SponsorDashboard />;
+        return <SponsorDashboard userType={UserType.SPONSOR_T3} />;
       case UserType.SPONSOR_T4:
-        return <SponsorDashboard />;
+        return <SponsorDashboard userType={UserType.SPONSOR_T4} />;
       case UserType.SPONSOR_T5:
-        return <SponsorDashboard />;
+        return <SponsorDashboard userType={UserType.SPONSOR_T5} />;
     }
     if (this.state.loading) {
       return <H1>Loading...</H1>;
