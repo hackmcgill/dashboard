@@ -45,14 +45,32 @@ export async function getHackerInfo(): Promise<IHacker | null> {
     return null;
   }
 }
+export function isAppOpen(): boolean {
+  return false;
+}
 
-export function canAccessApplication(hacker: IHacker): boolean {
-  const APPS_OPEN = false;
-  const { status } = hacker;
+export function canAccessApplication(hacker?: IHacker): boolean {
+  const APPS_OPEN = isAppOpen();
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
 
   return (
     APPS_OPEN &&
     (status === HackerStatus.HACKER_STATUS_NONE ||
       status === HackerStatus.HACKER_STATUS_APPLIED)
   );
+}
+
+export function canAccessTeam(hacker?: IHacker): boolean {
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
+
+  return (
+    status === HackerStatus.HACKER_STATUS_APPLIED ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+    status === HackerStatus.HACKER_STATUS_CHECKED_IN
+  );
+}
+
+export function canAccessBus(hacker?: IHacker): boolean {
+  return hacker ? Boolean(hacker.needsBus) : false;
 }
