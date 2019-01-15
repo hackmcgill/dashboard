@@ -39,7 +39,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       model: 'hacker',
       query: this.getSearchFromQuery(),
       results: [],
-      searchBar: '',
+      searchBar: this.getSearchBarFromQuery(),
       loading: false,
     };
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -77,6 +77,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 onChange={this.onSearchBarChanged}
                 placeholder={'Search...'}
                 style={{ marginTop: 5 }}
+                value={this.state.searchBar}
               />
             </Box>
             <Box mr={'10px'}>
@@ -88,7 +89,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             results={this.state.results}
             loading={this.state.loading}
             userType={UserType.STAFF}
-            search={this.state.searchBar}
+            filter={this.state.searchBar}
           />
         </Box>
       </Flex>
@@ -121,6 +122,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     } catch (e) {
       return [];
     }
+  }
+
+  private getSearchBarFromQuery(): string {
+    const search = getValueFromQuery('searchBar');
+    return search ? decodeURIComponent(search) : '';
   }
 
   private downloadData(): void {
@@ -180,23 +186,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
   private onResetForm() {
     this.setState({ query: [] });
-    this.updateQueryURL([]);
+    this.updateQueryURL([], this.state.searchBar);
   }
 
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
     });
-    this.updateQueryURL(newFilters);
+    this.updateQueryURL(newFilters, this.state.searchBar);
     this.triggerSearch();
   }
 
   private onSearchBarChanged(e: any) {
-    this.setState({ searchBar: e.target.value });
+    const searchBar = e.target.value;
+    this.setState({ searchBar });
+    this.updateQueryURL(this.state.query, searchBar);
   }
 
-  private updateQueryURL(newFilters: ISearchParameter[]) {
-    const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
+  private updateQueryURL(filters: ISearchParameter[], searchBar: string) {
+    const newSearch = `?q=${encodeURIComponent(
+      JSON.stringify(filters)
+    )}&searchBar=${encodeURIComponent(searchBar)}`;
     window.history.replaceState(
       null,
       '',

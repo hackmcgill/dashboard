@@ -11,7 +11,7 @@ interface IResultsTableProps {
   }>;
   loading: boolean;
   userType: UserType;
-  search: string;
+  filter: string;
 }
 
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
@@ -46,7 +46,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
         <div>
           <SingleHackerModal
             hacker={original.hacker}
-            allHackers={filter(props.results, props.search).map(
+            allHackers={filter(props.results, props.filter).map(
               (r) => r.hacker
             )}
           />
@@ -63,7 +63,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   ];
   return (
     <StyledTable
-      data={filter(props.results, props.search)}
+      data={filter(props.results, props.filter)}
       columns={
         props.userType === UserType.STAFF ? adminColumns : volunteerColumns
       }
