@@ -48,13 +48,7 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
       return (
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1 textAlign={'center'}>Your HackPass:</H1>
-          <Pass
-            account={account}
-            hacker={hacker}
-            qrData={qrData}
-            onDownloadPass={this.handleDownloadPass}
-            isDownloading={downloadingPass}
-          />
+          <Pass account={account} hacker={hacker} qrData={qrData} />
           <SubmitBtn
             onClick={this.handleDownloadPass}
             isLoading={downloadingPass}

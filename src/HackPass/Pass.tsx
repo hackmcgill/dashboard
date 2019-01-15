@@ -8,8 +8,6 @@ interface IPassProps {
   account: IAccount;
   hacker: IHacker;
   qrData: string;
-  onDownloadPass: () => void;
-  isDownloading: boolean;
 }
 
 export const Pass: React.StatelessComponent<IPassProps> = (
