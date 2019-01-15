@@ -15,6 +15,7 @@ import { getOptionsFromEnum } from '../util';
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
 import SHParagraph from './SingleHackerParagraph';
+import { Link } from 'react-router-dom';
 
 interface IHackerViewProps {
   hacker: IHacker;
@@ -97,18 +98,13 @@ class SingleHackerView extends React.Component<
                 </Button>
               </Flex>
               <Flex width={[1, 1 / 4]} justifyContent={['center', 'flex-end']}>
-                <Button>
-                  <a
-                    href={FrontendRoute.VIEW_HACKER_PAGE.replace(
-                      ':id',
-                      hacker.id
-                    )}
-                    target={'_blank'}
-                    style={{ color: 'white' }}
-                  >
-                    open in new window
-                  </a>
-                </Button>
+                <Link
+                  to={FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}
+                  target={'_blank'}
+                  style={{ fontSize: '13px' }}
+                >
+                  open in new window
+                </Link>
               </Flex>
             </Flex>
           </Form>
