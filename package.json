@@ -16,7 +16,7 @@
     "react": "^16.7.0",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.7.0",
-    "react-dropzone": "^7.0.1",
+    "react-dropzone": "^8.0.3",
     "react-modal": "^3.8.1",
     "react-number-format": "^4.0.6",
     "react-responsive": "^6.0.1",
