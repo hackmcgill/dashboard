@@ -61,15 +61,7 @@ class SingleHackerView extends React.Component<
     return (
       <article>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">
-            {`${account.firstName} ${account.lastName}`}
-            <a
-              href={FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}
-              target={'_blank'}
-            >
-              link
-            </a>
-          </H1>
+          <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
           <Form>
             <Flex
               width="100%"
@@ -92,16 +84,30 @@ class SingleHackerView extends React.Component<
                 />
               </Box>
               <Flex
-                width={[1, 1 / 2]}
+                width={[1, 1 / 4]}
                 justifyContent={['center', 'flex-start']}
               >
                 <Button
                   type="button"
                   onClick={this.submit}
                   isLoading={this.state.isLoading}
-                  disabled={this.state.isLoading}
+                  disabled={this.state.isLoading || !this.state.canEdit}
                 >
                   Change status
+                </Button>
+              </Flex>
+              <Flex width={[1, 1 / 4]} justifyContent={['center', 'flex-end']}>
+                <Button>
+                  <a
+                    href={FrontendRoute.VIEW_HACKER_PAGE.replace(
+                      ':id',
+                      hacker.id
+                    )}
+                    target={'_blank'}
+                    style={{ color: 'white' }}
+                  >
+                    open in new window
+                  </a>
                 </Button>
               </Flex>
             </Flex>
