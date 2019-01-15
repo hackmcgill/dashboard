@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Flex } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 import Modal from 'react-modal';
 
 import { IHacker } from '../config';
@@ -72,7 +72,8 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
                 <Image src={Arrow} imgHeight="20px" alt="Previous" />
               </Button>
             </Flex>
-            <Box
+            <Flex
+              justifyContent="center"
               width={6 / 8}
               style={{
                 overflowY: 'scroll',
@@ -82,7 +83,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
               <SingleHackerView
                 hacker={this.props.allHackers[this.state.currentHackerIndex]}
               />
-            </Box>
+            </Flex>
             <Flex width={1 / 8} justifyContent="flex-end">
               <Button
                 isNarrow={true}
