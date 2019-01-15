@@ -38,7 +38,8 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
 
   public render() {
     return (
-      <div>
+      // tslint:disable-next-line
+      <div onKeyDown={(e) => this.handleKeyPress(e)}>
         <Button type="button" onClick={this.handleOpenModal}>
           See more
         </Button>
@@ -112,6 +113,17 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
   private handleCloseModal = () => {
     this.setState({ showModal: false });
     this.resetIndex();
+  };
+
+  private handleKeyPress = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowLeft':
+        this.handlePrevious();
+        break;
+      case 'ArrowRight':
+        this.handleNext();
+        break;
+    }
   };
 
   private handleNext = () => {
