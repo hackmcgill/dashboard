@@ -19,6 +19,7 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER_SELF);
     API.createEntity(APIRoute.HACKER_STATS);
     API.createEntity(APIRoute.HACKER);
+    API.createEntity(APIRoute.HACKER_STATUS);
   }
   /**
    * Create an account.
