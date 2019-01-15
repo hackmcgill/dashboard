@@ -30,7 +30,7 @@ export interface IAccount {
 export interface IHacker {
   [key: string]: any;
   id: string;
-  accountId: IAccount | string;
+  accountId: string | IAccount; // for querying account as well
   status: HackerStatus;
   school: string;
   degree: string;

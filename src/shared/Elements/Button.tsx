@@ -3,6 +3,8 @@ import styled from '../Styles/styled-components';
 export interface IButtonProps {
   secondary?: boolean;
   isLoading?: boolean;
+  isNarrow?: boolean;
+  disabled?: boolean;
 }
 
 export const Button = styled.button<IButtonProps>`
@@ -15,18 +17,27 @@ export const Button = styled.button<IButtonProps>`
   margin: 5px;
   border: none;
   border-radius: 4px;
-  min-width: 100px;
+  min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
   cursor: pointer;
   transition: 0.15s linear all;
   font-weight: bold;
   position: relative;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.secondary
-        ? props.theme.colors.primary
-        : props.theme.colors.primaryLight};
-  }
+  ${(props) =>
+    props.disabled
+      ? `
+        cursor: not-allowed;
+        color: ${props.theme.colors.greyLighter};
+        background-color: ${props.theme.colors.greyLight};
+      `
+      : `&:hover {
+          background-color: ${
+            props.secondary
+              ? props.theme.colors.primary
+              : props.theme.colors.primaryLight
+          };
+        }
+    `}
 
   @keyframes spinner {
     to {
