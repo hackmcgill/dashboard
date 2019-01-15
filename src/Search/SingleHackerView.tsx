@@ -129,7 +129,10 @@ class SingleHackerView extends React.Component<
               <Box width={[1, 1 / 2]}>
                 <strong>GitHub</strong>:{' '}
                 {hacker.application.portfolioURL.github ? (
-                  <a href={hacker.application.portfolioURL.github}>
+                  <a
+                    href={hacker.application.portfolioURL.github}
+                    target="_blank"
+                  >
                     {hacker.application.portfolioURL.github}
                   </a>
                 ) : (
@@ -139,7 +142,10 @@ class SingleHackerView extends React.Component<
               <Box width={[1, 1 / 2]}>
                 <strong>LinkedIn</strong>:{' '}
                 {hacker.application.portfolioURL.linkedIn ? (
-                  <a href={hacker.application.portfolioURL.linkedIn}>
+                  <a
+                    href={hacker.application.portfolioURL.linkedIn}
+                    target="_blank"
+                  >
                     {hacker.application.portfolioURL.linkedIn}
                   </a>
                 ) : (
@@ -149,7 +155,10 @@ class SingleHackerView extends React.Component<
               <Box width={[1, 1 / 2]}>
                 <strong>Website</strong>:{' '}
                 {hacker.application.portfolioURL.personal ? (
-                  <a href={hacker.application.portfolioURL.personal}>
+                  <a
+                    href={hacker.application.portfolioURL.personal}
+                    target="_blank"
+                  >
                     {hacker.application.portfolioURL.personal}
                   </a>
                 ) : (
@@ -159,7 +168,10 @@ class SingleHackerView extends React.Component<
               <Box width={[1, 1 / 2]}>
                 <strong>Dribbble</strong>:{' '}
                 {hacker.application.portfolioURL.dropler ? (
-                  <a href={hacker.application.portfolioURL.dropler}>
+                  <a
+                    href={hacker.application.portfolioURL.dropler}
+                    target="_blank"
+                  >
                     {hacker.application.portfolioURL.dropler}
                   </a>
                 ) : (
