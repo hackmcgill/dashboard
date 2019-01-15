@@ -4,6 +4,7 @@ export enum FrontendRoute {
   CREATE_ACCOUNT_PAGE = '/account/create',
   CREATE_APPLICATION_PAGE = '/application/create',
   CONFIRM_HACKER_PAGE = '/application/confirm',
+  VIEW_HACKER_PAGE = '/application/view/:id',
   EDIT_ACCOUNT_PAGE = '/account/edit',
   EDIT_APPLICATION_PAGE = '/application/edit',
   FORGOT_PASSWORD_PAGE = '/password/forgot',

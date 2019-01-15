@@ -4,7 +4,7 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
-import { HackerStatus, IAccount, IHacker } from '../config';
+import { FrontendRoute, HackerStatus, IAccount, IHacker } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
@@ -61,7 +61,15 @@ class SingleHackerView extends React.Component<
     return (
       <article>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
+          <H1 marginLeft="0">
+            {`${account.firstName} ${account.lastName}`}
+            <a
+              href={FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}
+              target={'_blank'}
+            >
+              link
+            </a>
+          </H1>
           <Form>
             <Flex
               width="100%"

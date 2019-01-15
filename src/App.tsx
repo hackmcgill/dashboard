@@ -28,6 +28,7 @@ import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
+import SingleHackerContainer from './SingleHacker/Main';
 import { canAccessApplication, canAccessTeam } from './util';
 
 class App extends React.Component {
@@ -161,6 +162,19 @@ class App extends React.Component {
             path={FrontendRoute.ADMIN_SEARCH_PAGE}
             component={withNavbar(
               withAuthRedirect(SearchContainer, {
+                requiredAuthState: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed &&
+                  (user.accountType === UserType.STAFF ||
+                    user.accountType === UserType.SPONSOR),
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.VIEW_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(SingleHackerContainer, {
                 requiredAuthState: true,
                 AuthVerification: (user: IAccount) =>
                   user.confirmed &&
