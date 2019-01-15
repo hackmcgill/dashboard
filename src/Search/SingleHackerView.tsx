@@ -8,6 +8,7 @@ import { HackerStatus, IAccount, IHacker } from '../config';
 import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import theme from '../shared/Styles/theme';
 import { getOptionsFromEnum } from '../util';
 
@@ -209,7 +210,9 @@ class SingleHackerView extends React.Component<
       this.setState({ isLoading: false });
       toast.success(`Hacker status updated to ${status}!`);
     } catch (e) {
-      toast.error(`Hacker status update failed! Message: ${e}`);
+      if (e && e.data) {
+        ValidationErrorGenerator(e.data);
+      }
     }
   }
 
