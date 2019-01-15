@@ -43,7 +43,6 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
       Header: 'Applicant Info',
       Cell: ({ original }: any) => (
         <div>
-          <span>{original.hacker.accountId.firstName}</span>
           <SingleHackerModal
             hacker={original.hacker}
             allHackers={props.results.map((r) => r.hacker)}
