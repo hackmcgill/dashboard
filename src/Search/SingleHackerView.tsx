@@ -5,12 +5,16 @@ import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
 import { HackerStatus, IAccount, IHacker } from '../config';
-import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
+import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import theme from '../shared/Styles/theme';
 import { getOptionsFromEnum } from '../util';
+
+import SHField from './SingleHackerField';
+import SHLink from './SingleHackerLink';
+import SHParagraph from './SingleHackerParagraph';
 
 interface IHackerViewProps {
   hacker: IHacker;
@@ -91,33 +95,23 @@ class SingleHackerView extends React.Component<
               justifyContent="space-between"
               alignItems="center"
             >
-              <Box width={[1, 1 / 2]}>
-                <strong>Email</strong>: {account.email}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>School</strong>: {hacker.school}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Degree</strong>: {hacker.degree}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Status</strong>: {hacker.status}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Graduation Year</strong>: {hacker.graduationYear}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Major(s)</strong>: {hacker.major}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Skills</strong>:{' '}
-                {hacker.application.skills
-                  ? hacker.application.skills.join(', ')
-                  : 'None'}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Job interest</strong>: {hacker.application.jobInterest}
-              </Box>
+              <SHField label="Email" text={account.email} />
+              <SHField label="School" text={hacker.school} />
+              <SHField label="Degree" text={hacker.degree} />
+              <SHField label="Status" text={hacker.status} />
+              <SHField label="Graduation Year" text={hacker.graduationYear} />
+              <SHField label="Major(s)" text={hacker.major} />
+              <SHField
+                label="Skills"
+                text={
+                  hacker.application.skills &&
+                  hacker.application.skills.join(', ')
+                }
+              />
+              <SHField
+                label="Job interest"
+                text={hacker.application.jobInterest}
+              />
             </Flex>
             <hr />
             <H2 color={theme.colors.grey}>Links</H2>
@@ -127,74 +121,28 @@ class SingleHackerView extends React.Component<
               justifyContent="space-between"
               alignItems="center"
             >
-              <Box width={[1, 1 / 2]}>
-                <strong>GitHub</strong>:{' '}
-                {hacker.application.portfolioURL.github ? (
-                  <a
-                    href={hacker.application.portfolioURL.github}
-                    target="_blank"
-                  >
-                    {hacker.application.portfolioURL.github}
-                  </a>
-                ) : (
-                  'None'
-                )}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>LinkedIn</strong>:{' '}
-                {hacker.application.portfolioURL.linkedIn ? (
-                  <a
-                    href={hacker.application.portfolioURL.linkedIn}
-                    target="_blank"
-                  >
-                    {hacker.application.portfolioURL.linkedIn}
-                  </a>
-                ) : (
-                  'None'
-                )}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Website</strong>:{' '}
-                {hacker.application.portfolioURL.personal ? (
-                  <a
-                    href={hacker.application.portfolioURL.personal}
-                    target="_blank"
-                  >
-                    {hacker.application.portfolioURL.personal}
-                  </a>
-                ) : (
-                  'None'
-                )}
-              </Box>
-              <Box width={[1, 1 / 2]}>
-                <strong>Dribbble</strong>:{' '}
-                {hacker.application.portfolioURL.dropler ? (
-                  <a
-                    href={hacker.application.portfolioURL.dropler}
-                    target="_blank"
-                  >
-                    {hacker.application.portfolioURL.dropler}
-                  </a>
-                ) : (
-                  'None'
-                )}
-              </Box>
+              <SHLink
+                label="GitHub"
+                link={hacker.application.portfolioURL.github}
+              />
+              <SHLink
+                label="LinkedIn"
+                link={hacker.application.portfolioURL.linkedIn}
+              />
+              <SHLink
+                label="Website"
+                link={hacker.application.portfolioURL.personal}
+              />
+              <SHLink
+                label="Dribbble"
+                link={hacker.application.portfolioURL.dropler}
+              />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
             <hr />
             <H2 color={theme.colors.grey}>Additional Information</H2>
-            <Box width={1}>
-              <strong>Why McHacks:</strong>{' '}
-              <Paragraph fontSize="16px">{hacker.application.essay}</Paragraph>
-            </Box>
-            {hacker.application.comments && (
-              <Box width={1}>
-                <strong>Other comments:</strong>{' '}
-                <Paragraph fontSize="16px">
-                  {hacker.application.comments}
-                </Paragraph>
-              </Box>
-            )}
+            <SHParagraph label="Why McHacks?" text={hacker.application.essay} />
+            <SHParagraph label="Comments" text={hacker.application.comments} />
           </Box>
         </MaxWidthBox>
       </article>
