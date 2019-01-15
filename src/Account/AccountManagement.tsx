@@ -1,4 +1,4 @@
-import { Box, Flex } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Redirect, RouteProps } from 'react-router';
 
@@ -19,8 +19,8 @@ import {
   UserType,
 } from '../config';
 import * as CONSTANTS from '../config/constants';
-import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
-import { Form } from '../shared/Form';
+import { FormDescription, H1, MaxWidthBox } from '../shared/Elements';
+import { Form, SubmitBtn } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
@@ -275,11 +275,9 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.birthDate}
         />
         <ErrorMessage component={FormikElements.Error} name="birthDate" />
-        <Flex justifyContent={'center'}>
-          <Box>
-            <Button type="submit">Submit</Button>
-          </Box>
-        </Flex>
+        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+          Submit
+        </SubmitBtn>
       </Form>
     );
   }
