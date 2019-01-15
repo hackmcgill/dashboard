@@ -28,17 +28,13 @@ class SingleHackerView extends React.Component<
   constructor(props: IHackerViewProps) {
     super(props);
     this.state = {
-      status: HackerStatus.HACKER_STATUS_APPLIED,
+      status: props.hacker.status,
       canEdit: true,
       isLoading: false,
     };
   }
 
   public componentDidMount() {
-    const {
-      hacker: { status },
-    } = this.props;
-    this.setState({ status });
     this.submit = this.submit.bind(this);
   }
 
