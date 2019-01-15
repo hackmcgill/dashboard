@@ -45,10 +45,13 @@ export async function getHackerInfo(): Promise<IHacker | null> {
     return null;
   }
 }
+export function isAppOpen(): boolean {
+  return false;
+}
 
-export function canAccessApplication(hacker: IHacker): boolean {
-  const APPS_OPEN = false;
-  const { status } = hacker;
+export function canAccessApplication(hacker?: IHacker): boolean {
+  const APPS_OPEN = isAppOpen();
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
 
   return (
     APPS_OPEN &&

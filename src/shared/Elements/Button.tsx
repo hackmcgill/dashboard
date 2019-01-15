@@ -1,6 +1,6 @@
 import styled from '../Styles/styled-components';
 
-interface IButtonProps {
+export interface IButtonProps {
   secondary?: boolean;
   isLoading?: boolean;
   isNarrow?: boolean;

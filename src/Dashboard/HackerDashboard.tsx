@@ -16,6 +16,7 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
+  isAppOpen,
   isConfirmed,
 } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
@@ -23,6 +24,7 @@ import DashboardView, { IDashboardCard } from './View';
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
 import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
+import TeamIcon from '../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
@@ -44,7 +46,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   public async componentDidMount() {
-    let hacker = null;
+    let hacker;
     // set hacker status
     try {
       const response = await Hacker.getSelf();
@@ -63,12 +65,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       this.setState({ confirmed: false });
     }
     // determine whether the user has app access
-    if (hacker) {
-      const hasAppAccess = canAccessApplication(hacker);
-      this.setState({ hasAppAccess });
-    } else {
-      this.setState({ hasAppAccess: false });
-    }
+    const hasAppAccess = canAccessApplication(hacker);
+    this.setState({ hasAppAccess });
   }
 
   public render() {
@@ -77,6 +75,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       <DashboardView
         cards={this.generateCards(status, confirmed)}
         title={`status: ${status.toLowerCase()}`}
+        subtitle={!isAppOpen() ? 'Applications are now closed' : undefined}
       />
     );
   }
@@ -112,8 +111,13 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         imageSrc: ConfirmIcon,
         hidden: status !== HackerStatus.HACKER_STATUS_ACCEPTED,
       },
+      {
+        title: 'Team',
+        route: routes.TEAM_PAGE,
+        imageSrc: TeamIcon,
+        hidden: status === HackerStatus.HACKER_STATUS_NONE,
+      },
     ];
-
     return cards;
   }
 

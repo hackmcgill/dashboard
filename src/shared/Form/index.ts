@@ -14,4 +14,5 @@ export * from './SecondaryInfoText';
 export * from './StyledCreatableSelect';
 export * from './StyledNumberFormat';
 export * from './StyledSelect';
+export * from './SubmitBtn';
 export * from './validationErrorGenerator';

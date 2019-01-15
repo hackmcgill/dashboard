@@ -1,4 +1,3 @@
-import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import {
   ErrorMessage,
@@ -28,9 +27,9 @@ import {
   Skills,
 } from '../config';
 
-import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
+import { FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 
-import { Form } from '../shared/Form/';
+import { Form, SubmitBtn } from '../shared/Form/';
 import * as FormikElements from '../shared/Form/FormikElements';
 
 import { Account, APIResponse, Hacker } from '../api';
@@ -388,11 +387,9 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Error}
           name="codeOfConduct_MLH"
         />
-        <Flex justifyContent={'center'}>
-          <Box>
-            <Button type="submit">Submit</Button>
-          </Box>
-        </Flex>
+        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+          Submit
+        </SubmitBtn>
       </Form>
     );
   }
