@@ -24,12 +24,13 @@ export interface IAccount {
   pronoun: string;
   // The database id (if new, leave blank / make '')
   id: string;
+  _id?: string;
 }
 
 export interface IHacker {
   [key: string]: any;
   id: string;
-  accountId: string;
+  accountId: IAccount | string;
   status: HackerStatus;
   school: string;
   degree: string;

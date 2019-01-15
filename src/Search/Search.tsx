@@ -10,6 +10,7 @@ import {
   UserType,
 } from '../config';
 import { Button, H1 } from '../shared/Elements';
+import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
@@ -27,6 +28,7 @@ interface ISearchState {
     selected: boolean;
     hacker: IHacker;
   }>;
+  searchBar: string;
   loading: boolean;
 }
 
@@ -37,12 +39,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       model: 'hacker',
       query: this.getSearchFromQuery(),
       results: [],
+      searchBar: '',
       loading: false,
     };
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
+    this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
   }
   public render() {
     return (
@@ -68,6 +72,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 Hackers
               </H1>
             </Box>
+            <Box alignSelf={'flex-start'}>
+              <Input
+                onChange={this.onSearchBarChanged}
+                placeholder={'Search...'}
+                style={{ marginTop: 5 }}
+              />
+            </Box>
             <Box mr={'10px'}>
               <Button>Update Status</Button>
               <Button onClick={this.downloadData}>Export Hackers</Button>
@@ -77,6 +88,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             results={this.state.results}
             loading={this.state.loading}
             userType={UserType.STAFF}
+            search={this.state.searchBar}
           />
         </Box>
       </Flex>
@@ -177,6 +189,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     });
     this.updateQueryURL(newFilters);
     this.triggerSearch();
+  }
+
+  private onSearchBarChanged(e: any) {
+    this.setState({ searchBar: e.target.value });
   }
 
   private updateQueryURL(newFilters: ISearchParameter[]) {

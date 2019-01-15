@@ -9,6 +9,7 @@ interface IResultsTableProps {
   }>;
   loading: boolean;
   userType: UserType;
+  search: string;
 }
 
 const adminColumns = [
@@ -48,27 +49,48 @@ const volunteerColumns = [
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   return (
     <StyledTable
-      data={props.results}
+      data={filter(props.results, props.search)}
       columns={
         props.userType === UserType.STAFF ? adminColumns : volunteerColumns
       }
       loading={props.loading}
       defaultPageSize={10}
-      // filterable={true}
-      // defaultFilterMethod={filterer}
     />
   );
 };
 
-// function filterer(filter: Filter, row: any, column: any): boolean {
-//   return String(row[filter.id])
-//     .trim()
-//     .toLowerCase()
-//     .includes(
-//       String(filter.value)
-//         .trim()
-//         .toLowerCase()
-//     );
-// }
+function filter(
+  results: Array<{
+    selected: boolean;
+    hacker: IHacker;
+  }>,
+  search: string
+): Array<{
+  selected: boolean;
+  hacker: IHacker;
+}> {
+  return results.filter(({ hacker }) => {
+    const { accountId } = hacker;
+    const foundAcct =
+      typeof accountId !== 'string'
+        ? accountId.firstName.includes(search) ||
+          accountId.lastName.includes(search) ||
+          `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
+          accountId.email.includes(search) ||
+          String(accountId.phoneNumber).includes(search) ||
+          accountId.shirtSize.includes(search) ||
+          (accountId._id && accountId._id.includes(search))
+        : false;
+
+    return (
+      foundAcct ||
+      hacker.id.includes(search) ||
+      hacker.major.includes(search) ||
+      hacker.school.includes(search) ||
+      hacker.status.includes(search) ||
+      String(hacker.graduationYear).includes(search)
+    );
+  });
+}
 
 export { ResultsTable };
