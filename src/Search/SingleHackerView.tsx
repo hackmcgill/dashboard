@@ -43,6 +43,18 @@ class SingleHackerView extends React.Component<
     this.submit = this.submit.bind(this);
   }
 
+  public componentDidUpdate(prevProps: IHackerViewProps) {
+    if (
+      prevProps.hacker.id !== this.props.hacker.id &&
+      this.props.hacker.status !== this.state.status
+    ) {
+      const {
+        hacker: { status },
+      } = this.props;
+      this.setState({ status });
+    }
+  }
+
   public render() {
     const { hacker } = this.props;
     const account = (hacker.accountId as IAccount) || {};
