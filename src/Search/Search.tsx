@@ -72,7 +72,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 Hackers
               </H1>
             </Box>
-            <Box alignSelf={'flex-start'}>
+            <Box alignSelf={'flex-start'} width={0.5}>
               <Input
                 onChange={this.onSearchBarChanged}
                 placeholder={'Search...'}
