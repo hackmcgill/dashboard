@@ -1,10 +1,9 @@
 import * as React from 'react';
 
 import { Flex } from '@rebass/grid';
-import Modal from 'react-modal';
 
 import { IHacker } from '../config';
-import { Button, Image } from '../shared/Elements';
+import { Button, Image, StyledModal } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
 import Arrow from '../assets/images/backarrow.svg';
@@ -43,9 +42,8 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
         <Button type="button" onClick={this.handleOpenModal}>
           See more
         </Button>
-        <Modal
+        <StyledModal
           appElement={document.getElementById('root') || undefined}
-          style={{ overlay: { zIndex: 20 } }}
           isOpen={this.state.showModal}
           contentLabel="Single Hacker View"
           onRequestClose={this.handleCloseModal}
@@ -102,7 +100,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
               </Button>
             </Flex>
           </Flex>
-        </Modal>
+        </StyledModal>
       </div>
     );
   }
