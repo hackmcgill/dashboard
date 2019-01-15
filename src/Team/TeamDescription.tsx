@@ -2,32 +2,21 @@ import * as React from 'react';
 
 import { Box, Flex } from '@rebass/grid';
 
-import {
-  IMemberName,
-  ITeam,
-  TEAM_MAX_SIZE,
-  TEAM_MEMBERS,
-  TEAM_NAME,
-  TEAM_NAME_SUBTITLE,
-} from '../config';
+import { IMemberName, ITeam } from '../config';
 import { Button, H1, MaxWidthBox } from '../shared/Elements';
 
-import { Bold } from '../shared/Elements/Bold';
-import ClipboardComponent from '../shared/Elements/Clipboard';
+import { TeamView } from './TeamView';
 
 interface ITeamDescriptionProps {
   team: ITeam;
   members: IMemberName[];
   onLeaveTeam: () => void;
+  isLeavingTeam: boolean;
 }
 
 const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
-  const firstColumnWidth = 0.5;
-  const nameList = props.members.map((member, index) => (
-    <Box key={index}>{member.firstName}</Box>
-  ));
   return (
     <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
       <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
@@ -35,31 +24,17 @@ const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
       </H1>
       <Flex flexDirection={'column'}>
         <Box>
-          <Flex justifyContent={'space-between'}>
-            <Box width={firstColumnWidth}>
-              <Bold>{TEAM_NAME}</Bold>
-              <Box fontSize={'smaller'}>{TEAM_NAME_SUBTITLE}</Box>
-            </Box>
-            <Box>
-              <ClipboardComponent value={props.team.name} />
-            </Box>
-          </Flex>
-        </Box>
-        <Box mt={'10px'}>
-          <Flex justifyContent={'space-between'}>
-            <Box width={firstColumnWidth}>
-              <Bold>{TEAM_MEMBERS}</Bold>
-              <Box fontSize={'smaller'}>{TEAM_MAX_SIZE}</Box>
-            </Box>
-            <Box>
-              <Flex flexDirection={'column'}>{nameList}</Flex>
-            </Box>
-          </Flex>
+          <TeamView team={props.team} members={props.members} />
         </Box>
         <Box mt={'15px'}>
           <Flex justifyContent={'center'}>
             <Box>
-              <Button onClick={props.onLeaveTeam}>Leave team</Button>
+              <Button
+                onClick={props.onLeaveTeam}
+                isLoading={props.isLeavingTeam}
+              >
+                Leave team
+              </Button>
             </Box>
           </Flex>
         </Box>
