@@ -2,8 +2,8 @@ import { Box } from '@rebass/grid';
 import * as React from 'react';
 
 import { IHacker, UserType } from '../config';
-import { StyledTable } from '../shared/Elements';
-import SingleHackerModal from './SingleHackerModal';
+import { StyledTable } from '../shared/Elements/Table';
+import SingleHackerModal from './SingleHacker/SingleHackerModal';
 
 interface IResultsTableProps {
   results: Array<{
