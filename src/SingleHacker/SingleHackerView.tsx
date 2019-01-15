@@ -4,7 +4,7 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
-import { FrontendRoute, HackerStatus, IAccount, IHacker } from '../config';
+import { HackerStatus, IAccount, IHacker } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
@@ -15,7 +15,6 @@ import { getOptionsFromEnum } from '../util';
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
 import SHParagraph from './SingleHackerParagraph';
-import { Link } from 'react-router-dom';
 
 interface IHackerViewProps {
   hacker: IHacker;
@@ -85,7 +84,7 @@ class SingleHackerView extends React.Component<
                 />
               </Box>
               <Flex
-                width={[1, 1 / 4]}
+                width={[1, 1 / 2]}
                 justifyContent={['center', 'flex-start']}
               >
                 <Button
@@ -96,15 +95,6 @@ class SingleHackerView extends React.Component<
                 >
                   Change status
                 </Button>
-              </Flex>
-              <Flex width={[1, 1 / 4]} justifyContent={['center', 'flex-end']}>
-                <Link
-                  to={FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}
-                  target={'_blank'}
-                  style={{ fontSize: '13px' }}
-                >
-                  open in new window
-                </Link>
               </Flex>
             </Flex>
           </Form>

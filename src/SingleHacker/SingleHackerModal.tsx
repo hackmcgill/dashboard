@@ -1,8 +1,8 @@
+import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Flex } from '@rebass/grid';
-
-import { IHacker } from '../config';
+import { FrontendRoute, IHacker } from '../config';
 import { Button, Image, StyledModal } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
@@ -56,9 +56,25 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
             justifyContent="flex-end"
             style={{ position: 'absolute', top: '10px', right: '10px' }}
           >
-            <Button type="button" onClick={this.handleCloseModal}>
-              Close
-            </Button>
+            <Box>
+              <Button>
+                <Link
+                  to={FrontendRoute.VIEW_HACKER_PAGE.replace(
+                    ':id',
+                    this.props.hacker.id
+                  )}
+                  target={'_blank'}
+                  style={{ color: 'white' }}
+                >
+                  open in new window
+                </Link>
+              </Button>
+            </Box>
+            <Box>
+              <Button type="button" onClick={this.handleCloseModal}>
+                Close
+              </Button>
+            </Box>
           </Flex>
           <Flex width="100%" alignItems="center" style={{ height: '100%' }}>
             <Flex width={1 / 8}>
