@@ -1,7 +1,3 @@
-import html2canvas from 'html2canvas';
-import * as React from 'react';
-import ReactDOMServer from 'react-dom/server';
-
 import { Account, Hacker } from '../api';
 
 import { HackerStatus, IAccount, IHacker, UserType } from '../config';
@@ -9,7 +5,6 @@ import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 import * as QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
-import { Pass } from '../HackPass/Pass';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -106,34 +101,6 @@ export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
   return response;
 }
 
-export async function generateHackPass2(account: IAccount, hacker: IHacker) {
-  (window as any).html2canvas = html2canvas;
-  const qrData = await generateHackerQRCode(hacker);
-  const html = ReactDOMServer.renderToStaticMarkup(
-    <Pass account={account} hacker={hacker} qrData={qrData} />
-  );
-  const data = `<Document>${html}</Document>`;
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: [59, 102],
-  });
-  await new Promise((resolve, reject) => {
-    doc.fromHTML(
-      data,
-      0,
-      0,
-      {
-        width: 59,
-      },
-      resolve
-    );
-  });
-  doc.autoPrint();
-  doc.save(`hackPass_${hacker.id}.pdf`);
-  return doc;
-}
-
 /**
  * Generate a QR code for a given hacker.
  * @param hacker The hacker you wanna generate the code for
@@ -143,7 +110,6 @@ export async function generateHackPass(
   account: IAccount,
   hacker: IHacker
 ): Promise<jsPDF> {
-  // return generateHackPass2(account, hacker);
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
