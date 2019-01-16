@@ -66,7 +66,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
                   target={'_blank'}
                   style={{ color: 'white' }}
                 >
-                  open in new window
+                  Open in new window
                 </Link>
               </Button>
             </Box>
