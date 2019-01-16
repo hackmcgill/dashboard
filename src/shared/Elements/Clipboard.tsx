@@ -39,6 +39,7 @@ class ClipboardComponent extends React.Component<IClipboardProps, {}> {
             ref={(element) => {
               this.copy = element;
             }}
+            style={{ cursor: 'pointer' }}
           />
         </Box>
       </Flex>

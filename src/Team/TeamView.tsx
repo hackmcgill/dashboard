@@ -13,9 +13,9 @@ import {
   TEAM_NAME_SUBTITLE,
 } from '../config';
 
+import { toast } from 'react-toastify';
 import ClipboardComponent from '../shared/Elements/Clipboard';
 import WithToasterContainer from '../shared/HOC/withToaster';
-import { toast } from 'react-toastify';
 
 interface ITeamViewProps {
   team: ITeam;
