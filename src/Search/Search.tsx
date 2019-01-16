@@ -105,7 +105,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
   public componentDidMount() {
-    if (this.state.query.length > 0) {
+    if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
       this.triggerSearch();
     }
   }
