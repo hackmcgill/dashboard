@@ -50,47 +50,56 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
   public render() {
     return (
-      <Flex>
-        <Box width={1 / 6} mx={'20px'}>
-          <FilterComponent
-            initFilters={this.state.query}
-            onChange={this.onFilterChange}
-            onResetForm={this.onResetForm}
-            loading={this.state.loading}
-          />
-        </Box>
-        <Box width={5 / 6}>
-          <Flex justifyContent={'space-between'}>
-            <Box>
-              <H1
-                color={theme.colors.primary}
-                fontSize={'30px'}
-                textAlign={'left'}
-                marginTop={'0px'}
-                marginBottom={'20px'}
-              >
-                Hackers
+      <Flex flexDirection={'column'}>
+        <Box width={1}>
+          <Flex>
+            <Box alignSelf={'center'} width={1 / 6}>
+              <H1 color={theme.colors.primary} fontSize={'30px'}>
+                Search
               </H1>
             </Box>
-            <Box alignSelf={'flex-start'} width={0.5}>
-              <Input
-                onChange={this.onSearchBarChanged}
-                placeholder={'Search...'}
-                style={{ marginTop: 5 }}
-                value={this.state.searchBar}
-              />
-            </Box>
-            <Box mr={'10px'}>
-              <Button>Update Status</Button>
-              <Button onClick={this.downloadData}>Export Hackers</Button>
+            <Box width={5 / 6}>
+              <Flex justifyContent={'space-between'}>
+                <Box alignSelf={'center'}>
+                  <H1 color={theme.colors.primary} fontSize={'30px'}>
+                    Hackers
+                  </H1>
+                </Box>
+                <Box alignSelf={'flex-start'} width={0.5}>
+                  <Input
+                    onChange={this.onSearchBarChanged}
+                    placeholder={'Refine your search...'}
+                    style={{ marginTop: 5 }}
+                    value={this.state.searchBar}
+                  />
+                </Box>
+                <Box mr={'10px'}>
+                  <Button>Update Status</Button>
+                  <Button onClick={this.downloadData}>Export Hackers</Button>
+                </Box>
+              </Flex>
             </Box>
           </Flex>
-          <ResultsTable
-            results={this.filter(this.state.results, this.state.searchBar)}
-            loading={this.state.loading}
-            userType={UserType.STAFF}
-            filter={this.state.searchBar}
-          />
+        </Box>
+        <Box width={1}>
+          <Flex>
+            <Box width={1 / 6} m={2}>
+              <FilterComponent
+                initFilters={this.state.query}
+                onChange={this.onFilterChange}
+                onResetForm={this.onResetForm}
+                loading={this.state.loading}
+              />
+            </Box>
+            <Box width={5 / 6} m={2}>
+              <ResultsTable
+                results={this.filter(this.state.results, this.state.searchBar)}
+                loading={this.state.loading}
+                userType={UserType.STAFF}
+                filter={this.state.searchBar}
+              />
+            </Box>
+          </Flex>
         </Box>
       </Flex>
     );
@@ -228,9 +237,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const { accountId } = hacker;
       const foundAcct =
         typeof accountId !== 'string'
-          ? accountId.firstName.includes(search) ||
-            accountId.lastName.includes(search) ||
-            `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
+          ? `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
             accountId.email.includes(search) ||
             String(accountId.phoneNumber).includes(search) ||
             accountId.shirtSize.includes(search) ||
