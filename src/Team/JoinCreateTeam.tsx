@@ -7,6 +7,7 @@ import {
   FormikValues,
 } from 'formik';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 
@@ -44,6 +45,9 @@ class JoinCreateTeam extends React.Component<
   public render() {
     return (
       <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+        <Helmet>
+          <title>Team | McHacks 6</title>
+        </Helmet>
         <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
           Team
         </H1>

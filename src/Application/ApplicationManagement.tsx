@@ -8,6 +8,7 @@ import {
   FormikValues,
 } from 'formik';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Redirect } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -119,6 +120,12 @@ class ManageApplicationContainer extends React.Component<
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        <Helmet>
+          <title>
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
+            Application | McHacks 6
+          </title>
+        </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
             color={'#F2463A'}
