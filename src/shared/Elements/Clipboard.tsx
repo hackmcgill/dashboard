@@ -8,30 +8,23 @@ import Image from './Image';
 
 interface IClipboardProps {
   value: string;
+  onSuccess?: (e: any) => void;
+  onError?: (e: any) => void;
 }
 
-interface IClipboardState {
-  result: string;
-}
-
-class ClipboardComponent extends React.Component<
-  IClipboardProps,
-  IClipboardState
-> {
+class ClipboardComponent extends React.Component<IClipboardProps, {}> {
   private clipboard: Clipboard;
   private copy: Element | null;
   private text: Element | null;
   constructor(props: IClipboardProps) {
     super(props);
-    this.state = {
-      result: '',
-    };
+    this.state = {};
   }
 
   public render() {
     const { value } = this.props;
     return (
-      <Flex>
+      <Flex mt={0}>
         <Box
           ref={(element) => {
             this.text = element;
@@ -46,9 +39,9 @@ class ClipboardComponent extends React.Component<
             ref={(element) => {
               this.copy = element;
             }}
+            style={{ cursor: 'pointer' }}
           />
         </Box>
-        <Box ml={this.state.result ? '10px' : ''}>{this.state.result}</Box>
       </Flex>
     );
   }
@@ -60,15 +53,13 @@ class ClipboardComponent extends React.Component<
       this.clipboard = new Clipboard(button, {
         target: () => input,
       });
-      this.clipboard.on('success', (e) => {
-        this.setState({ result: 'copied!' });
-        setTimeout(() => {
-          this.setState({ result: '' });
-        }, 1000);
-      });
-      this.clipboard.on('error', (e) => {
-        this.setState({ result: 'error.' });
-      });
+      const success = this.props.onSuccess
+        ? this.props.onSuccess
+        : (e: any) => null;
+      const error = this.props.onError ? this.props.onError : (e: any) => null;
+
+      this.clipboard.on('success', success);
+      this.clipboard.on('error', error);
     }
   }
 
