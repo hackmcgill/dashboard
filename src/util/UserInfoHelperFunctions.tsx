@@ -1,6 +1,12 @@
 import { Account, Hacker } from '../api';
 
-import { HackerStatus, IAccount, IHacker, UserType } from '../config';
+import {
+  FrontendRoute,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  UserType,
+} from '../config';
 
 import * as QRCode from 'qrcode';
 
@@ -118,7 +124,11 @@ export function canAccessHackerPass(hacker?: IHacker): boolean {
  * @returns an svg string.
  */
 export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
-  const response = await QRCode.toDataURL(hacker.id, { scale: 10 });
+  const hackerPage = `
+  ${window.location.protocol}//${window.location.hostname}${
+    window.location.port ? ':' + window.location.port : ''
+  }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
+  const response = await QRCode.toDataURL(hackerPage, { scale: 10 });
   return response;
 }
 
@@ -132,23 +142,26 @@ export async function generateHackPass(
   hacker: IHacker
 ): Promise<jsPDF> {
   const doc = new jsPDF({
-    orientation: 'portrait',
+    orientation: 'landscape',
     unit: 'mm',
     format: [59, 102],
   });
 
-  doc.setFontSize(9);
-  const name: string[] = doc.splitTextToSize(account.firstName, 19);
-  doc.text(1, 4, name);
+  doc.setFontSize(8);
+  doc.text(account.accountType, 1, 4, { maxWidth: 15 });
+
+  doc.setFontSize(7);
+  const name: string[] = doc.splitTextToSize(account.firstName, 15);
+  doc.text(1, 8, name);
 
   doc.setFontSize(4);
-  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 19);
-  const school: string[] = doc.splitTextToSize(hacker.school, 19);
-  const email: string[] = doc.splitTextToSize(account.email, 19);
-  doc.text(1, 6 + (name.length - 1) * 4, pronoun.concat(school).concat(email));
+  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 15);
+  const school: string[] = doc.splitTextToSize(hacker.school, 15);
+  const email: string[] = doc.splitTextToSize(account.email, 15);
+  doc.text(1, 6 + name.length * 3.5, pronoun.concat(school).concat(email));
 
   const qrData = await generateHackerQRCode(hacker);
-  doc.addImage(qrData, 'png', 0, 16, 21, 21);
+  doc.addImage(qrData, 'png', 16, 0, 21, 21);
 
   doc.autoPrint();
   doc.save(`hackPass_${hacker.id}.pdf`);

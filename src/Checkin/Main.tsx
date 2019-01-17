@@ -9,6 +9,7 @@ import theme from '../shared/Styles/theme';
 import { generateHackPass } from '../util';
 import { Email } from './Email';
 import { Reader } from './Reader';
+import { FrontendRoute } from '../config';
 
 interface ICheckinState {
   loading: boolean;
@@ -120,6 +121,22 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
 
   private async handleScan(data: string | null) {
     if (data && !this.state.loading) {
+      const hackerURL = new RegExp(
+        `^http(s)?:\/\/.+${FrontendRoute.VIEW_HACKER_PAGE.replace(
+          ':id',
+          '[a-f\\d]{24}'
+        )}`
+      );
+      console.log(hackerURL, data);
+      if (
+        data.match(
+          /^http:\/\/localhost:1337\/application\/view\/5c0dd463d95414ef5efd14cd/i
+        )
+      ) {
+        const url = data.split('/');
+        data = url[url.length - 1];
+        console.log(data);
+      }
       if (!data.match(/^[a-f\d]{24}$/i)) {
         toast.error('Invalid QR Code');
         return;
