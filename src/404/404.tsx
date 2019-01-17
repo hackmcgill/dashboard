@@ -1,5 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Construction from '../assets/images/construction-notfound.svg';
@@ -25,6 +26,9 @@ class NotFoundContainer extends React.Component<RouteComponentProps> {
         flexDirection={'column'}
         px={3}
       >
+        <Helmet>
+          <title>Page not found! | McHacks 6</title>
+        </Helmet>
         <Box>
           <Image src={Construction} imgHeight={'7rem'} padding={'0rem'} />
         </Box>

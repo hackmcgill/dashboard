@@ -21,6 +21,7 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER_EMAIL);
     API.createEntity(APIRoute.HACKER_CHECKIN);
     API.createEntity(APIRoute.HACKER);
+    API.createEntity(APIRoute.HACKER_STATUS);
   }
   /**
    * Create an account.

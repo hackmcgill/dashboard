@@ -1,6 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../api';
 import constructionSVG from '../assets/images/construction.svg';
@@ -35,6 +36,9 @@ class ConfirmationEmailSentComponent extends React.Component<
         flexDirection={'column'}
         mx={3}
       >
+        <Helmet>
+          <title>Confirmation | McHacks 6</title>
+        </Helmet>
         <Flex alignItems={'center'} flexDirection={'column'}>
           <Box>
             <Image

@@ -1,6 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import fileDownload from 'js-file-download';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { Search } from '../api';
 import {
@@ -10,12 +11,14 @@ import {
   UserType,
 } from '../config';
 import { Button, H1 } from '../shared/Elements';
+import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
+
 interface ISearchState {
   model: string;
   query: ISearchParameter[];
@@ -27,6 +30,7 @@ interface ISearchState {
     selected: boolean;
     hacker: IHacker;
   }>;
+  searchBar: string;
   loading: boolean;
 }
 
@@ -37,53 +41,76 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       model: 'hacker',
       query: this.getSearchFromQuery(),
       results: [],
+      searchBar: this.getSearchBarFromQuery(),
       loading: false,
     };
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
+    this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
   }
   public render() {
     return (
-      <Flex>
-        <Box width={1 / 6} mx={'20px'}>
-          <FilterComponent
-            initFilters={this.state.query}
-            onChange={this.onFilterChange}
-            onResetForm={this.onResetForm}
-            loading={this.state.loading}
-          />
-        </Box>
-        <Box width={5 / 6}>
-          <Flex justifyContent={'space-between'}>
-            <Box>
-              <H1
-                color={theme.colors.primary}
-                fontSize={'30px'}
-                textAlign={'left'}
-                marginTop={'0px'}
-                marginBottom={'20px'}
-              >
-                Hackers
+      <Flex flexDirection={'column'}>
+        <Helmet>
+          <title>Admin Search | McHacks 6</title>
+        </Helmet>
+        <Box width={1}>
+          <Flex>
+            <Box alignSelf={'center'} width={1 / 6}>
+              <H1 color={theme.colors.primary} fontSize={'30px'}>
+                Search
               </H1>
             </Box>
-            <Box mr={'10px'}>
-              <Button>Update Status</Button>
-              <Button onClick={this.downloadData}>Export Hackers</Button>
+            <Box width={5 / 6}>
+              <Flex justifyContent={'space-between'}>
+                <Box alignSelf={'center'}>
+                  <H1 color={theme.colors.primary} fontSize={'30px'}>
+                    Hackers
+                  </H1>
+                </Box>
+                <Box alignSelf={'flex-start'} width={0.5}>
+                  <Input
+                    onChange={this.onSearchBarChanged}
+                    placeholder={'Refine your search...'}
+                    style={{ marginTop: 5 }}
+                    value={this.state.searchBar}
+                  />
+                </Box>
+                <Box mr={'10px'}>
+                  <Button>Update Status</Button>
+                  <Button onClick={this.downloadData}>Export Hackers</Button>
+                </Box>
+              </Flex>
             </Box>
           </Flex>
-          <ResultsTable
-            results={this.state.results}
-            loading={this.state.loading}
-            userType={UserType.STAFF}
-          />
+        </Box>
+        <Box width={1}>
+          <Flex>
+            <Box width={1 / 6} m={2}>
+              <FilterComponent
+                initFilters={this.state.query}
+                onChange={this.onFilterChange}
+                onResetForm={this.onResetForm}
+                loading={this.state.loading}
+              />
+            </Box>
+            <Box width={5 / 6} m={2}>
+              <ResultsTable
+                results={this.filter(this.state.results, this.state.searchBar)}
+                loading={this.state.loading}
+                userType={UserType.STAFF}
+                filter={this.state.searchBar}
+              />
+            </Box>
+          </Flex>
         </Box>
       </Flex>
     );
   }
   public componentDidMount() {
-    if (this.state.query.length > 0) {
+    if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
       this.triggerSearch();
     }
   }
@@ -111,6 +138,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     }
   }
 
+  private getSearchBarFromQuery(): string {
+    const search = getValueFromQuery('searchBar');
+    return search ? decodeURIComponent(search) : '';
+  }
+
   private downloadData(): void {
     const headers = [
       '_id',
@@ -126,7 +158,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'needsBus',
     ];
     const csvData: string[] = [headers.join('\t')];
-    this.state.results.forEach((result) => {
+    this.filter(this.state.results, this.state.searchBar).forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
@@ -168,24 +200,64 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
   private onResetForm() {
     this.setState({ query: [] });
-    this.updateQueryURL([]);
+    this.updateQueryURL([], this.state.searchBar);
   }
 
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
     });
-    this.updateQueryURL(newFilters);
+    this.updateQueryURL(newFilters, this.state.searchBar);
     this.triggerSearch();
   }
 
-  private updateQueryURL(newFilters: ISearchParameter[]) {
-    const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
+  private onSearchBarChanged(e: any) {
+    const searchBar = e.target.value;
+    this.setState({ searchBar });
+    this.updateQueryURL(this.state.query, searchBar);
+  }
+
+  private updateQueryURL(filters: ISearchParameter[], searchBar: string) {
+    const newSearch = `?q=${encodeURIComponent(
+      JSON.stringify(filters)
+    )}&searchBar=${encodeURIComponent(searchBar)}`;
     window.history.replaceState(
       null,
       '',
       window.location.href.split('?')[0] + newSearch
     );
+  }
+
+  private filter(
+    results: Array<{
+      selected: boolean;
+      hacker: IHacker;
+    }>,
+    search: string
+  ): Array<{
+    selected: boolean;
+    hacker: IHacker;
+  }> {
+    return results.filter(({ hacker }) => {
+      const { accountId } = hacker;
+      const foundAcct =
+        typeof accountId !== 'string'
+          ? `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
+            accountId.email.includes(search) ||
+            String(accountId.phoneNumber).includes(search) ||
+            accountId.shirtSize.includes(search) ||
+            (accountId._id && accountId._id.includes(search))
+          : false;
+
+      return (
+        foundAcct ||
+        hacker.id.includes(search) ||
+        hacker.major.includes(search) ||
+        hacker.school.includes(search) ||
+        hacker.status.includes(search) ||
+        String(hacker.graduationYear).includes(search)
+      );
+    });
   }
 }
 

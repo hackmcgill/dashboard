@@ -1,5 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import resetLogo from '../assets/images/passwordReset.svg';
@@ -18,6 +19,9 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         alignItems={'center'}
         flexDirection={'column'}
       >
+        <Helmet>
+          <title>Password Sent | McHacks 6</title>
+        </Helmet>
         <Flex alignItems={'center'}>
           <Box>
             <Image src={resetLogo} imgHeight={'3rem'} padding={'1.0rem'} />

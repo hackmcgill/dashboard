@@ -1,5 +1,6 @@
 import { Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Redirect, RouteProps } from 'react-router';
 
 import {
@@ -29,6 +30,7 @@ import {
   date2input,
   getNestedAttr,
   getOptionsFromEnum,
+  getValueFromQuery,
   input2date,
 } from '../util';
 import ConfirmationEmailSentComponent from './EmailConfirmationSent';
@@ -44,6 +46,8 @@ interface IManageAccountContainerState {
   formSubmitted: boolean;
   accountDetails: IAccount;
   oldPassword: string;
+  token?: string;
+  accountType?: string;
 }
 
 interface IManageAccountContainerProps extends RouteProps {
@@ -74,6 +78,8 @@ class ManageAccountContainer extends React.Component<
         shirtSize: '',
       },
       oldPassword: '',
+      token: getValueFromQuery('token'),
+      accountType: getValueFromQuery('accountType'),
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,8 +104,15 @@ class ManageAccountContainer extends React.Component<
   }
 
   public render() {
-    const { mode, formSubmitted } = this.state;
-
+    const { mode, formSubmitted, accountType, token } = this.state;
+    if (
+      accountType &&
+      token &&
+      mode === ManageAccountModes.CREATE &&
+      formSubmitted
+    ) {
+      return <Redirect to={FrontendRoute.HOME_PAGE} />;
+    }
     if (mode === ManageAccountModes.CREATE && formSubmitted) {
       return <ConfirmationEmailSentComponent />;
     } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
@@ -113,6 +126,12 @@ class ManageAccountContainer extends React.Component<
     const { mode, accountDetails } = this.state;
     return (
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        <Helmet>
+          <title>
+            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |
+            McHacks 6
+          </title>
+        </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
             color={'#F2463A'}
@@ -290,7 +309,7 @@ class ManageAccountContainer extends React.Component<
 
   private async handleCreate(payload: IAccount) {
     try {
-      await Account.create(payload);
+      await Account.create(payload, this.state.token);
       console.log('Created an account');
       await Auth.login(payload.email, payload.password);
       this.setState({ formSubmitted: true });
