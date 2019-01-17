@@ -2,6 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { toast } from 'react-toastify';
 import { Account, Hacker } from '../api';
+import { FrontendRoute } from '../config';
 import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
@@ -9,11 +10,10 @@ import theme from '../shared/Styles/theme';
 import { generateHackPass } from '../util';
 import { Email } from './Email';
 import { Reader } from './Reader';
-import { FrontendRoute } from '../config';
 
 interface ICheckinState {
   loading: boolean;
-  lastId: string;
+  lastScan: string;
 }
 
 class CheckinContainer extends React.Component<{}, ICheckinState> {
@@ -21,7 +21,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     super(props);
     this.state = {
       loading: false,
-      lastId: '',
+      lastScan: '',
     };
     this.handleScanError = this.handleScanError.bind(this);
     this.handleScan = this.handleScan.bind(this);
@@ -92,15 +92,10 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
   private async checkinHacker(id: string): Promise<boolean> {
     let checkedIn = false;
 
-    if (this.state.lastId === id) {
-      return true;
-    }
-
     try {
       this.setState({ loading: true });
       await Hacker.checkin(id);
       checkedIn = true;
-      this.setState({ lastId: id });
       toast.success('Hacker checked in.');
       const hacker = (await Hacker.get(id)).data.data;
       const accountId =
@@ -119,23 +114,22 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     return checkedIn;
   }
 
+  /**
+   * Function which checks in a hacker as long as the provided data is of the correct format.
+   * @param data Hacker ID, or the url to VIEW_HACKER_PAGE, such as 5c0dd463d95414ef5efd14cd, or https://app.mchacks.ca/application/view/5c0dd463d95414ef5efd14cd
+   */
   private async handleScan(data: string | null) {
-    if (data && !this.state.loading) {
-      const hackerURL = new RegExp(
-        `^http(s)?:\/\/.+${FrontendRoute.VIEW_HACKER_PAGE.replace(
-          ':id',
-          '[a-f\\d]{24}'
-        )}`
+    if (data && !this.state.loading && this.state.lastScan !== data) {
+      this.setState({ lastScan: data });
+      data = data.trim();
+      const subRouteRegex = FrontendRoute.VIEW_HACKER_PAGE.replace(
+        ':id',
+        '[a-f\\d]{24}'
       );
-      console.log(hackerURL, data);
-      if (
-        data.match(
-          /^http:\/\/localhost:1337\/application\/view\/5c0dd463d95414ef5efd14cd/i
-        )
-      ) {
+      const hackerURL = new RegExp(`^http(s)?:\/\/.+${subRouteRegex}`);
+      if (hackerURL.test(data)) {
         const url = data.split('/');
         data = url[url.length - 1];
-        console.log(data);
       }
       if (!data.match(/^[a-f\d]{24}$/i)) {
         toast.error('Invalid QR Code');
