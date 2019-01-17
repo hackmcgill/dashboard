@@ -57,18 +57,16 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
             style={{ position: 'absolute', top: '10px', right: '10px' }}
           >
             <Box>
-              <Button>
-                <Link
-                  to={FrontendRoute.VIEW_HACKER_PAGE.replace(
-                    ':id',
-                    this.props.hacker.id
-                  )}
-                  target={'_blank'}
-                  style={{ color: 'white' }}
-                >
-                  Open in new window
-                </Link>
-              </Button>
+              <Link
+                to={FrontendRoute.VIEW_HACKER_PAGE.replace(
+                  ':id',
+                  this.props.hacker.id
+                )}
+                target={'_blank'}
+                style={{ color: 'white' }}
+              >
+                <Button>Open in new window</Button>
+              </Link>
             </Box>
             <Box>
               <Button type="button" onClick={this.handleCloseModal}>
