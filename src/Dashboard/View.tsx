@@ -1,5 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 
 import {
@@ -36,6 +37,9 @@ const DashboardView: React.SFC<IDashboardView> = ({
 }) => {
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
+      <Helmet>
+        <title>Dashboard | McHacks 6</title>
+      </Helmet>
       <H1 marginLeft={'0px'} textAlign={'center'}>
         {title}
       </H1>

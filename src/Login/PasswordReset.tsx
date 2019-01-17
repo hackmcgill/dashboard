@@ -1,6 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
@@ -44,6 +45,9 @@ class ResetPasswordContainer extends React.Component<
         alignItems={'center'}
         flexDirection={'column'}
       >
+        <Helmet>
+          <title>Reset Password | McHacks 6</title>
+        </Helmet>
         <MaxWidthBox maxWidth={'500px'} width={1}>
           <H1>Reset your password</H1>
           <Form>

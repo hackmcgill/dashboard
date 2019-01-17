@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
@@ -60,6 +61,11 @@ class SingleHackerView extends React.Component<
     const account = (hacker.accountId as IAccount) || {};
     return (
       <article>
+        <Helmet>
+          <title>
+            {`${account.firstName} ${account.lastName}`} | McHacks 6
+          </title>
+        </Helmet>
         <MaxWidthBox maxWidth="800px">
           <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
           <Form>
