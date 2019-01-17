@@ -97,7 +97,7 @@ class SingleHackerView extends React.Component<
                   type="button"
                   onClick={this.submit}
                   isLoading={this.state.isLoading}
-                  disabled={this.state.isLoading}
+                  disabled={this.state.isLoading || !this.state.canEdit}
                 >
                   Change status
                 </Button>

@@ -6,6 +6,27 @@ export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
 }
 
+export function userCanAccessHackerPage(user: IAccount) {
+  return (
+    user.confirmed &&
+    (user.accountType === UserType.STAFF ||
+      user.accountType === UserType.VOLUNTEER ||
+      isSponsor(user))
+  );
+}
+
+export function isSponsor(user: IAccount) {
+  return (
+    [
+      UserType.SPONSOR_T1,
+      UserType.SPONSOR_T2,
+      UserType.SPONSOR_T3,
+      UserType.SPONSOR_T4,
+      UserType.SPONSOR_T5,
+    ].indexOf(user.accountType) !== -1
+  );
+}
+
 export async function isLoggedIn(): Promise<boolean> {
   try {
     const userInfo = await getUserInfo();
