@@ -1,22 +1,17 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { EmailInput, Form } from '../shared/Form/';
 
 import { APIResponse, Auth } from '../api';
-
 import Key from '../assets/images/key.svg';
-
-import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
-
-import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
-
-import validationErrorGenerator from '../shared/Form/validationErrorGenerator';
-
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 import { EMAIL_LABEL } from '../config';
+import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
+import { EmailInput, Form } from '../shared/Form/';
+import validationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import WithToasterContainer from '../shared/HOC/withToaster';
+import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
 
 export interface IForgotState {
   email: string;
@@ -51,6 +46,9 @@ class ForgotPasswordContainer extends React.Component<
           flexDirection={'column'}
           px={2}
         >
+          <Helmet>
+            <title>Forgot your password? | McHacks 6</title>
+          </Helmet>
           <Box>
             <Image src={Key} imgHeight={'4rem'} padding={'0rem'} />
           </Box>

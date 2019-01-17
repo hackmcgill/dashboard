@@ -24,6 +24,7 @@ export interface IAccount {
   pronoun: string;
   // The database id (if new, leave blank / make '')
   id: string;
+  _id?: string;
 }
 
 export interface IHacker {

@@ -2,6 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
@@ -79,6 +80,9 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
   private renderForm() {
     return (
       <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
+        <Helmet>
+          <title>Login | McHacks 6</title>
+        </Helmet>
         <Form>
           <Flex alignItems={'center'} flexDirection={'column'}>
             <Box alignSelf={'flex-start'}>

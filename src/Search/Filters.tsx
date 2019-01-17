@@ -12,10 +12,9 @@ import {
   StringOperations,
 } from '../config';
 import { GradYears } from '../config';
-import { Button, H1 } from '../shared/Elements';
+import { Button } from '../shared/Elements';
 import { Form } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
-import theme from '../shared/Styles/theme';
 import { getOptionsFromEnum } from '../util';
 
 interface IFilterProps {
@@ -34,16 +33,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   }
   public render() {
     return (
-      <Box m={'auto'}>
-        <H1
-          color={theme.colors.primary}
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-        >
-          Filters
-        </H1>
+      <Box>
         <Formik
           enableReinitialize={true}
           initialValues={this.parseInitialValues(this.props.initFilters)}

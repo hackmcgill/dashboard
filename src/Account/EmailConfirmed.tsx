@@ -1,5 +1,6 @@
 import { Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { Auth } from '../api';
@@ -52,6 +53,9 @@ class ConfirmAccountContainer extends React.Component<
         alignItems={'center'}
         flexDirection={'column'}
       >
+        <Helmet>
+          <title>Confirmation | McHacks 6</title>
+        </Helmet>
         <MaxWidthBox
           hidden={this.state.wasConfirmed && !this.state.attempting}
           mb={'20px'}

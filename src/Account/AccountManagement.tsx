@@ -1,5 +1,6 @@
 import { Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Redirect, RouteProps } from 'react-router';
 
 import {
@@ -125,6 +126,12 @@ class ManageAccountContainer extends React.Component<
     const { mode, accountDetails } = this.state;
     return (
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        <Helmet>
+          <title>
+            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |
+            McHacks 6
+          </title>
+        </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
             color={'#F2463A'}

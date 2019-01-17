@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { Hacker } from '../api';
 import Team from '../api/team';
@@ -15,6 +16,7 @@ export interface ITeamState {
   team: ITeam | null;
   members: IMemberName[];
   isLoading: boolean;
+  isLeavingTeam: boolean;
 }
 
 /**
@@ -28,30 +30,42 @@ class TeamContainer extends React.Component<{}, ITeamState> {
       team: null,
       members: [],
       isLoading: true,
+      isLeavingTeam: false,
     };
     this.onLeaveTeam = this.onLeaveTeam.bind(this);
     this.getTeam = this.getTeam.bind(this);
   }
   public render() {
+    let content;
     if (this.state.isLoading) {
-      return <div>Loading...</div>;
+      content = <div>Loading...</div>;
     } else if (!this.state.team && this.state.hacker) {
-      return (
+      content = (
         <JoinCreateTeam
           hacker={this.state.hacker}
           onTeamChange={this.getTeam}
         />
       );
     } else if (this.state.team) {
-      return (
+      content = (
         <TeamDescription
           team={this.state.team}
           members={this.state.members}
           onLeaveTeam={this.onLeaveTeam}
+          isLeavingTeam={this.state.isLeavingTeam}
         />
       );
+    } else {
+      content = <div />;
     }
-    return <div />;
+    return (
+      <div>
+        <Helmet>
+          <title>Team | McHacks 6</title>
+        </Helmet>
+        {content}
+      </div>
+    );
   }
 
   public componentDidMount() {
@@ -83,11 +97,14 @@ class TeamContainer extends React.Component<{}, ITeamState> {
 
   private async onLeaveTeam() {
     try {
+      this.setState({ isLeavingTeam: true });
       await Team.leave();
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+    } finally {
+      this.setState({ isLeavingTeam: false });
     }
     return this.getTeam();
   }

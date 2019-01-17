@@ -11,6 +11,7 @@ interface IResultsTableProps {
   }>;
   loading: boolean;
   userType: UserType;
+  filter: string;
 }
 
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
@@ -66,21 +67,8 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
       }
       loading={props.loading}
       defaultPageSize={10}
-      // filterable={true}
-      // defaultFilterMethod={filterer}
     />
   );
 };
-
-// function filterer(filter: Filter, row: any, column: any): boolean {
-//   return String(row[filter.id])
-//     .trim()
-//     .toLowerCase()
-//     .includes(
-//       String(filter.value)
-//         .trim()
-//         .toLowerCase()
-//     );
-// }
 
 export { ResultsTable };
