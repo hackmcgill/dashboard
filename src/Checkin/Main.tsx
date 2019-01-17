@@ -12,6 +12,7 @@ import { Reader } from './Reader';
 
 interface ICheckinState {
   loading: boolean;
+  lastId: string;
 }
 
 class CheckinContainer extends React.Component<{}, ICheckinState> {
@@ -19,6 +20,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
     super(props);
     this.state = {
       loading: false,
+      lastId: '',
     };
     this.handleScanError = this.handleScanError.bind(this);
     this.handleScan = this.handleScan.bind(this);
@@ -88,10 +90,16 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
    */
   private async checkinHacker(id: string): Promise<boolean> {
     let checkedIn = false;
+
+    if (this.state.lastId === id) {
+      return true;
+    }
+
     try {
       this.setState({ loading: true });
       await Hacker.checkin(id);
       checkedIn = true;
+      this.setState({ lastId: id });
       toast.success('Hacker checked in.');
       const hacker = (await Hacker.get(id)).data.data;
       const account = (await Account.get(hacker.accountId)).data.data;

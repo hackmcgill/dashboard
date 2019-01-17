@@ -119,7 +119,6 @@ class HackerAPI {
    */
   public async checkin(id: string): Promise<AxiosResponse<APIResponse<{}>>> {
     const key = CACHE_HACKER_KEY + '-' + id;
-    console.log(id);
     const value = await API.getEndpoint(APIRoute.HACKER_CHECKIN).patch(
       { id },
       {}
