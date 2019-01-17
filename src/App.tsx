@@ -59,6 +59,7 @@ class App extends React.Component {
             path={FrontendRoute.EDIT_ACCOUNT_PAGE}
             component={withNavbar(
               withAuthRedirect(EditAccountContainer, {
+                redirAfterLogin: true,
                 requiredAuthState: true,
               })
             )}
@@ -167,6 +168,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(SearchContainer, {
                 requiredAuthState: true,
+                redirAfterLogin: true,
                 AuthVerification: (user: IAccount) =>
                   user.confirmed && user.accountType === UserType.STAFF,
               })
@@ -178,6 +180,7 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(SingleHackerContainer, {
                 requiredAuthState: true,
+                redirAfterLogin: true,
                 AuthVerification: userCanAccessHackerPage,
               })
             )}
