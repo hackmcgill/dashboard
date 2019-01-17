@@ -102,7 +102,11 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
       this.setState({ lastId: id });
       toast.success('Hacker checked in.');
       const hacker = (await Hacker.get(id)).data.data;
-      const account = (await Account.get(hacker.accountId)).data.data;
+      const accountId =
+        typeof hacker.accountId === 'string'
+          ? hacker.accountId
+          : hacker.accountId.id;
+      const account = (await Account.get(accountId)).data.data;
       await generateHackPass(account, hacker);
     } catch (e) {
       if (e && e.data) {
