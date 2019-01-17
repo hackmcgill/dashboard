@@ -29,14 +29,14 @@ export const Email: React.StatelessComponent<IEmailProps> = (
   );
 };
 
-function handleSubmitFactory(
-  props: IEmailProps
-): (
+function handleSubmitFactory({
+  onSubmit,
+}: IEmailProps): (
   values: FormikValues,
   { setSubmitting }: FormikProps<any>
 ) => Promise<void> {
   return async (values, { setSubmitting }: FormikProps<any>) => {
-    await props.onSubmit(values.email);
+    await onSubmit(values.email);
     setSubmitting(false);
   };
 }
