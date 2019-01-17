@@ -25,6 +25,7 @@ interface IJoinCreateTeamProps {
 
 interface IJoinCreateTeamState {
   submissionBtn: number;
+  isLoading: boolean;
 }
 
 class JoinCreateTeam extends React.Component<
@@ -35,6 +36,7 @@ class JoinCreateTeam extends React.Component<
     super(props);
     this.state = {
       submissionBtn: 0,
+      isLoading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderFormik = this.renderFormik.bind(this);
@@ -76,6 +78,8 @@ class JoinCreateTeam extends React.Component<
             <Button
               type="button"
               onClick={this.onClickFactory(0, fp.submitForm)}
+              isLoading={this.state.isLoading}
+              disabled={this.state.isLoading}
             >
               Create team
             </Button>
@@ -84,6 +88,8 @@ class JoinCreateTeam extends React.Component<
             <Button
               type="button"
               onClick={this.onClickFactory(1, fp.submitForm)}
+              isLoading={this.state.isLoading}
+              disabled={this.state.isLoading}
             >
               Join team
             </Button>
@@ -103,6 +109,7 @@ class JoinCreateTeam extends React.Component<
   }
 
   private async handleSubmit(values: FormikValues) {
+    this.setState({ isLoading: true });
     if (this.state.submissionBtn === 0) {
       try {
         await Team.create({
@@ -112,12 +119,9 @@ class JoinCreateTeam extends React.Component<
         this.props.onTeamChange();
       } catch (e) {
         if (e.status === 409) {
-          console.log(e);
           if (e && e.data) {
             ValidationErrorGenerator(e.data);
           }
-        } else {
-          console.log(e);
         }
       }
     } else {
@@ -130,6 +134,7 @@ class JoinCreateTeam extends React.Component<
         }
       }
     }
+    this.setState({ isLoading: false });
   }
 }
 

@@ -1,6 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import fileDownload from 'js-file-download';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { Search } from '../api';
 import {
@@ -17,6 +18,7 @@ import theme from '../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
+
 interface ISearchState {
   model: string;
   query: ISearchParameter[];
@@ -51,6 +53,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   public render() {
     return (
       <Flex flexDirection={'column'}>
+        <Helmet>
+          <title>Admin Search | McHacks 6</title>
+        </Helmet>
         <Box width={1}>
           <Flex>
             <Box alignSelf={'center'} width={1 / 6}>
