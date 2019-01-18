@@ -1,9 +1,10 @@
 import { Box, Flex } from '@rebass/grid';
 import { ErrorMessage, FastField, Formik, FormikProps } from 'formik';
 import * as React from 'react';
+import Helmet from 'react-helmet';
+import { Redirect } from 'react-router';
 import { boolean, object } from 'yup';
 
-import { Redirect } from 'react-router';
 import { Hacker } from '../api';
 import { FrontendRoute } from '../config';
 import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
@@ -42,6 +43,9 @@ class ConfirmAttendanceContainer extends React.Component<
         alignItems={'center'}
         flexDirection={'column'}
       >
+        <Helmet>
+          <title>Confirm presence | McHacks 6</title>
+        </Helmet>
         <MaxWidthBox width={1}>
           <H1 textAlign={'center'}>Confirm your Attendance</H1>
           <Paragraph fontSize={'16px'}>

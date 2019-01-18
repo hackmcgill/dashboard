@@ -28,7 +28,12 @@ import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
-import { canAccessApplication, canAccessTeam } from './util';
+import SingleHackerContainer from './SingleHacker/Main';
+import {
+  canAccessApplication,
+  canAccessTeam,
+  userCanAccessHackerPage,
+} from './util';
 
 class App extends React.Component {
   public render() {
@@ -54,6 +59,7 @@ class App extends React.Component {
             path={FrontendRoute.EDIT_ACCOUNT_PAGE}
             component={withNavbar(
               withAuthRedirect(EditAccountContainer, {
+                redirAfterLogin: true,
                 requiredAuthState: true,
               })
             )}
@@ -162,10 +168,20 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(SearchContainer, {
                 requiredAuthState: true,
+                redirAfterLogin: true,
                 AuthVerification: (user: IAccount) =>
-                  user.confirmed &&
-                  (user.accountType === UserType.STAFF ||
-                    user.accountType === UserType.SPONSOR),
+                  user.confirmed && user.accountType === UserType.STAFF,
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.VIEW_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(SingleHackerContainer, {
+                requiredAuthState: true,
+                redirAfterLogin: true,
+                AuthVerification: userCanAccessHackerPage,
               })
             )}
           />
