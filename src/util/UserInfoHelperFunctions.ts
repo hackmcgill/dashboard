@@ -1,6 +1,6 @@
-import { Account, Hacker } from '../api';
+import { Account, Hacker, Sponsor } from '../api';
 
-import { HackerStatus, IAccount, IHacker, UserType } from '../config';
+import { HackerStatus, IAccount, IHacker, ISponsor, UserType } from '../config';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -68,6 +68,15 @@ export async function getHackerInfo(): Promise<IHacker | null> {
 }
 export function isAppOpen(): boolean {
   return false;
+}
+
+export async function getSponsorInfo(): Promise<ISponsor | null> {
+  try {
+    const response = await Sponsor.getSelf();
+    return response.data.data;
+  } catch (error) {
+    return null;
+  }
 }
 
 export function canAccessApplication(hacker?: IHacker): boolean {
