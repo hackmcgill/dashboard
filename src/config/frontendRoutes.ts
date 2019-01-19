@@ -13,6 +13,8 @@ export enum FrontendRoute {
   RESET_PASSWORD_PAGE = '/password/reset',
   SPONSOR_SEARCH_PAGE = '/sponsor/search',
   TEAM_PAGE = '/team',
+
+  CREATE_SPONSOR_PAGE = '/sponsor/create',
 }
 
 export default FrontendRoute;
