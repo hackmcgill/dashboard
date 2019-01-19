@@ -29,11 +29,13 @@ import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withThemeProvider from './shared/HOC/withThemeProvider';
 import SingleHackerContainer from './SingleHacker/Main';
+import CreateSponsorContainer from './Sponsor/SponsorCreation';
 import {
   canAccessApplication,
   canAccessTeam,
   userCanAccessHackerPage,
 } from './util';
+import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 
 class App extends React.Component {
   public render() {
@@ -184,6 +186,29 @@ class App extends React.Component {
                 AuthVerification: userCanAccessHackerPage,
               })
             )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CREATE_SPONSOR_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withSponsorRedirect(CreateSponsorContainer, {
+                  requiredAuthState: false,
+                  redirAfterLogin: false,
+                }),
+                {
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed &&
+                    (user.accountType === UserType.SPONSOR_T1 ||
+                      user.accountType === UserType.SPONSOR_T2 ||
+                      user.accountType === UserType.SPONSOR_T3 ||
+                      user.accountType === UserType.SPONSOR_T4 ||
+                      user.accountType === UserType.SPONSOR_T5)
+                }
+              )
+            )}
+
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />
         </Switch>
