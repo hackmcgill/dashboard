@@ -57,7 +57,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-> {
+  > {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -105,20 +105,30 @@ class ManageAccountContainer extends React.Component<
 
   public render() {
     const { mode, formSubmitted, accountType, token } = this.state;
-    if (
-      accountType &&
-      token &&
-      mode === ManageAccountModes.CREATE &&
-      formSubmitted
-    ) {
-      return <Redirect to={FrontendRoute.HOME_PAGE} />;
-    }
-    if (mode === ManageAccountModes.CREATE && formSubmitted) {
-      return <ConfirmationEmailSentComponent />;
-    } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
-      return <Redirect to={FrontendRoute.HOME_PAGE} />;
-    } else {
+
+    if (!formSubmitted) {
       return this.renderForm();
+    }
+
+    switch (mode) {
+      case ManageAccountModes.CREATE:
+        if (!accountType || !token) {
+          return <ConfirmationEmailSentComponent />;
+        } else if (accountType === UserType.SPONSOR_T1 ||
+          accountType === UserType.SPONSOR_T2 ||
+          accountType === UserType.SPONSOR_T3 ||
+          accountType === UserType.SPONSOR_T4 ||
+          accountType === UserType.SPONSOR_T5) {
+          return <Redirect to={FrontendRoute.CREATE_SPONSOR_PAGE} />;
+        } else {
+          return <Redirect to={FrontendRoute.HOME_PAGE} />;
+        }
+
+      case ManageAccountModes.EDIT:
+        return <Redirect to={FrontendRoute.HOME_PAGE} />;
+
+      default:
+        return this.renderForm();
     }
   }
 
@@ -226,8 +236,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <FastField
           component={FormikElements.Select}
           creatable={true}
