@@ -17,6 +17,10 @@ export enum ManageSponsorModes {
   EDIT,
 }
 
+interface ISponsorProfileFormValues extends FormikValues {
+  company: string;
+  url: string;
+}
 interface IManageSponsorContainerState {
   mode: ManageSponsorModes;
   formSubmitted: boolean;
@@ -146,7 +150,7 @@ class ManageSponsorContainer extends React.Component<
     )
   }
 
-  private async handleSubmit(values: any) {
+  private async handleSubmit(values: ISponsorProfileFormValues) {
     try {
       await this.submit(values);
       this.setState({ formSubmitted: true });
@@ -158,7 +162,7 @@ class ManageSponsorContainer extends React.Component<
     }
   }
 
-  private async submit(values: any): Promise<void> {
+  private async submit(values: ISponsorProfileFormValues): Promise<void> {
     const acctResponse = await Account.getSelf();
 
     const account = acctResponse.data.data;
@@ -184,17 +188,13 @@ class ManageSponsorContainer extends React.Component<
         sponsorTier = -1;
     }
 
-    const sponsorApplication = this.convertFormikToSponsor(values, account.id, sponsorTier);
+    const sponsorApplication = this.convertFormikToSponsor(values, this.state.sponsorDetails.id, account.id, sponsorTier);
 
     switch (this.state.mode) {
       case ManageSponsorModes.CREATE:
         await Sponsor.create(sponsorApplication);
         break;
       case ManageSponsorModes.EDIT:
-        const sponsorResponse = await Sponsor.getSelf();
-        const sponsor = sponsorResponse.data.data;
-
-        sponsorApplication.id = sponsor.id;
         await Sponsor.update(sponsorApplication);
         break;
     }
@@ -202,9 +202,9 @@ class ManageSponsorContainer extends React.Component<
 
   private convertFormikToSponsor(
     values: FormikValues,
+    sponsorId: string = '',
     accountId: string,
     sponsorTier: number,
-    sponsorId: string = '',
   ): ISponsor {
     return {
       id: sponsorId,

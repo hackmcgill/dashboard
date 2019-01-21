@@ -196,7 +196,6 @@ class App extends React.Component {
               withAuthRedirect(
                 withSponsorRedirect(CreateSponsorContainer, {
                   requiredAuthState: false,
-                  redirAfterLogin: false,
                 }),
                 {
                   redirAfterLogin: true,
@@ -212,7 +211,6 @@ class App extends React.Component {
             component={withNavbar(
               withAuthRedirect(withSponsorRedirect(EditSponsorContainer, {
                 requiredAuthState: true,
-                redirAfterLogin: true,
               }),
                 {
                   redirAfterLogin: true,

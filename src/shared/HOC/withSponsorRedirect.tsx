@@ -14,8 +14,6 @@ export interface ISponsorDirectOptions {
     requiredAuthState?: boolean;
     // Function that is called when user is a sponsor. This is used for further state verifications
     AuthVerification?: (hacker: ISponsor) => boolean;
-    // True, if user should be redirected to original component if the user failed authentication.
-    redirAfterLogin?: boolean;
 }
 
 const defaultOptions = {

@@ -14,8 +14,6 @@ export interface IHackerDirectOptions {
   requiredAuthState?: boolean;
   // Function that is called when user is a hacker. This is used for further state verifications
   AuthVerification?: (hacker: IHacker) => boolean;
-  // True, if user should be redirected to original component if the user failed authentication.
-  redirAfterLogin?: boolean;
 }
 
 const defaultOptions = {
@@ -65,14 +63,14 @@ const withHackerRedirect = <P extends {}>(
           return options.requiredAuthState ? (
             <Component {...this.props} />
           ) : (
-            <Redirect to={FrontendRoute.HOME_PAGE} />
-          );
+              <Redirect to={FrontendRoute.HOME_PAGE} />
+            );
         case authStates.unauthorized:
           return options.requiredAuthState ? (
             <Redirect to={FrontendRoute.HOME_PAGE} />
           ) : (
-            <Component {...this.props} />
-          );
+              <Component {...this.props} />
+            );
         default:
           return <div />;
       }

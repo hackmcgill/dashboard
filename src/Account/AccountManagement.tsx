@@ -58,14 +58,15 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-  > {
+> {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
       formSubmitted: false,
       mode: props.mode,
       accountDetails: {
-        accountType: (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
+        accountType:
+          (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
         birthDate: '',
         confirmed: false,
         dietaryRestrictions: [],
@@ -232,8 +233,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <FastField
           component={FormikElements.Select}
           creatable={true}
