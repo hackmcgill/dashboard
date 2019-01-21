@@ -15,6 +15,7 @@ export enum FrontendRoute {
   TEAM_PAGE = '/team',
 
   CREATE_SPONSOR_PAGE = '/sponsor/create',
+  EDIT_SPONSOR_PAGE = '/sponsor/edit',
 }
 
 export default FrontendRoute;

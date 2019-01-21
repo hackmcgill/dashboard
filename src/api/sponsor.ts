@@ -36,6 +36,18 @@ class SponsorAPI {
   public get(id: string): AxiosPromise {
     return API.getEndpoint(APIRoute.SPONSOR).getOne({ id });
   }
+
+  /**
+   * Update sponsor information
+   * @param sponsor The sponsor object with an id
+   */
+  public update(sponsor: ISponsor): AxiosPromise {
+    const key = CACHE_SPONSOR_KEY + '-' + sponsor.id;
+    const value = API.getEndpoint(APIRoute.SPONSOR).patch(sponsor, sponsor);
+    LocalCache.remove(CACHE_SPONSOR_KEY);
+    LocalCache.remove(key);
+    return value;
+  }
 }
 export const Sponsor = new SponsorAPI();
 export default Sponsor;
