@@ -63,14 +63,14 @@ const withHackerRedirect = <P extends {}>(
           return options.requiredAuthState ? (
             <Component {...this.props} />
           ) : (
-              <Redirect to={FrontendRoute.HOME_PAGE} />
-            );
+            <Redirect to={FrontendRoute.HOME_PAGE} />
+          );
         case authStates.unauthorized:
           return options.requiredAuthState ? (
             <Redirect to={FrontendRoute.HOME_PAGE} />
           ) : (
-              <Component {...this.props} />
-            );
+            <Component {...this.props} />
+          );
         default:
           return <div />;
       }

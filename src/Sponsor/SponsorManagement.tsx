@@ -1,15 +1,21 @@
-import { ISponsor, FrontendRoute, UserType } from "../config";
-import { RouteProps, Redirect } from "react-router";
-import React from "react";
-import { H1, MaxWidthBox, FormDescription } from "../shared/Elements";
-import WithToasterContainer from "../shared/HOC/withToaster";
-import { FormikProps, Formik, FormikValues, FastField, ErrorMessage } from "formik";
-import { Sponsor, Account } from "../api";
-import { Helmet } from "react-helmet";
+import { ISponsor, FrontendRoute, UserType } from '../config';
+import { RouteProps, Redirect } from 'react-router';
+import React from 'react';
+import { H1, MaxWidthBox, FormDescription } from '../shared/Elements';
+import WithToasterContainer from '../shared/HOC/withToaster';
+import {
+  FormikProps,
+  Formik,
+  FormikValues,
+  FastField,
+  ErrorMessage,
+} from 'formik';
+import { Sponsor, Account } from '../api';
+import { Helmet } from 'react-helmet';
 import * as CONSTANTS from '../config/constants';
-import getValidationSchema from "./validationSchema";
-import ValidationErrorGenerator from "../shared/Form/validationErrorGenerator";
-import { Form, SubmitBtn } from "../shared/Form";
+import getValidationSchema from './validationSchema';
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import { Form, SubmitBtn } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
 
 export enum ManageSponsorModes {
@@ -34,8 +40,7 @@ interface IManageSponsorContainerProps extends RouteProps {
 class ManageSponsorContainer extends React.Component<
   IManageSponsorContainerProps,
   IManageSponsorContainerState
-  > {
-
+> {
   constructor(props: IManageSponsorContainerProps) {
     super(props);
     this.state = {
@@ -47,9 +52,9 @@ class ManageSponsorContainer extends React.Component<
         accountId: '',
         company: '',
         contractURL: '',
-        nominees: []
-      }
-    }
+        nominees: [],
+      },
+    };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submit = this.submit.bind(this);
@@ -59,7 +64,7 @@ class ManageSponsorContainer extends React.Component<
     const { mode, sponsorDetails, formSubmitted } = this.state;
 
     if (formSubmitted) {
-      return <Redirect to={FrontendRoute.HOME_PAGE} />
+      return <Redirect to={FrontendRoute.HOME_PAGE} />;
     }
 
     return (
@@ -89,14 +94,14 @@ class ManageSponsorContainer extends React.Component<
           initialValues={{
             company: sponsorDetails.company,
             contractURL: sponsorDetails.contractURL,
-            nominees: sponsorDetails.nominees
+            nominees: sponsorDetails.nominees,
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
           validationSchema={getValidationSchema()}
         />
       </MaxWidthBox>
-    )
+    );
   }
 
   public async componentDidMount() {
@@ -126,10 +131,7 @@ class ManageSponsorContainer extends React.Component<
           label={CONSTANTS.SPONSOR_COMPANY_LABEL}
           required={true}
         />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="company"
-        />
+        <ErrorMessage component={FormikElements.Error} name="company" />
 
         <FastField
           name={'contractURL'}
@@ -138,24 +140,20 @@ class ManageSponsorContainer extends React.Component<
           label={CONSTANTS.SPONSOR_CONTRACT_URL_LABEL}
           required={true}
         />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="contractURL"
-        />
+        <ErrorMessage component={FormikElements.Error} name="contractURL" />
 
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
         </SubmitBtn>
       </Form>
-    )
+    );
   }
 
   private async handleSubmit(values: ISponsorProfileFormValues) {
     try {
       await this.submit(values);
       this.setState({ formSubmitted: true });
-    }
-    catch (e) {
+    } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -188,7 +186,12 @@ class ManageSponsorContainer extends React.Component<
         sponsorTier = -1;
     }
 
-    const sponsorApplication = this.convertFormikToSponsor(values, this.state.sponsorDetails.id, account.id, sponsorTier);
+    const sponsorApplication = this.convertFormikToSponsor(
+      values,
+      this.state.sponsorDetails.id,
+      account.id,
+      sponsorTier
+    );
 
     switch (this.state.mode) {
       case ManageSponsorModes.CREATE:
@@ -202,9 +205,9 @@ class ManageSponsorContainer extends React.Component<
 
   private convertFormikToSponsor(
     values: FormikValues,
-    sponsorId: string = '',
+    sponsorId: string,
     accountId: string,
-    sponsorTier: number,
+    sponsorTier: number
   ): ISponsor {
     return {
       id: sponsorId,
@@ -212,7 +215,7 @@ class ManageSponsorContainer extends React.Component<
       tier: sponsorTier,
       company: values.company,
       contractURL: values.contractURL,
-      nominees: values.nominees
+      nominees: values.nominees,
     };
   }
 }
