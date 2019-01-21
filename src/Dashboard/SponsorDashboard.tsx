@@ -7,7 +7,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
-import * as SponsorIcon from '../assets/images/dashboard-application.svg';
+import SponsorIcon from '../assets/images/dashboard-application.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;
