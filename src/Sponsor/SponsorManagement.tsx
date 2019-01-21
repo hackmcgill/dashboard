@@ -4,20 +4,17 @@ import React from "react";
 import { H1, MaxWidthBox, FormDescription } from "../shared/Elements";
 import WithToasterContainer from "../shared/HOC/withToaster";
 import { FormikProps, Formik, FormikValues, FastField, ErrorMessage } from "formik";
-import { Sponsor, Account, APIResponse } from "../api";
+import { Sponsor, Account } from "../api";
 import { Helmet } from "react-helmet";
 import * as CONSTANTS from '../config/constants';
 import getValidationSchema from "./validationSchema";
-import { toast } from "react-toastify";
 import ValidationErrorGenerator from "../shared/Form/validationErrorGenerator";
-import { AxiosResponse } from "axios";
 import { Form, SubmitBtn } from "../shared/Form";
 import * as FormikElements from '../shared/Form/FormikElements';
 
 export enum ManageSponsorModes {
   CREATE,
   EDIT,
-  READ,
 }
 
 interface IManageSponsorContainerState {
@@ -41,6 +38,7 @@ class ManageSponsorContainer extends React.Component<
       formSubmitted: false,
       mode: props.mode,
       sponsorDetails: {
+        id: '',
         tier: 0,
         accountId: '',
         company: '',
@@ -50,7 +48,7 @@ class ManageSponsorContainer extends React.Component<
     }
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   public render() {
@@ -66,7 +64,7 @@ class ManageSponsorContainer extends React.Component<
           <title>
             {mode === ManageSponsorModes.CREATE ? 'Create' : 'Edit'}
             Sponsor Profile | McHacks 6
-                    </title>
+          </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
@@ -79,7 +77,7 @@ class ManageSponsorContainer extends React.Component<
           >
             {mode === ManageSponsorModes.CREATE ? 'Create' : 'Edit'} your
             Sponsor profile
-                    </H1>
+          </H1>
           <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
         </MaxWidthBox>
         <Formik
@@ -95,6 +93,23 @@ class ManageSponsorContainer extends React.Component<
         />
       </MaxWidthBox>
     )
+  }
+
+  public async componentDidMount() {
+    const { mode } = this.state;
+    if (mode === ManageSponsorModes.EDIT) {
+      try {
+        const response = await Sponsor.getSelf();
+        const sponsorDetails = response.data.data;
+        this.setState({ sponsorDetails });
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e.data);
+        }
+        // For some reason we could not get self. We should switch our state to CREATE.
+        this.setState({ mode: ManageSponsorModes.CREATE });
+      }
+    }
   }
 
   private renderFormik(fp: FormikProps<any>) {
@@ -126,49 +141,25 @@ class ManageSponsorContainer extends React.Component<
 
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
-                </SubmitBtn>
+        </SubmitBtn>
       </Form>
     )
   }
 
-  private handleSubmit(values: any) {
-    const { mode } = this.state;
-    let handler;
-    switch (mode) {
-      case ManageSponsorModes.CREATE:
-        handler = this.handleCreate;
-        break;
-      default:
-        return;
+  private async handleSubmit(values: any) {
+    try {
+      await this.submit(values);
+      this.setState({ formSubmitted: true });
     }
-
-    handler(values)
-      .then((success: boolean) => {
-        if (success) {
-          console.log('Submitted sponsor application');
-          toast.success(
-            `Sponsor created!`
-          );
-          this.setState({ formSubmitted: true });
-        } else {
-          toast.error(`There was an error when submitting the sponsor application`);
-        }
-      })
-      .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-        console.log(response);
-        if (response) {
-          ValidationErrorGenerator(response.data);
-        }
-      });
+    catch (e) {
+      if (e && e.data) {
+        ValidationErrorGenerator(e.data);
+      }
+    }
   }
 
-  private async handleCreate(values: any): Promise<boolean> {
+  private async submit(values: any): Promise<void> {
     const acctResponse = await Account.getSelf();
-
-    if (acctResponse.status !== 200) {
-      console.error('Error while getting current user');
-      return false;
-    }
 
     const account = acctResponse.data.data;
     let sponsorTier = 0;
@@ -194,22 +185,29 @@ class ManageSponsorContainer extends React.Component<
     }
 
     const sponsorApplication = this.convertFormikToSponsor(values, account.id, sponsorTier);
-    const sponsorResponse = await Sponsor.create(sponsorApplication);
 
-    if (sponsorResponse.status !== 200) {
-      console.error('Error while creating sponsor application.');
-      return false;
+    switch (this.state.mode) {
+      case ManageSponsorModes.CREATE:
+        await Sponsor.create(sponsorApplication);
+        break;
+      case ManageSponsorModes.EDIT:
+        const sponsorResponse = await Sponsor.getSelf();
+        const sponsor = sponsorResponse.data.data;
+
+        sponsorApplication.id = sponsor.id;
+        await Sponsor.update(sponsorApplication);
+        break;
     }
-
-    return true;
   }
 
   private convertFormikToSponsor(
     values: FormikValues,
     accountId: string,
     sponsorTier: number,
+    sponsorId: string = '',
   ): ISponsor {
     return {
+      id: sponsorId,
       accountId: accountId,
       tier: sponsorTier,
       company: values.company,
