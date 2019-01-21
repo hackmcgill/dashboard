@@ -7,6 +7,7 @@ import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import key from '../assets/images/dashboard-application.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;
@@ -38,6 +39,11 @@ class SponsorDashboard extends React.Component<ISponsorDashboardProps, {}> {
         title: 'Account',
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
+      },
+      {
+        title: 'Sponsor Profile',
+        route: routes.EDIT_SPONSOR_PAGE,
+        imageSrc: key,
       },
     ];
     return cards;
