@@ -6,7 +6,7 @@ import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
-import SearchIcon from '../assets/images/dashboard-searc.svg';
+import SearchIcon from '../assets/images/dashboard-search.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;
