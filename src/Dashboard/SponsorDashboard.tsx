@@ -6,7 +6,7 @@ import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
-import ApplicationIcon from '../assets/images/dashboard-application.svg';
+import SearchIcon from '../assets/images/dashboard-searc.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;
@@ -32,7 +32,7 @@ class SponsorDashboard extends React.Component<ISponsorDashboardProps, {}> {
       {
         title: 'Search',
         route: routes.SPONSOR_SEARCH_PAGE,
-        imageSrc: ApplicationIcon,
+        imageSrc: SearchIcon,
       },
       {
         title: 'Account',
