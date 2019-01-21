@@ -32,6 +32,7 @@ import {
   getOptionsFromEnum,
   getValueFromQuery,
   input2date,
+  isSponsor,
 } from '../util';
 import ConfirmationEmailSentComponent from './EmailConfirmationSent';
 import getValidationSchema from './validationSchema';
@@ -64,7 +65,7 @@ class ManageAccountContainer extends React.Component<
       formSubmitted: false,
       mode: props.mode,
       accountDetails: {
-        accountType: UserType.UNKNOWN,
+        accountType: (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
         birthDate: '',
         confirmed: false,
         dietaryRestrictions: [],
@@ -79,7 +80,6 @@ class ManageAccountContainer extends React.Component<
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
-      accountType: getValueFromQuery('accountType'),
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -104,7 +104,7 @@ class ManageAccountContainer extends React.Component<
   }
 
   public render() {
-    const { mode, formSubmitted, accountType, token } = this.state;
+    const { mode, formSubmitted, accountDetails, token } = this.state;
 
     if (!formSubmitted) {
       return this.renderForm();
@@ -112,13 +112,9 @@ class ManageAccountContainer extends React.Component<
 
     switch (mode) {
       case ManageAccountModes.CREATE:
-        if (!accountType || !token) {
+        if (accountDetails.accountType === UserType.UNKNOWN || !token) {
           return <ConfirmationEmailSentComponent />;
-        } else if (accountType === UserType.SPONSOR_T1 ||
-          accountType === UserType.SPONSOR_T2 ||
-          accountType === UserType.SPONSOR_T3 ||
-          accountType === UserType.SPONSOR_T4 ||
-          accountType === UserType.SPONSOR_T5) {
+        } else if (isSponsor(accountDetails)) {
           return <Redirect to={FrontendRoute.CREATE_SPONSOR_PAGE} />;
         } else {
           return <Redirect to={FrontendRoute.HOME_PAGE} />;
