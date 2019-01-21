@@ -34,8 +34,10 @@ import {
   canAccessApplication,
   canAccessTeam,
   userCanAccessHackerPage,
+  isSponsor,
 } from './util';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
+import EditSponsorContainer from './Sponsor/SponsorEdition';
 
 class App extends React.Component {
   public render() {
@@ -199,16 +201,25 @@ class App extends React.Component {
                 {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
-                    user.confirmed &&
-                    (user.accountType === UserType.SPONSOR_T1 ||
-                      user.accountType === UserType.SPONSOR_T2 ||
-                      user.accountType === UserType.SPONSOR_T3 ||
-                      user.accountType === UserType.SPONSOR_T4 ||
-                      user.accountType === UserType.SPONSOR_T5)
+                    user.confirmed && isSponsor(user)
                 }
               )
             )}
-
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.EDIT_SPONSOR_PAGE}
+            component={withNavbar(
+              withAuthRedirect(withSponsorRedirect(EditSponsorContainer, {
+                requiredAuthState: true,
+                redirAfterLogin: true,
+              }),
+                {
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && isSponsor(user)
+                })
+            )}
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />
         </Switch>
