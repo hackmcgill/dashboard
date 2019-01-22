@@ -1,6 +1,6 @@
 import * as React from 'react';
+import Footer from '../../Nav/Footer';
 import Navbar from '../../Nav/Navbar';
-import Footer from '../Elements/Footer';
 
 const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {
