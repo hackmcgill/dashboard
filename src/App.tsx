@@ -27,17 +27,17 @@ import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
+import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 import withThemeProvider from './shared/HOC/withThemeProvider';
 import SingleHackerContainer from './SingleHacker/Main';
 import CreateSponsorContainer from './Sponsor/SponsorCreation';
+import EditSponsorContainer from './Sponsor/SponsorEdition';
 import {
   canAccessApplication,
   canAccessTeam,
-  userCanAccessHackerPage,
   isSponsor,
+  userCanAccessHackerPage,
 } from './util';
-import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
-import EditSponsorContainer from './Sponsor/SponsorEdition';
 
 class App extends React.Component {
   public render() {
