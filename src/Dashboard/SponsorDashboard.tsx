@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FrontendRoute as routes, UserType } from '../config';
+import { FrontendRoute as routes, UserType, ISponsor } from '../config';
 
 import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
@@ -8,15 +8,26 @@ import DashboardView, { IDashboardCard } from './View';
 import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
 import SponsorIcon from '../assets/images/dashboard-application.svg';
+import { getSponsorInfo } from '../util/UserInfoHelperFunctions';
 
 interface ISponsorDashboardProps {
   userType: UserType;
 }
 
-class SponsorDashboard extends React.Component<ISponsorDashboardProps, {}> {
+class SponsorDashboard extends React.Component<
+  ISponsorDashboardProps,
+  ISponsor | {}
+> {
   constructor(props: ISponsorDashboardProps) {
     super(props);
     this.state = {};
+  }
+
+  public async componentDidMount() {
+    const sponsorResponse = await getSponsorInfo();
+    if (sponsorResponse !== null) {
+      this.setState(sponsorResponse);
+    }
   }
 
   public render() {
@@ -42,7 +53,10 @@ class SponsorDashboard extends React.Component<ISponsorDashboardProps, {}> {
       },
       {
         title: 'Sponsor Profile',
-        route: routes.EDIT_SPONSOR_PAGE,
+        route:
+          this.state === {}
+            ? routes.CREATE_SPONSOR_PAGE
+            : routes.EDIT_SPONSOR_PAGE,
         imageSrc: SponsorIcon,
       },
     ];

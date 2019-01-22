@@ -200,7 +200,7 @@ class App extends React.Component {
                 {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
-                    user.confirmed && isSponsor(user)
+                    user.confirmed && isSponsor(user),
                 }
               )
             )}
@@ -209,14 +209,16 @@ class App extends React.Component {
             exact={true}
             path={FrontendRoute.EDIT_SPONSOR_PAGE}
             component={withNavbar(
-              withAuthRedirect(withSponsorRedirect(EditSponsorContainer, {
-                requiredAuthState: true,
-              }),
+              withAuthRedirect(
+                withSponsorRedirect(EditSponsorContainer, {
+                  requiredAuthState: true,
+                }),
                 {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
-                    user.confirmed && isSponsor(user)
-                })
+                    user.confirmed && isSponsor(user),
+                }
+              )
             )}
           />
           <Route path="*" component={withNavbar(NotFoundContainer)} />
