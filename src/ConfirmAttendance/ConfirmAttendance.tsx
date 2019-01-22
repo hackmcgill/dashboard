@@ -53,7 +53,7 @@ class ConfirmAttendanceContainer extends React.Component<
             February 2-3, 2019 at Theatre St. James in the Old Port of Montreal.
           </Paragraph>
           <Paragraph fontSize={'16px'}>
-            Please confirm your attendance before January 15, 2019.
+            Please confirm your attendance before Friday, January 25, 2019.
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
