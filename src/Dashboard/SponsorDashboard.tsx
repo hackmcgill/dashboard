@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FrontendRoute as routes, UserType, ISponsor } from '../config';
+import { FrontendRoute as routes, UserType } from '../config';
 
 import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
