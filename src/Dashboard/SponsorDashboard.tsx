@@ -6,7 +6,7 @@ import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
-import SponsorIcon from '../assets/images/dashboard-application.svg';
+import SponsorIcon from '../assets/images/dashboard-sponsor.svg';
 import { getSponsorInfo } from '../util/UserInfoHelperFunctions';
 import SearchIcon from '../assets/images/dashboard-search.svg';
 
