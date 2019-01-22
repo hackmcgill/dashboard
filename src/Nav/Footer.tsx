@@ -20,7 +20,7 @@ export const FooterComponent: React.StatelessComponent<IFooterProps> = (
 ) => {
   const imageHeight = '25px';
   return (
-    <Footer borderThickness={props.showDivider ? '1px' : '0px'}>
+    <Footer>
       <Flex flexDirection={'row'} justifyContent={'flex-end'} width={'100%'}>
         <Box p={'0.4rem'}>
           <SocialLink href="https://fb.com/mcgillhacks">
