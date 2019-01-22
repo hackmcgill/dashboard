@@ -32,6 +32,7 @@ import {
   getOptionsFromEnum,
   getValueFromQuery,
   input2date,
+  isSponsor,
 } from '../util';
 import ConfirmationEmailSentComponent from './EmailConfirmationSent';
 import getValidationSchema from './validationSchema';
@@ -64,7 +65,8 @@ class ManageAccountContainer extends React.Component<
       formSubmitted: false,
       mode: props.mode,
       accountDetails: {
-        accountType: UserType.UNKNOWN,
+        accountType:
+          (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
         birthDate: '',
         confirmed: false,
         dietaryRestrictions: [],
@@ -79,7 +81,6 @@ class ManageAccountContainer extends React.Component<
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
-      accountType: getValueFromQuery('accountType'),
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -104,21 +105,27 @@ class ManageAccountContainer extends React.Component<
   }
 
   public render() {
-    const { mode, formSubmitted, accountType, token } = this.state;
-    if (
-      accountType &&
-      token &&
-      mode === ManageAccountModes.CREATE &&
-      formSubmitted
-    ) {
-      return <Redirect to={FrontendRoute.HOME_PAGE} />;
-    }
-    if (mode === ManageAccountModes.CREATE && formSubmitted) {
-      return <ConfirmationEmailSentComponent />;
-    } else if (mode === ManageAccountModes.EDIT && formSubmitted) {
-      return <Redirect to={FrontendRoute.HOME_PAGE} />;
-    } else {
+    const { mode, formSubmitted, accountDetails, token } = this.state;
+
+    if (!formSubmitted) {
       return this.renderForm();
+    }
+
+    switch (mode) {
+      case ManageAccountModes.CREATE:
+        if (accountDetails.accountType === UserType.UNKNOWN || !token) {
+          return <ConfirmationEmailSentComponent />;
+        } else if (isSponsor(accountDetails)) {
+          return <Redirect to={FrontendRoute.CREATE_SPONSOR_PAGE} />;
+        } else {
+          return <Redirect to={FrontendRoute.HOME_PAGE} />;
+        }
+
+      case ManageAccountModes.EDIT:
+        return <Redirect to={FrontendRoute.HOME_PAGE} />;
+
+      default:
+        return this.renderForm();
     }
   }
 
