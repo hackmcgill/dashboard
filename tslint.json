@@ -1,9 +1,12 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "ordered-imports": [false],
-    "object-literal-sort-keys": [false],
-    "no-console": [true, "warning"]
+    "prettier": true,
+    "interface-name": true,
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "object-literal-shorthand": true
   },
   "linterOptions": {
     "exclude": [

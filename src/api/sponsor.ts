@@ -1,25 +1,53 @@
-import { ISponsor } from '../config/userTypes';
-import { AxiosPromise } from 'axios';
-import Route from '../config/APIRoute';
+import { AxiosPromise, AxiosResponse } from 'axios';
+import { APIRoute, ISponsor, CACHE_SPONSOR_KEY } from '../config';
 import API from './api';
+import { APIResponse } from '.';
+import LocalCache from '../util/LocalCache';
 class SponsorAPI {
-    constructor() {
-        API.createEntity(Route.SPONSOR);
+  constructor() {
+    API.createEntity(APIRoute.SPONSOR);
+    API.createEntity(APIRoute.SPONSOR_SELF);
+  }
+  /**
+   * Create an account.
+   * @param sponsor The sponsor that you want to create
+   */
+  public create(sponsor: ISponsor): AxiosPromise {
+    return API.getEndpoint(APIRoute.SPONSOR).create(sponsor);
+  }
+  /**
+   * Get the logged-in user's sponsor information, if they have a sponsor info.
+   */
+  public async getSelf(
+    overrideCache?: boolean
+  ): Promise<AxiosResponse<APIResponse<ISponsor>>> {
+    const cached: any = LocalCache.get(CACHE_SPONSOR_KEY);
+    if (cached && !overrideCache) {
+      return cached as AxiosResponse<APIResponse<ISponsor>>;
     }
-    /**
-     * Create an account.
-     * @param sponsor The sponsor that you want to create
-     */
-    public create(sponsor: ISponsor): AxiosPromise {
-        return API.getEndpoint(Route.SPONSOR).create(sponsor);
-    }
-    /**
-     * Get information about a sponsor
-     * @param id the ID of the sponsor
-     */
-    public get(id: string): AxiosPromise {
-        return API.getEndpoint(Route.SPONSOR).getOne({ id });
-    }
-}
+    const value = await API.getEndpoint(APIRoute.SPONSOR_SELF).getAll();
+    LocalCache.set(CACHE_SPONSOR_KEY, value);
+    return value;
+  }
+  /**
+   * Get information about a sponsor
+   * @param id the ID of the sponsor
+   */
+  public get(id: string): AxiosPromise {
+    return API.getEndpoint(APIRoute.SPONSOR).getOne({ id });
+  }
 
-export default new SponsorAPI();
+  /**
+   * Update sponsor information
+   * @param sponsor The sponsor object with an id
+   */
+  public update(sponsor: ISponsor): AxiosPromise {
+    const key = CACHE_SPONSOR_KEY + '-' + sponsor.id;
+    const value = API.getEndpoint(APIRoute.SPONSOR).patch(sponsor, sponsor);
+    LocalCache.remove(CACHE_SPONSOR_KEY);
+    LocalCache.remove(key);
+    return value;
+  }
+}
+export const Sponsor = new SponsorAPI();
+export default Sponsor;
