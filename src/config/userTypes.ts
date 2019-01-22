@@ -63,6 +63,8 @@ export interface IHacker {
 }
 
 export interface ISponsor {
+  // The sponsor's id
+  id: string;
   // The Sponsor's account id.
   accountId: string;
   // What tier the sponsor is.

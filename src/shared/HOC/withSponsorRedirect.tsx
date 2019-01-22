@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import { FrontendRoute, IHacker } from '../../config';
-import { getHackerInfo } from '../../util/UserInfoHelperFunctions';
+import { FrontendRoute, ISponsor } from '../../config';
+import { getSponsorInfo } from '../../util/UserInfoHelperFunctions';
 
 enum authStates {
   authorized,
@@ -9,27 +9,27 @@ enum authStates {
   undefined,
 }
 
-export interface IHackerDirectOptions {
-  // True, if user must be a hacker, or False if user must not be hacker
+export interface ISponsorDirectOptions {
+  // True, if user must be a sponsor, or False if user must not be sponsor
   requiredAuthState?: boolean;
-  // Function that is called when user is a hacker. This is used for further state verifications
-  AuthVerification?: (hacker: IHacker) => boolean;
+  // Function that is called when user is a sponsor. This is used for further state verifications
+  AuthVerification?: (hacker: ISponsor) => boolean;
 }
 
 const defaultOptions = {
   requiredAuthState: true,
-  AuthVerification: (hacker: IHacker) => true,
+  AuthVerification: (sponsor: ISponsor) => true,
   redirOnSuccess: false,
 };
 
-const withHackerRedirect = <P extends {}>(
+const withSponsorRedirect = <P extends {}>(
   Component: React.ComponentType<P>,
-  options: IHackerDirectOptions = defaultOptions
+  options: ISponsorDirectOptions = defaultOptions
 ) =>
   class extends React.Component<P, { authState: authStates }> {
-    private verification: (hacker: IHacker) => boolean;
+    private verification: (sponsor: ISponsor) => boolean;
 
-    constructor(props: any) {
+    constructor(props: P) {
       super(props);
       this.state = {
         authState: authStates.undefined,
@@ -43,7 +43,7 @@ const withHackerRedirect = <P extends {}>(
     }
 
     public async componentDidMount() {
-      const selfInfo = await getHackerInfo();
+      const selfInfo = await getSponsorInfo();
       if (selfInfo) {
         const verified = this.verification(selfInfo);
         this.setState({
@@ -77,4 +77,4 @@ const withHackerRedirect = <P extends {}>(
     }
   };
 
-export default withHackerRedirect;
+export default withSponsorRedirect;

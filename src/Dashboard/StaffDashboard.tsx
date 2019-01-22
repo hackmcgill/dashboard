@@ -17,8 +17,8 @@ import { isConfirmed } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
-import ApplicationIcon from '../assets/images/dashboard-application.svg';
-import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
+import CheckinIcon from '../assets/images/dashboard-checkin.svg';
+import SearchIcon from '../assets/images/dashboard-search.svg';
 
 export interface IDashboardState {
   confirmed: boolean;
@@ -55,7 +55,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
       {
         title: 'Search',
         route: routes.ADMIN_SEARCH_PAGE,
-        imageSrc: ApplicationIcon,
+        imageSrc: SearchIcon,
         validation: this.confirmAccountToastError,
       },
       {
@@ -66,7 +66,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
       {
         title: 'Checkin',
         route: routes.CHECKIN_HACKER_PAGE,
-        imageSrc: ConfirmIcon,
+        imageSrc: CheckinIcon,
       },
     ];
 

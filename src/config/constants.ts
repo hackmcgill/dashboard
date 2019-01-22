@@ -7,6 +7,7 @@ export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
+export const CACHE_SPONSOR_KEY = 'sponsorInfo';
 
 // Used in multiple locations:
 export const EMAIL_LABEL = 'Email';
@@ -77,3 +78,8 @@ export const TEAM_NAME_SUBTITLE =
   'Other hackers can join your team with this string.';
 export const TEAM_MEMBERS = 'Team members:';
 export const TEAM_MAX_SIZE = 'Max 4 Hackers';
+
+// Sponsor creation
+export const SPONSOR_COMPANY_LABEL = "Company name";
+export const SPONSOR_CONTRACT_URL_LABEL = "Contract URL";
+export const SPONSOR_NOMINEE_LABEL = "Nominees";

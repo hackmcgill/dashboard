@@ -1,10 +1,11 @@
-import { Account, Hacker } from '../api';
+import { Account, Hacker, Sponsor } from '../api';
 
 import {
   FrontendRoute,
   HackerStatus,
   IAccount,
   IHacker,
+  ISponsor,
   UserType,
 } from '../config';
 
@@ -80,6 +81,15 @@ export function isAppOpen(): boolean {
   return false;
 }
 
+export async function getSponsorInfo(): Promise<ISponsor | null> {
+  try {
+    const response = await Sponsor.getSelf();
+    return response.data.data;
+  } catch (error) {
+    return null;
+  }
+}
+
 export function canAccessApplication(hacker?: IHacker): boolean {
   const APPS_OPEN = isAppOpen();
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
@@ -103,7 +113,13 @@ export function canAccessTeam(hacker?: IHacker): boolean {
 }
 
 export function canAccessBus(hacker?: IHacker): boolean {
-  return hacker ? Boolean(hacker.needsBus) : false;
+  return hacker
+    ? Boolean(hacker.needsBus) &&
+        (status === HackerStatus.HACKER_STATUS_APPLIED ||
+          status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+          status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+          status === HackerStatus.HACKER_STATUS_CHECKED_IN)
+    : false;
 }
 
 export function canAccessHackerPass(hacker?: IHacker): boolean {
