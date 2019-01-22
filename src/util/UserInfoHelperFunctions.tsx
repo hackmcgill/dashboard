@@ -126,7 +126,6 @@ export function canAccessHackerPass(hacker?: IHacker): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
 
   return (
-    // status === HackerStatus.HACKER_STATUS_APPLIED ||
     status === HackerStatus.HACKER_STATUS_ACCEPTED ||
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
     status === HackerStatus.HACKER_STATUS_CANCELLED ||
@@ -162,7 +161,7 @@ export async function generateHackPass(
     unit: 'mm',
     format: [59, 102],
   });
-
+  console.log(doc.getFontList());
   doc.setFontSize(8);
   doc.text(account.accountType, 1, 4, { maxWidth: 15 });
 
