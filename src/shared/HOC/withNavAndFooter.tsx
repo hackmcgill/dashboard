@@ -2,7 +2,7 @@ import * as React from 'react';
 import Footer from '../../Nav/Footer';
 import Navbar from '../../Nav/Navbar';
 
-const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
+const withNavAndFooter = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {
     constructor(props: any) {
       super(props);
@@ -17,4 +17,4 @@ const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
     }
   };
 
-export default withNavbar;
+export default withNavAndFooter;

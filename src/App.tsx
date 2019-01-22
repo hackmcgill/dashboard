@@ -26,7 +26,7 @@ import EditApplicationContainer from './Application/ApplicationEdition';
 import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
-import withNavbar from './shared/HOC/withNavbar';
+import withNavAndFooter from './shared/HOC/withNavAndFooter';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 import withThemeProvider from './shared/HOC/withThemeProvider';
 import SingleHackerContainer from './SingleHacker/Main';
@@ -47,12 +47,12 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.HOME_PAGE}
-            component={withNavbar(withAuthRedirect(Dashboard))}
+            component={withNavAndFooter(withAuthRedirect(Dashboard))}
           />
           <Route
             exact={true}
             path={FrontendRoute.CREATE_ACCOUNT_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(CreateAccount, {
                 requiredAuthState: false,
               })
@@ -61,7 +61,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.EDIT_ACCOUNT_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(EditAccountContainer, {
                 redirAfterLogin: true,
                 requiredAuthState: true,
@@ -71,12 +71,12 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.RESET_PASSWORD_PAGE}
-            component={withNavbar(withTokenRedirect(resetPassword))}
+            component={withNavAndFooter(withTokenRedirect(resetPassword))}
           />
           <Route
             exact={true}
             path={FrontendRoute.CONFIRM_ACCOUNT_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(ConfirmAccountContainer, {
                 requiredAuthState: true,
                 redirAfterLogin: true,
@@ -86,12 +86,12 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.FORGOT_PASSWORD_PAGE}
-            component={withNavbar(ForgotPasswordContainer)}
+            component={withNavAndFooter(ForgotPasswordContainer)}
           />
           <Route
             exact={true}
             path={FrontendRoute.CREATE_APPLICATION_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withHackerRedirect(CreateApplicationContainer, {
                   requiredAuthState: false,
@@ -107,7 +107,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.EDIT_APPLICATION_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withHackerRedirect(EditApplicationContainer, {
                   AuthVerification: canAccessApplication,
@@ -124,7 +124,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.TEAM_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withHackerRedirect(TeamContainer, {
                   AuthVerification: canAccessTeam,
@@ -141,7 +141,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.LOGIN_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(LoginContainer, {
                 requiredAuthState: false,
               })
@@ -150,7 +150,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.CONFIRM_HACKER_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withHackerRedirect(ConfirmAttendanceContainer, {
                   requiredAuthState: true,
@@ -169,7 +169,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.ADMIN_SEARCH_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(SearchContainer, {
                 requiredAuthState: true,
                 redirAfterLogin: true,
@@ -181,7 +181,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.VIEW_HACKER_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(SingleHackerContainer, {
                 requiredAuthState: true,
                 redirAfterLogin: true,
@@ -192,7 +192,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.CREATE_SPONSOR_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withSponsorRedirect(CreateSponsorContainer, {
                   requiredAuthState: false,
@@ -208,7 +208,7 @@ class App extends React.Component {
           <Route
             exact={true}
             path={FrontendRoute.EDIT_SPONSOR_PAGE}
-            component={withNavbar(
+            component={withNavAndFooter(
               withAuthRedirect(
                 withSponsorRedirect(EditSponsorContainer, {
                   requiredAuthState: true,
@@ -221,7 +221,7 @@ class App extends React.Component {
               )
             )}
           />
-          <Route path="*" component={withNavbar(NotFoundContainer)} />
+          <Route path="*" component={withNavAndFooter(NotFoundContainer)} />
         </Switch>
       </BrowserRouter>
     );
