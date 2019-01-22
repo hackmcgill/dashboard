@@ -18,32 +18,33 @@ interface IFooterProps {
 export const FooterComponent: React.StatelessComponent<IFooterProps> = (
   props
 ) => {
+  const imageHeight = '25px';
   return (
     <Footer borderThickness={props.showDivider ? '1px' : '0px'}>
       <Flex flexDirection={'row'} justifyContent={'flex-end'} width={'100%'}>
         <Box p={'0.4rem'}>
           <SocialLink href="https://fb.com/mcgillhacks">
-            <Image src={Facebook} imgHeight={'15px'} />
+            <Image src={Facebook} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
         <Box p={'0.4rem'}>
           <SocialLink href="https://twitter.com/mcgillhacks">
-            <Image src={Twitter} imgHeight={'15px'} />
+            <Image src={Twitter} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
         <Box p={'0.4rem'}>
           <SocialLink href="https://twitter.com/mcgillhacks">
-            <Image src={Instagram} imgHeight={'15px'} />
+            <Image src={Instagram} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
         <Box p={'0.4rem'}>
           <SocialLink href="https://github.com/hackmcgill">
-            <Image src={Github} imgHeight={'15px'} />
+            <Image src={Github} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
         <Box p={'0.4rem'} pr={'0.5rem'}>
           <SocialLink href="mailto:contact@mchacks.ca?Subject=Hello!">
-            <Image src={Mailto} imgHeight={'15px'} />
+            <Image src={Mailto} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
       </Flex>
