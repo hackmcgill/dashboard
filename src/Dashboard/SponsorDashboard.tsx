@@ -14,19 +14,25 @@ interface ISponsorDashboardProps {
   userType: UserType;
 }
 
+interface ISponsorDashboardState {
+  hasSponsor: boolean;
+}
+
 class SponsorDashboard extends React.Component<
   ISponsorDashboardProps,
-  ISponsor | {}
+  ISponsorDashboardState
 > {
   constructor(props: ISponsorDashboardProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      hasSponsor: false,
+    };
   }
 
   public async componentDidMount() {
     const sponsorResponse = await getSponsorInfo();
     if (sponsorResponse !== null) {
-      this.setState(sponsorResponse);
+      this.setState({ hasSponsor: true });
     }
   }
 
@@ -53,10 +59,9 @@ class SponsorDashboard extends React.Component<
       },
       {
         title: 'Sponsor Profile',
-        route:
-          this.state === {}
-            ? routes.CREATE_SPONSOR_PAGE
-            : routes.EDIT_SPONSOR_PAGE,
+        route: this.state.hasSponsor
+          ? routes.EDIT_SPONSOR_PAGE
+          : routes.CREATE_SPONSOR_PAGE,
         imageSrc: SponsorIcon,
       },
     ];
