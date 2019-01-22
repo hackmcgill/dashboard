@@ -33,7 +33,7 @@ export const FooterComponent: React.StatelessComponent<IFooterProps> = (
           </SocialLink>
         </Box>
         <Box p={'0.4rem'}>
-          <SocialLink href="https://twitter.com/mcgillhacks">
+          <SocialLink href="https://instagram.com/mcgillhacks/">
             <Image src={Instagram} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
