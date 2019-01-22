@@ -42,7 +42,7 @@ export const FooterComponent: React.StatelessComponent<IFooterProps> = (
             <Image src={Github} imgHeight={imageHeight} />
           </SocialLink>
         </Box>
-        <Box p={'0.4rem'} pr={'0.5rem'}>
+        <Box p={'0.4rem'} pr={'0.9rem'}>
           <SocialLink href="mailto:contact@mchacks.ca?Subject=Hello!">
             <Image src={Mailto} imgHeight={imageHeight} />
           </SocialLink>
