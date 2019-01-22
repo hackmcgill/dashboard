@@ -6,9 +6,9 @@ import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
-import ApplicationIcon from '../assets/images/dashboard-application.svg';
 import SponsorIcon from '../assets/images/dashboard-application.svg';
 import { getSponsorInfo } from '../util/UserInfoHelperFunctions';
+import SearchIcon from '../assets/images/dashboard-search.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;
@@ -44,7 +44,7 @@ class SponsorDashboard extends React.Component<
       {
         title: 'Search',
         route: routes.SPONSOR_SEARCH_PAGE,
-        imageSrc: ApplicationIcon,
+        imageSrc: SearchIcon,
       },
       {
         title: 'Account',
