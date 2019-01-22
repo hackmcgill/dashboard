@@ -4,11 +4,11 @@ import Footer from '../shared/Elements/Footer';
 
 import Image from '../shared/Elements/Image';
 
-import Facebook from '../../assets/images/facebook.svg';
-import Github from '../../assets/images/github.svg';
-import Instagram from '../../assets/images/instagram.svg';
-import Mailto from '../../assets/images/mailto.svg';
-import Twitter from '../../assets/images/twitter.svg';
+import Facebook from '../assets/images/facebook.svg';
+import Github from '../assets/images/github.svg';
+import Instagram from '../assets/images/instagram.svg';
+import Mailto from '../assets/images/mailto.svg';
+import Twitter from '../assets/images/twitter.svg';
 import SocialLink from '../shared/Elements/SocialLink';
 
 interface IFooterProps {
