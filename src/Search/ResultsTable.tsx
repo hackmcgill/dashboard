@@ -1,9 +1,8 @@
-import { Box } from '@rebass/grid';
 import * as React from 'react';
 
 import { IHacker, UserType } from '../config';
-import { StyledTable } from '../shared/Elements/Table';
-import SingleHackerModal from './SingleHackerModal';
+import { StyledTable } from '../shared/Elements';
+import SingleHackerModal from '../SingleHacker/SingleHackerModal';
 
 interface IResultsTableProps {
   results: Array<{
@@ -60,16 +59,14 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
     },
   ];
   return (
-    <Box>
-      <StyledTable
-        data={props.results}
-        columns={
-          props.userType === UserType.STAFF ? adminColumns : volunteerColumns
-        }
-        loading={props.loading}
-        defaultPageSize={10}
-      />
-    </Box>
+    <StyledTable
+      data={props.results}
+      columns={
+        props.userType === UserType.STAFF ? adminColumns : volunteerColumns
+      }
+      loading={props.loading}
+      defaultPageSize={10}
+    />
   );
 };
 

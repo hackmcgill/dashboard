@@ -1,5 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import fileDownload from 'js-file-download';
 import { Hacker, Search } from '../api';
@@ -10,17 +11,19 @@ import {
   isValidSearchParameter,
   UserType,
 } from '../config';
-import { Button } from '../shared/Elements';
+import { Button, H1 } from '../shared/Elements';
+import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
+import theme from '../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
 import { StatsComponent } from './Stats/Stats';
 
 enum SearchMode {
-  TABLE,
   STATS,
+  TABLE,
 }
 
 interface ISearchState {
@@ -36,6 +39,7 @@ interface ISearchState {
     hacker: IHacker;
   }>;
   statsResults: IStats | null;
+  searchBar: string;
   loading: boolean;
 }
 
@@ -48,6 +52,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       query: this.getSearchFromQuery(),
       dataTableResults: [],
       statsResults: null,
+      searchBar: this.getSearchBarFromQuery(),
       loading: false,
     };
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -55,70 +60,100 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.downloadData = this.downloadData.bind(this);
     this.switchSearchMode = this.switchSearchMode.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
+    this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
   }
   public render() {
     const { loading, mode } = this.state;
     return (
-      <Flex>
-        <Box width={1 / 6} mx={'20px'}>
-          <FilterComponent
-            initFilters={this.state.query}
-            onChange={this.onFilterChange}
-            onResetForm={this.onResetForm}
-            loading={loading}
-          />
-        </Box>
-        <Box width={5 / 6}>
-          <Flex justifyContent={'space-between'}>
-            <Box>
+      <Flex flexDirection={'column'}>
+        <Helmet>
+          <title>Admin Search | McHacks 6</title>
+        </Helmet>
+        <Box width={1}>
+          <Flex>
+            <Box alignSelf={'center'} width={1 / 6}>
+              <H1 color={theme.colors.primary} fontSize={'30px'}>
+                Search
+              </H1>
+            </Box>
+            <Box width={5 / 6}>
               <Flex justifyContent={'space-between'}>
-                <Box>
-                  <Button
-                    secondary={mode !== SearchMode.TABLE}
-                    onClick={this.switchSearchMode(SearchMode.TABLE)}
-                    isLoading={loading}
-                    disabled={loading}
-                  >
-                    Table
-                  </Button>
+                <Box alignSelf={'center'}>
+                  <Flex justifyContent={'space-between'}>
+                    <Box>
+                      <Button
+                        secondary={mode !== SearchMode.TABLE}
+                        onClick={this.switchSearchMode(SearchMode.TABLE)}
+                        isLoading={loading}
+                        disabled={loading}
+                      >
+                        Table
+                      </Button>
+                    </Box>
+                    <Box>
+                      <Button
+                        secondary={mode !== SearchMode.STATS}
+                        onClick={this.switchSearchMode(SearchMode.STATS)}
+                        isLoading={loading}
+                        disabled={loading}
+                      >
+                        Stats
+                      </Button>
+                    </Box>
+                  </Flex>
                 </Box>
-                <Box>
-                  <Button
-                    secondary={mode !== SearchMode.STATS}
-                    onClick={this.switchSearchMode(SearchMode.STATS)}
-                    isLoading={loading}
-                    disabled={loading}
-                  >
-                    Stats
-                  </Button>
+                <Box alignSelf={'flex-start'} width={0.5}>
+                  <Input
+                    onChange={this.onSearchBarChanged}
+                    placeholder={'Refine your search...'}
+                    style={{ marginTop: 5 }}
+                    value={this.state.searchBar}
+                  />
+                </Box>
+                <Box mr={'10px'}>
+                  <Button>Update Status</Button>
+                  <Button onClick={this.downloadData}>Export Hackers</Button>
                 </Box>
               </Flex>
             </Box>
-            <Box mr={'10px'}>
-              <Button>Update Status</Button>
-              <Button onClick={this.downloadData}>Export Hackers</Button>
+          </Flex>
+        </Box>
+        <Box width={1}>
+          <Flex>
+            <Box width={1 / 6} m={2}>
+              <FilterComponent
+                initFilters={this.state.query}
+                onChange={this.onFilterChange}
+                onResetForm={this.onResetForm}
+                loading={this.state.loading}
+              />
+            </Box>
+            <Box width={5 / 6} m={2}>
+              {mode === SearchMode.TABLE ? (
+                <ResultsTable
+                  results={this.filter(
+                    this.state.dataTableResults,
+                    this.state.searchBar
+                  )}
+                  loading={loading}
+                  userType={UserType.STAFF}
+                />
+              ) : (
+                <StatsComponent
+                  stats={this.state.statsResults}
+                  loading={this.state.loading}
+                  onFilterChange={this.onFilterChange}
+                  existingFilters={this.state.query}
+                />
+              )}
             </Box>
           </Flex>
-          {mode === SearchMode.TABLE ? (
-            <ResultsTable
-              results={this.state.dataTableResults}
-              loading={loading}
-              userType={UserType.STAFF}
-            />
-          ) : (
-            <StatsComponent
-              stats={this.state.statsResults}
-              loading={this.state.loading}
-              onFilterChange={this.onFilterChange}
-              existingFilters={this.state.query}
-            />
-          )}
         </Box>
       </Flex>
     );
   }
   public componentDidMount() {
-    if (this.state.query.length > 0) {
+    if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
       this.triggerSearch();
     }
   }
@@ -168,6 +203,46 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.setState({ loading: false });
     }
   }
+  private getSearchBarFromQuery(): string {
+    const search = getValueFromQuery('searchBar');
+    return search ? decodeURIComponent(search) : '';
+  }
+
+  private downloadData(): void {
+    const headers = [
+      '_id',
+      'accountId.firstName',
+      'accountId.lastName',
+      'accountId.email',
+      'needsBus',
+      'major',
+      'school',
+      'graduationYear',
+      'degree',
+      'gender',
+      'needsBus',
+    ];
+    const csvData: string[] = [headers.join('\t')];
+    this.filter(this.state.dataTableResults, this.state.searchBar).forEach(
+      (result) => {
+        if (result.selected) {
+          const row: string[] = [];
+          headers.forEach((header) => {
+            let value;
+            if (header.indexOf('.') >= 0) {
+              const nestedAttr = header.split('.');
+              value = getNestedAttr(result.hacker, nestedAttr);
+            } else {
+              value = result.hacker[header];
+            }
+            row.push(value);
+          });
+          csvData.push(row.join('\t'));
+        }
+      }
+    );
+    fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
+  }
 
   private async triggerTableSearch(): Promise<void> {
     const { model, query } = this.state;
@@ -190,7 +265,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.setState({ loading: false });
     }
   }
-
   private async triggerSearch(): Promise<void> {
     const { mode } = this.state;
     switch (mode) {
@@ -201,8 +275,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     }
   }
 
+  private onResetForm() {
+    this.updateQueryURL([], this.state.searchBar);
+    this.setState({ query: [] }, this.triggerSearch);
+  }
+
   private onFilterChange(newFilters: ISearchParameter[]) {
-    this.updateQueryURL(newFilters);
+    this.updateQueryURL(newFilters, this.state.searchBar);
     this.setState(
       {
         query: newFilters,
@@ -211,13 +290,16 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
 
-  private onResetForm() {
-    this.updateQueryURL([]);
-    this.setState({ query: [] }, this.triggerSearch);
+  private onSearchBarChanged(e: any) {
+    const searchBar = e.target.value;
+    this.setState({ searchBar });
+    this.updateQueryURL(this.state.query, searchBar);
   }
 
-  private updateQueryURL(newFilters: ISearchParameter[]) {
-    const newSearch = `?q=${encodeURIComponent(JSON.stringify(newFilters))}`;
+  private updateQueryURL(filters: ISearchParameter[], searchBar: string) {
+    const newSearch = `?q=${encodeURIComponent(
+      JSON.stringify(filters)
+    )}&searchBar=${encodeURIComponent(searchBar)}`;
     window.history.replaceState(
       null,
       '',
@@ -225,38 +307,36 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
 
-  private downloadData() {
-    const headers = [
-      '_id',
-      'accountId.firstName',
-      'accountId.lastName',
-      'accountId.email',
-      'needsBus',
-      'major',
-      'school',
-      'graduationYear',
-      'degree',
-      'gender',
-      'needsBus',
-    ];
-    const csvData: string[] = [headers.join('\t')];
-    this.state.dataTableResults.forEach((result) => {
-      if (result.selected) {
-        const row: string[] = [];
-        headers.forEach((header) => {
-          let value;
-          if (header.indexOf('.') >= 0) {
-            const nestedAttr = header.split('.');
-            value = getNestedAttr(result.hacker, nestedAttr);
-          } else {
-            value = result.hacker[header];
-          }
-          row.push(value);
-        });
-        csvData.push(row.join('\t'));
-      }
+  private filter(
+    results: Array<{
+      selected: boolean;
+      hacker: IHacker;
+    }>,
+    search: string
+  ): Array<{
+    selected: boolean;
+    hacker: IHacker;
+  }> {
+    return results.filter(({ hacker }) => {
+      const { accountId } = hacker;
+      const foundAcct =
+        typeof accountId !== 'string'
+          ? `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
+            accountId.email.includes(search) ||
+            String(accountId.phoneNumber).includes(search) ||
+            accountId.shirtSize.includes(search) ||
+            (accountId._id && accountId._id.includes(search))
+          : false;
+
+      return (
+        foundAcct ||
+        hacker.id.includes(search) ||
+        hacker.major.includes(search) ||
+        hacker.school.includes(search) ||
+        hacker.status.includes(search) ||
+        String(hacker.graduationYear).includes(search)
+      );
     });
-    fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
   }
 }
 

@@ -4,6 +4,7 @@ import { UserType } from '../config';
 import { H1 } from '../shared/Elements';
 import { getUserInfo } from '../util';
 import HackerDashboardContainer from './HackerDashboard';
+import SponsorDashboard from './SponsorDashboard';
 import StaffDashboardContainer from './StaffDashboard';
 
 interface IDashboardState {
@@ -41,6 +42,16 @@ class Dashboard extends React.Component<{}, IDashboardState> {
         return <HackerDashboardContainer />;
       case UserType.STAFF:
         return <StaffDashboardContainer />;
+      case UserType.SPONSOR_T1:
+        return <SponsorDashboard userType={UserType.SPONSOR_T1} />;
+      case UserType.SPONSOR_T2:
+        return <SponsorDashboard userType={UserType.SPONSOR_T2} />;
+      case UserType.SPONSOR_T3:
+        return <SponsorDashboard userType={UserType.SPONSOR_T3} />;
+      case UserType.SPONSOR_T4:
+        return <SponsorDashboard userType={UserType.SPONSOR_T4} />;
+      case UserType.SPONSOR_T5:
+        return <SponsorDashboard userType={UserType.SPONSOR_T5} />;
     }
     if (this.state.loading) {
       return <H1>Loading...</H1>;

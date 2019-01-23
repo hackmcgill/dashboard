@@ -24,6 +24,7 @@ export interface IAccount {
   pronoun: string;
   // The database id (if new, leave blank / make '')
   id: string;
+  _id?: string;
 }
 
 export interface IHacker {
@@ -62,6 +63,8 @@ export interface IHacker {
 }
 
 export interface ISponsor {
+  // The sponsor's id
+  id: string;
   // The Sponsor's account id.
   accountId: string;
   // What tier the sponsor is.
@@ -79,5 +82,9 @@ export enum UserType {
   HACKER = 'Hacker',
   VOLUNTEER = 'Volunteer',
   STAFF = 'Staff',
-  SPONSOR = 'Sponsor',
+  SPONSOR_T1 = 'SponsorT1',
+  SPONSOR_T2 = 'SponsorT2',
+  SPONSOR_T3 = 'SponsorT3',
+  SPONSOR_T4 = 'SponsorT4',
+  SPONSOR_T5 = 'SponsorT5',
 }
