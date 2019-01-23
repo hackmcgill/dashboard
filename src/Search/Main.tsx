@@ -12,18 +12,18 @@ import {
   UserType,
 } from '../config';
 import { Button, H1 } from '../shared/Elements';
-import { Input } from '../shared/Form';
+import { Input, StyledSelect } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
-import { getNestedAttr, getValueFromQuery } from '../util';
+import { getNestedAttr, getOptionsFromEnum, getValueFromQuery } from '../util';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
 import { StatsComponent } from './Stats/Stats';
 
 enum SearchMode {
-  STATS,
-  TABLE,
+  STATS = 'Hacker Stats',
+  TABLE = 'Hacker Table',
 }
 
 interface ISearchState {
@@ -58,9 +58,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
-    this.switchSearchMode = this.switchSearchMode.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
+    this.handleSearchModeChanged = this.handleSearchModeChanged.bind(this);
   }
   public render() {
     const { loading, mode } = this.state;
@@ -78,37 +78,36 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             </Box>
             <Box width={5 / 6}>
               <Flex justifyContent={'space-between'}>
-                <Box alignSelf={'center'}>
-                  <Flex justifyContent={'space-between'}>
-                    <Box>
-                      <Button
-                        secondary={mode !== SearchMode.TABLE}
-                        onClick={this.switchSearchMode(SearchMode.TABLE)}
-                        isLoading={loading}
-                        disabled={loading}
-                      >
-                        Table
-                      </Button>
+                <Box width={7 / 8}>
+                  <Flex justifyContent={'flex-start'}>
+                    <Box alignSelf={'center'} mx={1}>
+                      <H1 color={theme.colors.primary} fontSize={'30px'}>
+                        Hackers
+                      </H1>
                     </Box>
-                    <Box>
-                      <Button
-                        secondary={mode !== SearchMode.STATS}
-                        onClick={this.switchSearchMode(SearchMode.STATS)}
-                        isLoading={loading}
-                        disabled={loading}
-                      >
-                        Stats
-                      </Button>
+                    <Box alignSelf={'flex-start'} width={0.2} mx={1}>
+                      <StyledSelect
+                        className="react-select-container"
+                        classNamePrefix="react-select"
+                        options={getOptionsFromEnum(SearchMode)}
+                        onChange={this.handleSearchModeChanged}
+                        marginTop={'5px'}
+                        value={{
+                          label: this.state.mode,
+                          value: this.state.mode,
+                        }}
+                        isDisabled={this.state.loading}
+                      />
+                    </Box>
+                    <Box alignSelf={'flex-start'} width={0.5} mx={1}>
+                      <Input
+                        onChange={this.onSearchBarChanged}
+                        placeholder={'Refine your search...'}
+                        style={{ marginTop: 5 }}
+                        value={this.state.searchBar}
+                      />
                     </Box>
                   </Flex>
-                </Box>
-                <Box alignSelf={'flex-start'} width={0.5}>
-                  <Input
-                    onChange={this.onSearchBarChanged}
-                    placeholder={'Refine your search...'}
-                    style={{ marginTop: 5 }}
-                    value={this.state.searchBar}
-                  />
                 </Box>
                 <Box mr={'10px'}>
                   <Button>Update Status</Button>
@@ -180,12 +179,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       return [];
     }
   }
-  private switchSearchMode(
-    mode: SearchMode
-  ): (e: React.MouseEvent<HTMLButtonElement>) => void {
-    return (e: React.MouseEvent<HTMLButtonElement>) => {
-      this.setState({ mode }, this.triggerSearch);
-    };
+
+  private handleSearchModeChanged({ value }: any) {
+    this.setState({ mode: value }, this.triggerSearch);
   }
 
   private async triggerStatsSearch(): Promise<void> {

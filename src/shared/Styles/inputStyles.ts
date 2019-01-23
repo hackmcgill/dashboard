@@ -3,6 +3,7 @@ import { css } from './styled-components';
 export interface IInputProps {
   isTight?: boolean;
   fontWeight?: string;
+  marginTop?: string;
 }
 
 export const inputStyles = css<IInputProps>`
@@ -13,7 +14,7 @@ export const inputStyles = css<IInputProps>`
   display: block;
   font-size: 16px;
   margin: auto;
-  margin-top: 10px;
+  margin-top: ${(props) => props.marginTop || '10px'};
   margin-bottom: ${(props) => (props.isTight ? '8px' : '20px')};
   min-height: 42px;
   padding-left: 16px;
