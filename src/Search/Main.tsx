@@ -110,7 +110,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   </Flex>
                 </Box>
                 <Box mr={'10px'}>
-                  <Button>Update Status</Button>
                   <Button onClick={this.downloadData}>Export Hackers</Button>
                 </Box>
               </Flex>
