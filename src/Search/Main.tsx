@@ -85,7 +85,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                         Hackers
                       </H1>
                     </Box>
-                    <Box alignSelf={'flex-start'} width={0.2} mx={1}>
+                    <Box alignSelf={'flex-start'} width={0.15} mx={1}>
                       <StyledSelect
                         className="react-select-container"
                         classNamePrefix="react-select"
