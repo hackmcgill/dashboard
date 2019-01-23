@@ -161,22 +161,25 @@ export async function generateHackPass(
     unit: 'mm',
     format: [59, 102],
   });
-  console.log(doc.getFontList());
-  doc.setFontSize(8);
-  doc.text(account.accountType, 1, 4, { maxWidth: 15 });
+  doc.setFontSize(6);
+  doc.setFontStyle('bold');
+  doc.text(account.accountType.toUpperCase(), 1.5, 4, { maxWidth: 18 });
 
   doc.setFontSize(7);
-  const name: string[] = doc.splitTextToSize(account.firstName, 15);
-  doc.text(1, 8, name);
+  const name: string[] = doc.splitTextToSize(
+    'My super duper duper long name',
+    15
+  );
+  doc.text(1.5, 8, name);
 
+  doc.setFontStyle('normal');
   doc.setFontSize(4);
-  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 15);
-  const school: string[] = doc.splitTextToSize(hacker.school, 15);
-  const email: string[] = doc.splitTextToSize(account.email, 15);
-  doc.text(1, 6 + name.length * 3.5, pronoun.concat(school).concat(email));
+  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 19);
+  const school: string[] = doc.splitTextToSize(`\n${hacker.school}`, 19);
+  doc.text(1.5, 7 + name.length * 3.5, pronoun.concat(school));
 
   const qrData = await generateHackerQRCode(hacker);
-  doc.addImage(qrData, 'png', 16, 0, 21, 21);
+  doc.addImage(qrData, 'png', 21, 3, 15, 15);
 
   doc.autoPrint();
   doc.save(`hackPass_${hacker.id}.pdf`);
