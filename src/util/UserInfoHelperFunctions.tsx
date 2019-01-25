@@ -167,16 +167,16 @@ export async function generateHackPass(
 
   doc.setFontSize(7);
   const name: string[] = doc.splitTextToSize(
-    'My super duper duper long name',
-    15
+    `${account.firstName} ${account.lastName}`,
+    19
   );
   doc.text(1.5, 8, name);
 
   doc.setFontStyle('normal');
   doc.setFontSize(4);
   const pronoun: string[] = doc.splitTextToSize(account.pronoun, 19);
-  const school: string[] = doc.splitTextToSize(`\n${hacker.school}`, 19);
-  doc.text(1.5, 7 + name.length * 3.5, pronoun.concat(school));
+  const school: string[] = doc.splitTextToSize(`${hacker.school}`, 19);
+  doc.text(1.5, 7.5 + name.length * 3, pronoun.concat(school));
 
   const qrData = await generateHackerQRCode(hacker);
   doc.addImage(qrData, 'png', 21, 3, 15, 15);
