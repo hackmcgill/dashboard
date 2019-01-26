@@ -46,7 +46,7 @@
     "@types/lodash": "^4.14.120",
     "@types/node": "^10.12.18",
     "@types/query-string": "^6.1.0",
-    "@types/react": "^16.7.20",
+    "@types/react": "^16.7.21",
     "@types/react-alert": "^4.0.0",
     "@types/react-autosuggest": "^9.3.6",
     "@types/react-dom": "^16.0.11",
