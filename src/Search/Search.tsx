@@ -183,7 +183,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     try {
       const response = await Search.search(model, query, {
         expand: true,
-        limit: 1000,
       });
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
