@@ -5,7 +5,7 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
-import { HackerStatus, IAccount, IHacker } from '../config';
+import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
@@ -19,10 +19,11 @@ import SHParagraph from './SingleHackerParagraph';
 
 interface IHackerViewProps {
   hacker: IHacker;
+  userType: UserType;
 }
 
 interface IHackerViewState {
-  canEdit: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   status: HackerStatus;
 }
@@ -35,12 +36,14 @@ class SingleHackerView extends React.Component<
     super(props);
     this.state = {
       status: props.hacker.status,
-      canEdit: true,
+      isAdmin: true,
       isLoading: false,
     };
   }
 
   public componentDidMount() {
+    const isAdmin = this.props.userType === UserType.STAFF;
+    this.setState({ isAdmin });
     this.submit = this.submit.bind(this);
   }
 
@@ -58,6 +61,7 @@ class SingleHackerView extends React.Component<
 
   public render() {
     const { hacker } = this.props;
+    const { isAdmin, isLoading, status } = this.state;
     const account = (hacker.accountId as IAccount) || {};
     return (
       <article>
@@ -81,11 +85,11 @@ class SingleHackerView extends React.Component<
                   className="react-select-container"
                   classNamePrefix="react-select"
                   options={getOptionsFromEnum(HackerStatus)}
-                  isDisabled={!this.state.canEdit}
+                  isDisabled={!isAdmin}
                   onChange={this.handleChange}
                   value={{
-                    label: this.state.status,
-                    value: this.state.status,
+                    label: status,
+                    value: status,
                   }}
                 />
               </Box>
@@ -96,8 +100,8 @@ class SingleHackerView extends React.Component<
                 <Button
                   type="button"
                   onClick={this.submit}
-                  isLoading={this.state.isLoading}
-                  disabled={this.state.isLoading || !this.state.canEdit}
+                  isLoading={isLoading}
+                  disabled={isLoading || !isAdmin}
                 >
                   Change status
                 </Button>
@@ -157,10 +161,20 @@ class SingleHackerView extends React.Component<
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
-            <hr />
-            <H2 color={theme.colors.grey}>Additional Information</H2>
-            <SHParagraph label="Why McHacks?" text={hacker.application.essay} />
-            <SHParagraph label="Comments" text={hacker.application.comments} />
+            {isAdmin && (
+              <div>
+                <hr />
+                <H2 color={theme.colors.grey}>Additional Information</H2>
+                <SHParagraph
+                  label="Why McHacks?"
+                  text={hacker.application.essay}
+                />
+                <SHParagraph
+                  label="Comments"
+                  text={hacker.application.comments}
+                />
+              </div>
+            )}
           </Box>
         </MaxWidthBox>
       </article>

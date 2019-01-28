@@ -47,6 +47,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
           <SingleHackerModal
             hacker={original.hacker}
             allHackers={props.results.map((r) => r.hacker)}
+            userType={props.userType}
           />
         </div>
       ),
