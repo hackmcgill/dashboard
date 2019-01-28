@@ -21,6 +21,7 @@ import {
   canAccessBus,
   canAccessTeam,
   isAppOpen,
+  isConfirmationOpen,
   isConfirmed,
 } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
@@ -121,6 +122,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: routes.CONFIRM_HACKER_PAGE,
         imageSrc: ConfirmIcon,
         hidden: status !== HackerStatus.HACKER_STATUS_ACCEPTED,
+        disabled: !isConfirmationOpen(),
       },
       {
         title: 'Team',
