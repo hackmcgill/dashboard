@@ -104,6 +104,16 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           : hacker.accountId.id;
       const account = (await Account.get(accountId)).data.data;
       await generateHackPass(account, hacker);
+      if (account.dietaryRestrictions.length > 0) {
+        toast.info(
+          `The user has the following dietary restrictions: ${account.dietaryRestrictions.join(
+            ','
+          )}`,
+          {
+            autoClose: false,
+          }
+        );
+      }
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
