@@ -134,7 +134,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         hidden: !hasTeamAccess,
       },
       {
-        title: 'HackerPass',
+        title: 'HackPass',
         route: routes.PASS_HACKER_PAGE,
         imageSrc: HackPassIcon,
         hidden: !hasPassAccess,

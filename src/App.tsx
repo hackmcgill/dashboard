@@ -231,6 +231,7 @@ class App extends React.Component {
                   AuthVerification: canAccessHackerPass,
                 }),
                 {
+                  redirAfterLogin: true,
                   requiredAuthState: true,
                   AuthVerification: (user: IAccount) =>
                     user.confirmed && user.accountType === UserType.HACKER,
