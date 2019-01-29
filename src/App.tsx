@@ -13,9 +13,9 @@ import TeamContainer from './Team/Main';
 
 import {
   FrontendRoute,
-  HackerStatus,
+  // HackerStatus,
   IAccount,
-  IHacker,
+  // IHacker,
   UserType,
 } from './config';
 import ForgotPasswordContainer from './Login/PasswordForgot';
@@ -24,7 +24,7 @@ import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
 import CheckinContainer from './Checkin/Main';
-import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
+// import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import HackPassContainer from './HackPass/Main';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
@@ -150,7 +150,7 @@ class App extends React.Component {
               })
             )}
           />
-          <Route
+          {/* <Route
             exact={true}
             path={FrontendRoute.CONFIRM_HACKER_PAGE}
             component={withNavbar(
@@ -168,7 +168,7 @@ class App extends React.Component {
                 }
               )
             )}
-          />
+          /> */}
           <Route
             exact={true}
             path={FrontendRoute.ADMIN_SEARCH_PAGE}

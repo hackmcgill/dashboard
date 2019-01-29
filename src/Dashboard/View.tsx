@@ -89,7 +89,7 @@ const DashboardView: React.SFC<IDashboardView> = ({
 
 function eventHandleWrapperFactory(card: IDashboardCard) {
   return (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (card.validation && !card.validation()) {
+    if (card.disabled || (card.validation && !card.validation())) {
       e.preventDefault();
     }
   };
