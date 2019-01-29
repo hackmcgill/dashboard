@@ -180,6 +180,18 @@ class App extends React.Component {
           />
           <Route
             exact={true}
+            path={FrontendRoute.SPONSOR_SEARCH_PAGE}
+            component={withNavbar(
+              withAuthRedirect(SearchContainer, {
+                requiredAuthState: true,
+                redirAfterLogin: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed && isSponsor(user),
+              })
+            )}
+          />
+          <Route
+            exact={true}
             path={FrontendRoute.VIEW_HACKER_PAGE}
             component={withNavbar(
               withAuthRedirect(SingleHackerContainer, {
