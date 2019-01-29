@@ -64,7 +64,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
     <StyledTable
       data={props.results}
       columns={
-        props.userType === UserType.STAFF ? adminColumns : volunteerColumns
+        props.userType === UserType.VOLUNTEER ? volunteerColumns : adminColumns
       }
       loading={props.loading}
       defaultPageSize={10}

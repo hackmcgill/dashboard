@@ -3,8 +3,9 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Search } from '../api';
+import { Account, Search } from '../api';
 import {
+  IAccount,
   IHacker,
   ISearchParameter,
   isValidSearchParameter,
@@ -32,6 +33,7 @@ interface ISearchState {
   }>;
   searchBar: string;
   loading: boolean;
+  account?: IAccount;
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -50,7 +52,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
   }
+
   public render() {
+    const { searchBar, account, query, results, loading } = this.state;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -75,11 +79,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     onChange={this.onSearchBarChanged}
                     placeholder={'Refine your search...'}
                     style={{ marginTop: 5 }}
-                    value={this.state.searchBar}
+                    value={searchBar}
                   />
                 </Box>
                 <Box mr={'10px'}>
-                  <Button>Update Status</Button>
+                  {account && account.accountType === UserType.STAFF && (
+                    <Button>Update Status</Button>
+                  )}
                   <Button onClick={this.downloadData}>Export Hackers</Button>
                 </Box>
               </Flex>
@@ -90,18 +96,18 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           <Flex>
             <Box width={1 / 6} m={2}>
               <FilterComponent
-                initFilters={this.state.query}
+                initFilters={query}
                 onChange={this.onFilterChange}
                 onResetForm={this.onResetForm}
-                loading={this.state.loading}
+                loading={loading}
               />
             </Box>
             <Box width={5 / 6} m={2}>
               <ResultsTable
-                results={this.filter(this.state.results, this.state.searchBar)}
-                loading={this.state.loading}
-                userType={UserType.STAFF}
-                filter={this.state.searchBar}
+                results={this.filter(results, searchBar)}
+                loading={loading}
+                userType={account ? account.accountType : UserType.UNKNOWN}
+                filter={searchBar}
               />
             </Box>
           </Flex>
@@ -109,7 +115,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       </Flex>
     );
   }
-  public componentDidMount() {
+  public async componentDidMount() {
+    const account = (await Account.getSelf()).data.data;
+    this.setState({ account });
+
     if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
       this.triggerSearch();
     }
