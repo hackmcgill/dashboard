@@ -43,7 +43,7 @@ class SingleHackerContainer extends React.Component<
   public render() {
     if (this.state.hacker) {
       return (
-        <Flex justify-content={'center'} mx={'10px'}>
+        <Flex justify-content={'center'} m={'10px'}>
           <Box m={'auto'}>
             <SingleHackerView hacker={this.state.hacker} />
           </Box>
