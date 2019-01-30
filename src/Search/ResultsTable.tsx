@@ -47,6 +47,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
           <SingleHackerModal
             hacker={original.hacker}
             allHackers={props.results.map((r) => r.hacker)}
+            userType={props.userType}
           />
         </div>
       ),
@@ -63,7 +64,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
     <StyledTable
       data={props.results}
       columns={
-        props.userType === UserType.STAFF ? adminColumns : volunteerColumns
+        props.userType === UserType.VOLUNTEER ? volunteerColumns : adminColumns
       }
       loading={props.loading}
       defaultPageSize={10}
