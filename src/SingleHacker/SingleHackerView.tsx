@@ -114,29 +114,33 @@ class SingleHackerView extends React.Component<
           </Form>
           <hr />
           <Box ml="6px">
-            <H2 color={theme.colors.grey}>Administrative Information</H2>
-            <Flex
-              width="100%"
-              flexWrap="wrap"
-              justifyContent="space-between"
-              alignItems="center"
+            <SingleHackerSection
+              title={'Administrative Information'}
+              hidden={!isAdmin}
             >
-              <SHField label="Age" text={date2age(account.birthDate)} />
-              <SHField label="Shirt Size" text={account.shirtSize} />
-              <SHLink
-                label="Phone Number"
-                link={`tel:${account.phoneNumber}`}
-                linkText={account.phoneNumber}
-              />
-              <SHField
-                label="Dietary Restrictions"
-                text={
-                  account.dietaryRestrictions &&
-                  account.dietaryRestrictions.join(', ')
-                }
-              />
-            </Flex>
-            <hr />
+              <Flex
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <SHField label="Age" text={date2age(account.birthDate)} />
+                <SHField label="Shirt Size" text={account.shirtSize} />
+                <SHLink
+                  label="Phone Number"
+                  link={`tel:${account.phoneNumber}`}
+                  linkText={account.phoneNumber}
+                />
+                <SHField
+                  label="Dietary Restrictions"
+                  text={
+                    account.dietaryRestrictions &&
+                    account.dietaryRestrictions.join(', ')
+                  }
+                />
+              </Flex>
+              <hr />
+            </SingleHackerSection>
             <H2 color={theme.colors.grey}>Basic Information</H2>
             <Flex
               width="100%"
