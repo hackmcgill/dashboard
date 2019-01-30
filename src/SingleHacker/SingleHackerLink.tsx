@@ -6,27 +6,28 @@ interface ILinkProps {
   link?: string;
   linkText?: string;
   label: string;
-  newTab?: boolean;
 }
 
-const SingleHackerLink: React.SFC<ILinkProps> = ({
-  link,
-  linkText,
-  label,
-  newTab,
-}) => {
-  return (
-    <Box width={[1, 1 / 2]}>
-      <strong>{label}</strong>:{' '}
-      {link ? (
-        <a href={link} target={newTab ? '_blank' : ''}>
+const SingleHackerLink: React.SFC<ILinkProps> = ({ link, linkText, label }) => {
+  if (link) {
+    const url = new URL(link);
+    const target =
+      ['https:', 'http:'].indexOf(url.protocol) !== -1 ? '_blank' : '';
+    return (
+      <Box width={[1, 1 / 2]}>
+        <strong>{label}</strong>:{' '}
+        <a href={link} target={target}>
           {linkText ? linkText : link}
         </a>
-      ) : (
-        'None'
-      )}
-    </Box>
-  );
+      </Box>
+    );
+  } else {
+    return (
+      <Box width={[1, 1 / 2]}>
+        <strong>{label}</strong>: None
+      </Box>
+    );
+  }
 };
 
 export default SingleHackerLink;

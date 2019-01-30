@@ -168,22 +168,18 @@ class SingleHackerView extends React.Component<
               <SHLink
                 label="GitHub"
                 link={hacker.application.portfolioURL.github}
-                newTab={true}
               />
               <SHLink
                 label="LinkedIn"
                 link={hacker.application.portfolioURL.linkedIn}
-                newTab={true}
               />
               <SHLink
                 label="Website"
                 link={hacker.application.portfolioURL.personal}
-                newTab={true}
               />
               <SHLink
                 label="Dribbble"
                 link={hacker.application.portfolioURL.dropler}
-                newTab={true}
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
