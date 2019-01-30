@@ -12,7 +12,7 @@ const SingleHackerLink: React.SFC<ILinkProps> = ({ link, linkText, label }) => {
   if (link) {
     const url = new URL(link);
     const target =
-      ['https:', 'http:'].indexOf(url.protocol) === -1 ? '' : '_blank';
+      ['https:', 'http:'].indexOf(url.protocol) !== -1 ? '_blank' : '';
     return (
       <Box width={[1, 1 / 2]}>
         <strong>{label}</strong>:{' '}
