@@ -16,6 +16,7 @@ import { getOptionsFromEnum } from '../util';
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
 import SHParagraph from './SingleHackerParagraph';
+import SingleHackerSection from './SingleHackerSection';
 
 interface IHackerViewProps {
   hacker: IHacker;
@@ -161,20 +162,19 @@ class SingleHackerView extends React.Component<
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
-            {isAdmin && (
-              <div>
-                <hr />
-                <H2 color={theme.colors.grey}>Additional Information</H2>
-                <SHParagraph
-                  label="Why McHacks?"
-                  text={hacker.application.essay}
-                />
-                <SHParagraph
-                  label="Comments"
-                  text={hacker.application.comments}
-                />
-              </div>
-            )}
+            <SingleHackerSection
+              title="Additional Information"
+              hidden={!isAdmin}
+            >
+              <SHParagraph
+                label="Why McHacks?"
+                text={hacker.application.essay}
+              />
+              <SHParagraph
+                label="Comments"
+                text={hacker.application.comments}
+              />
+            </SingleHackerSection>
           </Box>
         </MaxWidthBox>
       </article>
