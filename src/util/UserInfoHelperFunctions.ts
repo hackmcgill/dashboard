@@ -70,6 +70,10 @@ export function isAppOpen(): boolean {
   return false;
 }
 
+export function isConfirmationOpen(): boolean {
+  return false;
+}
+
 export async function getSponsorInfo(): Promise<ISponsor | null> {
   try {
     const response = await Sponsor.getSelf();
@@ -102,6 +106,7 @@ export function canAccessTeam(hacker?: IHacker): boolean {
 }
 
 export function canAccessBus(hacker?: IHacker): boolean {
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
   return hacker
     ? Boolean(hacker.needsBus) &&
         (status === HackerStatus.HACKER_STATUS_APPLIED ||
