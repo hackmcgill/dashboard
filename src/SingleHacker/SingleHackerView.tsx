@@ -11,7 +11,7 @@ import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import theme from '../shared/Styles/theme';
-import { getOptionsFromEnum } from '../util';
+import { date2age, getOptionsFromEnum } from '../util';
 
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
@@ -64,6 +64,7 @@ class SingleHackerView extends React.Component<
     const { hacker } = this.props;
     const { isAdmin, isLoading, status } = this.state;
     const account = (hacker.accountId as IAccount) || {};
+    const pronoun = account.pronoun ? `(${account.pronoun})` : '';
     return (
       <article>
         <Helmet>
@@ -72,7 +73,9 @@ class SingleHackerView extends React.Component<
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
+          <H1 marginLeft="0">
+            {`${account.firstName} ${account.lastName} ${pronoun}`}
+          </H1>
           <Form>
             <Flex
               width="100%"
@@ -111,6 +114,33 @@ class SingleHackerView extends React.Component<
           </Form>
           <hr />
           <Box ml="6px">
+            <SingleHackerSection
+              title={'Administrative Information'}
+              hidden={!isAdmin}
+            >
+              <Flex
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <SHField label="Age" text={date2age(account.birthDate)} />
+                <SHField label="Shirt Size" text={account.shirtSize} />
+                <SHLink
+                  label="Phone Number"
+                  link={`tel:${account.phoneNumber}`}
+                  linkText={account.phoneNumber}
+                />
+                <SHField
+                  label="Dietary Restrictions"
+                  text={
+                    account.dietaryRestrictions &&
+                    account.dietaryRestrictions.join(', ')
+                  }
+                />
+              </Flex>
+              <hr />
+            </SingleHackerSection>
             <H2 color={theme.colors.grey}>Basic Information</H2>
             <Flex
               width="100%"
