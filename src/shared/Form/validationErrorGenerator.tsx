@@ -8,7 +8,8 @@ import {
 } from '../../config';
 
 export default function ValidationErrorGenerator(
-  response: APIResponse<IValidationError>
+  response: APIResponse<IValidationError>,
+  autoClose: boolean = true
 ) {
   if (!response) {
     return;
@@ -16,7 +17,7 @@ export default function ValidationErrorGenerator(
   const errors: any = response.data;
   toast.error(response.message, {
     position: toast.POSITION.TOP_RIGHT,
-    autoClose: false,
+    autoClose: autoClose ? 5000 : false,
   });
 
   for (const key in errors) {

@@ -14,6 +14,7 @@ export enum APIRoute {
   ACCOUNT_INVITE = 'account/invite',
   // Hacker routes
   HACKER = 'hacker',
+  HACKER_EMAIL = 'hacker/email',
   HACKER_CHECKIN = 'hacker/checkin',
   HACKER_CONFIRMATION = 'hacker/confirmation',
   HACKER_RESUME = 'hacker/resume',
