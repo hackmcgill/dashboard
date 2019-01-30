@@ -5,24 +5,26 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
-import { HackerStatus, IAccount, IHacker } from '../config';
+import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import theme from '../shared/Styles/theme';
-import { getOptionsFromEnum } from '../util';
+import { date2age, getOptionsFromEnum } from '../util';
 
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
 import SHParagraph from './SingleHackerParagraph';
+import SingleHackerSection from './SingleHackerSection';
 
 interface IHackerViewProps {
   hacker: IHacker;
+  userType: UserType;
 }
 
 interface IHackerViewState {
-  canEdit: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   status: HackerStatus;
 }
@@ -35,12 +37,14 @@ class SingleHackerView extends React.Component<
     super(props);
     this.state = {
       status: props.hacker.status,
-      canEdit: true,
+      isAdmin: true,
       isLoading: false,
     };
   }
 
   public componentDidMount() {
+    const isAdmin = this.props.userType === UserType.STAFF;
+    this.setState({ isAdmin });
     this.submit = this.submit.bind(this);
   }
 
@@ -58,7 +62,9 @@ class SingleHackerView extends React.Component<
 
   public render() {
     const { hacker } = this.props;
+    const { isAdmin, isLoading, status } = this.state;
     const account = (hacker.accountId as IAccount) || {};
+    const pronoun = account.pronoun ? `(${account.pronoun})` : '';
     return (
       <article>
         <Helmet>
@@ -67,7 +73,9 @@ class SingleHackerView extends React.Component<
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">{`${account.firstName} ${account.lastName}`}</H1>
+          <H1 marginLeft="0">
+            {`${account.firstName} ${account.lastName} ${pronoun}`}
+          </H1>
           <Form>
             <Flex
               width="100%"
@@ -81,11 +89,11 @@ class SingleHackerView extends React.Component<
                   className="react-select-container"
                   classNamePrefix="react-select"
                   options={getOptionsFromEnum(HackerStatus)}
-                  isDisabled={!this.state.canEdit}
+                  isDisabled={!isAdmin}
                   onChange={this.handleChange}
                   value={{
-                    label: this.state.status,
-                    value: this.state.status,
+                    label: status,
+                    value: status,
                   }}
                 />
               </Box>
@@ -96,8 +104,8 @@ class SingleHackerView extends React.Component<
                 <Button
                   type="button"
                   onClick={this.submit}
-                  isLoading={this.state.isLoading}
-                  disabled={this.state.isLoading || !this.state.canEdit}
+                  isLoading={isLoading}
+                  disabled={isLoading || !isAdmin}
                 >
                   Change status
                 </Button>
@@ -106,6 +114,33 @@ class SingleHackerView extends React.Component<
           </Form>
           <hr />
           <Box ml="6px">
+            <SingleHackerSection
+              title={'Administrative Information'}
+              hidden={!isAdmin}
+            >
+              <Flex
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <SHField label="Age" text={date2age(account.birthDate)} />
+                <SHField label="Shirt Size" text={account.shirtSize} />
+                <SHLink
+                  label="Phone Number"
+                  link={`tel:${account.phoneNumber}`}
+                  linkText={account.phoneNumber}
+                />
+                <SHField
+                  label="Dietary Restrictions"
+                  text={
+                    account.dietaryRestrictions &&
+                    account.dietaryRestrictions.join(', ')
+                  }
+                />
+              </Flex>
+              <hr />
+            </SingleHackerSection>
             <H2 color={theme.colors.grey}>Basic Information</H2>
             <Flex
               width="100%"
@@ -157,10 +192,19 @@ class SingleHackerView extends React.Component<
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
-            <hr />
-            <H2 color={theme.colors.grey}>Additional Information</H2>
-            <SHParagraph label="Why McHacks?" text={hacker.application.essay} />
-            <SHParagraph label="Comments" text={hacker.application.comments} />
+            <SingleHackerSection
+              title="Additional Information"
+              hidden={!isAdmin}
+            >
+              <SHParagraph
+                label="Why McHacks?"
+                text={hacker.application.essay}
+              />
+              <SHParagraph
+                label="Comments"
+                text={hacker.application.comments}
+              />
+            </SingleHackerSection>
           </Box>
         </MaxWidthBox>
       </article>
