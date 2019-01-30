@@ -11,7 +11,7 @@
     "formik": "^1.4.2",
     "gh-pages": "^2.0.1",
     "js-file-download": "^0.4.4",
-    "prettier": "^1.16.1",
+    "prettier": "^1.16.2",
     "query-string": "^6.2.0",
     "react": "^16.7.0",
     "react-autosuggest": "^9.4.3",
