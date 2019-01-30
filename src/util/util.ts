@@ -45,6 +45,13 @@ function date2input(date: string) {
   return `${month}${day}${year}`;
 }
 
+function date2age(date: string) {
+  const dob = new Date(date);
+  const diffMs = Date.now() - dob.getTime();
+  const ageDt = new Date(diffMs);
+  return Math.abs(ageDt.getUTCFullYear() - 1970);
+}
+
 function getValueFromQuery(key: string): string | undefined {
   const queries: any = QueryString.parse(location.search);
   return queries[key];
@@ -56,5 +63,6 @@ export {
   getOptionsFromEnum,
   getValueFromQuery,
   input2date,
+  date2age,
   date2input,
 };

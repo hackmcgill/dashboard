@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FrontendRoute, IHacker } from '../config';
+import { FrontendRoute, IHacker, UserType } from '../config';
 import { Button, Image, StyledModal } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
@@ -11,6 +11,7 @@ import Arrow from '../assets/images/backarrow.svg';
 interface IModalProps {
   hacker: IHacker;
   allHackers: IHacker[];
+  userType: UserType;
 }
 interface IModalState {
   showModal: boolean;
@@ -37,6 +38,10 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
   }
 
   public render() {
+    const hacker = this.props.allHackers[this.state.currentHackerIndex]
+      ? this.props.allHackers[this.state.currentHackerIndex]
+      : this.props.hacker;
+    const hackerPage = FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id);
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
@@ -58,10 +63,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
           >
             <Box>
               <Link
-                to={FrontendRoute.VIEW_HACKER_PAGE.replace(
-                  ':id',
-                  this.props.hacker.id
-                )}
+                to={hackerPage}
                 target={'_blank'}
                 style={{ color: 'white' }}
               >
@@ -95,6 +97,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
             >
               <SingleHackerView
                 hacker={this.props.allHackers[this.state.currentHackerIndex]}
+                userType={this.props.userType}
               />
             </Flex>
             <Flex width={1 / 8} justifyContent="flex-end">

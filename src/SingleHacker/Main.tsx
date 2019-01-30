@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
 import { Account, Hacker } from '../api';
-import { IHacker } from '../config';
+import { IHacker, UserType } from '../config';
 import { H1 } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
@@ -15,6 +15,7 @@ interface ISingleHackerContainerProps extends RouteComponentProps<IParams> {}
 interface ISingleHackerContainerState {
   isLoading: boolean;
   hacker: IHacker | null;
+  userType: UserType;
 }
 
 class SingleHackerContainer extends React.Component<
@@ -26,6 +27,7 @@ class SingleHackerContainer extends React.Component<
     this.state = {
       isLoading: true,
       hacker: null,
+      userType: UserType.UNKNOWN,
     };
   }
 
@@ -43,9 +45,12 @@ class SingleHackerContainer extends React.Component<
   public render() {
     if (this.state.hacker) {
       return (
-        <Flex justify-content={'center'} mx={'10px'}>
+        <Flex justify-content={'center'} m={'10px'}>
           <Box m={'auto'}>
-            <SingleHackerView hacker={this.state.hacker} />
+            <SingleHackerView
+              hacker={this.state.hacker}
+              userType={this.state.userType}
+            />
           </Box>
         </Flex>
       );

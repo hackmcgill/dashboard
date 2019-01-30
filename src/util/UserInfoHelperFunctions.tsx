@@ -1,6 +1,17 @@
 import { Account, Hacker, Sponsor } from '../api';
 
-import { HackerStatus, IAccount, IHacker, ISponsor, UserType } from '../config';
+import {
+  FrontendRoute,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  ISponsor,
+  UserType,
+} from '../config';
+
+import * as QRCode from 'qrcode';
+
+import jsPDF from 'jspdf';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -114,4 +125,68 @@ export function canAccessBus(hacker?: IHacker): boolean {
           status === HackerStatus.HACKER_STATUS_CONFIRMED ||
           status === HackerStatus.HACKER_STATUS_CHECKED_IN)
     : false;
+}
+
+export function canAccessHackerPass(hacker?: IHacker): boolean {
+  const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
+
+  return (
+    status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+    status === HackerStatus.HACKER_STATUS_CANCELLED ||
+    status === HackerStatus.HACKER_STATUS_CHECKED_IN
+  );
+}
+
+/**
+ * Generate a QR code for a given hacker.
+ * @param hacker The hacker you wanna generate the code for
+ * @returns an svg string.
+ */
+export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
+  const hackerPage = `
+  ${window.location.protocol}//${window.location.hostname}${
+    window.location.port ? ':' + window.location.port : ''
+  }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
+  const response = await QRCode.toDataURL(hackerPage, { scale: 10 });
+  return response;
+}
+
+/**
+ * Generate a QR code for a given hacker.
+ * @param hacker The hacker you wanna generate the code for
+ * @returns an svg string.
+ */
+export async function generateHackPass(
+  account: IAccount,
+  hacker: IHacker
+): Promise<jsPDF> {
+  const doc = new jsPDF({
+    orientation: 'landscape',
+    unit: 'mm',
+    format: [59, 102],
+  });
+  doc.setFontSize(6);
+  doc.setFontStyle('bold');
+  doc.text(account.accountType.toUpperCase(), 1.5, 4, { maxWidth: 18 });
+
+  doc.setFontSize(7);
+  const name: string[] = doc.splitTextToSize(
+    `${account.firstName} ${account.lastName}`,
+    19
+  );
+  doc.text(1.5, 8, name);
+
+  doc.setFontStyle('normal');
+  doc.setFontSize(4);
+  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 19);
+  const school: string[] = doc.splitTextToSize(`${hacker.school}`, 19);
+  doc.text(1.5, 7.5 + name.length * 3, pronoun.concat(school));
+
+  const qrData = await generateHackerQRCode(hacker);
+  doc.addImage(qrData, 'png', 21, 3, 15, 15);
+
+  doc.autoPrint();
+  doc.save(`hackPass_${hacker.id}.pdf`);
+  return doc;
 }

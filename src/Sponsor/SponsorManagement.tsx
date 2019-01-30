@@ -51,7 +51,7 @@ class ManageSponsorContainer extends React.Component<
         tier: 0,
         accountId: '',
         company: '',
-        contractURL: '',
+        contractURL: 'https://default_url.com',
         nominees: [],
       },
     };
@@ -93,8 +93,6 @@ class ManageSponsorContainer extends React.Component<
           enableReinitialize={true}
           initialValues={{
             company: sponsorDetails.company,
-            contractURL: sponsorDetails.contractURL,
-            nominees: sponsorDetails.nominees,
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
@@ -132,15 +130,6 @@ class ManageSponsorContainer extends React.Component<
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="company" />
-
-        <FastField
-          name={'contractURL'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.SPONSOR_CONTRACT_URL_LABEL}
-          required={true}
-        />
-        <ErrorMessage component={FormikElements.Error} name="contractURL" />
 
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
@@ -190,7 +179,8 @@ class ManageSponsorContainer extends React.Component<
       values,
       this.state.sponsorDetails.id,
       account.id,
-      sponsorTier
+      sponsorTier,
+      this.state.sponsorDetails.contractURL
     );
 
     switch (this.state.mode) {
@@ -207,14 +197,15 @@ class ManageSponsorContainer extends React.Component<
     values: FormikValues,
     sponsorId: string,
     accountId: string,
-    sponsorTier: number
+    sponsorTier: number,
+    contractURL: string
   ): ISponsor {
     return {
       id: sponsorId,
       accountId: accountId,
       tier: sponsorTier,
       company: values.company,
-      contractURL: values.contractURL,
+      contractURL: contractURL,
       nominees: values.nominees,
     };
   }

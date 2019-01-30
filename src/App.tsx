@@ -23,7 +23,9 @@ import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import EditApplicationContainer from './Application/ApplicationEdition';
+import CheckinContainer from './Checkin/Main';
 // import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
+import HackPassContainer from './HackPass/Main';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
@@ -34,6 +36,7 @@ import CreateSponsorContainer from './Sponsor/SponsorCreation';
 import EditSponsorContainer from './Sponsor/SponsorEdition';
 import {
   canAccessApplication,
+  canAccessHackerPass,
   canAccessTeam,
   isSponsor,
   userCanAccessHackerPage,
@@ -180,12 +183,37 @@ class App extends React.Component {
           />
           <Route
             exact={true}
+            path={FrontendRoute.SPONSOR_SEARCH_PAGE}
+            component={withNavbar(
+              withAuthRedirect(SearchContainer, {
+                requiredAuthState: true,
+                redirAfterLogin: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed && isSponsor(user),
+              })
+            )}
+          />
+          <Route
+            exact={true}
             path={FrontendRoute.VIEW_HACKER_PAGE}
             component={withNavbar(
               withAuthRedirect(SingleHackerContainer, {
                 requiredAuthState: true,
                 redirAfterLogin: true,
                 AuthVerification: userCanAccessHackerPage,
+              })
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.CHECKIN_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(CheckinContainer, {
+                requiredAuthState: true,
+                AuthVerification: (user: IAccount) =>
+                  user.confirmed &&
+                  (user.accountType === UserType.STAFF ||
+                    user.accountType === UserType.VOLUNTEER),
               })
             )}
           />
@@ -201,6 +229,24 @@ class App extends React.Component {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
                     user.confirmed && isSponsor(user),
+                }
+              )
+            )}
+          />
+          <Route
+            exact={true}
+            path={FrontendRoute.PASS_HACKER_PAGE}
+            component={withNavbar(
+              withAuthRedirect(
+                withHackerRedirect(HackPassContainer, {
+                  requiredAuthState: true,
+                  AuthVerification: canAccessHackerPass,
+                }),
+                {
+                  redirAfterLogin: true,
+                  requiredAuthState: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.HACKER,
                 }
               )
             )}
