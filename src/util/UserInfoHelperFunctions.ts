@@ -70,6 +70,10 @@ export function isAppOpen(): boolean {
   return false;
 }
 
+export function isConfirmationOpen(): boolean {
+  return false;
+}
+
 export async function getSponsorInfo(): Promise<ISponsor | null> {
   try {
     const response = await Sponsor.getSelf();

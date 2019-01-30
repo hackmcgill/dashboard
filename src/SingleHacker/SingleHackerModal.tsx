@@ -37,6 +37,10 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
   }
 
   public render() {
+    const hacker = this.props.allHackers[this.state.currentHackerIndex]
+      ? this.props.allHackers[this.state.currentHackerIndex]
+      : this.props.hacker;
+    const hackerPage = FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id);
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
@@ -58,10 +62,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
           >
             <Box>
               <Link
-                to={FrontendRoute.VIEW_HACKER_PAGE.replace(
-                  ':id',
-                  this.props.hacker.id
-                )}
+                to={hackerPage}
                 target={'_blank'}
                 style={{ color: 'white' }}
               >
