@@ -68,11 +68,9 @@ class SingleHackerView extends React.Component<
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">{`
-            ${account.firstName} 
-            ${account.lastName}
-            ${pronoun}
-          `}</H1>
+          <H1 marginLeft="0">
+            {`${account.firstName} ${account.lastName} ${pronoun}`}
+          </H1>
           <Form>
             <Flex
               width="100%"
