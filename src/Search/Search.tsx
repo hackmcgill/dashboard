@@ -63,14 +63,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   public render() {
-    const {
-      searchBar,
-      account,
-      query,
-      results,
-      loading,
-      viewSaved,
-    } = this.state;
+    const { searchBar, account, query, loading, viewSaved } = this.state;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -126,7 +119,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             <Box width={5 / 6} m={2}>
               <NomineeContext.Provider value={this.state.sponsor}>
                 <ResultsTable
-                  results={this.filter(results, searchBar)}
+                  results={this.filter()}
                   loading={loading}
                   userType={account ? account.accountType : UserType.UNKNOWN}
                   filter={searchBar}
@@ -195,7 +188,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'needsBus',
     ];
     const csvData: string[] = [headers.join('\t')];
-    this.filter(this.state.results, this.state.searchBar).forEach((result) => {
+    this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
@@ -264,26 +257,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
 
-  private filter(results: IResult[], search: string): IResult[] {
-    const { sponsor, viewSaved } = this.state;
+  private filter() {
+    const { sponsor, viewSaved, results, searchBar } = this.state;
 
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
+      const account = accountId as IAccount;
+
+      const fullName = `${account.firstName} ${account.lastName}`;
       const foundAcct =
-        typeof accountId !== 'string'
-          ? `${accountId.firstName} ${accountId.lastName}`.includes(search) ||
-            accountId.email.includes(search) ||
-            String(accountId.phoneNumber).includes(search) ||
-            accountId.shirtSize.includes(search) ||
-            (accountId._id && accountId._id.includes(search))
-          : false;
+        fullName.includes(searchBar) ||
+        account.email.includes(searchBar) ||
+        account.phoneNumber.toString().includes(searchBar) ||
+        account.shirtSize.includes(searchBar) ||
+        (account._id && account._id.includes(searchBar));
 
       const foundHacker =
-        hacker.id.includes(search) ||
-        hacker.major.includes(search) ||
-        hacker.school.includes(search) ||
-        hacker.status.includes(search) ||
-        String(hacker.graduationYear).includes(search);
+        hacker.id.includes(searchBar) ||
+        hacker.major.includes(searchBar) ||
+        hacker.school.includes(searchBar) ||
+        hacker.status.includes(searchBar) ||
+        hacker.graduationYear.toString().includes(searchBar);
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||
