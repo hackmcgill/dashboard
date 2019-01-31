@@ -289,8 +289,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));
 
-      console.log(isSavedBySponsorIfToggled);
-
       return (foundAcct || foundHacker) && isSavedBySponsorIfToggled;
     });
   }
