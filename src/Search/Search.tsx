@@ -3,11 +3,12 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Account, Search } from '../api';
+import { Account, Search, Sponsor } from '../api';
 import {
   IAccount,
   IHacker,
   ISearchParameter,
+  ISponsor,
   isValidSearchParameter,
   UserType,
 } from '../config';
@@ -16,24 +17,30 @@ import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
-import { getNestedAttr, getValueFromQuery } from '../util';
+import { getNestedAttr, getValueFromQuery, isSponsor } from '../util';
+
+import MyContext from './Context';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
+
+interface IResult {
+  /**
+   * For now, we aren't exposing 'selected' attribute. We set it default equal to true.
+   * This is used for batch operations for changing hacker data.
+   */
+  selected: boolean;
+  hacker: IHacker;
+}
 
 interface ISearchState {
   model: string;
   query: ISearchParameter[];
-  results: Array<{
-    /**
-     * For now, we aren't exposing 'selected' attribute. We set it default equal to true.
-     * This is used for batch operations for changing hacker data.
-     */
-    selected: boolean;
-    hacker: IHacker;
-  }>;
+  results: IResult[];
   searchBar: string;
   loading: boolean;
+  viewSaved: boolean;
   account?: IAccount;
+  sponsor?: ISponsor;
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -45,7 +52,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       results: [],
       searchBar: this.getSearchBarFromQuery(),
       loading: false,
+      viewSaved: false,
     };
+
     this.onFilterChange = this.onFilterChange.bind(this);
     this.triggerSearch = this.triggerSearch.bind(this);
     this.downloadData = this.downloadData.bind(this);
@@ -54,7 +63,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   public render() {
-    const { searchBar, account, query, results, loading } = this.state;
+    const {
+      searchBar,
+      account,
+      query,
+      results,
+      loading,
+      viewSaved,
+    } = this.state;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -86,6 +102,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   {account && account.accountType === UserType.STAFF && (
                     <Button>Update Status</Button>
                   )}
+                  {account && isSponsor(account) && (
+                    <Button onClick={this.toggleSaved}>
+                      View {viewSaved ? 'All' : 'Saved'}
+                    </Button>
+                  )}
                   <Button onClick={this.downloadData}>Export Hackers</Button>
                 </Box>
               </Flex>
@@ -103,12 +124,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               />
             </Box>
             <Box width={5 / 6} m={2}>
-              <ResultsTable
-                results={this.filter(results, searchBar)}
-                loading={loading}
-                userType={account ? account.accountType : UserType.UNKNOWN}
-                filter={searchBar}
-              />
+              <MyContext.Provider value={this.state.sponsor}>
+                <ResultsTable
+                  results={this.filter(results, searchBar)}
+                  loading={loading}
+                  userType={account ? account.accountType : UserType.UNKNOWN}
+                  filter={searchBar}
+                />
+              </MyContext.Provider>
             </Box>
           </Flex>
         </Box>
@@ -118,6 +141,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   public async componentDidMount() {
     const account = (await Account.getSelf()).data.data;
     this.setState({ account });
+
+    if (isSponsor(account)) {
+      const sponsor = (await Sponsor.getSelf()).data.data;
+      this.setState({ sponsor });
+    }
 
     if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
       this.triggerSearch();
@@ -236,16 +264,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     );
   }
 
-  private filter(
-    results: Array<{
-      selected: boolean;
-      hacker: IHacker;
-    }>,
-    search: string
-  ): Array<{
-    selected: boolean;
-    hacker: IHacker;
-  }> {
+  private filter(results: IResult[], search: string): IResult[] {
+    const { sponsor, viewSaved } = this.state;
+
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
       const foundAcct =
@@ -257,16 +278,29 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             (accountId._id && accountId._id.includes(search))
           : false;
 
-      return (
-        foundAcct ||
+      const foundHacker =
         hacker.id.includes(search) ||
         hacker.major.includes(search) ||
         hacker.school.includes(search) ||
         hacker.status.includes(search) ||
-        String(hacker.graduationYear).includes(search)
-      );
+        String(hacker.graduationYear).includes(search);
+
+      const isSavedBySponsorIfToggled =
+        !viewSaved ||
+        (sponsor && sponsor.nominees.some((n) => n === hacker.id));
+
+      console.log(isSavedBySponsorIfToggled);
+
+      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled;
     });
   }
+
+  private toggleSaved = () => {
+    const { sponsor, viewSaved } = this.state;
+    if (sponsor) {
+      this.setState({ viewSaved: !viewSaved });
+    }
+  };
 }
 
 export default WithToasterContainer(SearchContainer);
