@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sponsor } from '../api';
 import { Checkbox } from '../shared/Form/';
-import MyContext from './Context';
+import NomineeContext from './Context';
 
 interface IProps {
   hackerId: string;
@@ -13,7 +13,7 @@ interface IState {
 }
 
 class HackerSelect extends React.Component<IProps, IState> {
-  public static contextType = MyContext;
+  public static contextType = NomineeContext;
 
   constructor(props: IProps) {
     super(props);
