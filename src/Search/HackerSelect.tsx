@@ -8,7 +8,6 @@ interface IProps {
 }
 
 interface IState {
-  isChecked: boolean;
   isChanging: boolean;
 }
 
@@ -18,25 +17,19 @@ class HackerSelect extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      isChecked: false,
       isChanging: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
   public render() {
+    const { hackerId } = this.props;
+    const isChecked = this.context.nominees.indexOf(hackerId) > -1;
     return (
       <div>
-        <Checkbox checked={this.state.isChecked} onChange={this.handleChange} />
+        <Checkbox checked={isChecked} onChange={this.handleChange} />
       </div>
     );
-  }
-
-  public async componentDidMount() {
-    const { hackerId } = this.props;
-
-    const isChecked = this.context.nominees.indexOf(hackerId) > -1;
-    this.setState({ isChecked });
   }
 
   private async handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -59,7 +52,6 @@ class HackerSelect extends React.Component<IProps, IState> {
     this.setState({ isChanging: true });
     await Sponsor.update(this.context);
     this.setState({ isChanging: false });
-    this.setState({ isChecked });
   }
 }
 

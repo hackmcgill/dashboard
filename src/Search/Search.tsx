@@ -64,10 +64,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   public render() {
     const { searchBar, account, query, loading, viewSaved } = this.state;
+    const accountType = account ? account.accountType : UserType.STAFF;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title>Admin Search | McHacks 6</title>
+          <title> {accountType} Search | McHacks 6</title>
         </Helmet>
         <Box width={1}>
           <Flex>
