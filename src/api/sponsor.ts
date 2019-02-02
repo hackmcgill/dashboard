@@ -1,8 +1,9 @@
 import { AxiosPromise, AxiosResponse } from 'axios';
-import { APIRoute, ISponsor, CACHE_SPONSOR_KEY } from '../config';
-import API from './api';
 import { APIResponse } from '.';
+import { APIRoute, CACHE_SPONSOR_KEY, ISponsor } from '../config';
 import LocalCache from '../util/LocalCache';
+import API from './api';
+
 class SponsorAPI {
   constructor() {
     API.createEntity(APIRoute.SPONSOR);

@@ -78,7 +78,7 @@ export async function getHackerInfo(): Promise<IHacker | null> {
   }
 }
 export function isAppOpen(): boolean {
-  return false;
+  return true;
 }
 
 export function isConfirmationOpen(): boolean {
