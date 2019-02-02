@@ -60,11 +60,11 @@ class SingleHackerContainer extends React.Component<
             />
             {this.context && <hr />}
             {this.context && (
-              <Flex width={0.9}>
-                <Box alignSelf={'center'}>
+              <Flex m={'auto'}>
+                <Box>
                   <H2 marginBottom={'3px'}>Save Hacker:</H2>
                 </Box>
-                <Box alignSelf={'center'}>
+                <Box>
                   <HackerSelect hackerId={this.state.hacker.id} />
                 </Box>
               </Flex>
