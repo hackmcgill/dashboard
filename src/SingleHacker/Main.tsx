@@ -3,7 +3,9 @@ import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
 import { Account, Hacker } from '../api';
 import { IHacker, UserType } from '../config';
-import { H1 } from '../shared/Elements';
+import HackerSelect from '../Search/HackerSelect';
+import { H1, H2 } from '../shared/Elements';
+import withContext from '../shared/HOC/withContext';
 import SingleHackerView from './SingleHackerView';
 
 interface IParams {
@@ -40,17 +42,33 @@ class SingleHackerContainer extends React.Component<
     } catch (e) {
       this.setState({ isLoading: false });
     }
+    try {
+      const viewer = (await Account.getSelf()).data.data;
+      this.setState({ userType: viewer.accountType });
+      // tslint:disable-next-line:no-empty
+    } catch (e) {}
   }
 
   public render() {
     if (this.state.hacker) {
       return (
-        <Flex justify-content={'center'} m={'10px'}>
+        <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
           <Box m={'auto'}>
             <SingleHackerView
               hacker={this.state.hacker}
               userType={this.state.userType}
             />
+            {this.context && <hr />}
+            {this.context && (
+              <Flex width={0.9}>
+                <Box alignSelf={'center'}>
+                  <H2 marginBottom={'3px'}>Save Hacker:</H2>
+                </Box>
+                <Box alignSelf={'center'}>
+                  <HackerSelect hackerId={this.state.hacker.id} />
+                </Box>
+              </Flex>
+            )}
           </Box>
         </Flex>
       );
@@ -68,4 +86,4 @@ class SingleHackerContainer extends React.Component<
   }
 }
 
-export default SingleHackerContainer;
+export default withContext(SingleHackerContainer);

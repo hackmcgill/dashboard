@@ -19,7 +19,7 @@ import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery, isSponsor } from '../util';
 
-import NomineeContext from './Context';
+import withContext from '../shared/HOC/withContext';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
 
@@ -118,14 +118,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               />
             </Box>
             <Box width={5 / 6} m={2}>
-              <NomineeContext.Provider value={this.state.sponsor}>
-                <ResultsTable
-                  results={this.filter()}
-                  loading={loading}
-                  userType={account ? account.accountType : UserType.UNKNOWN}
-                  filter={searchBar}
-                />
-              </NomineeContext.Provider>
+              <ResultsTable
+                results={this.filter()}
+                loading={loading}
+                userType={account ? account.accountType : UserType.UNKNOWN}
+                filter={searchBar}
+              />
             </Box>
           </Flex>
         </Box>
@@ -300,4 +298,4 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   };
 }
 
-export default WithToasterContainer(SearchContainer);
+export default withContext(WithToasterContainer(SearchContainer));
