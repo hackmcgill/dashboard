@@ -114,6 +114,9 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           }
         );
       }
+      toast.info(`Shirt Size: ${account.shirtSize}`, {
+        autoClose: false,
+      });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
