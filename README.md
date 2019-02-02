@@ -1,5 +1,7 @@
 # HackerAPI Frontend
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/909350ee-5bb5-47c4-88e3-81c1de52db92/deploy-status)](https://app.netlify.com/sites/hackerapi-frontend/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.
