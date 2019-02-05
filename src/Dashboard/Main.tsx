@@ -1,6 +1,6 @@
+import { UserType } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 import { Redirect } from 'react-router';
-import { UserType } from '../config';
 import { H1 } from '../shared/Elements';
 import { getUserInfo } from '../util';
 import HackerDashboardContainer from './HackerDashboard';

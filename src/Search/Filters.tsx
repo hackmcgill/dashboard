@@ -1,16 +1,14 @@
+import {
+  HackerStatus,
+  ISearchParameter,
+  JobInterest,
+  StringOperations,
+} from '@hackmcgill/hackerapi-client-ts';
 import { Box, Flex } from '@rebass/grid';
 import { FastField, Formik, FormikProps, FormikValues } from 'formik';
 import * as React from 'react';
 
-import {
-  Degrees,
-  HackerStatus,
-  ISearchParameter,
-  JobInterest,
-  SchoolsLVpair,
-  Skills,
-  StringOperations,
-} from '../config';
+import { Degrees, SchoolsLVpair, Skills } from '../config';
 import { GradYears } from '../config';
 import { Button } from '../shared/Elements';
 import { Form } from '../shared/Form';

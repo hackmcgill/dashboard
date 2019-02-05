@@ -1,6 +1,7 @@
+import { ISponsor } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import { FrontendRoute, ISponsor } from '../../config';
+import { FrontendRoute } from '../../config';
 import { getSponsorInfo } from '../../util/UserInfoHelperFunctions';
 
 enum authStates {

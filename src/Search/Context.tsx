@@ -1,5 +1,5 @@
+import { ISponsor } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
-import { ISponsor } from '../config';
 
 const NomineeContext = React.createContext({} as ISponsor | undefined);
 

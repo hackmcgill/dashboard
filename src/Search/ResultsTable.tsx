@@ -1,6 +1,6 @@
+import { IHacker, UserType } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 
-import { IHacker, UserType } from '../config';
 import { StyledTable } from '../shared/Elements';
 import SingleHackerModal from '../SingleHacker/SingleHackerModal';
 import HackerSelect from './HackerSelect';

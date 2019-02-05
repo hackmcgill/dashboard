@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 
-import { APIResponse, Auth } from '../api';
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 
 import { FrontendRoute, getTokenFromQuery } from '../config';
 import { Button, H1, MaxWidthBox } from '../shared/Elements';

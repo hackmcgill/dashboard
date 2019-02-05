@@ -4,21 +4,21 @@ import Helmet from 'react-helmet';
 import { Redirect, RouteProps } from 'react-router';
 
 import {
+  Account,
+  Auth,
+  IAccount,
+  ShirtSize,
+  UserType,
+} from '@hackmcgill/hackerapi-client-ts';
+
+import {
   ErrorMessage,
   FastField,
   Formik,
   FormikProps,
   FormikValues,
 } from 'formik';
-import { Account, Auth } from '../api';
-import {
-  DietaryRestriction,
-  FrontendRoute,
-  IAccount,
-  Pronouns,
-  ShirtSize,
-  UserType,
-} from '../config';
+import { DietaryRestriction, FrontendRoute, Pronouns } from '../config';
 import * as CONSTANTS from '../config/constants';
 import { FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 import { Form, SubmitBtn } from '../shared/Form';

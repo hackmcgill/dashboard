@@ -10,9 +10,8 @@ import * as React from 'react';
 
 import { Button, FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 
-import { IHacker } from '../config';
+import { IHacker, Team } from '@hackmcgill/hackerapi-client-ts';
 
-import Team from '../api/team';
 import { Form } from '../shared/Form';
 import { Error as ErrorComponent, Input } from '../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

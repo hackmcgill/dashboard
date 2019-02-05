@@ -1,6 +1,7 @@
+import { APIResponse } from '@hackmcgill/hackerapi-client-ts';
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { APIResponse } from '../../api';
 import {
   instanceOfIValidationErrorItem,
   IValidationError,

@@ -1,7 +1,7 @@
+import { Account, Hacker } from '@hackmcgill/hackerapi-client-ts';
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { Account, Hacker } from '../api';
 import { FrontendRoute } from '../config';
 import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

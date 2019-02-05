@@ -1,8 +1,12 @@
+import {
+  Account,
+  Hacker,
+  IHacker,
+  UserType,
+} from '@hackmcgill/hackerapi-client-ts';
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
-import { Account, Hacker } from '../api';
-import { IHacker, UserType } from '../config';
 import HackerSelect from '../Search/HackerSelect';
 import { H1, H2 } from '../shared/Elements';
 import withContext from '../shared/HOC/withContext';

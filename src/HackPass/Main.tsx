@@ -1,7 +1,11 @@
 import * as React from 'react';
 
-import { Account, Hacker } from '../api';
-import { IAccount, IHacker } from '../config';
+import {
+  Account,
+  Hacker,
+  IAccount,
+  IHacker,
+} from '@hackmcgill/hackerapi-client-ts';
 import { H1, MaxWidthBox } from '../shared/Elements';
 import { SubmitBtn } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

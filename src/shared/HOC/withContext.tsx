@@ -1,6 +1,5 @@
+import { ISponsor, Sponsor } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
-import { Sponsor } from '../../api';
-import { ISponsor } from '../../config';
 import NomineeContext from '../../Search/Context';
 
 interface IState {

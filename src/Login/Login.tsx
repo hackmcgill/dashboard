@@ -22,7 +22,7 @@ import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from '../shared/HOC/withToaster';
 
-import { APIResponse, Auth } from '../api';
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 
 import { EMAIL_LABEL, FrontendRoute, PASSWORD_LABEL } from '../config';
 

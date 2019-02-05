@@ -1,5 +1,5 @@
+import { Hacker } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
-import { Hacker } from '../../api';
 import Button from './Button';
 
 interface IViewPDFProps {

@@ -1,8 +1,9 @@
+import { IHacker, UserType } from '@hackmcgill/hackerapi-client-ts';
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FrontendRoute, IHacker, UserType } from '../config';
+import { FrontendRoute } from '../config';
 import { Button, Image, StyledModal } from '../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 

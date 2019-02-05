@@ -4,9 +4,9 @@ import { Box, Flex } from '@rebass/grid';
 
 import Bold from '../shared/Elements/Bold';
 
+import { IMemberName, ITeam } from '@hackmcgill/hackerapi-client-ts';
+
 import {
-  IMemberName,
-  ITeam,
   TEAM_MAX_SIZE,
   TEAM_MEMBERS,
   TEAM_NAME,

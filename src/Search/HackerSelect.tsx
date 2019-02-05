@@ -1,5 +1,5 @@
+import { Sponsor } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
-import { Sponsor } from '../api';
 import { Checkbox } from '../shared/Form/';
 import NomineeContext from './Context';
 

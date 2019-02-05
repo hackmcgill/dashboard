@@ -20,10 +20,7 @@ import {
   Degrees,
   FrontendRoute,
   Genders,
-  HackerStatus,
   IEthnicity,
-  IHacker,
-  JobInterest,
   Majors,
   Skills,
 } from '../config';
@@ -33,7 +30,14 @@ import { FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 import { Form, SubmitBtn } from '../shared/Form/';
 import * as FormikElements from '../shared/Form/FormikElements';
 
-import { Account, APIResponse, Hacker } from '../api';
+import {
+  Account,
+  APIResponse,
+  Hacker,
+  HackerStatus,
+  IHacker,
+  JobInterest,
+} from '@hackmcgill/hackerapi-client-ts';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 

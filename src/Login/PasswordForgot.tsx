@@ -4,7 +4,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import { APIResponse, Auth } from '../api';
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 import Key from '../assets/images/key.svg';
 import { EMAIL_LABEL } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';

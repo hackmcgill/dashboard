@@ -1,14 +1,15 @@
+import { UserType } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 
-import { FrontendRoute as routes, UserType } from '../config';
+import { FrontendRoute as routes } from '../config';
 
 import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
+import SearchIcon from '../assets/images/dashboard-search.svg';
 import SponsorIcon from '../assets/images/dashboard-sponsor.svg';
 import { getSponsorInfo } from '../util/UserInfoHelperFunctions';
-import SearchIcon from '../assets/images/dashboard-search.svg';
 
 interface ISponsorDashboardProps {
   userType: UserType;

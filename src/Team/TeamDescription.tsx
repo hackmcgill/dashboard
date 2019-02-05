@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Box, Flex } from '@rebass/grid';
 
-import { IMemberName, ITeam } from '../config';
+import { IMemberName, ITeam } from '@hackmcgill/hackerapi-client-ts';
 import { Button, H1, MaxWidthBox } from '../shared/Elements';
 
 import { TeamView } from './TeamView';

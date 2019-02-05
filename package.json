@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hackmcgill/hackerapi-client-ts": "^1.0.2",
     "@rebass/grid": "^6.0.0-7",
     "ajv": "^6.7.0",
     "axios": "^0.18.0",

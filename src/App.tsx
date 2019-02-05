@@ -1,5 +1,13 @@
+import {
+  api as API,
+  // IHacker,
+  // HackerStatus,
+  IAccount,
+  UserType,
+} from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import CreateAccount from './Account/AccountCreation';
 import resetPassword from './Login/PasswordReset';
 
@@ -11,13 +19,7 @@ import Dashboard from './Dashboard/Main';
 import LoginContainer from './Login/Login';
 import TeamContainer from './Team/Main';
 
-import {
-  FrontendRoute,
-  // HackerStatus,
-  IAccount,
-  // IHacker,
-  UserType,
-} from './config';
+import { FrontendRoute, LOCAL_API_URL, PROD_API_URL } from './config';
 import ForgotPasswordContainer from './Login/PasswordForgot';
 import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
@@ -43,6 +45,20 @@ import {
 } from './util';
 
 class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+    let API_URL;
+    if (
+      location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1' ||
+      location.hostname === ''
+    ) {
+      API_URL = LOCAL_API_URL;
+    } else {
+      API_URL = PROD_API_URL;
+    }
+    API.setURL(API_URL);
+  }
   public render() {
     return (
       <BrowserRouter>

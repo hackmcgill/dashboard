@@ -1,7 +1,7 @@
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { APIResponse, Auth } from '../api';
 import { FrontendRoute, IValidationError } from '../config';
 import Button from '../shared/Elements/Button';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

@@ -1,9 +1,9 @@
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { APIResponse, Auth } from '../api';
 import constructionSVG from '../assets/images/construction.svg';
 import { EMAIL_SENT, RESEND_CONF_EMAIL } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';

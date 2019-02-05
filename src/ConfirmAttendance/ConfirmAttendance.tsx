@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { Redirect } from 'react-router';
 import { boolean, object } from 'yup';
 
-import { Hacker } from '../api';
+import { Hacker } from '@hackmcgill/hackerapi-client-ts';
 import { FrontendRoute } from '../config';
 import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { Form } from '../shared/Form';

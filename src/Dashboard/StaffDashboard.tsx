@@ -10,7 +10,7 @@ import {
   RESEND_CONF_EMAIL,
 } from '../config';
 
-import { APIResponse, Auth } from '../api';
+import { APIResponse, Auth } from '@hackmcgill/hackerapi-client-ts';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { isConfirmed } from '../util/UserInfoHelperFunctions';

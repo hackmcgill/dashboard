@@ -1,17 +1,17 @@
-import { Account, Hacker, Sponsor } from '../api';
-
 import {
-  FrontendRoute,
+  Account,
+  Hacker,
   HackerStatus,
   IAccount,
   IHacker,
   ISponsor,
+  Sponsor,
   UserType,
-} from '../config';
-
+} from '@hackmcgill/hackerapi-client-ts';
+import jsPDF from 'jspdf';
 import * as QRCode from 'qrcode';
 
-import jsPDF from 'jspdf';
+import { FrontendRoute } from '../config';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;

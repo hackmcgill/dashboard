@@ -1,11 +1,15 @@
+import {
+  Hacker,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  UserType,
+} from '@hackmcgill/hackerapi-client-ts';
+import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
-
-import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
-import { Hacker } from '../api';
-import { HackerStatus, IAccount, IHacker, UserType } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../shared/Form';

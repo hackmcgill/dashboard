@@ -1,17 +1,18 @@
-import { Box, Flex } from '@rebass/grid';
-import fileDownload from 'js-file-download';
-import * as React from 'react';
-import Helmet from 'react-helmet';
-
-import { Account, Search, Sponsor } from '../api';
 import {
+  Account,
   IAccount,
   IHacker,
   ISearchParameter,
   ISponsor,
   isValidSearchParameter,
+  Search,
+  Sponsor,
   UserType,
-} from '../config';
+} from '@hackmcgill/hackerapi-client-ts';
+import { Box, Flex } from '@rebass/grid';
+import fileDownload from 'js-file-download';
+import * as React from 'react';
+import Helmet from 'react-helmet';
 import { Button, H1 } from '../shared/Elements';
 import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

@@ -1,11 +1,15 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Hacker } from '../api';
-import Team from '../api/team';
-import { IHacker, IMemberName, ITeam } from '../config';
+import {
+  Hacker,
+  IHacker,
+  IMemberName,
+  ITeam,
+  ITeamResponse,
+  Team,
+} from '@hackmcgill/hackerapi-client-ts';
 
-import { ITeamResponse } from '../config/teamGETResponse';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
 import { JoinCreateTeam } from './JoinCreateTeam';

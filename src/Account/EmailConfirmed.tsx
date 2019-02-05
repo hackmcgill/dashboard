@@ -3,7 +3,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import { Auth } from '../api';
+import { Auth } from '@hackmcgill/hackerapi-client-ts';
 import constructionCone from '../assets/images/construction-cone.svg';
 import { getTokenFromQuery } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';

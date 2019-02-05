@@ -1,7 +1,8 @@
+import { IAccount } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { FrontendRoute, IAccount } from '../../config';
+import { FrontendRoute } from '../../config';
 import { getUserInfo } from '../../util/UserInfoHelperFunctions';
 
 enum authStates {

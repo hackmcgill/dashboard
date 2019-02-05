@@ -1,6 +1,6 @@
+import { IAccount, IHacker } from '@hackmcgill/hackerapi-client-ts';
 import * as React from 'react';
 
-import { IAccount, IHacker } from '../config';
 import { H2, Image, MaxWidthBox } from '../shared/Elements';
 import theme from '../shared/Styles/theme';
 
