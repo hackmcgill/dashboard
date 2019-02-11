@@ -1,9 +1,29 @@
+// API information
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
+// Static site link
+export const STATIC_PAGE = 'https://mchacks.ca/';
+export const WAIVER_PAGE = 'https://mchacks.ca/waiver';
+export const CODE_OF_CONDUCT_PAGE = 'https://mchacks.ca/code-of-conduct';
+
+// external link for bus management
 export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
 
-//
+// General hackathon information for rich previews and such
+export const HACKATHON_NAME = 'McHacks 6';
+export const HACKATHON_DESCRIPTION = `Create, build, and play with us at ${HACKATHON_NAME}, Canada's favourite hackathon, hosted at McGill University.`;
+export const RICH_PREVIEW_IMAGE = 'https://mchacks.ca/static/mchacks-og.png';
+
+export const HACKATHON_DATE = 'February 2-3, 2019';
+export const HACKATHON_LOCATION =
+  'Theatre St. James in the Old Port of Montreal';
+export const CONFIRMATION_DEADLINE = 'Friday, January 25, 2019';
+
+// Social Media
+export const TWITTER_HANDLE = '@mcgillhacks';
+
+// Cache information
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
@@ -32,7 +52,7 @@ export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE =
   'We will be sending busses to Toronto, Waterloo, London, Ottawa, Kingston, and Boston.';
 export const COC_ACCEPTANCE_PHRASE = 'I accept the';
-export const COC_MCHACKS_REQUEST_LABEL = 'McHacks Code of Conduct';
+export const COC_ORGANIZER_REQUEST_LABEL = `${HACKATHON_NAME} Code of Conduct`;
 export const COC_MLH_REQUEST_LABEL = 'MLH terms, conditions and guidelines.';
 export const COMMENTS_REQUEST_LABEL =
   'Anything else you would like us to know?';
@@ -80,6 +100,6 @@ export const TEAM_MEMBERS = 'Team members:';
 export const TEAM_MAX_SIZE = 'Max 4 Hackers';
 
 // Sponsor creation
-export const SPONSOR_COMPANY_LABEL = "Company name";
-export const SPONSOR_CONTRACT_URL_LABEL = "Contract URL";
-export const SPONSOR_NOMINEE_LABEL = "Nominees";
+export const SPONSOR_COMPANY_LABEL = 'Company name';
+export const SPONSOR_CONTRACT_URL_LABEL = 'Contract URL';
+export const SPONSOR_NOMINEE_LABEL = 'Nominees';

@@ -6,7 +6,14 @@ import { Redirect } from 'react-router';
 import { boolean, object } from 'yup';
 
 import { Hacker } from '../api';
-import { FrontendRoute } from '../config';
+import {
+  CONFIRMATION_DEADLINE,
+  FrontendRoute,
+  HACKATHON_DATE,
+  HACKATHON_LOCATION,
+  HACKATHON_NAME,
+  WAIVER_PAGE,
+} from '../config';
 import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { Form } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
@@ -44,16 +51,16 @@ class ConfirmAttendanceContainer extends React.Component<
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Confirm presence | McHacks 6</title>
+          <title>Confirm presence | {HACKATHON_NAME}</title>
         </Helmet>
         <MaxWidthBox width={1}>
           <H1 textAlign={'center'}>Confirm your Attendance</H1>
           <Paragraph fontSize={'16px'}>
-            We are excited to offer you a spot at McHacks 6, taking place on
-            February 2-3, 2019 at Theatre St. James in the Old Port of Montreal.
+            We are excited to offer you a spot at {HACKATHON_NAME}, taking place
+            on {HACKATHON_DATE} at {HACKATHON_LOCATION}.
           </Paragraph>
           <Paragraph fontSize={'16px'}>
-            Please confirm your attendance before Friday, January 25, 2019.
+            Please confirm your attendance before {CONFIRMATION_DEADLINE}.
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
@@ -88,8 +95,8 @@ class ConfirmAttendanceContainer extends React.Component<
           label={
             <span>
               I accept the terms of the{' '}
-              <a href="https://mchacks.ca/waiver" target="_blank">
-                McHacks Liability and Photo Release Agreement
+              <a href={WAIVER_PAGE} target="_blank">
+                {HACKATHON_NAME} Liability and Photo Release Agreement
               </a>
             </span>
           }

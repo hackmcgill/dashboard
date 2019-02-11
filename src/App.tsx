@@ -13,18 +13,20 @@ import TeamContainer from './Team/Main';
 
 import {
   FrontendRoute,
-  // HackerStatus,
+  HackerStatus,
   IAccount,
-  // IHacker,
+  IHacker,
   UserType,
 } from './config';
 import ForgotPasswordContainer from './Login/PasswordForgot';
 import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
+import Helmet from 'react-helmet';
 import EditApplicationContainer from './Application/ApplicationEdition';
 import CheckinContainer from './Checkin/Main';
-// import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
+import * as CONSTANTS from './config/constants';
+import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
 import HackPassContainer from './HackPass/Main';
 import SearchContainer from './Search/Search';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
@@ -46,6 +48,29 @@ class App extends React.Component {
   public render() {
     return (
       <BrowserRouter>
+        <Helmet>
+          <title>{CONSTANTS.HACKATHON_NAME}</title>
+          <meta property="og:title" content={CONSTANTS.HACKATHON_NAME} />
+          <meta property="og:url" content={CONSTANTS.STATIC_PAGE} />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content={CONSTANTS.HACKATHON_NAME} />
+          <meta
+            property="og:description"
+            content={CONSTANTS.HACKATHON_DESCRIPTION}
+          />
+          <meta property="og:image" content={CONSTANTS.RICH_PREVIEW_IMAGE} />
+
+          <meta name="twitter:card" content=" " />
+          <meta name="twitter:title" content={CONSTANTS.HACKATHON_NAME} />
+          <meta
+            name="twitter:description"
+            content={CONSTANTS.HACKATHON_DESCRIPTION}
+          />
+          <meta name="twitter:creator" content={CONSTANTS.TWITTER_HANDLE} />
+          <meta name="twitter:image" content={CONSTANTS.RICH_PREVIEW_IMAGE} />
+          <meta name="twitter:domain" content={CONSTANTS.HACKATHON_NAME} />
+          <meta name="twitter:site" content={CONSTANTS.TWITTER_HANDLE} />
+        </Helmet>
         <Switch>
           <Route
             exact={true}
@@ -150,7 +175,7 @@ class App extends React.Component {
               })
             )}
           />
-          {/* <Route
+          <Route
             exact={true}
             path={FrontendRoute.CONFIRM_HACKER_PAGE}
             component={withNavbar(
@@ -168,7 +193,7 @@ class App extends React.Component {
                 }
               )
             )}
-          /> */}
+          />
           <Route
             exact={true}
             path={FrontendRoute.ADMIN_SEARCH_PAGE}

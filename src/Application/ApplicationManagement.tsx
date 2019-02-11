@@ -123,12 +123,11 @@ class ManageApplicationContainer extends React.Component<
         <Helmet>
           <title>
             {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-            Application | McHacks 6
+            Application | {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
-            color={'#F2463A'}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
@@ -151,7 +150,7 @@ class ManageApplicationContainer extends React.Component<
             ethnicity: hackerDetails.ethnicity,
             needsBus: hackerDetails.needsBus,
             application: hackerDetails.application,
-            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
+            codeOfConduct_ORGANIZERS: hackerDetails.codeOfConduct,
             codeOfConduct_MLH: hackerDetails.codeOfConduct,
             resumeFile: undefined,
           }}
@@ -359,22 +358,22 @@ class ManageApplicationContainer extends React.Component<
           name="application.comments"
         />
         <FastField
-          name={'codeOfConduct_MCHACKS'}
+          name={'codeOfConduct_ORGANIZERS'}
           component={FormikElements.Checkbox}
           label={
             <span>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
-                {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
+              <a href={CONSTANTS.CODE_OF_CONDUCT_PAGE} target="_blank">
+                {CONSTANTS.COC_ORGANIZER_REQUEST_LABEL}
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct_MCHACKS}
+          value={fp.values.codeOfConduct_ORGANIZERS}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="codeOfConduct_MCHACKS"
+          name="codeOfConduct_ORGANIZERS"
         />
         <FastField
           name={'codeOfConduct_MLH'}
@@ -542,7 +541,8 @@ class ManageApplicationContainer extends React.Component<
       ethnicity: values.ethnicity,
       major: values.major,
       graduationYear: values.graduationYear,
-      codeOfConduct: values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS,
+      codeOfConduct:
+        values.codeOfConduct_MLH && values.codeOfConduct_ORGANIZERS,
     };
   }
 }

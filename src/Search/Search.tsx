@@ -11,6 +11,7 @@ import {
   ISponsor,
   isValidSearchParameter,
   UserType,
+  HACKATHON_NAME,
 } from '../config';
 import { Button, H1 } from '../shared/Elements';
 import { Input } from '../shared/Form';
@@ -68,7 +69,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title> {accountType} Search | McHacks 6</title>
+          <title>
+            {accountType} Search | {HACKATHON_NAME}
+          </title>
         </Helmet>
         <Box width={1}>
           <Flex>

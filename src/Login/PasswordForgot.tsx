@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../api';
 import Key from '../assets/images/key.svg';
-import { EMAIL_LABEL } from '../config';
+import { EMAIL_LABEL, HACKATHON_NAME } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { EmailInput, Form } from '../shared/Form/';
 import validationErrorGenerator from '../shared/Form/validationErrorGenerator';
@@ -47,7 +47,7 @@ class ForgotPasswordContainer extends React.Component<
           px={2}
         >
           <Helmet>
-            <title>Forgot your password? | McHacks 6</title>
+            <title>Forgot your password? | {HACKATHON_NAME}</title>
           </Helmet>
           <Box>
             <Image src={Key} imgHeight={'4rem'} padding={'0rem'} />

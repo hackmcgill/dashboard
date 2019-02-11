@@ -136,12 +136,11 @@ class ManageAccountContainer extends React.Component<
         <Helmet>
           <title>
             {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |
-            McHacks 6
+            {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
-            color={'#F2463A'}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}

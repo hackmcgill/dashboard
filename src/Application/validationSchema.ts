@@ -1,4 +1,5 @@
 import { array, boolean, mixed, number, object, string } from 'yup';
+import { HACKATHON_NAME } from '../config';
 
 const getValidationSchema = (isCreate: boolean) => {
   const resumeSchema = isCreate
@@ -51,9 +52,13 @@ const getValidationSchema = (isCreate: boolean) => {
     codeOfConduct_MLH: boolean()
       .required('Required')
       .test('true', 'You must accept the MLH policies', (value) => value),
-    codeOfConduct_MCHACKS: boolean()
+    codeOfConduct_ORGANIZERS: boolean()
       .required('Required')
-      .test('true', 'You must accept the McHacks policies', (value) => value),
+      .test(
+        'true',
+        `You must accept the ${HACKATHON_NAME} policies`,
+        (value) => value
+      ),
   });
 };
 

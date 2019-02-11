@@ -38,7 +38,7 @@ const DashboardView: React.SFC<IDashboardView> = ({
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
       <Helmet>
-        <title>Dashboard | McHacks 6</title>
+        <title>Dashboard | {HACKATHON_NAME}</title>
       </Helmet>
       <H1 marginLeft={'0px'} textAlign={'center'}>
         {title}

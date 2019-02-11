@@ -9,6 +9,7 @@ import H1 from '../shared/Elements/H1';
 import Image from '../shared/Elements/Image';
 import MaxWidthBox from '../shared/Elements/MaxWidthBox';
 import Paragraph from '../shared/Elements/Paragraph';
+import { HACKATHON_NAME } from '../config';
 
 /**
  * Container that renders 404 not found page.
@@ -27,7 +28,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps> {
         px={3}
       >
         <Helmet>
-          <title>Page not found! | McHacks 6</title>
+          <title>Page not found! | {HACKATHON_NAME}</title>
         </Helmet>
         <Box>
           <Image src={Construction} imgHeight={'7rem'} padding={'0rem'} />

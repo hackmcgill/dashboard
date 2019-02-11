@@ -72,12 +72,11 @@ class ManageSponsorContainer extends React.Component<
         <Helmet>
           <title>
             {mode === ManageSponsorModes.CREATE ? 'Create' : 'Edit'}
-            Sponsor Profile | McHacks 6
+            Sponsor Profile | {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
-            color={'#F2463A'}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
