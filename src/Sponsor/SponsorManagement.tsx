@@ -2,7 +2,7 @@ import { ISponsor, FrontendRoute, UserType } from '../config';
 import { RouteProps, Redirect } from 'react-router';
 import React from 'react';
 import { H1, MaxWidthBox, FormDescription } from '../shared/Elements';
-import WithToasterContainer from '../shared/HOC/withToaster';
+
 import {
   FormikProps,
   Formik,
@@ -211,4 +211,4 @@ class ManageSponsorContainer extends React.Component<
   }
 }
 
-export default WithToasterContainer(ManageSponsorContainer);
+export default ManageSponsorContainer;

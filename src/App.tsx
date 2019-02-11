@@ -31,6 +31,7 @@ import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 import withThemeProvider from './shared/HOC/withThemeProvider';
+import withToaster from './shared/HOC/withToaster';
 import SingleHackerContainer from './SingleHacker/Main';
 import CreateSponsorContainer from './Sponsor/SponsorCreation';
 import EditSponsorContainer from './Sponsor/SponsorEdition';
@@ -274,4 +275,4 @@ class App extends React.Component {
   }
 }
 
-export default withThemeProvider(App);
+export default withThemeProvider(withToaster(App));
