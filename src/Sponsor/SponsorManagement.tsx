@@ -1,22 +1,24 @@
-import { ISponsor, FrontendRoute, UserType } from '../config';
-import { RouteProps, Redirect } from 'react-router';
-import React from 'react';
-import { H1, MaxWidthBox, FormDescription } from '../shared/Elements';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import {
-  FormikProps,
-  Formik,
-  FormikValues,
-  FastField,
   ErrorMessage,
+  FastField,
+  Formik,
+  FormikProps,
+  FormikValues,
 } from 'formik';
-import { Sponsor, Account } from '../api';
+import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import { Redirect, RouteProps } from 'react-router';
+
+import { Account, Sponsor } from '../api';
+import { FrontendRoute, ISponsor, UserType } from '../config';
 import * as CONSTANTS from '../config/constants';
-import getValidationSchema from './validationSchema';
-import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import { FormDescription, H1, MaxWidthBox } from '../shared/Elements';
 import { Form, SubmitBtn } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
+import getValidationSchema from './validationSchema';
+
+import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
+import WithToasterContainer from '../shared/HOC/withToaster';
 
 export enum ManageSponsorModes {
   CREATE,
@@ -201,10 +203,10 @@ class ManageSponsorContainer extends React.Component<
   ): ISponsor {
     return {
       id: sponsorId,
-      accountId: accountId,
+      accountId,
       tier: sponsorTier,
       company: values.company,
-      contractURL: contractURL,
+      contractURL,
       nominees: values.nominees,
     };
   }

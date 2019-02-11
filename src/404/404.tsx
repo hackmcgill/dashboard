@@ -4,12 +4,12 @@ import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Construction from '../assets/images/construction-notfound.svg';
+import { HACKATHON_NAME } from '../config';
 import Button from '../shared/Elements/Button';
 import H1 from '../shared/Elements/H1';
 import Image from '../shared/Elements/Image';
 import MaxWidthBox from '../shared/Elements/MaxWidthBox';
 import Paragraph from '../shared/Elements/Paragraph';
-import { HACKATHON_NAME } from '../config';
 
 /**
  * Container that renders 404 not found page.

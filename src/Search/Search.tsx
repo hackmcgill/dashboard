@@ -5,13 +5,13 @@ import Helmet from 'react-helmet';
 
 import { Account, Search, Sponsor } from '../api';
 import {
+  HACKATHON_NAME,
   IAccount,
   IHacker,
   ISearchParameter,
   ISponsor,
   isValidSearchParameter,
   UserType,
-  HACKATHON_NAME,
 } from '../config';
 import { Button, H1 } from '../shared/Elements';
 import { Input } from '../shared/Form';

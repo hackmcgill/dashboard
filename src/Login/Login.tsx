@@ -27,8 +27,8 @@ import { APIResponse, Auth } from '../api';
 import {
   EMAIL_LABEL,
   FrontendRoute,
-  PASSWORD_LABEL,
   HACKATHON_NAME,
+  PASSWORD_LABEL,
 } from '../config';
 
 export interface ILoginState {

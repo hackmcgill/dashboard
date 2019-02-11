@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 import { Hacker } from '../api';
 import Team from '../api/team';
-import { IHacker, IMemberName, ITeam, HACKATHON_NAME } from '../config';
+import { HACKATHON_NAME, IHacker, IMemberName, ITeam } from '../config';
 
 import { ITeamResponse } from '../config/teamGETResponse';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';

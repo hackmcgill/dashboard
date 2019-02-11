@@ -6,13 +6,13 @@ import { toast } from 'react-toastify';
 
 import { Hacker } from '../api';
 import {
+  COMMENTS_REQUEST_LABEL,
+  ESSAY_REQUEST_LABEL,
+  HACKATHON_NAME,
   HackerStatus,
   IAccount,
   IHacker,
   UserType,
-  HACKATHON_NAME,
-  ESSAY_REQUEST_LABEL,
-  COMMENTS_REQUEST_LABEL,
 } from '../config';
 import { Button, H1, H2, MaxWidthBox } from '../shared/Elements';
 import ViewPDFComponent from '../shared/Elements/ViewPDF';

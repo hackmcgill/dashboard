@@ -13,6 +13,7 @@ import {
 } from '../shared/Elements';
 
 import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
+import { HACKATHON_NAME } from '../config';
 import theme from '../shared/Styles/theme';
 
 interface IDashboardView {

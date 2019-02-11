@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../api';
 import constructionSVG from '../assets/images/construction.svg';
-import { EMAIL_SENT, RESEND_CONF_EMAIL, HACKATHON_NAME } from '../config';
+import { EMAIL_SENT, HACKATHON_NAME, RESEND_CONF_EMAIL } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../shared/HOC/withToaster';
