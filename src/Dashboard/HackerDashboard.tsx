@@ -101,12 +101,10 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     const { hasAppAccess, hasPassAccess, hasTeamAccess, needsBus } = this.state;
     let applicationRoute;
 
-    if (status === HackerStatus.HACKER_STATUS_APPLIED) {
-      applicationRoute = routes.EDIT_APPLICATION_PAGE;
-    } else if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
+    if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
       applicationRoute = routes.CREATE_APPLICATION_PAGE;
     } else {
-      applicationRoute = routes.HOME_PAGE;
+      applicationRoute = routes.EDIT_APPLICATION_PAGE;
     }
 
     const cards: IDashboardCard[] = [
