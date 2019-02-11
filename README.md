@@ -22,3 +22,30 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ![Imgur](https://i.imgur.com/SuCcHuU.png)
 
+### Team Viewing
+
+![Imgur](https://imgur.com/Zzbnd3o.png)
+
+### HackPass QR code for check-in
+
+![Imgur](https://imgur.com/pCFlgJc.png)
+
+### Staff Dashboard
+
+![Imgur](https://imgur.com/MoZykrc.png)
+
+### Search with filters, fuzzy search
+
+![Imgur](https://imgur.com/GGoUXQm.png)
+
+### Single hacker view modal
+
+![Imgur](https://imgur.com/DrqP79P.png)
+
+### Single hacker view page
+
+![Imgur](https://imgur.com/ZyAebHZ.png)
+
+### Check-in via QR code or email
+
+![Imgur](https://imgur.com/6NSChzs.png)
