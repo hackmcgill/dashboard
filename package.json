@@ -70,7 +70,7 @@
     "barrelsby": "^1.0.2",
     "file-loader": "^3.0.1",
     "react-cosmos": "^4.7.0",
-    "tslint": "^5.12.1",
+    "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-config-standard": "^8.0.1",
     "tslint-plugin-prettier": "^2.0.1",
