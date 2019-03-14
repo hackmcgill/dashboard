@@ -7,7 +7,6 @@ import { IHacker, IMemberName, ITeam } from '../config';
 
 import { ITeamResponse } from '../config/teamGETResponse';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import { JoinCreateTeam } from './JoinCreateTeam';
 import { TeamDescription } from './TeamDescription';
 
@@ -110,4 +109,4 @@ class TeamContainer extends React.Component<{}, ITeamState> {
   }
 }
 
-export default WithToasterContainer(TeamContainer);
+export default TeamContainer;

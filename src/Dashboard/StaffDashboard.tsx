@@ -12,7 +12,6 @@ import {
 
 import { APIResponse, Auth } from '../api';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import { isConfirmed } from '../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
@@ -108,4 +107,4 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
       });
   };
 }
-export default WithToasterContainer(AdminDashboardContainer);
+export default AdminDashboardContainer;

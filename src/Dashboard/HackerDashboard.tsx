@@ -15,7 +15,6 @@ import {
 
 import { APIResponse, Auth, Hacker } from '../api';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
   canAccessBus,
@@ -209,4 +208,4 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
   };
 }
-export default WithToasterContainer(HackerDashboardContainer);
+export default HackerDashboardContainer;

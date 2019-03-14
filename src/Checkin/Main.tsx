@@ -5,7 +5,6 @@ import { Account, Hacker } from '../api';
 import { FrontendRoute } from '../config';
 import { H1, MaxWidthBox } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 import { generateHackPass } from '../util';
 import { Email } from './Email';
@@ -171,4 +170,4 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
   }
 }
 
-export default WithToasterContainer(CheckinContainer);
+export default CheckinContainer;

@@ -25,7 +25,6 @@ import { Form, SubmitBtn } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
 
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   date2input,
   getNestedAttr,
@@ -372,4 +371,4 @@ class ManageAccountContainer extends React.Component<
   }
 }
 
-export default WithToasterContainer(ManageAccountContainer);
+export default ManageAccountContainer;
