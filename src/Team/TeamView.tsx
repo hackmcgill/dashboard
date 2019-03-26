@@ -15,7 +15,6 @@ import {
 
 import { toast } from 'react-toastify';
 import ClipboardComponent from '../shared/Elements/Clipboard';
-import WithToasterContainer from '../shared/HOC/withToaster';
 
 interface ITeamViewProps {
   team: ITeam;
@@ -66,4 +65,4 @@ function onCopyFailed(e: any) {
   toast.error('Error.');
 }
 
-export const TeamView = WithToasterContainer(TV);
+export const TeamView = TV;

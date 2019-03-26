@@ -11,7 +11,6 @@ import { Button, H1, H2, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { Form } from '../shared/Form';
 import * as FormikElements from '../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 
 interface IConfirmAttendanceState {
@@ -149,4 +148,4 @@ class ConfirmAttendanceContainer extends React.Component<
   }
 }
 
-export default WithToasterContainer(ConfirmAttendanceContainer);
+export default ConfirmAttendanceContainer;

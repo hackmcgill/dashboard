@@ -16,7 +16,6 @@ import Helmet from 'react-helmet';
 import { Button, H1 } from '../shared/Elements';
 import { Input } from '../shared/Form';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import theme from '../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery, isSponsor } from '../util';
 
@@ -299,4 +298,4 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   };
 }
 
-export default withContext(WithToasterContainer(SearchContainer));
+export default withContext(SearchContainer);

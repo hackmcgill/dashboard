@@ -12,8 +12,6 @@ import { FrontendRoute, getTokenFromQuery } from '../config';
 import { Button, H1, MaxWidthBox } from '../shared/Elements';
 import { Form, PasswordInput } from '../shared/Form';
 
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 export interface IResetPasswordContainerState {
   isValid: boolean;
   isSubmitted: boolean;
@@ -132,6 +130,4 @@ class ResetPasswordContainer extends React.Component<
   }
 }
 
-export default withRouter<RouteComponentProps>(
-  WithToasterContainer(ResetPasswordContainer)
-);
+export default withRouter<RouteComponentProps>(ResetPasswordContainer);

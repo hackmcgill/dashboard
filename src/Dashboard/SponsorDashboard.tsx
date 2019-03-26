@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import { FrontendRoute as routes } from '../config';
 
-import WithToasterContainer from '../shared/HOC/withToaster';
 import DashboardView, { IDashboardCard } from './View';
 
 import AccountIcon from '../assets/images/dashboard-account.svg';
@@ -69,4 +68,4 @@ class SponsorDashboard extends React.Component<
     return cards;
   }
 }
-export default WithToasterContainer(SponsorDashboard);
+export default SponsorDashboard;
