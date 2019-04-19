@@ -6,7 +6,7 @@ import { FrontendRoute, IHacker, UserType } from '../../config';
 import { Button, Image, StyledModal } from '../../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
-import Arrow from '../assets/images/backarrow.svg';
+import Arrow from '../../assets/images/backarrow.svg';
 
 interface IModalProps {
   hacker: IHacker;

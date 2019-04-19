@@ -3,7 +3,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import resetLogo from '../assets/images/passwordReset.svg';
+import resetLogo from '../../assets/images/passwordReset.svg';
 
 import { FrontendRoute } from '../../config';
 import {

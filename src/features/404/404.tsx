@@ -3,7 +3,8 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Construction from '../assets/images/construction-notfound.svg';
+
+import Construction from '../../assets/images/construction-notfound.svg';
 
 import Button from '../../shared/Elements/Button';
 import H1 from '../../shared/Elements/H1';

@@ -16,9 +16,9 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
-import AccountIcon from '../assets/images/dashboard-account.svg';
-import CheckinIcon from '../assets/images/dashboard-checkin.svg';
-import SearchIcon from '../assets/images/dashboard-search.svg';
+import AccountIcon from '../../assets/images/dashboard-account.svg';
+import CheckinIcon from '../../assets/images/dashboard-checkin.svg';
+import SearchIcon from '../../assets/images/dashboard-search.svg';
 
 export interface IDashboardState {
   confirmed: boolean;

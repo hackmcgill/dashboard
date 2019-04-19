@@ -1,7 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 
-import Martlett from '../assets/images/mchacks-martlet-tight.svg';
+import Martlett from '../../assets/images/mchacks-martlet-tight.svg';
 import { FrontendRoute } from '../../config/frontendRoutes';
 import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';

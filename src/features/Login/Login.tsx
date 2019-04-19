@@ -18,7 +18,7 @@ import {
 } from '../../shared/Elements';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
-import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
+import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 

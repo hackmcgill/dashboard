@@ -27,12 +27,12 @@ import {
 } from '../../util/UserInfoHelperFunctions';
 import DashboardView, { IDashboardCard } from './View';
 
-import AccountIcon from '../assets/images/dashboard-account.svg';
-import ApplicationIcon from '../assets/images/dashboard-application.svg';
-import BusIcon from '../assets/images/dashboard-bus.svg';
-import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
-import HackPassIcon from '../assets/images/dashboard-hackpass.svg';
-import TeamIcon from '../assets/images/dashboard-team.svg';
+import AccountIcon from '../../assets/images/dashboard-account.svg';
+import ApplicationIcon from '../../assets/images/dashboard-application.svg';
+import BusIcon from '../../assets/images/dashboard-bus.svg';
+import ConfirmIcon from '../../assets/images/dashboard-confirm.svg';
+import HackPassIcon from '../../assets/images/dashboard-hackpass.svg';
+import TeamIcon from '../../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
