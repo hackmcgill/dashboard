@@ -24,6 +24,9 @@ class HackerSelect extends React.Component<IProps, IState> {
   }
   public render() {
     const { hackerId } = this.props;
+    if (!this.context || !this.context.nominees) {
+      return <div />;
+    }
     const isChecked = this.context.nominees.indexOf(hackerId) > -1;
     return (
       <div>

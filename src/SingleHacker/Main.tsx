@@ -39,6 +39,12 @@ class SingleHackerContainer extends React.Component<
 
   public async componentDidMount() {
     try {
+      const viewer = (await Account.getSelf()).data.data;
+      console.log(viewer, viewer.accountType);
+      this.setState({ userType: viewer.accountType });
+      // tslint:disable-next-line:no-empty
+    } catch (e) {}
+    try {
       const hacker = (await Hacker.get(this.props.match.params.id)).data.data;
       const account = (await Account.get(hacker.accountId as string)).data.data;
       hacker.accountId = account;
@@ -46,11 +52,6 @@ class SingleHackerContainer extends React.Component<
     } catch (e) {
       this.setState({ isLoading: false });
     }
-    try {
-      const viewer = (await Account.getSelf()).data.data;
-      this.setState({ userType: viewer.accountType });
-      // tslint:disable-next-line:no-empty
-    } catch (e) {}
   }
 
   public render() {
@@ -62,8 +63,8 @@ class SingleHackerContainer extends React.Component<
               hacker={this.state.hacker}
               userType={this.state.userType}
             />
-            {this.context && <hr />}
-            {this.context && (
+            {this.context && this.context.nominees && <hr />}
+            {this.context && this.context.nominees && (
               <Flex m={'auto'}>
                 <Box>
                   <H2 marginBottom={'3px'}>Save Hacker:</H2>

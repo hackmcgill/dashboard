@@ -101,7 +101,7 @@ export function canAccessApplication(hacker?: IHacker): boolean {
   return (
     APPS_OPEN &&
     (status === HackerStatus.HACKER_STATUS_NONE ||
-      status === HackerStatus.HACKER_STATUS_APPLIED)
+      status !== HackerStatus.HACKER_STATUS_WAITLISTED)
   );
 }
 

@@ -116,7 +116,7 @@ class SingleHackerView extends React.Component<
               </Flex>
             </Flex>
           </Form>
-          <hr />
+          <hr hidden={isAdmin} />
           <Box ml="6px">
             <SingleHackerSection
               title={'Administrative Information'}
