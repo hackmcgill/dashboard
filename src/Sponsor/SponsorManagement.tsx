@@ -216,4 +216,4 @@ class ManageSponsorContainer extends React.Component<
   }
 }
 
-export default ManageSponsorContainer;
+export default WithToasterContainer(ManageSponsorContainer);
