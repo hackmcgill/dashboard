@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Navbar from '../../Nav/Navbar';
+import Navbar from '../../features/Nav/Navbar';
 
 const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {

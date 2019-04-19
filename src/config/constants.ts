@@ -80,6 +80,6 @@ export const TEAM_MEMBERS = 'Team members:';
 export const TEAM_MAX_SIZE = 'Max 4 Hackers';
 
 // Sponsor creation
-export const SPONSOR_COMPANY_LABEL = "Company name";
-export const SPONSOR_CONTRACT_URL_LABEL = "Contract URL";
-export const SPONSOR_NOMINEE_LABEL = "Nominees";
+export const SPONSOR_COMPANY_LABEL = 'Company name';
+export const SPONSOR_CONTRACT_URL_LABEL = 'Contract URL';
+export const SPONSOR_NOMINEE_LABEL = 'Nominees';

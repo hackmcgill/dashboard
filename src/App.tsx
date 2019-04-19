@@ -1,15 +1,23 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CreateAccount from './Account/AccountCreation';
-import resetPassword from './Login/PasswordReset';
 
-import NotFoundContainer from './404/404';
-import EditAccountContainer from './Account/AccountEdition';
-import ConfirmAccountContainer from './Account/EmailConfirmed';
-import CreateApplicationContainer from './Application/ApplicationCreation';
-import Dashboard from './Dashboard/Main';
-import LoginContainer from './Login/Login';
-import TeamContainer from './Team/Main';
+import NotFoundContainer from './features/404/404';
+import CreateAccount from './features/Account/AccountCreation';
+import EditAccountContainer from './features/Account/AccountEdition';
+import ConfirmAccountContainer from './features/Account/EmailConfirmed';
+import CreateApplicationContainer from './features/Application/ApplicationCreation';
+import EditApplicationContainer from './features/Application/ApplicationEdition';
+import CheckinContainer from './features/Checkin/Main';
+import Dashboard from './features/Dashboard/Main';
+import HackPassContainer from './features/HackPass/Main';
+import LoginContainer from './features/Login/Login';
+import ForgotPasswordContainer from './features/Login/PasswordForgot';
+import resetPassword from './features/Login/PasswordReset';
+import SearchContainer from './features/Search/Search';
+import SingleHackerContainer from './features/SingleHacker/Main';
+import CreateSponsorContainer from './features/Sponsor/SponsorCreation';
+import EditSponsorContainer from './features/Sponsor/SponsorEdition';
+import TeamContainer from './features/Team/Main';
 
 import {
   FrontendRoute,
@@ -18,22 +26,14 @@ import {
   // IHacker,
   UserType,
 } from './config';
-import ForgotPasswordContainer from './Login/PasswordForgot';
-import withAuthRedirect from './shared/HOC/withAuthRedirect';
-import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
-import EditApplicationContainer from './Application/ApplicationEdition';
-import CheckinContainer from './Checkin/Main';
-// import ConfirmAttendanceContainer from './ConfirmAttendance/ConfirmAttendance';
-import HackPassContainer from './HackPass/Main';
-import SearchContainer from './Search/Search';
+import withAuthRedirect from './shared/HOC/withAuthRedirect';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 import withThemeProvider from './shared/HOC/withThemeProvider';
-import SingleHackerContainer from './SingleHacker/Main';
-import CreateSponsorContainer from './Sponsor/SponsorCreation';
-import EditSponsorContainer from './Sponsor/SponsorEdition';
+import withTokenRedirect from './shared/HOC/withTokenRedirect';
+
 import {
   canAccessApplication,
   canAccessHackerPass,
