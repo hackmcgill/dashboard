@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sponsor } from '../../api';
 import { ISponsor } from '../../config';
-import NomineeContext from '../../Search/Context';
+import NomineeContext from '../../features/Search/Context';
 
 interface IState {
   sponsor?: ISponsor;
