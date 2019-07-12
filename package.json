@@ -21,7 +21,7 @@
     "react-dropzone": "^8.0.4",
     "react-helmet": "^5.2.0",
     "react-modal": "^3.8.1",
-    "react-number-format": "^4.0.6",
+    "react-number-format": "^4.0.8",
     "react-qr-reader": "^2.1.2",
     "react-responsive": "^6.1.1",
     "react-router-dom": "^4.3.1",
