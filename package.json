@@ -68,7 +68,7 @@
     "@types/styled-components": "^4.1.6",
     "@types/yup": "^0.26.7",
     "barrelsby": "^1.0.2",
-    "file-loader": "^3.0.1",
+    "file-loader": "^4.1.0",
     "react-cosmos": "^4.7.0",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
