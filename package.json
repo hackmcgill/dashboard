@@ -9,7 +9,7 @@
     "axios": "^0.18.0",
     "clipboard": "^2.0.4",
     "formik": "^1.5.0",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^2.1.0",
     "js-file-download": "^0.4.4",
     "jspdf": "^1.5.3",
     "prettier": "^1.16.2",
