@@ -2,11 +2,11 @@ import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import NotFoundContainer from './features/404/404';
-import CreateAccount from './features/Account/AccountCreation';
-import EditAccountContainer from './features/Account/AccountEdition';
-import ConfirmAccountContainer from './features/Account/EmailConfirmed';
-import CreateApplicationContainer from './features/Application/ApplicationCreation';
-import EditApplicationContainer from './features/Application/ApplicationEdition';
+import ConfirmAccountContainer from './features/Account/ConfirmAccountContainer';
+import CreateAccountContainer from './features/Account/CreateAccountContainer';
+import EditAccountContainer from './features/Account/EditAccountContainer';
+import CreateApplicationContainer from './features/Application/CreateApplicationContainer';
+import EditApplicationContainer from './features/Application/EditApplicationContainer';
 import CheckinContainer from './features/Checkin/Main';
 import Dashboard from './features/Dashboard/Main';
 import HackPassContainer from './features/HackPass/Main';
@@ -56,7 +56,7 @@ class App extends React.Component {
             exact={true}
             path={FrontendRoute.CREATE_ACCOUNT_PAGE}
             component={withNavbar(
-              withAuthRedirect(CreateAccount, {
+              withAuthRedirect(CreateAccountContainer, {
                 requiredAuthState: false,
               })
             )}
