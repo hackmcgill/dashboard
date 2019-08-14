@@ -1,10 +1,10 @@
 import * as React from 'react';
-import ManageApplication, {
+import ManageApplicationContainer, {
   ManageApplicationModes,
-} from './ApplicationManagement';
+} from './ManageApplicationContainer';
 
 const EditApplicationContainer = () => (
-  <ManageApplication mode={ManageApplicationModes.EDIT} />
+  <ManageApplicationContainer mode={ManageApplicationModes.EDIT} />
 );
 
 export default EditApplicationContainer;

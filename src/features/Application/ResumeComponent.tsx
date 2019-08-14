@@ -3,7 +3,7 @@ import { FieldProps } from 'formik';
 import * as React from 'react';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { FileUpload, Label, LabelText } from '../../shared/Form';
-import { ManageApplicationModes } from './ApplicationManagement';
+import { ManageApplicationModes } from './ManageApplicationContainer';
 
 export interface IResumeProps {
   label: string;

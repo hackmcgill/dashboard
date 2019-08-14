@@ -34,7 +34,7 @@ import {
   input2date,
   isSponsor,
 } from '../../util';
-import ConfirmationEmailSentComponent from './EmailConfirmationSent';
+import ConfirmationEmailSentComponent from './ConfirmationEmailSentComponent';
 import getValidationSchema from './validationSchema';
 
 export enum ManageAccountModes {
