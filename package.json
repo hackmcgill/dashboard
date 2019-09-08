@@ -19,7 +19,7 @@
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.9.0",
     "react-dropzone": "^10.1.8",
-    "react-helmet": "^5.2.0",
+    "react-helmet": "^5.2.1",
     "react-modal": "^3.10.1",
     "react-number-format": "^4.2.0",
     "react-qr-reader": "^2.1.2",
