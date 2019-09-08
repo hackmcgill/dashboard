@@ -67,7 +67,7 @@
     "@types/rebass__grid": "^6.0.5",
     "@types/styled-components": "^4.1.6",
     "@types/yup": "^0.26.23",
-    "barrelsby": "^1.0.2",
+    "barrelsby": "^2.1.1",
     "file-loader": "^4.2.0",
     "react-cosmos": "^4.7.0",
     "tslint": "^5.19.0",
