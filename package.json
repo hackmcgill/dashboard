@@ -29,7 +29,7 @@
     "react-select": "^2.3.0",
     "react-table": "^6.10.3",
     "react-toastify": "^5.4.0",
-    "styled-components": "^4.3.2",
+    "styled-components": "^4.4.0",
     "yup": "^0.26.10"
   },
   "scripts": {
