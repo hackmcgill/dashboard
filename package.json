@@ -54,7 +54,7 @@
     "@types/react": "^16.9.3",
     "@types/react-alert": "^4.0.0",
     "@types/react-autosuggest": "^9.3.12",
-    "@types/react-dom": "^16.9.1",
+    "@types/react-dom": "^16.9.2",
     "@types/react-helmet": "^5.0.12",
     "@types/react-qr-reader": "^2.1.2",
     "@types/react-modal": "^3.8.3",
