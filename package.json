@@ -65,7 +65,7 @@
     "@types/react-toastify": "^4.0.1",
     "@types/react-virtualized-select": "^3.0.7",
     "@types/rebass__grid": "^6.0.5",
-    "@types/styled-components": "^4.1.6",
+    "@types/styled-components": "^4.1.19",
     "@types/yup": "^0.26.24",
     "barrelsby": "^2.2.0",
     "file-loader": "^4.2.0",
