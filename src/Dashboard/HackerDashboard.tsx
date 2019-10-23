@@ -15,10 +15,10 @@ import {
 
 import { APIResponse, Auth, Hacker } from '../api';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import {
   canAccessApplication,
   canAccessBus,
+  canAccessHackerPass,
   canAccessTeam,
   isAppOpen,
   isConfirmationOpen,
@@ -30,12 +30,14 @@ import AccountIcon from '../assets/images/dashboard-account.svg';
 import ApplicationIcon from '../assets/images/dashboard-application.svg';
 import BusIcon from '../assets/images/dashboard-bus.svg';
 import ConfirmIcon from '../assets/images/dashboard-confirm.svg';
+import HackPassIcon from '../assets/images/dashboard-hackpass.svg';
 import TeamIcon from '../assets/images/dashboard-team.svg';
 
 export interface IDashboardState {
   status: HackerStatus;
   confirmed: boolean;
   hasAppAccess: boolean;
+  hasPassAccess: boolean;
   hasTeamAccess: boolean;
   needsBus: boolean;
 }
@@ -49,7 +51,8 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     this.state = {
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
-      hasAppAccess: true,
+      hasAppAccess: false,
+      hasPassAccess: false,
       hasTeamAccess: false,
       needsBus: false,
     };
@@ -76,9 +79,10 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
     // determine whether the user has app access
     const hasAppAccess = canAccessApplication(hacker);
+    const hasPassAccess = canAccessHackerPass(hacker);
     const hasTeamAccess = canAccessTeam(hacker);
     const needsBus = canAccessBus(hacker);
-    this.setState({ hasAppAccess, hasTeamAccess, needsBus });
+    this.setState({ hasAppAccess, hasPassAccess, hasTeamAccess, needsBus });
   }
 
   public render() {
@@ -93,7 +97,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
   }
 
   private generateCards(status: HackerStatus, confirmed: boolean) {
-    const { hasAppAccess, hasTeamAccess, needsBus } = this.state;
+    const { hasAppAccess, hasPassAccess, hasTeamAccess, needsBus } = this.state;
     let applicationRoute;
 
     if (status === HackerStatus.HACKER_STATUS_APPLIED) {
@@ -129,6 +133,12 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
         hidden: !hasTeamAccess,
+      },
+      {
+        title: 'HackPass',
+        route: routes.PASS_HACKER_PAGE,
+        imageSrc: HackPassIcon,
+        hidden: !hasPassAccess,
       },
       {
         title: 'Bus Deposit',
@@ -198,4 +208,4 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     }
   };
 }
-export default WithToasterContainer(HackerDashboardContainer);
+export default HackerDashboardContainer;

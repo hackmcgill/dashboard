@@ -3,6 +3,7 @@ import * as React from 'react';
 import { IHacker, UserType } from '../config';
 import { StyledTable } from '../shared/Elements';
 import SingleHackerModal from '../SingleHacker/SingleHackerModal';
+import HackerSelect from './HackerSelect';
 
 interface IResultsTableProps {
   results: Array<{
@@ -15,11 +16,15 @@ interface IResultsTableProps {
 }
 
 const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
-  const adminColumns = [
+  const volunteerColumns = [
     {
       Header: 'First Name',
       accessor: 'hacker.accountId.firstName',
     },
+  ];
+
+  const adminColumns = [
+    ...volunteerColumns,
     {
       Header: 'Last Name',
       accessor: 'hacker.accountId.lastName',
@@ -47,24 +52,39 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
           <SingleHackerModal
             hacker={original.hacker}
             allHackers={props.results.map((r) => r.hacker)}
+            userType={props.userType}
           />
         </div>
       ),
     },
   ];
 
-  const volunteerColumns = [
+  const sponsorColumns = [
+    ...adminColumns,
     {
-      Header: 'First Name',
-      accessor: 'hacker.accountId.firstName',
+      Header: 'Save',
+      Cell: ({ original }: any) => (
+        <HackerSelect hackerId={original.hacker.id} />
+      ),
     },
   ];
+
+  let columns;
+  switch (props.userType) {
+    case UserType.VOLUNTEER:
+      columns = volunteerColumns;
+      break;
+    case UserType.STAFF:
+      columns = adminColumns;
+      break;
+    default:
+      columns = sponsorColumns;
+      break;
+  }
   return (
     <StyledTable
       data={props.results}
-      columns={
-        props.userType === UserType.STAFF ? adminColumns : volunteerColumns
-      }
+      columns={columns}
       loading={props.loading}
       defaultPageSize={10}
     />

@@ -20,8 +20,6 @@ import { EmailInput, Form, PasswordInput } from '../shared/Form';
 
 import BackgroundLandscape from '../assets/images/backgroundLandscape.svg';
 
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 import { APIResponse, Auth } from '../api';
 
 import { EMAIL_LABEL, FrontendRoute, PASSWORD_LABEL } from '../config';
@@ -180,6 +178,4 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
     }
   }
 }
-export default WithToasterContainer(
-  withRouter<RouteComponentProps>(LoginContainer)
-);
+export default withRouter<RouteComponentProps>(LoginContainer);

@@ -40,8 +40,6 @@ import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
 import ResumeComponent from './Resume';
 import SchoolComponent from './SchoolSelect';
 
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 export enum ManageApplicationModes {
   CREATE,
   EDIT,
@@ -546,4 +544,4 @@ class ManageApplicationContainer extends React.Component<
     };
   }
 }
-export default WithToasterContainer(ManageApplicationContainer);
+export default ManageApplicationContainer;

@@ -10,7 +10,6 @@ import { EMAIL_LABEL } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
 import { EmailInput, Form } from '../shared/Form/';
 import validationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
 import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
 
 export interface IForgotState {
@@ -132,6 +131,4 @@ class ForgotPasswordContainer extends React.Component<
   }
 }
 
-export default WithToasterContainer(
-  withRouter<RouteComponentProps>(ForgotPasswordContainer)
-);
+export default withRouter<RouteComponentProps>(ForgotPasswordContainer);

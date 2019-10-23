@@ -8,8 +8,6 @@ import constructionSVG from '../assets/images/construction.svg';
 import { EMAIL_SENT, RESEND_CONF_EMAIL } from '../config';
 import { Button, H1, Image, MaxWidthBox, Paragraph } from '../shared/Elements';
 import ValidationErrorGenerator from '../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../shared/HOC/withToaster';
-
 interface IConfirmationEmailSentState {
   buttonDisabled: boolean;
 }
@@ -91,4 +89,4 @@ class ConfirmationEmailSentComponent extends React.Component<
   }
 }
 
-export default WithToasterContainer(ConfirmationEmailSentComponent);
+export default ConfirmationEmailSentComponent;
