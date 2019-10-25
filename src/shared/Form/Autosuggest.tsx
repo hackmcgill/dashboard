@@ -4,9 +4,9 @@ import inputStyles from '../Styles/inputStyles';
 import styled from '../Styles/styled-components';
 
 // Confused? https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14224#issuecomment-428814136
-const StringAutosuggester = (Autosuggest as unknown) as {
-  new (): Autosuggest<string>;
-};
+const StringAutosuggester = (Autosuggest as unknown) as new () => Autosuggest<
+  string
+>;
 
 const AutosuggestWrapper = styled.div`
   .react-autosuggest__container {
