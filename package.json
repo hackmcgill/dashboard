@@ -1,7 +1,7 @@
 {
   "name": "hackerapi-frontend",
   "homepage": "https://app.mchacks.ca",
-  "version": "0.1.0",
+  "version": "1.4.0",
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",
@@ -35,8 +35,7 @@
   "scripts": {
     "start": "PORT=1337 react-scripts start",
     "build": "PORT=1337 react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "predeploy": "yarn build",
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
     "test": "PORT=1337 react-scripts-ts test --env=jsdom",
     "eject": "PORT=1337 react-scripts-ts eject",
