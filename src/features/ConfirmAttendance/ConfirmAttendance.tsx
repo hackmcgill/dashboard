@@ -13,6 +13,7 @@ import * as FormikElements from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
+import * as DashboardText from '../Dashboard/DashboardText';
 
 interface IConfirmAttendanceState {
   submitted: boolean;
@@ -44,24 +45,20 @@ class ConfirmAttendanceContainer extends React.Component<
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Confirm presence | McHacks 6</title>
+          <title> {DashboardText.ConfirmPresence} </title>
         </Helmet>
         <MaxWidthBox width={1}>
-          <H1 textAlign={'center'}>Confirm your Attendance</H1>
+          <H1 textAlign={'center'}>{DashboardText.ConfirmHeader}</H1>
           <Paragraph fontSize={'16px'}>
-            We are excited to offer you a spot at McHacks 6, taking place on
-            February 2-3, 2019 at Theatre St. James in the Old Port of Montreal.
+            {DashboardText.ConfirmParagraph}
           </Paragraph>
           <Paragraph fontSize={'16px'}>
-            Please confirm your attendance before Friday, January 25, 2019.
+            {DashboardText.ConfirmDeadLine}
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
-          <H2 color={theme.colors.greyDark}>Liability and Photo Release</H2>
-          <Paragraph fontSize={'14px'}>
-            *Students under the age of 18 must have their parent or legal
-            guardian review the following document.
-          </Paragraph>
+          <H2 color={theme.colors.greyDark}>{DashboardText.Liability}</H2>
+          <Paragraph fontSize={'14px'}>{DashboardText.LegalReview}</Paragraph>
           <Formik
             enableReinitialize={true}
             initialValues={{

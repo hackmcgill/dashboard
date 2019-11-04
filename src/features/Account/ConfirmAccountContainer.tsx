@@ -14,6 +14,8 @@ import {
   Paragraph,
 } from '../../shared/Elements';
 
+import * as DashboardText from '../Dashboard/DashboardText';
+
 interface IConfirmAccountState {
   attempting: boolean;
   wasConfirmed: boolean;
@@ -36,19 +38,17 @@ class ConfirmAccountContainer extends React.Component<
     let buttonMessage;
     let link;
     if (this.state.wasConfirmed) {
-      result = 'Account Confirmed';
-      paragraphMessage =
-        'Your account was successfully created! Click continue to start your application, view your teams or manage your account.';
-      buttonMessage = 'Continue';
-      link = '/';
+      result = DashboardText.ConfirmAccount;
+      paragraphMessage = DashboardText.ConfirmMessage;
+      buttonMessage = DashboardText.Continue;
+      link = DashboardText.ConfirmLink;
     } else if (!this.state.attempting) {
-      result = 'Unable to confirm account';
-      paragraphMessage =
-        'Something went wrong when we made your account. Please try again later.';
-      buttonMessage = 'Create account';
-      link = '/account/create';
+      result = DashboardText.UnableConfirm;
+      paragraphMessage = DashboardText.Error;
+      buttonMessage = DashboardText.CreateAccount;
+      link = DashboardText.AttemptingLink;
     } else {
-      result = 'Confirming...';
+      result = DashboardText.Confirming;
       paragraphMessage = '';
       buttonMessage = '';
       link = '';
