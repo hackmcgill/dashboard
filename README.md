@@ -3,6 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/909350ee-5bb5-47c4-88e3-81c1de52db92/deploy-status)](https://app.netlify.com/sites/mchacks-dashboard/deploys)
 
 This repository contains the code for the hackathon dashboard of [McHacks](https://mchacks.ca), Canada's favourite hackathon hosted annually at McGill University. It connects with our [API](https://github.com/hackmcgill/hackerAPI) and is hosted at [app.mchacks.ca](https://app.mchacks.ca).
+
 ## Folder Structure
 
     ```
