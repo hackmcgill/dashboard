@@ -1,12 +1,10 @@
-# HackerAPI Frontend
+# [McHacks Dashboard](https://app.mchacks.ca)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/909350ee-5bb5-47c4-88e3-81c1de52db92/deploy-status)](https://app.netlify.com/sites/hackerapi-frontend/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/909350ee-5bb5-47c4-88e3-81c1de52db92/deploy-status)](https://app.netlify.com/sites/mchacks-dashboard/deploys)
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+This repository contains the code for the hackathon dashboard of [McHacks](https://mchacks.ca), Canada's favourite hackathon hosted annually at McGill University. It connects with our [API](https://github.com/hackmcgill/hackerAPI) and is hosted at [app.mchacks.ca](https://app.mchacks.ca).
 
-Below you will find some information on how to perform common tasks.
 
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Screenshots
 
