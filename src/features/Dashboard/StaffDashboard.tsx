@@ -3,6 +3,8 @@ import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { toast } from 'react-toastify';
 
+import * as DashboardText from './DashboardText';
+
 import {
   ACCOUNT_NOT_CONFIRMED_MSG,
   EMAIL_SENT,
@@ -53,18 +55,18 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
   private generateCards() {
     const cards: IDashboardCard[] = [
       {
-        title: 'Search',
+        title: DashboardText.Search,
         route: routes.ADMIN_SEARCH_PAGE,
         imageSrc: SearchIcon,
         validation: this.confirmAccountToastError,
       },
       {
-        title: 'Account',
+        title: DashboardText.Account,
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },
       {
-        title: 'Checkin',
+        title: DashboardText.Checkin,
         route: routes.CHECKIN_HACKER_PAGE,
         imageSrc: CheckinIcon,
       },
