@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Brown';
     font-style: normal;
     font-weight: regular;
-    src: url('/fonts/lineto-brown-bold.ttf');
+    src: url('/fonts/lineto-brown-regular.ttf');
   }
 
   @font-face {

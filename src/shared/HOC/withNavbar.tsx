@@ -8,7 +8,7 @@ const withNavbar = <P extends {}>(Component: React.ComponentType<P>) =>
     }
 
     public render() {
-      return [<Navbar key={0} />, <Component key={1} {...this.props} />];
+      return [<Navbar key={1} />, <Component key={1} {...this.props} />];
     }
   };
 

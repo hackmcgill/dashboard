@@ -10,17 +10,18 @@ export interface IButtonProps {
 export const Button = styled.button<IButtonProps>`
   background-color: ${(props) =>
     props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
-  font-size: 14px;
+  font-size: 16px;
   font-family: ${(props) => props.theme.fonts.header};
+  font-weight: normal;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 10px;
   margin: 5px;
   border: none;
-  border-radius: 4px;
-  min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
+  border-radius: 40px;
+  min-width: ${(props) => (!props.isNarrow ? '128px' : 'initial')};
   cursor: pointer;
   transition: 0.15s linear all;
-  font-weight: bold;
+
   position: relative;
 
   ${(props) =>
