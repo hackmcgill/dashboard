@@ -7,7 +7,7 @@ export interface IButtonProps {
   disabled?: boolean;
 }
 
-export const Button = styled.button<IButtonProps>`
+export const CTAButton = styled.button<IButtonProps>`
   background-color: ${(props) =>
     props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
   font-size: 14px;
@@ -79,4 +79,4 @@ export const Button = styled.button<IButtonProps>`
     }`}
 `;
 
-export default Button;
+export default CTAButton;
