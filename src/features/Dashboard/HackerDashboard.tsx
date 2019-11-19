@@ -2,6 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { toast } from 'react-toastify';
+import * as DashboardText from './DashboardText';
 
 import {
   ACCOUNT_NOT_CONFIRMED_MSG,
@@ -109,38 +110,38 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
 
     const cards: IDashboardCard[] = [
       {
-        title: 'Application',
+        title: DashboardText.Application,
         route: applicationRoute,
         imageSrc: ApplicationIcon,
         validation: this.applicationAccessValidation,
         disabled: !hasAppAccess,
       },
       {
-        title: 'Account',
+        title: DashboardText.Account,
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },
       {
-        title: 'Confirmation',
+        title: DashboardText.Confirmation,
         route: routes.CONFIRM_HACKER_PAGE,
         imageSrc: ConfirmIcon,
         hidden: status !== HackerStatus.HACKER_STATUS_ACCEPTED,
         disabled: !isConfirmationOpen(),
       },
       {
-        title: 'Team',
+        title: DashboardText.Team,
         route: routes.TEAM_PAGE,
         imageSrc: TeamIcon,
         hidden: !hasTeamAccess,
       },
       {
-        title: 'HackPass',
+        title: DashboardText.HackPass,
         route: routes.PASS_HACKER_PAGE,
         imageSrc: HackPassIcon,
         hidden: !hasPassAccess,
       },
       {
-        title: 'Bus Deposit',
+        title: DashboardText.BusDeposit,
         route: BUS_SHOPIFY_PAGE,
         imageSrc: BusIcon,
         hidden: !needsBus,
