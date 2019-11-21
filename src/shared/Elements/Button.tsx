@@ -16,7 +16,7 @@ export const Button = styled.button<IButtonProps>`
   padding: 10px 15px;
   margin: 5px;
   border: none;
-  border-radius: 4px;
+  border-radius: 3.75em;
   min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
   cursor: pointer;
   transition: 0.15s linear all;
