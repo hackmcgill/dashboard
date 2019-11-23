@@ -39,7 +39,7 @@ class Dashboard extends React.Component<{}, IDashboardState> {
   public render() {
     switch (this.state.accountType) {
       case UserType.HACKER:
-        return <StatusPage />;
+        return <HackerDashboardContainer />;
       case UserType.STAFF:
         return <StaffDashboardContainer />;
       case UserType.SPONSOR_T1:
