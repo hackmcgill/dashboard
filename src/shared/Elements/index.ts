@@ -12,3 +12,5 @@ export * from './Table';
 export * from './Textarea';
 export * from './ViewPDF';
 export * from './LinkDuo';
+export * from './Sidebar';
+export * from './SideBarMenuItem';
