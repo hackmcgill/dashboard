@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { BackgroundImage, Button, H1, Paragraph } from '../../shared/Elements';
 import { Flex } from '@rebass/grid';
+import SideBarComponent from './SideBar';
+import { BackgroundImage, Button, H1, Paragraph } from '../../shared/Elements';
 
 import Background from '../../assets/images/statuspage-background.svg';
 
@@ -8,6 +9,7 @@ class StatusPage extends React.Component<{}, {}> {
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
+        <SideBarComponent />
         <Flex flexDirection={'rows'} style={{ marginTop: '8em' }}>
           <H1 textAlign={'center'} display={'inline'}>
             Status:
