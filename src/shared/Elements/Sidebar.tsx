@@ -5,7 +5,7 @@ export const SideBar = styled.nav`
   flex-direction: column;
   background: #f4f4f4;
   transform: 'translateX(-100%)';
-  height: 87%;
+  height: 100%;
   width: 18%;
   text-align: left;
   padding: 3rem 0 0 0;
