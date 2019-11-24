@@ -11,7 +11,6 @@ export const SideBar = styled.nav`
   padding: 3rem 0 0 0;
   position: absolute;
   left: 0;
-  transition: transform 0.3s ease-in-out;
 
   @media (max-width: 576px) {
     width: 100%;

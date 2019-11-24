@@ -25,9 +25,5 @@ export const SideBarMenuItem = styled.div<ISideBarMenuItemProps>`
       font-size: 1.5rem;
       text-align: center;
     }
-
-    &:hover {
-      color: #ffff;
-    }
   }
 `;
