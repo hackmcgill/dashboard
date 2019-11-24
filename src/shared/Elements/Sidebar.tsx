@@ -8,7 +8,7 @@ export const SideBar = styled.nav`
   height: 87%;
   width: 18%;
   text-align: left;
-  padding: 1rem 0 0 2rem;
+  padding: 3rem 0 0 0;
   position: absolute;
   left: 0;
   transition: transform 0.3s ease-in-out;
