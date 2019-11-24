@@ -4,40 +4,43 @@ import { Image, H2, SideBar, SideBarMenuItem } from '../../shared/Elements';
 import AppIcon from '../../assets/images/sidebar-app.svg';
 import BusIcon from '../../assets/images/sidebar-bus.svg';
 import HomeIcon from '../../assets/images/sidebar-home.svg';
-import Profile from '../../assets/images/sidebar-profile.svg';
-import Team from '../../assets/images/sidebar-team.svg';
+import ProfileIcon from '../../assets/images/sidebar-profile.svg';
+import TeamIcon from '../../assets/images/sidebar-team.svg';
+import { PageType } from '../../config';
 
-class SideBarComponent extends React.Component<{}, {}> {
-  public render() {
-    return (
-      <SideBar>
-        <SideBarMenuItem>
-          <Image src={HomeIcon} />
-          <H2>Home</H2>
-        </SideBarMenuItem>
-
-        <SideBarMenuItem>
-          <Image src={Profile} />
-          <H2>Profile</H2>
-        </SideBarMenuItem>
-
-        <SideBarMenuItem>
-          <Image src={AppIcon} />
-          <H2>Application</H2>
-        </SideBarMenuItem>
-
-        <SideBarMenuItem>
-          <Image src={Team} />
-          <H2>Team</H2>
-        </SideBarMenuItem>
-
-        <SideBarMenuItem>
-          <Image src={BusIcon} />
-          <H2>Travel</H2>
-        </SideBarMenuItem>
-      </SideBar>
-    );
-  }
+interface ISideBarProps {
+  currentPage: PageType;
 }
 
-export default SideBarComponent;
+export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
+  const PageTypeObj: any = {
+    Home: HomeIcon,
+    Application: AppIcon,
+    Profile: ProfileIcon,
+    Team: TeamIcon,
+    Travel: BusIcon,
+  };
+
+  const whiteIcon = {
+    filter:
+      'invert(97%) sepia(100%) saturate(12%) hue-rotate(248deg) contrast(104%) brightness(100) saturate(100%)',
+  };
+
+  return (
+    <SideBar>
+      {Object.keys(PageTypeObj).map((type) => (
+        <SideBarMenuItem
+          currentPage={props.currentPage === type ? true : false}
+        >
+          <Image
+            src={PageTypeObj[type]}
+            style={props.currentPage === type ? whiteIcon : undefined}
+          />
+          <H2 color={props.currentPage === type ? 'white' : '#4d4d4d'}>
+            {type}
+          </H2>
+        </SideBarMenuItem>
+      ))}
+    </SideBar>
+  );
+};
