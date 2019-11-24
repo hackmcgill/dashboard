@@ -6,7 +6,6 @@ import { getUserInfo } from '../../util';
 import HackerDashboardContainer from './HackerDashboard';
 import SponsorDashboard from './SponsorDashboard';
 import StaffDashboardContainer from './StaffDashboard';
-import StatusPage from './StatusPage';
 
 interface IDashboardState {
   accountType: UserType;
