@@ -7,6 +7,7 @@ interface IH1Props {
   marginLeft?: string;
   marginTop?: string;
   marginBottom?: string;
+  display?: string;
 }
 
 export const H1 = styled.h1<IH1Props>`
@@ -16,6 +17,7 @@ export const H1 = styled.h1<IH1Props>`
   margin-left: ${(props) => props.marginLeft || '18px'};
   margin-bottom: ${(props) => props.marginBottom || '18px'};
   margin-top: ${(props) => props.marginTop || 'initial'};
+  display: ${(props) => props.display || ''};
 `;
 
 export default H1;
