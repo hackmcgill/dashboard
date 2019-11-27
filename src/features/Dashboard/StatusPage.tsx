@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { Flex } from '@rebass/grid';
-import SideBarComponent from './Sidebar';
+import * as React from 'react';
 import { BackgroundImage, Button, H1, Paragraph } from '../../shared/Elements';
+import SideBarComponent from './Sidebar';
 
 import Background from '../../assets/images/statuspage-background.svg';
 
