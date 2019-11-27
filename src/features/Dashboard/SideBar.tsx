@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, H2, SideBar, SideBarMenuItem } from '../../shared/Elements';
+import { Image, H2, Sidebar, SideBarMenuItem } from '../../shared/Elements';
 
 import AppIcon from '../../assets/images/sidebar-app.svg';
 import BusIcon from '../../assets/images/sidebar-bus.svg';
@@ -12,7 +12,7 @@ interface ISideBarProps {
   currentPage: PageType;
 }
 
-export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
+export const SidebarComponent: React.SFC<ISideBarProps> = (props) => {
   const PageTypeObj: any = {
     Home: HomeIcon,
     Profile: ProfileIcon,
@@ -27,7 +27,7 @@ export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
   };
 
   return (
-    <SideBar>
+    <Sidebar>
       {Object.keys(PageTypeObj).map((type) => (
         <SideBarMenuItem
           currentPage={props.currentPage === type ? true : false}
@@ -41,7 +41,7 @@ export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
           </H2>
         </SideBarMenuItem>
       ))}
-    </SideBar>
+    </Sidebar>
   );
 };
 
