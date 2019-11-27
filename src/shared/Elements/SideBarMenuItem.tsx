@@ -1,10 +1,10 @@
 import styled from '../Styles/styled-components';
 
-interface ISideBarMenuItemProps {
+interface ISidebarMenuItemProps {
   currentPage: boolean;
 }
 
-export const SideBarMenuItem = styled.div<ISideBarMenuItemProps>`
+export const SidebarMenuItem = styled.div<ISidebarMenuItemProps>`
   padding: 1.5rem 0 1rem 2rem;
   display: flex;
   background-color: ${(props) => (props.currentPage ? '#F2463A' : '')};
