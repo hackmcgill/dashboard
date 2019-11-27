@@ -157,13 +157,13 @@ class SingleHackerView extends React.Component<
               <SHField
                 label="Skills"
                 text={
-                  hacker.application.skills &&
-                  hacker.application.skills.join(', ')
+                  hacker.application.shortAnswer.skills &&
+                  hacker.application.shortAnswer.skills.join(', ')
                 }
               />
               <SHField
                 label="Job interest"
-                text={hacker.application.jobInterest}
+                text={hacker.application.general.jobInterest}
               />
             </Flex>
             <hr />
@@ -176,19 +176,19 @@ class SingleHackerView extends React.Component<
             >
               <SHLink
                 label="GitHub"
-                link={hacker.application.portfolioURL.github}
+                link={hacker.application.general.URL.github}
               />
               <SHLink
                 label="LinkedIn"
-                link={hacker.application.portfolioURL.linkedIn}
+                link={hacker.application.general.URL.linkedIn}
               />
               <SHLink
                 label="Website"
-                link={hacker.application.portfolioURL.personal}
+                link={hacker.application.general.URL.personal}
               />
               <SHLink
                 label="Dribbble"
-                link={hacker.application.portfolioURL.dropler}
+                link={hacker.application.general.URL.dropler}
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
@@ -198,11 +198,15 @@ class SingleHackerView extends React.Component<
             >
               <SHParagraph
                 label="Why McHacks?"
-                text={hacker.application.essay}
+                text={hacker.application.shortAnswer.question1}
+              />
+              <SHParagraph
+                label="Some Q?"
+                text={hacker.application.shortAnswer.question2}
               />
               <SHParagraph
                 label="Comments"
-                text={hacker.application.comments}
+                text={hacker.application.shortAnswer.comments}
               />
             </SingleHackerSection>
           </Box>

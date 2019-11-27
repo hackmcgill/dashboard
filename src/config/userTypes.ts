@@ -32,33 +32,43 @@ export interface IHacker {
   id: string;
   accountId: string | IAccount; // for querying account as well
   status: HackerStatus;
-  school: string;
-  degree: string;
-  // no enum for these
-  gender?: string;
-  needsBus?: boolean;
   application: {
-    portfolioURL: {
-      // gcloud bucket link
-      resume: string;
-      github?: string;
-      dropler?: string;
-      personal?: string;
-      linkedIn?: string;
-      other?: string;
+    general: {
+      school: string;
+      degree: string;
+      fieldOfStudy: string;
+      graduationYear: number;
+      jobInterest: JobInterest;
+      URL: {
+        // gcloud bucket link
+        resume: string;
+        github?: string;
+        dropler?: string;
+        personal?: string;
+        linkedIn?: string;
+        other?: string;
+      };
     };
-    jobInterest: JobInterest;
-    // array of mongoose ids referencing different skills
-    skills?: string[];
-    // any miscelaneous comments that the user has
-    comments?: string;
-    // "Why do you want to come to our hackathon?"
-    essay?: string;
+    shortAnswer: {
+      // array of mongoose ids referencing different skills
+      skills?: string[];
+      // any miscelaneous comments that the user has
+      comments?: string;
+      // "Why do you want to come to our hackathon?"
+      question1?: string;
+      // "Some q"
+      question2?: string;
+    };
+    other: {
+      // no enum for these
+      ethnicity: string[];
+      gender?: string;
+      codeOfConduct: boolean;
+    };
+    accomodation: {
+      needsBus?: boolean;
+    };
   };
-  ethnicity: string[];
-  major: string;
-  graduationYear: number;
-  codeOfConduct: boolean;
   teamId?: string | ITeam;
 }
 
