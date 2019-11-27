@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Image, H2, Sidebar, SidebarMenuItem } from '../../shared/Elements';
+import { H2, Image } from '../../shared/Elements';
+import SidebarContainer from './SidebarContainer';
+import SidebarItem from './SidebarItem';
 
 import AppIcon from '../../assets/images/sidebar-app.svg';
 import BusIcon from '../../assets/images/sidebar-bus.svg';
@@ -12,7 +14,7 @@ interface ISideBarProps {
   currentPage: PageType;
 }
 
-export const SidebarComponent: React.SFC<ISideBarProps> = (props) => {
+export const Sidebar: React.SFC<ISideBarProps> = (props) => {
   const PageTypeObj: any = {
     Home: HomeIcon,
     Profile: ProfileIcon,
@@ -27,11 +29,9 @@ export const SidebarComponent: React.SFC<ISideBarProps> = (props) => {
   };
 
   return (
-    <Sidebar>
+    <SidebarContainer>
       {Object.keys(PageTypeObj).map((type) => (
-        <SidebarMenuItem
-          currentPage={props.currentPage === type ? true : false}
-        >
+        <SidebarItem currentPage={props.currentPage === type ? true : false}>
           <Image
             src={PageTypeObj[type]}
             style={props.currentPage === type ? whiteIcon : undefined}
@@ -39,10 +39,10 @@ export const SidebarComponent: React.SFC<ISideBarProps> = (props) => {
           <H2 color={props.currentPage === type ? 'white' : '#4d4d4d'}>
             {type}
           </H2>
-        </SidebarMenuItem>
+        </SidebarItem>
       ))}
-    </Sidebar>
+    </SidebarContainer>
   );
 };
 
-export default SidebarComponent;
+export default Sidebar;

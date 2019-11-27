@@ -1,10 +1,10 @@
-import styled from '../Styles/styled-components';
+import styled from '../../shared/Styles/styled-components';
 
 interface ISidebarMenuItemProps {
   currentPage: boolean;
 }
 
-export const SidebarMenuItem = styled.div<ISidebarMenuItemProps>`
+export const SidebarItem = styled.div<ISidebarMenuItemProps>`
   padding: 1.5rem 0 1rem 2rem;
   display: flex;
   background-color: ${(props) => (props.currentPage ? '#F2463A' : '')};
@@ -27,3 +27,5 @@ export const SidebarMenuItem = styled.div<ISidebarMenuItemProps>`
     }
   }
 `;
+
+export default SidebarItem;

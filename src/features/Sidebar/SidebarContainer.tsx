@@ -1,6 +1,6 @@
-import styled from '../Styles/styled-components';
+import styled from '../../shared/Styles/styled-components';
 
-export const Sidebar = styled.nav`
+export const SidebarContainer = styled.nav`
   display: flex;
   flex-direction: column;
   background: #f4f4f4;
@@ -16,3 +16,5 @@ export const Sidebar = styled.nav`
     width: 100%;
   }
 `;
+
+export default SidebarContainer;
