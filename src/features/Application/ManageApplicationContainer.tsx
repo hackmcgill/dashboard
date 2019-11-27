@@ -405,7 +405,7 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct}
+          value={fp.values.codeOfConduct_MCHACKS}
           required={true}
         />
         <ErrorMessage
@@ -423,7 +423,7 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct}
+          value={fp.values.codeOfConduct_MLH}
           required={true}
         />
         <ErrorMessage
