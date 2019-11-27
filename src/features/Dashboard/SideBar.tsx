@@ -15,8 +15,8 @@ interface ISideBarProps {
 export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
   const PageTypeObj: any = {
     Home: HomeIcon,
-    Application: AppIcon,
     Profile: ProfileIcon,
+    Application: AppIcon,
     Team: TeamIcon,
     Travel: BusIcon,
   };
