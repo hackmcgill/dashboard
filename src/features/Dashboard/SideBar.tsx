@@ -45,4 +45,4 @@ export const SidebarComponent: React.SFC<ISideBarProps> = (props) => {
   );
 };
 
-export default SideBarComponent;
+export default SidebarComponent;
