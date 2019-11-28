@@ -10,11 +10,11 @@ import ProfileIcon from '../../assets/images/sidebar-profile.svg';
 import TeamIcon from '../../assets/images/sidebar-team.svg';
 import { PageType } from '../../config';
 
-interface ISideBarProps {
+interface ISidebarProps {
   currentPage: PageType;
 }
 
-export const Sidebar: React.SFC<ISideBarProps> = (props) => {
+export const Sidebar: React.SFC<ISidebarProps> = (props) => {
   const PageTypeObj: any = {
     Home: HomeIcon,
     Profile: ProfileIcon,
