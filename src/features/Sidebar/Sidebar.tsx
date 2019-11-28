@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Image, H2, SideBar, SideBarMenuItem } from '../../shared/Elements';
+import { H2, Image } from '../../shared/Elements';
+import SidebarContainer from './SidebarContainer';
+import SidebarItem from './SidebarItem';
 
 import AppIcon from '../../assets/images/sidebar-app.svg';
 import BusIcon from '../../assets/images/sidebar-bus.svg';
@@ -8,15 +10,15 @@ import ProfileIcon from '../../assets/images/sidebar-profile.svg';
 import TeamIcon from '../../assets/images/sidebar-team.svg';
 import { PageType } from '../../config';
 
-interface ISideBarProps {
+interface ISidebarProps {
   currentPage: PageType;
 }
 
-export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
+export const Sidebar: React.SFC<ISidebarProps> = (props) => {
   const PageTypeObj: any = {
     Home: HomeIcon,
-    Application: AppIcon,
     Profile: ProfileIcon,
+    Application: AppIcon,
     Team: TeamIcon,
     Travel: BusIcon,
   };
@@ -27,11 +29,9 @@ export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
   };
 
   return (
-    <SideBar>
+    <SidebarContainer>
       {Object.keys(PageTypeObj).map((type) => (
-        <SideBarMenuItem
-          currentPage={props.currentPage === type ? true : false}
-        >
+        <SidebarItem currentPage={props.currentPage === type ? true : false}>
           <Image
             src={PageTypeObj[type]}
             style={props.currentPage === type ? whiteIcon : undefined}
@@ -39,8 +39,10 @@ export const SideBarComponent: React.SFC<ISideBarProps> = (props) => {
           <H2 color={props.currentPage === type ? 'white' : '#4d4d4d'}>
             {type}
           </H2>
-        </SideBarMenuItem>
+        </SidebarItem>
       ))}
-    </SideBar>
+    </SidebarContainer>
   );
 };
+
+export default Sidebar;

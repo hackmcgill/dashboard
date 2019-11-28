@@ -3,7 +3,8 @@ import { Redirect } from 'react-router';
 import { UserType } from '../../config';
 import { H1 } from '../../shared/Elements';
 import { getUserInfo } from '../../util';
-import HackerDashboardContainer from './HackerDashboard';
+import StatusPage from '../Status/StatusPage';
+// import HackerDashboardContainer from './HackerDashboard';
 import SponsorDashboard from './SponsorDashboard';
 import StaffDashboardContainer from './StaffDashboard';
 
@@ -39,7 +40,7 @@ class Dashboard extends React.Component<{}, IDashboardState> {
   public render() {
     switch (this.state.accountType) {
       case UserType.HACKER:
-        return <HackerDashboardContainer />;
+        return <StatusPage />;
       case UserType.STAFF:
         return <StaffDashboardContainer />;
       case UserType.SPONSOR_T1:
