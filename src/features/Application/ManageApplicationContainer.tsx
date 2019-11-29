@@ -78,7 +78,7 @@ class ManageApplicationContainer extends React.Component<
             URL: {
               resume: '',
               github: '',
-              dropler: '',
+              dribbble: '',
               linkedIn: '',
               personal: '',
               other: '',
@@ -161,10 +161,10 @@ class ManageApplicationContainer extends React.Component<
             // ethnicity: hackerDetails.ethnicity,
             // needsBus: hackerDetails.needsBus,
 
-            codeOfConduct_MCHACKS:
-              hackerDetails.application.other.codeOfConduct,
-            codeOfConduct_MLH: hackerDetails.application.other.codeOfConduct,
-            resumeFile: undefined,
+            // codeOfConduct_MCHACKS:
+            //   hackerDetails.application.other.codeOfConduct,
+            // codeOfConduct_MLH: hackerDetails.application.other.codeOfConduct,
+            resume: undefined,
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
@@ -181,7 +181,6 @@ class ManageApplicationContainer extends React.Component<
    * @param fp the formik props.
    */
   private renderFormik(fp: FormikProps<any>) {
-    console.log(fp.values);
     return (
       <Form onSubmit={fp.handleSubmit}>
         <FastField
@@ -206,8 +205,12 @@ class ManageApplicationContainer extends React.Component<
           value={fp.values.application.general.degree}
           required={true}
         />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.degree"
+        />
         <FastField
-          name="application.general.graduationYear"
+          name={'application.general.graduationYear'}
           label="Graduation year:"
           placeholder="YYYY"
           format="####"
@@ -243,6 +246,10 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Select}
           value={fp.values.application.other.gender}
           required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.other.gender"
         />
         <FastField
           name={'application.other.ethnicity'}
@@ -327,14 +334,14 @@ class ManageApplicationContainer extends React.Component<
           name="application.general.URL.other"
         />
         <Field
-          name="resumeFile"
+          name="resume"
           component={ResumeComponent}
           label={CONSTANTS.RESUME_REQUEST_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
         />
-        <ErrorMessage component={FormikElements.Error} name="resumeFile" />
+        <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
           name={'application.general.jobInterest'}
           options={getOptionsFromEnum(JobInterest)}
@@ -395,7 +402,7 @@ class ManageApplicationContainer extends React.Component<
           name="application.shortAnswer.comments"
         />
         <FastField
-          name={'application.other.codeOfConduct_MCHACKS'}
+          name={'application.other.codeOfConduct'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -405,14 +412,14 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct_MCHACKS}
+          value={fp.values.application.other.codeOfConduct}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.other.codeOfConduct_MCHACKS"
+          name="application.other.codeOfConduct"
         />
-        <FastField
+        {/* <FastField
           name={'application.other.codeOfConduct_MLH'}
           component={FormikElements.Checkbox}
           label={
@@ -429,7 +436,7 @@ class ManageApplicationContainer extends React.Component<
         <ErrorMessage
           component={FormikElements.Error}
           name="application.other.codeOfConduct_MLH"
-        />
+        /> */}
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
         </SubmitBtn>
@@ -455,7 +462,6 @@ class ManageApplicationContainer extends React.Component<
       default:
         return;
     }
-
     handler(values)
       .then((success: boolean) => {
         if (success) {
@@ -491,16 +497,12 @@ class ManageApplicationContainer extends React.Component<
     const account = acctResponse.data.data;
     const application = this.convertFormikToHacker(values, account.id);
     const hackerResponse = await Hacker.create(application);
-
     if (hackerResponse.status !== 200) {
       console.error('Error while creating application');
       return false;
     }
     const hacker = hackerResponse.data.data;
-    const resumeResponse = await Hacker.uploadResume(
-      hacker.id,
-      values.resumeFile
-    );
+    const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');
       return false;
@@ -566,8 +568,6 @@ class ManageApplicationContainer extends React.Component<
     accountId: string,
     hackerId: string = ''
   ): IHacker {
-    values.application.other.codeOfConduct =
-      values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS;
     return {
       id: hackerId,
       accountId,

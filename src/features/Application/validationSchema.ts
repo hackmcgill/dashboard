@@ -5,20 +5,20 @@ const getValidationSchema = (isCreate: boolean) => {
     ? mixed().required('A resume is required')
     : mixed();
   return object().shape({
-    degree: string().required(),
     application: object().shape({
       general: object().shape({
         school: string()
           .min(1, 'Select a school')
           .required('Required'),
+        degree: string().required('Required'),
         fieldOfStudy: string().required('Required'),
         graduationYear: number()
           .required('Required')
           .min(2018)
           .max(2025),
-        jobInterest: string().required(),
+        jobInterest: string().required('Required'),
         URL: object().shape({
-          resumeFile: resumeSchema
+          resume: resumeSchema
             .test(
               'fileSize',
               'File too large (<4MB only)',
@@ -35,40 +35,41 @@ const getValidationSchema = (isCreate: boolean) => {
           personal: string().url('Must be a valid url'),
           other: string().url('Must be a valid url'),
         }),
-        shortAnswer: object().shape({
-          question1: string()
-            .required('Required')
-            .test(
-              'length',
-              'At most 2000 characters',
-              (value) => value && value.length < 2000
-            ),
-          question2: string()
-            .required('Required')
-            .test(
-              'length',
-              'At most 2000 characters',
-              (value) => value && value.length < 2000
-            ),
-          comments: string().test(
+      }),
+      shortAnswer: object().shape({
+        question1: string()
+          .required('Required')
+          .test(
             'length',
-            'At most 500 characters',
-            (value) => !value || value.length < 500
+            'At most 2000 characters',
+            (value) => value && value.length < 2000
           ),
-        }),
-        other: object().shape({
-          ethnicity: array().required('Required'),
-          codeOfConduct_MLH: boolean()
-            .required('Required')
-            .test('true', 'You must accept the MLH policies', (value) => value),
-          codeOfConduct_MCHACKS: boolean()
-            .required('Required')
-            .test(
-              'true',
-              'You must accept the McHacks policies',
-              (value) => value
-            ),
-        }),
+        question2: string()
+          .required('Required')
+          .test(
+            'length',
+            'At most 2000 characters',
+            (value) => value && value.length < 2000
+          ),
+        comments: string().test(
+          'length',
+          'At most 500 characters',
+          (value) => !value || value.length < 500
+        ),
+      }),
+      other: object().shape({
+        ethnicity: array().required('Required'),
+        // codeOfConduct_MLH: boolean()
+        //   .required('Required')
+        //   .test('true', 'You must accept the MLH policies', (value) => value),
+        gender: string().required('Required'),
+        codeOfConduct: boolean()
+          .required('Required')
+          .test(
+            'true',
+            'You must accept the McHacks policies',
+            (value) => value
+          ),
       }),
     }),
   });

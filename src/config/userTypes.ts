@@ -43,7 +43,7 @@ export interface IHacker {
         // gcloud bucket link
         resume: string;
         github?: string;
-        dropler?: string;
+        dribbble?: string;
         personal?: string;
         linkedIn?: string;
         other?: string;
@@ -65,7 +65,7 @@ export interface IHacker {
       gender?: string;
       codeOfConduct: boolean;
     };
-    accomodation: {
+    accomodation?: {
       needsBus?: boolean;
     };
   };

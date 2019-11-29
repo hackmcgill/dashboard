@@ -149,10 +149,19 @@ class SingleHackerView extends React.Component<
               alignItems="center"
             >
               <SHField label="Email" text={account.email} />
-              <SHField label="School" text={hacker.school} />
-              <SHField label="Degree" text={hacker.degree} />
+              <SHField
+                label="School"
+                text={hacker.application.general.school}
+              />
+              <SHField
+                label="Degree"
+                text={hacker.application.general.degree}
+              />
               <SHField label="Status" text={hacker.status} />
-              <SHField label="Graduation Year" text={hacker.graduationYear} />
+              <SHField
+                label="Graduation Year"
+                text={hacker.application.general.graduationYear}
+              />
               <SHField label="Major(s)" text={hacker.major} />
               <SHField
                 label="Skills"
@@ -188,7 +197,7 @@ class SingleHackerView extends React.Component<
               />
               <SHLink
                 label="Dribbble"
-                link={hacker.application.general.URL.dropler}
+                link={hacker.application.general.URL.dribbble}
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
