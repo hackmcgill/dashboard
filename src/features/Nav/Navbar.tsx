@@ -8,19 +8,12 @@ import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
 import LogoutBtn from './LogoutButton';
 import Nav from './Nav';
 
-interface INavbarProps {
-  showDivider?: boolean;
-}
-
 interface INavbarState {
   loggedIn: boolean;
 }
 
-export default class Navbar extends React.Component<
-  INavbarProps,
-  INavbarState
-> {
-  constructor(props: INavbarProps) {
+export default class Navbar extends React.Component<{}, INavbarState> {
+  constructor(props: INavbarState) {
     super(props);
     this.state = {
       loggedIn: false,
