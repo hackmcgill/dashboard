@@ -57,7 +57,7 @@ class ConfirmAttendanceContainer extends React.Component<
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
-          <H2 color={theme.colors.greyDark}>{DashboardText.Liability}</H2>
+          <H2 color={theme.colors.black80}>{DashboardText.Liability}</H2>
           <Paragraph fontSize={'14px'}>{DashboardText.LegalReview}</Paragraph>
           <Formik
             enableReinitialize={true}

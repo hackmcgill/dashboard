@@ -141,7 +141,7 @@ class SingleHackerView extends React.Component<
               </Flex>
               <hr />
             </SingleHackerSection>
-            <H2 color={theme.colors.grey}>Basic Information</H2>
+            <H2 color={theme.colors.black60}>Basic Information</H2>
             <Flex
               width="100%"
               flexWrap="wrap"
@@ -167,7 +167,7 @@ class SingleHackerView extends React.Component<
               />
             </Flex>
             <hr />
-            <H2 color={theme.colors.grey}>Links</H2>
+            <H2 color={theme.colors.black60}>Links</H2>
             <Flex
               width="100%"
               flexWrap="wrap"

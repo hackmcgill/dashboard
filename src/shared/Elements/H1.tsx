@@ -13,7 +13,7 @@ interface IH1Props {
 export const H1 = styled.h1<IH1Props>`
   font-size: ${(props) => props.fontSize || '36px'};
   text-align: ${(props) => props.textAlign || 'left'};
-  color: ${(props) => props.color || props.theme.colors.primary};
+  color: ${(props) => props.color || props.theme.colors.red};
   margin-left: ${(props) => props.marginLeft || '18px'};
   margin-bottom: ${(props) => props.marginBottom || '18px'};
   margin-top: ${(props) => props.marginTop || 'initial'};
