@@ -9,10 +9,10 @@ export const Card = styled(Flex)<ICardProps>`
   height: 300px;
   max-width: 250px;
   margin: 15px;
-  background-color: ${(props) => props.theme.colors.greyLighter};
+  background-color: ${(props) => props.theme.colors.black5};
   position: relative;
   padding: 20px;
-  box-shadow: 5px 5px 20px ${(props) => props.theme.colors.greyLight};
+  box-shadow: 5px 5px 20px ${(props) => props.theme.colors.black30};
 
   ${(props) =>
     props.disabled
@@ -32,7 +32,7 @@ export const Card = styled(Flex)<ICardProps>`
       : `
   &:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 20px ${props.theme.colors.grey};
+    box-shadow: 5px 5px 20px ${props.theme.colors.black60};
     transition: 0.1s all ease-in;
   }
   `}

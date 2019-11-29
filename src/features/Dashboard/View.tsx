@@ -44,7 +44,11 @@ const DashboardView: React.SFC<IDashboardView> = ({
         {title}
       </H1>
       {subtitle ? (
-        <H2 marginLeft={'0px'} textAlign={'center'} color={theme.colors.grey}>
+        <H2
+          marginLeft={'0px'}
+          textAlign={'center'}
+          color={theme.colors.black60}
+        >
           {subtitle}
         </H2>
       ) : (

@@ -15,13 +15,13 @@ export const Pass: React.StatelessComponent<IPassProps> = (
 ) => {
   return (
     <MaxWidthBox maxWidth={'500px'} m={'0px'}>
-      <H2 textAlign={'center'} color={theme.colors.greyDark} fontSize={'30px'}>
+      <H2 textAlign={'center'} color={theme.colors.black80} fontSize={'30px'}>
         {props.account.firstName}
       </H2>
-      <H2 textAlign={'center'} color={theme.colors.greyDark}>
+      <H2 textAlign={'center'} color={theme.colors.black80}>
         {props.account.pronoun}
       </H2>
-      <H2 textAlign={'center'} color={theme.colors.greyDark} marginBottom={'0'}>
+      <H2 textAlign={'center'} color={theme.colors.black80} marginBottom={'0'}>
         {props.hacker.school}
       </H2>
       <Image src={props.qrData} imgWidth={'100%'} />

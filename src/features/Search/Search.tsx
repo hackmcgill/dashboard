@@ -73,14 +73,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         <Box width={1}>
           <Flex>
             <Box alignSelf={'center'} width={1 / 6}>
-              <H1 color={theme.colors.primary} fontSize={'30px'}>
+              <H1 color={theme.colors.red} fontSize={'30px'}>
                 Search
               </H1>
             </Box>
             <Box width={5 / 6}>
               <Flex justifyContent={'space-between'}>
                 <Box alignSelf={'center'}>
-                  <H1 color={theme.colors.primary} fontSize={'30px'}>
+                  <H1 color={theme.colors.red} fontSize={'30px'}>
                     Hackers
                   </H1>
                 </Box>
