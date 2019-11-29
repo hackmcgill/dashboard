@@ -9,14 +9,14 @@ export interface IButtonProps {
 
 export const Button = styled.button<IButtonProps>`
   background-color: ${(props) =>
-    props.secondary ? props.theme.colors.grey : props.theme.colors.primary};
+    props.secondary ? props.theme.colors.black60 : props.theme.colors.red};
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.header};
   color: white;
   padding: 10px 15px;
   margin: 5px;
   border: none;
-  border-radius: 4px;
+  border-radius: 3.75em;
   min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
   cursor: pointer;
   transition: 0.15s linear all;
@@ -27,14 +27,14 @@ export const Button = styled.button<IButtonProps>`
     props.disabled
       ? `
         cursor: not-allowed;
-        color: ${props.theme.colors.greyLighter};
-        background-color: ${props.theme.colors.greyLight};
+        color: ${props.theme.colors.black30};
+        background-color: ${props.theme.colors.black30};
       `
       : `&:hover {
           background-color: ${
             props.secondary
-              ? props.theme.colors.primary
-              : props.theme.colors.primaryLight
+              ? props.theme.colors.red
+              : props.theme.colors.redLight
           };
         }
     `}
@@ -49,13 +49,11 @@ export const Button = styled.button<IButtonProps>`
     props.isLoading &&
     `
     color: ${
-      props.secondary ? props.theme.colors.grey : props.theme.colors.primary
+      props.secondary ? props.theme.colors.black60 : props.theme.colors.red
     };
     &:hover {
       color: ${
-        props.secondary
-          ? props.theme.colors.primary
-          : props.theme.colors.primaryLight
+        props.secondary ? props.theme.colors.red : props.theme.colors.redLight
       };
     }
     &:before {
@@ -71,8 +69,8 @@ export const Button = styled.button<IButtonProps>`
       border-radius: 50%;
       border: 3px solid ${
         props.secondary
-          ? props.theme.colors.greyLight
-          : props.theme.colors.primaryLight
+          ? props.theme.colors.black30
+          : props.theme.colors.redLight
       };
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;

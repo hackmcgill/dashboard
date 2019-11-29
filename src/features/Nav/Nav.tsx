@@ -11,7 +11,7 @@ export const Nav = styled.nav<INavProps>`
   top: 0;
   width: 100%;
   border-bottom: ${(props) => props.borderThickness || '1px'} solid
-    ${(props) => props.theme.colors.greyLight};
+    ${(props) => props.theme.colors.black30};
 `;
 
 export default Nav;

@@ -7,7 +7,7 @@ export interface IInputProps {
 
 export const inputStyles = css<IInputProps>`
   border-radius: 20px;
-  border: 2px solid ${(props) => props.theme.colors.greyLight};
+  border: 2px solid ${(props) => props.theme.colors.black30};
   font-weight: ${(props) => props.fontWeight || 'normal'};
   box-sizing: border-box;
   display: block;
@@ -22,7 +22,7 @@ export const inputStyles = css<IInputProps>`
 
   &:focus,
   &:hover {
-    border: 2px solid ${(props) => props.theme.colors.grey};
+    border: 2px solid ${(props) => props.theme.colors.black60};
   }
 `;
 

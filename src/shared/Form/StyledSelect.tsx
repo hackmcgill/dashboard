@@ -11,12 +11,12 @@ export const StyledSelect = styled(Select)`
   .react-select__option {
     font-weight: normal;
     &--is-selected {
-      background-color: ${(props) => props.theme.colors.primary};
+      background-color: ${(props) => props.theme.colors.red};
       color: ${(props) => props.theme.colors.white};
     }
     &--is-focused,
     &:hover {
-      background-color: ${(props) => props.theme.colors.primaryLight};
+      background-color: ${(props) => props.theme.colors.redLight};
       color: ${(props) => props.theme.colors.white};
     }
   }
