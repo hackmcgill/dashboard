@@ -539,12 +539,9 @@ class ManageApplicationContainer extends React.Component<
       console.error('Error while updating application');
       return false;
     }
-    if (values.resumeFile) {
+    if (values.resume) {
       // only upload a resume if they have added a resume to the form.
-      const resumeResponse = await Hacker.uploadResume(
-        hackerId,
-        values.resumeFile
-      );
+      const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
 
       if (resumeResponse.status !== 200) {
         console.error('Could not upload resume properly');
