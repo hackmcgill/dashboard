@@ -59,11 +59,11 @@ const getValidationSchema = (isCreate: boolean) => {
       }),
       other: object().shape({
         ethnicity: array().required('Required'),
-        // codeOfConduct_MLH: boolean()
-        //   .required('Required')
-        //   .test('true', 'You must accept the MLH policies', (value) => value),
+        codeOfConduct_MLH: boolean()
+          .required('Required')
+          .test('true', 'You must accept the MLH policies', (value) => value),
         gender: string().required('Required'),
-        codeOfConduct: boolean()
+        codeOfConduct_MCHACKS: boolean()
           .required('Required')
           .test(
             'true',

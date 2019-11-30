@@ -93,7 +93,8 @@ class ManageApplicationContainer extends React.Component<
           other: {
             ethnicity: [],
             gender: '',
-            codeOfConduct: false,
+            codeOfConduct_MLH: false,
+            codeOfConduct_MCHACKS: false,
           },
           accomodation: {
             needsBus: false,
@@ -161,9 +162,8 @@ class ManageApplicationContainer extends React.Component<
             // ethnicity: hackerDetails.ethnicity,
             // needsBus: hackerDetails.needsBus,
 
-            // codeOfConduct_MCHACKS:
-            //   hackerDetails.application.other.codeOfConduct,
-            // codeOfConduct_MLH: hackerDetails.application.other.codeOfConduct,
+            // codeOfConduct_MCHACKS: false,
+            // codeOfConduct_MLH: false,
             resume: undefined,
           }}
           onSubmit={this.handleSubmit}
@@ -402,7 +402,7 @@ class ManageApplicationContainer extends React.Component<
           name="application.shortAnswer.comments"
         />
         <FastField
-          name={'application.other.codeOfConduct'}
+          name={'application.other.codeOfConduct_MCHACKS'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -412,14 +412,14 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.application.other.codeOfConduct}
+          value={fp.values.application.other.codeOfConduct_MCHACKS}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.other.codeOfConduct"
+          name="application.other.codeOfConduct_MCHACKS"
         />
-        {/* <FastField
+        <FastField
           name={'application.other.codeOfConduct_MLH'}
           component={FormikElements.Checkbox}
           label={
@@ -430,13 +430,13 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct_MLH}
+          value={fp.values.application.other.codeOfConduct_MLH}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
           name="application.other.codeOfConduct_MLH"
-        /> */}
+        />
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
         </SubmitBtn>
@@ -451,6 +451,7 @@ class ManageApplicationContainer extends React.Component<
    */
   private handleSubmit(values: any) {
     const { mode } = this.state;
+    console.log(values);
     let handler;
     switch (mode) {
       case ManageApplicationModes.EDIT:
@@ -568,19 +569,15 @@ class ManageApplicationContainer extends React.Component<
     accountId: string,
     hackerId: string = ''
   ): IHacker {
+    // if (values.codeOfConduct_MCHACKS && values.codeOfConduct_MLH) {
+    //   values.application.other.codeOfConduct = true;
+    // }
+    console.log(values);
     return {
       id: hackerId,
       accountId,
       status: HackerStatus.HACKER_STATUS_NONE,
-      // school: values.school,
-      // degree: values.degree,
-      // gender: values.gender,
-      // needsBus: values.needsBus,
       application: values.application,
-      // ethnicity: values.ethnicity,
-      // major: values.major,
-      // graduationYear: values.graduationYear,
-      // codeOfConduct: values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS,
     };
   }
 }

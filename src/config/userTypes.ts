@@ -63,7 +63,8 @@ export interface IHacker {
       // no enum for these
       ethnicity: string[];
       gender?: string;
-      codeOfConduct: boolean;
+      codeOfConduct_MLH: boolean;
+      codeOfConduct_MCHACKS: boolean;
     };
     accomodation?: {
       needsBus?: boolean;
