@@ -451,7 +451,6 @@ class ManageApplicationContainer extends React.Component<
    */
   private handleSubmit(values: any) {
     const { mode } = this.state;
-    console.log(values);
     let handler;
     switch (mode) {
       case ManageApplicationModes.EDIT:
@@ -569,10 +568,6 @@ class ManageApplicationContainer extends React.Component<
     accountId: string,
     hackerId: string = ''
   ): IHacker {
-    // if (values.codeOfConduct_MCHACKS && values.codeOfConduct_MLH) {
-    //   values.application.other.codeOfConduct = true;
-    // }
-    console.log(values);
     return {
       id: hackerId,
       accountId,
