@@ -4,10 +4,8 @@ import SidebarContainer from './SidebarContainer';
 import SidebarItem from './SidebarItem';
 
 import AppIcon from '../../assets/images/sidebar-app.svg';
-import BusIcon from '../../assets/images/sidebar-bus.svg';
 import HomeIcon from '../../assets/images/sidebar-home.svg';
 import ProfileIcon from '../../assets/images/sidebar-profile.svg';
-import TeamIcon from '../../assets/images/sidebar-team.svg';
 import { PageType } from '../../config';
 
 interface ISidebarProps {
@@ -19,8 +17,6 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
     Home: HomeIcon,
     Profile: ProfileIcon,
     Application: AppIcon,
-    Team: TeamIcon,
-    Travel: BusIcon,
   };
 
   const whiteIcon = {
