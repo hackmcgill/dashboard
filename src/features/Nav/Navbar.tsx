@@ -11,15 +11,9 @@ import Nav from './Nav';
 interface INavbarState {
   loggedIn: boolean;
 }
-interface INavbarProps {
-  showDivider?: boolean;
-}
 
-export default class Navbar extends React.Component<
-  INavbarProps,
-  INavbarState
-> {
-  constructor(props: INavbarProps) {
+export default class Navbar extends React.Component<{}, INavbarState> {
+  constructor(props: INavbarState) {
     super(props);
     this.state = {
       loggedIn: false,
@@ -29,7 +23,7 @@ export default class Navbar extends React.Component<
   public render() {
     const logoutBtn = this.state.loggedIn ? <LogoutBtn /> : '';
     return (
-      <Nav borderThickness={this.props.showDivider ? '1px' : '0px'}>
+      <Nav borderThickness={'1px'}>
         <Flex flexDirection={'row'} justifyContent={'space-between'} p={'1rem'}>
           <Box>
             <a href={FrontendRoute.HOME_PAGE}>
