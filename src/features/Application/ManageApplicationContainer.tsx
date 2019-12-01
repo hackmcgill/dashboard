@@ -154,16 +154,6 @@ class ManageApplicationContainer extends React.Component<
           enableReinitialize={true}
           initialValues={{
             application: hackerDetails.application,
-            // school: hackerDetails.school,
-            // degree: hackerDetails.degree,
-            // graduationYear: hackerDetails.graduationYear,
-            // major: hackerDetails.major,
-            // gender: hackerDetails.gender,
-            // ethnicity: hackerDetails.ethnicity,
-            // needsBus: hackerDetails.needsBus,
-
-            // codeOfConduct_MCHACKS: false,
-            // codeOfConduct_MLH: false,
             resume: undefined,
           }}
           onSubmit={this.handleSubmit}
@@ -228,8 +218,8 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           component={FormikElements.Select}
-          label={CONSTANTS.MAJOR_REQUEST_LABEL}
-          placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
+          label={CONSTANTS.FIELD_OF_STUDY_REQUEST_LABEL}
+          placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
           value={fp.values.application.general.fieldOfStudy}
           required={true}
         />
@@ -289,8 +279,8 @@ class ManageApplicationContainer extends React.Component<
           name={'application.general.URL.dribbble'}
           inputType="url"
           component={FormikElements.Input}
-          label={CONSTANTS.DROPLER_LINK_LABEL}
-          placeholder={CONSTANTS.DROPLER_LINK_PLACEHOLDER}
+          label={CONSTANTS.DRIBBBLE_LINK_LABEL}
+          placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}
         />
         <ErrorMessage
           component={FormikElements.Error}
@@ -340,6 +330,7 @@ class ManageApplicationContainer extends React.Component<
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
+          value={fp.values.resume}
         />
         <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
@@ -474,12 +465,15 @@ class ManageApplicationContainer extends React.Component<
           this.setState({ submitted: true });
         } else {
           toast.error(`There was an error when submitting the application.`);
+          this.setState({ submitted: false });
         }
       })
       .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+        console.log('hello');
         if (response) {
           ValidationErrorGenerator(response.data);
         }
+        this.render();
       });
   }
   /**
@@ -502,6 +496,7 @@ class ManageApplicationContainer extends React.Component<
       return false;
     }
     const hacker = hackerResponse.data.data;
+    console.log('2');
     const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');

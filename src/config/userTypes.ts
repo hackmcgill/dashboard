@@ -40,7 +40,6 @@ export interface IHacker {
       graduationYear: number;
       jobInterest: JobInterest;
       URL: {
-        // gcloud bucket link
         resume: string;
         github?: string;
         dribbble?: string;
@@ -55,14 +54,14 @@ export interface IHacker {
       // any miscelaneous comments that the user has
       comments?: string;
       // "Why do you want to come to our hackathon?"
-      question1?: string;
+      question1: string;
       // "Some q"
-      question2?: string;
+      question2: string;
     };
     other: {
       // no enum for these
       ethnicity: string[];
-      gender?: string;
+      gender: string;
       codeOfConduct_MLH: boolean;
       codeOfConduct_MCHACKS: boolean;
     };
