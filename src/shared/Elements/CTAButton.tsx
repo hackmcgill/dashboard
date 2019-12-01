@@ -13,8 +13,8 @@ export const CTAButton = styled.button<IButtonProps>`
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.header};
   color: white;
-  padding: 10px 15px;
-  margin: 5px;
+  padding: 10px 16px;
+  margin: 6px;
   border: none;
   border-radius: 40px;
   min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
