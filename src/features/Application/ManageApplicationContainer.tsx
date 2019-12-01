@@ -469,7 +469,6 @@ class ManageApplicationContainer extends React.Component<
         }
       })
       .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-        console.log('hello');
         if (response) {
           ValidationErrorGenerator(response.data);
         }
@@ -496,7 +495,6 @@ class ManageApplicationContainer extends React.Component<
       return false;
     }
     const hacker = hackerResponse.data.data;
-    console.log('2');
     const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');
