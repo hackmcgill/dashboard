@@ -81,23 +81,28 @@ export const Button = styled.button<IButtonProps>`
       padding-right: 24px;
   `}
 
-  ${
-    (props) => ``
-    /*props.disabled
+  ${(props) =>
+    props.disabled
       ? `
         cursor: not-allowed;
-        color: ${props.theme.colors.greyLighter};
-        background-color: ${props.theme.colors.greyLight};
+        color: ${props.theme.colors.black60};
+        background-color: ${props.theme.colors.black10};
+        border-color: ${props.theme.colors.black10}
       `
       : `&:hover {
           background-color: ${
-            props.secondary
-              ? props.theme.colors.primary
-              : props.theme.colors.primaryLight
+            props.prominence === ButtonProminence.Secondary
+              ? props.theme.colors.red
+              : props.theme.colors.redLight
           };
+          border-color: ${
+            props.prominence === ButtonProminence.Secondary
+              ? props.theme.colors.red
+              : props.theme.colors.redLight
+          };
+          color: ${props.theme.colors.white};
         }
-      `*/
-  }
+    `}
 
   @keyframes spinner {
     to {
@@ -105,18 +110,19 @@ export const Button = styled.button<IButtonProps>`
     }
   }
 
-  ${
-    (props) => ``
-    /*props.isLoading &&
+  ${(props) =>
+    props.isLoading &&
     `
     color: ${
-      props.secondary ? props.theme.colors.grey : props.theme.colors.primary
+      props.prominence === ButtonProminence.Secondary
+        ? props.theme.colors.black60
+        : props.theme.colors.red
     };
     &:hover {
       color: ${
-        props.secondary
-          ? props.theme.colors.primary
-          : props.theme.colors.primaryLight
+        props.prominence === ButtonProminence.Secondary
+          ? props.theme.colors.red
+          : props.theme.colors.redLight
       };
     }
     &:before {
@@ -131,14 +137,13 @@ export const Button = styled.button<IButtonProps>`
       margin-left: -10px;
       border-radius: 50%;
       border: 3px solid ${
-        props.secondary
-          ? props.theme.colors.greyLight
-          : props.theme.colors.primaryLight
+        props.prominence === ButtonProminence.Secondary
+          ? props.theme.colors.black30
+          : props.theme.colors.redLight
       };
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
-    }`*/
-  }
+    }`}
 `;
 
 export default Button;
