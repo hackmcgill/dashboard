@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Hacker } from '../../api';
-import Button from './Button';
+import Button, { ButtonProminence } from './Button';
 
 interface IViewPDFProps {
   hackerId: string;
@@ -22,7 +22,7 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
       <Button
         isLoading={this.state.isLoading}
         disabled={this.state.isLoading}
-        secondary={true}
+        prominence={ButtonProminence.Secondary}
         type="button"
         onClick={this.handleClick(this.props)}
       >
