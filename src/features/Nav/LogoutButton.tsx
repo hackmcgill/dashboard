@@ -3,13 +3,22 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { APIResponse, Auth } from '../../api';
 import { FrontendRoute, IValidationError } from '../../config';
-import CTAButton from '../../shared/Elements/CTAButton';
+import Button, {
+  ButtonProminence,
+} from '../../shared/Elements/ButtonRefactored';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (
   props: RouteComponentProps
 ) => {
-  return <CTAButton onClick={handleLogout(props)}>Logout</CTAButton>;
+  return (
+    <Button
+      prominence={ButtonProminence.CallToAction}
+      onClick={handleLogout(props)}
+    >
+      Logout
+    </Button>
+  );
 };
 
 function handleLogout(props: RouteComponentProps): () => void {
