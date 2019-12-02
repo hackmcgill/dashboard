@@ -63,7 +63,7 @@ const CheckboxContainer = styled.div`
     top: 12px;
   }
 
-  input:not(:checked) + .checkmark {
+  input:not(:checked) ~ .checkmark {
     display: none;
   }
 `;
