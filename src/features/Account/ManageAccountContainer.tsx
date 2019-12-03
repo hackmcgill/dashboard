@@ -10,10 +10,11 @@ import {
   FormikProps,
   FormikValues,
 } from 'formik';
-import { Account, Auth } from '../../api';
+import { Account, Auth, Hacker } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
+  HackerStatus,
   IAccount,
   Pronouns,
   ShirtSize,
@@ -34,7 +35,8 @@ import {
   input2date,
   isSponsor,
 } from '../../util';
-import ConfirmationEmailSentComponent from './ConfirmationEmailSentComponent';
+import Sidebar from '../Sidebar/Sidebar';
+import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
 export enum ManageAccountModes {
@@ -47,6 +49,7 @@ interface IManageAccountContainerState {
   formSubmitted: boolean;
   accountDetails: IAccount;
   oldPassword: string;
+  status: HackerStatus;
   token?: string;
   accountType?: string;
 }
@@ -81,6 +84,7 @@ class ManageAccountContainer extends React.Component<
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
+      status: HackerStatus.HACKER_STATUS_NONE,
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -99,7 +103,17 @@ class ManageAccountContainer extends React.Component<
           ValidationErrorGenerator(e.data);
         }
         // For some reason we could not get self. We should switch our state to CREATE.
-        this.setState({ mode: ManageAccountModes.CREATE });
+        this.setState({
+          mode: ManageAccountModes.CREATE,
+          status: HackerStatus.HACKER_STATUS_NONE,
+        });
+      }
+      try {
+        const res = await Hacker.getSelf();
+        const status = res.data.data.status;
+        this.setState({ status });
+      } catch (e) {
+        // ignore the error
       }
     }
   }
@@ -114,7 +128,12 @@ class ManageAccountContainer extends React.Component<
     switch (mode) {
       case ManageAccountModes.CREATE:
         if (accountDetails.accountType === UserType.UNKNOWN || !token) {
-          return <ConfirmationEmailSentComponent />;
+          return (
+            <StatusPage
+              status={HackerStatus.HACKER_STATUS_NONE}
+              confirmed={false}
+            />
+          );
         } else if (isSponsor(accountDetails)) {
           return <Redirect to={FrontendRoute.CREATE_SPONSOR_PAGE} />;
         } else {
@@ -133,6 +152,12 @@ class ManageAccountContainer extends React.Component<
     const { mode, accountDetails } = this.state;
     return (
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        <Sidebar
+          currentPage="Profile"
+          status={this.state.status}
+          confirmed={this.state.accountDetails.confirmed}
+          created={mode === ManageAccountModes.CREATE ? false : undefined}
+        />
         <Helmet>
           <title>
             {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |

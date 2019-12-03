@@ -1,14 +1,23 @@
 import styled from '../../shared/Styles/styled-components';
+import theme from '../../shared/Styles/theme';
 
-interface ISidebarItemProps {
+export interface ISidebarItemProps {
   currentPage: boolean;
+  title: string;
+  hidden: boolean;
 }
 
 export const SidebarItem = styled.div<ISidebarItemProps>`
   padding: 1.5rem 0 1rem 2rem;
   display: flex;
-  background-color: ${(props) => (props.currentPage ? '#F2463A' : '')};
-
+  position: relative;
+  visibility: ${(props) => (props.hidden ? 'hidden' : '')};
+  background-color: ${(props) =>
+    props.currentPage ? theme.colors.red : theme.colors.black5};
+  :hover {
+    background-color: ${(props) =>
+      props.currentPage ? theme.colors.red : theme.colors.yellow};
+  }
   img {
     flex-direction: column;
     height: 2rem;
@@ -18,8 +27,8 @@ export const SidebarItem = styled.div<ISidebarItemProps>`
   h2 {
     padding-left: 35px;
     padding-top: 2px;
-    text-decoration: none;
     transition: color 0.3s linear;
+    text-decoration-line: none;
 
     @media (max-width: 576px) {
       font-size: 1.5rem;

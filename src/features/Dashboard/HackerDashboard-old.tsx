@@ -34,7 +34,7 @@ import BusIcon from '../../assets/images/dashboard-bus.svg';
 import ConfirmIcon from '../../assets/images/dashboard-confirm.svg';
 import HackPassIcon from '../../assets/images/dashboard-hackpass.svg';
 import TeamIcon from '../../assets/images/dashboard-team.svg';
-import Sidebar from '../../features/Sidebar/Sidebar';
+// import Sidebar from '../../features/Sidebar/Sidebar';
 
 export interface IDashboardState {
   status: HackerStatus;
@@ -96,7 +96,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         title={`status: ${status.toLowerCase()}`}
         subtitle={!isAppOpen() ? 'Applications are now closed' : undefined}
       >
-        <Sidebar currentPage={'Home'} />
+        {/* <Sidebar currentPage={'Home'} /> */}
       </DashboardView>
     );
   }
