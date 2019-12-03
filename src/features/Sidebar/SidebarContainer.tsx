@@ -9,7 +9,7 @@ export const SidebarContainer = styled.nav`
   width: 18%;
   text-align: left;
   padding: 3rem 0 0 0;
-  position: absolute;
+  position: fixed;
   left: 0;
 
   @media (max-width: 576px) {

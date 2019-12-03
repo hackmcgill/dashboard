@@ -1,14 +1,16 @@
 import styled from '../../shared/Styles/styled-components';
 
-interface ISidebarItemProps {
+export interface ISidebarItemProps {
   currentPage: boolean;
+  title: string;
+  hidden: boolean;
 }
 
 export const SidebarItem = styled.div<ISidebarItemProps>`
   padding: 1.5rem 0 1rem 2rem;
   display: flex;
-  background-color: ${(props) => (props.currentPage ? '#F2463A' : '')};
-
+  visibility: ${(props) => (props.hidden ? 'hidden' : '')};
+  background-color: ${(props) => (props.currentPage ? '#F2463A' : '#ffffff')};
   img {
     flex-direction: column;
     height: 2rem;
