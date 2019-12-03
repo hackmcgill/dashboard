@@ -1,4 +1,3 @@
-import { Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Redirect, RouteProps } from 'react-router';
@@ -17,11 +16,10 @@ import {
   HackerStatus,
   IAccount,
   Pronouns,
-  ShirtSize,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
+import { H1, MaxWidthBox } from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -151,7 +149,7 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+      <MaxWidthBox m={'auto'} maxWidth={'360px'}>
         <Sidebar
           currentPage="Profile"
           status={this.state.status}
@@ -160,24 +158,22 @@ class ManageAccountContainer extends React.Component<
         />
         <Helmet>
           <title>
-            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |
-            McHacks 6
+            {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
+            McHacks 7
           </title>
         </Helmet>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-          <H1
-            color={'#F2463A'}
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-          >
-            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your
-            Account
-          </H1>
-          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
-        </MaxWidthBox>
+        <H1
+          color={'#F2463A'}
+          fontSize={'30px'}
+          textAlign={'left'}
+          marginTop={'0px'}
+          marginBottom={'20px'}
+          marginLeft={'0px'}
+          paddingBottom={'20px'}
+          paddingTop={'70px'}
+        >
+          Your Account
+        </H1>
         <Formik
           enableReinitialize={true}
           initialValues={{
@@ -205,36 +201,42 @@ class ManageAccountContainer extends React.Component<
     const { mode } = this.state;
     return (
       <Form onSubmit={fp.handleSubmit}>
-        <Flex flexWrap={'wrap'} width={1} m="auto">
-          <MaxWidthBox width={[1, 0.5]} pr={[0, '10px']}>
-            <FastField
-              name={'firstName'}
-              label={CONSTANTS.FIRST_NAME_LABEL}
-              value={fp.values.firstName}
-              component={FormikElements.Input}
-              isTight={true}
-              required={true}
-            />
-            <ErrorMessage component={FormikElements.Error} name="firstName" />
-          </MaxWidthBox>
-          <MaxWidthBox width={[1, 0.5]} pl={[0, '10px']}>
-            <FastField
-              name={'lastName'}
-              label={CONSTANTS.LAST_NAME_LABEL}
-              value={fp.values.lastName}
-              component={FormikElements.Input}
-              isTight={true}
-              required={true}
-            />
-            <ErrorMessage component={FormikElements.Error} name="lastName" />
-          </MaxWidthBox>
-        </Flex>
+        <FastField
+          name={'firstName'}
+          label={CONSTANTS.FIRST_NAME_LABEL}
+          value={fp.values.firstName}
+          component={FormikElements.Input}
+          isTight={true}
+          isDisabled={mode === ManageAccountModes.EDIT}
+          required={true}
+        />
+        <ErrorMessage component={FormikElements.Error} name="firstName" />
+        <FastField
+          name={'lastName'}
+          label={CONSTANTS.LAST_NAME_LABEL}
+          value={fp.values.lastName}
+          component={FormikElements.Input}
+          isTight={true}
+          isDisabled={mode === ManageAccountModes.EDIT}
+          required={true}
+        />
+        <ErrorMessage component={FormikElements.Error} name="lastName" />
+        <FastField
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.BIRTH_DATE_LABEL}
+          placeholder="MM/DD/YYYY"
+          format="##/##/####"
+          name={'birthDate'}
+          required={true}
+          value={fp.values.birthDate}
+          isDisabled={mode === ManageAccountModes.EDIT}
+        />
+        <ErrorMessage component={FormikElements.Error} name="birthDate" />
         <FastField
           name={'email'}
           label={CONSTANTS.EMAIL_LABEL}
           value={fp.values.email}
           component={FormikElements.Input}
-          isDisabled={mode === ManageAccountModes.EDIT}
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="email" />
@@ -285,7 +287,7 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.pronoun}
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
-        <FastField
+        {/*<FastField
           component={FormikElements.Select}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
           name={'shirtSize'}
@@ -293,7 +295,7 @@ class ManageAccountContainer extends React.Component<
           required={true}
           value={fp.values.shirtSize}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
+        <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -304,16 +306,6 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.phoneNumber}
         />
         <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-        <FastField
-          component={FormikElements.FormattedNumber}
-          label={CONSTANTS.BIRTH_DATE_LABEL}
-          placeholder="MM-DD-YYYY"
-          format="##-##-####"
-          name={'birthDate'}
-          required={true}
-          value={fp.values.birthDate}
-        />
-        <ErrorMessage component={FormikElements.Error} name="birthDate" />
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
         </SubmitBtn>
