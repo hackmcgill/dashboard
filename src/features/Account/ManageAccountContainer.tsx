@@ -19,7 +19,7 @@ import {
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { H1, MaxWidthBox } from '../../shared/Elements';
+import { H1, HorizontalSpacer, MaxWidthBox } from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -36,7 +36,6 @@ import {
 import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
-import HorizontalSpacer from '../../shared/Elements/HorizontalSpacer';
 
 export enum ManageAccountModes {
   CREATE,

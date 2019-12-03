@@ -8,6 +8,7 @@ interface ILabelledNumberFormatProp {
   label: string;
   placeholder: string;
   required?: boolean;
+  disabled?: boolean;
 }
 export const NumberFormatInput: React.StatelessComponent<
   ILabelledNumberFormatProp & NumberFormatProps
