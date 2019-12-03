@@ -1,4 +1,5 @@
 import styled from '../../shared/Styles/styled-components';
+import theme from '../../shared/Styles/theme';
 
 export interface ISidebarItemProps {
   currentPage: boolean;
@@ -11,9 +12,11 @@ export const SidebarItem = styled.div<ISidebarItemProps>`
   display: flex;
   position: relative;
   visibility: ${(props) => (props.hidden ? 'hidden' : '')};
-  background-color: ${(props) => (props.currentPage ? '#F2463A' : '#ededed')};
+  background-color: ${(props) =>
+    props.currentPage ? theme.colors.red : '#ededed'};
   :hover {
-    background-color: #ebc634;
+    background-color: ${(props) =>
+      props.currentPage ? '#ededed' : theme.colors.yellow};
   }
   img {
     flex-direction: column;
