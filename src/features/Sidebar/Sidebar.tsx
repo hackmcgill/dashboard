@@ -14,9 +14,13 @@ interface ISidebarProps {
   currentPage: string;
   confirmed: boolean;
   status: HackerStatus;
+  created?: boolean;
 }
 
 export const Sidebar: React.SFC<ISidebarProps> = (props) => {
+  Sidebar.defaultProps = {
+    created: true,
+  };
   // add 'Team'
   const TabItems: string[] = ['Home', 'Profile', 'Application'];
   const appRoute =
@@ -40,7 +44,7 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
   function hiddenTab(name: string): boolean {
     switch (name) {
       case 'Home':
-        return false;
+        return !props.created;
       case 'Profile':
         return false;
       case 'Application':

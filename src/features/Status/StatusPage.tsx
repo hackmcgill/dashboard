@@ -14,7 +14,7 @@ import { FrontendRoute, HackerStatus, IAccount } from '../../config';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusPageProps {
-  account: IAccount;
+  account?: IAccount;
   status: HackerStatus;
   confirmed: boolean;
 }
@@ -28,7 +28,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
           status={this.props.status}
           confirmed={this.props.confirmed}
         />
-        {this.props.confirmed ? (
+        {this.props.confirmed && this.props.account ? (
           <div>
             <h1 style={{ color: 'red' }}>
               Hey {this.props.account.firstName},

@@ -36,7 +36,7 @@ import {
   isSponsor,
 } from '../../util';
 import Sidebar from '../Sidebar/Sidebar';
-import ConfirmationEmailSentComponent from './ConfirmationEmailSentComponent';
+import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
 export enum ManageAccountModes {
@@ -128,7 +128,12 @@ class ManageAccountContainer extends React.Component<
     switch (mode) {
       case ManageAccountModes.CREATE:
         if (accountDetails.accountType === UserType.UNKNOWN || !token) {
-          return <ConfirmationEmailSentComponent />;
+          return (
+            <StatusPage
+              status={HackerStatus.HACKER_STATUS_NONE}
+              confirmed={false}
+            />
+          );
         } else if (isSponsor(accountDetails)) {
           return <Redirect to={FrontendRoute.CREATE_SPONSOR_PAGE} />;
         } else {
