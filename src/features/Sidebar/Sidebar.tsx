@@ -7,6 +7,7 @@ import { FrontendRoute as routes, HackerStatus } from '../../config';
 import { H2, Image, LinkDuo } from '../../shared/Elements';
 import SidebarContainer from './SidebarContainer';
 import SidebarItem from './SidebarItem';
+import theme from '../../shared/Styles/theme';
 // import BusIcon from '../../assets/images/sidebar-bus.svg';
 // import { PageType } from '../../config';
 
@@ -81,7 +82,13 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
                 src={PageTypeObj[index]}
                 style={props.currentPage === name ? whiteIcon : undefined}
               />
-              <H2 color={props.currentPage === name ? 'white' : '#4d4d4d'}>
+              <H2
+                color={
+                  props.currentPage === name
+                    ? theme.colors.white
+                    : theme.colors.black80
+                }
+              >
                 {name}
               </H2>
             </SidebarItem>

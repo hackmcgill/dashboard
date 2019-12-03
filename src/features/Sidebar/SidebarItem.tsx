@@ -13,10 +13,10 @@ export const SidebarItem = styled.div<ISidebarItemProps>`
   position: relative;
   visibility: ${(props) => (props.hidden ? 'hidden' : '')};
   background-color: ${(props) =>
-    props.currentPage ? theme.colors.red : '#ededed'};
+    props.currentPage ? theme.colors.red : theme.colors.black5};
   :hover {
     background-color: ${(props) =>
-      props.currentPage ? '#ededed' : theme.colors.yellow};
+      props.currentPage ? theme.colors.red : theme.colors.yellow};
   }
   img {
     flex-direction: column;

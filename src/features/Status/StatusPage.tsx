@@ -12,6 +12,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import Background from '../../assets/images/statuspage-background.svg';
 import { FrontendRoute, HackerStatus, IAccount } from '../../config';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
+import theme from '../../shared/Styles/theme';
 
 export interface IStatusPageProps {
   account?: IAccount;
@@ -30,7 +31,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
         />
         {this.props.confirmed && this.props.account ? (
           <div>
-            <h1 style={{ color: 'red', textAlign: 'center' }}>
+            <h1 style={{ color: theme.colors.red, textAlign: 'center' }}>
               Hey {this.props.account.firstName},
             </h1>
             {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
@@ -38,7 +39,11 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                 <H1 textAlign={'center'} display={'inline'}>
                   Your application status is:
                 </H1>
-                <H1 textAlign={'center'} color={'black'} display={'inline'}>
+                <H1
+                  textAlign={'center'}
+                  color={theme.colors.black80}
+                  display={'inline'}
+                >
                   {this.props.status}
                 </H1>
               </Flex>
@@ -48,7 +53,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                 style={{ marginTop: '1em' }}
                 alignItems={'center'}
               >
-                <Paragraph color={'black'} textAlign={'center'}>
+                <Paragraph color={theme.colors.black80} textAlign={'center'}>
                   Don't forget to submit your application before Saturday
                   December 31st{' '}
                 </Paragraph>
