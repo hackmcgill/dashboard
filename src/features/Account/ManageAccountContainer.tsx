@@ -36,6 +36,7 @@ import {
 import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
+import HorizontalSpacer from '../../shared/Elements/HorizontalSpacer';
 
 export enum ManageAccountModes {
   CREATE,
@@ -149,52 +150,54 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <MaxWidthBox m={'auto'} maxWidth={'360px'}>
-        <Sidebar
-          currentPage="Profile"
-          status={this.state.status}
-          confirmed={this.state.accountDetails.confirmed}
-          created={mode === ManageAccountModes.CREATE ? false : undefined}
-        />
-        <Helmet>
-          <title>
-            {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
-            McHacks 7
-          </title>
-        </Helmet>
-        <H1
-          color={'#F2463A'}
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-          paddingBottom={'20px'}
-          paddingTop={'70px'}
-        >
-          Your Account
-        </H1>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            firstName: accountDetails.firstName,
-            lastName: accountDetails.lastName,
-            email: accountDetails.email,
-            password: accountDetails.password || '',
-            newPassword: '',
-            dietaryRestrictions: accountDetails.dietaryRestrictions,
-            pronoun: accountDetails.pronoun,
-            shirtSize: accountDetails.shirtSize,
-            phoneNumber: accountDetails.phoneNumber,
-            birthDate: accountDetails.birthDate,
-          }}
-          onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema(
-            mode === ManageAccountModes.CREATE
-          )}
-        />
-      </MaxWidthBox>
+      <HorizontalSpacer paddingLeft="18%">
+        <MaxWidthBox m={'auto'} maxWidth={'360px'}>
+          <Sidebar
+            currentPage="Profile"
+            status={this.state.status}
+            confirmed={this.state.accountDetails.confirmed}
+            created={mode === ManageAccountModes.CREATE ? false : undefined}
+          />
+          <Helmet>
+            <title>
+              {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account
+              | McHacks 7
+            </title>
+          </Helmet>
+          <H1
+            color={'#F2463A'}
+            fontSize={'30px'}
+            textAlign={'left'}
+            marginTop={'0px'}
+            marginBottom={'20px'}
+            marginLeft={'0px'}
+            paddingBottom={'20px'}
+            paddingTop={'70px'}
+          >
+            Your Account
+          </H1>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              firstName: accountDetails.firstName,
+              lastName: accountDetails.lastName,
+              email: accountDetails.email,
+              password: accountDetails.password || '',
+              newPassword: '',
+              dietaryRestrictions: accountDetails.dietaryRestrictions,
+              pronoun: accountDetails.pronoun,
+              shirtSize: accountDetails.shirtSize,
+              phoneNumber: accountDetails.phoneNumber,
+              birthDate: accountDetails.birthDate,
+            }}
+            onSubmit={this.handleSubmit}
+            render={this.renderFormik}
+            validationSchema={getValidationSchema(
+              mode === ManageAccountModes.CREATE
+            )}
+          />
+        </MaxWidthBox>
+      </HorizontalSpacer>
     );
   }
   private renderFormik(fp: FormikProps<any>) {
@@ -263,6 +266,27 @@ class ManageAccountContainer extends React.Component<
           ''
         )}
         <FastField
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.PHONE_NUMBER_LABEL}
+          placeholder="+# (###) ###-####"
+          format="+# (###) ###-####"
+          name={'phoneNumber'}
+          required={true}
+          value={fp.values.phoneNumber}
+        />
+        <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+        <FastField
+          component={FormikElements.Select}
+          creatable={true}
+          label={CONSTANTS.PRONOUN_LABEL}
+          name={'pronoun'}
+          placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+          options={getOptionsFromEnum(Pronouns)}
+          required={true}
+          value={fp.values.pronoun}
+        />
+        <ErrorMessage component={FormikElements.Error} name="pronoun" />
+        <FastField
           component={FormikElements.Select}
           creatable={true}
           isMulti={true}
@@ -276,17 +300,6 @@ class ManageAccountContainer extends React.Component<
           component={FormikElements.Error}
           name="dietaryRestrictions"
         />
-        <FastField
-          component={FormikElements.Select}
-          creatable={true}
-          label={CONSTANTS.PRONOUN_LABEL}
-          name={'pronoun'}
-          placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-          options={getOptionsFromEnum(Pronouns)}
-          required={true}
-          value={fp.values.pronoun}
-        />
-        <ErrorMessage component={FormikElements.Error} name="pronoun" />
         {/*<FastField
           component={FormikElements.Select}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
@@ -296,16 +309,6 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.shirtSize}
         />
         <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
-        <FastField
-          component={FormikElements.FormattedNumber}
-          label={CONSTANTS.PHONE_NUMBER_LABEL}
-          placeholder="+# (###) ###-####"
-          format="+# (###) ###-####"
-          name={'phoneNumber'}
-          required={true}
-          value={fp.values.phoneNumber}
-        />
-        <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           Submit
         </SubmitBtn>
