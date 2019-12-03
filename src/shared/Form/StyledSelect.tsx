@@ -20,6 +20,15 @@ export const StyledSelect = styled(Select)`
   .react-select__value-container {
     padding-left: 0;
   }
+
+  .react-select__dropdown-indicator {
+    transform: rotate(-90deg);
+    transition: transform ease 0.3s;
+  }
+
+  .react-select__control--menu-is-open .react-select__dropdown-indicator {
+    transform: rotate(0deg);
+  }
 `;
 
 export default StyledSelect;
