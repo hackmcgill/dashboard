@@ -15,7 +15,7 @@ import {
   LeftContainer,
   MaxWidthBox,
 } from '../../shared/Elements';
-import Button, { ButtonProminence } from '../../shared/Elements/Button';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
@@ -116,7 +116,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
                     state: { ...this.state },
                   }}
                 >
-                  <Button type="button" prominence={ButtonProminence.Secondary}>
+                  <Button type="button" variant={ButtonVariant.Secondary}>
                     Register
                   </Button>
                 </Link>

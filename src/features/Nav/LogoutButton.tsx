@@ -3,17 +3,14 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { APIResponse, Auth } from '../../api';
 import { FrontendRoute, IValidationError } from '../../config';
-import Button, { ButtonProminence } from '../../shared/Elements/Button';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (
   props: RouteComponentProps
 ) => {
   return (
-    <Button
-      prominence={ButtonProminence.CallToAction}
-      onClick={handleLogout(props)}
-    >
+    <Button variant={ButtonVariant.CallToAction} onClick={handleLogout(props)}>
       Logout
     </Button>
   );
