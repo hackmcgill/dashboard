@@ -8,7 +8,7 @@ export const SidebarContainer = styled.nav`
   height: 100%;
   width: 18%;
   text-align: left;
-  padding: 3rem 0 0 0;
+  padding: 0 0 0 0;
   position: fixed;
   left: 0;
 

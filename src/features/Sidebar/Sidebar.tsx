@@ -40,7 +40,7 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
   function hiddenTab(name: string): boolean {
     switch (name) {
       case 'Home':
-        return !props.confirmed;
+        return false;
       case 'Profile':
         return false;
       case 'Application':
@@ -59,23 +59,27 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
 
   return (
     <SidebarContainer>
-      {TabItems.map((name, index) => (
-        <LinkDuo to={route[index]} key={name}>
-          <SidebarItem
-            currentPage={props.currentPage === name ? true : false}
-            title={name}
-            hidden={hiddenTab(name)}
-          >
-            <Image
-              src={PageTypeObj[index]}
-              style={props.currentPage === name ? whiteIcon : undefined}
-            />
-            <H2 color={props.currentPage === name ? 'white' : '#4d4d4d'}>
-              {name}
-            </H2>
-          </SidebarItem>
-        </LinkDuo>
-      ))}
+      {TabItems.map((name, index) =>
+        hiddenTab(name) ? (
+          undefined
+        ) : (
+          <LinkDuo to={route[index]} key={name}>
+            <SidebarItem
+              currentPage={props.currentPage === name ? true : false}
+              title={name}
+              hidden={hiddenTab(name)}
+            >
+              <Image
+                src={PageTypeObj[index]}
+                style={props.currentPage === name ? whiteIcon : undefined}
+              />
+              <H2 color={props.currentPage === name ? 'white' : '#4d4d4d'}>
+                {name}
+              </H2>
+            </SidebarItem>
+          </LinkDuo>
+        )
+      )}
     </SidebarContainer>
   );
 };

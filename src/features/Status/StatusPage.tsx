@@ -11,6 +11,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 import Background from '../../assets/images/statuspage-background.svg';
 import { FrontendRoute, HackerStatus, IAccount } from '../../config';
+import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusPageProps {
   account: IAccount;
@@ -27,30 +28,38 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
           status={this.props.status}
           confirmed={this.props.confirmed}
         />
-        <h1 style={{ color: 'red' }}>Hey {this.props.account.firstName},</h1>
-        {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
-          <Flex flexDirection={'rows'} style={{ marginTop: '8em' }}>
-            <H1 textAlign={'center'} display={'inline'}>
-              Your application status is:
-            </H1>
-            <H1 textAlign={'center'} color={'black'} display={'inline'}>
-              {this.props.status}
-            </H1>
-          </Flex>
+        {this.props.confirmed ? (
+          <div>
+            <h1 style={{ color: 'red' }}>
+              Hey {this.props.account.firstName},
+            </h1>
+            {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
+              <Flex flexDirection={'rows'} style={{ marginTop: '8em' }}>
+                <H1 textAlign={'center'} display={'inline'}>
+                  Your application status is:
+                </H1>
+                <H1 textAlign={'center'} color={'black'} display={'inline'}>
+                  {this.props.status}
+                </H1>
+              </Flex>
+            ) : (
+              <Flex
+                flexDirection={'column'}
+                style={{ marginTop: '8em' }}
+                alignItems={'center'}
+              >
+                <Paragraph color={'black'} textAlign={'center'}>
+                  Don't forget to submit your application before Saturday
+                  December 31st{' '}
+                </Paragraph>
+                <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                  <Button type="button">Apply</Button>
+                </LinkDuo>
+              </Flex>
+            )}
+          </div>
         ) : (
-          <Flex
-            flexDirection={'column'}
-            style={{ marginTop: '8em' }}
-            alignItems={'center'}
-          >
-            <Paragraph color={'black'} textAlign={'center'}>
-              Don't forget to submit your application before Saturday December
-              31st{' '}
-            </Paragraph>
-            <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-              <Button type="button">Apply</Button>
-            </LinkDuo>
-          </Flex>
+          <ConfirmationEmailSentComponent />
         )}
         <BackgroundImage
           right={'0px'}
