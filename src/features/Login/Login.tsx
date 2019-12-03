@@ -11,11 +11,11 @@ import ForgotPasswordLinkComponent from './ForgotPasswordLink';
 
 import {
   BackgroundImage,
-  Button,
   H1,
   LeftContainer,
   MaxWidthBox,
 } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
@@ -116,7 +116,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
                     state: { ...this.state },
                   }}
                 >
-                  <Button type="button" secondary={true}>
+                  <Button type="button" variant={ButtonVariant.Secondary}>
                     Register
                   </Button>
                 </Link>

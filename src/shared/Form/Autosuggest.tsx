@@ -58,14 +58,14 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__suggestion--highlighted {
     font-weight: normal;
-    background-color: ${(props) => props.theme.colors.red};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.black10};
+    color: ${(props) => props.theme.colors.black70};
   }
 
   .react-autosuggest__suggestion--selected {
     font-weight: normal;
-    background-color: ${(props) => props.theme.colors.red};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.black10};
+    color: ${(props) => props.theme.colors.black70};
   }
 `;
 

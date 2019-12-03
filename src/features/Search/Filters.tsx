@@ -12,7 +12,7 @@ import {
   StringOperations,
 } from '../../config';
 import { GradYears } from '../../config';
-import { Button } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import { getOptionsFromEnum } from '../../util';
@@ -131,7 +131,11 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
             </Button>
           </Box>
           <Box>
-            <Button onClick={this.resetForm(fp)} type="button" secondary={true}>
+            <Button
+              onClick={this.resetForm(fp)}
+              type="button"
+              variant={ButtonVariant.Secondary}
+            >
               Reset
             </Button>
           </Box>
