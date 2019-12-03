@@ -7,7 +7,7 @@ export interface IButtonProps {
   disabled?: boolean;
 }
 
-export const Button = styled.button<IButtonProps>`
+export const CTAButton = styled.button<IButtonProps>`
   background-color: ${(props) =>
     props.secondary ? props.theme.colors.black60 : props.theme.colors.red};
   font-size: 14px;
@@ -16,7 +16,7 @@ export const Button = styled.button<IButtonProps>`
   padding: 10px 16px;
   margin: 6px;
   border: none;
-  border-radius: 3.75em;
+  border-radius: 40px;
   min-width: ${(props) => (!props.isNarrow ? '100px' : 'initial')};
   cursor: pointer;
   transition: 0.15s linear all;
@@ -77,4 +77,4 @@ export const Button = styled.button<IButtonProps>`
     }`}
 `;
 
-export default Button;
+export default CTAButton;
