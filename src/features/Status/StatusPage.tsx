@@ -30,11 +30,11 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
         />
         {this.props.confirmed && this.props.account ? (
           <div>
-            <h1 style={{ color: 'red' }}>
+            <h1 style={{ color: 'red', textAlign: 'center' }}>
               Hey {this.props.account.firstName},
             </h1>
             {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
-              <Flex flexDirection={'rows'} style={{ marginTop: '8em' }}>
+              <Flex flexDirection={'rows'} style={{ marginTop: '1em' }}>
                 <H1 textAlign={'center'} display={'inline'}>
                   Your application status is:
                 </H1>
@@ -45,7 +45,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
             ) : (
               <Flex
                 flexDirection={'column'}
-                style={{ marginTop: '8em' }}
+                style={{ marginTop: '1em' }}
                 alignItems={'center'}
               >
                 <Paragraph color={'black'} textAlign={'center'}>

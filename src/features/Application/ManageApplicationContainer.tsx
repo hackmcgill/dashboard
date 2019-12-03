@@ -125,7 +125,6 @@ class ManageApplicationContainer extends React.Component<
           currentPage="Application"
           status={this.state.hackerDetails.status}
           confirmed={true}
-          created={mode === ManageApplicationModes.CREATE ? false : true}
         />
         <Helmet>
           <title>

@@ -156,6 +156,7 @@ class ManageAccountContainer extends React.Component<
           currentPage="Profile"
           status={this.state.status}
           confirmed={this.state.accountDetails.confirmed}
+          created={mode === ManageAccountModes.CREATE ? false : undefined}
         />
         <Helmet>
           <title>

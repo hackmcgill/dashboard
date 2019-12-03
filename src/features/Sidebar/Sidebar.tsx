@@ -67,7 +67,11 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
         hiddenTab(name) ? (
           undefined
         ) : (
-          <LinkDuo to={route[index]} key={name}>
+          <LinkDuo
+            to={route[index]}
+            key={name}
+            style={{ textDecoration: 'none' }}
+          >
             <SidebarItem
               currentPage={props.currentPage === name ? true : false}
               title={name}
