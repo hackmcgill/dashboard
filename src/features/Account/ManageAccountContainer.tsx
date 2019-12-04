@@ -20,7 +20,12 @@ import {
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { H1, HorizontalSpacer, MaxWidthBox } from '../../shared/Elements';
+import {
+  BackgroundImage,
+  H1,
+  HorizontalSpacer,
+  MaxWidthBox
+} from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -37,6 +42,9 @@ import {
 import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
+
+import Bulby from '../../assets/images/bulby.svg';
+import Drone from '../../assets/images/drone.svg';
 
 export enum ManageAccountModes {
   CREATE,
@@ -150,15 +158,31 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <HorizontalSpacer paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}>
+      <HorizontalSpacer
+        paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
+      >
         <MaxWidthBox m={'auto'} maxWidth={'360px'}>
-          {mode === ManageAccountModes.EDIT &&
-            <Sidebar
-              currentPage="Profile"
-              status={this.state.status}
-              confirmed={this.state.accountDetails.confirmed}
-            />
-          }
+          {mode === ManageAccountModes.EDIT && (
+            <>
+              <Sidebar
+                currentPage="Profile"
+                status={this.state.status}
+                confirmed={this.state.accountDetails.confirmed}
+              />
+              <BackgroundImage
+                right={'70px'}
+                top={'178px'}
+                src={Drone}
+                imgHeight={'133px'}
+              />
+              <BackgroundImage
+                left={'20%'}
+                bottom={'-50px'}
+                src={Bulby}
+                imgHeight={'290px'}
+              />
+            </>
+          )}
           <Helmet>
             <title>
               {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account
@@ -204,7 +228,7 @@ class ManageAccountContainer extends React.Component<
   private renderFormik(fp: FormikProps<any>) {
     const { mode } = this.state;
     return (
-      <Form onSubmit={fp.handleSubmit}>
+      <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
         <FastField
           name={'firstName'}
           label={CONSTANTS.FIRST_NAME_LABEL}
