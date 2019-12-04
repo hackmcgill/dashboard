@@ -32,7 +32,7 @@ interface IHackerViewState {
 class SingleHackerView extends React.Component<
   IHackerViewProps,
   IHackerViewState
-> {
+  > {
   constructor(props: IHackerViewProps) {
     super(props);
     this.state = {
@@ -125,7 +125,10 @@ class SingleHackerView extends React.Component<
                 alignItems="center"
               >
                 <SHField label="Age" text={date2age(account.birthDate)} />
-                <SHField label="Shirt Size" text={account.shirtSize} />
+                {
+                  /* Removed as shirt size is no longer a property of account
+                  <SHField label="Shirt Size" text={account.shirtSize} /> */
+                }
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}

@@ -13,6 +13,7 @@ import { Account, Auth, Hacker } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
+  Genders,
   HackerStatus,
   IAccount,
   Pronouns,
@@ -59,7 +60,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-> {
+  > {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -78,7 +79,7 @@ class ManageAccountContainer extends React.Component<
         password: getNestedAttr(props, ['location', 'state', 'password']) || '',
         phoneNumber: '',
         pronoun: '',
-        shirtSize: '',
+        gender: '',
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -185,7 +186,7 @@ class ManageAccountContainer extends React.Component<
               newPassword: '',
               dietaryRestrictions: accountDetails.dietaryRestrictions,
               pronoun: accountDetails.pronoun,
-              shirtSize: accountDetails.shirtSize,
+              gender: accountDetails.gender,
               phoneNumber: accountDetails.phoneNumber,
               birthDate: accountDetails.birthDate,
             }}
@@ -262,8 +263,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -283,6 +284,17 @@ class ManageAccountContainer extends React.Component<
           options={getOptionsFromEnum(Pronouns)}
           required={true}
           value={fp.values.pronoun}
+        />
+        <ErrorMessage component={FormikElements.Error} name="gender" />
+        <FastField
+          component={FormikElements.Select}
+          creatable={true}
+          label={CONSTANTS.GENDER_LABEL}
+          name={'gender'}
+          placeholder={CONSTANTS.GENDER_PLACEHOLDER}
+          options={getOptionsFromEnum(Genders)}
+          required={true}
+          value={fp.values.gender}
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
@@ -386,7 +398,7 @@ class ManageAccountContainer extends React.Component<
       password: values.password,
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
-      shirtSize: values.shirtSize,
+      gender: values.gender,
     };
   }
 }
