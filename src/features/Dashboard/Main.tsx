@@ -3,9 +3,9 @@ import { Redirect } from 'react-router';
 import { UserType } from '../../config';
 import { H1 } from '../../shared/Elements';
 import { getUserInfo } from '../../util';
-import HackerDashboardContainer from './HackerDashboard';
 import SponsorDashboard from './SponsorDashboard';
 import StaffDashboardContainer from './StaffDashboard';
+import HackerDashboard from './HackerDashboard';
 
 interface IDashboardState {
   accountType: UserType;
@@ -39,7 +39,7 @@ class Dashboard extends React.Component<{}, IDashboardState> {
   public render() {
     switch (this.state.accountType) {
       case UserType.HACKER:
-        return <HackerDashboardContainer />;
+        return <HackerDashboard />;
       case UserType.STAFF:
         return <StaffDashboardContainer />;
       case UserType.SPONSOR_T1:

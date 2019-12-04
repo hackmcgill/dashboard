@@ -49,7 +49,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           >
             <MaxWidthBox maxWidth={'330px'} width={1}>
               <H1
-                color={theme.colors.greyDark}
+                color={theme.colors.black80}
                 fontSize={'24px'}
                 textAlign={'left'}
                 marginBottom={'20px'}
@@ -66,7 +66,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
             </MaxWidthBox>
             <MaxWidthBox maxWidth={'330px'} width={1}>
               <H1
-                color={theme.colors.greyDark}
+                color={theme.colors.black80}
                 fontSize={'24px'}
                 textAlign={'left'}
                 marginBottom={'20px'}

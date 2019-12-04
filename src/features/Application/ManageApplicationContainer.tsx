@@ -41,6 +41,7 @@ import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import Sidebar from '../Sidebar/Sidebar';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -130,6 +131,11 @@ class ManageApplicationContainer extends React.Component<
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        <Sidebar
+          currentPage="Application"
+          status={this.state.hackerDetails.status}
+          confirmed={true}
+        />
         <Helmet>
           <title>
             {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}

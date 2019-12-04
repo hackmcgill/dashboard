@@ -18,7 +18,7 @@ const AutosuggestWrapper = styled.div`
   }
 
   .react-autosuggest__input:hover {
-    border: 2px solid ${(props) => props.theme.colors.greyDark};
+    border: 2px solid ${(props) => props.theme.colors.black80};
   }
 
   .react-autosuggest__input--focused {
@@ -39,7 +39,7 @@ const AutosuggestWrapper = styled.div`
     background: ${(props) => props.theme.colors.white};
     overflow-y: auto;
     max-height: 200px;
-    border: 1px solid ${(props) => props.theme.colors.greyLight};
+    border: 1px solid ${(props) => props.theme.colors.black30};
     border-radius: 2px;
     z-index: 10;
   }
@@ -58,14 +58,14 @@ const AutosuggestWrapper = styled.div`
 
   .react-autosuggest__suggestion--highlighted {
     font-weight: normal;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.black10};
+    color: ${(props) => props.theme.colors.black70};
   }
 
   .react-autosuggest__suggestion--selected {
     font-weight: normal;
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.black10};
+    color: ${(props) => props.theme.colors.black70};
   }
 `;
 

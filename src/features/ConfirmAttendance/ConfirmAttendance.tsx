@@ -7,7 +7,8 @@ import { boolean, object } from 'yup';
 
 import { Hacker } from '../../api';
 import { FrontendRoute } from '../../config';
-import { Button, H1, H2, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import { H1, H2, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -57,7 +58,7 @@ class ConfirmAttendanceContainer extends React.Component<
           </Paragraph>
         </MaxWidthBox>
         <MaxWidthBox width={1}>
-          <H2 color={theme.colors.greyDark}>{DashboardText.Liability}</H2>
+          <H2 color={theme.colors.black80}>{DashboardText.Liability}</H2>
           <Paragraph fontSize={'14px'}>{DashboardText.LegalReview}</Paragraph>
           <Formik
             enableReinitialize={true}
@@ -97,7 +98,7 @@ class ConfirmAttendanceContainer extends React.Component<
           <Box>
             <Button
               onClick={this.onClickFactory(0, fp.submitForm)}
-              secondary={true}
+              variant={ButtonVariant.Secondary}
               isLoading={fp.isSubmitting}
               disabled={fp.isSubmitting}
             >
