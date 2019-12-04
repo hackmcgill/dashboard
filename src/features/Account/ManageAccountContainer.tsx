@@ -150,14 +150,15 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <HorizontalSpacer paddingLeft="18%">
+      <HorizontalSpacer paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}>
         <MaxWidthBox m={'auto'} maxWidth={'360px'}>
-          <Sidebar
-            currentPage="Profile"
-            status={this.state.status}
-            confirmed={this.state.accountDetails.confirmed}
-            created={mode === ManageAccountModes.CREATE ? false : undefined}
-          />
+          {mode === ManageAccountModes.EDIT &&
+            <Sidebar
+              currentPage="Profile"
+              status={this.state.status}
+              confirmed={this.state.accountDetails.confirmed}
+            />
+          }
           <Helmet>
             <title>
               {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account
@@ -321,7 +322,7 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
-          Submit
+          {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
       </Form>
     );
