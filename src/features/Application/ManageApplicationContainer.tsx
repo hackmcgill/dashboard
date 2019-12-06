@@ -50,6 +50,7 @@ export enum ManageApplicationModes {
 interface IManageApplicationState {
   mode: ManageApplicationModes;
   submitted: boolean;
+  submitting: boolean;
   hackerDetails: IHacker;
 }
 
@@ -65,6 +66,7 @@ class ManageApplicationContainer extends React.Component<
     this.state = {
       mode: props.mode,
       submitted: false,
+      submitting: false,
       hackerDetails: {
         id: '',
         accountId: '',
@@ -178,7 +180,7 @@ class ManageApplicationContainer extends React.Component<
    */
   private renderFormik(fp: FormikProps<any>) {
     return (
-      <Form onSubmit={fp.handleSubmit}>
+      <Form onSubmit={fp.handleSubmit} onKeyDown={this.onKeyDown}>
         <FastField
           id="schoolName"
           name={'application.general.school'}
@@ -434,11 +436,24 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Error}
           name="application.other.codeOfConduct_MLH"
         />
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        <SubmitBtn
+          isLoading={this.state.submitting}
+          disabled={this.state.submitting}
+        >
           Submit
         </SubmitBtn>
       </Form>
     );
+  }
+
+  /**
+   * Stop enter submitting the form.
+   * @param keyEvent Event triggered when the user presses a key.
+   */
+  private onKeyDown(keyEvent: any) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
   }
 
   /**
@@ -447,6 +462,7 @@ class ManageApplicationContainer extends React.Component<
    * @param actions the formik actions
    */
   private handleSubmit(values: any) {
+    this.setState({ submitting: true });
     const { mode } = this.state;
     let handler;
     switch (mode) {
@@ -468,10 +484,10 @@ class ManageApplicationContainer extends React.Component<
               mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
             }`
           );
-          this.setState({ submitted: true });
+          this.setState({ submitted: true, submitting: false });
         } else {
           toast.error(`There was an error when submitting the application.`);
-          this.setState({ submitted: false });
+          this.setState({ submitted: false, submitting: false });
         }
       })
       .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
