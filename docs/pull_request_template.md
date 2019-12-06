@@ -25,6 +25,7 @@ Please delete options that aren't relevant.
 
 - [ ] Merged `develop` branch (before testing)
 - [ ] Linted my code locally
+- [ ] Listed change(s) in the Changelog
 - [ ] Tested all links in project relevant browsers
 - [ ] Tested all links on different screen sizes
 - [ ] Referenced all useful info (issues, tasks, etc)

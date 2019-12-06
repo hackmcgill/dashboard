@@ -13,6 +13,7 @@ Before contributing to the McHacks website, please review our [Code of Conduct](
 - Use imperative form when writing commit messages, i.e. "Fix margins in..."
 - Use sentence case (capitalize the first letter)
 - Try to communicate what the change does without having to look at the source code
+- List your main change in the unreleased section of the Changelog
 
 ## Pull Requests
 
