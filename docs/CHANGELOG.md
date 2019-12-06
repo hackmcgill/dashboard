@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Create changelog with previous releases
+- Add sidebar styling
+- Add button variant prop
+
+### Changed
+
+- Switch from card view to sidebar view on hacker dashboard
+- Modify colour variables in theme
+- Update UI elements to McHacks 7 design system
+
 ## [1.5.1](https://github.com/hackmcgill/dashboard/tree/1.5.0) - 2019-08-14
 
 ### Changed
