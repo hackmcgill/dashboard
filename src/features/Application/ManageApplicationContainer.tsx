@@ -494,7 +494,7 @@ class ManageApplicationContainer extends React.Component<
         if (response) {
           ValidationErrorGenerator(response.data);
         }
-        this.render();
+        this.setState({ submitting: false });
       });
   }
   /**
@@ -524,6 +524,7 @@ class ManageApplicationContainer extends React.Component<
     } else {
       console.log('Uploaded application properly!');
     }
+    console.log(await Hacker.getSelf());
     return true;
   }
   /**
