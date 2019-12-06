@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://github.com/hackmcgill/dashboard/tree/1.2.0) - 2019-01-09
+
+### Added
+
+- Team viewing
+- Admin dashboard with search feature
+- Linting with Prettier
+
+### Changed
+
+- Refactor account creation to Formik
+
+### Removed
+
+- Close submissions for applications
+
 ## [1.1.0](https://github.com/hackmcgill/dashboard/tree/1.1.0) - 2018-12-12
 
 ### Added
