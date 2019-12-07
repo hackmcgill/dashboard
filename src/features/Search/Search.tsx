@@ -269,7 +269,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           fullName.includes(searchBar) ||
           account.email.includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
-          account.shirtSize.includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
         foundAcct = accountId.includes(searchBar);
@@ -277,7 +276,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       const foundHacker =
         hacker.id.includes(searchBar) ||
-        hacker.major.includes(searchBar) ||
+        hacker.fieldOfStudy.includes(searchBar) ||
         hacker.school.includes(searchBar) ||
         hacker.status.includes(searchBar) ||
         hacker.graduationYear.toString().includes(searchBar);

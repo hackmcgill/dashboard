@@ -125,7 +125,10 @@ class SingleHackerView extends React.Component<
                 alignItems="center"
               >
                 <SHField label="Age" text={date2age(account.birthDate)} />
-                <SHField label="Shirt Size" text={account.shirtSize} />
+                <SHField
+                  label="Shirt Size"
+                  text={hacker.accommodation.shirtSize}
+                />
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}
@@ -134,8 +137,8 @@ class SingleHackerView extends React.Component<
                 <SHField
                   label="Dietary Restrictions"
                   text={
-                    account.dietaryRestrictions &&
-                    account.dietaryRestrictions.join(', ')
+                    hacker.accommodation.dietaryRestrictions &&
+                    hacker.accommodation.dietaryRestrictions.join(', ')
                   }
                 />
               </Flex>

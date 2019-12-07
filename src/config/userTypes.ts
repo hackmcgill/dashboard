@@ -10,10 +10,6 @@ export interface IAccount {
   lastName: string;
   // The email of the user
   email: string;
-  // The dietary restrictions for the user
-  dietaryRestrictions: string[];
-  // The shirt size
-  shirtSize: string;
   // The password
   password: string;
   // The user's phone number
@@ -61,11 +57,19 @@ export interface IHacker {
     other: {
       // no enum for these
       ethnicity: string[];
-      gender: string;
-      codeOfConduct_MLH: boolean;
-      codeOfConduct_MCHACKS: boolean;
+      privacyPolicy: boolean;
+      codeOfConduct: boolean;
     };
-    accomodation?: {
+    accommodation: {
+      // The dietary restrictions for the user
+      dietaryRestrictions: string[];
+      // The shirt size
+      shirtSize: string;
+      // Any impairments the user might have
+      impairments?: string;
+      // Any barriers the user might have
+      barriers?: string;
+      // If the user requires a bus
       needsBus?: boolean;
     };
   };

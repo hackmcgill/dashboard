@@ -59,17 +59,20 @@ const getValidationSchema = (isCreate: boolean) => {
       }),
       other: object().shape({
         ethnicity: array().required('Required'),
-        codeOfConduct_MLH: boolean()
+        privacyPolicy: boolean()
           .required('Required')
           .test('true', 'You must accept the MLH policies', (value) => value),
-        gender: string().required('Required'),
-        codeOfConduct_MCHACKS: boolean()
+        codeOfConduct: boolean()
           .required('Required')
           .test(
             'true',
             'You must accept the McHacks policies',
             (value) => value
           ),
+      }),
+      accommodation: object().shape({
+        dietaryRestrictions: string().required('Required'),
+        shirtSize: string().required('Required'),
       }),
     }),
   });

@@ -12,12 +12,10 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
-  DietaryRestriction,
   FrontendRoute,
   HackerStatus,
   IAccount,
   Pronouns,
-  ShirtSize,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
@@ -72,7 +70,6 @@ class ManageAccountContainer extends React.Component<
           (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
         birthDate: '',
         confirmed: false,
-        dietaryRestrictions: [],
         email: getNestedAttr(props, ['location', 'state', 'email']) || '',
         firstName: '',
         id: '',
@@ -80,7 +77,6 @@ class ManageAccountContainer extends React.Component<
         password: getNestedAttr(props, ['location', 'state', 'password']) || '',
         phoneNumber: '',
         pronoun: '',
-        shirtSize: '',
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -186,9 +182,7 @@ class ManageAccountContainer extends React.Component<
             email: accountDetails.email,
             password: accountDetails.password || '',
             newPassword: '',
-            dietaryRestrictions: accountDetails.dietaryRestrictions,
             pronoun: accountDetails.pronoun,
-            shirtSize: accountDetails.shirtSize,
             phoneNumber: accountDetails.phoneNumber,
             birthDate: accountDetails.birthDate,
           }}
@@ -263,20 +257,6 @@ class ManageAccountContainer extends React.Component<
         <FastField
           component={FormikElements.Select}
           creatable={true}
-          isMulti={true}
-          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          name={'dietaryRestrictions'}
-          options={getOptionsFromEnum(DietaryRestriction)}
-          required={false}
-          value={fp.values.dietaryRestrictions}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="dietaryRestrictions"
-        />
-        <FastField
-          component={FormikElements.Select}
-          creatable={true}
           label={CONSTANTS.PRONOUN_LABEL}
           name={'pronoun'}
           placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
@@ -285,15 +265,6 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.pronoun}
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
-        <FastField
-          component={FormikElements.Select}
-          label={CONSTANTS.SHIRT_SIZE_LABEL}
-          name={'shirtSize'}
-          options={getOptionsFromEnum(ShirtSize)}
-          required={true}
-          value={fp.values.shirtSize}
-        />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -384,7 +355,6 @@ class ManageAccountContainer extends React.Component<
       accountType: UserType.UNKNOWN,
       birthDate: input2date(values.birthDate),
       confirmed: false,
-      dietaryRestrictions: values.dietaryRestrictions,
       email: values.email,
       firstName: values.firstName,
       id: accountId,
@@ -392,7 +362,6 @@ class ManageAccountContainer extends React.Component<
       password: values.password,
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
-      shirtSize: values.shirtSize,
     };
   }
 }

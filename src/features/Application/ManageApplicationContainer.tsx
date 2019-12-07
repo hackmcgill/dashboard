@@ -18,13 +18,14 @@ import getValidationSchema from './validationSchema';
 
 import {
   Degrees,
+  DietaryRestriction,
   FrontendRoute,
-  Genders,
   HackerStatus,
   IEthnicity,
   IHacker,
   JobInterest,
   Majors,
+  ShirtSize,
   Skills,
 } from '../../config';
 
@@ -95,11 +96,14 @@ class ManageApplicationContainer extends React.Component<
           },
           other: {
             ethnicity: [],
-            gender: '',
-            codeOfConduct_MLH: false,
-            codeOfConduct_MCHACKS: false,
+            privacyPolicy: false,
+            codeOfConduct: false,
           },
-          accomodation: {
+          accommodation: {
+            dietaryRestrictions: [],
+            shirtSize: '',
+            impairments: '',
+            barriers: '',
             needsBus: false,
           },
         },
@@ -236,18 +240,52 @@ class ManageApplicationContainer extends React.Component<
           name="application.general.fieldOfStudy"
         />
         <FastField
-          name={'application.other.gender'}
-          label={CONSTANTS.GENDER_REQUEST_LABEL}
-          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+          name={'application.accommodation.dietaryRestrictions'}
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          placeholder={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
           creatable={true}
-          options={getOptionsFromEnum(Genders)}
+          options={getOptionsFromEnum(DietaryRestriction)}
           component={FormikElements.Select}
-          value={fp.values.application.other.gender}
+          value={fp.values.application.accommodation.dietaryRestrictions}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.other.gender"
+          name="application.accommodation.dietaryRestrictions"
+        />
+        <FastField
+          name={'application.accommodation.shirtSize'}
+          label={CONSTANTS.SHIRT_SIZE_LABEL}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(ShirtSize)}
+          required={true}
+          value={fp.values.application.accommodation.shirtSize}
+        />
+        <ErrorMessage
+          name={'application.accommodation.shirtSize'}
+          component={FormikElements.Error}
+        />
+        <FastField
+          name={'application.accommodation.impairments'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any impairments that we should know about?'}
+          value={fp.values.application.accommodation.impairments}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.impairments'}
+        />
+        <FastField
+          name={'application.accommodation.barriers'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any barriers that we should know about?'}
+          value={fp.values.application.accommodation.barriers}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.barriers'}
         />
         <FastField
           name={'application.other.ethnicity'}
@@ -401,7 +439,7 @@ class ManageApplicationContainer extends React.Component<
           name="application.shortAnswer.comments"
         />
         <FastField
-          name={'application.other.codeOfConduct_MCHACKS'}
+          name={'application.other.codeOfConduct'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -411,15 +449,15 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.application.other.codeOfConduct_MCHACKS}
+          value={fp.values.application.other.codeOfConduct}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.other.codeOfConduct_MCHACKS"
+          name="application.other.codeOfConduct"
         />
         <FastField
-          name={'application.other.codeOfConduct_MLH'}
+          name={'application.other.privacyPolicy'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -429,12 +467,12 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.application.other.codeOfConduct_MLH}
+          value={fp.values.application.other.privacyPolicy}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.other.codeOfConduct_MLH"
+          name="application.other.codeOfConduct"
         />
         <SubmitBtn
           isLoading={this.state.submitting}
