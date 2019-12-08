@@ -89,7 +89,7 @@ class SingleHackerView extends React.Component<
                   className="react-select-container"
                   classNamePrefix="react-select"
                   options={getOptionsFromEnum(HackerStatus)}
-                  disabled={!isAdmin}
+                  isDisabled={!isAdmin}
                   onChange={this.handleChange}
                   value={{
                     label: status,
