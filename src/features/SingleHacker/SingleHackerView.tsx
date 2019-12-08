@@ -89,7 +89,7 @@ class SingleHackerView extends React.Component<
                   className="react-select-container"
                   classNamePrefix="react-select"
                   options={getOptionsFromEnum(HackerStatus)}
-                  isDisabled={!isAdmin}
+                  disabled={!isAdmin}
                   onChange={this.handleChange}
                   value={{
                     label: status,
@@ -129,6 +129,7 @@ class SingleHackerView extends React.Component<
                   /* Removed as shirt size is no longer a property of account
                   <SHField label="Shirt Size" text={account.shirtSize} /> */
                 }
+                <SHField label="Gender" text={account.gender} />
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}

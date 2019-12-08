@@ -9,7 +9,7 @@ interface INumberFormatFormikComponent {
   placeholder?: string;
   value?: string;
   required?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
 const NumberFormatFormikComponent: React.StatelessComponent<
@@ -24,7 +24,7 @@ const NumberFormatFormikComponent: React.StatelessComponent<
       format={props.format}
       value={props.value}
       required={props.required}
-      disabled={props.isDisabled}
+      disabled={props.disabled}
     />
   );
 };

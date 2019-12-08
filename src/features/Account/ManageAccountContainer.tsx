@@ -190,7 +190,6 @@ class ManageAccountContainer extends React.Component<
             </title>
           </Helmet>
           <H1
-            color={'#F2463A'}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
@@ -235,7 +234,7 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.firstName}
           component={FormikElements.Input}
           isTight={true}
-          isDisabled={mode === ManageAccountModes.EDIT}
+          disabled={mode === ManageAccountModes.EDIT}
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="firstName" />
@@ -245,7 +244,7 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.lastName}
           component={FormikElements.Input}
           isTight={true}
-          isDisabled={mode === ManageAccountModes.EDIT}
+          disabled={mode === ManageAccountModes.EDIT}
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="lastName" />
@@ -257,7 +256,7 @@ class ManageAccountContainer extends React.Component<
           name={'birthDate'}
           required={true}
           value={fp.values.birthDate}
-          isDisabled={mode === ManageAccountModes.EDIT}
+          disabled={mode === ManageAccountModes.EDIT}
         />
         <ErrorMessage component={FormikElements.Error} name="birthDate" />
         <FastField
