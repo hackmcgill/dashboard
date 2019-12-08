@@ -13,11 +13,11 @@ import {
 import { Account, Auth, Hacker } from '../../api';
 import {
   FrontendRoute,
+  Genders,
   HackerStatus,
   IAccount,
   Pronouns,
   UserType,
-  Genders,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
@@ -46,7 +46,7 @@ export enum ManageAccountModes {
 interface IManageAccountContainerState {
   mode: ManageAccountModes;
   formSubmitted: boolean;
-  isSubmitting: booleans;
+  isSubmitting: boolean;
   accountDetails: IAccount;
   oldPassword: string;
   status: HackerStatus;

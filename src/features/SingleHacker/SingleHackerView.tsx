@@ -141,6 +141,14 @@ class SingleHackerView extends React.Component<
                     hacker.accommodation.dietaryRestrictions.join(', ')
                   }
                 />
+                <SHParagraph
+                  label="Impairments"
+                  text={hacker.application.accommodation.impairments}
+                />
+                <SHParagraph
+                  label="Barriers"
+                  text={hacker.application.accommodation.barriers}
+                />
               </Flex>
               <hr />
             </SingleHackerSection>
@@ -165,7 +173,10 @@ class SingleHackerView extends React.Component<
                 label="Graduation Year"
                 text={hacker.application.general.graduationYear}
               />
-              <SHField label="Major(s)" text={hacker.major} />
+              <SHField
+                label="Field(s) of Study"
+                text={hacker.application.general.fieldOfStudy}
+              />
               <SHField
                 label="Skills"
                 text={
