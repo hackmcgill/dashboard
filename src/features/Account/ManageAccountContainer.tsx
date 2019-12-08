@@ -17,6 +17,7 @@ import {
   IAccount,
   Pronouns,
   UserType,
+  Genders,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
@@ -45,6 +46,7 @@ export enum ManageAccountModes {
 interface IManageAccountContainerState {
   mode: ManageAccountModes;
   formSubmitted: boolean;
+  isSubmitting: booleans;
   accountDetails: IAccount;
   oldPassword: string;
   status: HackerStatus;
@@ -64,6 +66,7 @@ class ManageAccountContainer extends React.Component<
     super(props);
     this.state = {
       formSubmitted: false,
+      isSubmitting: false,
       mode: props.mode,
       accountDetails: {
         accountType:
@@ -77,6 +80,7 @@ class ManageAccountContainer extends React.Component<
         password: getNestedAttr(props, ['location', 'state', 'password']) || '',
         phoneNumber: '',
         pronoun: '',
+        gender: '',
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -266,6 +270,16 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
+          name={'gender'}
+          label={CONSTANTS.GENDER_REQUEST_LABEL}
+          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(Genders)}
+          required={true}
+          values={fp.values.gender}
+        />
+        <ErrorMessage component={FormikElements.Error} name="gender" />
+        <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
           placeholder="+# (###) ###-####"
@@ -285,7 +299,10 @@ class ManageAccountContainer extends React.Component<
           value={fp.values.birthDate}
         />
         <ErrorMessage component={FormikElements.Error} name="birthDate" />
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        <SubmitBtn
+          isLoading={this.state.isSubmitting}
+          disabled={this.state.isSubmitting}
+        >
           Submit
         </SubmitBtn>
       </Form>
@@ -293,6 +310,7 @@ class ManageAccountContainer extends React.Component<
   }
 
   private handleSubmit(values: FormikValues) {
+    this.setState({ isSubmitting: true });
     const { mode, accountDetails } = this.state;
 
     const formattedDetails = this.convertFormikToAccount(
@@ -315,11 +333,12 @@ class ManageAccountContainer extends React.Component<
       await Account.create(payload, this.state.token);
       console.log('Created an account');
       await Auth.login(payload.email, payload.password);
-      this.setState({ formSubmitted: true });
+      this.setState({ formSubmitted: true, isSubmitting: false });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+      this.setState({ formSubmitted: false, isSubmitting: false });
     }
   }
 
@@ -335,11 +354,12 @@ class ManageAccountContainer extends React.Component<
         await Auth.changePassword(oldPassword, newPassword);
         console.log('Updated password');
       }
-      this.setState({ formSubmitted: true });
+      this.setState({ formSubmitted: true, isSubmitting: false });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+      this.setState({ formSubmitted: false, isSubmitting: false });
     }
   }
   /**
@@ -362,6 +382,7 @@ class ManageAccountContainer extends React.Component<
       password: values.password,
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
+      gender: values.gender,
     };
   }
 }

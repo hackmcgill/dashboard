@@ -242,6 +242,7 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'application.accommodation.dietaryRestrictions'}
           label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          isMulti={true}
           placeholder={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
           creatable={true}
           options={getOptionsFromEnum(DietaryRestriction)}
@@ -303,7 +304,7 @@ class ManageApplicationContainer extends React.Component<
           name="application.other.ethnicity"
         />
         <FastField
-          name={'application.accomodation.needsBus'}
+          name={'application.accommodation.needsBus'}
           component={FormikElements.Checkbox}
           label={CONSTANTS.BUS_REQUEST_LABEL}
           subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
@@ -562,7 +563,6 @@ class ManageApplicationContainer extends React.Component<
     } else {
       console.log('Uploaded application properly!');
     }
-    console.log(await Hacker.getSelf());
     return true;
   }
   /**

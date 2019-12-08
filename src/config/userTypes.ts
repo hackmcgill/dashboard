@@ -18,6 +18,8 @@ export interface IAccount {
   birthDate: string;
   // The preferred pronoun
   pronoun: string;
+  // The gender the user identifies with
+  gender: string;
   // The database id (if new, leave blank / make '')
   id: string;
   _id?: string;
