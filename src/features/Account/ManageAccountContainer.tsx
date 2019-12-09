@@ -1,4 +1,3 @@
-import { Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Redirect, RouteProps } from 'react-router';
@@ -14,14 +13,19 @@ import { Account, Auth, Hacker } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
+  Genders,
   HackerStatus,
   IAccount,
   Pronouns,
-  ShirtSize,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
+import {
+  BackgroundImage,
+  H1,
+  HorizontalSpacer,
+  MaxWidthBox
+} from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -38,6 +42,9 @@ import {
 import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
+
+import Bulby from '../../assets/images/bulby.svg';
+import Drone from '../../assets/images/drone.svg';
 
 export enum ManageAccountModes {
   CREATE,
@@ -61,7 +68,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-> {
+  > {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -80,7 +87,7 @@ class ManageAccountContainer extends React.Component<
         password: getNestedAttr(props, ['location', 'state', 'password']) || '',
         phoneNumber: '',
         pronoun: '',
-        shirtSize: '',
+        gender: '',
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -151,90 +158,112 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-        <Sidebar
-          currentPage="Profile"
-          status={this.state.status}
-          confirmed={this.state.accountDetails.confirmed}
-          created={mode === ManageAccountModes.CREATE ? false : undefined}
-        />
-        <Helmet>
-          <title>
-            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} Account |
-            McHacks 6
-          </title>
-        </Helmet>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+      <HorizontalSpacer
+        paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
+      >
+        <MaxWidthBox m={'auto'} maxWidth={'360px'}>
+          {mode === ManageAccountModes.EDIT && (
+            <>
+              <Sidebar
+                currentPage="Profile"
+                status={this.state.status}
+                confirmed={this.state.accountDetails.confirmed}
+              />
+              <BackgroundImage
+                right={'70px'}
+                top={'178px'}
+                src={Drone}
+                imgHeight={'133px'}
+              />
+              <BackgroundImage
+                left={'20%'}
+                bottom={'-50px'}
+                src={Bulby}
+                imgHeight={'290px'}
+              />
+            </>
+          )}
+          <Helmet>
+            <title>
+              {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account
+              | McHacks 7
+            </title>
+          </Helmet>
           <H1
-            color={'#F2463A'}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
             marginBottom={'20px'}
             marginLeft={'0px'}
+            paddingBottom={'20px'}
+            paddingTop={'70px'}
           >
-            {mode === ManageAccountModes.CREATE ? 'Create' : 'Edit'} your
-            Account
+            Your Account
           </H1>
-          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              firstName: accountDetails.firstName,
+              lastName: accountDetails.lastName,
+              email: accountDetails.email,
+              password: accountDetails.password || '',
+              newPassword: '',
+              dietaryRestrictions: accountDetails.dietaryRestrictions,
+              pronoun: accountDetails.pronoun,
+              gender: accountDetails.gender,
+              phoneNumber: accountDetails.phoneNumber,
+              birthDate: accountDetails.birthDate,
+            }}
+            onSubmit={this.handleSubmit}
+            render={this.renderFormik}
+            validationSchema={getValidationSchema(
+              mode === ManageAccountModes.CREATE
+            )}
+          />
         </MaxWidthBox>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            firstName: accountDetails.firstName,
-            lastName: accountDetails.lastName,
-            email: accountDetails.email,
-            password: accountDetails.password || '',
-            newPassword: '',
-            dietaryRestrictions: accountDetails.dietaryRestrictions,
-            pronoun: accountDetails.pronoun,
-            shirtSize: accountDetails.shirtSize,
-            phoneNumber: accountDetails.phoneNumber,
-            birthDate: accountDetails.birthDate,
-          }}
-          onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema(
-            mode === ManageAccountModes.CREATE
-          )}
-        />
-      </MaxWidthBox>
+      </HorizontalSpacer>
     );
   }
   private renderFormik(fp: FormikProps<any>) {
     const { mode } = this.state;
     return (
-      <Form onSubmit={fp.handleSubmit}>
-        <Flex flexWrap={'wrap'} width={1} m="auto">
-          <MaxWidthBox width={[1, 0.5]} pr={[0, '10px']}>
-            <FastField
-              name={'firstName'}
-              label={CONSTANTS.FIRST_NAME_LABEL}
-              value={fp.values.firstName}
-              component={FormikElements.Input}
-              isTight={true}
-              required={true}
-            />
-            <ErrorMessage component={FormikElements.Error} name="firstName" />
-          </MaxWidthBox>
-          <MaxWidthBox width={[1, 0.5]} pl={[0, '10px']}>
-            <FastField
-              name={'lastName'}
-              label={CONSTANTS.LAST_NAME_LABEL}
-              value={fp.values.lastName}
-              component={FormikElements.Input}
-              isTight={true}
-              required={true}
-            />
-            <ErrorMessage component={FormikElements.Error} name="lastName" />
-          </MaxWidthBox>
-        </Flex>
+      <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
+        <FastField
+          name={'firstName'}
+          label={CONSTANTS.FIRST_NAME_LABEL}
+          value={fp.values.firstName}
+          component={FormikElements.Input}
+          isTight={true}
+          disabled={mode === ManageAccountModes.EDIT}
+          required={true}
+        />
+        <ErrorMessage component={FormikElements.Error} name="firstName" />
+        <FastField
+          name={'lastName'}
+          label={CONSTANTS.LAST_NAME_LABEL}
+          value={fp.values.lastName}
+          component={FormikElements.Input}
+          isTight={true}
+          disabled={mode === ManageAccountModes.EDIT}
+          required={true}
+        />
+        <ErrorMessage component={FormikElements.Error} name="lastName" />
+        <FastField
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.BIRTH_DATE_LABEL}
+          placeholder="MM/DD/YYYY"
+          format="##/##/####"
+          name={'birthDate'}
+          required={true}
+          value={fp.values.birthDate}
+          disabled={mode === ManageAccountModes.EDIT}
+        />
+        <ErrorMessage component={FormikElements.Error} name="birthDate" />
         <FastField
           name={'email'}
           label={CONSTANTS.EMAIL_LABEL}
           value={fp.values.email}
           component={FormikElements.Input}
-          isDisabled={mode === ManageAccountModes.EDIT}
           required={true}
         />
         <ErrorMessage component={FormikElements.Error} name="email" />
@@ -258,8 +287,40 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-          ''
-        )}
+            ''
+          )}
+        <FastField
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.PHONE_NUMBER_LABEL}
+          placeholder="+# (###) ###-####"
+          format="+# (###) ###-####"
+          name={'phoneNumber'}
+          required={true}
+          value={fp.values.phoneNumber}
+        />
+        <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+        <FastField
+          component={FormikElements.Select}
+          creatable={true}
+          label={CONSTANTS.PRONOUN_LABEL}
+          name={'pronoun'}
+          placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+          options={getOptionsFromEnum(Pronouns)}
+          required={true}
+          value={fp.values.pronoun}
+        />
+        <ErrorMessage component={FormikElements.Error} name="gender" />
+        <FastField
+          component={FormikElements.Select}
+          creatable={true}
+          label={CONSTANTS.GENDER_LABEL}
+          name={'gender'}
+          placeholder={CONSTANTS.GENDER_PLACEHOLDER}
+          options={getOptionsFromEnum(Genders)}
+          required={true}
+          value={fp.values.gender}
+        />
+        <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
           component={FormikElements.Select}
           creatable={true}
@@ -274,18 +335,7 @@ class ManageAccountContainer extends React.Component<
           component={FormikElements.Error}
           name="dietaryRestrictions"
         />
-        <FastField
-          component={FormikElements.Select}
-          creatable={true}
-          label={CONSTANTS.PRONOUN_LABEL}
-          name={'pronoun'}
-          placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-          options={getOptionsFromEnum(Pronouns)}
-          required={true}
-          value={fp.values.pronoun}
-        />
-        <ErrorMessage component={FormikElements.Error} name="pronoun" />
-        <FastField
+        {/*<FastField
           component={FormikElements.Select}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
           name={'shirtSize'}
@@ -293,29 +343,9 @@ class ManageAccountContainer extends React.Component<
           required={true}
           value={fp.values.shirtSize}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
-        <FastField
-          component={FormikElements.FormattedNumber}
-          label={CONSTANTS.PHONE_NUMBER_LABEL}
-          placeholder="+# (###) ###-####"
-          format="+# (###) ###-####"
-          name={'phoneNumber'}
-          required={true}
-          value={fp.values.phoneNumber}
-        />
-        <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-        <FastField
-          component={FormikElements.FormattedNumber}
-          label={CONSTANTS.BIRTH_DATE_LABEL}
-          placeholder="MM-DD-YYYY"
-          format="##-##-####"
-          name={'birthDate'}
-          required={true}
-          value={fp.values.birthDate}
-        />
-        <ErrorMessage component={FormikElements.Error} name="birthDate" />
+        <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
-          Submit
+          {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
       </Form>
     );
@@ -392,7 +422,7 @@ class ManageAccountContainer extends React.Component<
       password: values.password,
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
-      shirtSize: values.shirtSize,
+      gender: values.gender,
     };
   }
 }

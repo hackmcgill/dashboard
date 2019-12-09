@@ -114,9 +114,12 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           }
         );
       }
+      /*
+      Removed as shirt size has been removed from account
       toast.info(`Shirt Size: ${account.shirtSize}`, {
         autoClose: false,
       });
+      */
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);

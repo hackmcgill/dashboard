@@ -12,8 +12,8 @@ export interface IAccount {
   email: string;
   // The dietary restrictions for the user
   dietaryRestrictions: string[];
-  // The shirt size
-  shirtSize: string;
+  // The user's gender
+  gender: string;
   // The password
   password: string;
   // The user's phone number

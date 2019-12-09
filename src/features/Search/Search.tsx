@@ -216,9 +216,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-            selected: true,
-            hacker: v,
-          }))
+          selected: true,
+          hacker: v,
+        }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
@@ -269,7 +269,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           fullName.includes(searchBar) ||
           account.email.includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
-          account.shirtSize.includes(searchBar) ||
+          // Removed as shirt size is no longer a properity of account: account.shirtSize.includes(searchBar) ||
+          account.gender.includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
         foundAcct = accountId.includes(searchBar);
