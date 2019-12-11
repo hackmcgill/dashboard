@@ -28,7 +28,12 @@ import {
   Skills,
 } from '../../config';
 
-import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
+import {
+  FormDescription,
+  H1,
+  MaxWidthBox,
+  HorizontalSpacer,
+} from '../../shared/Elements';
 
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
@@ -134,45 +139,52 @@ class ManageApplicationContainer extends React.Component<
     return submitted ? (
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-        <Sidebar
-          currentPage="Application"
-          status={this.state.hackerDetails.status}
-          confirmed={true}
-        />
-        <Helmet>
-          <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-            Application | McHacks 6
-          </title>
-        </Helmet>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-          <H1
-            color={'#F2463A'}
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-          >
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
-            Application
-          </H1>
-          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+      <HorizontalSpacer
+        paddingLeft={mode === ManageApplicationModes.CREATE ? '0' : '25%'}
+      >
+        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+          <Sidebar
+            currentPage="Application"
+            status={this.state.hackerDetails.status}
+            confirmed={true}
+          />
+          <Helmet>
+            <title>
+              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
+              Application | McHacks 6
+            </title>
+          </Helmet>
+          <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+            <H1
+              color={'#F2463A'}
+              fontSize={'30px'}
+              textAlign={'left'}
+              marginTop={'0px'}
+              marginBottom={'20px'}
+              marginLeft={'0px'}
+              paddingBottom={'20px'}
+              paddingTop={'70px'}
+            >
+              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
+              Application
+            </H1>
+            <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+          </MaxWidthBox>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              application: hackerDetails.application,
+              needsBus: false,
+              resume: undefined,
+            }}
+            onSubmit={this.handleSubmit}
+            render={this.renderFormik}
+            validationSchema={getValidationSchema(
+              mode === ManageApplicationModes.CREATE
+            )}
+          />
         </MaxWidthBox>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            application: hackerDetails.application,
-            resume: undefined,
-          }}
-          onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema(
-            mode === ManageApplicationModes.CREATE
-          )}
-        />
-      </MaxWidthBox>
+      </HorizontalSpacer>
     );
   }
 
@@ -287,12 +299,28 @@ class ManageApplicationContainer extends React.Component<
           name="application.other.ethnicity"
         />
         <FastField
-          name={'application.accommodation.travel'}
+          name={'needsBus'}
           component={FormikElements.Checkbox}
           label={CONSTANTS.BUS_REQUEST_LABEL}
           subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
           required={false}
         />
+        {fp.values.needsBus ? (
+          <React.Fragment>
+            <FastField
+              name={'application.accommodation.travel'}
+              component={FormikElements.FormattedNumber}
+              label="How much will you need to be reimbursed? (Up to $100)"
+              placeholder={0}
+              required={true}
+              value={fp.values.application.accommodation.travel}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'application.accommodation.travel'}
+            />
+          </React.Fragment>
+        ) : null}
         <FastField
           name={'application.general.URL.github'}
           inputType="url"
