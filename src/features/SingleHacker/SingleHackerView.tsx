@@ -32,7 +32,7 @@ interface IHackerViewState {
 class SingleHackerView extends React.Component<
   IHackerViewProps,
   IHackerViewState
-  > {
+> {
   constructor(props: IHackerViewProps) {
     super(props);
     this.state = {
@@ -125,11 +125,10 @@ class SingleHackerView extends React.Component<
                 alignItems="center"
               >
                 <SHField label="Age" text={date2age(account.birthDate)} />
-                {
-                  /* Removed as shirt size is no longer a property of account
-                  <SHField label="Shirt Size" text={account.shirtSize} /> */
-                }
-                <SHField label="Gender" text={account.gender} />
+                <SHField
+                  label="Shirt Size"
+                  text={hacker.accommodation.shirtSize}
+                />
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}
@@ -138,9 +137,17 @@ class SingleHackerView extends React.Component<
                 <SHField
                   label="Dietary Restrictions"
                   text={
-                    account.dietaryRestrictions &&
-                    account.dietaryRestrictions.join(', ')
+                    hacker.accommodation.dietaryRestrictions &&
+                    hacker.accommodation.dietaryRestrictions.join(', ')
                   }
+                />
+                <SHParagraph
+                  label="Impairments"
+                  text={hacker.application.accommodation.impairments}
+                />
+                <SHParagraph
+                  label="Barriers"
+                  text={hacker.application.accommodation.barriers}
                 />
               </Flex>
               <hr />
@@ -153,21 +160,33 @@ class SingleHackerView extends React.Component<
               alignItems="center"
             >
               <SHField label="Email" text={account.email} />
-              <SHField label="School" text={hacker.school} />
-              <SHField label="Degree" text={hacker.degree} />
+              <SHField
+                label="School"
+                text={hacker.application.general.school}
+              />
+              <SHField
+                label="Degree"
+                text={hacker.application.general.degree}
+              />
               <SHField label="Status" text={hacker.status} />
-              <SHField label="Graduation Year" text={hacker.graduationYear} />
-              <SHField label="Major(s)" text={hacker.major} />
+              <SHField
+                label="Graduation Year"
+                text={hacker.application.general.graduationYear}
+              />
+              <SHField
+                label="Field(s) of Study"
+                text={hacker.application.general.fieldOfStudy}
+              />
               <SHField
                 label="Skills"
                 text={
-                  hacker.application.skills &&
-                  hacker.application.skills.join(', ')
+                  hacker.application.shortAnswer.skills &&
+                  hacker.application.shortAnswer.skills.join(', ')
                 }
               />
               <SHField
                 label="Job interest"
-                text={hacker.application.jobInterest}
+                text={hacker.application.general.jobInterest}
               />
             </Flex>
             <hr />
@@ -180,19 +199,19 @@ class SingleHackerView extends React.Component<
             >
               <SHLink
                 label="GitHub"
-                link={hacker.application.portfolioURL.github}
+                link={hacker.application.general.URL.github}
               />
               <SHLink
                 label="LinkedIn"
-                link={hacker.application.portfolioURL.linkedIn}
+                link={hacker.application.general.URL.linkedIn}
               />
               <SHLink
                 label="Website"
-                link={hacker.application.portfolioURL.personal}
+                link={hacker.application.general.URL.personal}
               />
               <SHLink
                 label="Dribbble"
-                link={hacker.application.portfolioURL.dropler}
+                link={hacker.application.general.URL.dribbble}
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
@@ -202,11 +221,15 @@ class SingleHackerView extends React.Component<
             >
               <SHParagraph
                 label="Why McHacks?"
-                text={hacker.application.essay}
+                text={hacker.application.shortAnswer.question1}
+              />
+              <SHParagraph
+                label="Some Q?"
+                text={hacker.application.shortAnswer.question2}
               />
               <SHParagraph
                 label="Comments"
-                text={hacker.application.comments}
+                text={hacker.application.shortAnswer.comments}
               />
             </SingleHackerSection>
           </Box>

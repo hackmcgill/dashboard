@@ -216,9 +216,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
+            selected: true,
+            hacker: v,
+          }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
@@ -278,7 +278,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       const foundHacker =
         hacker.id.includes(searchBar) ||
-        hacker.major.includes(searchBar) ||
+        hacker.fieldOfStudy.includes(searchBar) ||
         hacker.school.includes(searchBar) ||
         hacker.status.includes(searchBar) ||
         hacker.graduationYear.toString().includes(searchBar);

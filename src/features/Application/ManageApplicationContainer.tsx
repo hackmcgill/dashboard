@@ -18,13 +18,14 @@ import getValidationSchema from './validationSchema';
 
 import {
   Degrees,
+  DietaryRestriction,
   FrontendRoute,
-  Genders,
   HackerStatus,
   IEthnicity,
   IHacker,
   JobInterest,
   Majors,
+  ShirtSize,
   Skills,
 } from '../../config';
 
@@ -50,6 +51,7 @@ export enum ManageApplicationModes {
 interface IManageApplicationState {
   mode: ManageApplicationModes;
   submitted: boolean;
+  submitting: boolean;
   hackerDetails: IHacker;
 }
 
@@ -65,32 +67,46 @@ class ManageApplicationContainer extends React.Component<
     this.state = {
       mode: props.mode,
       submitted: false,
+      submitting: false,
       hackerDetails: {
         id: '',
         accountId: '',
-        school: '',
-        degree: '',
         status: HackerStatus.HACKER_STATUS_NONE,
-        graduationYear: NaN,
-        major: '',
-        gender: '',
-        ethnicity: [],
-        needsBus: false,
         application: {
-          portfolioURL: {
-            resume: '',
-            github: '',
-            dropler: '',
-            linkedIn: '',
-            personal: '',
-            other: '',
+          general: {
+            school: '',
+            degree: '',
+            fieldOfStudy: '',
+            graduationYear: NaN,
+            jobInterest: JobInterest.NONE,
+            URL: {
+              resume: '',
+              github: '',
+              dribbble: '',
+              linkedIn: '',
+              personal: '',
+              other: '',
+            },
           },
-          jobInterest: JobInterest.NONE,
-          skills: [],
-          essay: '',
-          comments: '',
+          shortAnswer: {
+            skills: [],
+            question1: '',
+            question2: '',
+            comments: '',
+          },
+          other: {
+            ethnicity: [],
+            privacyPolicy: false,
+            codeOfConduct: false,
+          },
+          accommodation: {
+            dietaryRestrictions: [],
+            shirtSize: '',
+            impairments: '',
+            barriers: '',
+            needsBus: false,
+          },
         },
-        codeOfConduct: false,
       },
     };
     this.renderFormik = this.renderFormik.bind(this);
@@ -149,17 +165,8 @@ class ManageApplicationContainer extends React.Component<
         <Formik
           enableReinitialize={true}
           initialValues={{
-            school: hackerDetails.school,
-            degree: hackerDetails.degree,
-            graduationYear: hackerDetails.graduationYear,
-            major: hackerDetails.major,
-            gender: hackerDetails.gender,
-            ethnicity: hackerDetails.ethnicity,
-            needsBus: hackerDetails.needsBus,
             application: hackerDetails.application,
-            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
-            codeOfConduct_MLH: hackerDetails.codeOfConduct,
-            resumeFile: undefined,
+            resume: undefined,
           }}
           onSubmit={this.handleSubmit}
           render={this.renderFormik}
@@ -177,79 +184,134 @@ class ManageApplicationContainer extends React.Component<
    */
   private renderFormik(fp: FormikProps<any>) {
     return (
-      <Form onSubmit={fp.handleSubmit}>
+      <Form onSubmit={fp.handleSubmit} onKeyDown={this.onKeyDown}>
         <FastField
           id="schoolName"
-          name={'school'}
+          name={'application.general.school'}
           component={SchoolComponent}
-          value={fp.values.school}
+          value={fp.values.application.general.school}
           required={true}
           label={CONSTANTS.SCHOOL_REQUEST_LABEL}
         />
-        <ErrorMessage component={FormikElements.Error} name="school" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.school"
+        />
         <FastField
-          name={'degree'}
+          name={'application.general.degree'}
           label={CONSTANTS.DEGREE_REQUEST_LABEL}
           placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
           creatable={true}
           options={getOptionsFromEnum(Degrees)}
           component={FormikElements.Select}
-          value={fp.values.degree}
+          value={fp.values.application.general.degree}
           required={true}
         />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.degree"
+        />
         <FastField
-          name="graduationYear"
+          name={'application.general.graduationYear'}
           label="Graduation year:"
           placeholder="YYYY"
           format="####"
           component={FormikElements.FormattedNumber}
-          value={fp.values.graduationYear}
+          value={fp.values.application.general.graduationYear}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="graduationYear" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.graduationYear"
+        />
         <FastField
-          name={'major'}
+          name={'application.general.fieldOfStudy'}
           options={Majors}
           isMulti={true}
           creatable={true}
           component={FormikElements.Select}
-          label={CONSTANTS.MAJOR_REQUEST_LABEL}
-          placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
-          value={fp.values.major}
+          label={CONSTANTS.FIELD_OF_STUDY_REQUEST_LABEL}
+          placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
+          value={fp.values.application.general.fieldOfStudy}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="major" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.fieldOfStudy"
+        />
         <FastField
-          name={'gender'}
-          label={CONSTANTS.GENDER_REQUEST_LABEL}
-          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+          name={'application.accommodation.dietaryRestrictions'}
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          isMulti={true}
+          placeholder={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
           creatable={true}
-          options={getOptionsFromEnum(Genders)}
+          options={getOptionsFromEnum(DietaryRestriction)}
           component={FormikElements.Select}
-          value={fp.values.gender}
+          value={fp.values.application.accommodation.dietaryRestrictions}
           required={true}
         />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.accommodation.dietaryRestrictions"
+        />
         <FastField
-          name={'ethnicity'}
+          name={'application.accommodation.shirtSize'}
+          label={CONSTANTS.SHIRT_SIZE_LABEL}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(ShirtSize)}
+          required={true}
+          value={fp.values.application.accommodation.shirtSize}
+        />
+        <ErrorMessage
+          name={'application.accommodation.shirtSize'}
+          component={FormikElements.Error}
+        />
+        <FastField
+          name={'application.accommodation.impairments'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any impairments that we should know about?'}
+          value={fp.values.application.accommodation.impairments}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.impairments'}
+        />
+        <FastField
+          name={'application.accommodation.barriers'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any barriers that we should know about?'}
+          value={fp.values.application.accommodation.barriers}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.barriers'}
+        />
+        <FastField
+          name={'application.other.ethnicity'}
           isMulti={true}
           creatable={true}
           options={getOptionsFromEnum(IEthnicity)}
           label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
           placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
-          value={fp.values.ethnicity}
+          value={fp.values.application.other.ethnicity}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="ethnicity" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.other.ethnicity"
+        />
         <FastField
-          name={'needsBus'}
+          name={'application.accommodation.needsBus'}
           component={FormikElements.Checkbox}
           label={CONSTANTS.BUS_REQUEST_LABEL}
           subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
           required={false}
         />
         <FastField
-          name={'application.portfolioURL.github'}
+          name={'application.general.URL.github'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.GITHUB_LINK_LABEL}
@@ -257,115 +319,128 @@ class ManageApplicationContainer extends React.Component<
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.github"
+          name="application.general.URL.github"
         />
 
         <FastField
-          name={'application.portfolioURL.dropler'}
+          name={'application.general.URL.dribbble'}
           inputType="url"
           component={FormikElements.Input}
-          label={CONSTANTS.DROPLER_LINK_LABEL}
-          placeholder={CONSTANTS.DROPLER_LINK_PLACEHOLDER}
+          label={CONSTANTS.DRIBBBLE_LINK_LABEL}
+          placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.dropler"
+          name="application.general.URL.dribbble"
         />
         <FastField
-          name={'application.portfolioURL.linkedIn'}
+          name={'application.general.URL.linkedIn'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.LINKEDIN_LINK_LABEL}
           placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.linkedIn}
+          value={fp.values.application.general.URL.linkedIn}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.linkedIn"
+          name="application.general.URL.linkedIn"
         />
 
         <FastField
-          name={'application.portfolioURL.personal'}
+          name={'application.general.URL.personal'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.PERSONAL_LINK_LABEL}
           placeholder={CONSTANTS.PERSONAL_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.personal}
+          value={fp.values.application.general.URL.personal}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.personal"
+          name="application.general.URL.personal"
         />
         <FastField
-          name={'application.portfolioURL.other'}
+          name={'application.general.URL.other'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.OTHER_LINK_LABEL}
           placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.other}
+          value={fp.values.application.general.URL.other}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.other"
+          name="application.general.URL.other"
         />
         <Field
-          name="resumeFile"
+          name="resume"
           component={ResumeComponent}
           label={CONSTANTS.RESUME_REQUEST_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
+          value={fp.values.resume}
         />
-        <ErrorMessage component={FormikElements.Error} name="resumeFile" />
+        <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
-          name={'application.jobInterest'}
+          name={'application.general.jobInterest'}
           options={getOptionsFromEnum(JobInterest)}
           component={FormikElements.Select}
           label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
           placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
-          value={fp.values.application.jobInterest}
+          value={fp.values.application.general.jobInterest}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.jobInterest"
+          name="application.general.jobInterest"
         />
         <FastField
-          name={'application.skills'}
+          name={'application.shortAnswer.skills'}
           isMulti={true}
           creatable={true}
           options={getOptionsFromEnum(Skills)}
           label={CONSTANTS.SKILLS_REQUEST_LABEL}
           placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
-          value={fp.values.application.skills}
+          value={fp.values.application.shortAnswer.skills}
         />
         <FastField
-          name={'application.essay'}
+          name={'application.shortAnswer.question1'}
           component={FormikElements.LongTextInput}
-          label={CONSTANTS.ESSAY_REQUEST_LABEL}
-          value={fp.values.application.essay}
+          label={CONSTANTS.QUESTION1_REQUEST_LABEL}
+          value={fp.values.application.shortAnswer.question1}
           maxLength={2000}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.essay"
+          name="application.shortAnswer.question1"
         />
         <FastField
-          name={'application.comments'}
+          name={'application.shortAnswer.question2'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.QUESTION2_REQUEST_LABEL}
+          value={fp.values.application.shortAnswer.question2}
+          maxLength={2000}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.shortAnswer.question2"
+        />
+        <FastField
+          name={'application.shortAnswer.comments'}
           component={FormikElements.LongTextInput}
           label={CONSTANTS.COMMENTS_REQUEST_LABEL}
-          value={fp.values.application.comments}
+          value={fp.values.application.shortAnswer.comments}
           maxLength={500}
           required={false}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.comments"
+          name="application.shortAnswer.comments"
         />
         <FastField
-          name={'codeOfConduct_MCHACKS'}
+          name={'application.other.codeOfConduct'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -375,15 +450,15 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct_MCHACKS}
+          value={fp.values.application.other.codeOfConduct}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="codeOfConduct_MCHACKS"
+          name="application.other.codeOfConduct"
         />
         <FastField
-          name={'codeOfConduct_MLH'}
+          name={'application.other.privacyPolicy'}
           component={FormikElements.Checkbox}
           label={
             <span>
@@ -393,18 +468,31 @@ class ManageApplicationContainer extends React.Component<
               </a>
             </span>
           }
-          value={fp.values.codeOfConduct_MLH}
+          value={fp.values.application.other.privacyPolicy}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="codeOfConduct_MLH"
+          name="application.other.codeOfConduct"
         />
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        <SubmitBtn
+          isLoading={this.state.submitting}
+          disabled={this.state.submitting}
+        >
           Submit
         </SubmitBtn>
       </Form>
     );
+  }
+
+  /**
+   * Stop enter submitting the form.
+   * @param keyEvent Event triggered when the user presses a key.
+   */
+  private onKeyDown(keyEvent: any) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
   }
 
   /**
@@ -413,6 +501,7 @@ class ManageApplicationContainer extends React.Component<
    * @param actions the formik actions
    */
   private handleSubmit(values: any) {
+    this.setState({ submitting: true });
     const { mode } = this.state;
     let handler;
     switch (mode) {
@@ -425,7 +514,6 @@ class ManageApplicationContainer extends React.Component<
       default:
         return;
     }
-
     handler(values)
       .then((success: boolean) => {
         if (success) {
@@ -435,15 +523,17 @@ class ManageApplicationContainer extends React.Component<
               mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
             }`
           );
-          this.setState({ submitted: true });
+          this.setState({ submitted: true, submitting: false });
         } else {
           toast.error(`There was an error when submitting the application.`);
+          this.setState({ submitted: false, submitting: false });
         }
       })
       .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
         if (response) {
           ValidationErrorGenerator(response.data);
         }
+        this.setState({ submitting: false });
       });
   }
   /**
@@ -461,16 +551,12 @@ class ManageApplicationContainer extends React.Component<
     const account = acctResponse.data.data;
     const application = this.convertFormikToHacker(values, account.id);
     const hackerResponse = await Hacker.create(application);
-
     if (hackerResponse.status !== 200) {
       console.error('Error while creating application');
       return false;
     }
     const hacker = hackerResponse.data.data;
-    const resumeResponse = await Hacker.uploadResume(
-      hacker.id,
-      values.resumeFile
-    );
+    const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');
       return false;
@@ -507,12 +593,9 @@ class ManageApplicationContainer extends React.Component<
       console.error('Error while updating application');
       return false;
     }
-    if (values.resumeFile) {
+    if (values.resume) {
       // only upload a resume if they have added a resume to the form.
-      const resumeResponse = await Hacker.uploadResume(
-        hackerId,
-        values.resumeFile
-      );
+      const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
 
       if (resumeResponse.status !== 200) {
         console.error('Could not upload resume properly');
@@ -540,15 +623,7 @@ class ManageApplicationContainer extends React.Component<
       id: hackerId,
       accountId,
       status: HackerStatus.HACKER_STATUS_NONE,
-      school: values.school,
-      degree: values.degree,
-      gender: values.gender,
-      needsBus: values.needsBus,
       application: values.application,
-      ethnicity: values.ethnicity,
-      major: values.major,
-      graduationYear: values.graduationYear,
-      codeOfConduct: values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS,
     };
   }
 }

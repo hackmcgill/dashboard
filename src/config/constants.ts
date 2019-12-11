@@ -41,9 +41,10 @@ export const COMMENTS_REQUEST_LABEL =
 export const DEGREE_REQUEST_LABEL =
   'What type of degree are you currently pursuing?';
 export const DEGREE_REQUEST_PLACEHOLDER = 'Undergraduate, Masters, PhD, ...';
-export const DROPLER_LINK_LABEL = 'Dribbble URL';
-export const DROPLER_LINK_PLACEHOLDER = 'https://dribbble.com/';
-export const ESSAY_REQUEST_LABEL = 'Why McHacks?';
+export const DRIBBBLE_LINK_LABEL = 'Dribbble URL';
+export const DRIBBBLE_LINK_PLACEHOLDER = 'https://dribbble.com/';
+export const QUESTION1_REQUEST_LABEL = 'Why McHacks?';
+export const QUESTION2_REQUEST_LABEL = 'Some Q?';
 export const ETHNICITY_REQUEST_LABEL = 'What is your ethnicity?';
 export const ETHNICITY_REQUEST_PLACEHOLDER = 'Ethnicity';
 export const GENDER_REQUEST_LABEL = 'What gender do you identify with?';
@@ -54,8 +55,9 @@ export const JOBINTEREST_REQUEST_LABEL = 'Are you looking for a job?';
 export const JOBINTEREST_REQUEST_PLACEHOLDER = 'Job Interests';
 export const LINKEDIN_LINK_LABEL = 'LinkedIn URL';
 export const LINKEDIN_LINK_PLACEHOLDER = 'http://linkedin.com/in/';
-export const MAJOR_PLACEHOLDER = 'Major';
-export const MAJOR_REQUEST_LABEL = 'What is (are) your field(s) of study?';
+export const FIELD_OF_STUDY_PLACEHOLDER = 'Field of Study';
+export const FIELD_OF_STUDY_REQUEST_LABEL =
+  'What is (are) your field(s) of study?';
 export const OTHER_LINK_LABEL = 'Other links you want us to know';
 export const OTHER_LINK_PLACEHOLDER = 'https://my.other.website.com/';
 export const PERSONAL_LINK_LABEL = 'Personal';

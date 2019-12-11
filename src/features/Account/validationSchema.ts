@@ -3,13 +3,13 @@ import { object, string } from 'yup';
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
     ? string()
-      .min(6, 'Must be at least 6 characters')
-      .required('Required')
+        .min(6, 'Must be at least 6 characters')
+        .required('Required')
     : string().when('newPassword', {
-      is: (pass) => pass,
-      then: string().required('Required to change password'),
-      otherwise: string(),
-    });
+        is: (pass) => pass,
+        then: string().required('Required to change password'),
+        otherwise: string(),
+      });
 
   return object().shape({
     firstName: string().required('Required'),
@@ -19,7 +19,6 @@ const getValidationSchema = (isCreate: boolean) => {
       .email('Must be a valid email'),
     password,
     newPassword: string().min(6, 'Must be at least 6 characters'),
-    dietaryRestrictions: string(),
     pronoun: string(),
     gender: string(),
     phoneNumber: string()

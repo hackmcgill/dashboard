@@ -11,7 +11,6 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
-  DietaryRestriction,
   FrontendRoute,
   Genders,
   HackerStatus,
@@ -24,7 +23,7 @@ import {
   BackgroundImage,
   H1,
   HorizontalSpacer,
-  MaxWidthBox
+  MaxWidthBox,
 } from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
@@ -54,6 +53,7 @@ export enum ManageAccountModes {
 interface IManageAccountContainerState {
   mode: ManageAccountModes;
   formSubmitted: boolean;
+  isSubmitting: boolean;
   accountDetails: IAccount;
   oldPassword: string;
   status: HackerStatus;
@@ -68,18 +68,18 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-  > {
+> {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
       formSubmitted: false,
+      isSubmitting: false,
       mode: props.mode,
       accountDetails: {
         accountType:
           (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
         birthDate: '',
         confirmed: false,
-        dietaryRestrictions: [],
         email: getNestedAttr(props, ['location', 'state', 'email']) || '',
         firstName: '',
         id: '',
@@ -208,7 +208,6 @@ class ManageAccountContainer extends React.Component<
               email: accountDetails.email,
               password: accountDetails.password || '',
               newPassword: '',
-              dietaryRestrictions: accountDetails.dietaryRestrictions,
               pronoun: accountDetails.pronoun,
               gender: accountDetails.gender,
               phoneNumber: accountDetails.phoneNumber,
@@ -287,8 +286,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -322,28 +321,16 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
+          name={'gender'}
+          label={CONSTANTS.GENDER_REQUEST_LABEL}
+          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
-          creatable={true}
-          isMulti={true}
-          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          name={'dietaryRestrictions'}
-          options={getOptionsFromEnum(DietaryRestriction)}
-          required={false}
-          value={fp.values.dietaryRestrictions}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="dietaryRestrictions"
-        />
-        {/*<FastField
-          component={FormikElements.Select}
-          label={CONSTANTS.SHIRT_SIZE_LABEL}
-          name={'shirtSize'}
-          options={getOptionsFromEnum(ShirtSize)}
+          options={getOptionsFromEnum(Genders)}
           required={true}
-          value={fp.values.shirtSize}
+          values={fp.values.gender}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
+        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
+        */}
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
@@ -352,6 +339,7 @@ class ManageAccountContainer extends React.Component<
   }
 
   private handleSubmit(values: FormikValues) {
+    this.setState({ isSubmitting: true });
     const { mode, accountDetails } = this.state;
 
     const formattedDetails = this.convertFormikToAccount(
@@ -374,11 +362,12 @@ class ManageAccountContainer extends React.Component<
       await Account.create(payload, this.state.token);
       console.log('Created an account');
       await Auth.login(payload.email, payload.password);
-      this.setState({ formSubmitted: true });
+      this.setState({ formSubmitted: true, isSubmitting: false });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+      this.setState({ formSubmitted: false, isSubmitting: false });
     }
   }
 
@@ -394,11 +383,12 @@ class ManageAccountContainer extends React.Component<
         await Auth.changePassword(oldPassword, newPassword);
         console.log('Updated password');
       }
-      this.setState({ formSubmitted: true });
+      this.setState({ formSubmitted: true, isSubmitting: false });
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
+      this.setState({ formSubmitted: false, isSubmitting: false });
     }
   }
   /**
@@ -414,7 +404,6 @@ class ManageAccountContainer extends React.Component<
       accountType: UserType.UNKNOWN,
       birthDate: input2date(values.birthDate),
       confirmed: false,
-      dietaryRestrictions: values.dietaryRestrictions,
       email: values.email,
       firstName: values.firstName,
       id: accountId,
