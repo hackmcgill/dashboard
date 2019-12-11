@@ -71,7 +71,6 @@ const getValidationSchema = (isCreate: boolean) => {
           ),
       }),
       accommodation: object().shape({
-        dietaryRestrictions: string().required('Required'),
         shirtSize: string().required('Required'),
       }),
     }),

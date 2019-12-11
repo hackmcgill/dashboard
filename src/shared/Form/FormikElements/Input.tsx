@@ -7,18 +7,18 @@ interface IInputFormikComponentProp {
   inputType: string;
   placeholder?: string;
   required?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 const InputFormikComponent: React.StatelessComponent<
   IInputFormikComponentProp & FieldProps
-> = ({ placeholder, label, required, inputType, field, isDisabled }) => {
+> = ({ placeholder, label, required, inputType, field, disabled }) => {
   return (
     <Label>
       <LabelText label={label} required={required} />
       <Input
         type={inputType}
         placeholder={placeholder || ''}
-        disabled={isDisabled}
+        disabled={disabled}
         {...field}
       />
     </Label>

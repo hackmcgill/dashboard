@@ -7,7 +7,7 @@ export interface IStatsResponse {
     school: { [key: string]: number };
     degree: { [key: string]: number };
     gender: { [key: string]: number };
-    needsBus: { true: number; false: number };
+    travel: { true: number; false: number };
     ethnicity: { [key: string]: number };
     jobInterest: { [key in JobInterest]: number };
     major: { [key: string]: number };

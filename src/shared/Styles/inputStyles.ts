@@ -29,6 +29,12 @@ export const inputStyles = css<IInputProps>`
   &:hover {
     border: 2px solid ${(props) => props.theme.colors.black60};
   }
+
+  &:disabled {
+    border-color: ${(props) => props.theme.colors.black10} !important;
+    background-color: ${(props) => props.theme.colors.black5} !important;
+    cursor: not-allowed;
+  }
 `;
 
 export default inputStyles;

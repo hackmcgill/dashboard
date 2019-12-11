@@ -6,7 +6,7 @@ import { Button, IButtonProps } from '../Elements';
 export const SubmitBtn: React.StatelessComponent<
   IButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = (props) => (
-  <Flex justifyContent={'center'} mb={'20px'}>
+  <Flex justifyContent={'center'} mt={'50px'} mb={'50px'}>
     <Box>
       <Button type={'submit'} {...props}>
         {props.children}
