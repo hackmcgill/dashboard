@@ -16,14 +16,16 @@ export const REQUIRED_DESCRIPTION =
   'Required fields are denoted with an asterisk (*)';
 
 // Account management
-export const OLD_PASSWORD_LABEL = 'Old password';
-export const NEW_PASSWORD_LABEL = 'New password';
+export const OLD_PASSWORD_LABEL = 'Old Password';
+export const NEW_PASSWORD_LABEL = 'New Password';
 export const DIETARY_RESTRICTIONS_LABEL = 'Dietary Restrictions';
-export const PRONOUN_LABEL = 'Preferred pronoun';
-export const PRONOUN_PLACEHOLDER = 'Preferred pronoun';
-export const SHIRT_SIZE_LABEL = 'Shirt size (Unisex):';
-export const PHONE_NUMBER_LABEL = 'Phone number:';
-export const BIRTH_DATE_LABEL = 'Birth date';
+export const PRONOUN_LABEL = 'Preferred Pronoun';
+export const PRONOUN_PLACEHOLDER = 'Preferred Pronoun';
+export const GENDER_LABEL = 'Gender';
+export const GENDER_PLACEHOLDER = 'Gender';
+export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex):';
+export const PHONE_NUMBER_LABEL = 'Phone Number';
+export const BIRTH_DATE_LABEL = 'Birth Date';
 export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
 

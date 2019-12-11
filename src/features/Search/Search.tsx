@@ -269,6 +269,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           fullName.includes(searchBar) ||
           account.email.includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
+          // Removed as shirt size is no longer a properity of account: account.shirtSize.includes(searchBar) ||
+          account.gender.includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
         foundAcct = accountId.includes(searchBar);

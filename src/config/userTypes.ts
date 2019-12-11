@@ -10,6 +10,8 @@ export interface IAccount {
   lastName: string;
   // The email of the user
   email: string;
+  // The user's gender
+  gender: string;
   // The password
   password: string;
   // The user's phone number
@@ -18,8 +20,6 @@ export interface IAccount {
   birthDate: string;
   // The preferred pronoun
   pronoun: string;
-  // The gender the user identifies with
-  gender: string;
   // The database id (if new, leave blank / make '')
   id: string;
   _id?: string;
