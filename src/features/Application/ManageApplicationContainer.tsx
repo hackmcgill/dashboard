@@ -4,9 +4,9 @@ import {
   FastField,
   Field,
   Formik,
+  FormikActions,
   FormikProps,
   FormikValues,
-  FormikActions,
 } from 'formik';
 import * as React from 'react';
 import Helmet from 'react-helmet';
@@ -47,6 +47,7 @@ import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
 import { Flex } from '@rebass/grid';
+import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import Sidebar from '../Sidebar/Sidebar';
 
@@ -120,7 +121,8 @@ class ManageApplicationContainer extends React.Component<
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.updatePage = this.updatePage.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
   }
@@ -192,6 +194,7 @@ class ManageApplicationContainer extends React.Component<
               back: false,
             }}
             onSubmit={this.handleSubmit}
+            onReset={this.previousPage}
             render={this.renderFormik}
             validationSchema={getValidationSchema(
               mode === ManageApplicationModes.CREATE,
@@ -262,13 +265,12 @@ class ManageApplicationContainer extends React.Component<
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <SubmitBtn isLoading={false} disabled={this.state.submitting} key={1}>
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
             Back
-          </SubmitBtn>
+          </ResetBtn>
           <SubmitBtn
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
-            key={2}
           >
             Submit
           </SubmitBtn>
@@ -342,9 +344,9 @@ class ManageApplicationContainer extends React.Component<
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <SubmitBtn isLoading={false} disabled={this.state.submitting}>
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
             Back
-          </SubmitBtn>
+          </ResetBtn>
           <SubmitBtn
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
@@ -358,7 +360,11 @@ class ManageApplicationContainer extends React.Component<
 
   private renderShortAnswerFormik(fp: FormikProps<any>) {
     return (
-      <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'application.shortAnswer.skills'}
           isMulti={true}
@@ -410,9 +416,9 @@ class ManageApplicationContainer extends React.Component<
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <SubmitBtn isLoading={false} disabled={this.state.submitting}>
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
             Back
-          </SubmitBtn>
+          </ResetBtn>
           <SubmitBtn
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
@@ -425,9 +431,7 @@ class ManageApplicationContainer extends React.Component<
   }
 
   private renderGeneralFormik(fp: FormikProps<any>) {
-    console.log(fp.values);
     return (
-      // add individual page validation later?
       <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
         <FastField
           id="schoolName"
@@ -569,7 +573,6 @@ class ManageApplicationContainer extends React.Component<
         <SubmitBtn
           isLoading={this.state.submitting}
           disabled={this.state.submitting}
-          key={2}
         >
           Next
         </SubmitBtn>
@@ -604,15 +607,32 @@ class ManageApplicationContainer extends React.Component<
     }
   }
 
-  private updatePage(values: any) {
+  /**
+   * Event handler to go the previous section of the application, while also saving values on the current section.
+   * @param values The formik values
+   */
+  private previousPage(values: any) {
     const app = this.convertFormikToHacker(values);
+    const pageNumber = values.pageNumber - 1;
     this.setState({
-      pageNumber: values.pageNumber + 1,
+      pageNumber,
       hackerDetails: app,
       resume: values.resume,
     });
-    // const pageNumber = values.values.pageNumber + 1;
-    // console.log(pageNumber);
+  }
+
+  /**
+   * Event handler to go the next section of the application, while also saving values on the current section.
+   * @param values The formik values
+   */
+  private nextPage(values: any) {
+    const app = this.convertFormikToHacker(values);
+    const pageNumber = values.pageNumber + 1;
+    this.setState({
+      pageNumber,
+      hackerDetails: app,
+      resume: values.resume,
+    });
   }
 
   /**
@@ -621,10 +641,8 @@ class ManageApplicationContainer extends React.Component<
    * @param actions the formik actions
    */
   private handleSubmit(values: any, back: FormikActions<any>) {
-    console.log(back);
-    console.log(values);
     if (values.pageNumber !== 4) {
-      this.updatePage(values);
+      this.nextPage(values);
     } else {
       this.setState({ submitting: true });
       const { mode } = this.state;
