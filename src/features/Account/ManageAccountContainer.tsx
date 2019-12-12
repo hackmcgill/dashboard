@@ -11,13 +11,13 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
+  DietaryRestriction,
   FrontendRoute,
   Genders,
   HackerStatus,
   IAccount,
   Pronouns,
   UserType,
-  DietaryRestriction,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import {
