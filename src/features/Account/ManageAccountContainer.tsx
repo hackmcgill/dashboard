@@ -11,6 +11,7 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
+  DietaryRestriction,
   FrontendRoute,
   Genders,
   HackerStatus,

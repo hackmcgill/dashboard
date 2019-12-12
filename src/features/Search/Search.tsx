@@ -184,7 +184,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'graduationYear',
       'degree',
       'gender',
-      'travel',
     ];
     const csvData: string[] = [headers.join('\t')];
     this.filter().forEach((result) => {
