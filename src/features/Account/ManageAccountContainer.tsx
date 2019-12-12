@@ -88,6 +88,7 @@ class ManageAccountContainer extends React.Component<
         phoneNumber: '',
         pronoun: '',
         gender: '',
+        dietaryRestrictions: [],
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -412,6 +413,7 @@ class ManageAccountContainer extends React.Component<
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
       gender: values.gender,
+      dietaryRestrictions: values.dietaryRestrictions,
     };
   }
 }

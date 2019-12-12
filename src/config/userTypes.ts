@@ -63,8 +63,6 @@ export interface IHacker {
       codeOfConduct: boolean;
     };
     accommodation: {
-      // The dietary restrictions for the user
-      dietaryRestrictions: string[];
       // The shirt size
       shirtSize: string;
       // Any impairments the user might have
@@ -72,7 +70,7 @@ export interface IHacker {
       // Any barriers the user might have
       barriers?: string;
       // If the user requires a bus
-      needsBus?: boolean;
+      travel?: number;
     };
   };
   teamId?: string | ITeam;

@@ -178,13 +178,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'accountId.firstName',
       'accountId.lastName',
       'accountId.email',
-      'needsBus',
+      'travel',
       'major',
       'school',
       'graduationYear',
       'degree',
       'gender',
-      'needsBus',
+      'travel',
     ];
     const csvData: string[] = [headers.join('\t')];
     this.filter().forEach((result) => {
