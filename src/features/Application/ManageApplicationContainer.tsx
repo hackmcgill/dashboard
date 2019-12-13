@@ -4,7 +4,6 @@ import {
   FastField,
   Field,
   Formik,
-  FormikActions,
   FormikProps,
   FormikValues,
 } from 'formik';
@@ -200,240 +199,28 @@ class ManageApplicationContainer extends React.Component<
     );
   }
 
-  private renderOtherFormik(fp: FormikProps<any>) {
-    return (
-      <Form
-        onKeyDown={this.onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'application.other.ethnicity'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(IEthnicity)}
-          label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
-          placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.application.other.ethnicity}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.other.ethnicity"
-        />
-        <FastField
-          name={'application.other.codeOfConduct'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
-                {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
-              </a>
-            </span>
-          }
-          value={fp.values.application.other.codeOfConduct}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.other.codeOfConduct"
-        />
-        <FastField
-          name={'application.other.privacyPolicy'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://github.com/MLH/mlh-policies" target="_blank">
-                {CONSTANTS.COC_MLH_REQUEST_LABEL}
-              </a>
-            </span>
-          }
-          value={fp.values.application.other.privacyPolicy}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.other.codeOfConduct"
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
-            Back
-          </ResetBtn>
-          <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
-          >
-            Submit
-          </SubmitBtn>
-        </Flex>
-      </Form>
-    );
+  /**
+   * The function to pass into the formik component to render the form.
+   * @param fp the formik props.
+   */
+  private renderFormik(fp: FormikProps<any>) {
+    switch (fp.values.pageNumber) {
+      case 2:
+        return this.renderShortAnswerFormik(fp);
+      case 3:
+        return this.renderAccommodationFormik(fp);
+      case 4:
+        return this.renderOtherFormik(fp);
+      default:
+        return this.renderGeneralFormik(fp);
+    }
   }
 
-  private renderAccommodationFormik(fp: FormikProps<any>) {
-    return (
-      <Form
-        onKeyDown={this.onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'application.accommodation.shirtSize'}
-          label={CONSTANTS.SHIRT_SIZE_LABEL}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(ShirtSize)}
-          required={true}
-          value={fp.values.application.accommodation.shirtSize}
-        />
-        <ErrorMessage
-          name={'application.accommodation.shirtSize'}
-          component={FormikElements.Error}
-        />
-        <FastField
-          name={'application.accommodation.impairments'}
-          component={FormikElements.LongTextInput}
-          label={'Do you have any impairments that we should know about?'}
-          value={fp.values.application.accommodation.impairments}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name={'application.accommodation.impairments'}
-        />
-        <FastField
-          name={'application.accommodation.barriers'}
-          component={FormikElements.LongTextInput}
-          label={'Do you have any barriers that we should know about?'}
-          value={fp.values.application.accommodation.barriers}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name={'application.accommodation.barriers'}
-        />
-        <FastField
-          name={'needsBus'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.BUS_REQUEST_LABEL}
-          subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
-          required={false}
-        />
-        {fp.values.needsBus ? (
-          <React.Fragment>
-            <FastField
-              name={'application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label="How much will you need to be reimbursed? (Up to $100)"
-              placeholder={0}
-              required={true}
-              value={fp.values.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'application.accommodation.travel'}
-            />
-          </React.Fragment>
-        ) : null}
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
-            Back
-          </ResetBtn>
-          <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
-          >
-            Next
-          </SubmitBtn>
-        </Flex>
-      </Form>
-    );
-  }
-
-  private renderShortAnswerFormik(fp: FormikProps<any>) {
-    return (
-      <Form
-        onKeyDown={this.onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'application.shortAnswer.skills'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(Skills)}
-          label={CONSTANTS.SKILLS_REQUEST_LABEL}
-          placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.application.shortAnswer.skills}
-        />
-        <FastField
-          name={'application.shortAnswer.question1'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.QUESTION1_REQUEST_LABEL}
-          value={fp.values.application.shortAnswer.question1}
-          maxLength={2000}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.shortAnswer.question1"
-        />
-        <FastField
-          name={'application.shortAnswer.question2'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.QUESTION2_REQUEST_LABEL}
-          value={fp.values.application.shortAnswer.question2}
-          maxLength={2000}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.shortAnswer.question2"
-        />
-        <FastField
-          name={'application.shortAnswer.comments'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.COMMENTS_REQUEST_LABEL}
-          value={fp.values.application.shortAnswer.comments}
-          maxLength={500}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.shortAnswer.comments"
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
-            Back
-          </ResetBtn>
-          <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
-          >
-            Next
-          </SubmitBtn>
-        </Flex>
-      </Form>
-    );
-  }
-
+  /**
+   * Renders the general section of the application.
+   * @param fp the formik props.
+   */
   private renderGeneralFormik(fp: FormikProps<any>) {
-    console.log(typeof fp.values.application.general.URL.resume);
     return (
       <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
         <FastField
@@ -588,20 +375,247 @@ class ManageApplicationContainer extends React.Component<
   }
 
   /**
-   * The function to pass into the formik component to render the form.
+   * Renders the short answer section of the application.
    * @param fp the formik props.
    */
-  private renderFormik(fp: FormikProps<any>) {
-    switch (fp.values.pageNumber) {
-      case 2:
-        return this.renderShortAnswerFormik(fp);
-      case 3:
-        return this.renderAccommodationFormik(fp);
-      case 4:
-        return this.renderOtherFormik(fp);
-      default:
-        return this.renderGeneralFormik(fp);
-    }
+  private renderShortAnswerFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <FastField
+          name={'application.shortAnswer.skills'}
+          isMulti={true}
+          creatable={true}
+          options={getOptionsFromEnum(Skills)}
+          label={CONSTANTS.SKILLS_REQUEST_LABEL}
+          placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
+          component={FormikElements.Select}
+          value={fp.values.application.shortAnswer.skills}
+        />
+        <FastField
+          name={'application.shortAnswer.question1'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.QUESTION1_REQUEST_LABEL}
+          value={fp.values.application.shortAnswer.question1}
+          maxLength={2000}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.shortAnswer.question1"
+        />
+        <FastField
+          name={'application.shortAnswer.question2'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.QUESTION2_REQUEST_LABEL}
+          value={fp.values.application.shortAnswer.question2}
+          maxLength={2000}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.shortAnswer.question2"
+        />
+        <FastField
+          name={'application.shortAnswer.comments'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.COMMENTS_REQUEST_LABEL}
+          value={fp.values.application.shortAnswer.comments}
+          maxLength={500}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.shortAnswer.comments"
+        />
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+            Back
+          </ResetBtn>
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Next
+          </SubmitBtn>
+        </Flex>
+      </Form>
+    );
+  }
+
+  /**
+   * Renders the accommodation section of the application.
+   * @param fp the formik props.
+   */
+  private renderAccommodationFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <FastField
+          name={'application.accommodation.shirtSize'}
+          label={CONSTANTS.SHIRT_SIZE_LABEL}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(ShirtSize)}
+          required={true}
+          value={fp.values.application.accommodation.shirtSize}
+        />
+        <ErrorMessage
+          name={'application.accommodation.shirtSize'}
+          component={FormikElements.Error}
+        />
+        <FastField
+          name={'application.accommodation.impairments'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any impairments that we should know about?'}
+          value={fp.values.application.accommodation.impairments}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.impairments'}
+        />
+        <FastField
+          name={'application.accommodation.barriers'}
+          component={FormikElements.LongTextInput}
+          label={'Do you have any barriers that we should know about?'}
+          value={fp.values.application.accommodation.barriers}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'application.accommodation.barriers'}
+        />
+        <FastField
+          name={'needsBus'}
+          component={FormikElements.Checkbox}
+          label={CONSTANTS.BUS_REQUEST_LABEL}
+          subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
+          required={false}
+        />
+        {fp.values.needsBus ? (
+          <React.Fragment>
+            <FastField
+              name={'application.accommodation.travel'}
+              component={FormikElements.FormattedNumber}
+              label="How much will you need to be reimbursed? (Up to $100)"
+              placeholder={0}
+              required={true}
+              value={fp.values.application.accommodation.travel}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'application.accommodation.travel'}
+            />
+          </React.Fragment>
+        ) : null}
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+            Back
+          </ResetBtn>
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Next
+          </SubmitBtn>
+        </Flex>
+      </Form>
+    );
+  }
+
+  /**
+   * Renders the other section of the application
+   * @param fp the formik props.
+   */
+  private renderOtherFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <FastField
+          name={'application.other.ethnicity'}
+          isMulti={true}
+          creatable={true}
+          options={getOptionsFromEnum(IEthnicity)}
+          label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
+          placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
+          component={FormikElements.Select}
+          value={fp.values.application.other.ethnicity}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.other.ethnicity"
+        />
+        <FastField
+          name={'application.other.codeOfConduct'}
+          component={FormikElements.Checkbox}
+          label={
+            <span>
+              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
+              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
+                {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
+              </a>
+            </span>
+          }
+          value={fp.values.application.other.codeOfConduct}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.other.codeOfConduct"
+        />
+        <FastField
+          name={'application.other.privacyPolicy'}
+          component={FormikElements.Checkbox}
+          label={
+            <span>
+              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
+              <a href="https://github.com/MLH/mlh-policies" target="_blank">
+                {CONSTANTS.COC_MLH_REQUEST_LABEL}
+              </a>
+            </span>
+          }
+          value={fp.values.application.other.privacyPolicy}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.other.codeOfConduct"
+        />
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+            Back
+          </ResetBtn>
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Submit
+          </SubmitBtn>
+        </Flex>
+      </Form>
+    );
   }
 
   /**
@@ -647,7 +661,7 @@ class ManageApplicationContainer extends React.Component<
    * @param values the formik values
    * @param actions the formik actions
    */
-  private handleSubmit(values: any, back: FormikActions<any>) {
+  private handleSubmit(values: any) {
     if (values.pageNumber !== 4) {
       this.nextPage(values);
     } else {

@@ -24,7 +24,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileSize',
                   'File too large (<4MB only)',
-                  (value) => !value || value.size <= 4000000 // 4MB
+                  (value) =>
+                    !value || typeof value === 'string' || value.size <= 4000000 // 4MB
                 )
                 .test(
                   'fileFormat',
@@ -32,7 +33,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   (value) =>
                     !value ||
                     value.type === 'application/pdf' ||
-                    value.type === 'string'
+                    typeof value === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -62,7 +63,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileSize',
                   'File too large (<4MB only)',
-                  (value) => !value || value.size <= 4000000 // 4MB
+                  (value) =>
+                    !value || typeof value === 'string' || value.size <= 4000000 // 4MB
                 )
                 .test(
                   'fileFormat',
@@ -70,7 +72,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   (value) =>
                     !value ||
                     value.type === 'application/pdf' ||
-                    value.type === 'string'
+                    typeof value === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -121,7 +123,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileSize',
                   'File too large (<4MB only)',
-                  (value) => !value || value.size <= 4000000 // 4MB
+                  (value) =>
+                    !value || typeof value === 'string' || value.size <= 4000000 // 4MB
                 )
                 .test(
                   'fileFormat',
@@ -129,7 +132,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   (value) =>
                     !value ||
                     value.type === 'application/pdf' ||
-                    value.type === 'string'
+                    typeof value === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -183,7 +186,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileSize',
                   'File too large (<4MB only)',
-                  (value) => !value || value.size <= 4000000 // 4MB
+                  (value) =>
+                    !value || typeof value === 'string' || value.size <= 4000000 // 4MB
                 )
                 .test(
                   'fileFormat',
@@ -191,7 +195,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   (value) =>
                     !value ||
                     value.type === 'application/pdf' ||
-                    value.type === 'string'
+                    typeof value === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
