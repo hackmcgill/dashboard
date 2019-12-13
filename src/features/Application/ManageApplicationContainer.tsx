@@ -18,7 +18,6 @@ import getValidationSchema from './validationSchema';
 
 import {
   Degrees,
-  DietaryRestriction,
   FrontendRoute,
   HackerStatus,
   IEthnicity,
@@ -100,11 +99,10 @@ class ManageApplicationContainer extends React.Component<
             codeOfConduct: false,
           },
           accommodation: {
-            dietaryRestrictions: [],
             shirtSize: '',
             impairments: '',
             barriers: '',
-            needsBus: false,
+            travel: 0,
           },
         },
       },
@@ -240,21 +238,6 @@ class ManageApplicationContainer extends React.Component<
           name="application.general.fieldOfStudy"
         />
         <FastField
-          name={'application.accommodation.dietaryRestrictions'}
-          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          isMulti={true}
-          placeholder={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          creatable={true}
-          options={getOptionsFromEnum(DietaryRestriction)}
-          component={FormikElements.Select}
-          value={fp.values.application.accommodation.dietaryRestrictions}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.accommodation.dietaryRestrictions"
-        />
-        <FastField
           name={'application.accommodation.shirtSize'}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
           component={FormikElements.Select}
@@ -304,7 +287,7 @@ class ManageApplicationContainer extends React.Component<
           name="application.other.ethnicity"
         />
         <FastField
-          name={'application.accommodation.needsBus'}
+          name={'application.accommodation.travel'}
           component={FormikElements.Checkbox}
           label={CONSTANTS.BUS_REQUEST_LABEL}
           subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}

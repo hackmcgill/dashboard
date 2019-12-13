@@ -127,8 +127,11 @@ class SingleHackerView extends React.Component<
                 <SHField label="Age" text={date2age(account.birthDate)} />
                 <SHField
                   label="Shirt Size"
-                  text={hacker.accommodation.shirtSize}
+                  text={hacker.application.accommodation.shirtSize}
                 />
+                {/* Removed as shirt size is no longer a property of account
+                  <SHField label="Shirt Size" text={account.shirtSize} /> */}
+                <SHField label="Gender" text={account.gender} />
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}
@@ -137,8 +140,8 @@ class SingleHackerView extends React.Component<
                 <SHField
                   label="Dietary Restrictions"
                   text={
-                    hacker.accommodation.dietaryRestrictions &&
-                    hacker.accommodation.dietaryRestrictions.join(', ')
+                    account.dietaryRestrictions &&
+                    account.dietaryRestrictions.join(', ')
                   }
                 />
                 <SHParagraph

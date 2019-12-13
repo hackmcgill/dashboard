@@ -21,6 +21,7 @@ const getValidationSchema = (isCreate: boolean) => {
     newPassword: string().min(6, 'Must be at least 6 characters'),
     pronoun: string(),
     gender: string(),
+    dietaryRestrictions: string(),
     phoneNumber: string()
       .test('validPhone', 'Must be a valid phone number', (value) => {
         return value && value.length === 11;

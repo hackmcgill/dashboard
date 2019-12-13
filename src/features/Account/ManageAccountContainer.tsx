@@ -11,6 +11,7 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
+  DietaryRestriction,
   FrontendRoute,
   Genders,
   HackerStatus,
@@ -88,6 +89,7 @@ class ManageAccountContainer extends React.Component<
         phoneNumber: '',
         pronoun: '',
         gender: '',
+        dietaryRestrictions: [],
       },
       oldPassword: '',
       token: getValueFromQuery('token'),
@@ -210,6 +212,7 @@ class ManageAccountContainer extends React.Component<
               newPassword: '',
               pronoun: accountDetails.pronoun,
               gender: accountDetails.gender,
+              dietaryRestrictions: accountDetails.dietaryRestrictions,
               phoneNumber: accountDetails.phoneNumber,
               birthDate: accountDetails.birthDate,
             }}
@@ -321,17 +324,23 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
-          name={'gender'}
-          label={CONSTANTS.GENDER_REQUEST_LABEL}
-          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+          name={'dietaryRestrictions'}
+          isMulti={true}
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          placeholder={DietaryRestriction.NONE}
           component={FormikElements.Select}
-          options={getOptionsFromEnum(Genders)}
+          options={getOptionsFromEnum(DietaryRestriction)}
           required={true}
-          values={fp.values.gender}
+          value={fp.values.dietaryRestrictions}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
-        */}
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="dietaryRestrictions"
+        />
+        <SubmitBtn
+          isLoading={this.state.isSubmitting}
+          disabled={this.state.isSubmitting}
+        >
           {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
       </Form>
@@ -412,6 +421,7 @@ class ManageAccountContainer extends React.Component<
       phoneNumber: values.phoneNumber,
       pronoun: values.pronoun,
       gender: values.gender,
+      dietaryRestrictions: values.dietaryRestrictions,
     };
   }
 }

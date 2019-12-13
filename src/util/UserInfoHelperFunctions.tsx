@@ -119,7 +119,7 @@ export function canAccessTeam(hacker?: IHacker): boolean {
 export function canAccessBus(hacker?: IHacker): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
   return hacker
-    ? Boolean(hacker.needsBus) &&
+    ? Boolean(hacker.travel) &&
         (status === HackerStatus.HACKER_STATUS_APPLIED ||
           status === HackerStatus.HACKER_STATUS_ACCEPTED ||
           status === HackerStatus.HACKER_STATUS_CONFIRMED ||
