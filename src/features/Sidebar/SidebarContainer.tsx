@@ -9,11 +9,13 @@ export const SidebarContainer = styled.nav`
   transform: 'translateX(-100%)';
   height: 100%;
   width: 18%;
+  max-width: 18%;
   text-align: left;
+  z-index: 10;
   padding: 0 0 0 0;
   position: fixed;
   left: 0;
-  @media (max-width: 576px) {
+  @media (max-width: inherit) {
     width: 100%;
   }
 `;
