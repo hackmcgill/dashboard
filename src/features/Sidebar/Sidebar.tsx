@@ -71,7 +71,11 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
           <LinkDuo
             to={route[index]}
             key={name}
-            style={{ textDecoration: 'none', overflow: 'hidden' }}
+            style={{
+              textDecoration: 'none',
+              overflow: 'hidden',
+              alignContent: 'center',
+            }}
           >
             <SidebarItem
               currentPage={props.currentPage === name ? true : false}

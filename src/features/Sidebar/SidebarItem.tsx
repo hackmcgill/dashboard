@@ -8,7 +8,7 @@ export interface ISidebarItemProps {
 }
 
 export const SidebarItem = styled.div<ISidebarItemProps>`
-  padding: 1.5rem 0 1rem 0.75rem;
+  padding: 1.5rem 0 1rem 1rem;
   display: flex;
   position: relative;
   visibility: ${(props) => (props.hidden ? 'hidden' : '')};
@@ -30,7 +30,7 @@ export const SidebarItem = styled.div<ISidebarItemProps>`
     transition: color 0.3s linear;
     text-decoration-line: none;
 
-    @media (max-width: 576px) {
+    @media (max-width: 18%) {
       font-size: 1.5rem;
       text-align: center;
     }

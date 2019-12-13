@@ -163,7 +163,7 @@ class ManageAccountContainer extends React.Component<
       <HorizontalSpacer
         paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
       >
-        <MaxWidthBox m={'auto'} maxWidth={'360px'}>
+        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
           {mode === ManageAccountModes.EDIT && (
             <>
               <Sidebar
