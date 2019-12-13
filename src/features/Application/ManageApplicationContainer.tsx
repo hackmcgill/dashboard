@@ -262,10 +262,6 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Error}
           name="application.general.graduationYear"
         />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.accommodation.dietaryRestrictions"
-        />
         <FastField
           name={'application.general.fieldOfStudy'}
           options={Majors}
