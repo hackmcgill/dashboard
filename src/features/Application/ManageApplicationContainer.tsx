@@ -18,7 +18,6 @@ import getValidationSchema from './validationSchema';
 
 import {
   Degrees,
-  DietaryRestriction,
   FrontendRoute,
   HackerStatus,
   IEthnicity,
