@@ -11,10 +11,11 @@ export const SidebarContainer = styled.nav`
   width: 18%;
   max-width: 18%;
   text-align: left;
+  z-index: 10;
   padding: 0 0 0 0;
   position: fixed;
   left: 0;
-  @media (max-width: 576px) {
+  @media (max-width: inherit) {
     width: 100%;
   }
 `;
