@@ -17,7 +17,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2018)
+                .min(2019)
                 .max(2025),
               jobInterest: string().required('Required'),
               URL: object().shape({
@@ -59,7 +59,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2018)
+                .min(2019)
                 .max(2025),
               jobInterest: string().required('Required'),
               URL: object().shape({
@@ -121,7 +121,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2018)
+                .min(2019)
                 .max(2025),
               jobInterest: string().required('Required'),
               URL: object().shape({
@@ -186,7 +186,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2018)
+                .min(2019)
                 .max(2025),
               jobInterest: string().required('Required'),
               URL: object().shape({
