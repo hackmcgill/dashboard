@@ -10,7 +10,7 @@ export interface IAccount {
   lastName: string;
   // The email of the user
   email: string;
-  // The dietary restrictions for the user
+  // The user's dietary restrictions
   dietaryRestrictions: string[];
   // The user's gender
   gender: string;

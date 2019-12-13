@@ -212,6 +212,7 @@ class ManageAccountContainer extends React.Component<
               newPassword: '',
               pronoun: accountDetails.pronoun,
               gender: accountDetails.gender,
+              dietaryRestrictions: accountDetails.dietaryRestrictions,
               phoneNumber: accountDetails.phoneNumber,
               birthDate: accountDetails.birthDate,
             }}
@@ -324,16 +325,22 @@ class ManageAccountContainer extends React.Component<
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
           name={'dietaryRestrictions'}
+          isMulti={true}
           label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          placeholder={'None'}
+          placeholder={DietaryRestriction.NONE}
           component={FormikElements.Select}
-          options={getOptionsFromEnum(Genders)}
+          options={getOptionsFromEnum(DietaryRestriction)}
           required={true}
-          values={fp.values.gender}
+          value={fp.values.dietaryRestrictions}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
-        */}
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="dietaryRestrictions"
+        />
+        <SubmitBtn
+          isLoading={this.state.isSubmitting}
+          disabled={this.state.isSubmitting}
+        >
           {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
       </Form>
