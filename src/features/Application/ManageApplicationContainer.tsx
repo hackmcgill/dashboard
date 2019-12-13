@@ -430,17 +430,25 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'space-between'}
+          justifyContent={'space-evenly'}
         >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+          {/* Add for spacing purposes */}
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
             Back
           </ResetBtn>
+
           <SubmitBtn
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
           >
             Next
           </SubmitBtn>
+          <div>&nbsp;</div>
         </Flex>
       </Form>
     );
@@ -519,9 +527,14 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'space-between'}
+          justifyContent={'center'}
         >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
             Back
           </ResetBtn>
           <SubmitBtn
@@ -530,6 +543,7 @@ class ManageApplicationContainer extends React.Component<
           >
             Next
           </SubmitBtn>
+          <div>&nbsp;</div>
         </Flex>
       </Form>
     );
@@ -602,7 +616,12 @@ class ManageApplicationContainer extends React.Component<
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <ResetBtn isLoading={false} disabled={this.state.submitting}>
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
             Back
           </ResetBtn>
           <SubmitBtn
@@ -611,6 +630,7 @@ class ManageApplicationContainer extends React.Component<
           >
             Submit
           </SubmitBtn>
+          <div>&nbsp;</div>
         </Flex>
       </Form>
     );
