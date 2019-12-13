@@ -11,7 +11,6 @@ import {
 } from 'formik';
 import { Account, Auth, Hacker } from '../../api';
 import {
-  DietaryRestriction,
   FrontendRoute,
   Genders,
   HackerStatus,
@@ -210,7 +209,6 @@ class ManageAccountContainer extends React.Component<
               email: accountDetails.email,
               password: accountDetails.password || '',
               newPassword: '',
-              dietaryRestrictions: accountDetails.dietaryRestrictions,
               pronoun: accountDetails.pronoun,
               gender: accountDetails.gender,
               phoneNumber: accountDetails.phoneNumber,
@@ -324,28 +322,16 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
+          name={'gender'}
+          label={CONSTANTS.GENDER_REQUEST_LABEL}
+          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
           component={FormikElements.Select}
-          creatable={true}
-          isMulti={true}
-          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          name={'dietaryRestrictions'}
-          options={getOptionsFromEnum(DietaryRestriction)}
-          required={false}
-          value={fp.values.dietaryRestrictions}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="dietaryRestrictions"
-        />
-        {/*<FastField
-          component={FormikElements.Select}
-          label={CONSTANTS.SHIRT_SIZE_LABEL}
-          name={'shirtSize'}
-          options={getOptionsFromEnum(ShirtSize)}
+          options={getOptionsFromEnum(Genders)}
           required={true}
           values={fp.values.gender}
         />
-        <ErrorMessage component={FormikElements.Error} name="shirtSize" />*/}
+        <ErrorMessage component={FormikElements.Error} name="shirtSize" />
+        */}
         <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
           {mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
         </SubmitBtn>
