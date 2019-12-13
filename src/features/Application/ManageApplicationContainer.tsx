@@ -131,7 +131,6 @@ class ManageApplicationContainer extends React.Component<
       try {
         const response = await Hacker.getSelf();
         const hackerDetails = response.data.data;
-        console.log(hackerDetails);
         this.setState({
           hackerDetails,
         });
