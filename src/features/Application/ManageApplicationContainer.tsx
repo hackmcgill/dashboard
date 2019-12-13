@@ -132,13 +132,8 @@ class ManageApplicationContainer extends React.Component<
       try {
         const response = await Hacker.getSelf();
         const hackerDetails = response.data.data;
-        let resume;
-        if (hackerDetails.id) {
-          resume = await Hacker.downloadResume(hackerDetails.id);
-        }
         this.setState({
           hackerDetails,
-          resume,
         });
       } catch (e) {
         if (e && e.data) {
@@ -191,7 +186,6 @@ class ManageApplicationContainer extends React.Component<
               needsBus: false,
               resume: this.state.resume ? this.state.resume : undefined,
               pageNumber,
-              back: false,
             }}
             onSubmit={this.handleSubmit}
             onReset={this.previousPage}
@@ -208,7 +202,11 @@ class ManageApplicationContainer extends React.Component<
 
   private renderOtherFormik(fp: FormikProps<any>) {
     return (
-      <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'application.other.ethnicity'}
           isMulti={true}
@@ -281,7 +279,11 @@ class ManageApplicationContainer extends React.Component<
 
   private renderAccommodationFormik(fp: FormikProps<any>) {
     return (
-      <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'application.accommodation.shirtSize'}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
@@ -431,6 +433,7 @@ class ManageApplicationContainer extends React.Component<
   }
 
   private renderGeneralFormik(fp: FormikProps<any>) {
+    console.log(typeof fp.values.application.general.URL.resume);
     return (
       <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
         <FastField
@@ -673,7 +676,7 @@ class ManageApplicationContainer extends React.Component<
             this.setState({ submitted: true, submitting: false });
           } else {
             toast.error(`There was an error when submitting the application.`);
-            this.setState({ submitted: false, submitting: false });
+            this.setState({ submitting: false });
           }
         })
         .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {

@@ -29,7 +29,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileFormat',
                   'Unsupported Format (PDF only)',
-                  (value) => !value || value.type === 'application/pdf'
+                  (value) =>
+                    !value ||
+                    value.type === 'application/pdf' ||
+                    value.type === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -64,7 +67,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileFormat',
                   'Unsupported Format (PDF only)',
-                  (value) => !value || value.type === 'application/pdf'
+                  (value) =>
+                    !value ||
+                    value.type === 'application/pdf' ||
+                    value.type === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -120,7 +126,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileFormat',
                   'Unsupported Format (PDF only)',
-                  (value) => !value || value.type === 'application/pdf'
+                  (value) =>
+                    !value ||
+                    value.type === 'application/pdf' ||
+                    value.type === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
@@ -179,7 +188,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'fileFormat',
                   'Unsupported Format (PDF only)',
-                  (value) => !value || value.type === 'application/pdf'
+                  (value) =>
+                    !value ||
+                    value.type === 'application/pdf' ||
+                    value.type === 'string'
                 ),
               github: string().url('Must be a valid url'),
               dribbble: string().url('Must be a valid url'),
