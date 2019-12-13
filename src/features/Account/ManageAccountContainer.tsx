@@ -323,9 +323,9 @@ class ManageAccountContainer extends React.Component<
         />
         <ErrorMessage component={FormikElements.Error} name="pronoun" />
         <FastField
-          name={'gender'}
-          label={CONSTANTS.GENDER_REQUEST_LABEL}
-          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
+          name={'dietaryRestrictions'}
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          placeholder={'None'}
           component={FormikElements.Select}
           options={getOptionsFromEnum(Genders)}
           required={true}
