@@ -9,6 +9,7 @@ export const SidebarContainer = styled.nav`
   transform: 'translateX(-100%)';
   height: 100%;
   width: 18%;
+  max-width: 18%;
   text-align: left;
   padding: 0 0 0 0;
   position: fixed;

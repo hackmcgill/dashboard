@@ -149,7 +149,7 @@ class ManageApplicationContainer extends React.Component<
     return submitted ? (
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
-      <HorizontalSpacer paddingLeft={'25%'}>
+      <HorizontalSpacer paddingLeft={'20%'}>
         <MaxWidthBox m={'auto'} maxWidth={'500px'}>
           <Sidebar
             currentPage="Application"
@@ -221,6 +221,7 @@ class ManageApplicationContainer extends React.Component<
    * @param fp the formik props.
    */
   private renderGeneralFormik(fp: FormikProps<any>) {
+    console.log(fp.values);
     return (
       <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
         <FastField
@@ -338,15 +339,18 @@ class ManageApplicationContainer extends React.Component<
           name="application.general.URL.other"
         />
         <Field
-          name="resume"
+          name="application.general.URL.resume"
           component={ResumeComponent}
           label={CONSTANTS.RESUME_REQUEST_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
-          value={fp.values.resume}
+          value={fp.values.application.general.URL.resume}
         />
-        <ErrorMessage component={FormikElements.Error} name="resume" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="application.general.URL.resume"
+        />
         <FastField
           name={'application.general.jobInterest'}
           options={getOptionsFromEnum(JobInterest)}
@@ -469,6 +473,8 @@ class ManageApplicationContainer extends React.Component<
           name={'application.accommodation.shirtSize'}
           component={FormikElements.Error}
         />
+        {/* This fixes the issue with going back somehow, so leave it here temporarily */}
+        <div />
         <FastField
           name={'application.accommodation.impairments'}
           component={FormikElements.LongTextInput}
@@ -563,12 +569,12 @@ class ManageApplicationContainer extends React.Component<
           name={'application.other.codeOfConduct'}
           component={FormikElements.Checkbox}
           label={
-            <span>
+            <React.Fragment>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
               <a href="https://mchacks.ca/code-of-conduct" target="_blank">
                 {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
               </a>
-            </span>
+            </React.Fragment>
           }
           value={fp.values.application.other.codeOfConduct}
           required={true}

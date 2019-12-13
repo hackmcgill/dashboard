@@ -30,7 +30,7 @@ export const SidebarItem = styled.div<ISidebarItemProps>`
     transition: color 0.3s linear;
     text-decoration-line: none;
 
-    @media (max-width: 576px) {
+    @media (max-width: 18%) {
       font-size: 1.5rem;
       text-align: center;
     }
