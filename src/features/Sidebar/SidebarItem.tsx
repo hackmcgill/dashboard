@@ -8,7 +8,7 @@ export interface ISidebarItemProps {
 }
 
 export const SidebarItem = styled.div<ISidebarItemProps>`
-  padding: 1.5rem 0 1rem 2rem;
+  padding: 1.5rem 0 1rem 0.75rem;
   display: flex;
   position: relative;
   visibility: ${(props) => (props.hidden ? 'hidden' : '')};
