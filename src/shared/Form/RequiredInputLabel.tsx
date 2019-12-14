@@ -5,6 +5,5 @@ export const RequiredInputLabel = styled.span`
   display: inline-block;
   font-weight: lighter;
   margin-left: 5px;
-  display: none;
 `;
 export default RequiredInputLabel;
