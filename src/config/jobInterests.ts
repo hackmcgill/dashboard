@@ -1,5 +1,5 @@
 export enum JobInterest {
-  FULL_TIME = 'Full-time',
+  FULL_TIME = 'Full Time',
   INTERNSHIP = 'Internship',
   NONE = 'None',
 }
