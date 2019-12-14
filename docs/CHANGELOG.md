@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch from card view to sidebar view on hacker dashboard
 - Modify colour variables in theme
 - Update UI elements to McHacks 7 design system
+- Update react-scripts to v3.3.0
+- Update qrcode to v1.4.4
+- Update axios to 0.18.1
+- Added `windows.` prefix to all `location.` calls
 
 ## [1.5.1](https://github.com/hackmcgill/dashboard/tree/1.5.0) - 2019-08-14
 
