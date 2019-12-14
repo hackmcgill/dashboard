@@ -1,6 +1,6 @@
 export enum JobInterest {
-  INTERNSHIP = 'Internship',
   FULL_TIME = 'Full-time',
+  INTERNSHIP = 'Internship',
   NONE = 'None',
 }
 export default JobInterest;
