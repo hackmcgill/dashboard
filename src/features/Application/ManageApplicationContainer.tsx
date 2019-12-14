@@ -581,7 +581,11 @@ class ManageApplicationContainer extends React.Component<
           label={
             <span>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
+              <a
+                href="https://mchacks.ca/code-of-conduct"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
               </a>
             </span>
@@ -599,7 +603,11 @@ class ManageApplicationContainer extends React.Component<
           label={
             <span>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://github.com/MLH/mlh-policies" target="_blank">
+              <a
+                href="https://github.com/MLH/mlh-policies"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {CONSTANTS.COC_MLH_REQUEST_LABEL}
               </a>
             </span>

@@ -16,9 +16,6 @@ import Paragraph from '../../shared/Elements/Paragraph';
  * Container that renders 404 not found page.
  */
 class NotFoundContainer extends React.Component<RouteComponentProps> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-  }
   public render() {
     return (
       <Flex
