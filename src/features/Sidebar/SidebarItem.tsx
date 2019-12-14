@@ -8,10 +8,9 @@ export interface ISidebarItemProps {
 }
 
 export const SidebarItem = styled.div<ISidebarItemProps>`
-  padding: 1.5rem 0 1rem 2rem;
+  padding: 1.5rem 0 1rem 1rem;
   display: flex;
   overflow: scroll;
-  align-content: 'left';
   position: relative;
   visibility: ${(props) => (props.hidden ? 'hidden' : '')};
   background-color: ${(props) =>
