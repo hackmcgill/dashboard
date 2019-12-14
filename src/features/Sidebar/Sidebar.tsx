@@ -73,8 +73,7 @@ export const Sidebar: React.SFC<ISidebarProps> = (props) => {
             key={name}
             style={{
               textDecoration: 'none',
-              overflow: 'hidden',
-              alignContent: 'center',
+              overflow: 'scroll',
             }}
           >
             <SidebarItem
