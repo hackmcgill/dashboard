@@ -1,7 +1,7 @@
 export enum Pronouns {
-  SheHer = 'She/Her',
-  HeHim = 'He/Him',
-  TheyThem = 'They/Them',
+  SHE_HER = 'She/Her',
+  HE_HIM = 'He/Him',
+  THEY_THEM = 'They/Them',
 }
 
 export default Pronouns;
