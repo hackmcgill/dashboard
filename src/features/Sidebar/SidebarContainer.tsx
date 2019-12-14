@@ -13,7 +13,7 @@ export const SidebarContainer = styled.nav`
   z-index: 10;
   text-align: left;
   padding: 0 0 0 0%;
-  position: absolute;
+  position: fixed;
   left: 0;
   @media (max-width: inherit) {
     width: 100%;
