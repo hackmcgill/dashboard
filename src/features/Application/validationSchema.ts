@@ -17,8 +17,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2025, 'Graduation year must be between 2020 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -59,8 +59,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2025, 'Graduation year must be between 2020 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -121,8 +121,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2025, 'Graduation year must be between 2020 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -192,8 +192,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2025, 'Graduation year must be between 2020 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
