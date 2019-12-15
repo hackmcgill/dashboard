@@ -54,7 +54,7 @@ export const MobileMenu = {
   bmItem: {
     textAlign: 'center',
     lineHeight: '7rem',
-    fontDize: '36px',
+    fontSize: '36px',
     padding: '40px',
   },
   bmOverlay: {
