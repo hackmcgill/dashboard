@@ -502,28 +502,17 @@ class ManageApplicationContainer extends React.Component<
           name={'hacker.application.accommodation.barriers'}
         />
         <FastField
-          name={'needsBus'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.BUS_REQUEST_LABEL}
-          subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
+          name={'hacker.application.accommodation.travel'}
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+          placeholder={0}
           required={false}
+          value={fp.values.hacker.application.accommodation.travel}
         />
-        {fp.values.needsBus ? (
-          <React.Fragment>
-            <FastField
-              name={'hacker.application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-              placeholder={0}
-              required={true}
-              value={fp.values.hacker.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.travel'}
-            />
-          </React.Fragment>
-        ) : null}
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'hacker.application.accommodation.travel'}
+        />
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
