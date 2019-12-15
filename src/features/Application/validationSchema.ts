@@ -170,6 +170,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
+              impairments: string(),
+              barriers: string(),
+              travel: number()
+                .min(0, 'Must be between 0 and 100')
+                .max(100, 'Must be between 0 and 100')
+                .typeError('Must be a number'),
             }),
           }),
         }),
@@ -233,6 +239,15 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 (value) => !value || value.length < 500
               ),
             }),
+            accommodation: object().shape({
+              shirtSize: string().required('Required'),
+              impairments: string(),
+              barriers: string(),
+              travel: number()
+                .min(0, 'Must be between 0 and 100')
+                .max(100, 'Must be between 0 and 100')
+                .typeError('Must be a number'),
+            }),
             other: object().shape({
               ethnicity: array().required('Required'),
               privacyPolicy: boolean()
@@ -249,9 +264,6 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   'You must accept the McHacks policies',
                   (value) => value
                 ),
-            }),
-            accommodation: object().shape({
-              shirtSize: string().required('Required'),
             }),
           }),
         }),
