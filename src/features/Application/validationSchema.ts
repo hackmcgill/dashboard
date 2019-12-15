@@ -17,8 +17,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2019, 'Graduation year must be 2019 or later')
+                .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -59,8 +59,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2019, 'Graduation year must be 2019 or later')
+                .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -121,8 +121,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2019, 'Graduation year must be 2019 or later')
+                .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -170,6 +170,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
+              impairments: string(),
+              barriers: string(),
+              travel: number()
+                .min(0, 'Must be between 0 and 100')
+                .max(100, 'Must be between 0 and 100')
+                .typeError('Must be a number'),
             }),
           }),
         }),
@@ -186,8 +192,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019)
-                .max(2025),
+                .min(2019, 'Graduation year must be 2019 or later')
+                .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: resumeSchema
@@ -232,6 +238,15 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 'At most 500 characters',
                 (value) => !value || value.length < 500
               ),
+            }),
+            accommodation: object().shape({
+              shirtSize: string().required('Required'),
+              impairments: string(),
+              barriers: string(),
+              travel: number()
+                .min(0, 'Must be between 0 and 100')
+                .max(100, 'Must be between 0 and 100')
+                .typeError('Must be a number'),
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
@@ -249,9 +264,6 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   'You must accept the McHacks policies',
                   (value) => value
                 ),
-            }),
-            accommodation: object().shape({
-              shirtSize: string().required('Required'),
             }),
           }),
         }),

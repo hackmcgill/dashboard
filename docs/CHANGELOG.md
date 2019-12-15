@@ -12,19 +12,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create changelog with previous releases
 - Add sidebar styling
 - Add button variant prop
+- Add travel application field validation
 
 ### Changed
 
 - Switch from card view to sidebar view on hacker dashboard
 - Modify colour variables in theme
 - Update UI elements to McHacks 7 design system
+- Update react-scripts to v3.3.0
+- Update qrcode to v1.4.4
+- Update axios to 0.18.1
+- Added `windows.` prefix to all `location.` calls
 - New profile page styling
 - New application page styling and format
 - Update fields: degrees, dietary restrictions, genders, grad years, job interests, majors, pronouns, skills
+- Update graduation year field validation
 
 ### Fixed
 
 - Asterisks for required fields are working now
+
+### Removed
+
+- Remove `needsBus` application field
 
 ## [1.5.1](https://github.com/hackmcgill/dashboard/tree/1.5.0) - 2019-08-14
 

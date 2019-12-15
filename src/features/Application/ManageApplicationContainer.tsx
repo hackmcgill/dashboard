@@ -502,28 +502,17 @@ class ManageApplicationContainer extends React.Component<
           name={'hacker.application.accommodation.barriers'}
         />
         <FastField
-          name={'needsBus'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.BUS_REQUEST_LABEL}
-          subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
+          name={'hacker.application.accommodation.travel'}
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+          placeholder={0}
           required={false}
+          value={fp.values.hacker.application.accommodation.travel}
         />
-        {fp.values.needsBus ? (
-          <React.Fragment>
-            <FastField
-              name={'hacker.application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label="How much will you need to be reimbursed? (Up to $100)"
-              placeholder={0}
-              required={true}
-              value={fp.values.hacker.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.travel'}
-            />
-          </React.Fragment>
-        ) : null}
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'hacker.application.accommodation.travel'}
+        />
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
@@ -581,7 +570,11 @@ class ManageApplicationContainer extends React.Component<
           label={
             <span>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
+              <a
+                href="https://mchacks.ca/code-of-conduct"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
               </a>
             </span>
@@ -599,7 +592,11 @@ class ManageApplicationContainer extends React.Component<
           label={
             <span>
               {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://github.com/MLH/mlh-policies" target="_blank">
+              <a
+                href="https://github.com/MLH/mlh-policies"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {CONSTANTS.COC_MLH_REQUEST_LABEL}
               </a>
             </span>

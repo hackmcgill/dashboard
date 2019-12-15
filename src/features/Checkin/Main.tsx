@@ -139,7 +139,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
         ':id',
         '[a-f\\d]{24}'
       );
-      const hackerURL = new RegExp(`^http(s)?:\/\/.+${subRouteRegex}`);
+      const hackerURL = new RegExp(`^http(s)?://.+${subRouteRegex}`);
       if (hackerURL.test(data)) {
         const url = data.split('/');
         data = url[url.length - 1];
