@@ -67,7 +67,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
   private getTabs() {
     const tabs = [];
     if (this.state.loggedIn) {
-      // tabs.push(<LogoutBtn />);
+      tabs.push(<LogoutBtn />);
       // tabs.push(<ApplicationBtn />);
       // tabs.push(<HomeBtn />);
       // tabs.push(<ProfileBtn />);
