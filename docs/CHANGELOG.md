@@ -18,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch from card view to sidebar view on hacker dashboard
 - Modify colour variables in theme
 - Update UI elements to McHacks 7 design system
+- New profile page styling
+- New application page styling and format
+- Update fields: degrees, dietary restrictions, genders, grad years, job interests, majors, pronouns, skills
+
+### Fixed
+
+- Asterisks for required fields are working now
 
 ## [1.5.1](https://github.com/hackmcgill/dashboard/tree/1.5.0) - 2019-08-14
 
