@@ -513,7 +513,7 @@ class ManageApplicationContainer extends React.Component<
             <FastField
               name={'hacker.application.accommodation.travel'}
               component={FormikElements.FormattedNumber}
-              label="How much will you need to be reimbursed? (Up to $100)"
+              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
               placeholder={0}
               required={true}
               value={fp.values.hacker.application.accommodation.travel}

@@ -66,6 +66,8 @@ export const RESUME_REQUEST_LABEL = 'Upload a resume';
 export const SKILLS_REQUEST_LABEL = 'What skills do you have?';
 export const SKILLS_REQUEST_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_REQUEST_LABEL = 'What school do you go to?';
+export const TRAVEL_REQUEST_LABEL =
+  'How much will you need to be reimbursed? (Up to $100)';
 
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';
