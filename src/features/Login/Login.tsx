@@ -172,7 +172,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
    * Returns the redirect link, or undefined if it doesn't exist.
    */
   private getRedirectLink(): any {
-    const queries: any = QueryString.parse(location.search);
+    const queries: any = QueryString.parse(window.location.search);
     if (queries.redir) {
       return queries.redir.toString();
     } else {

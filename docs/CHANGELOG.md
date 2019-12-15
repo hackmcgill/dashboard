@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch from card view to sidebar view on hacker dashboard
 - Modify colour variables in theme
 - Update UI elements to McHacks 7 design system
+- Update react-scripts to v3.3.0
+- Update qrcode to v1.4.4
+- Update axios to 0.18.1
+- Added `windows.` prefix to all `location.` calls
 - New profile page styling
 - New application page styling and format
 - Update fields: degrees, dietary restrictions, genders, grad years, job interests, majors, pronouns, skills

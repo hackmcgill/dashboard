@@ -15,9 +15,6 @@ import {
 } from '../../shared/Elements';
 
 class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
-  constructor(props: {}) {
-    super(props);
-  }
   public render() {
     return (
       <Flex

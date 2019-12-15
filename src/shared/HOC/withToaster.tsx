@@ -3,10 +3,6 @@ import { ToastContainer } from 'react-toastify';
 
 const WithToaster = <P extends {}>(Component: React.ComponentType<P>) =>
   class extends React.Component<P> {
-    constructor(props: any) {
-      super(props);
-    }
-
     public render() {
       return (
         <React.Fragment>
