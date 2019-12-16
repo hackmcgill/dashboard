@@ -1,12 +1,17 @@
-import { Box, Flex } from '@rebass/grid';
+// import { Box } from '@rebass/grid';
 import * as React from 'react';
 
-import Martlett from '../../assets/images/mchacks-martlet-tight.svg';
+import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import { FrontendRoute } from '../../config/frontendRoutes';
-import { Image } from '../../shared/Elements';
+// import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
 import LogoutBtn from './LogoutButton';
 import Nav from './Nav';
+import NavLink from './NavLink';
+
+import Icon from './Icon';
+import IconContainer from './IconContainer';
+import Links from './Links';
 
 interface INavbarState {
   loggedIn: boolean;
@@ -23,15 +28,17 @@ export default class Navbar extends React.Component<{}, INavbarState> {
   public render() {
     const logoutBtn = this.state.loggedIn ? <LogoutBtn /> : '';
     return (
-      <Nav borderThickness={'1px'}>
-        <Flex flexDirection={'row'} justifyContent={'space-between'} p={'1rem'}>
-          <Box>
-            <a href={FrontendRoute.HOME_PAGE}>
-              <Image src={Martlett} padding={'0rem'} />
-            </a>
-          </Box>
-          <Box alignSelf={'center'}>{logoutBtn}</Box>
-        </Flex>
+      <Nav borderThickness={'2px'}>
+        <IconContainer>
+          <a href={FrontendRoute.HOME_PAGE}>
+            <Icon src={Martlet} />
+          </a>
+        </IconContainer>
+        <Links>
+          <NavLink href={FrontendRoute.HOME_PAGE}>Home</NavLink>
+          <NavLink href={FrontendRoute.EDIT_ACCOUNT_PAGE}>Profile</NavLink>
+          {logoutBtn}
+        </Links>
       </Nav>
     );
   }
