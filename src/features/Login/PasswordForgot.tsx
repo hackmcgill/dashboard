@@ -82,7 +82,6 @@ class ForgotPasswordContainer extends React.Component<
         justifyContent={'center'}
         alignItems={'left'}
         flexDirection={'column'}
-        // px={2}
         p={'5rem 0rem 0rem 6.4rem'}
       >
         <Helmet>

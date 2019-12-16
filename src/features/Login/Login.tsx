@@ -84,9 +84,15 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
           <title>Login | McHacks 7</title>
         </Helmet>
         <Form>
-          <Flex alignItems={'center'} flexDirection={'column'}>
+          <Flex
+            alignItems={'center'}
+            flexDirection={'column'}
+            p={'5rem 0rem 0rem 6.4rem'}
+          >
             <Box alignSelf={'flex-start'}>
-              <H1 fontSize={'24px'}>Sign in / Register</H1>
+              <H1 fontSize={'24px'} marginLeft={'0px'}>
+                Sign in / Register
+              </H1>
             </Box>
             <EmailInput
               label={EMAIL_LABEL}
