@@ -5,7 +5,8 @@ import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import { FrontendRoute as routes } from '../../config/frontendRoutes';
 // import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
-import LogoutBtn from './LogoutButton';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
 
@@ -27,6 +28,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
   }
   public render() {
     const logoutBtn = this.state.loggedIn ? <LogoutBtn /> : '';
+    const CTAButton = this.state.loggedIn ? <LogoutButton /> : <LoginButton />;
     return (
       <Nav borderThickness={'2px'}>
         <IconContainer>
@@ -38,7 +40,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
           <NavLink href={routes.HOME_PAGE}>Home</NavLink>
           <NavLink href={routes.EDIT_ACCOUNT_PAGE}>Profile</NavLink>
           <NavLink href={routes.EDIT_APPLICATION_PAGE}>Application</NavLink>
-          {logoutBtn}
+          {CTAButton}
         </Links>
       </Nav>
     );
