@@ -49,6 +49,12 @@ export const GlobalStyles = createGlobalStyle`
   .toast-notification {
     z-index: 100000;
   }
+
+  @media screen and (min-width: ${(props) => props.theme.screens.smUp}) {
+    .bm-burger-button, .bm-menu-wrap {
+        display: none;
+    }
+  }
 `;
 
 export default GlobalStyles;

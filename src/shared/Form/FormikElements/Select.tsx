@@ -38,8 +38,8 @@ const StylizedSelectFormikComponent: React.StatelessComponent<
           createOptionPosition={'first'}
         />
       ) : (
-          <StyledSelect {...commonProps} />
-        )}
+        <StyledSelect {...commonProps} />
+      )}
     </Label>
   );
 };

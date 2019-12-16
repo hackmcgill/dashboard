@@ -5,9 +5,9 @@ import ProfileIcon from '../../assets/images/sidebar-profile.svg';
 import TeamIcon from '../../assets/images/sidebar-team.svg';
 import { FrontendRoute as routes, HackerStatus } from '../../config';
 import { H2, Image, LinkDuo } from '../../shared/Elements';
+import theme from '../../shared/Styles/theme';
 import SidebarContainer from './SidebarContainer';
 import SidebarItem from './SidebarItem';
-import theme from '../../shared/Styles/theme';
 // import BusIcon from '../../assets/images/sidebar-bus.svg';
 // import { PageType } from '../../config';
 

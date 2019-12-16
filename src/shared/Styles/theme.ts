@@ -27,6 +27,11 @@ const theme = {
     body:
       'Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;',
   },
+  screens: {
+    smUp: '768px',
+    mdUp: '992px',
+    lgUp: '1200px',
+  },
 };
 
 export interface ITheme {
@@ -54,6 +59,11 @@ export interface ITheme {
     body: string;
   };
   inputBorderRadius: string;
+  screens: {
+    smUp: string;
+    mdUp: string;
+    lgUp: string;
+  };
 }
 
 export default theme;
