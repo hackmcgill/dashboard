@@ -83,7 +83,7 @@ class ForgotPasswordContainer extends React.Component<
         alignItems={'left'}
         flexDirection={'column'}
         // px={2}
-        p={'5rem'}
+        p={'5rem 0rem 0rem 6.4rem'}
       >
         <Helmet>
           <title>Forgot your password? | McHacks 7</title>
