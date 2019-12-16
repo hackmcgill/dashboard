@@ -37,6 +37,7 @@ import {
 
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
+import theme from '../../shared/Styles/theme';
 
 import { Account, APIResponse, Hacker } from '../../api';
 
@@ -164,7 +165,7 @@ class ManageApplicationContainer extends React.Component<
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
-            color={'#F2463A'}
+            color={theme.colors.red}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
