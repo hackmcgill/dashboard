@@ -1,10 +1,12 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
 
+import { Hacker } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
-import { FrontendRoute as routes } from '../../config/frontendRoutes';
+import { FrontendRoute as routes, HackerStatus } from '../../config';
 // import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
+import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Nav from './Nav';
@@ -16,6 +18,8 @@ import Links from './Links';
 
 interface INavbarState {
   loggedIn: boolean;
+  status: HackerStatus;
+  confirmed: boolean;
 }
 
 export default class Navbar extends React.Component<{}, INavbarState> {
@@ -23,12 +27,60 @@ export default class Navbar extends React.Component<{}, INavbarState> {
     super(props);
     this.state = {
       loggedIn: false,
+      status: HackerStatus.HACKER_STATUS_NONE,
+      confirmed: true,
     };
     this.checkLoggedIn();
   }
+
+  public async componentDidMount() {
+    let hacker;
+
+    // set hacker status
+    try {
+      const response = await Hacker.getSelf();
+      hacker = response.data.data;
+      this.setState({ status: hacker.status });
+    } catch (e) {
+      if (e.status === 401) {
+        this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
+      }
+    }
+
+    // set confirmed account
+    try {
+      const confirmed = await isConfirmed();
+      this.setState({ confirmed });
+    } catch (e) {
+      this.setState({ confirmed: false });
+    }
+  }
+
   public render() {
-    const logoutBtn = this.state.loggedIn ? <LogoutBtn /> : '';
-    const CTAButton = this.state.loggedIn ? <LogoutButton /> : <LoginButton />;
+    const { loggedIn, status, confirmed } = this.state;
+
+    const CTAButton = loggedIn ? <LogoutButton /> : <LoginButton />;
+
+    let appRoute;
+    if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
+      appRoute = routes.CREATE_APPLICATION_PAGE;
+    } else {
+      appRoute = routes.EDIT_APPLICATION_PAGE;
+    }
+
+    const route: any[] = [routes.HOME_PAGE, routes.EDIT_ACCOUNT_PAGE, appRoute];
+
+    let NavItems = () => <></>;
+    if (loggedIn === true) {
+      NavItems = () => (
+        <>
+          <NavLink href={route[0]}>Home</NavLink>
+          <NavLink href={route[1]}>Profile</NavLink>
+          <NavLink href={route[2]}>Application</NavLink>
+        </>
+      );
+    }
+
     return (
       <Nav borderThickness={'2px'}>
         <IconContainer>
@@ -37,9 +89,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
           </a>
         </IconContainer>
         <Links>
-          <NavLink href={routes.HOME_PAGE}>Home</NavLink>
-          <NavLink href={routes.EDIT_ACCOUNT_PAGE}>Profile</NavLink>
-          <NavLink href={routes.EDIT_APPLICATION_PAGE}>Application</NavLink>
+          {NavItems()}
           {CTAButton}
         </Links>
       </Nav>
