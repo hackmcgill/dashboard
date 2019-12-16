@@ -8,7 +8,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 
 import { APIResponse, Auth } from '../../api';
 
-import { FrontendRoute, HACKATHON_NAME, getTokenFromQuery } from '../../config';
+import { FrontendRoute, getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import { Button, H1, MaxWidthBox } from '../../shared/Elements';
 import { Form, PasswordInput } from '../../shared/Form';
 
