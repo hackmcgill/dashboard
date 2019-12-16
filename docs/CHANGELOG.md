@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add sidebar styling
 - Add button variant prop
 - Add travel application field validation
+- Add burger menu for mobile
 
 ### Changed
 
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New application page styling and format
 - Update fields: degrees, dietary restrictions, genders, grad years, job interests, majors, pronouns, skills
 - Update graduation year field validation
+- Refactor navbar as main dashboard navigation
 
 ### Fixed
 
