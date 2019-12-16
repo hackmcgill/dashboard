@@ -50,7 +50,9 @@ class ResetPasswordContainer extends React.Component<
           <title>Reset Password | McHacks 6</title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} width={1}>
-          <H1>Reset your password</H1>
+          <H1 paddingTop={'8rem'} text-align={'left'}>
+            Reset your password
+          </H1>
           <Form>
             <Flex
               justifyContent={'center'}
@@ -78,7 +80,7 @@ class ResetPasswordContainer extends React.Component<
                 <Button
                   type="button"
                   onClick={this.handleSubmit}
-                  variant={ButtonVariant.CallToAction}
+                  variant={ButtonVariant.Primary}
                 >
                   Submit
                 </Button>
