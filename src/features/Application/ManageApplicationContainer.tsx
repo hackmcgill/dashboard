@@ -343,8 +343,10 @@ class ManageApplicationContainer extends React.Component<
           label={CONSTANTS.RESUME_REQUEST_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
-          required={this.props.mode === ManageApplicationModes.CREATE}
-          value={fp.values.resume}
+          // required={this.props.mode === ManageApplicationModes.CREATE}
+          required={true}
+          value={undefined}
+          // value={fp.values.resume}
         />
         <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
