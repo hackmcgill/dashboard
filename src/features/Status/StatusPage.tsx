@@ -7,12 +7,12 @@ import {
   LinkDuo,
   Paragraph,
 } from '../../shared/Elements';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 
 import Background from '../../assets/images/statuspage-background.svg';
 import { FrontendRoute, HackerStatus, IAccount } from '../../config';
-import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 import theme from '../../shared/Styles/theme';
+import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusPageProps {
   account?: IAccount;
@@ -24,11 +24,11 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
-        <Sidebar
+        {/* <Sidebar
           currentPage={'Home'}
           status={this.props.status}
           confirmed={this.props.confirmed}
-        />
+        /> */}
         {this.props.confirmed && this.props.account ? (
           <div>
             <h1 style={{ color: theme.colors.red, textAlign: 'center' }}>
