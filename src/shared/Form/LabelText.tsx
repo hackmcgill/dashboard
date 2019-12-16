@@ -22,7 +22,7 @@ export const LabelText: React.StatelessComponent<ILabelTextProps> = (
   );
   return (
     <Flex flexDirection={'row'} justifyContent={'space-between'}>
-      <Box ml="8px">
+      <Box ml="2px">
         {props.label}
         {requiredText}
       </Box>

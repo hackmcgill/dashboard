@@ -2,22 +2,20 @@ import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import Helmet from 'react-helmet';
+import MediaQuery from 'react-responsive';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
-import Key from '../../assets/images/key.svg';
 import { EMAIL_LABEL } from '../../config';
-import {
-  Button,
-  H1,
-  Image,
-  MaxWidthBox,
-  Paragraph,
-} from '../../shared/Elements';
+import { BackgroundImage, LeftContainer } from '../../shared/Elements';
+import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
 import validationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
+
+import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
 export interface IForgotState {
   email: string;
@@ -45,56 +43,89 @@ class ForgotPasswordContainer extends React.Component<
       return <PasswordResetEmailConfirmationContainer />;
     } else {
       return (
-        <Flex
-          flexWrap={'wrap'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          flexDirection={'column'}
-          px={2}
-        >
-          <Helmet>
-            <title>Forgot your password? | McHacks 6</title>
-          </Helmet>
-          <Box>
-            <Image src={Key} imgHeight={'4rem'} padding={'0rem'} />
-          </Box>
-          <Box>
-            <H1>Password Reset</H1>
-          </Box>
-          <MaxWidthBox fontSize={[2, 3, 4]}>
-            <Paragraph paddingBottom={'20px'} textAlign={'center'}>
-              Enter your email and we will send you a link to reset your
-              password
-            </Paragraph>
-          </MaxWidthBox>
-          <Box width={'100%'}>
-            <Form onSubmit={this.formSubmitHandler}>
-              <Flex
-                justifyContent={'center'}
-                alignItems={'center'}
-                flexDirection={'column'}
-              >
-                <MaxWidthBox width={'80%'}>
-                  <EmailInput
-                    label={EMAIL_LABEL}
-                    required={true}
-                    onEmailChanged={this.onEmailChanged}
-                    placeholder={'foo@bar.ca'}
-                  />
-                </MaxWidthBox>
-                <Box>
-                  <Button type="button" onClick={this.handleSubmit}>
-                    Reset password
-                  </Button>
-                </Box>
-              </Flex>
-            </Form>
-          </Box>
-        </Flex>
+        <MediaQuery minWidth={1224}>
+          {(matches) =>
+            matches ? (
+              <LeftContainer>
+                {this.renderPassForgot()}
+                <BackgroundImage
+                  src={BackgroundLandscape}
+                  top={'0px'}
+                  left={'0px'}
+                  imgWidth={'100%'}
+                  imgHeight={'100%'}
+                  minHeight={'600px'}
+                />
+              </LeftContainer>
+            ) : (
+              <div>
+                {this.renderPassForgot()}
+                <BackgroundImage
+                  src={BackgroundLandscape}
+                  top={'0px'}
+                  left={'0px'}
+                  imgHeight={'100%'}
+                />
+              </div>
+            )
+          }
+        </MediaQuery>
       );
     }
   }
 
+  private renderPassForgot() {
+    return (
+      <Flex
+        flexWrap={'wrap'}
+        justifyContent={'center'}
+        alignItems={'left'}
+        flexDirection={'column'}
+        p={'5rem 0rem 0rem 6.4rem'}
+      >
+        <Helmet>
+          <title>Forgot your password? | McHacks 7</title>
+        </Helmet>
+        <Box>
+          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'0px'}>
+            Reset Your Password
+          </H1>
+        </Box>
+        <MaxWidthBox width={'60%'} fontSize={[2, 3, 4]}>
+          <Paragraph textAlign={'left'} fontSize={'18px'}>
+            Enter your email and we will send you a link to reset your password
+          </Paragraph>
+        </MaxWidthBox>
+        <Box width={'100%'}>
+          <Form onSubmit={this.formSubmitHandler}>
+            <Flex
+              justifyContent={'center'}
+              alignItems={'left'}
+              flexDirection={'column'}
+            >
+              <MaxWidthBox width={'60%'}>
+                <EmailInput
+                  label={EMAIL_LABEL}
+                  required={true}
+                  onEmailChanged={this.onEmailChanged}
+                  placeholder={'foo@bar.ca'}
+                />
+              </MaxWidthBox>
+              <Box>
+                <Button
+                  type="button"
+                  onClick={this.handleSubmit}
+                  variant={ButtonVariant.CallToAction}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Flex>
+          </Form>
+        </Box>
+      </Flex>
+    );
+  }
   private formSubmitHandler(e: any) {
     e.preventDefault();
   }

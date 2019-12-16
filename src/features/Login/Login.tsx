@@ -81,12 +81,18 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
     return (
       <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
         <Helmet>
-          <title>Login | McHacks 6</title>
+          <title>Login | McHacks 7</title>
         </Helmet>
         <Form>
-          <Flex alignItems={'center'} flexDirection={'column'}>
+          <Flex
+            alignItems={'center'}
+            flexDirection={'column'}
+            p={'4rem 0rem 0rem 5.8rem'}
+          >
             <Box alignSelf={'flex-start'}>
-              <H1 fontSize={'24px'}>Sign in / Register</H1>
+              <H1 fontSize={'24px'} marginLeft={'0px'}>
+                Sign in / Register
+              </H1>
             </Box>
             <EmailInput
               label={EMAIL_LABEL}
