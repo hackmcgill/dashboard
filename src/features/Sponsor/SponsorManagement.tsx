@@ -11,7 +11,12 @@ import {
 } from 'formik';
 
 import { Account, Sponsor } from '../../api';
-import { FrontendRoute, ISponsor, UserType } from '../../config';
+import {
+  FrontendRoute,
+  HACKATHON_NAME,
+  ISponsor,
+  UserType,
+} from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
@@ -74,8 +79,8 @@ class ManageSponsorContainer extends React.Component<
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
         <Helmet>
           <title>
-            {mode === ManageSponsorModes.CREATE ? 'Create' : 'Edit'}
-            Sponsor Profile | McHacks 6
+            {mode === ManageSponsorModes.CREATE ? 'Create' : 'Edit'} Sponsor
+            Profile | {HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>

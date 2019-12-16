@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import resetLogo from '../../assets/images/passwordReset.svg';
 
-import { FrontendRoute } from '../../config';
+import { FrontendRoute, HACKATHON_NAME } from '../../config';
 import {
   Button,
   H1,
@@ -23,7 +23,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Password Sent | McHacks 6</title>
+          <title>Password Sent | {HACKATHON_NAME}</title>
         </Helmet>
         <Flex alignItems={'center'}>
           <Box>

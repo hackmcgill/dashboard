@@ -4,8 +4,7 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { Auth } from '../../api';
-import constructionCone from '../../assets/images/construction-cone.svg';
-import { getTokenFromQuery } from '../../config';
+import { getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
   Button,
   H1,
@@ -15,6 +14,8 @@ import {
 } from '../../shared/Elements';
 
 import * as DashboardText from '../Dashboard/DashboardText';
+
+import constructionCone from '../../assets/images/construction-cone.svg';
 
 interface IConfirmAccountState {
   attempting: boolean;
@@ -60,7 +61,7 @@ class ConfirmAccountContainer extends React.Component<
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Confirmation | McHacks 6</title>
+          <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
         <MaxWidthBox
           hidden={this.state.wasConfirmed && !this.state.attempting}
