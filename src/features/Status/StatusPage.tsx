@@ -11,8 +11,8 @@ import {
 
 import Background from '../../assets/images/statuspage-background.svg';
 import { FrontendRoute, HackerStatus, IAccount } from '../../config';
-import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 import theme from '../../shared/Styles/theme';
+import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusPageProps {
   account?: IAccount;

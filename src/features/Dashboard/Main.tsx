@@ -3,9 +3,9 @@ import { Redirect } from 'react-router';
 import { UserType } from '../../config';
 import { H1 } from '../../shared/Elements';
 import { getUserInfo } from '../../util';
+import HackerDashboard from './HackerDashboard';
 import SponsorDashboard from './SponsorDashboard';
 import StaffDashboardContainer from './StaffDashboard';
-import HackerDashboard from './HackerDashboard';
 
 interface IDashboardState {
   accountType: UserType;
