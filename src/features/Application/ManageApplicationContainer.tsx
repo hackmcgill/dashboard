@@ -48,7 +48,7 @@ import SchoolComponent from './SchoolComponent';
 import { Flex } from '@rebass/grid';
 import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -151,11 +151,11 @@ class ManageApplicationContainer extends React.Component<
     ) : (
       <HorizontalSpacer paddingLeft={'20%'}>
         <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-          <Sidebar
+          {/* <Sidebar
             currentPage="Application"
             status={this.state.hackerDetails.status}
             confirmed={true}
-          />
+          /> */}
           <Helmet>
             <title>
               {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}

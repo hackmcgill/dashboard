@@ -39,7 +39,7 @@ import {
   input2date,
   isSponsor,
 } from '../../util';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
@@ -166,11 +166,11 @@ class ManageAccountContainer extends React.Component<
         <MaxWidthBox m={'auto'} maxWidth={'500px'}>
           {mode === ManageAccountModes.EDIT && (
             <>
-              <Sidebar
+              {/* <Sidebar
                 currentPage="Profile"
                 status={this.state.status}
                 confirmed={this.state.accountDetails.confirmed}
-              />
+              /> */}
               <BackgroundImage
                 right={'70px'}
                 top={'178px'}
