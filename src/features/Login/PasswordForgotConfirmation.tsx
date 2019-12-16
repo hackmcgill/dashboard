@@ -55,13 +55,16 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         justifyContent={'center'}
         alignItems={'left'}
         flexDirection={'column'}
+        p={'5rem'}
       >
         <Helmet>
           <title>Password Sent | McHacks 7</title>
         </Helmet>
         <Flex alignItems={'center'}>
           <Box>
-            <H1 fontSize={'24px'}>Reset Your Password</H1>
+            <H1 fontSize={'24px'} marginLeft={'0px'}>
+              Reset Your Password
+            </H1>
           </Box>
         </Flex>
         <MaxWidthBox width={1} fontSize={[2, 3, 4]}>

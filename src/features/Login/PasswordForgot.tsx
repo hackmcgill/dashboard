@@ -82,20 +82,19 @@ class ForgotPasswordContainer extends React.Component<
         justifyContent={'center'}
         alignItems={'left'}
         flexDirection={'column'}
-        px={2}
+        // px={2}
+        p={'5rem'}
       >
         <Helmet>
           <title>Forgot your password? | McHacks 7</title>
         </Helmet>
         <Box>
-          <H1 fontSize={'24px'}>Reset Your Password</H1>
+          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'0px'}>
+            Reset Your Password
+          </H1>
         </Box>
         <MaxWidthBox fontSize={[2, 3, 4]}>
-          <Paragraph
-            paddingBottom={'20px'}
-            textAlign={'left'}
-            fontSize={'18px'}
-          >
+          <Paragraph textAlign={'left'} fontSize={'18px'}>
             Enter your email and we will send you a link to reset your password
           </Paragraph>
         </MaxWidthBox>
