@@ -23,39 +23,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         {(matches) =>
           matches ? (
             <LeftContainer>
-              <Flex
-                justifyContent={'center'}
-                alignItems={'left'}
-                flexDirection={'column'}
-              >
-                <Helmet>
-                  <title>Password Sent | McHacks 7</title>
-                </Helmet>
-                <Flex alignItems={'center'}>
-                  <Box>
-                    <H1 fontSize={'24px'}>Reset Your Password</H1>
-                  </Box>
-                </Flex>
-                <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
-                  <Paragraph
-                    paddingBottom={'20px'}
-                    textAlign={'left'}
-                    fontSize={'18px'}
-                  >
-                    We've sent you a link to reset your password. Check your
-                    inbox and follow the instructions there.
-                  </Paragraph>
-                </MaxWidthBox>
-                <Box>
-                  <BrowserRouter forceRefresh={true}>
-                    <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
-                      <Button type="button" variant={ButtonVariant.Primary}>
-                        Resend Email
-                      </Button>
-                    </Link>
-                  </BrowserRouter>
-                </Box>
-              </Flex>
+              {this.renderPassForgotConfirmation()}
               <BackgroundImage
                 src={BackgroundLandscape}
                 top={'0px'}
@@ -67,35 +35,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
             </LeftContainer>
           ) : (
             <div>
-              <Flex
-                justifyContent={'center'}
-                alignItems={'left'}
-                flexDirection={'column'}
-              >
-                <Helmet>
-                  <title>Password Sent | McHacks 7</title>
-                </Helmet>
-                <Flex alignItems={'center'}>
-                  <Box>
-                    <H1 paddingTop={'8rem'} text-align={'left'}>
-                      Password reset
-                    </H1>
-                  </Box>
-                </Flex>
-                <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
-                  <Paragraph paddingBottom={'20px'} textAlign={'center'}>
-                    We've sent you a link to reset your password. Check your
-                    inbox and follow the instructions there.
-                  </Paragraph>
-                </MaxWidthBox>
-                <Box>
-                  <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
-                    <Button type="button" variant={ButtonVariant.Primary}>
-                      Resend Email
-                    </Button>
-                  </Link>
-                </Box>
-              </Flex>
+              {this.renderPassForgotConfirmation()}
               <BackgroundImage
                 src={BackgroundLandscape}
                 top={'0px'}
@@ -106,6 +46,44 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
           )
         }
       </MediaQuery>
+    );
+  }
+
+  private renderPassForgotConfirmation() {
+    return (
+      <Flex
+        justifyContent={'center'}
+        alignItems={'left'}
+        flexDirection={'column'}
+      >
+        <Helmet>
+          <title>Password Sent | McHacks 7</title>
+        </Helmet>
+        <Flex alignItems={'center'}>
+          <Box>
+            <H1 fontSize={'24px'}>Reset Your Password</H1>
+          </Box>
+        </Flex>
+        <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
+          <Paragraph
+            paddingBottom={'20px'}
+            textAlign={'left'}
+            fontSize={'18px'}
+          >
+            We've sent you a link to reset your password. Check your inbox and
+            follow the instructions there.
+          </Paragraph>
+        </MaxWidthBox>
+        <Box>
+          <BrowserRouter forceRefresh={true}>
+            <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
+              <Button type="button" variant={ButtonVariant.Primary}>
+                Resend Email
+              </Button>
+            </Link>
+          </BrowserRouter>
+        </Box>
+      </Flex>
     );
   }
 }
