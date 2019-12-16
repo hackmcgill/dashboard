@@ -93,7 +93,7 @@ class ForgotPasswordContainer extends React.Component<
             Reset Your Password
           </H1>
         </Box>
-        <MaxWidthBox fontSize={[2, 3, 4]}>
+        <MaxWidthBox width={'60%'} fontSize={[2, 3, 4]}>
           <Paragraph textAlign={'left'} fontSize={'18px'}>
             Enter your email and we will send you a link to reset your password
           </Paragraph>
@@ -105,7 +105,7 @@ class ForgotPasswordContainer extends React.Component<
               alignItems={'left'}
               flexDirection={'column'}
             >
-              <MaxWidthBox width={'50%'}>
+              <MaxWidthBox width={'60%'}>
                 <EmailInput
                   label={EMAIL_LABEL}
                   required={true}
