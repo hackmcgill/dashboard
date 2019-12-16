@@ -87,7 +87,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
           <Flex
             alignItems={'center'}
             flexDirection={'column'}
-            p={'5rem 0rem 0rem 6.4rem'}
+            p={'4rem 0rem 0rem 5.8rem'}
           >
             <Box alignSelf={'flex-start'}>
               <H1 fontSize={'24px'} marginLeft={'0px'}>

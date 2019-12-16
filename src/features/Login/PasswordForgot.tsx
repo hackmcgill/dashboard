@@ -6,7 +6,6 @@ import MediaQuery from 'react-responsive';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
-// import Key from '../../assets/images/key.svg';
 import { EMAIL_LABEL } from '../../config';
 import { BackgroundImage, LeftContainer } from '../../shared/Elements';
 import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';

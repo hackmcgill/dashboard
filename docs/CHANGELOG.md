@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New application page styling and format
 - Update fields: degrees, dietary restrictions, genders, grad years, job interests, majors, pronouns, skills
 - Update graduation year field validation
+- Modified password reset screens
 
 ### Fixed
 
