@@ -23,7 +23,7 @@ import * as CONSTANTS from '../../config/constants';
 import {
   BackgroundImage,
   H1,
-  HorizontalSpacer,
+  // HorizontalSpacer,
   MaxWidthBox,
 } from '../../shared/Elements';
 import { Form, SubmitBtn } from '../../shared/Form';
@@ -39,7 +39,7 @@ import {
   input2date,
   isSponsor,
 } from '../../util';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
@@ -160,70 +160,72 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <HorizontalSpacer
-        paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
-      >
-        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-          {mode === ManageAccountModes.EDIT && (
-            <>
-              <Sidebar
+      // <HorizontalSpacer
+      //   paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
+      // >
+      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        {mode === ManageAccountModes.EDIT && (
+          <>
+            {/* <Sidebar
                 currentPage="Profile"
                 status={this.state.status}
                 confirmed={this.state.accountDetails.confirmed}
-              />
-              <BackgroundImage
-                right={'70px'}
-                top={'178px'}
-                src={Drone}
-                imgHeight={'133px'}
-              />
-              <BackgroundImage
-                left={'20%'}
-                bottom={'-50px'}
-                src={Bulby}
-                imgHeight={'290px'}
-              />
-            </>
+              /> */}
+            <BackgroundImage
+              right={'10%'}
+              top={'178px'}
+              src={Drone}
+              imgHeight={'133px'}
+              position={'fixed' as 'fixed'}
+            />
+            <BackgroundImage
+              left={'5%'}
+              bottom={'5%'}
+              src={Bulby}
+              imgHeight={'290px'}
+              position={'fixed' as 'fixed'}
+            />
+          </>
+        )}
+        <Helmet>
+          <title>
+            {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
+            McHacks 7
+          </title>
+        </Helmet>
+        <H1
+          fontSize={'30px'}
+          textAlign={'left'}
+          marginTop={'0px'}
+          marginBottom={'20px'}
+          marginLeft={'0px'}
+          paddingBottom={'20px'}
+          paddingTop={'70px'}
+        >
+          Your Account
+        </H1>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            firstName: accountDetails.firstName,
+            lastName: accountDetails.lastName,
+            email: accountDetails.email,
+            password: accountDetails.password || '',
+            newPassword: '',
+            pronoun: accountDetails.pronoun,
+            gender: accountDetails.gender,
+            dietaryRestrictions: accountDetails.dietaryRestrictions,
+            phoneNumber: accountDetails.phoneNumber,
+            birthDate: accountDetails.birthDate,
+          }}
+          onSubmit={this.handleSubmit}
+          render={this.renderFormik}
+          validationSchema={getValidationSchema(
+            mode === ManageAccountModes.CREATE
           )}
-          <Helmet>
-            <title>
-              {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account
-              | McHacks 7
-            </title>
-          </Helmet>
-          <H1
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-            paddingBottom={'20px'}
-            paddingTop={'70px'}
-          >
-            Your Account
-          </H1>
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              firstName: accountDetails.firstName,
-              lastName: accountDetails.lastName,
-              email: accountDetails.email,
-              password: accountDetails.password || '',
-              newPassword: '',
-              pronoun: accountDetails.pronoun,
-              gender: accountDetails.gender,
-              dietaryRestrictions: accountDetails.dietaryRestrictions,
-              phoneNumber: accountDetails.phoneNumber,
-              birthDate: accountDetails.birthDate,
-            }}
-            onSubmit={this.handleSubmit}
-            render={this.renderFormik}
-            validationSchema={getValidationSchema(
-              mode === ManageAccountModes.CREATE
-            )}
-          />
-        </MaxWidthBox>
-      </HorizontalSpacer>
+        />
+      </MaxWidthBox>
+      // </HorizontalSpacer>
     );
   }
   private renderFormik(fp: FormikProps<any>) {

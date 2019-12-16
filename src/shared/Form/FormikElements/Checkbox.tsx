@@ -1,9 +1,9 @@
 import { Box, Flex } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
+import styled from 'styled-components';
 import { Checkbox, Label, LabelText } from '..';
 import { FormDescription } from '../../Elements';
-import styled from 'styled-components';
 
 interface ICheckboxProps {
   label: string | React.Component;
