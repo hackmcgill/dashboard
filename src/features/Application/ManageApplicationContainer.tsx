@@ -31,7 +31,7 @@ import {
 import {
   FormDescription,
   H1,
-  HorizontalSpacer,
+  // HorizontalSpacer,
   MaxWidthBox,
 } from '../../shared/Elements';
 
@@ -149,53 +149,53 @@ class ManageApplicationContainer extends React.Component<
     return submitted ? (
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
-      <HorizontalSpacer paddingLeft={'20%'}>
-        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-          {/* <Sidebar
+      // <HorizontalSpacer paddingLeft={'20%'}>
+      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        {/* <Sidebar
             currentPage="Application"
             status={this.state.hackerDetails.status}
             confirmed={true}
           /> */}
-          <Helmet>
-            <title>
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-              Application | McHacks 6
-            </title>
-          </Helmet>
-          <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-            <H1
-              color={'#F2463A'}
-              fontSize={'30px'}
-              textAlign={'left'}
-              marginTop={'0px'}
-              marginBottom={'20px'}
-              marginLeft={'0px'}
-              paddingBottom={'20px'}
-              paddingTop={'70px'}
-            >
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
-              Application
-            </H1>
-            <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
-          </MaxWidthBox>
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              hacker: hackerDetails,
-              needsBus: false,
-              resume: this.state.resume ? this.state.resume : undefined,
-              pageNumber,
-            }}
-            onSubmit={this.handleSubmit}
-            onReset={this.previousPage}
-            render={this.renderFormik}
-            validationSchema={getValidationSchema(
-              mode === ManageApplicationModes.CREATE,
-              this.state.pageNumber
-            )}
-          />
+        <Helmet>
+          <title>
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
+            Application | McHacks 6
+          </title>
+        </Helmet>
+        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+          <H1
+            color={'#F2463A'}
+            fontSize={'30px'}
+            textAlign={'left'}
+            marginTop={'0px'}
+            marginBottom={'20px'}
+            marginLeft={'0px'}
+            paddingBottom={'20px'}
+            paddingTop={'70px'}
+          >
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
+            Application
+          </H1>
+          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
         </MaxWidthBox>
-      </HorizontalSpacer>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            hacker: hackerDetails,
+            needsBus: false,
+            resume: this.state.resume ? this.state.resume : undefined,
+            pageNumber,
+          }}
+          onSubmit={this.handleSubmit}
+          onReset={this.previousPage}
+          render={this.renderFormik}
+          validationSchema={getValidationSchema(
+            mode === ManageApplicationModes.CREATE,
+            this.state.pageNumber
+          )}
+        />
+      </MaxWidthBox>
+      // </HorizontalSpacer>
     );
   }
 
