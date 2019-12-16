@@ -37,7 +37,11 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
                   </Box>
                 </Flex>
                 <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
-                  <Paragraph paddingBottom={'20px'} textAlign={'left'}>
+                  <Paragraph
+                    paddingBottom={'20px'}
+                    textAlign={'left'}
+                    fontSize={'18px'}
+                  >
                     We've sent you a link to reset your password. Check your
                     inbox and follow the instructions there.
                   </Paragraph>

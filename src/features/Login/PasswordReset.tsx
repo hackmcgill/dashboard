@@ -2,6 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import Helmet from 'react-helmet';
+import MediaQuery from 'react-responsive';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -9,9 +10,16 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import { APIResponse, Auth } from '../../api';
 
 import { FrontendRoute, getTokenFromQuery } from '../../config';
-import { H1, MaxWidthBox } from '../../shared/Elements';
+import {
+  BackgroundImage,
+  H1,
+  LeftContainer,
+  MaxWidthBox,
+} from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form, PasswordInput } from '../../shared/Form';
+
+import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
@@ -41,22 +49,52 @@ class ResetPasswordContainer extends React.Component<
   }
   public render() {
     return (
+      <MediaQuery minWidth={1224}>
+        {(matches) =>
+          matches ? (
+            <LeftContainer>
+              {this.renderPassReset()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgWidth={'100%'}
+                imgHeight={'100%'}
+                minHeight={'600px'}
+              />
+            </LeftContainer>
+          ) : (
+            <div>
+              {this.renderPassReset()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgHeight={'100%'}
+              />
+            </div>
+          )
+        }
+      </MediaQuery>
+    );
+  }
+
+  private renderPassReset() {
+    return (
       <Flex
         justifyContent={'center'}
-        alignItems={'center'}
+        alignItems={'left'}
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Reset Password | McHacks 6</title>
+          <title>Reset Password | McHacks 7</title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} width={1}>
-          <H1 paddingTop={'8rem'} text-align={'left'}>
-            Reset your password
-          </H1>
+          <H1 text-align={'left'}>Reset your password</H1>
           <Form>
             <Flex
               justifyContent={'center'}
-              alignItems={'center'}
+              alignItems={'left'}
               flexDirection={'column'}
             >
               <Box width={7 / 8}>

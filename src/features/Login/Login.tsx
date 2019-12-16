@@ -81,7 +81,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
     return (
       <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
         <Helmet>
-          <title>Login | McHacks 6</title>
+          <title>Login | McHacks 7</title>
         </Helmet>
         <Form>
           <Flex alignItems={'center'} flexDirection={'column'}>
