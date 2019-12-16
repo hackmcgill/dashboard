@@ -1,12 +1,13 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import resetLogo from '../../assets/images/passwordReset.svg';
 
-// import { FrontendRoute } from '../../config';
+import { FrontendRoute } from '../../config';
 import { H1, Image, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 
 class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
   public render() {
@@ -35,11 +36,13 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         <Box>
           <Image src={resetLogo} imgHeight={'4.5rem'} padding={'0.5rem'} />
         </Box>
-        {/* <Box>
+        <Box>
           <Link to={FrontendRoute.LOGIN_PAGE}>
-            <Button type="button">Login page</Button>
+            <Button type="button" variant={ButtonVariant.Primary}>
+              Resend Email
+            </Button>
           </Link>
-        </Box> */}
+        </Box>
       </Flex>
     );
   }

@@ -11,6 +11,7 @@ interface IH1Props {
   fontWeight?: string;
   paddingTop?: string;
   paddingBottom?: string;
+  paddingLeft?: string;
 }
 
 export const H1 = styled.h1<IH1Props>`
