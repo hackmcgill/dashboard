@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
-import { FrontendRoute } from '../../config/frontendRoutes';
+import { FrontendRoute as routes } from '../../config/frontendRoutes';
 // import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
 import LogoutBtn from './LogoutButton';
@@ -30,13 +30,14 @@ export default class Navbar extends React.Component<{}, INavbarState> {
     return (
       <Nav borderThickness={'2px'}>
         <IconContainer>
-          <a href={FrontendRoute.HOME_PAGE}>
+          <a href={routes.HOME_PAGE}>
             <Icon src={Martlet} />
           </a>
         </IconContainer>
         <Links>
-          <NavLink href={FrontendRoute.HOME_PAGE}>Home</NavLink>
-          <NavLink href={FrontendRoute.EDIT_ACCOUNT_PAGE}>Profile</NavLink>
+          <NavLink href={routes.HOME_PAGE}>Home</NavLink>
+          <NavLink href={routes.EDIT_ACCOUNT_PAGE}>Profile</NavLink>
+          <NavLink href={routes.EDIT_APPLICATION_PAGE}>Application</NavLink>
           {logoutBtn}
         </Links>
       </Nav>
