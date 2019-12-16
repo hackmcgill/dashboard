@@ -1,18 +1,12 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import resetLogo from '../../assets/images/passwordReset.svg';
 
-import { FrontendRoute } from '../../config';
-import {
-  Button,
-  H1,
-  Image,
-  MaxWidthBox,
-  Paragraph,
-} from '../../shared/Elements';
+// import { FrontendRoute } from '../../config';
+import { H1, Image, MaxWidthBox, Paragraph } from '../../shared/Elements';
 
 class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
   public render() {
@@ -27,10 +21,9 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         </Helmet>
         <Flex alignItems={'center'}>
           <Box>
-            <Image src={resetLogo} imgHeight={'3rem'} padding={'1.0rem'} />
-          </Box>
-          <Box>
-            <H1>Password reset</H1>
+            <H1 paddingTop={'8rem'} text-align={'left'}>
+              Password reset
+            </H1>
           </Box>
         </Flex>
         <MaxWidthBox width={1} fontSize={[2, 3, 4]}>
@@ -40,10 +33,13 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
           </Paragraph>
         </MaxWidthBox>
         <Box>
+          <Image src={resetLogo} imgHeight={'4.5rem'} padding={'0.5rem'} />
+        </Box>
+        {/* <Box>
           <Link to={FrontendRoute.LOGIN_PAGE}>
             <Button type="button">Login page</Button>
           </Link>
-        </Box>
+        </Box> */}
       </Flex>
     );
   }
