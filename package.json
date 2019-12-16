@@ -17,6 +17,7 @@
     "query-string": "^6.2.0",
     "react": "^16.7.0",
     "react-autosuggest": "^9.4.3",
+    "react-burger-menu": "^2.6.13",
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.4",
     "react-helmet": "^5.2.0",
