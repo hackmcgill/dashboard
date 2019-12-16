@@ -29,6 +29,7 @@ import {
 } from '../../config';
 
 import {
+  BackgroundImage,
   FormDescription,
   H1,
   // HorizontalSpacer,
@@ -50,6 +51,9 @@ import { Flex } from '@rebass/grid';
 import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 // import Sidebar from '../Sidebar/Sidebar';
+
+import Bulby from '../../assets/images/bulby.svg';
+import Drone from '../../assets/images/drone.svg';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -157,6 +161,20 @@ class ManageApplicationContainer extends React.Component<
             status={this.state.hackerDetails.status}
             confirmed={true}
           /> */}
+        <BackgroundImage
+          right={'10%'}
+          top={'178px'}
+          src={Drone}
+          imgHeight={'133px'}
+          position={'fixed' as 'fixed'}
+        />
+        <BackgroundImage
+          left={'5%'}
+          bottom={'5%'}
+          src={Bulby}
+          imgHeight={'290px'}
+          position={'fixed' as 'fixed'}
+        />
         <Helmet>
           <title>
             {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
