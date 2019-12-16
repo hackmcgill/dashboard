@@ -2,13 +2,13 @@ import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import { RouteComponentProps, withRouter } from 'react-router';
 import MediaQuery from 'react-responsive';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
-import { BackgroundImage, LeftContainer } from '../../shared/Elements';
 // import Key from '../../assets/images/key.svg';
 import { EMAIL_LABEL } from '../../config';
+import { BackgroundImage, LeftContainer } from '../../shared/Elements';
 import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
@@ -59,9 +59,7 @@ class ForgotPasswordContainer extends React.Component<
                     <title>Forgot your password? | McHacks 7</title>
                   </Helmet>
                   <Box>
-                    <H1 paddingTop={'2rem'} fontSize={'30px'}>
-                      Reset Your Password
-                    </H1>
+                    <H1 fontSize={'24px'}>Reset Your Password</H1>
                   </Box>
                   <MaxWidthBox fontSize={[2, 3, 4]}>
                     <Paragraph
@@ -112,7 +110,6 @@ class ForgotPasswordContainer extends React.Component<
               </LeftContainer>
             ) : (
               <div>
-                {/* {this.renderForm()} */}
                 <Flex
                   flexWrap={'wrap'}
                   justifyContent={'center'}
