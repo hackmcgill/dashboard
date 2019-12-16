@@ -13,6 +13,17 @@ export const CACHE_SPONSOR_KEY = 'sponsorInfo';
 
 // General information
 export const HACKATHON_NAME = 'McHacks';
+export const HACKATHON_DESCRIPTION = `Create, build, and play with us at ${HACKATHON_NAME}, Canada's favourite hackathon, hosted at McGill University.`;
+export const HACKATHON_DATE = 'February 1-2, 2020';
+export const HACKATHON_LOCATION = 'McGill University';
+export const STATIC_SITE = 'https://mchacks.ca';
+
+// Social media
+export const TWITTER = '@mcgillhacks';
+
+// SEO
+export const RICH_PREVIEW_IMAGE =
+  'https://2019.mchacks.ca/static/mchacks-og.png';
 
 // Credentials information
 export const EMAIL_LABEL = 'Email';
