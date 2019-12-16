@@ -48,57 +48,7 @@ class ForgotPasswordContainer extends React.Component<
           {(matches) =>
             matches ? (
               <LeftContainer>
-                <Flex
-                  flexWrap={'wrap'}
-                  justifyContent={'center'}
-                  alignItems={'left'}
-                  flexDirection={'column'}
-                  px={2}
-                >
-                  <Helmet>
-                    <title>Forgot your password? | McHacks 7</title>
-                  </Helmet>
-                  <Box>
-                    <H1 fontSize={'24px'}>Reset Your Password</H1>
-                  </Box>
-                  <MaxWidthBox fontSize={[2, 3, 4]}>
-                    <Paragraph
-                      paddingBottom={'20px'}
-                      textAlign={'left'}
-                      fontSize={'18px'}
-                    >
-                      Enter your email and we will send you a link to reset your
-                      password
-                    </Paragraph>
-                  </MaxWidthBox>
-                  <Box width={'100%'}>
-                    <Form onSubmit={this.formSubmitHandler}>
-                      <Flex
-                        justifyContent={'center'}
-                        alignItems={'left'}
-                        flexDirection={'column'}
-                      >
-                        <MaxWidthBox width={'50%'}>
-                          <EmailInput
-                            label={EMAIL_LABEL}
-                            required={true}
-                            onEmailChanged={this.onEmailChanged}
-                            placeholder={'foo@bar.ca'}
-                          />
-                        </MaxWidthBox>
-                        <Box>
-                          <Button
-                            type="button"
-                            onClick={this.handleSubmit}
-                            variant={ButtonVariant.CallToAction}
-                          >
-                            Submit
-                          </Button>
-                        </Box>
-                      </Flex>
-                    </Form>
-                  </Box>
-                </Flex>
+                {this.renderPassForgot()}
                 <BackgroundImage
                   src={BackgroundLandscape}
                   top={'0px'}
@@ -110,59 +60,7 @@ class ForgotPasswordContainer extends React.Component<
               </LeftContainer>
             ) : (
               <div>
-                <Flex
-                  flexWrap={'wrap'}
-                  justifyContent={'center'}
-                  alignItems={'left'}
-                  flexDirection={'column'}
-                  px={2}
-                >
-                  <Helmet>
-                    <title>Forgot your password? | McHacks 7</title>
-                  </Helmet>
-                  <Box>
-                    <H1 paddingTop={'2rem'} fontSize={'30px'}>
-                      Reset Your Password
-                    </H1>
-                  </Box>
-                  <MaxWidthBox fontSize={[2, 3, 4]} paddingLeft={'16px'}>
-                    <Paragraph
-                      paddingBottom={'20px'}
-                      textAlign={'left'}
-                      fontSize={'18px'}
-                    >
-                      Enter your email and we will send you a link to reset your
-                      password
-                    </Paragraph>
-                  </MaxWidthBox>
-                  <Box width={'100%'}>
-                    <Form onSubmit={this.formSubmitHandler}>
-                      <Flex
-                        justifyContent={'center'}
-                        alignItems={'center'}
-                        flexDirection={'column'}
-                      >
-                        <MaxWidthBox width={'80%'}>
-                          <EmailInput
-                            label={EMAIL_LABEL}
-                            required={true}
-                            onEmailChanged={this.onEmailChanged}
-                            placeholder={'foo@bar.ca'}
-                          />
-                        </MaxWidthBox>
-                        <Box>
-                          <Button
-                            type="button"
-                            onClick={this.handleSubmit}
-                            variant={ButtonVariant.CallToAction}
-                          >
-                            Reset password
-                          </Button>
-                        </Box>
-                      </Flex>
-                    </Form>
-                  </Box>
-                </Flex>
+                {this.renderPassForgot()}
                 <BackgroundImage
                   src={BackgroundLandscape}
                   top={'0px'}
@@ -177,6 +75,60 @@ class ForgotPasswordContainer extends React.Component<
     }
   }
 
+  private renderPassForgot() {
+    return (
+      <Flex
+        flexWrap={'wrap'}
+        justifyContent={'center'}
+        alignItems={'left'}
+        flexDirection={'column'}
+        px={2}
+      >
+        <Helmet>
+          <title>Forgot your password? | McHacks 7</title>
+        </Helmet>
+        <Box>
+          <H1 fontSize={'24px'}>Reset Your Password</H1>
+        </Box>
+        <MaxWidthBox fontSize={[2, 3, 4]}>
+          <Paragraph
+            paddingBottom={'20px'}
+            textAlign={'left'}
+            fontSize={'18px'}
+          >
+            Enter your email and we will send you a link to reset your password
+          </Paragraph>
+        </MaxWidthBox>
+        <Box width={'100%'}>
+          <Form onSubmit={this.formSubmitHandler}>
+            <Flex
+              justifyContent={'center'}
+              alignItems={'left'}
+              flexDirection={'column'}
+            >
+              <MaxWidthBox width={'50%'}>
+                <EmailInput
+                  label={EMAIL_LABEL}
+                  required={true}
+                  onEmailChanged={this.onEmailChanged}
+                  placeholder={'foo@bar.ca'}
+                />
+              </MaxWidthBox>
+              <Box>
+                <Button
+                  type="button"
+                  onClick={this.handleSubmit}
+                  variant={ButtonVariant.CallToAction}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Flex>
+          </Form>
+        </Box>
+      </Flex>
+    );
+  }
   private formSubmitHandler(e: any) {
     e.preventDefault();
   }
