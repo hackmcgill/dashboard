@@ -85,13 +85,14 @@ class ResetPasswordContainer extends React.Component<
         justifyContent={'center'}
         alignItems={'left'}
         flexDirection={'column'}
+        p={'5rem'}
       >
         <Helmet>
           <title>Reset Password | McHacks 7</title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} width={1}>
           <H1 fontSize={'24px'} marginLeft={'0px'}>
-            Reset your password
+            Reset Your Password
           </H1>
           <Form>
             <Flex
