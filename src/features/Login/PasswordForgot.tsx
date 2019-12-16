@@ -5,15 +5,10 @@ import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
-import Key from '../../assets/images/key.svg';
+// import Key from '../../assets/images/key.svg';
 import { EMAIL_LABEL } from '../../config';
-import {
-  Button,
-  H1,
-  Image,
-  MaxWidthBox,
-  Paragraph,
-} from '../../shared/Elements';
+import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
 import validationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -55,14 +50,16 @@ class ForgotPasswordContainer extends React.Component<
           <Helmet>
             <title>Forgot your password? | McHacks 6</title>
           </Helmet>
-          <Box>
+          {/* <Box>
             <Image src={Key} imgHeight={'4rem'} padding={'0rem'} />
-          </Box>
+          </Box> */}
           <Box>
-            <H1>Password Reset</H1>
+            <H1 paddingTop={'8rem'} text-align={'left'}>
+              Password Reset
+            </H1>
           </Box>
           <MaxWidthBox fontSize={[2, 3, 4]}>
-            <Paragraph paddingBottom={'20px'} textAlign={'center'}>
+            <Paragraph paddingBottom={'20px'} textAlign={'left'}>
               Enter your email and we will send you a link to reset your
               password
             </Paragraph>
@@ -83,7 +80,11 @@ class ForgotPasswordContainer extends React.Component<
                   />
                 </MaxWidthBox>
                 <Box>
-                  <Button type="button" onClick={this.handleSubmit}>
+                  <Button
+                    type="button"
+                    onClick={this.handleSubmit}
+                    variant={ButtonVariant.CallToAction}
+                  >
                     Reset password
                   </Button>
                 </Box>

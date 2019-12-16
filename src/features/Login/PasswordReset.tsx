@@ -9,7 +9,8 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import { APIResponse, Auth } from '../../api';
 
 import { FrontendRoute, getTokenFromQuery } from '../../config';
-import { Button, H1, MaxWidthBox } from '../../shared/Elements';
+import { H1, MaxWidthBox } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form, PasswordInput } from '../../shared/Form';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -74,7 +75,11 @@ class ResetPasswordContainer extends React.Component<
                   'Passwords must match!'}
               </Box>
               <Box>
-                <Button type="button" onClick={this.handleSubmit}>
+                <Button
+                  type="button"
+                  onClick={this.handleSubmit}
+                  variant={ButtonVariant.CallToAction}
+                >
                   Submit
                 </Button>
               </Box>
