@@ -37,7 +37,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
                 <Flex alignItems={'center'}>
                   <Box>
                     <H1 paddingTop={'8rem'} text-align={'left'}>
-                      Password reset
+                      Reset Your Password
                     </H1>
                   </Box>
                 </Flex>
