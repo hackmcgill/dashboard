@@ -1,20 +1,21 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
 
+import { slide as Menu } from 'react-burger-menu';
 import { Hacker } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import { FrontendRoute as routes, HackerStatus } from '../../config';
 // import { Image } from '../../shared/Elements';
 import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
+import Burger from './Burger';
+import Icon from './Icon';
+import IconContainer from './IconContainer';
+import Links from './Links';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
-
-import Icon from './Icon';
-import IconContainer from './IconContainer';
-import Links from './Links';
 
 interface INavbarState {
   loggedIn: boolean;
@@ -92,6 +93,10 @@ export default class Navbar extends React.Component<{}, INavbarState> {
           {NavItems()}
           {CTAButton}
         </Links>
+        <Menu isOpen={window.innerWidth > 768} styles={Burger}>
+          {NavItems()}
+          {CTAButton}
+        </Menu>
       </Nav>
     );
   }

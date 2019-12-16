@@ -6,12 +6,11 @@ export const Links = styled.div`
   position: fixed;
   top: 1rem;
   right: 0;
-  display: flex;
+  display: none;
 
-  /* @media only screen and (min-width: ${(props) =>
-    props.theme.screens.smUp}) {
+  @media only screen and (min-width: ${(props) => props.theme.screens.smUp}) {
     display: flex;
-  } */
+  }
 `;
 
 export default Links;
