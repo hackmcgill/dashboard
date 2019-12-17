@@ -92,7 +92,7 @@ class ManageApplicationContainer extends React.Component<
             degree: '',
             fieldOfStudy: '',
             graduationYear: NaN,
-            jobInterest: JobInterest.NONE,
+            jobInterest: '',
             URL: {
               resume: '',
               github: '',
@@ -177,8 +177,8 @@ class ManageApplicationContainer extends React.Component<
         />
         <Helmet>
           <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-            Application | McHacks 6
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+            Application | {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
@@ -368,10 +368,9 @@ class ManageApplicationContainer extends React.Component<
         <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
           name={'hacker.application.general.jobInterest'}
-          options={getOptionsFromEnum(JobInterest)}
           component={FormikElements.Select}
+          options={getOptionsFromEnum(JobInterest)}
           label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
-          placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
           value={fp.values.hacker.application.general.jobInterest}
           required={true}
         />

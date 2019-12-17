@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add button variant prop
 - Add travel application field validation
 - Add burger menu for mobile
+- Add constants: SEO, Hackathon information
 
 ### Changed
 
@@ -30,10 +31,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update graduation year field validation
 - Modified password reset screens
 - Refactor navbar as main dashboard navigation
+- Refactor SEO to Helmet in `App.tsx`
 
 ### Fixed
 
 - Asterisks for required fields are working now
+- Match job interest enum to backend
 
 ### Removed
 

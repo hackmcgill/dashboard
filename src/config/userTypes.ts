@@ -1,6 +1,6 @@
 import HackerStatus from './hackerStatus';
-import JobInterest from './jobInterests';
 import { ITeam } from './team';
+
 export interface IAccount {
   accountType: UserType;
   confirmed: boolean;
@@ -38,7 +38,7 @@ export interface IHacker {
       degree: string;
       fieldOfStudy: string;
       graduationYear: number;
-      jobInterest: JobInterest;
+      jobInterest: string;
       URL: {
         resume: string | File;
         github?: string;

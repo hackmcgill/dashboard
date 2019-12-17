@@ -6,9 +6,9 @@ import MediaQuery from 'react-responsive';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
-import { EMAIL_LABEL } from '../../config';
-import { BackgroundImage, LeftContainer } from '../../shared/Elements';
+import { EMAIL_LABEL, HACKATHON_NAME } from '../../config';
 import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
+import { BackgroundImage, LeftContainer } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
 import validationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -84,7 +84,7 @@ class ForgotPasswordContainer extends React.Component<
         p={'5rem 0rem 0rem 6.4rem'}
       >
         <Helmet>
-          <title>Forgot your password? | McHacks 7</title>
+          <title>Forgot your password | {HACKATHON_NAME}</title>
         </Helmet>
         <Box>
           <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'0px'}>

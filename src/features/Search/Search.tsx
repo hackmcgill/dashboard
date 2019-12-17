@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 
 import { Account, Search, Sponsor } from '../../api';
 import {
+  HACKATHON_NAME,
   IAccount,
   IHacker,
   ISearchParameter,
@@ -68,7 +69,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title> {accountType} Search | McHacks 6</title>
+          <title>
+            {' '}
+            {accountType} Search | {HACKATHON_NAME}
+          </title>
         </Helmet>
         <Box width={1}>
           <Flex>
