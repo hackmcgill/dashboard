@@ -37,11 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Asterisks for required fields are working now
-<<<<<<< HEAD
 - Use Brown for form labels
-=======
 - Match job interest enum to backend
->>>>>>> develop
 
 ### Removed
 
