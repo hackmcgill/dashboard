@@ -605,15 +605,44 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'hacker.application.other.privacyPolicy'}
           component={FormikElements.Checkbox}
-          label={
+          label={CONSTANTS.MLH_LABEL}
+          subtitle={
             <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
+              {'I have read and agree to the '}
               <a
-                href="https://github.com/MLH/mlh-policies"
+                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {CONSTANTS.COC_MLH_REQUEST_LABEL}
+                {'MLH Code of Conduct'}
+              </a>
+              {'. '}
+              {
+                'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+              }
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+              </a>
+              {'. I further agree to the terms of both the '}
+              <a
+                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Contest Terms and Conditions'}
+              </a>
+              {' and the '}
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+                {'.'}
               </a>
             </span>
           }

@@ -77,6 +77,7 @@ export const OTHER_LINK_LABEL = 'Other URL';
 export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
 export const MCHACKS_COC = 'Code of Conduct';
 export const MCHACKS_PRIVACY = 'Privacy Policy';
+export const MLH_LABEL = 'I accept the MLH policies.';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
 export const SKILLS_LABEL = 'Skills';

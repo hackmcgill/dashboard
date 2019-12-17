@@ -94,7 +94,7 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
           </CheckboxContainer>
         </Flex>
       </Label>
-      <FormDescription>{subtitle}</FormDescription>
+      <FormDescription maxWidth={'90%'}>{subtitle}</FormDescription>
     </Box>
   );
 };
