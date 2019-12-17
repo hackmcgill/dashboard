@@ -1,17 +1,35 @@
+// API information
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
+// Travel information
 export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
 
-//
+// Cache information
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';
 
-// Used in multiple locations:
+// General information
+export const HACKATHON_NAME = 'McHacks';
+export const HACKATHON_DESCRIPTION = `Create, build, and play with us at ${HACKATHON_NAME}, Canada's favourite hackathon, hosted at McGill University.`;
+export const HACKATHON_DATE = 'February 1-2, 2020';
+export const HACKATHON_LOCATION = 'McGill University';
+export const STATIC_SITE = 'https://mchacks.ca';
+
+// Social media
+export const TWITTER = '@mcgillhacks';
+
+// SEO
+export const RICH_PREVIEW_IMAGE =
+  'https://2019.mchacks.ca/static/mchacks-og.png';
+
+// Credentials information
 export const EMAIL_LABEL = 'Email';
 export const PASSWORD_LABEL = 'Password';
+
+// Required label
 export const REQUIRED_DESCRIPTION =
   'Required fields are denoted with an asterisk (*)';
 

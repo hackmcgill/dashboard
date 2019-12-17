@@ -5,7 +5,13 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../../api';
-import { HackerStatus, IAccount, IHacker, UserType } from '../../config';
+import {
+  HACKATHON_NAME,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  UserType,
+} from '../../config';
 import { Button, H1, H2, MaxWidthBox } from '../../shared/Elements';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../../shared/Form';
@@ -69,7 +75,7 @@ class SingleHackerView extends React.Component<
       <article>
         <Helmet>
           <title>
-            {`${account.firstName} ${account.lastName}`} | McHacks 6
+            {`${account.firstName} ${account.lastName}`} | {HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">

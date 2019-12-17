@@ -86,7 +86,11 @@ class ConfirmAttendanceContainer extends React.Component<
           label={
             <span>
               I accept the terms of the{' '}
-              <a href="https://mchacks.ca/waiver" target="_blank">
+              <a
+                href="https://mchacks.ca/waiver"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 McHacks Liability and Photo Release Agreement
               </a>
             </span>

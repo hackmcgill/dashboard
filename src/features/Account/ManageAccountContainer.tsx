@@ -190,7 +190,7 @@ class ManageAccountContainer extends React.Component<
         <Helmet>
           <title>
             {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
-            McHacks 7
+            {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <H1

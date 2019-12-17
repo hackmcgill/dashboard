@@ -18,7 +18,7 @@ export const SponsorProfile: string = 'Sponsor Profile';
 export const Checkin: string = 'Check In';
 
 // Confirm Attendence
-export const ConfirmPresence: string = 'Confirm presence | McHacks 6';
+export const ConfirmPresence: string = 'Confirm presence | McHacks';
 
 export const ConfirmHeader: string = 'Confirm your Attendance';
 
@@ -26,7 +26,7 @@ export const ConfirmDeadLine: string =
   'Please confirm your attendance before Friday, January 25, 2019.';
 
 export const ConfirmParagraph: string =
-  'We are excited to offer you a spot at McHacks 6, taking place on February 2-3, 2019 at Theatre St. James in the Old Port of Montreal.';
+  'We are excited to offer you a spot at McHacks.';
 
 export const Liability: string = 'Liability and Photo Release';
 

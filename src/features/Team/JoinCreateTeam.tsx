@@ -1,3 +1,6 @@
+import * as React from 'react';
+import Helmet from 'react-helmet';
+
 import { Box, Flex } from '@rebass/grid';
 import {
   ErrorMessage,
@@ -6,7 +9,6 @@ import {
   FormikProps,
   FormikValues,
 } from 'formik';
-import * as React from 'react';
 
 import {
   Button,
@@ -15,7 +17,7 @@ import {
   MaxWidthBox,
 } from '../../shared/Elements';
 
-import { HackerStatus, IHacker } from '../../config';
+import { HACKATHON_NAME, IHacker } from '../../config';
 
 import Team from '../../api/team';
 import { Form } from '../../shared/Form';
@@ -24,7 +26,7 @@ import {
   Input,
 } from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar';
 import getValidationSchema from './validationSchema';
 
 interface IJoinCreateTeamProps {
@@ -53,11 +55,14 @@ class JoinCreateTeam extends React.Component<
   public render() {
     return (
       <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-        <Sidebar
+        {/* <Sidebar
           currentPage="Team"
           status={HackerStatus.HACKER_STATUS_CONFIRMED}
           confirmed={true}
-        />
+        /> */}
+        <Helmet>
+          <title>Join/Create Team | {HACKATHON_NAME}</title>
+        </Helmet>
         <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
           Team
         </H1>
