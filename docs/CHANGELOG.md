@@ -32,10 +32,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modified password reset screens
 - Refactor navbar as main dashboard navigation
 - Refactor SEO to Helmet in `App.tsx`
+- Update application questions
 
 ### Fixed
 
 - Asterisks for required fields are working now
+- Use Brown for form labels
 - Match job interest enum to backend
 
 ### Removed

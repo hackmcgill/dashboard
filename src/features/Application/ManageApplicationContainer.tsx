@@ -248,7 +248,8 @@ class ManageApplicationContainer extends React.Component<
           component={SchoolComponent}
           value={fp.values.hacker.application.general.school}
           required={true}
-          label={CONSTANTS.SCHOOL_REQUEST_LABEL}
+          label={CONSTANTS.SCHOOL_LABEL}
+          placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
         />
         <ErrorMessage
           component={FormikElements.Error}
@@ -256,8 +257,8 @@ class ManageApplicationContainer extends React.Component<
         />
         <FastField
           name={'hacker.application.general.degree'}
-          label={CONSTANTS.DEGREE_REQUEST_LABEL}
-          placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
+          label={CONSTANTS.DEGREE_LABEL}
+          placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
           creatable={true}
           options={getOptionsFromEnum(Degrees)}
           component={FormikElements.Select}
@@ -270,7 +271,7 @@ class ManageApplicationContainer extends React.Component<
         />
         <FastField
           name={'hacker.application.general.graduationYear'}
-          label="Graduation year:"
+          label={CONSTANTS.GRADUATION_YEAR_LABEL}
           placeholder="YYYY"
           format="####"
           component={FormikElements.FormattedNumber}
@@ -287,7 +288,7 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           component={FormikElements.Select}
-          label={CONSTANTS.FIELD_OF_STUDY_REQUEST_LABEL}
+          label={CONSTANTS.FIELD_OF_STUDY_LABEL}
           placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
           value={fp.values.hacker.application.general.fieldOfStudy}
           required={true}
@@ -331,19 +332,6 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Error}
           name="hacker.application.general.URL.linkedIn"
         />
-
-        <FastField
-          name={'hacker.application.general.URL.personal'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.PERSONAL_LINK_LABEL}
-          placeholder={CONSTANTS.PERSONAL_LINK_PLACEHOLDER}
-          value={fp.values.hacker.application.general.URL.personal}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.URL.personal"
-        />
         <FastField
           name={'hacker.application.general.URL.other'}
           inputType="url"
@@ -359,7 +347,7 @@ class ManageApplicationContainer extends React.Component<
         <Field
           name="resume"
           component={ResumeComponent}
-          label={CONSTANTS.RESUME_REQUEST_LABEL}
+          label={CONSTANTS.RESUME_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
@@ -370,7 +358,8 @@ class ManageApplicationContainer extends React.Component<
           name={'hacker.application.general.jobInterest'}
           component={FormikElements.Select}
           options={getOptionsFromEnum(JobInterest)}
-          label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
+          label={CONSTANTS.JOBINTEREST_LABEL}
+          placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
           value={fp.values.hacker.application.general.jobInterest}
           required={true}
         />
@@ -404,8 +393,8 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           options={getOptionsFromEnum(Skills)}
-          label={CONSTANTS.SKILLS_REQUEST_LABEL}
-          placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
+          label={CONSTANTS.SKILLS_LABEL}
+          placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
           component={FormikElements.Select}
           value={fp.values.hacker.application.shortAnswer.skills}
         />
@@ -436,7 +425,7 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'hacker.application.shortAnswer.comments'}
           component={FormikElements.LongTextInput}
-          label={CONSTANTS.COMMENTS_REQUEST_LABEL}
+          label={CONSTANTS.COMMENTS_LABEL}
           value={fp.values.hacker.application.shortAnswer.comments}
           maxLength={500}
           required={false}
@@ -500,7 +489,7 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'hacker.application.accommodation.impairments'}
           component={FormikElements.LongTextInput}
-          label={'Do you have any impairments that we should know about?'}
+          label={CONSTANTS.IMPAIRMENTS_LABEL}
           value={fp.values.hacker.application.accommodation.impairments}
           required={false}
         />
@@ -511,7 +500,7 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'hacker.application.accommodation.barriers'}
           component={FormikElements.LongTextInput}
-          label={'Do you have any barriers that we should know about?'}
+          label={CONSTANTS.BARRIERS_LABEL}
           value={fp.values.hacker.application.accommodation.barriers}
           required={false}
         />
@@ -572,8 +561,8 @@ class ManageApplicationContainer extends React.Component<
           isMulti={true}
           creatable={true}
           options={getOptionsFromEnum(IEthnicity)}
-          label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
-          placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
+          label={CONSTANTS.ETHNICITY_LABEL}
+          placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
           component={FormikElements.Select}
           value={fp.values.hacker.application.other.ethnicity}
           required={true}
@@ -587,13 +576,22 @@ class ManageApplicationContainer extends React.Component<
           component={FormikElements.Checkbox}
           label={
             <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
+              {CONSTANTS.COC_ACCEPTANCE_PHRASE}
+              {' McHacks '}
               <a
                 href="https://mchacks.ca/code-of-conduct"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
+                {CONSTANTS.MCHACKS_COC}
+              </a>
+              {' and '}
+              <a
+                href="https://mchacks.ca/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {CONSTANTS.MCHACKS_PRIVACY}
               </a>
             </span>
           }
@@ -607,15 +605,44 @@ class ManageApplicationContainer extends React.Component<
         <FastField
           name={'hacker.application.other.privacyPolicy'}
           component={FormikElements.Checkbox}
-          label={
+          label={CONSTANTS.MLH_LABEL}
+          subtitle={
             <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
+              {'I have read and agree to the '}
               <a
-                href="https://github.com/MLH/mlh-policies"
+                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {CONSTANTS.COC_MLH_REQUEST_LABEL}
+                {'MLH Code of Conduct'}
+              </a>
+              {'. '}
+              {
+                'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+              }
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+              </a>
+              {'. I further agree to the terms of both the '}
+              <a
+                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Contest Terms and Conditions'}
+              </a>
+              {' and the '}
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+                {'.'}
               </a>
             </span>
           }

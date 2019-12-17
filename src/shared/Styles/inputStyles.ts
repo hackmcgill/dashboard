@@ -20,6 +20,7 @@ export const inputStyles = css<IInputProps>`
   width: 100%;
   transition: 0.25s border ease-in;
   color: ${(props) => props.theme.colors.black80};
+  font-family: 'Hind Siliguri', sans-serif;
 
   &::placeholder {
     color: ${(props) => props.theme.colors.black40};
