@@ -164,29 +164,27 @@ class ManageAccountContainer extends React.Component<
       //   paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
       // >
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-        {mode === ManageAccountModes.EDIT && (
-          <>
-            {/* <Sidebar
+        <>
+          {/* <Sidebar
                 currentPage="Profile"
                 status={this.state.status}
                 confirmed={this.state.accountDetails.confirmed}
               /> */}
-            <BackgroundImage
-              right={'10%'}
-              top={'178px'}
-              src={Drone}
-              imgHeight={'133px'}
-              position={'fixed' as 'fixed'}
-            />
-            <BackgroundImage
-              left={'5%'}
-              bottom={'5%'}
-              src={Bulby}
-              imgHeight={'290px'}
-              position={'fixed' as 'fixed'}
-            />
-          </>
-        )}
+          <BackgroundImage
+            right={'10%'}
+            top={'178px'}
+            src={Drone}
+            imgHeight={'133px'}
+            position={'fixed' as 'fixed'}
+          />
+          <BackgroundImage
+            left={'5%'}
+            bottom={'5%'}
+            src={Bulby}
+            imgHeight={'290px'}
+            position={'fixed' as 'fixed'}
+          />
+        </>
         <Helmet>
           <title>
             {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
