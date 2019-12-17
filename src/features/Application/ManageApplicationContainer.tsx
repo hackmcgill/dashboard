@@ -65,7 +65,7 @@ interface IManageApplicationState {
   submitting: boolean;
   hackerDetails: IHacker;
   pageNumber: number;
-  resume: any;
+  resume?: File;
 }
 
 interface IManageApplicationProps {
@@ -94,7 +94,7 @@ class ManageApplicationContainer extends React.Component<
             graduationYear: NaN,
             jobInterest: JobInterest.NONE,
             URL: {
-              // resume: '',
+              resume: '',
               github: '',
               dribbble: '',
               linkedIn: '',

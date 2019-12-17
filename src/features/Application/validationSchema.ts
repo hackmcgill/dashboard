@@ -21,6 +21,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
+                resume: string(),
                 github: string().url('Must be a valid url'),
                 dribbble: string().url('Must be a valid url'),
                 linkedIn: string().url('Must be a valid url'),
@@ -41,9 +42,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             'Unsupported Format (PDF only)',
             (value) =>
               !value || value.length > 0 || value.type === 'application/pdf'
-          )
-          .required('Required'),
-        // resume: object().required('Required'),
+          ),
       });
 
     case 2:
@@ -62,21 +61,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
-                // resume: resumeSchema
-                //   .test(
-                //     'fileSize',
-                //     'File too large (<4MB only)',
-                //     (value) =>
-                //       !value || value.length > 0 || value.size <= 4000000 // 4MB
-                //   )
-                //   .test(
-                //     'fileFormat',
-                //     'Unsupported Format (PDF only)',
-                //     (value) =>
-                //       !value ||
-                //       value.length > 0 ||
-                //       value.type === 'application/pdf'
-                //   ),
+                resume: string(),
                 github: string().url('Must be a valid url'),
                 dribbble: string().url('Must be a valid url'),
                 linkedIn: string().url('Must be a valid url'),
@@ -118,8 +103,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             'Unsupported Format (PDF only)',
             (value) =>
               !value || value.length > 0 || value.type === 'application/pdf'
-          )
-          .required('Required'),
+          ),
       });
     case 3:
       return object().shape({
@@ -137,21 +121,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
-                // resume: resumeSchema
-                //   .test(
-                //     'fileSize',
-                //     'File too large (<4MB only)',
-                //     (value) =>
-                //       !value || value.length > 0 || value.size <= 4000000 // 4MB
-                //   )
-                //   .test(
-                //     'fileFormat',
-                //     'Unsupported Format (PDF only)',
-                //     (value) =>
-                //       !value ||
-                //       value.length > 0 ||
-                //       value.type === 'application/pdf'
-                //   ),
+                resume: string(),
                 github: string().url('Must be a valid url'),
                 dribbble: string().url('Must be a valid url'),
                 linkedIn: string().url('Must be a valid url'),
@@ -202,8 +172,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             'Unsupported Format (PDF only)',
             (value) =>
               !value || value.length > 0 || value.type === 'application/pdf'
-          )
-          .required('Required'),
+          ),
       });
     default:
       return object().shape({
@@ -221,21 +190,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .max(2025, 'Graduation year must be between 2019 and 2025'),
               jobInterest: string().required('Required'),
               URL: object().shape({
-                // resume: resumeSchema
-                //   .test(
-                //     'fileSize',
-                //     'File too large (<4MB only)',
-                //     (value) =>
-                //       !value || value.length > 0 || value.size <= 4000000 // 4MB
-                //   )
-                //   .test(
-                //     'fileFormat',
-                //     'Unsupported Format (PDF only)',
-                //     (value) =>
-                //       !value ||
-                //       value.length > 0 ||
-                //       value.type === 'application/pdf'
-                //   ),
+                resume: string(),
                 github: string().url('Must be a valid url'),
                 dribbble: string().url('Must be a valid url'),
                 linkedIn: string().url('Must be a valid url'),
@@ -303,8 +258,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             'Unsupported Format (PDF only)',
             (value) =>
               !value || value.length > 0 || value.type === 'application/pdf'
-          )
-          .required('Required'),
+          ),
       });
   }
 };
