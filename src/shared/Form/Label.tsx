@@ -6,6 +6,7 @@ interface ILabelProps {
 }
 
 export const Label = styled.label<ILabelProps>`
+  font-family: ${(props) => props.theme.fonts.header};
   font-weight: ${(props) => props.fontWeight || 'bold'};
   color: ${(props) => props.theme.colors.black80};
   display: block;

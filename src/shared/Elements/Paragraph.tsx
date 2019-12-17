@@ -29,7 +29,6 @@ export const Paragraph = styled.p<IParagraphProps>`
 export const FormDescription = styled(Paragraph)`
   font-size: 14px;
   margin-top: 4px;
-  margin-left: 10px;
   font-style: italic;
 `;
 export default Paragraph;
