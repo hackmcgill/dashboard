@@ -92,7 +92,7 @@ class ManageApplicationContainer extends React.Component<
             degree: '',
             fieldOfStudy: '',
             graduationYear: NaN,
-            jobInterest: JobInterest.NONE,
+            jobInterest: '',
             URL: {
               resume: '',
               github: '',
@@ -368,10 +368,9 @@ class ManageApplicationContainer extends React.Component<
         <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
           name={'hacker.application.general.jobInterest'}
-          options={getOptionsFromEnum(JobInterest)}
           component={FormikElements.Select}
+          options={getOptionsFromEnum(JobInterest)}
           label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
-          placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
           value={fp.values.hacker.application.general.jobInterest}
           required={true}
         />

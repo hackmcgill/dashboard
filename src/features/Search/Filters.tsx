@@ -51,7 +51,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       status: this.searchParam2List('status', initFilters),
       skills: this.searchParam2List('application.skills', initFilters),
       jobInterest: this.searchParam2List(
-        'application.jobInterest',
+        'application.general.jobInterest',
         initFilters
       ),
     };
@@ -113,7 +113,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         />
         <FastField
           name={'jobInterest'}
-          label={'Job Search'}
+          label={'Job Interest'}
           placeholder={'Search...'}
           isMulti={true}
           options={getOptionsFromEnum(JobInterest)}
