@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 import { BrowserRouter, Link } from 'react-router-dom';
 
-import { FrontendRoute } from '../../config';
+import { FrontendRoute, HACKATHON_NAME } from '../../config';
 import {
   BackgroundImage,
   H1,
@@ -58,7 +58,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
         p={'5rem 0rem 0rem 6.4rem'}
       >
         <Helmet>
-          <title>Password Sent | McHacks 7</title>
+          <title>Password Sent | {HACKATHON_NAME}</title>
         </Helmet>
         <Flex alignItems={'center'}>
           <Box>

@@ -24,7 +24,12 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 
 import { APIResponse, Auth } from '../../api';
 
-import { EMAIL_LABEL, FrontendRoute, PASSWORD_LABEL } from '../../config';
+import {
+  EMAIL_LABEL,
+  FrontendRoute,
+  HACKATHON_NAME,
+  PASSWORD_LABEL,
+} from '../../config';
 
 export interface ILoginState {
   email: string;
@@ -81,7 +86,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
     return (
       <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
         <Helmet>
-          <title>Login | McHacks 7</title>
+          <title>Login | {HACKATHON_NAME}</title>
         </Helmet>
         <Form>
           <Flex

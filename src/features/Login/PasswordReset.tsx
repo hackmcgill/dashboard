@@ -9,7 +9,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 
 import { APIResponse, Auth } from '../../api';
 
-import { FrontendRoute, getTokenFromQuery } from '../../config';
+import { FrontendRoute, getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
   BackgroundImage,
   H1,
@@ -88,7 +88,7 @@ class ResetPasswordContainer extends React.Component<
         p={'5rem 0rem 0rem 6.4rem'}
       >
         <Helmet>
-          <title>Reset Password | McHacks 7</title>
+          <title>Reset Password | {HACKATHON_NAME}</title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} width={1}>
           <H1 fontSize={'24px'} marginLeft={'0px'}>

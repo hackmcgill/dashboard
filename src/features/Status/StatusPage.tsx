@@ -1,5 +1,7 @@
-import { Flex } from '@rebass/grid';
 import * as React from 'react';
+import Helmet from 'react-helmet';
+
+import { Flex } from '@rebass/grid';
 import {
   BackgroundImage,
   Button,
@@ -10,7 +12,12 @@ import {
 // import Sidebar from '../Sidebar/Sidebar';
 
 import Background from '../../assets/images/statuspage-background.svg';
-import { FrontendRoute, HackerStatus, IAccount } from '../../config';
+import {
+  FrontendRoute,
+  HACKATHON_NAME,
+  HackerStatus,
+  IAccount,
+} from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
@@ -24,11 +31,9 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
-        {/* <Sidebar
-          currentPage={'Home'}
-          status={this.props.status}
-          confirmed={this.props.confirmed}
-        /> */}
+        <Helmet>
+          <title>Home | {HACKATHON_NAME}</title>
+        </Helmet>
         {this.props.confirmed && this.props.account ? (
           <div>
             <h1 style={{ color: theme.colors.red, textAlign: 'center' }}>

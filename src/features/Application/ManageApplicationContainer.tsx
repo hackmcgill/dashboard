@@ -177,8 +177,8 @@ class ManageApplicationContainer extends React.Component<
         />
         <Helmet>
           <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-            Application | McHacks 6
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+            Application | {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
