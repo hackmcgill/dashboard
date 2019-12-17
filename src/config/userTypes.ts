@@ -76,7 +76,6 @@ export interface IHacker {
     };
   };
   teamId?: string | ITeam;
-  // resume: File;
 }
 
 export interface ISponsor {
