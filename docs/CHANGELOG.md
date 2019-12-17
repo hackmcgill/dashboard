@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add travel application field validation
 - Add burger menu for mobile
 - Add constants: SEO, Hackathon information
+- Add illustrations to account creation
 
 ### Changed
 
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactor navbar as main dashboard navigation
 - Refactor SEO to Helmet in `App.tsx`
 - Update application questions
+- Update status page copy for none and applied
 
 ### Fixed
 

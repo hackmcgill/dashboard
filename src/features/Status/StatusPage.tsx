@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 import {
   BackgroundImage,
   Button,
@@ -34,49 +34,64 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
         <Helmet>
           <title>Home | {HACKATHON_NAME}</title>
         </Helmet>
-        {this.props.confirmed && this.props.account ? (
-          <div>
-            <h1 style={{ color: theme.colors.red, textAlign: 'center' }}>
-              Hey {this.props.account.firstName},
-            </h1>
-            {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
-              <Flex flexDirection={'rows'} style={{ marginTop: '1em' }}>
-                <H1 textAlign={'center'} display={'inline'}>
-                  Your application status is:
-                </H1>
-                <H1
-                  textAlign={'center'}
-                  color={theme.colors.black80}
-                  display={'inline'}
-                >
-                  {this.props.status}
-                </H1>
-              </Flex>
-            ) : (
-              <Flex
-                flexDirection={'column'}
-                style={{ marginTop: '1em' }}
-                alignItems={'center'}
+        <Box style={{ marginTop: '6rem' }}>
+          {this.props.confirmed && this.props.account ? (
+            <div>
+              <H1
+                color={theme.colors.red}
+                display={'absolute'}
+                textAlign={'center'}
+                marginLeft={'0'}
               >
-                <Paragraph color={theme.colors.black80} textAlign={'center'}>
-                  Don't forget to submit your application before Saturday
-                  December 31st{' '}
-                </Paragraph>
-                <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                  <Button type="button">Apply</Button>
-                </LinkDuo>
-              </Flex>
-            )}
-          </div>
-        ) : (
-          <ConfirmationEmailSentComponent />
-        )}
-        <BackgroundImage
-          right={'0px'}
-          bottom={'0px'}
-          src={Background}
-          imgHeight={'87%'}
-        />
+                Hey {this.props.account.firstName},
+              </H1>
+              {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    Your application has been submitted. Decisions will be sent
+                    out in January so stay tuned!
+                  </Paragraph>
+                  <LinkDuo to={FrontendRoute.EDIT_APPLICATION_PAGE}>
+                    <Button type="button">View/Edit Application</Button>
+                  </LinkDuo>
+                </Flex>
+              ) : (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    You’re all set! Ready to start your application?
+                  </Paragraph>
+                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                    <Button type="button">Apply</Button>
+                  </LinkDuo>
+                </Flex>
+              )}
+            </div>
+          ) : (
+            <ConfirmationEmailSentComponent />
+          )}
+          <BackgroundImage
+            right={'0px'}
+            bottom={'0px'}
+            src={Background}
+            imgHeight={'87%'}
+          />
+        </Box>
       </Flex>
     );
   }
