@@ -65,7 +65,7 @@ interface IManageApplicationState {
   submitting: boolean;
   hackerDetails: IHacker;
   pageNumber: number;
-  resume: any;
+  resume?: File;
 }
 
 interface IManageApplicationProps {
