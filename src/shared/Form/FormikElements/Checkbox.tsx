@@ -38,7 +38,7 @@ const CheckboxContainer = styled.div`
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
     position: relative;
-    left: 27px;
+    left: 25px;
     z-index: 1000;
     top: 6px;
     display: inline-block;
