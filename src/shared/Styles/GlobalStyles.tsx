@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Brown';
     font-style: normal;
     font-weight: regular;
-    src: url('/fonts/lineto-brown-bold.ttf');
+    src: url('/fonts/lineto-brown-regular.ttf');
   }
 
   @font-face {
@@ -28,10 +28,10 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(props) => props.theme.colors.greyDark};
+    color: ${(props) => props.theme.colors.black80};
 
     &:hover {
-      color: ${(props) => props.theme.colors.greyLight};
+      color: ${(props) => props.theme.colors.black30};
 
     }
 
@@ -48,6 +48,12 @@ export const GlobalStyles = createGlobalStyle`
 
   .toast-notification {
     z-index: 100000;
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.screens.smUp}) {
+    .bm-burger-button, .bm-menu-wrap {
+        display: none;
+    }
   }
 `;
 

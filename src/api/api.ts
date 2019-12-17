@@ -44,9 +44,9 @@ class API {
 
 let API_URL;
 if (
-  location.hostname === 'localhost' ||
-  location.hostname === '127.0.0.1' ||
-  location.hostname === ''
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.hostname === ''
 ) {
   API_URL = LOCAL_API_URL;
 } else {

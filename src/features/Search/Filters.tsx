@@ -12,7 +12,7 @@ import {
   StringOperations,
 } from '../../config';
 import { GradYears } from '../../config';
-import { Button } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import { getOptionsFromEnum } from '../../util';
@@ -51,7 +51,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       status: this.searchParam2List('status', initFilters),
       skills: this.searchParam2List('application.skills', initFilters),
       jobInterest: this.searchParam2List(
-        'application.jobInterest',
+        'application.general.jobInterest',
         initFilters
       ),
     };
@@ -113,7 +113,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         />
         <FastField
           name={'jobInterest'}
-          label={'Job Search'}
+          label={'Job Interest'}
           placeholder={'Search...'}
           isMulti={true}
           options={getOptionsFromEnum(JobInterest)}
@@ -131,7 +131,11 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
             </Button>
           </Box>
           <Box>
-            <Button onClick={this.resetForm(fp)} type="button" secondary={true}>
+            <Button
+              onClick={this.resetForm(fp)}
+              type="button"
+              variant={ButtonVariant.Secondary}
+            >
               Reset
             </Button>
           </Box>

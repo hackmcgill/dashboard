@@ -5,7 +5,13 @@ import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../../api';
-import { HackerStatus, IAccount, IHacker, UserType } from '../../config';
+import {
+  HACKATHON_NAME,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  UserType,
+} from '../../config';
 import { Button, H1, H2, MaxWidthBox } from '../../shared/Elements';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../../shared/Form';
@@ -69,7 +75,7 @@ class SingleHackerView extends React.Component<
       <article>
         <Helmet>
           <title>
-            {`${account.firstName} ${account.lastName}`} | McHacks 6
+            {`${account.firstName} ${account.lastName}`} | {HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">
@@ -125,7 +131,13 @@ class SingleHackerView extends React.Component<
                 alignItems="center"
               >
                 <SHField label="Age" text={date2age(account.birthDate)} />
-                <SHField label="Shirt Size" text={account.shirtSize} />
+                <SHField
+                  label="Shirt Size"
+                  text={hacker.application.accommodation.shirtSize}
+                />
+                {/* Removed as shirt size is no longer a property of account
+                  <SHField label="Shirt Size" text={account.shirtSize} /> */}
+                <SHField label="Gender" text={account.gender} />
                 <SHLink
                   label="Phone Number"
                   link={`tel:${account.phoneNumber}`}
@@ -138,10 +150,18 @@ class SingleHackerView extends React.Component<
                     account.dietaryRestrictions.join(', ')
                   }
                 />
+                <SHParagraph
+                  label="Impairments"
+                  text={hacker.application.accommodation.impairments}
+                />
+                <SHParagraph
+                  label="Barriers"
+                  text={hacker.application.accommodation.barriers}
+                />
               </Flex>
               <hr />
             </SingleHackerSection>
-            <H2 color={theme.colors.grey}>Basic Information</H2>
+            <H2 color={theme.colors.black60}>Basic Information</H2>
             <Flex
               width="100%"
               flexWrap="wrap"
@@ -149,25 +169,37 @@ class SingleHackerView extends React.Component<
               alignItems="center"
             >
               <SHField label="Email" text={account.email} />
-              <SHField label="School" text={hacker.school} />
-              <SHField label="Degree" text={hacker.degree} />
+              <SHField
+                label="School"
+                text={hacker.application.general.school}
+              />
+              <SHField
+                label="Degree"
+                text={hacker.application.general.degree}
+              />
               <SHField label="Status" text={hacker.status} />
-              <SHField label="Graduation Year" text={hacker.graduationYear} />
-              <SHField label="Major(s)" text={hacker.major} />
+              <SHField
+                label="Graduation Year"
+                text={hacker.application.general.graduationYear}
+              />
+              <SHField
+                label="Field(s) of Study"
+                text={hacker.application.general.fieldOfStudy}
+              />
               <SHField
                 label="Skills"
                 text={
-                  hacker.application.skills &&
-                  hacker.application.skills.join(', ')
+                  hacker.application.shortAnswer.skills &&
+                  hacker.application.shortAnswer.skills.join(', ')
                 }
               />
               <SHField
                 label="Job interest"
-                text={hacker.application.jobInterest}
+                text={hacker.application.general.jobInterest}
               />
             </Flex>
             <hr />
-            <H2 color={theme.colors.grey}>Links</H2>
+            <H2 color={theme.colors.black60}>Links</H2>
             <Flex
               width="100%"
               flexWrap="wrap"
@@ -176,19 +208,19 @@ class SingleHackerView extends React.Component<
             >
               <SHLink
                 label="GitHub"
-                link={hacker.application.portfolioURL.github}
+                link={hacker.application.general.URL.github}
               />
               <SHLink
                 label="LinkedIn"
-                link={hacker.application.portfolioURL.linkedIn}
+                link={hacker.application.general.URL.linkedIn}
               />
               <SHLink
                 label="Website"
-                link={hacker.application.portfolioURL.personal}
+                link={hacker.application.general.URL.personal}
               />
               <SHLink
                 label="Dribbble"
-                link={hacker.application.portfolioURL.dropler}
+                link={hacker.application.general.URL.dribbble}
               />
             </Flex>
             <ViewPDFComponent hackerId={hacker.id} />
@@ -198,11 +230,15 @@ class SingleHackerView extends React.Component<
             >
               <SHParagraph
                 label="Why McHacks?"
-                text={hacker.application.essay}
+                text={hacker.application.shortAnswer.question1}
+              />
+              <SHParagraph
+                label="Some Q?"
+                text={hacker.application.shortAnswer.question2}
               />
               <SHParagraph
                 label="Comments"
-                text={hacker.application.comments}
+                text={hacker.application.shortAnswer.comments}
               />
             </SingleHackerSection>
           </Box>

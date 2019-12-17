@@ -53,7 +53,7 @@ function date2age(date: string) {
 }
 
 function getValueFromQuery(key: string): string | undefined {
-  const queries: any = QueryString.parse(location.search);
+  const queries: any = QueryString.parse(window.location.search);
   return queries[key];
 }
 

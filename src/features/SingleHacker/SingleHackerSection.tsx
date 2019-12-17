@@ -17,7 +17,7 @@ const SingleHackerSection: React.SFC<IProps> = ({
   ) : (
     <section>
       <hr />
-      <H2 color={theme.colors.grey}>{title}</H2>
+      <H2 color={theme.colors.black60}>{title}</H2>
       {children}
     </section>
   );

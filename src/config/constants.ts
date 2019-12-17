@@ -1,67 +1,91 @@
+// API information
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
+// Travel information
 export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
 
-//
+// Cache information
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';
 
-// Used in multiple locations:
+// General information
+export const HACKATHON_NAME = 'McHacks';
+export const HACKATHON_DESCRIPTION = `Create, build, and play with us at ${HACKATHON_NAME}, Canada's favourite hackathon, hosted at McGill University.`;
+export const HACKATHON_DATE = 'February 1-2, 2020';
+export const HACKATHON_LOCATION = 'McGill University';
+export const STATIC_SITE = 'https://mchacks.ca';
+
+// Social media
+export const TWITTER = '@mcgillhacks';
+
+// SEO
+export const RICH_PREVIEW_IMAGE =
+  'https://2019.mchacks.ca/static/mchacks-og.png';
+
+// Credentials information
 export const EMAIL_LABEL = 'Email';
 export const PASSWORD_LABEL = 'Password';
+
+// Required label
 export const REQUIRED_DESCRIPTION =
   'Required fields are denoted with an asterisk (*)';
 
 // Account management
-export const OLD_PASSWORD_LABEL = 'Old password';
-export const NEW_PASSWORD_LABEL = 'New password';
+export const OLD_PASSWORD_LABEL = 'Old Password';
+export const NEW_PASSWORD_LABEL = 'New Password';
 export const DIETARY_RESTRICTIONS_LABEL = 'Dietary Restrictions';
-export const PRONOUN_LABEL = 'Preferred pronoun';
-export const PRONOUN_PLACEHOLDER = 'Preferred pronoun';
-export const SHIRT_SIZE_LABEL = 'Shirt size (Unisex):';
-export const PHONE_NUMBER_LABEL = 'Phone number:';
-export const BIRTH_DATE_LABEL = 'Birth date';
+export const PRONOUN_LABEL = 'Preferred Pronouns';
+export const PRONOUN_PLACEHOLDER = 'Preferred Pronouns';
+export const GENDER_LABEL = 'Gender';
+export const GENDER_PLACEHOLDER = 'Gender';
+export const PHONE_NUMBER_LABEL = 'Phone Number';
+export const BIRTH_DATE_LABEL = 'Birth Date';
 export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
 
 // Application management
+export const BARRIERS_LABEL = 'Would you require any accommodations?';
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE =
   'We will be sending busses to Toronto, Waterloo, London, Ottawa, Kingston, and Boston.';
 export const COC_ACCEPTANCE_PHRASE = 'I accept the';
 export const COC_MCHACKS_REQUEST_LABEL = 'McHacks Code of Conduct';
 export const COC_MLH_REQUEST_LABEL = 'MLH terms, conditions and guidelines.';
-export const COMMENTS_REQUEST_LABEL =
-  'Anything else you would like us to know?';
-export const DEGREE_REQUEST_LABEL =
-  'What type of degree are you currently pursuing?';
-export const DEGREE_REQUEST_PLACEHOLDER = 'Undergraduate, Masters, PhD, ...';
-export const DROPLER_LINK_LABEL = 'Dribbble URL';
-export const DROPLER_LINK_PLACEHOLDER = 'https://dribbble.com/';
-export const ESSAY_REQUEST_LABEL = 'Why McHacks?';
-export const ETHNICITY_REQUEST_LABEL = 'What is your ethnicity?';
-export const ETHNICITY_REQUEST_PLACEHOLDER = 'Ethnicity';
-export const GENDER_REQUEST_LABEL = 'What gender do you identify with?';
-export const GENDER_REQUEST_PLACEHOLDER = 'Gender';
+export const COMMENTS_LABEL = "Is there anything you'd like us to know?";
+export const DEGREE_LABEL = 'Degree';
+export const DEGREE_PLACEHOLDER = 'High School, Undergraduate...';
+export const DRIBBBLE_LINK_LABEL = 'Dribbble URL';
+export const DRIBBBLE_LINK_PLACEHOLDER = 'https://dribbble.com/';
+export const QUESTION1_REQUEST_LABEL = 'Why McHacks?';
+export const QUESTION2_REQUEST_LABEL = 'What are you passionate about?';
+export const ETHNICITY_LABEL = 'Ethnicity';
+export const ETHNICITY_PLACEHOLDER = 'Ethnicity';
 export const GITHUB_LINK_LABEL = 'GitHub URL';
 export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
-export const JOBINTEREST_REQUEST_LABEL = 'Are you looking for a job?';
-export const JOBINTEREST_REQUEST_PLACEHOLDER = 'Job Interests';
+export const GRADUATION_YEAR_LABEL = 'Graduation Year';
+export const IMPAIRMENTS_LABEL = 'Do you have hearing/visual impairments?';
+export const JOBINTEREST_LABEL = 'Job Interest';
+export const JOBINTEREST_PLACEHOLDER = '';
 export const LINKEDIN_LINK_LABEL = 'LinkedIn URL';
-export const LINKEDIN_LINK_PLACEHOLDER = 'http://linkedin.com/in/';
-export const MAJOR_PLACEHOLDER = 'Major';
-export const MAJOR_REQUEST_LABEL = 'What is (are) your field(s) of study?';
-export const OTHER_LINK_LABEL = 'Other links you want us to know';
-export const OTHER_LINK_PLACEHOLDER = 'https://my.other.website.com/';
-export const PERSONAL_LINK_LABEL = 'Personal';
-export const PERSONAL_LINK_PLACEHOLDER = 'https://my.website.com/';
-export const RESUME_REQUEST_LABEL = 'Upload a resume';
-export const SKILLS_REQUEST_LABEL = 'What skills do you have?';
-export const SKILLS_REQUEST_PLACEHOLDER = 'Javascript, iOS, Android...';
-export const SCHOOL_REQUEST_LABEL = 'What school do you go to?';
+export const LINKEDIN_LINK_PLACEHOLDER = 'https://linkedin.com/in/';
+export const FIELD_OF_STUDY_PLACEHOLDER = 'Field of Study';
+export const FIELD_OF_STUDY_LABEL = 'Field of Study';
+export const OTHER_LINK_LABEL = 'Other URL';
+export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
+export const MCHACKS_COC = 'Code of Conduct';
+export const MCHACKS_PRIVACY = 'Privacy Policy';
+export const MLH_LABEL = 'I accept the MLH policies.';
+export const RESUME_LABEL = 'Resume';
+export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
+export const SKILLS_LABEL = 'Skills';
+export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
+export const SCHOOL_LABEL = 'School';
+export const SCHOOL_PLACEHOLDER = 'School';
+export const TRAVEL_REQUEST_LABEL =
+  'Will you require any travel reimbursement? (up to $100)';
 
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';

@@ -49,7 +49,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           >
             <MaxWidthBox maxWidth={'330px'} width={1}>
               <H1
-                color={theme.colors.greyDark}
+                color={theme.colors.black80}
                 fontSize={'24px'}
                 textAlign={'left'}
                 marginBottom={'20px'}
@@ -66,7 +66,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
             </MaxWidthBox>
             <MaxWidthBox maxWidth={'330px'} width={1}>
               <H1
-                color={theme.colors.greyDark}
+                color={theme.colors.black80}
                 fontSize={'24px'}
                 textAlign={'left'}
                 marginBottom={'20px'}
@@ -104,9 +104,9 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           : hacker.accountId.id;
       const account = (await Account.get(accountId)).data.data;
       await generateHackPass(account, hacker);
-      if (account.dietaryRestrictions.length > 0) {
+      if (hacker.accommodation.dietaryRestrictions.length > 0) {
         toast.info(
-          `The user has the following dietary restrictions: ${account.dietaryRestrictions.join(
+          `The user has the following dietary restrictions: ${hacker.accommodation.dietaryRestrictions.join(
             ','
           )}`,
           {
@@ -114,7 +114,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           }
         );
       }
-      toast.info(`Shirt Size: ${account.shirtSize}`, {
+      toast.info(`Shirt Size: ${hacker.accommodation.shirtSize}`, {
         autoClose: false,
       });
     } catch (e) {
@@ -139,7 +139,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
         ':id',
         '[a-f\\d]{24}'
       );
-      const hackerURL = new RegExp(`^http(s)?:\/\/.+${subRouteRegex}`);
+      const hackerURL = new RegExp(`^http(s)?://.+${subRouteRegex}`);
       if (hackerURL.test(data)) {
         const url = data.split('/');
         data = url[url.length - 1];

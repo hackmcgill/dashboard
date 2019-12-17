@@ -1,6 +1,6 @@
 import HackerStatus from './hackerStatus';
-import JobInterest from './jobInterests';
 import { ITeam } from './team';
+
 export interface IAccount {
   accountType: UserType;
   confirmed: boolean;
@@ -10,10 +10,10 @@ export interface IAccount {
   lastName: string;
   // The email of the user
   email: string;
-  // The dietary restrictions for the user
+  // The user's dietary restrictions
   dietaryRestrictions: string[];
-  // The shirt size
-  shirtSize: string;
+  // The user's gender
+  gender: string;
   // The password
   password: string;
   // The user's phone number
@@ -32,33 +32,49 @@ export interface IHacker {
   id: string;
   accountId: string | IAccount; // for querying account as well
   status: HackerStatus;
-  school: string;
-  degree: string;
-  // no enum for these
-  gender?: string;
-  needsBus?: boolean;
   application: {
-    portfolioURL: {
-      // gcloud bucket link
-      resume: string;
-      github?: string;
-      dropler?: string;
-      personal?: string;
-      linkedIn?: string;
-      other?: string;
+    general: {
+      school: string;
+      degree: string;
+      fieldOfStudy: string;
+      graduationYear: number;
+      jobInterest: string;
+      URL: {
+        resume: string | File;
+        github?: string;
+        dribbble?: string;
+        personal?: string;
+        linkedIn?: string;
+        other?: string;
+      };
     };
-    jobInterest: JobInterest;
-    // array of mongoose ids referencing different skills
-    skills?: string[];
-    // any miscelaneous comments that the user has
-    comments?: string;
-    // "Why do you want to come to our hackathon?"
-    essay?: string;
+    shortAnswer: {
+      // array of mongoose ids referencing different skills
+      skills?: string[];
+      // any miscelaneous comments that the user has
+      comments?: string;
+      // "Why do you want to come to our hackathon?"
+      question1: string;
+      // "Some q"
+      question2: string;
+    };
+    other: {
+      // no enum for these
+      ethnicity: string[];
+      privacyPolicy: boolean;
+      codeOfConduct: boolean;
+    };
+    accommodation: {
+      // The shirt size
+      shirtSize: string;
+      // Any impairments the user might have
+      impairments?: string;
+      // Any barriers the user might have
+      barriers?: string;
+      // If the user requires a bus
+      travel?: number;
+    };
   };
-  ethnicity: string[];
-  major: string;
-  graduationYear: number;
-  codeOfConduct: boolean;
   teamId?: string | ITeam;
 }
 

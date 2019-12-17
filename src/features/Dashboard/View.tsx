@@ -3,6 +3,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 
+import { HACKATHON_NAME } from '../../config';
 import {
   BackgroundImage,
   Card,
@@ -38,13 +39,17 @@ const DashboardView: React.SFC<IDashboardView> = ({
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
       <Helmet>
-        <title>Dashboard | McHacks 6</title>
+        <title>Dashboard | {HACKATHON_NAME}</title>
       </Helmet>
       <H1 marginLeft={'0px'} textAlign={'center'}>
         {title}
       </H1>
       {subtitle ? (
-        <H2 marginLeft={'0px'} textAlign={'center'} color={theme.colors.grey}>
+        <H2
+          marginLeft={'0px'}
+          textAlign={'center'}
+          color={theme.colors.black60}
+        >
           {subtitle}
         </H2>
       ) : (

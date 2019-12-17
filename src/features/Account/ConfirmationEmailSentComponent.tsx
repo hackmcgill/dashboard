@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
 import constructionSVG from '../../assets/images/construction.svg';
-import { EMAIL_SENT, RESEND_CONF_EMAIL } from '../../config';
+import { EMAIL_SENT, HACKATHON_NAME, RESEND_CONF_EMAIL } from '../../config';
 import {
   Button,
   H1,
@@ -43,7 +43,7 @@ class ConfirmationEmailSentComponent extends React.Component<
         mx={3}
       >
         <Helmet>
-          <title>Confirmation | McHacks 6</title>
+          <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
         <Flex alignItems={'center'} flexDirection={'column'}>
           <Box>

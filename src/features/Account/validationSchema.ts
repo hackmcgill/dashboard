@@ -3,7 +3,7 @@ import { object, string } from 'yup';
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
     ? string()
-        .min(8, 'Must be at least 8 characters')
+        .min(6, 'Must be at least 6 characters')
         .required('Required')
     : string().when('newPassword', {
         is: (pass) => pass,
@@ -18,10 +18,10 @@ const getValidationSchema = (isCreate: boolean) => {
       .required('Required')
       .email('Must be a valid email'),
     password,
-    newPassword: string().min(8, 'Must be at least 8 characters'),
-    dietaryRestrictions: string(),
+    newPassword: string().min(6, 'Must be at least 6 characters'),
     pronoun: string(),
-    shirtSize: string().required('Required'),
+    gender: string(),
+    dietaryRestrictions: string(),
     phoneNumber: string()
       .test('validPhone', 'Must be a valid phone number', (value) => {
         return value && value.length === 11;

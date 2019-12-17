@@ -4,8 +4,7 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import { Auth } from '../../api';
-import constructionCone from '../../assets/images/construction-cone.svg';
-import { getTokenFromQuery } from '../../config';
+import { getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
   Button,
   H1,
@@ -13,6 +12,10 @@ import {
   MaxWidthBox,
   Paragraph,
 } from '../../shared/Elements';
+
+import * as DashboardText from '../Dashboard/DashboardText';
+
+import constructionCone from '../../assets/images/construction-cone.svg';
 
 interface IConfirmAccountState {
   attempting: boolean;
@@ -36,19 +39,17 @@ class ConfirmAccountContainer extends React.Component<
     let buttonMessage;
     let link;
     if (this.state.wasConfirmed) {
-      result = 'Account Confirmed';
-      paragraphMessage =
-        'Your account was successfully created! Click continue to start your application, view your teams or manage your account.';
-      buttonMessage = 'Continue';
-      link = '/';
+      result = DashboardText.ConfirmAccount;
+      paragraphMessage = DashboardText.ConfirmMessage;
+      buttonMessage = DashboardText.Continue;
+      link = DashboardText.ConfirmLink;
     } else if (!this.state.attempting) {
-      result = 'Unable to confirm account';
-      paragraphMessage =
-        'Something went wrong when we made your account. Please try again later.';
-      buttonMessage = 'Create account';
-      link = '/account/create';
+      result = DashboardText.UnableConfirm;
+      paragraphMessage = DashboardText.Error;
+      buttonMessage = DashboardText.CreateAccount;
+      link = DashboardText.AttemptingLink;
     } else {
-      result = 'Confirming...';
+      result = DashboardText.Confirming;
       paragraphMessage = '';
       buttonMessage = '';
       link = '';
@@ -60,7 +61,7 @@ class ConfirmAccountContainer extends React.Component<
         flexDirection={'column'}
       >
         <Helmet>
-          <title>Confirmation | McHacks 6</title>
+          <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
         <MaxWidthBox
           hidden={this.state.wasConfirmed && !this.state.attempting}

@@ -4,6 +4,8 @@ import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { HACKATHON_NAME } from '../../config';
+
 import Construction from '../../assets/images/construction-notfound.svg';
 
 import Button from '../../shared/Elements/Button';
@@ -16,9 +18,6 @@ import Paragraph from '../../shared/Elements/Paragraph';
  * Container that renders 404 not found page.
  */
 class NotFoundContainer extends React.Component<RouteComponentProps> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-  }
   public render() {
     return (
       <Flex
@@ -29,7 +28,7 @@ class NotFoundContainer extends React.Component<RouteComponentProps> {
         px={3}
       >
         <Helmet>
-          <title>Page not found! | McHacks 6</title>
+          <title>Page not found | {HACKATHON_NAME}</title>
         </Helmet>
         <Box>
           <Image src={Construction} imgHeight={'7rem'} padding={'0rem'} />

@@ -19,19 +19,26 @@ import getValidationSchema from './validationSchema';
 import {
   Degrees,
   FrontendRoute,
-  Genders,
   HackerStatus,
   IEthnicity,
   IHacker,
   JobInterest,
   Majors,
+  ShirtSize,
   Skills,
 } from '../../config';
 
-import { FormDescription, H1, MaxWidthBox } from '../../shared/Elements';
+import {
+  BackgroundImage,
+  FormDescription,
+  H1,
+  // HorizontalSpacer,
+  MaxWidthBox,
+} from '../../shared/Elements';
 
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
+import theme from '../../shared/Styles/theme';
 
 import { Account, APIResponse, Hacker } from '../../api';
 
@@ -40,7 +47,13 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
+import { Flex } from '@rebass/grid';
+import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+// import Sidebar from '../Sidebar/Sidebar';
+
+import Bulby from '../../assets/images/bulby.svg';
+import Drone from '../../assets/images/drone.svg';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -49,7 +62,10 @@ export enum ManageApplicationModes {
 interface IManageApplicationState {
   mode: ManageApplicationModes;
   submitted: boolean;
+  submitting: boolean;
   hackerDetails: IHacker;
+  pageNumber: number;
+  resume?: File;
 }
 
 interface IManageApplicationProps {
@@ -64,36 +80,53 @@ class ManageApplicationContainer extends React.Component<
     this.state = {
       mode: props.mode,
       submitted: false,
+      submitting: false,
+      pageNumber: 1,
       hackerDetails: {
         id: '',
         accountId: '',
-        school: '',
-        degree: '',
         status: HackerStatus.HACKER_STATUS_NONE,
-        graduationYear: NaN,
-        major: '',
-        gender: '',
-        ethnicity: [],
-        needsBus: false,
         application: {
-          portfolioURL: {
-            resume: '',
-            github: '',
-            dropler: '',
-            linkedIn: '',
-            personal: '',
-            other: '',
+          general: {
+            school: '',
+            degree: '',
+            fieldOfStudy: '',
+            graduationYear: NaN,
+            jobInterest: '',
+            URL: {
+              resume: '',
+              github: '',
+              dribbble: '',
+              linkedIn: '',
+              personal: '',
+              other: '',
+            },
           },
-          jobInterest: JobInterest.NONE,
-          skills: [],
-          essay: '',
-          comments: '',
+          shortAnswer: {
+            skills: [],
+            question1: '',
+            question2: '',
+            comments: '',
+          },
+          other: {
+            ethnicity: [],
+            privacyPolicy: false,
+            codeOfConduct: false,
+          },
+          accommodation: {
+            shirtSize: '',
+            impairments: '',
+            barriers: '',
+            travel: 0,
+          },
         },
-        codeOfConduct: false,
       },
+      resume: undefined,
     };
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
   }
@@ -103,7 +136,9 @@ class ManageApplicationContainer extends React.Component<
       try {
         const response = await Hacker.getSelf();
         const hackerDetails = response.data.data;
-        this.setState({ hackerDetails });
+        this.setState({
+          hackerDetails,
+        });
       } catch (e) {
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
@@ -115,25 +150,47 @@ class ManageApplicationContainer extends React.Component<
   }
 
   public render() {
-    const { mode, hackerDetails, submitted } = this.state;
+    const { mode, hackerDetails, submitted, pageNumber } = this.state;
     return submitted ? (
       <Redirect to={FrontendRoute.HOME_PAGE} />
     ) : (
+      // <HorizontalSpacer paddingLeft={'20%'}>
       <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+        {/* <Sidebar
+            currentPage="Application"
+            status={this.state.hackerDetails.status}
+            confirmed={true}
+          /> */}
+        <BackgroundImage
+          right={'10%'}
+          top={'178px'}
+          src={Drone}
+          imgHeight={'133px'}
+          position={'fixed' as 'fixed'}
+        />
+        <BackgroundImage
+          left={'5%'}
+          bottom={'5%'}
+          src={Bulby}
+          imgHeight={'290px'}
+          position={'fixed' as 'fixed'}
+        />
         <Helmet>
           <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}
-            Application | McHacks 6
+            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+            Application | {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
         <MaxWidthBox maxWidth={'500px'} m={'auto'}>
           <H1
-            color={'#F2463A'}
+            color={theme.colors.red}
             fontSize={'30px'}
             textAlign={'left'}
             marginTop={'0px'}
             marginBottom={'20px'}
             marginLeft={'0px'}
+            paddingBottom={'20px'}
+            paddingTop={'70px'}
           >
             {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
             Application
@@ -143,25 +200,21 @@ class ManageApplicationContainer extends React.Component<
         <Formik
           enableReinitialize={true}
           initialValues={{
-            school: hackerDetails.school,
-            degree: hackerDetails.degree,
-            graduationYear: hackerDetails.graduationYear,
-            major: hackerDetails.major,
-            gender: hackerDetails.gender,
-            ethnicity: hackerDetails.ethnicity,
-            needsBus: hackerDetails.needsBus,
-            application: hackerDetails.application,
-            codeOfConduct_MCHACKS: hackerDetails.codeOfConduct,
-            codeOfConduct_MLH: hackerDetails.codeOfConduct,
-            resumeFile: undefined,
+            hacker: hackerDetails,
+            needsBus: false,
+            resume: this.state.resume ? this.state.resume : undefined,
+            pageNumber,
           }}
           onSubmit={this.handleSubmit}
+          onReset={this.previousPage}
           render={this.renderFormik}
           validationSchema={getValidationSchema(
-            mode === ManageApplicationModes.CREATE
+            mode === ManageApplicationModes.CREATE,
+            this.state.pageNumber
           )}
         />
       </MaxWidthBox>
+      // </HorizontalSpacer>
     );
   }
 
@@ -170,80 +223,82 @@ class ManageApplicationContainer extends React.Component<
    * @param fp the formik props.
    */
   private renderFormik(fp: FormikProps<any>) {
+    switch (fp.values.pageNumber) {
+      case 2:
+        return this.renderShortAnswerFormik(fp);
+      case 3:
+        return this.renderAccommodationFormik(fp);
+      case 4:
+        return this.renderOtherFormik(fp);
+      default:
+        return this.renderGeneralFormik(fp);
+    }
+  }
+
+  /**
+   * Renders the general section of the application.
+   * @param fp the formik props.
+   */
+  private renderGeneralFormik(fp: FormikProps<any>) {
     return (
-      <Form onSubmit={fp.handleSubmit}>
+      <Form onKeyDown={this.onKeyDown} onSubmit={fp.handleSubmit}>
         <FastField
           id="schoolName"
-          name={'school'}
+          name={'hacker.application.general.school'}
           component={SchoolComponent}
-          value={fp.values.school}
+          value={fp.values.hacker.application.general.school}
           required={true}
-          label={CONSTANTS.SCHOOL_REQUEST_LABEL}
+          label={CONSTANTS.SCHOOL_LABEL}
+          placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
         />
-        <ErrorMessage component={FormikElements.Error} name="school" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.general.school"
+        />
         <FastField
-          name={'degree'}
-          label={CONSTANTS.DEGREE_REQUEST_LABEL}
-          placeholder={CONSTANTS.DEGREE_REQUEST_PLACEHOLDER}
+          name={'hacker.application.general.degree'}
+          label={CONSTANTS.DEGREE_LABEL}
+          placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
           creatable={true}
           options={getOptionsFromEnum(Degrees)}
           component={FormikElements.Select}
-          value={fp.values.degree}
+          value={fp.values.hacker.application.general.degree}
           required={true}
         />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.general.degree"
+        />
         <FastField
-          name="graduationYear"
-          label="Graduation year:"
+          name={'hacker.application.general.graduationYear'}
+          label={CONSTANTS.GRADUATION_YEAR_LABEL}
           placeholder="YYYY"
           format="####"
           component={FormikElements.FormattedNumber}
-          value={fp.values.graduationYear}
+          value={fp.values.hacker.application.general.graduationYear}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="graduationYear" />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.general.graduationYear"
+        />
         <FastField
-          name={'major'}
+          name={'hacker.application.general.fieldOfStudy'}
           options={Majors}
           isMulti={true}
           creatable={true}
           component={FormikElements.Select}
-          label={CONSTANTS.MAJOR_REQUEST_LABEL}
-          placeholder={CONSTANTS.MAJOR_PLACEHOLDER}
-          value={fp.values.major}
+          label={CONSTANTS.FIELD_OF_STUDY_LABEL}
+          placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
+          value={fp.values.hacker.application.general.fieldOfStudy}
           required={true}
         />
-        <ErrorMessage component={FormikElements.Error} name="major" />
-        <FastField
-          name={'gender'}
-          label={CONSTANTS.GENDER_REQUEST_LABEL}
-          placeholder={CONSTANTS.GENDER_REQUEST_PLACEHOLDER}
-          creatable={true}
-          options={getOptionsFromEnum(Genders)}
-          component={FormikElements.Select}
-          value={fp.values.gender}
-          required={true}
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.general.fieldOfStudy"
         />
         <FastField
-          name={'ethnicity'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(IEthnicity)}
-          label={CONSTANTS.ETHNICITY_REQUEST_LABEL}
-          placeholder={CONSTANTS.ETHNICITY_REQUEST_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.ethnicity}
-          required={true}
-        />
-        <ErrorMessage component={FormikElements.Error} name="ethnicity" />
-        <FastField
-          name={'needsBus'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.BUS_REQUEST_LABEL}
-          subtitle={CONSTANTS.BUS_REQUEST_SUBTITLE}
-          required={false}
-        />
-        <FastField
-          name={'application.portfolioURL.github'}
+          name={'hacker.application.general.URL.github'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.GITHUB_LINK_LABEL}
@@ -251,154 +306,436 @@ class ManageApplicationContainer extends React.Component<
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.github"
+          name="hacker.application.general.URL.github"
         />
 
         <FastField
-          name={'application.portfolioURL.dropler'}
+          name={'hacker.application.general.URL.dribbble'}
           inputType="url"
           component={FormikElements.Input}
-          label={CONSTANTS.DROPLER_LINK_LABEL}
-          placeholder={CONSTANTS.DROPLER_LINK_PLACEHOLDER}
+          label={CONSTANTS.DRIBBBLE_LINK_LABEL}
+          placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.dropler"
+          name="hacker.application.general.URL.dribbble"
         />
         <FastField
-          name={'application.portfolioURL.linkedIn'}
+          name={'hacker.application.general.URL.linkedIn'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.LINKEDIN_LINK_LABEL}
           placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.linkedIn}
+          value={fp.values.hacker.application.general.URL.linkedIn}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.linkedIn"
-        />
-
-        <FastField
-          name={'application.portfolioURL.personal'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.PERSONAL_LINK_LABEL}
-          placeholder={CONSTANTS.PERSONAL_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.personal}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="application.portfolioURL.personal"
+          name="hacker.application.general.URL.linkedIn"
         />
         <FastField
-          name={'application.portfolioURL.other'}
+          name={'hacker.application.general.URL.other'}
           inputType="url"
           component={FormikElements.Input}
           label={CONSTANTS.OTHER_LINK_LABEL}
           placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-          value={fp.values.application.portfolioURL.other}
+          value={fp.values.hacker.application.general.URL.other}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.portfolioURL.other"
+          name="hacker.application.general.URL.other"
         />
         <Field
-          name="resumeFile"
+          name="resume"
           component={ResumeComponent}
-          label={CONSTANTS.RESUME_REQUEST_LABEL}
+          label={CONSTANTS.RESUME_LABEL}
           mode={this.state.mode}
           hackerId={this.state.hackerDetails.id}
           required={this.props.mode === ManageApplicationModes.CREATE}
+          value={fp.values.resume}
         />
-        <ErrorMessage component={FormikElements.Error} name="resumeFile" />
+        <ErrorMessage component={FormikElements.Error} name="resume" />
         <FastField
-          name={'application.jobInterest'}
-          options={getOptionsFromEnum(JobInterest)}
+          name={'hacker.application.general.jobInterest'}
           component={FormikElements.Select}
-          label={CONSTANTS.JOBINTEREST_REQUEST_LABEL}
-          placeholder={CONSTANTS.JOBINTEREST_REQUEST_PLACEHOLDER}
-          value={fp.values.application.jobInterest}
+          options={getOptionsFromEnum(JobInterest)}
+          label={CONSTANTS.JOBINTEREST_LABEL}
+          placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
+          value={fp.values.hacker.application.general.jobInterest}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.jobInterest"
+          name="hacker.application.general.jobInterest"
         />
+        <SubmitBtn
+          isLoading={this.state.submitting}
+          disabled={this.state.submitting}
+        >
+          Next
+        </SubmitBtn>
+      </Form>
+    );
+  }
+
+  /**
+   * Renders the short answer section of the application.
+   * @param fp the formik props.
+   */
+  private renderShortAnswerFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
-          name={'application.skills'}
+          name={'hacker.application.shortAnswer.skills'}
           isMulti={true}
           creatable={true}
           options={getOptionsFromEnum(Skills)}
-          label={CONSTANTS.SKILLS_REQUEST_LABEL}
-          placeholder={CONSTANTS.SKILLS_REQUEST_PLACEHOLDER}
+          label={CONSTANTS.SKILLS_LABEL}
+          placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
           component={FormikElements.Select}
-          value={fp.values.application.skills}
+          value={fp.values.hacker.application.shortAnswer.skills}
         />
         <FastField
-          name={'application.essay'}
+          name={'hacker.application.shortAnswer.question1'}
           component={FormikElements.LongTextInput}
-          label={CONSTANTS.ESSAY_REQUEST_LABEL}
-          value={fp.values.application.essay}
+          label={CONSTANTS.QUESTION1_REQUEST_LABEL}
+          value={fp.values.hacker.application.shortAnswer.question1}
           maxLength={2000}
           required={true}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.essay"
+          name="hacker.application.shortAnswer.question1"
         />
         <FastField
-          name={'application.comments'}
+          name={'hacker.application.shortAnswer.question2'}
           component={FormikElements.LongTextInput}
-          label={CONSTANTS.COMMENTS_REQUEST_LABEL}
-          value={fp.values.application.comments}
+          label={CONSTANTS.QUESTION2_REQUEST_LABEL}
+          value={fp.values.hacker.application.shortAnswer.question2}
+          maxLength={2000}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.shortAnswer.question2"
+        />
+        <FastField
+          name={'hacker.application.shortAnswer.comments'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.COMMENTS_LABEL}
+          value={fp.values.hacker.application.shortAnswer.comments}
           maxLength={500}
           required={false}
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="application.comments"
+          name="hacker.application.shortAnswer.comments"
         />
-        <FastField
-          name={'codeOfConduct_MCHACKS'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://mchacks.ca/code-of-conduct" target="_blank">
-                {CONSTANTS.COC_MCHACKS_REQUEST_LABEL}
-              </a>
-            </span>
-          }
-          value={fp.values.codeOfConduct_MCHACKS}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="codeOfConduct_MCHACKS"
-        />
-        <FastField
-          name={'codeOfConduct_MLH'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}{' '}
-              <a href="https://github.com/MLH/mlh-policies" target="_blank">
-                {CONSTANTS.COC_MLH_REQUEST_LABEL}
-              </a>
-            </span>
-          }
-          value={fp.values.codeOfConduct_MLH}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="codeOfConduct_MLH"
-        />
-        <SubmitBtn isLoading={fp.isSubmitting} disabled={fp.isSubmitting}>
-          Submit
-        </SubmitBtn>
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-evenly'}
+        >
+          {/* Add for spacing purposes */}
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
+            Back
+          </ResetBtn>
+
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Next
+          </SubmitBtn>
+          <div>&nbsp;</div>
+        </Flex>
       </Form>
     );
+  }
+
+  /**
+   * Renders the accommodation section of the application.
+   * @param fp the formik props.
+   */
+  private renderAccommodationFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <FastField
+          name={'hacker.application.accommodation.shirtSize'}
+          label={CONSTANTS.SHIRT_SIZE_LABEL}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(ShirtSize)}
+          required={true}
+          value={fp.values.hacker.application.accommodation.shirtSize}
+        />
+        <ErrorMessage
+          name={'hacker.application.accommodation.shirtSize'}
+          component={FormikElements.Error}
+        />
+        {/* This fixes the issue with going back somehow, so leave it here temporarily */}
+        <div />
+        <FastField
+          name={'hacker.application.accommodation.impairments'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.IMPAIRMENTS_LABEL}
+          value={fp.values.hacker.application.accommodation.impairments}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'hacker.application.accommodation.impairments'}
+        />
+        <FastField
+          name={'hacker.application.accommodation.barriers'}
+          component={FormikElements.LongTextInput}
+          label={CONSTANTS.BARRIERS_LABEL}
+          value={fp.values.hacker.application.accommodation.barriers}
+          required={false}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'hacker.application.accommodation.barriers'}
+        />
+        <FastField
+          name={'hacker.application.accommodation.travel'}
+          component={FormikElements.FormattedNumber}
+          label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+          placeholder={0}
+          required={false}
+          value={fp.values.hacker.application.accommodation.travel}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name={'hacker.application.accommodation.travel'}
+        />
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
+            Back
+          </ResetBtn>
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Next
+          </SubmitBtn>
+          <div>&nbsp;</div>
+        </Flex>
+      </Form>
+    );
+  }
+
+  /**
+   * Renders the other section of the application
+   * @param fp the formik props.
+   */
+  private renderOtherFormik(fp: FormikProps<any>) {
+    return (
+      <Form
+        onKeyDown={this.onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <FastField
+          name={'hacker.application.other.ethnicity'}
+          isMulti={true}
+          creatable={true}
+          options={getOptionsFromEnum(IEthnicity)}
+          label={CONSTANTS.ETHNICITY_LABEL}
+          placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
+          component={FormikElements.Select}
+          value={fp.values.hacker.application.other.ethnicity}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.other.ethnicity"
+        />
+        <FastField
+          name={'hacker.application.other.codeOfConduct'}
+          component={FormikElements.Checkbox}
+          label={
+            <span>
+              {CONSTANTS.COC_ACCEPTANCE_PHRASE}
+              {' McHacks '}
+              <a
+                href="https://mchacks.ca/code-of-conduct"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {CONSTANTS.MCHACKS_COC}
+              </a>
+              {' and '}
+              <a
+                href="https://mchacks.ca/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {CONSTANTS.MCHACKS_PRIVACY}
+              </a>
+            </span>
+          }
+          value={fp.values.hacker.application.other.codeOfConduct}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.other.codeOfConduct"
+        />
+        <FastField
+          name={'hacker.application.other.privacyPolicy'}
+          component={FormikElements.Checkbox}
+          label={CONSTANTS.MLH_LABEL}
+          subtitle={
+            <span>
+              {'I have read and agree to the '}
+              <a
+                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Code of Conduct'}
+              </a>
+              {'. '}
+              {
+                'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+              }
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+              </a>
+              {'. I further agree to the terms of both the '}
+              <a
+                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Contest Terms and Conditions'}
+              </a>
+              {' and the '}
+              <a
+                href="https://mlh.io/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {'MLH Privacy Policy'}
+                {'.'}
+              </a>
+            </span>
+          }
+          value={fp.values.hacker.application.other.privacyPolicy}
+          required={true}
+        />
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="hacker.application.other.codeOfConduct"
+        />
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <div>&nbsp;</div>
+          <ResetBtn
+            isLoading={false}
+            disabled={this.state.submitting}
+            variant={2}
+          >
+            Back
+          </ResetBtn>
+          <SubmitBtn
+            isLoading={this.state.submitting}
+            disabled={this.state.submitting}
+          >
+            Submit
+          </SubmitBtn>
+          <div>&nbsp;</div>
+        </Flex>
+      </Form>
+    );
+  }
+
+  /**
+   * Stop enter submitting the form.
+   * @param keyEvent Event triggered when the user presses a key.
+   */
+  private onKeyDown(keyEvent: any) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  }
+
+  /**
+   * Event handler to go the previous section of the application, while also saving values on the current section.
+   * @param values The formik values
+   */
+  private previousPage(values: any) {
+    let app;
+    if (values.hacker.id && values.hacker.accountId) {
+      app = this.convertFormikToHacker(
+        values,
+        values.hacker.accountId,
+        values.hacker.id
+      );
+    } else if (values.hacker.accountId) {
+      app = this.convertFormikToHacker(values, values.hacker.accountId);
+    } else {
+      app = this.convertFormikToHacker(values);
+    }
+    const pageNumber = values.pageNumber - 1;
+    this.setState({
+      pageNumber,
+      hackerDetails: app,
+      resume: this.state.resume ? this.state.resume : values.resume,
+    });
+  }
+
+  /**
+   * Event handler to go the next section of the application, while also saving values on the current section.
+   * @param values The formik values
+   */
+  private nextPage(values: any) {
+    let app;
+    if (values.hacker.id && values.hacker.accountId) {
+      app = this.convertFormikToHacker(
+        values,
+        values.hacker.accountId,
+        values.hacker.id
+      );
+    } else if (values.hacker.accountId) {
+      app = this.convertFormikToHacker(values, values.hacker.accountId);
+    } else {
+      app = this.convertFormikToHacker(values);
+    }
+    const pageNumber = values.pageNumber + 1;
+    this.setState({
+      pageNumber,
+      hackerDetails: app,
+      resume: this.state.resume ? this.state.resume : values.resume,
+    });
   }
 
   /**
@@ -407,38 +744,44 @@ class ManageApplicationContainer extends React.Component<
    * @param actions the formik actions
    */
   private handleSubmit(values: any) {
-    const { mode } = this.state;
-    let handler;
-    switch (mode) {
-      case ManageApplicationModes.EDIT:
-        handler = this.handleEdit;
-        break;
-      case ManageApplicationModes.CREATE:
-        handler = this.handleCreate;
-        break;
-      default:
-        return;
+    if (values.pageNumber !== 4) {
+      this.nextPage(values);
+    } else {
+      this.setState({ submitting: true });
+      const { mode } = this.state;
+      let handler;
+      switch (mode) {
+        case ManageApplicationModes.EDIT:
+          handler = this.handleEdit;
+          break;
+        case ManageApplicationModes.CREATE:
+          handler = this.handleCreate;
+          break;
+        default:
+          return;
+      }
+      handler(values)
+        .then((success: boolean) => {
+          if (success) {
+            console.log('Submitted application');
+            toast.success(
+              `Account ${
+                mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
+              }`
+            );
+            this.setState({ submitted: true, submitting: false });
+          } else {
+            toast.error(`There was an error when submitting the application.`);
+            this.setState({ submitting: false });
+          }
+        })
+        .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+          if (response) {
+            ValidationErrorGenerator(response.data);
+          }
+          this.setState({ submitting: false });
+        });
     }
-
-    handler(values)
-      .then((success: boolean) => {
-        if (success) {
-          console.log('Submitted application');
-          toast.success(
-            `Account ${
-              mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
-            }`
-          );
-          this.setState({ submitted: true });
-        } else {
-          toast.error(`There was an error when submitting the application.`);
-        }
-      })
-      .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-        if (response) {
-          ValidationErrorGenerator(response.data);
-        }
-      });
   }
   /**
    * Handles the creation of the application.
@@ -455,16 +798,12 @@ class ManageApplicationContainer extends React.Component<
     const account = acctResponse.data.data;
     const application = this.convertFormikToHacker(values, account.id);
     const hackerResponse = await Hacker.create(application);
-
     if (hackerResponse.status !== 200) {
       console.error('Error while creating application');
       return false;
     }
     const hacker = hackerResponse.data.data;
-    const resumeResponse = await Hacker.uploadResume(
-      hacker.id,
-      values.resumeFile
-    );
+    const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');
       return false;
@@ -488,7 +827,6 @@ class ManageApplicationContainer extends React.Component<
 
     const account = acctResponse.data.data;
     const hackerId = this.state.hackerDetails.id;
-
     // convert the formik values to the application object.
     const application = this.convertFormikToHacker(
       values,
@@ -501,12 +839,9 @@ class ManageApplicationContainer extends React.Component<
       console.error('Error while updating application');
       return false;
     }
-    if (values.resumeFile) {
+    if (values.resume) {
       // only upload a resume if they have added a resume to the form.
-      const resumeResponse = await Hacker.uploadResume(
-        hackerId,
-        values.resumeFile
-      );
+      const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
 
       if (resumeResponse.status !== 200) {
         console.error('Could not upload resume properly');
@@ -527,22 +862,14 @@ class ManageApplicationContainer extends React.Component<
    */
   private convertFormikToHacker(
     values: FormikValues,
-    accountId: string,
+    accountId: string = '',
     hackerId: string = ''
   ): IHacker {
     return {
       id: hackerId,
       accountId,
       status: HackerStatus.HACKER_STATUS_NONE,
-      school: values.school,
-      degree: values.degree,
-      gender: values.gender,
-      needsBus: values.needsBus,
-      application: values.application,
-      ethnicity: values.ethnicity,
-      major: values.major,
-      graduationYear: values.graduationYear,
-      codeOfConduct: values.codeOfConduct_MLH && values.codeOfConduct_MCHACKS,
+      application: values.hacker.application,
     };
   }
 }

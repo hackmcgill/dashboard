@@ -16,7 +16,7 @@ export interface IParagraphProps {
 export const Paragraph = styled.p<IParagraphProps>`
   ${(props) => props.italic && 'font-style: italic;'}
   font-size: ${(props) => props.fontSize || '24px'};
-  color: ${(props) => props.color || props.theme.colors.greyDark};
+  color: ${(props) => props.color || props.theme.colors.black80};
   text-align: ${(props) => props.textAlign || 'left'};
   padding-bottom: ${(props) => props.paddingBottom || '0px'};
   max-width: ${(props) => props.maxWidth || '600px'};
@@ -29,7 +29,6 @@ export const Paragraph = styled.p<IParagraphProps>`
 export const FormDescription = styled(Paragraph)`
   font-size: 14px;
   margin-top: 4px;
-  margin-left: 10px;
   font-style: italic;
 `;
 export default Paragraph;

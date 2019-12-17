@@ -1,8 +1,7 @@
 export enum Degrees {
-  UNDERGRADUATE = 'Undergraduate',
-  MASTERS = 'Masters',
-  PHD = 'PhD',
   HIGHSCHOOL = 'High School',
+  UNDERGRADUATE = 'Undergraduate',
+  GRADUATE = 'Graduate',
   OTHER = 'Other',
 }
 export default Degrees;

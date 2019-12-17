@@ -3,13 +3,17 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { APIResponse, Auth } from '../../api';
 import { FrontendRoute, IValidationError } from '../../config';
-import Button from '../../shared/Elements/Button';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (
   props: RouteComponentProps
 ) => {
-  return <Button onClick={handleLogout(props)}>Logout</Button>;
+  return (
+    <Button variant={ButtonVariant.CallToAction} onClick={handleLogout(props)}>
+      Logout
+    </Button>
+  );
 };
 
 function handleLogout(props: RouteComponentProps): () => void {

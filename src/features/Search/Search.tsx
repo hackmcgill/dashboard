@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 
 import { Account, Search, Sponsor } from '../../api';
 import {
+  HACKATHON_NAME,
   IAccount,
   IHacker,
   ISearchParameter,
@@ -68,19 +69,22 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title> {accountType} Search | McHacks 6</title>
+          <title>
+            {' '}
+            {accountType} Search | {HACKATHON_NAME}
+          </title>
         </Helmet>
         <Box width={1}>
           <Flex>
             <Box alignSelf={'center'} width={1 / 6}>
-              <H1 color={theme.colors.primary} fontSize={'30px'}>
+              <H1 color={theme.colors.red} fontSize={'30px'}>
                 Search
               </H1>
             </Box>
             <Box width={5 / 6}>
               <Flex justifyContent={'space-between'}>
                 <Box alignSelf={'center'}>
-                  <H1 color={theme.colors.primary} fontSize={'30px'}>
+                  <H1 color={theme.colors.red} fontSize={'30px'}>
                     Hackers
                   </H1>
                 </Box>
@@ -178,13 +182,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       'accountId.firstName',
       'accountId.lastName',
       'accountId.email',
-      'needsBus',
+      'travel',
       'major',
       'school',
       'graduationYear',
       'degree',
       'gender',
-      'needsBus',
     ];
     const csvData: string[] = [headers.join('\t')];
     this.filter().forEach((result) => {
@@ -269,7 +272,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           fullName.includes(searchBar) ||
           account.email.includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
-          account.shirtSize.includes(searchBar) ||
+          // Removed as shirt size is no longer a properity of account: account.shirtSize.includes(searchBar) ||
+          account.gender.includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
         foundAcct = accountId.includes(searchBar);
@@ -277,7 +281,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       const foundHacker =
         hacker.id.includes(searchBar) ||
-        hacker.major.includes(searchBar) ||
+        hacker.fieldOfStudy.includes(searchBar) ||
         hacker.school.includes(searchBar) ||
         hacker.status.includes(searchBar) ||
         hacker.graduationYear.toString().includes(searchBar);

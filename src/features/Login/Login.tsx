@@ -11,11 +11,11 @@ import ForgotPasswordLinkComponent from './ForgotPasswordLink';
 
 import {
   BackgroundImage,
-  Button,
   H1,
   LeftContainer,
   MaxWidthBox,
 } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
@@ -24,7 +24,12 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 
 import { APIResponse, Auth } from '../../api';
 
-import { EMAIL_LABEL, FrontendRoute, PASSWORD_LABEL } from '../../config';
+import {
+  EMAIL_LABEL,
+  FrontendRoute,
+  HACKATHON_NAME,
+  PASSWORD_LABEL,
+} from '../../config';
 
 export interface ILoginState {
   email: string;
@@ -81,12 +86,18 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
     return (
       <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
         <Helmet>
-          <title>Login | McHacks 6</title>
+          <title>Login | {HACKATHON_NAME}</title>
         </Helmet>
         <Form>
-          <Flex alignItems={'center'} flexDirection={'column'}>
+          <Flex
+            alignItems={'center'}
+            flexDirection={'column'}
+            p={'4rem 0rem 0rem 5.8rem'}
+          >
             <Box alignSelf={'flex-start'}>
-              <H1 fontSize={'24px'}>Sign in / Register</H1>
+              <H1 fontSize={'24px'} marginLeft={'0px'}>
+                Sign in / Register
+              </H1>
             </Box>
             <EmailInput
               label={EMAIL_LABEL}
@@ -116,7 +127,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
                     state: { ...this.state },
                   }}
                 >
-                  <Button type="button" secondary={true}>
+                  <Button type="button" variant={ButtonVariant.Secondary}>
                     Register
                   </Button>
                 </Link>
@@ -172,7 +183,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
    * Returns the redirect link, or undefined if it doesn't exist.
    */
   private getRedirectLink(): any {
-    const queries: any = QueryString.parse(location.search);
+    const queries: any = QueryString.parse(window.location.search);
     if (queries.redir) {
       return queries.redir.toString();
     } else {

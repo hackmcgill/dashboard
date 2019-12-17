@@ -1,6 +1,6 @@
 {
   "short_name": "McHacks",
-  "name": "McHacks 6",
+  "name": "McHacks",
   "icons": [
     {
       "src": "favicon/apple-touch-icon-57x57.png",
@@ -101,7 +101,7 @@
       "src": "favicon/mstile-310x310.png",
       "sizes": "310x310",
       "type": "image/png"
-    },
+    }
   ],
   "start_url": "./index.html",
   "display": "standalone",
