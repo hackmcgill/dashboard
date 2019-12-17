@@ -94,7 +94,7 @@ class ManageApplicationContainer extends React.Component<
             graduationYear: NaN,
             jobInterest: JobInterest.NONE,
             URL: {
-              resume: '',
+              // resume: '',
               github: '',
               dribbble: '',
               linkedIn: '',

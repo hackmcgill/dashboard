@@ -40,7 +40,7 @@ export interface IHacker {
       graduationYear: number;
       jobInterest: JobInterest;
       URL: {
-        resume: string | File;
+        // resume: string | File;
         github?: string;
         dribbble?: string;
         personal?: string;
@@ -76,6 +76,7 @@ export interface IHacker {
     };
   };
   teamId?: string | ITeam;
+  // resume: File;
 }
 
 export interface ISponsor {
