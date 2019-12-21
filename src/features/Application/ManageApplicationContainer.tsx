@@ -437,7 +437,7 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'space-evenly'}
+          justifyContent={'space-between'}
         >
           {/* Add for spacing purposes */}
           <div>&nbsp;</div>
@@ -523,7 +523,7 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'center'}
+          justifyContent={'space-between'}
         >
           <div>&nbsp;</div>
           <ResetBtn
