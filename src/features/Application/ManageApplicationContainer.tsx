@@ -670,7 +670,9 @@ class ManageApplicationContainer extends React.Component<
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
           >
-            Submit
+            {this.state.mode === ManageApplicationModes.CREATE
+              ? 'Submit'
+              : 'Update'}
           </SubmitBtn>
           <div>&nbsp;</div>
         </Flex>
