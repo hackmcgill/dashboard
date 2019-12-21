@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change `cancelled` hacker status to `withdrawn`
 
+### Fixed
+
+- Fixed HCK-63: loading page will no longer flash on team page.
+
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
 ### Added
