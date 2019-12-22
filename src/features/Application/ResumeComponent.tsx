@@ -18,7 +18,8 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <Flex mb={'20px'}>
-      <Box>
+      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
+      <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
         <Label>
           <LabelText label={props.label} required={props.required} />
           <div style={{ marginLeft: '-10px' }}>
@@ -26,7 +27,6 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
           </div>
         </Label>
       </Box>
-      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
     </Flex>
   );
 };
