@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Button spacing on application page
+- Checkmark not aligning with checkbox on smaller screens
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
