@@ -201,7 +201,6 @@ class ManageApplicationContainer extends React.Component<
           enableReinitialize={true}
           initialValues={{
             hacker: hackerDetails,
-            needsBus: false,
             resume: this.state.resume ? this.state.resume : undefined,
             pageNumber,
           }}
