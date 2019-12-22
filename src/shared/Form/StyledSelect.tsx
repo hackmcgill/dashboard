@@ -5,7 +5,7 @@ import styled from '../Styles/styled-components';
 export const StyledSelect = styled(Select)`
   font-family: ${(props) => props.theme.fonts.body};
   z-index: 2;
-  
+
   .react-select__control {
     ${inputStyles}
     display: flex;
@@ -13,7 +13,7 @@ export const StyledSelect = styled(Select)`
 
   .react-select__option {
     font-weight: normal;
-    color: ${(props) => props.theme.colors.black70}
+    color: ${(props) => props.theme.colors.black70};
     &--is-focused,
     &:hover {
       background-color: ${(props) => props.theme.colors.black10};
