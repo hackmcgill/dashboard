@@ -40,7 +40,7 @@ const CheckboxContainer = styled.div`
     position: relative;
     left: 25px;
     z-index: 1000;
-    top: 6px;
+    top: 3px;
     display: inline-block;
     cursor: pointer;
   }
@@ -86,11 +86,13 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
         >
           <LabelText label={labelElement} required={required} />
           <CheckboxContainer>
-            <span className="checkmark">
-              <div className="checkmark_stem" />
-              <div className="checkmark_kick" />
-            </span>
-            <Checkbox {...field} checked={field.value} />
+            <Flex>
+              <span className="checkmark">
+                <div className="checkmark_stem" />
+                <div className="checkmark_kick" />
+              </span>
+              <Checkbox {...field} checked={field.value} />
+            </Flex>
           </CheckboxContainer>
         </Flex>
       </Label>
