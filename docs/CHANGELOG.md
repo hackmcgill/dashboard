@@ -15,11 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
-- Removed `needsBus` value in ManageApplicationContainer
 
 ### Fixed
 
 - Button spacing on application page
+
+### Removed
+
+- Remove `needsBus` value in ManageApplicationContainer
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
