@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Button spacing on application page
 
+### Removed
+
+- Remove `needsBus` value in ManageApplicationContainer
+
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
 ### Added
