@@ -39,7 +39,9 @@ export const Button = styled.button<IButtonProps>`
       font-size: 16px;
       font-weight: 400;
       text-transform: capitalize;
-      height: 40px;
+      min-height: 40px;
+      max-height: 60px;
+
 
       /* Default border radius to values befiting a call to action button 
          - these values will be reset later if button is not a call to action */

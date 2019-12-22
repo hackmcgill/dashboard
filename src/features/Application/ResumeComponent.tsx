@@ -18,13 +18,15 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <Flex mb={'20px'}>
-      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
-      <Box ml={'10px'}>
+      <Box>
         <Label>
           <LabelText label={props.label} required={props.required} />
-          <FileUpload {...props} />
+          <div style={{ marginLeft: '-10px' }}>
+            <FileUpload {...props} />
+          </div>
         </Label>
       </Box>
+      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
     </Flex>
   );
 };
