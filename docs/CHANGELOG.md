@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `declined` hacker status
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
 
 ### Changed
 
@@ -28,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Remove `needsBus` value in ManageApplicationContainer
-- Remove  "Loading..." string
+- Remove "Loading..." string
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
