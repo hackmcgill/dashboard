@@ -27,6 +27,7 @@ const CheckboxContainer = styled.div`
   input:checked {
     background-color: #f2463a;
     border-color: #f2463a;
+    z-index: -1;
   }
 
   /* Checkmark icon based on StackOverflow icon by dayuloli
@@ -40,7 +41,6 @@ const CheckboxContainer = styled.div`
     position: relative;
     left: 25px;
     top: 3px;
-    z-index: 1;
     display: inline-block;
     cursor: pointer;
   }

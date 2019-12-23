@@ -24,11 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Checkmark appearing on dropdown lists due to z-index
 - Job interest dropdown colours
 - Loading page will no longer flash on team page
+- Dropdown list being behind other elements
 
 ### Removed
 
 - Remove `needsBus` value in ManageApplicationContainer
-- Remove  "Loading..." string
+- Remove "Loading..." string
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
