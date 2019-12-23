@@ -19,7 +19,7 @@ Please delete options that aren't relevant.
 
 ### How to test:
 
-### Screenshots:
+### Questions:
 
 ### PR Checklist:
 
@@ -29,3 +29,5 @@ Please delete options that aren't relevant.
 - [ ] Tested all links in project relevant browsers
 - [ ] Tested all links on different screen sizes
 - [ ] Referenced all useful info (issues, tasks, etc)
+
+### Screenshots:
