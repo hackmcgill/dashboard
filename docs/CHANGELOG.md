@@ -14,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Change `cancelled` hacker status to `withdrawn`
+- Changed `submit` to `update` based on whether hacker is creating or editing their application
+
+### Fixed
+
+- Button spacing on application page
+- Label spacing between view resume and upload resume while editing application
+- Checkmark not aligning with checkbox on smaller screens
+- Checkmark appearing on dropdown lists due to z-index
+- Job interest dropdown colours
+
+### Removed
+
+- Remove `needsBus` value in ManageApplicationContainer
 
 ### Fixed
 
