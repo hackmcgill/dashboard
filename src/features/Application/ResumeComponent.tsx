@@ -19,10 +19,12 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
   return (
     <Flex mb={'20px'}>
       <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
-      <Box>
+      <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
         <Label>
           <LabelText label={props.label} required={props.required} />
-          <FileUpload {...props} />
+          <div style={{ marginLeft: '-10px' }}>
+            <FileUpload {...props} />
+          </div>
         </Label>
       </Box>
     </Flex>
