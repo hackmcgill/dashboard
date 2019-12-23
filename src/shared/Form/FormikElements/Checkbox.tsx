@@ -39,8 +39,8 @@ const CheckboxContainer = styled.div`
     transform: rotate(45deg);
     position: relative;
     left: 25px;
-    z-index: 1000;
     top: 3px;
+    z-index: 1;
     display: inline-block;
     cursor: pointer;
   }
