@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Checkmark appearing on dropdown lists due to z-index
 - Job interest dropdown colours
 - Loading page will no longer flash on team page
+- Dropdown list being behind other elements
 
 ### Removed
 
