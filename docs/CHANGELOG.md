@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
 
 ### Fixed
 
@@ -28,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Remove `needsBus` value in ManageApplicationContainer
-- Remove  "Loading..." string
+- Remove "Loading..." string
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
