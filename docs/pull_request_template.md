@@ -17,9 +17,9 @@ Please delete options that aren't relevant.
 
 ### How did you do this?
 
-### Why are you choosing this approach?
+### How to test:
 
-### Questions for code reviewers?
+### Screenshots:
 
 ### PR Checklist:
 
