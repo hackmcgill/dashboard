@@ -38,7 +38,7 @@ class TeamContainer extends React.Component<{}, ITeamState> {
   public render() {
     let content;
     if (this.state.isLoading) {
-      content = <div>Loading...</div>;
+      content = <div />;
     } else if (!this.state.team && this.state.hacker) {
       content = (
         <JoinCreateTeam
