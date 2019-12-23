@@ -359,7 +359,11 @@ class ManageApplicationContainer extends React.Component<
           options={getOptionsFromEnum(JobInterest)}
           label={CONSTANTS.JOBINTEREST_LABEL}
           placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-          value={fp.values.hacker.application.general.jobInterest}
+          value={
+            fp.values.hacker.application.general.jobInterest
+              ? fp.values.hacker.application.general.jobInterest
+              : 'None'
+          }
           required={true}
         />
         <ErrorMessage

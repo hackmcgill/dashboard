@@ -19,7 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Button spacing on application page
+<<<<<<< HEAD
 - Label spacing between view resume and upload resume while editing application
+=======
+- Checkmark not aligning with checkbox on smaller screens
+- Checkmark appearing on dropdown lists due to z-index
+- Job interest dropdown colours
+>>>>>>> develop
 
 ### Removed
 
