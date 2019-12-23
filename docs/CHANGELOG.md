@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Button spacing on application page
 - Checkmark appearing on dropdown lists due to z-index
+- Job interest dropdown colours
 
 ### Removed
 
