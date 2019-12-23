@@ -4,7 +4,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
-import constructionSVG from '../../assets/images/construction.svg';
+import telescopeSVG from '../../assets/images/telescope.svg';
 import { EMAIL_SENT, HACKATHON_NAME, RESEND_CONF_EMAIL } from '../../config';
 import {
   Button,
@@ -23,7 +23,7 @@ interface IConfirmationEmailSentState {
 class ConfirmationEmailSentComponent extends React.Component<
   {},
   IConfirmationEmailSentState
-> {
+  > {
   private sendDelay: number;
 
   constructor(props: {}) {
@@ -48,17 +48,17 @@ class ConfirmationEmailSentComponent extends React.Component<
         <Flex alignItems={'center'} flexDirection={'column'}>
           <Box>
             <Image
-              src={constructionSVG}
-              imgHeight={'6rem'}
-              padding={'0.5rem'}
+              src={telescopeSVG}
+              imgHeight={'11rem'}
+              padding={'0 0 30px 0'}
             />
           </Box>
           <Box>
             <H1 fontSize={'48px'}>Confirm your Email</H1>
           </Box>
         </Flex>
-        <MaxWidthBox width={1} fontSize={[2, 3, 4]} mb={'20px'}>
-          <Paragraph paddingBottom={'32px'} textAlign={'center'}>
+        <MaxWidthBox width={1} fontSize={[2, 3, 4]} mb={'28px'}>
+          <Paragraph textAlign={'center'}>
             Please check your inbox for a confirmation email. Click the link in
             the email to confirm your email address.
           </Paragraph>

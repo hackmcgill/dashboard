@@ -64,33 +64,34 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   </LinkDuo>
                 </Flex>
               ) : (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
+                  <Flex
+                    flexDirection={'column'}
+                    style={{ marginTop: '1em' }}
+                    alignItems={'center'}
                   >
-                    You’re all set! Ready to start your application?
+                    <Paragraph
+                      color={theme.colors.black80}
+                      textAlign={'center'}
+                      marginBottom={'3rem'}
+                    >
+                      You’re all set! Ready to start your application?
                   </Paragraph>
-                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                    <Button type="button">Apply</Button>
-                  </LinkDuo>
-                </Flex>
-              )}
+                    <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                      <Button type="button">Apply</Button>
+                    </LinkDuo>
+                  </Flex>
+                )
+              }
+              <BackgroundImage
+                right={'0px'}
+                bottom={'0px'}
+                src={Background}
+                imgHeight={'87%'}
+              />
             </div>
           ) : (
-            <ConfirmationEmailSentComponent />
-          )}
-          <BackgroundImage
-            right={'0px'}
-            bottom={'0px'}
-            src={Background}
-            imgHeight={'87%'}
-          />
+              <ConfirmationEmailSentComponent />
+            )}
         </Box>
       </Flex>
     );
