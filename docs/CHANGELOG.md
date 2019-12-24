@@ -10,11 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `declined` hacker status
+- Add integer validation for travel application question
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
 
 ### Changed
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
 
 ### Fixed
 
