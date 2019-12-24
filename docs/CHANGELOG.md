@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
 
 ### Fixed
 
@@ -25,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Checkmark appearing on dropdown lists due to z-index
 - Job interest dropdown colours
 - Loading page will no longer flash on team page
+- Dropdown list being behind other elements
 
 ### Removed
 
