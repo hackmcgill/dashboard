@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `declined` hacker status
 - Add integer validation for travel application question
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
 
 ### Changed
 
