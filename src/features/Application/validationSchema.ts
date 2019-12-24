@@ -184,6 +184,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')
+                .integer('Must be an integer')
                 .typeError('Must be a number'),
             }),
           }),
@@ -262,6 +263,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')
+                .integer('Must be an integer')
                 .typeError('Must be a number'),
             }),
             other: object().shape({
