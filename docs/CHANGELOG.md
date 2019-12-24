@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1](https://github.com/hackmcgill/dashboard/tree/2.0.1) - 2019-12-24
+
+### Added
+
+- Add `declined` hacker status
+- Add integer validation for travel application question
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
+
+### Changed
+
+- Change `cancelled` hacker status to `withdrawn`
+- Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
+
+### Fixed
+
+- Button spacing on application page
+- Label spacing between view resume and upload resume while editing application
+- Checkmark not aligning with checkbox on smaller screens
+- Checkmark appearing on dropdown lists due to z-index
+- Job interest dropdown colours
+- Loading page will no longer flash on team page
+- Dropdown list being behind other elements
+- Privacy policy error message displayed properly now
+
+### Removed
+
+- Remove `needsBus` value in ManageApplicationContainer
+- Remove "Loading..." string
+
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
 ### Added
