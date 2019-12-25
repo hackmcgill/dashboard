@@ -5,16 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.1](https://github.com/hackmcgill/dashboard/tree/2.0.1) - 2019-12-24
 
 ### Added
 
 - Add `declined` hacker status
+- Add integer validation for travel application question
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
 
 ### Changed
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
 
 ### Fixed
 
@@ -25,7 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Job interest dropdown colours
 - Loading page will no longer flash on team page
 - Dropdown list being behind other elements
+<<<<<<< HEAD
 - Job interest place holder greyed out now
+=======
+- Privacy policy error message displayed properly now
+>>>>>>> develop
 
 ### Removed
 
