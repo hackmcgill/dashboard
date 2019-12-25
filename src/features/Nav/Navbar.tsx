@@ -69,7 +69,12 @@ export default class Navbar extends React.Component<{}, INavbarState> {
       appRoute = routes.EDIT_APPLICATION_PAGE;
     }
 
-    const route: any[] = [routes.HOME_PAGE, routes.EDIT_ACCOUNT_PAGE, appRoute];
+    const route: any[] = [
+      routes.HOME_PAGE,
+      routes.EDIT_ACCOUNT_PAGE,
+      appRoute,
+      routes.TEAM_PAGE,
+    ];
 
     let NavItems = () => <></>;
     if (loggedIn === true) {
@@ -78,6 +83,9 @@ export default class Navbar extends React.Component<{}, INavbarState> {
           <NavLink href={route[0]}>Home</NavLink>
           <NavLink href={route[1]}>Profile</NavLink>
           <NavLink href={route[2]}>Application</NavLink>
+          {status === HackerStatus.HACKER_STATUS_APPLIED && confirmed ? (
+            <NavLink href={route[3]}>Team</NavLink>
+          ) : null}
         </>
       );
     }
