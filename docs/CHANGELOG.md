@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Loading page will no longer flash on team page
 - Dropdown list being behind other elements
 - Job interest place holder greyed out now
+- School dropdown list uses Hind font now
 - Privacy policy error message displayed properly now
 
 ### Removed
