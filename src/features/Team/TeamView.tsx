@@ -32,12 +32,12 @@ const TV: React.StatelessComponent<ITeamViewProps> = (props) => {
           marginTop: '25px',
         }}
       />
-      <Flex flexDirection={'row'} alignItems={'space-between'}>
+      <Flex flexDirection={'row'} justifyContent={'space-between'}>
         <Flex flexDirection={'column'}>
           <Box key={index}>
             {member.firstName} {member.lastName}
           </Box>
-          <Box fontSize={'8px'}>{'mcgill U'}</Box>
+          <Box fontSize={'80%'}>{'mcgill U'}</Box>
         </Flex>
         <Box>{'rohit'}</Box>
       </Flex>
@@ -57,7 +57,7 @@ const TV: React.StatelessComponent<ITeamViewProps> = (props) => {
           />
         </Box>
       </Flex>
-      <Box mt={'25px'} mb={'25px'}>
+      <Box mt={'25px'} mb={'15px'}>
         <Flex flexDirection={'column'}>
           <Bold>{TEAM_MEMBERS}</Bold>
           <Flex flexDirection={'column'}>{nameList}</Flex>
