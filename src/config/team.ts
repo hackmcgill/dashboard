@@ -8,4 +8,6 @@ export interface ITeam {
 export interface IMemberName {
   firstName: string;
   lastName: string;
+  school: string;
+  email: string;
 }

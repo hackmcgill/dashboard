@@ -12,6 +12,7 @@ import {
 
 import {
   Button,
+  ButtonVariant,
   FormDescription,
   H1,
   MaxWidthBox,
@@ -26,7 +27,6 @@ import {
   Input,
 } from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-// import Sidebar from '../Sidebar/Sidebar';
 import getValidationSchema from './validationSchema';
 
 interface IJoinCreateTeamProps {
@@ -54,29 +54,34 @@ class JoinCreateTeam extends React.Component<
   }
   public render() {
     return (
-      <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-        {/* <Sidebar
-          currentPage="Team"
-          status={HackerStatus.HACKER_STATUS_CONFIRMED}
-          confirmed={true}
-        /> */}
-        <Helmet>
-          <title>Join/Create Team | {HACKATHON_NAME}</title>
-        </Helmet>
-        <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
-          Team
-        </H1>
-        <FormDescription>
-          Join an existing team, or create a team.
-        </FormDescription>
-        <Formik
-          initialValues={{
-            name: '',
-          }}
-          onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema}
-        />
+      <MaxWidthBox maxWidth={'500px'} m={'auto'} mt={'50px'}>
+        <Flex alignItems={'center'} flexDirection={'column'}>
+          <Helmet>
+            <title>Create/Join Team | {HACKATHON_NAME}</title>
+          </Helmet>
+          <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
+            Create/Join a Team
+          </H1>
+          <FormDescription>
+            Join an existing team, or create a team.
+          </FormDescription>
+          <Button variant={ButtonVariant.CallToAction}>Create a Team</Button>
+          <hr
+            style={{
+              border: '1px solid #D2D2D2',
+              width: '500px',
+              marginTop: '25px',
+            }}
+          />
+          <Formik
+            initialValues={{
+              name: '',
+            }}
+            onSubmit={this.handleSubmit}
+            render={this.renderFormik}
+            validationSchema={getValidationSchema}
+          />
+        </Flex>
       </MaxWidthBox>
     );
   }
@@ -86,23 +91,13 @@ class JoinCreateTeam extends React.Component<
         <FastField
           name={'name'}
           component={Input}
-          label={'Enter your team name:'}
-          placeholder={'Team name'}
+          label={'Already have a team?'}
+          placeholder={'Enter your team code'}
           value={fp.values.name}
-          required={true}
+          required={false}
         />
         <ErrorMessage component={ErrorComponent} name="name" />
         <Flex justifyContent={'center'}>
-          <Box>
-            <Button
-              type="button"
-              onClick={this.onClickFactory(0, fp.submitForm)}
-              isLoading={this.state.isLoading}
-              disabled={this.state.isLoading}
-            >
-              Create team
-            </Button>
-          </Box>
           <Box>
             <Button
               type="button"

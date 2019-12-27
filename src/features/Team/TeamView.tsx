@@ -7,9 +7,8 @@ import Bold from '../../shared/Elements/Bold';
 import {
   IMemberName,
   ITeam,
-  TEAM_MAX_SIZE,
   TEAM_MEMBERS,
-  TEAM_NAME,
+  // TEAM_NAME,
   TEAM_NAME_SUBTITLE,
 } from '../../config';
 
@@ -23,36 +22,45 @@ interface ITeamViewProps {
 }
 
 const TV: React.StatelessComponent<ITeamViewProps> = (props) => {
-  const firstColumnWidth = 0.5;
   const nameList = props.members.map((member, index) => (
-    <Box key={index}>{member.firstName}</Box>
+    <React.Fragment key={index}>
+      <hr
+        style={{
+          border: '1px solid #D2D2D2',
+          width: '500px',
+          maxWidth: '500px',
+          marginTop: '25px',
+        }}
+      />
+      <Flex flexDirection={'row'} alignItems={'space-between'}>
+        <Flex flexDirection={'column'}>
+          <Box key={index}>
+            {member.firstName} {member.lastName}
+          </Box>
+          <Box fontSize={'8px'}>{'mcgill U'}</Box>
+        </Flex>
+        <Box>{'rohit'}</Box>
+      </Flex>
+    </React.Fragment>
   ));
   return (
     <Flex flexDirection={'column'}>
-      <Box>
-        <Flex justifyContent={'space-between'} alignItems={'flex-start'}>
-          <Box width={firstColumnWidth}>
-            <Bold>{TEAM_NAME}</Bold>
-            <Box fontSize={'smaller'}>{TEAM_NAME_SUBTITLE}</Box>
-          </Box>
-          <Box>
-            <ClipboardComponent
-              value={props.team.name}
-              onSuccess={onCopied}
-              onError={onCopyFailed}
-            />
-          </Box>
-        </Flex>
-      </Box>
-      <Box mt={'10px'}>
-        <Flex justifyContent={'space-between'}>
-          <Box width={firstColumnWidth}>
-            <Bold>{TEAM_MEMBERS}</Bold>
-            <Box fontSize={'smaller'}>{TEAM_MAX_SIZE}</Box>
-          </Box>
-          <Box>
-            <Flex flexDirection={'column'}>{nameList}</Flex>
-          </Box>
+      <Flex flexDirection={'column'}>
+        <Bold>Team Code</Bold>
+        <Box fontSize={'smaller'}>{TEAM_NAME_SUBTITLE}</Box>
+        {/* This should be a team code, not a team name actually, need backend functionality first */}
+        <Box alignSelf={'center'}>
+          <ClipboardComponent
+            value={props.team.name}
+            onSuccess={onCopied}
+            onError={onCopyFailed}
+          />
+        </Box>
+      </Flex>
+      <Box mt={'25px'} mb={'25px'}>
+        <Flex flexDirection={'column'}>
+          <Bold>{TEAM_MEMBERS}</Bold>
+          <Flex flexDirection={'column'}>{nameList}</Flex>
         </Flex>
       </Box>
     </Flex>

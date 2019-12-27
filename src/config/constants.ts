@@ -99,8 +99,8 @@ export const OPTIONAL_INPUT = '(Optional)';
 // Team page
 export const TEAM_NAME = 'Team name:';
 export const TEAM_NAME_SUBTITLE =
-  'Other hackers can join your team with this string.';
-export const TEAM_MEMBERS = 'Team members:';
+  'Share this code with your team members to let them join your team';
+export const TEAM_MEMBERS = 'Members';
 export const TEAM_MAX_SIZE = 'Max 4 Hackers';
 
 // Sponsor creation

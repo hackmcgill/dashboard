@@ -18,12 +18,7 @@ const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
-    <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-      {/* <Sidebar
-        currentPage="Team"
-        status={HackerStatus.HACKER_STATUS_CONFIRMED}
-        confirmed={true}
-      /> */}
+    <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']} mt={'50px'}>
       <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
         Your Team
       </H1>
