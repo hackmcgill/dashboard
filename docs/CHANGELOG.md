@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dropdown list being behind other elements
 - School dropdown list uses Hind font now
 - Privacy policy error message displayed properly now
+- URL validation allows empty strings
 
 ### Removed
 
