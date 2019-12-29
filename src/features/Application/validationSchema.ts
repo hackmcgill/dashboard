@@ -24,7 +24,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 resume: string(),
                 github: string()
                   .url('Must be a valid URL')
-                  .matches(/github.com\/w+/, {
+                  .matches(/github.com\/\w+/, {
                     message: 'Must be a valid Github URL',
                     excludeEmptyString: true,
                   }),
@@ -79,7 +79,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 resume: string(),
                 github: string()
                   .url('Must be a valid URL')
-                  .matches(/github.com\/w+/, {
+                  .matches(/github.com\/\w+/, {
                     message: 'Must be a valid Github URL',
                     excludeEmptyString: true,
                   }),
@@ -154,7 +154,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 resume: string(),
                 github: string()
                   .url('Must be a valid URL')
-                  .matches(/github.com\/w+/, {
+                  .matches(/github.com\/\w+/, {
                     message: 'Must be a valid Github URL',
                     excludeEmptyString: true,
                   }),
@@ -239,7 +239,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 resume: string(),
                 github: string()
                   .url('Must be a valid URL')
-                  .matches(/github.com\/w+/, {
+                  .matches(/github.com\/\w+/, {
                     message: 'Must be a valid Github URL',
                     excludeEmptyString: true,
                   }),
