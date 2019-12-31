@@ -9,7 +9,6 @@ import {
   LinkDuo,
   Paragraph,
 } from '../../shared/Elements';
-// import Sidebar from '../Sidebar/Sidebar';
 
 import Background from '../../assets/images/statuspage-background.svg';
 import {
