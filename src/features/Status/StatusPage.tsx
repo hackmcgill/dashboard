@@ -63,7 +63,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < 1578070799000 ? (
+              ) : Date.now() < CONSTANTS.CREATE_DEADLINE ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -91,7 +91,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    {CONSTANTS.DEADLINE_STATUS_TEXT}
+                    {CONSTANTS.DEADLINE_PASSED_LABEL}
                   </Paragraph>
                 </Flex>
               )}

@@ -1,5 +1,6 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
+import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
 import { Hacker } from '../../api';
@@ -97,7 +98,7 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          {Date.now() < 1578070799000 ||
+          {Date.now() < CONSTANTS.CREATE_DEADLINE ||
           status !== HackerStatus.HACKER_STATUS_NONE ? (
             <NavLink
               href={route[2]}
