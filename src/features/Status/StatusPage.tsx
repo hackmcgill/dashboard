@@ -63,25 +63,38 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : (
-                  <Flex
-                    flexDirection={'column'}
-                    style={{ marginTop: '1em' }}
-                    alignItems={'center'}
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
                   >
-                    <Paragraph
-                      color={theme.colors.black80}
-                      textAlign={'center'}
-                      marginBottom={'3rem'}
-                    >
-                      {CONSTANTS.NONE_STATUS_TEXT}
-                    </Paragraph>
-                    <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                      <Button type="button">Apply</Button>
-                    </LinkDuo>
-                  </Flex>
-                )
-              }
+                    {CONSTANTS.NONE_STATUS_TEXT}
+                  </Paragraph>
+                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                    <Button type="button">Apply</Button>
+                  </LinkDuo>
+                </Flex>
+              ) : (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DEADLINE_PASSED_LABEL}
+                  </Paragraph>
+                </Flex>
+              )}
               <BackgroundImage
                 right={'0px'}
                 bottom={'0px'}
@@ -90,8 +103,8 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
               />
             </div>
           ) : (
-              <ConfirmationEmailSentComponent />
-            )}
+            <ConfirmationEmailSentComponent />
+          )}
         </Box>
       </Flex>
     );
