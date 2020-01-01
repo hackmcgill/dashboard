@@ -2,6 +2,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { Box, Flex } from '@rebass/grid';
+import * as CONSTANTS from '../../config/constants';
 import {
   BackgroundImage,
   Button,
@@ -10,7 +11,6 @@ import {
   Paragraph,
 } from '../../shared/Elements';
 
-import Background from '../../assets/images/statuspage-background.svg';
 import {
   FrontendRoute,
   HACKATHON_NAME,
@@ -19,6 +19,8 @@ import {
 } from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
+
+import Background from '../../assets/images/statuspage-background.svg';
 
 export interface IStatusPageProps {
   account?: IAccount;
@@ -55,8 +57,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    Your application has been submitted. Decisions will be sent
-                    out in January so stay tuned!
+                    {CONSTANTS.APPLIED_STATUS_TEXT}
                   </Paragraph>
                   <LinkDuo to={FrontendRoute.EDIT_APPLICATION_PAGE}>
                     <Button type="button">View/Edit Application</Button>
@@ -73,7 +74,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    You’re all set! Ready to start your application?
+                    {CONSTANTS.NONE_STATUS_TEXT}
                   </Paragraph>
                   <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
                     <Button type="button">Apply</Button>
