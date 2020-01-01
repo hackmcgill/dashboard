@@ -155,7 +155,8 @@ class ManageApplicationContainer extends React.Component<
   public render() {
     const { mode, hackerDetails, submitted, pageNumber, loaded } = this.state;
     return loaded ? (
-      (Date.now() > 1278070799000 && mode === ManageApplicationModes.CREATE) ||
+      // If application creation deadline has passed or form is submitted, return user to the home page
+      (Date.now() > 1578070799000 && mode === ManageApplicationModes.CREATE) ||
       submitted ? (
         <Redirect to={FrontendRoute.HOME_PAGE} />
       ) : (
@@ -212,7 +213,6 @@ class ManageApplicationContainer extends React.Component<
             )}
           />
         </MaxWidthBox>
-        // </HorizontalSpacer>
       )
     ) : null;
   }

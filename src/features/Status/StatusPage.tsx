@@ -95,24 +95,6 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   </Paragraph>
                 </Flex>
               )}
-              ) : (
-              <Flex
-                flexDirection={'column'}
-                style={{ marginTop: '1em' }}
-                alignItems={'center'}
-              >
-                <Paragraph
-                  color={theme.colors.black80}
-                  textAlign={'center'}
-                  marginBottom={'3rem'}
-                >
-                  {CONSTANTS.NONE_STATUS_TEXT}
-                </Paragraph>
-                <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                  <Button type="button">Apply</Button>
-                </LinkDuo>
-              </Flex>
-              ) }
               <BackgroundImage
                 right={'0px'}
                 bottom={'0px'}
