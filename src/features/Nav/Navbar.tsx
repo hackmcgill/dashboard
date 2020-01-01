@@ -25,6 +25,7 @@ interface INavbarState {
   loggedIn: boolean;
   status: HackerStatus;
   confirmed: boolean;
+  loaded: boolean;
 }
 
 export default class Navbar extends React.Component<
@@ -37,6 +38,7 @@ export default class Navbar extends React.Component<
       loggedIn: false,
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
+      loaded: false,
     };
     this.checkLoggedIn();
   }
@@ -62,6 +64,7 @@ export default class Navbar extends React.Component<
     } catch (e) {
       this.setState({ confirmed: false });
     }
+    this.setState({ loaded: true });
   }
 
   public render() {
@@ -104,7 +107,7 @@ export default class Navbar extends React.Component<
       );
     }
 
-    return (
+    return this.state.loaded ? (
       <Nav borderThickness={'2px'}>
         <IconContainer>
           <a href={routes.HOME_PAGE}>
@@ -120,7 +123,7 @@ export default class Navbar extends React.Component<
           {CTAButton}
         </Menu>
       </Nav>
-    );
+    ) : null;
   }
   private checkLoggedIn() {
     isLoggedIn().then((result) => {
