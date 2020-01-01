@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Switch status page text to use constants
 
+### Fixed
+
+- Fix missing space in Create/Edit Account site title
+
 ## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
 
 ### Fixed
