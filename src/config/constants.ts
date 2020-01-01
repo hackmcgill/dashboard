@@ -49,6 +49,8 @@ export const LAST_NAME_LABEL = 'Last Name';
 // Status management
 export const NONE_STATUS_TEXT =
   'You’re all set! Ready to start your application?';
+export const DEADLINE_STATUS_TEXT =
+  'Unfortunately the deadline to create an application for this year has passed. We hope to see you apply next year, though!';
 export const APPLIED_STATUS_TEXT =
   'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
 export const ACCEPTED_STATUS_TEXT =

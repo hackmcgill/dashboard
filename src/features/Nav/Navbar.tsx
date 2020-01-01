@@ -31,7 +31,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -97,12 +97,17 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          <NavLink
-            href={route[2]}
-            className={this.props.activePage === 'application' ? 'active' : ''}
-          >
-            Application
-          </NavLink>
+          {Date.now() < 1578070799000 ||
+          status !== HackerStatus.HACKER_STATUS_NONE ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
         </>
       );
     }

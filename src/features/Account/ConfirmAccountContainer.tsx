@@ -25,7 +25,7 @@ interface IConfirmAccountState {
 class ConfirmAccountContainer extends React.Component<
   {},
   IConfirmAccountState
-  > {
+> {
   constructor(props: {}) {
     super(props);
     this.state = {

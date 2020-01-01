@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add status page text constants
 - Add highlight to active page on navbar
+- Add application creation prevention past the deadline
 
 ### Changed
 

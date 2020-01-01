@@ -64,7 +64,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : (
+              ) : Date.now() < 1578070799000 ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -80,6 +80,20 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
                     <Button type="button">Apply</Button>
                   </LinkDuo>
+                </Flex>
+              ) : (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DEADLINE_STATUS_TEXT}
+                  </Paragraph>
                 </Flex>
               )}
             </div>
