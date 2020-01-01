@@ -10,7 +10,6 @@ import {
   LinkDuo,
   Paragraph,
 } from '../../shared/Elements';
-// import Sidebar from '../Sidebar/Sidebar';
 
 import {
   FrontendRoute,
