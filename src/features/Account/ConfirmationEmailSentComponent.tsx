@@ -55,7 +55,7 @@ class ConfirmationEmailSentComponent extends React.Component<
             />
           </Box>
           <Box>
-            <H1 fontSize={'48px'}>Confirm your Email</H1>
+            <H1 fontSize={'48px'} textAlign={'center'}>Confirm your Email</H1>
           </Box>
         </Flex>
         <MaxWidthBox width={1} fontSize={[2, 3, 4]} mb={'28px'}>
