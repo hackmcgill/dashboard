@@ -1,7 +1,7 @@
 {
   "name": "hackerapi-frontend",
   "homepage": "https://app.mchacks.ca",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",

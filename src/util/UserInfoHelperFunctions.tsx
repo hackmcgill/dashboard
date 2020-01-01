@@ -133,7 +133,7 @@ export function canAccessHackerPass(hacker?: IHacker): boolean {
   return (
     status === HackerStatus.HACKER_STATUS_ACCEPTED ||
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
-    status === HackerStatus.HACKER_STATUS_CANCELLED ||
+    status === HackerStatus.HACKER_STATUS_WITHDRAWN ||
     status === HackerStatus.HACKER_STATUS_CHECKED_IN
   );
 }

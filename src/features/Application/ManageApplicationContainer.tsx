@@ -201,7 +201,6 @@ class ManageApplicationContainer extends React.Component<
           enableReinitialize={true}
           initialValues={{
             hacker: hackerDetails,
-            needsBus: false,
             resume: this.state.resume ? this.state.resume : undefined,
             pageNumber,
           }}
@@ -437,7 +436,7 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'space-evenly'}
+          justifyContent={'space-between'}
         >
           {/* Add for spacing purposes */}
           <div>&nbsp;</div>
@@ -523,7 +522,7 @@ class ManageApplicationContainer extends React.Component<
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'center'}
+          justifyContent={'space-between'}
         >
           <div>&nbsp;</div>
           <ResetBtn
@@ -651,7 +650,7 @@ class ManageApplicationContainer extends React.Component<
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="hacker.application.other.codeOfConduct"
+          name="hacker.application.other.privacyPolicy"
         />
         <Flex
           flexDirection={'row'}
@@ -670,7 +669,9 @@ class ManageApplicationContainer extends React.Component<
             isLoading={this.state.submitting}
             disabled={this.state.submitting}
           >
-            Submit
+            {this.state.mode === ManageApplicationModes.CREATE
+              ? 'Submit'
+              : 'Update'}
           </SubmitBtn>
           <div>&nbsp;</div>
         </Flex>
