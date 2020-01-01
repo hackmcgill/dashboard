@@ -22,11 +22,26 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
-                github: string().url('Must be a valid url'),
-                dribbble: string().url('Must be a valid url'),
-                linkedIn: string().url('Must be a valid url'),
-                personal: string().url('Must be a valid url'),
-                other: string().url('Must be a valid url'),
+                github: string()
+                  .url('Must be a valid URL')
+                  .matches(/github.com\/\w+/, {
+                    message: 'Must be a valid Github URL',
+                    excludeEmptyString: true,
+                  }),
+                dribbble: string()
+                  .url('Must be a valid URL')
+                  .matches(/dribbble.com\/\w+/, {
+                    message: 'Must be a valid Dribbble URL',
+                    excludeEmptyString: true,
+                  }),
+                linkedIn: string()
+                  .url('Must be a valid URL')
+                  .matches(/linkedin.com\/in\/\w+/, {
+                    message: 'Must be a valid LinkedIn URL',
+                    excludeEmptyString: true,
+                  }),
+                personal: string().url('Must be a valid URL'),
+                other: string().url('Must be a valid URL'),
               }),
             }),
           }),
@@ -62,11 +77,26 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
-                github: string().url('Must be a valid url'),
-                dribbble: string().url('Must be a valid url'),
-                linkedIn: string().url('Must be a valid url'),
-                personal: string().url('Must be a valid url'),
-                other: string().url('Must be a valid url'),
+                github: string()
+                  .url('Must be a valid URL')
+                  .matches(/github.com\/\w+/, {
+                    message: 'Must be a valid Github URL',
+                    excludeEmptyString: true,
+                  }),
+                dribbble: string()
+                  .url('Must be a valid URL')
+                  .matches(/dribbble.com\/\w+/, {
+                    message: 'Must be a valid Dribbble URL',
+                    excludeEmptyString: true,
+                  }),
+                linkedIn: string()
+                  .url('Must be a valid URL')
+                  .matches(/linkedin.com\/in\/\w+/, {
+                    message: 'Must be a valid LinkedIn URL',
+                    excludeEmptyString: true,
+                  }),
+                personal: string().url('Must be a valid URL'),
+                other: string().url('Must be a valid URL'),
               }),
             }),
             shortAnswer: object().shape({
@@ -122,11 +152,26 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
-                github: string().url('Must be a valid url'),
-                dribbble: string().url('Must be a valid url'),
-                linkedIn: string().url('Must be a valid url'),
-                personal: string().url('Must be a valid url'),
-                other: string().url('Must be a valid url'),
+                github: string()
+                  .url('Must be a valid URL')
+                  .matches(/github.com\/\w+/, {
+                    message: 'Must be a valid Github URL',
+                    excludeEmptyString: true,
+                  }),
+                dribbble: string()
+                  .url('Must be a valid URL')
+                  .matches(/dribbble.com\/\w+/, {
+                    message: 'Must be a valid Dribbble URL',
+                    excludeEmptyString: true,
+                  }),
+                linkedIn: string()
+                  .url('Must be a valid URL')
+                  .matches(/linkedin.com\/in\/\w+/, {
+                    message: 'Must be a valid LinkedIn URL',
+                    excludeEmptyString: true,
+                  }),
+                personal: string().url('Must be a valid URL'),
+                other: string().url('Must be a valid URL'),
               }),
             }),
             shortAnswer: object().shape({
@@ -157,6 +202,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')
+                .integer('Must be an integer')
                 .typeError('Must be a number'),
             }),
           }),
@@ -191,11 +237,26 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
-                github: string().url('Must be a valid url'),
-                dribbble: string().url('Must be a valid url'),
-                linkedIn: string().url('Must be a valid url'),
-                personal: string().url('Must be a valid url'),
-                other: string().url('Must be a valid url'),
+                github: string()
+                  .url('Must be a valid URL')
+                  .matches(/github.com\/\w+/, {
+                    message: 'Must be a valid Github URL',
+                    excludeEmptyString: true,
+                  }),
+                dribbble: string()
+                  .url('Must be a valid URL')
+                  .matches(/dribbble.com\/\w+/, {
+                    message: 'Must be a valid Dribbble URL',
+                    excludeEmptyString: true,
+                  }),
+                linkedIn: string()
+                  .url('Must be a valid URL')
+                  .matches(/linkedin.com\/in\/\w+/, {
+                    message: 'Must be a valid LinkedIn URL',
+                    excludeEmptyString: true,
+                  }),
+                personal: string().url('Must be a valid URL'),
+                other: string().url('Must be a valid URL'),
               }),
             }),
             shortAnswer: object().shape({
@@ -226,6 +287,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')
+                .integer('Must be an integer')
                 .typeError('Must be a number'),
             }),
             other: object().shape({

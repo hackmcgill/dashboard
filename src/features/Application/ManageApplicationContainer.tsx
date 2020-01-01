@@ -650,7 +650,7 @@ class ManageApplicationContainer extends React.Component<
         />
         <ErrorMessage
           component={FormikElements.Error}
-          name="hacker.application.other.codeOfConduct"
+          name="hacker.application.other.privacyPolicy"
         />
         <Flex
           flexDirection={'row'}

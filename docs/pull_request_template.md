@@ -17,9 +17,9 @@ Please delete options that aren't relevant.
 
 ### How did you do this?
 
-### Why are you choosing this approach?
+### How to test:
 
-### Questions for code reviewers?
+### Questions:
 
 ### PR Checklist:
 
@@ -29,3 +29,5 @@ Please delete options that aren't relevant.
 - [ ] Tested all links in project relevant browsers
 - [ ] Tested all links on different screen sizes
 - [ ] Referenced all useful info (issues, tasks, etc)
+
+### Screenshots:

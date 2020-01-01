@@ -1,4 +1,4 @@
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -25,7 +25,7 @@ interface IConfirmAccountState {
 class ConfirmAccountContainer extends React.Component<
   {},
   IConfirmAccountState
-> {
+  > {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -69,11 +69,17 @@ class ConfirmAccountContainer extends React.Component<
         >
           <Image src={constructionCone} imgHeight={'6rem'} />
         </MaxWidthBox>
-        <MaxWidthBox mb={'0px'}>
+        <Box style={{ marginTop: '6rem' }}>
           <H1 fontSize={'40px'}>{result}</H1>
-        </MaxWidthBox>
+        </Box>
         <MaxWidthBox hidden={this.state.attempting} mb={'20px'}>
-          <Paragraph fontSize={'24px'} maxWidth={'600px'} textAlign={'center'}>
+          <Paragraph
+            fontSize={'24px'}
+            maxWidth={'600px'}
+            marginLeft={'16px'}
+            marginRight={'16px'}
+            textAlign={'center'}
+          >
             {paragraphMessage}
           </Paragraph>
         </MaxWidthBox>

@@ -5,24 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.1.0](https://github.com/hackmcgill/dashboard/tree/2.1.0) - 2019-12-31
+
+### Added
+
+- Add status page text constants
+- Add highlight to active page on navbar
+
+### Changed
+
+- Switch status page text to use constants
+- Update layout for confirmed account page
+
+### Fixed
+
+- Login button flashing when navigating to new tab
+- Confirm email component flashing when navigating to home page
+- Fix missing space in Create/Edit Account site title
+
+## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
+
+### Fixed
+
+- URL validation for github
+
+## [2.0.2](https://github.com/hackmcgill/dashboard/tree/2.0.2) - 2019-12-26
+
+### Fixed
+
+- Job interest placeholder greyed out now
+- URL validation allows empty strings
+- School dropdown list uses Hind font now
+
+## [2.0.1](https://github.com/hackmcgill/dashboard/tree/2.0.1) - 2019-12-24
 
 ### Added
 
 - Add `declined` hacker status
+- Add integer validation for travel application question
+- Add URL-specific validation for Github, Dribbble, and LinkedIn
 
 ### Changed
 
 - Change `cancelled` hacker status to `withdrawn`
 - Changed `submit` to `update` based on whether hacker is creating or editing their application
+- Update PR template
 
 ### Fixed
 
 - Button spacing on application page
+- Label spacing between view resume and upload resume while editing application
+- Checkmark not aligning with checkbox on smaller screens
+- Checkmark appearing on dropdown lists due to z-index
+- Job interest dropdown colours
+- Loading page will no longer flash on team page
+- Dropdown list being behind other elements
+- Job interest place holder greyed out now
+- School dropdown list uses Hind font now
+- Privacy policy error message displayed properly now
+- URL validation allows empty strings
 
 ### Removed
 
 - Remove `needsBus` value in ManageApplicationContainer
+- Remove "Loading..." string
 
 ## [2.0.0](https://github.com/hackmcgill/dashboard/tree/2.0.0) - 2019-12-17
 
