@@ -156,7 +156,7 @@ class ManageApplicationContainer extends React.Component<
     const { mode, hackerDetails, submitted, pageNumber, loaded } = this.state;
     return loaded ? (
       // If application creation deadline of Jan 3, 2020 11:59:59PM EST has passed or form is submitted, return user to the home page
-      (Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME) &&
+      (Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME &&
         mode === ManageApplicationModes.CREATE) ||
       submitted ? (
         <Redirect to={FrontendRoute.HOME_PAGE} />
