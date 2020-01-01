@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Switch status page text to use constants
+- Update layout for confirmed account page
 
 ### Fixed
 
