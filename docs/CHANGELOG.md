@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Switch status page text to use constants
+- Update layout for confirmed account page
 
 ## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
 
