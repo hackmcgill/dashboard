@@ -46,6 +46,23 @@ export const BIRTH_DATE_LABEL = 'Birth Date';
 export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
 
+// Status management
+export const NONE_STATUS_TEXT =
+  'You’re all set! Ready to start your application?';
+export const APPLIED_STATUS_TEXT =
+  'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
+export const ACCEPTED_STATUS_TEXT =
+  "Congratulations! We're excited to offer you a spot at McHacks! Please RSVP by January 22, 2020 to secure your spot and we'll see you there.";
+export const DECLINED_STATUS_TEXT =
+  "Thank you so much for your interest in McHacks. Unfortunately, we don't have enough space to offer you a spot this year. That being said, please keep in touch and we'd love to see you apply again next year! In the meantime, we hope you continue to create and build awesome things!";
+export const WAITLISTED_STATUS_TEXT =
+  "Thank you so much for your interest in McHacks. We receive many applications each year and wish we had the capacity to offer a spot to everyone. At the moment, we aren't able to offer you a spot and have placed you on the waitlist. Keep an eye out on the dashboard to see if your status changes and a spot opens up!";
+export const CONFIRMED_STATUS_TEXT =
+  'Your attendance has been confirmed! More information on McHacks will be sent to your inbox as we get closer to the event.';
+export const WITHDRAWN_STATUS_TEXT =
+  "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one";
+export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
+
 // Application management
 export const BARRIERS_LABEL = 'Would you require any accommodations?';
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
