@@ -77,7 +77,7 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.HOME_PAGE}
-              component={withNavbar(withAuthRedirect(Dashboard))}
+              component={withNavbar(withAuthRedirect(Dashboard), { activePage: 'home' })}
             />
             <Route
               exact={true}
@@ -85,7 +85,7 @@ class App extends React.Component {
               component={withNavbar(
                 withAuthRedirect(CreateAccountContainer, {
                   requiredAuthState: false,
-                })
+                }), { activePage: 'profile' }
               )}
             />
             <Route
@@ -95,7 +95,7 @@ class App extends React.Component {
                 withAuthRedirect(EditAccountContainer, {
                   redirAfterLogin: true,
                   requiredAuthState: true,
-                })
+                }), { activePage: 'profile' }
               )}
             />
             <Route
@@ -110,7 +110,7 @@ class App extends React.Component {
                 withAuthRedirect(ConfirmAccountContainer, {
                   requiredAuthState: true,
                   redirAfterLogin: true,
-                })
+                }), { activePage: 'home' }
               )}
             />
             <Route
@@ -131,7 +131,7 @@ class App extends React.Component {
                     AuthVerification: (user: IAccount) =>
                       user.confirmed && user.accountType === UserType.HACKER,
                   }
-                )
+                ), { activePage: 'application' }
               )}
             />
             <Route
@@ -148,7 +148,7 @@ class App extends React.Component {
                     AuthVerification: (user: IAccount) =>
                       user.confirmed && user.accountType === UserType.HACKER,
                   }
-                )
+                ), { activePage: 'application' }
               )}
             />
             <Route
@@ -165,7 +165,7 @@ class App extends React.Component {
                     AuthVerification: (user: IAccount) =>
                       user.confirmed && user.accountType === UserType.HACKER,
                   }
-                )
+                ), { activePage: 'team' }
               )}
             />
             <Route
@@ -174,7 +174,7 @@ class App extends React.Component {
               component={withNavbar(
                 withAuthRedirect(LoginContainer, {
                   requiredAuthState: false,
-                })
+                }), { activePage: 'login' }
               )}
             />
             <Route

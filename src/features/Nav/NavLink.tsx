@@ -17,6 +17,10 @@ export const NavLink = styled.a`
     margin-right: 2rem;
     margin-top: 1px;
   }
+
+  &.active {
+    color: ${(props) => props.theme.colors.red};
+  }
 `;
 
 export default NavLink;
