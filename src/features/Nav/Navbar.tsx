@@ -17,6 +17,10 @@ import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
 
+interface INavbarProps {
+  activePage: string;
+}
+
 interface INavbarState {
   loggedIn: boolean;
   status: HackerStatus;
@@ -24,8 +28,11 @@ interface INavbarState {
   loaded: boolean;
 }
 
-export default class Navbar extends React.Component<{}, INavbarState> {
-  constructor(props: INavbarState) {
+export default class Navbar extends React.Component<
+  INavbarProps,
+  INavbarState
+  > {
+  constructor(props: INavbarProps) {
     super(props);
     this.state = {
       loggedIn: false,
@@ -78,9 +85,24 @@ export default class Navbar extends React.Component<{}, INavbarState> {
     if (loggedIn === true) {
       NavItems = () => (
         <>
-          <NavLink href={route[0]}>Home</NavLink>
-          <NavLink href={route[1]}>Profile</NavLink>
-          <NavLink href={route[2]}>Application</NavLink>
+          <NavLink
+            href={route[0]}
+            className={this.props.activePage === 'home' ? 'active' : ''}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            href={route[1]}
+            className={this.props.activePage === 'profile' ? 'active' : ''}
+          >
+            Profile
+          </NavLink>
+          <NavLink
+            href={route[2]}
+            className={this.props.activePage === 'application' ? 'active' : ''}
+          >
+            Application
+          </NavLink>
         </>
       );
     }
