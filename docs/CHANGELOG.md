@@ -9,17 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add status page text constants
-- Add highlight to active page on navbar
 - Add application creation prevention past the deadline
 
 ### Changed
 
+- Updated layout for confirm email page
+
+## [2.1.0](https://github.com/hackmcgill/dashboard/tree/2.1.0) - 2019-12-31
+
+### Added
+
+- Add status page text constants
+- Add highlight to active page on navbar
+
+### Changed
+
 - Switch status page text to use constants
+- Update layout for confirmed account page
 
 ### Fixed
 
 - Login button flashing when navigating to new tab
+- Confirm email component flashing when navigating to home page
+- Fix missing space in Create/Edit Account site title
 
 ## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
 

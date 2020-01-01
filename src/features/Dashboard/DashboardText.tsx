@@ -38,7 +38,7 @@ export const LegalReview: string =
 export const ConfirmAccount: string = 'Account Confirmed';
 
 export const ConfirmMessage: string =
-  'Your account was successfully created! Click continue to start your application, view your teams or manage your account.';
+  'Your account was successfully created! Click continue to update your profile and manage your application.';
 
 export const Continue: string = 'Continue';
 
