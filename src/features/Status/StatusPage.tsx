@@ -2,6 +2,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { Box, Flex } from '@rebass/grid';
+import * as CONSTANTS from '../../config/constants';
 import {
   BackgroundImage,
   Button,
@@ -9,9 +10,7 @@ import {
   LinkDuo,
   Paragraph,
 } from '../../shared/Elements';
-// import Sidebar from '../Sidebar/Sidebar';
 
-import Background from '../../assets/images/statuspage-background.svg';
 import {
   FrontendRoute,
   HACKATHON_NAME,
@@ -20,6 +19,8 @@ import {
 } from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
+
+import Background from '../../assets/images/statuspage-background.svg';
 
 export interface IStatusPageProps {
   account?: IAccount;
@@ -56,11 +57,27 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    Your application has been submitted. Decisions will be sent
-                    out in January so stay tuned!
+                    {CONSTANTS.APPLIED_STATUS_TEXT}
                   </Paragraph>
                   <LinkDuo to={FrontendRoute.EDIT_APPLICATION_PAGE}>
                     <Button type="button">View/Edit Application</Button>
+                  </LinkDuo>
+                </Flex>
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.NONE_STATUS_TEXT}
+                  </Paragraph>
+                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                    <Button type="button">Apply</Button>
                   </LinkDuo>
                 </Flex>
               ) : (
@@ -74,23 +91,20 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    You’re all set! Ready to start your application?
+                    {CONSTANTS.DEADLINE_PASSED_LABEL}
                   </Paragraph>
-                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                    <Button type="button">Apply</Button>
-                  </LinkDuo>
                 </Flex>
               )}
+              <BackgroundImage
+                right={'0px'}
+                bottom={'0px'}
+                src={Background}
+                imgHeight={'87%'}
+              />
             </div>
           ) : (
             <ConfirmationEmailSentComponent />
           )}
-          <BackgroundImage
-            right={'0px'}
-            bottom={'0px'}
-            src={Background}
-            imgHeight={'87%'}
-          />
         </Box>
       </Flex>
     );

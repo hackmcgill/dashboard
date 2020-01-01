@@ -1,5 +1,6 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
+import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
 import { Hacker } from '../../api';
@@ -17,19 +18,28 @@ import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
 
+interface INavbarProps {
+  activePage: string;
+}
+
 interface INavbarState {
   loggedIn: boolean;
   status: HackerStatus;
   confirmed: boolean;
+  loaded: boolean;
 }
 
-export default class Navbar extends React.Component<{}, INavbarState> {
-  constructor(props: INavbarState) {
+export default class Navbar extends React.Component<
+  INavbarProps,
+  INavbarState
+> {
+  constructor(props: INavbarProps) {
     super(props);
     this.state = {
       loggedIn: false,
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
+      loaded: false,
     };
     this.checkLoggedIn();
   }
@@ -55,6 +65,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
     } catch (e) {
       this.setState({ confirmed: false });
     }
+    this.setState({ loaded: true });
   }
 
   public render() {
@@ -75,14 +86,34 @@ export default class Navbar extends React.Component<{}, INavbarState> {
     if (loggedIn === true) {
       NavItems = () => (
         <>
-          <NavLink href={route[0]}>Home</NavLink>
-          <NavLink href={route[1]}>Profile</NavLink>
-          <NavLink href={route[2]}>Application</NavLink>
+          <NavLink
+            href={route[0]}
+            className={this.props.activePage === 'home' ? 'active' : ''}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            href={route[1]}
+            className={this.props.activePage === 'profile' ? 'active' : ''}
+          >
+            Profile
+          </NavLink>
+          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
+          status !== HackerStatus.HACKER_STATUS_NONE ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
         </>
       );
     }
 
-    return (
+    return this.state.loaded ? (
       <Nav borderThickness={'2px'}>
         <IconContainer>
           <a href={routes.HOME_PAGE}>
@@ -98,7 +129,7 @@ export default class Navbar extends React.Component<{}, INavbarState> {
           {CTAButton}
         </Menu>
       </Nav>
-    );
+    ) : null;
   }
   private checkLoggedIn() {
     isLoggedIn().then((result) => {

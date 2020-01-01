@@ -10,6 +10,7 @@ export interface IDashboardState {
   account: IAccount;
   status: HackerStatus;
   confirmed: boolean;
+  loaded: boolean;
 }
 
 class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
@@ -19,6 +20,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
       account: Object(),
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: false,
+      loaded: false,
     };
   }
   public async componentDidMount() {
@@ -50,9 +52,11 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
     } catch (e) {
       this.setState({ confirmed });
     }
+    this.setState({ loaded: true });
   }
   public render() {
-    return <StatusPage {...this.state} />;
+    // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
+    return this.state.loaded ? <StatusPage {...this.state} /> : null;
   }
 }
 
