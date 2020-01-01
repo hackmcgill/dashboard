@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Login button flashing when navigating to new tab
+- Confirm email component flashing when navigating to home page
 
 ## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
 
