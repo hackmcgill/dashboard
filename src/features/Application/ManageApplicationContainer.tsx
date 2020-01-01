@@ -66,6 +66,7 @@ interface IManageApplicationState {
   hackerDetails: IHacker;
   pageNumber: number;
   resume?: File;
+  loaded: boolean;
 }
 
 interface IManageApplicationProps {
@@ -81,6 +82,7 @@ class ManageApplicationContainer extends React.Component<
       mode: props.mode,
       submitted: false,
       submitting: false,
+      loaded: false,
       pageNumber: 1,
       hackerDetails: {
         id: '',
@@ -147,74 +149,73 @@ class ManageApplicationContainer extends React.Component<
         this.setState({ mode: ManageApplicationModes.CREATE });
       }
     }
+    this.setState({ loaded: true });
   }
 
   public render() {
-    const { mode, hackerDetails, submitted, pageNumber } = this.state;
-    return submitted ? (
-      <Redirect to={FrontendRoute.HOME_PAGE} />
-    ) : (
-      // <HorizontalSpacer paddingLeft={'20%'}>
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-        {/* <Sidebar
-            currentPage="Application"
-            status={this.state.hackerDetails.status}
-            confirmed={true}
-          /> */}
-        <BackgroundImage
-          right={'10%'}
-          top={'178px'}
-          src={Drone}
-          imgHeight={'133px'}
-          position={'fixed' as 'fixed'}
-        />
-        <BackgroundImage
-          left={'5%'}
-          bottom={'5%'}
-          src={Bulby}
-          imgHeight={'290px'}
-          position={'fixed' as 'fixed'}
-        />
-        <Helmet>
-          <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
-            Application | {CONSTANTS.HACKATHON_NAME}
-          </title>
-        </Helmet>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-          <H1
-            color={theme.colors.red}
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-            paddingBottom={'20px'}
-            paddingTop={'70px'}
-          >
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
-            Application
-          </H1>
-          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+    const { mode, hackerDetails, submitted, pageNumber, loaded } = this.state;
+    return loaded ? (
+      // If application creation deadline of Jan 3, 2020 11:59:59PM EST has passed or form is submitted, return user to the home page
+      (Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME &&
+        mode === ManageApplicationModes.CREATE) ||
+      submitted ? (
+        <Redirect to={FrontendRoute.HOME_PAGE} />
+      ) : (
+        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+          <BackgroundImage
+            right={'10%'}
+            top={'178px'}
+            src={Drone}
+            imgHeight={'133px'}
+            position={'fixed' as 'fixed'}
+          />
+          <BackgroundImage
+            left={'5%'}
+            bottom={'5%'}
+            src={Bulby}
+            imgHeight={'290px'}
+            position={'fixed' as 'fixed'}
+          />
+          <Helmet>
+            <title>
+              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+              Application | {CONSTANTS.HACKATHON_NAME}
+            </title>
+          </Helmet>
+          <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+            <H1
+              color={theme.colors.red}
+              fontSize={'30px'}
+              textAlign={'left'}
+              marginTop={'0px'}
+              marginBottom={'20px'}
+              marginLeft={'0px'}
+              paddingBottom={'20px'}
+              paddingTop={'70px'}
+            >
+              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
+              Application
+            </H1>
+            <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+          </MaxWidthBox>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              hacker: hackerDetails,
+              resume: this.state.resume ? this.state.resume : undefined,
+              pageNumber,
+            }}
+            onSubmit={this.handleSubmit}
+            onReset={this.previousPage}
+            render={this.renderFormik}
+            validationSchema={getValidationSchema(
+              mode === ManageApplicationModes.CREATE,
+              this.state.pageNumber
+            )}
+          />
         </MaxWidthBox>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            hacker: hackerDetails,
-            resume: this.state.resume ? this.state.resume : undefined,
-            pageNumber,
-          }}
-          onSubmit={this.handleSubmit}
-          onReset={this.previousPage}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema(
-            mode === ManageApplicationModes.CREATE,
-            this.state.pageNumber
-          )}
-        />
-      </MaxWidthBox>
-      // </HorizontalSpacer>
-    );
+      )
+    ) : null;
   }
 
   /**
@@ -359,11 +360,7 @@ class ManageApplicationContainer extends React.Component<
           options={getOptionsFromEnum(JobInterest)}
           label={CONSTANTS.JOBINTEREST_LABEL}
           placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-          value={
-            fp.values.hacker.application.general.jobInterest
-              ? fp.values.hacker.application.general.jobInterest
-              : 'None'
-          }
+          value={fp.values.hacker.application.general.jobInterest}
           required={true}
         />
         <ErrorMessage
