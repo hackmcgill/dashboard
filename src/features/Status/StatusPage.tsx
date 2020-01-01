@@ -63,7 +63,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < CONSTANTS.CREATE_DEADLINE ? (
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
