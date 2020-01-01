@@ -73,7 +73,13 @@ class ConfirmAccountContainer extends React.Component<
           <H1 fontSize={'40px'}>{result}</H1>
         </Box>
         <MaxWidthBox hidden={this.state.attempting} mb={'20px'}>
-          <Paragraph fontSize={'24px'} maxWidth={'600px'} textAlign={'center'}>
+          <Paragraph
+            fontSize={'24px'}
+            maxWidth={'600px'}
+            marginLeft={'16px'}
+            marginRight={'16px'}
+            textAlign={'center'}
+          >
             {paragraphMessage}
           </Paragraph>
         </MaxWidthBox>
