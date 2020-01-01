@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Switch status page text to use constants
 
+### Fixed
+
+- Login button flashing when navigating to new tab
+
 ## [2.0.3](https://github.com/hackmcgill/dashboard/tree/2.0.3) - 2019-12-28
 
 ### Fixed
