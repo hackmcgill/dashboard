@@ -187,7 +187,7 @@ class ManageAccountContainer extends React.Component<
         </>
         <Helmet>
           <title>
-            {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |
+            {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |{' '}
             {CONSTANTS.HACKATHON_NAME}
           </title>
         </Helmet>
