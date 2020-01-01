@@ -4,7 +4,6 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
-import telescopeSVG from '../../assets/images/telescope.svg';
 import { EMAIL_SENT, HACKATHON_NAME, RESEND_CONF_EMAIL } from '../../config';
 import {
   Button,
@@ -15,6 +14,8 @@ import {
 } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+
+import telescope from '../../assets/images/telescope.svg';
 
 interface IConfirmationEmailSentState {
   buttonDisabled: boolean;
@@ -48,7 +49,7 @@ class ConfirmationEmailSentComponent extends React.Component<
         <Flex alignItems={'center'} flexDirection={'column'}>
           <Box>
             <Image
-              src={telescopeSVG}
+              src={telescope}
               imgHeight={'11rem'}
               padding={'0 0 30px 0'}
             />
