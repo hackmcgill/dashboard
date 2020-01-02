@@ -1,5 +1,6 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
+import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
 import { Hacker } from '../../api';
@@ -31,7 +32,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -97,12 +98,17 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          <NavLink
-            href={route[2]}
-            className={this.props.activePage === 'application' ? 'active' : ''}
-          >
-            Application
-          </NavLink>
+          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
+          status !== HackerStatus.HACKER_STATUS_NONE ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
         </>
       );
     }
