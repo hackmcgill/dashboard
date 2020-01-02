@@ -81,24 +81,24 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   </LinkDuo>
                 </Flex>
               ) : (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.DEADLINE_PASSED_LABEL}
-                  </Paragraph>
-                </Flex>
-              )}
+                    <Flex
+                      flexDirection={'column'}
+                      style={{ marginTop: '1em' }}
+                      alignItems={'center'}
+                    >
+                      <Paragraph
+                        color={theme.colors.black80}
+                        textAlign={'center'}
+                        marginBottom={'3rem'}
+                      >
+                        {CONSTANTS.DEADLINE_PASSED_LABEL}
+                      </Paragraph>
+                    </Flex>
+                  )}
             </div>
           ) : (
-            <ConfirmationEmailSentComponent />
-          )}
+              <ConfirmationEmailSentComponent />
+            )}
           <BackgroundImage
             right={'0px'}
             bottom={'0px'}
