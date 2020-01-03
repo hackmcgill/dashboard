@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fixed where background image renders on status page
+<<<<<<< HEAD
+- Fixed close date to be midnight instead of noon
+=======
+>>>>>>> develop
 
 ## [2.2.0](https://github.com/hackmcgill/dashboard/tree/2.2.0) - 2020-01-01
 
