@@ -95,16 +95,16 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   </Paragraph>
                 </Flex>
               )}
+              <BackgroundImage
+                right={'0px'}
+                bottom={'0px'}
+                src={Background}
+                imgHeight={'87%'}
+              />
             </div>
           ) : (
             <ConfirmationEmailSentComponent />
           )}
-          <BackgroundImage
-            right={'0px'}
-            bottom={'0px'}
-            src={Background}
-            imgHeight={'87%'}
-          />
         </Box>
       </Flex>
     );
