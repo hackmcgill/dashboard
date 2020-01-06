@@ -64,7 +64,7 @@ export const WITHDRAWN_STATUS_TEXT =
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
 // Application management
-export const APPLICATION_CLOSE_TIME = 1578070799000; // Jan 3, 2020 11:59:59PM EST
+export const APPLICATION_CLOSE_TIME = 1578286800000; // Jan 6, 2020 00:00:00 GMT -0500
 export const DEADLINE_PASSED_LABEL =
   'Sorry, we are no longer accepting applications at this time.';
 export const BARRIERS_LABEL = 'Would you require any accommodations?';
