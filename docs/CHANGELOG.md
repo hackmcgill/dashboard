@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.2.2](https://github.com/hackmcgill/dashboard/tree/2.2.2) - 2020-01-05
+
+### Changed
+
+- Extend application close time
+
+## [2.2.1](https://github.com/hackmcgill/dashboard/tree/2.2.1) - 2020-01-03
+
+### Fixed
+
+- Fixed where background image renders on status page
+- Fixed close date to be midnight instead of noon
+
+## [2.2.0](https://github.com/hackmcgill/dashboard/tree/2.2.0) - 2020-01-01
 
 ### Added
 
