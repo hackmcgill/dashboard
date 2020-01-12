@@ -142,10 +142,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const sponsor = (await Sponsor.getSelf()).data.data;
       this.setState({ sponsor });
     }
-
-    if (this.state.query.length > 0 || this.state.searchBar.length > 0) {
-      this.triggerSearch();
-    }
+    await this.triggerSearch();
   }
   private getSearchFromQuery(): ISearchParameter[] {
     const search = getValueFromQuery('q');
@@ -260,20 +257,22 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private filter() {
-    const { sponsor, viewSaved, results, searchBar } = this.state;
-
+    const { sponsor, viewSaved, results } = this.state;
+    const searchBar = this.state.searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
       let foundAcct;
       if (typeof accountId !== 'string') {
         const account = accountId as IAccount;
-        const fullName = `${account.firstName} ${account.lastName}`;
+        const fullName = `${account.firstName} ${
+          account.lastName
+        }`.toLowerCase();
         foundAcct =
           fullName.includes(searchBar) ||
-          account.email.includes(searchBar) ||
+          account.email.toLowerCase().includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
           // Removed as shirt size is no longer a properity of account: account.shirtSize.includes(searchBar) ||
-          account.gender.includes(searchBar) ||
+          account.gender.toLowerCase().includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
         foundAcct = accountId.includes(searchBar);
@@ -285,7 +284,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.status.includes(searchBar) ||
         hacker.application.general.graduationYear
           .toString()
-          .includes(searchBar);
+          .includes(searchBar) ||
+        hacker.application.general.jobInterest.includes(searchBar); //||
+      // hackera;
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||
