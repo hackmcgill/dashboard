@@ -278,13 +278,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       } else {
         foundAcct = accountId.includes(searchBar);
       }
-
       const foundHacker =
         hacker.id.includes(searchBar) ||
-        hacker.fieldOfStudy.includes(searchBar) ||
-        hacker.school.includes(searchBar) ||
+        hacker.application.general.fieldOfStudy.includes(searchBar) ||
+        hacker.application.general.school.includes(searchBar) ||
         hacker.status.includes(searchBar) ||
-        hacker.graduationYear.toString().includes(searchBar);
+        hacker.application.general.graduationYear
+          .toString()
+          .includes(searchBar);
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||
