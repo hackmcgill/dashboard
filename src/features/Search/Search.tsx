@@ -271,7 +271,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           fullName.includes(searchBar) ||
           account.email.toLowerCase().includes(searchBar) ||
           account.phoneNumber.toString().includes(searchBar) ||
-          // Removed as shirt size is no longer a properity of account: account.shirtSize.includes(searchBar) ||
           account.gender.toLowerCase().includes(searchBar) ||
           (account._id && account._id.includes(searchBar));
       } else {
@@ -279,14 +278,19 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       }
       const foundHacker =
         hacker.id.includes(searchBar) ||
-        hacker.application.general.fieldOfStudy.includes(searchBar) ||
         hacker.application.general.school.includes(searchBar) ||
-        hacker.status.includes(searchBar) ||
+        hacker.application.general.degree.includes(searchBar) ||
+        hacker.application.general.fieldOfStudy.includes(searchBar) ||
         hacker.application.general.graduationYear
           .toString()
           .includes(searchBar) ||
-        hacker.application.general.jobInterest.includes(searchBar); //||
-      // hackera;
+        hacker.application.general.jobInterest.includes(searchBar) ||
+        hacker.status.includes(searchBar) ||
+        hacker.application.shortAnswer.question1.includes(searchBar) ||
+        hacker.application.shortAnswer.question2.includes(searchBar) ||
+        hacker.application.accommodation.shirtSize.includes(searchBar) ||
+        (hacker.application.shortAnswer.skills &&
+          hacker.application.shortAnswer.skills.toString().includes(searchBar));
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||
@@ -296,12 +300,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     });
   }
 
-  private toggleSaved = () => {
-    const { sponsor, viewSaved } = this.state;
+  private async toggleSaved() {
+    const viewSaved = this.state.viewSaved;
+    // Resets the sponsor if they made changes to their saved hackers
+    const sponsor = (await Sponsor.getSelf()).data.data;
     if (sponsor) {
-      this.setState({ viewSaved: !viewSaved });
+      this.setState({ sponsor, viewSaved: !viewSaved });
     }
-  };
+  }
 }
 
 export default withContext(WithToasterContainer(SearchContainer));
