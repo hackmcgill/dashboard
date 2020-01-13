@@ -300,14 +300,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     });
   }
 
-  private async toggleSaved() {
-    const viewSaved = this.state.viewSaved;
+  private toggleSaved = async () => {
     // Resets the sponsor if they made changes to their saved hackers
     const sponsor = (await Sponsor.getSelf()).data.data;
+    const { viewSaved } = this.state;
     if (sponsor) {
       this.setState({ sponsor, viewSaved: !viewSaved });
     }
-  }
+  };
 }
 
 export default withContext(WithToasterContainer(SearchContainer));
