@@ -46,7 +46,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
               >
                 Hey {this.props.account.firstName},
               </H1>
-              {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
+              {this.props.status === HackerStatus.HACKER_STATUS_APPLIED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -63,7 +63,8 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ? (
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
+                this.props.status === HackerStatus.HACKER_STATUS_NONE ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -79,6 +80,92 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
                     <Button type="button">Apply</Button>
                   </LinkDuo>
+                </Flex>
+              ) : this.props.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.ACCEPTED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.props.status ===
+                HackerStatus.HACKER_STATUS_WAITLISTED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.WAITLISTED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.props.status === HackerStatus.HACKER_STATUS_DECLINED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DECLINED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.props.status ===
+                HackerStatus.HACKER_STATUS_CHECKED_IN ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.CHECKED_IN_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.props.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.CONFIRMED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.props.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.WITHDRAWN_STATUS_TEXT}
+                  </Paragraph>
                 </Flex>
               ) : (
                 <Flex

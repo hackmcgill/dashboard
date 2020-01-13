@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Status page displays appropriate message based on hacker status
+
 ### Fixed
 
 - Fixed search page not loading properly
