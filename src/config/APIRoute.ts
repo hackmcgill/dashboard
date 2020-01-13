@@ -21,6 +21,10 @@ export enum APIRoute {
   HACKER_SELF = 'hacker/self',
   HACKER_STATS = 'hacker/stats',
   HACKER_STATUS = 'hacker/status',
+  // Travel routes
+  TRAVEL = 'travel',
+  TRAVEL_EMAIL = 'travel/email',
+  TRAVEL_SELF = 'travel/self',
   // Search routes
   SEARCH = 'search',
   // Sponsor routes

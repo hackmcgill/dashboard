@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Hacker } from '../../api';
-import { HACKATHON_NAME, IHacker } from '../../config';
+import { Hacker, Travel } from '../../api';
+import { HACKATHON_NAME, IHacker, ITravel } from '../../config';
 import { H1, H2, MaxWidthBox } from '../../shared/Elements';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -10,6 +10,7 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 
 export interface ITravelState {
   hacker: IHacker | null;
+  travel: ITravel | null;
   isLoading: boolean;
 }
 
@@ -21,27 +22,48 @@ class TravelContainer extends React.Component<{}, ITravelState> {
     super(props);
     this.state = {
       hacker: null,
+      travel: null,
       isLoading: true
     };
   }
   public render() {
-    let reimbursement = <div>
-      <b>Status</b><br />
-      Blah blah bleep bloop we will reimburse you for
-      <H2 fontSize={'30px'} textAlign={'center'} marginTop={'30px'} marginBottom={'30px'} fontWeight={'normal'}>
-        $45.00
-      </H2>
-      Something about uploading reciepts goes here
-    </div>;
-    reimbursement = <div>
-      <b>Status</b><br />
-      Unfortunately we are unable to reimburse you for travel.<br />
-      <a href="mailto:contact@mchacks.ca">Let us know</a> if you think this is a mistake.
-    </div>;
-    reimbursement = <div>
-      <b>Status</b><br></br>
-      Your request to recieve reimbursement for travel is still being processed.
-    </div>;
+    let reimbursement = <div></div>;
+    if (this.state.travel) {
+      switch (this.state.travel.status) {
+        case 'None':
+          reimbursement = <div>
+            Your request to recieve ${this.state.travel.request.toFixed(2)} in reimbursement for travel is still being processed.
+          </div>;
+          break;
+        case 'Bus':
+          reimbursement = <div>
+            You are taking a bus.
+          </div>;
+          break;
+        case 'Offered':
+        case 'Valid':
+        case 'Invalid':
+          // TODO: Handle Valid and Invalid cases once reciepts are handled
+          reimbursement = <div>
+            Blah blah bleep bloop we will reimburse you for
+            <H2 fontSize={'30px'} textAlign={'center'} marginTop={'30px'} marginBottom={'30px'} fontWeight={'normal'}>
+              ${this.state.travel.offer.toFixed(2)}
+            </H2>
+            Something about uploading reciepts goes here
+          </div>;
+          break;
+        case 'Claimed':
+          // TODO: Handle Valid and Invalid cases once reciepts are handled
+          reimbursement = <div>
+            We reimbursed you for
+            <H2 fontSize={'30px'} textAlign={'center'} marginTop={'30px'} marginBottom={'30px'} fontWeight={'normal'}>
+              ${this.state.travel.offer.toFixed(2)}
+            </H2>
+            which you have already claimed.
+          </div>;
+          break;
+      }
+    }
 
     return (
       <div>
@@ -54,11 +76,12 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
               <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
                 Travel
-              </H1>
+                </H1>
+              <b>Status</b><br />
               {reimbursement}
             </MaxWidthBox>
         }
-      </div>
+      </div >
     );
   }
 
@@ -69,8 +92,10 @@ class TravelContainer extends React.Component<{}, ITravelState> {
   private async getTravelInfo() {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
+      const travel = (await Travel.getSelf()).data.data;
       this.setState({
         hacker,
+        travel
       });
     } catch (e) {
       if (e && e.data) {
