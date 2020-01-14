@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Job interest column for sponsors to see more info on hacker
+
+### Fixed
+
+- Fixed search page not loading properly
+- Fixed search queries not working
+- Update saved hackers for sponsors to view without refreshing page
+
 ### Fixed
 
 - Fixed search page not loading properly
