@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed search queries not working
 - Update saved hackers for sponsors to view without refreshing page
 
+### Fixed
+
+- Fixed search page not loading properly
+
 ## [2.2.2](https://github.com/hackmcgill/dashboard/tree/2.2.2) - 2020-01-05
 
 ### Changed
