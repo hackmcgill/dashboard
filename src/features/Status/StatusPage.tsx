@@ -240,20 +240,20 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                   </Paragraph>
                 </Flex>
               ) : (
-                    <Flex
-                      flexDirection={'column'}
-                      style={{ marginTop: '1em' }}
-                      alignItems={'center'}
-                    >
-                      <Paragraph
-                        color={theme.colors.black80}
-                        textAlign={'center'}
-                        marginBottom={'3rem'}
-                      >
-                        {CONSTANTS.DEADLINE_PASSED_LABEL}
-                      </Paragraph>
-                    </Flex>
-                  )}
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DEADLINE_PASSED_LABEL}
+                  </Paragraph>
+                </Flex>
+              )}
               <BackgroundImage
                 right={'0px'}
                 bottom={'0px'}
@@ -262,8 +262,8 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
               />
             </div>
           ) : (
-              <ConfirmationEmailSentComponent />
-            )}
+            <ConfirmationEmailSentComponent />
+          )}
         </Box>
       </Flex>
     );
