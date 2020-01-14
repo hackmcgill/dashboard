@@ -22,8 +22,7 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
       accessor: 'hacker.accountId.firstName',
     },
   ];
-
-  const adminColumns = [
+  const generalColumns = [
     ...volunteerColumns,
     {
       Header: 'Last Name',
@@ -31,19 +30,27 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
     },
     {
       Header: 'School',
-      accessor: 'hacker.school',
+      accessor: 'hacker.application.general.school',
     },
     {
-      Header: 'Major',
-      accessor: 'hacker.major',
+      Header: 'Field of Study',
+      accessor: 'hacker.application.general.fieldOfStudy',
     },
     {
       Header: 'Grad Year',
-      accessor: 'hacker.graduationYear',
+      accessor: 'hacker.application.general.graduationYear',
     },
+  ];
+
+  const adminColumns = [
+    ...generalColumns,
     {
       Header: 'Status',
       accessor: 'hacker.status',
+    },
+    {
+      Header: 'Job Interest',
+      accessor: 'hacker.application.general.jobInterest',
     },
     {
       Header: 'Applicant Info',
@@ -60,7 +67,23 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   ];
 
   const sponsorColumns = [
-    ...adminColumns,
+    ...generalColumns,
+    {
+      Header: 'Job Interest',
+      accessor: 'hacker.application.general.jobInterest',
+    },
+    {
+      Header: 'Applicant Info',
+      Cell: ({ original }: any) => (
+        <div>
+          <SingleHackerModal
+            hacker={original.hacker}
+            allHackers={props.results.map((r) => r.hacker)}
+            userType={props.userType}
+          />
+        </div>
+      ),
+    },
     {
       Header: 'Save',
       Cell: ({ original }: any) => (
