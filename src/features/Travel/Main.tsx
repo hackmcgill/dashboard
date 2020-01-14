@@ -80,7 +80,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
     return (
       <div>
         <Helmet>
-          <title>Team | {HACKATHON_NAME}</title>
+          <title>Travel | {HACKATHON_NAME}</title>
         </Helmet>
         {
           this.state.isLoading ?
@@ -88,7 +88,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
               <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
                 Travel
-                </H1>
+              </H1>
               <b>Status</b><br />
               {reimbursement}
             </MaxWidthBox>
