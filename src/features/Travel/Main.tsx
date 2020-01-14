@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 import { Hacker, Travel } from '../../api';
 import { HACKATHON_NAME, IHacker, ITravel } from '../../config';
-import { BackgroundImage, H1, H2, MaxWidthBox } from '../../shared/Elements';
+import { BackgroundImage, H1, H2, MaxWidthBox, Button } from '../../shared/Elements';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -42,17 +42,28 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             You are taking a bus. We should put more info about the bus here.
           </div>;
           break;
+        case 'Policy':
+          reimbursement = <div>
+            Your travel reimbursement decision has been released. In order to see how much you will be reimbursed, you must first
+            agree to our <a href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM" target="_blank">travel policy</a>.
+            <div style={{ textAlign: 'center', marginTop: '18px' }}>
+              <Button>I agree to McHacks Travel Policy</Button>
+            </div>
+          </div>;
+          break;
         case 'Offered':
         case 'Valid':
         case 'Invalid':
           // TODO: Handle Valid and Invalid cases once reciepts are handled
           if (this.state.travel.offer > 0) {
             reimbursement = <div>
-              Blah blah bleep bloop we will reimburse you for
+              We will reimburse you for
               <H2 fontSize={'30px'} textAlign={'center'} marginTop={'30px'} marginBottom={'30px'} fontWeight={'normal'}>
                 ${this.state.travel.offer.toFixed(2)}
               </H2>
-              <div style={{ textAlign: 'center', border: '2px dashed #ddd', padding: '8px 0' }}>Something about uploading reciepts goes here</div>
+              <div style={{ textAlign: 'center', border: '2px dashed #ddd', padding: '8px 0' }}>
+                Please <a href="https://forms.gle/TdxUaUn31WzXcPvu6" target="_blank">upload your receipts</a>
+              </div>
             </div>;
           } else {
             reimbursement = <div>
@@ -60,7 +71,9 @@ class TravelContainer extends React.Component<{}, ITravelState> {
               <H2 fontSize={'30px'} textAlign={'center'} marginTop={'30px'} marginBottom={'30px'} fontWeight={'normal'}>
                 No Amount
               </H2>
-              <div style={{ textAlign: 'center', border: '2px dashed #ddd', padding: '8px 0' }}><a href="mailto:contact@mchacks.ca">Let us know</a> if you think this is an error</div>
+              <div style={{ textAlign: 'center', border: '2px dashed #ddd', padding: '8px 0' }}>
+                <a href="mailto:contact@mchacks.ca">Let us know</a> if you think this is an error
+              </div>
             </div>;
           }
           break;
