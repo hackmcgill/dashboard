@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+### Added
 
+- Job interest column for sponsors to see more info on hacker
 - Added travel page that displays hacker's travel status and reimbursement amount
+
+### Fixed
+
+- Fixed search page not loading properly
+- Fixed search queries not working
+- Update saved hackers for sponsors to view without refreshing page
 
 ### Fixed
 
