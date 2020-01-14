@@ -20,6 +20,8 @@ export * from './shirtSizes';
 export * from './skills';
 export * from './statsResponse';
 export * from './team';
+export * from './travelStatus';
+export * from './travel';
 export * from './userTypes';
 export * from './validationError';
 export * from './pageType';

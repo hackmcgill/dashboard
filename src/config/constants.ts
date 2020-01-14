@@ -10,6 +10,7 @@ export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';
+export const CACHE_TRAVEL_KEY = 'travelInfo';
 
 // General information
 export const HACKATHON_NAME = 'McHacks';

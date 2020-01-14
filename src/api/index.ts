@@ -4,5 +4,6 @@ export * from './api';
 export * from './auth';
 export * from './endpoint';
 export * from './hacker';
+export * from './travel';
 export * from './search';
 export * from './sponsor';
