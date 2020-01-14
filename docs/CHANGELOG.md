@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Status page displays appropriate message based on hacker status
 - Job interest column for sponsors to see more info on hacker
+- Added buttons for status page based on status
 
 ### Fixed
 

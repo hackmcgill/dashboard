@@ -20,6 +20,7 @@ import {
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
+import { Hacker } from '../../api';
 import Background from '../../assets/images/statuspage-background.svg';
 
 export interface IStatusPageProps {
@@ -28,7 +29,53 @@ export interface IStatusPageProps {
   confirmed: boolean;
 }
 
-class StatusPage extends React.Component<IStatusPageProps, {}> {
+export interface IStatusPageState {
+  status: HackerStatus;
+}
+
+class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
+  constructor(props: IStatusPageProps) {
+    super(props);
+    this.state = {
+      status: this.props.status,
+    };
+  }
+  public confirmStatus = async (e: any) => {
+    if (this.props.account) {
+      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
+        .data;
+      if (hacker) {
+        await Hacker.confirm(hacker.id, true);
+        this.setState({ status: HackerStatus.HACKER_STATUS_CONFIRMED });
+      }
+    }
+  };
+
+  public checkInStatus = async (e: any) => {
+    if (this.props.account) {
+      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
+        .data;
+      if (hacker) {
+        await Hacker.checkin(hacker.id);
+        this.setState({ status: HackerStatus.HACKER_STATUS_CHECKED_IN });
+      }
+    }
+  };
+
+  public withdrawStatus = async (e: any) => {
+    if (this.props.account) {
+      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
+        .data;
+      if (hacker) {
+        await Hacker.updateStatus(
+          hacker.id,
+          HackerStatus.HACKER_STATUS_WITHDRAWN
+        );
+        this.setState({ status: HackerStatus.HACKER_STATUS_WITHDRAWN });
+      }
+    }
+  };
+
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
@@ -46,7 +93,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
               >
                 Hey {this.props.account.firstName},
               </H1>
-              {this.props.status === HackerStatus.HACKER_STATUS_APPLIED ? (
+              {this.state.status === HackerStatus.HACKER_STATUS_APPLIED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -64,7 +111,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   </LinkDuo>
                 </Flex>
               ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
-                this.props.status === HackerStatus.HACKER_STATUS_NONE ? (
+                this.state.status === HackerStatus.HACKER_STATUS_NONE ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -81,7 +128,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">Apply</Button>
                   </LinkDuo>
                 </Flex>
-              ) : this.props.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+              ) : this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -94,8 +141,18 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   >
                     {CONSTANTS.ACCEPTED_STATUS_TEXT}
                   </Paragraph>
+                  <Button
+                    type="button"
+                    style={{ marginBottom: '20px' }}
+                    onClick={this.confirmStatus}
+                  >
+                    Confirm
+                  </Button>
+                  <Button type="button" onClick={this.withdrawStatus}>
+                    Withdraw
+                  </Button>
                 </Flex>
-              ) : this.props.status ===
+              ) : this.state.status ===
                 HackerStatus.HACKER_STATUS_WAITLISTED ? (
                 <Flex
                   flexDirection={'column'}
@@ -110,7 +167,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     {CONSTANTS.WAITLISTED_STATUS_TEXT}
                   </Paragraph>
                 </Flex>
-              ) : this.props.status === HackerStatus.HACKER_STATUS_DECLINED ? (
+              ) : this.state.status === HackerStatus.HACKER_STATUS_DECLINED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -124,7 +181,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     {CONSTANTS.DECLINED_STATUS_TEXT}
                   </Paragraph>
                 </Flex>
-              ) : this.props.status ===
+              ) : this.state.status ===
                 HackerStatus.HACKER_STATUS_CHECKED_IN ? (
                 <Flex
                   flexDirection={'column'}
@@ -138,8 +195,15 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   >
                     {CONSTANTS.CHECKED_IN_STATUS_TEXT}
                   </Paragraph>
+                  <LinkDuo
+                    to={
+                      FrontendRoute.CREATE_APPLICATION_PAGE
+                    } /* link not made yet */
+                  >
+                    <Button type="button">Live Site</Button>
+                  </LinkDuo>
                 </Flex>
-              ) : this.props.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
+              ) : this.state.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -152,8 +216,16 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                   >
                     {CONSTANTS.CONFIRMED_STATUS_TEXT}
                   </Paragraph>
+                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                    <Button type="button" style={{ marginBottom: '20px' }}>
+                      Travel Page
+                    </Button>
+                  </LinkDuo>
+                  <Button type="button" onClick={this.checkInStatus}>
+                    Check-In
+                  </Button>
                 </Flex>
-              ) : this.props.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
+              ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
