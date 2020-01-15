@@ -61,7 +61,7 @@ export const WAITLISTED_STATUS_TEXT =
 export const CONFIRMED_STATUS_TEXT =
   'Your attendance has been confirmed! More information on McHacks will be sent to your inbox as we get closer to the event.';
 export const WITHDRAWN_STATUS_TEXT =
-  "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one";
+  "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
 // Application management

@@ -20,6 +20,7 @@ import {
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
+import { Hacker } from '../../api';
 import Background from '../../assets/images/statuspage-background.svg';
 
 export interface IStatusPageProps {
@@ -28,7 +29,42 @@ export interface IStatusPageProps {
   confirmed: boolean;
 }
 
-class StatusPage extends React.Component<IStatusPageProps, {}> {
+export interface IStatusPageState {
+  status: HackerStatus;
+}
+
+class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
+  constructor(props: IStatusPageProps) {
+    super(props);
+    this.state = {
+      status: this.props.status,
+    };
+  }
+  public confirmStatus = async (e: any) => {
+    if (this.props.account) {
+      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
+        .data;
+      if (hacker) {
+        await Hacker.confirm(hacker.id, true);
+        this.setState({ status: HackerStatus.HACKER_STATUS_CONFIRMED });
+      }
+    }
+  };
+
+  public withdrawStatus = async (e: any) => {
+    if (this.props.account) {
+      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
+        .data;
+      if (hacker) {
+        await Hacker.updateStatus(
+          hacker.id,
+          HackerStatus.HACKER_STATUS_WITHDRAWN
+        );
+        this.setState({ status: HackerStatus.HACKER_STATUS_WITHDRAWN });
+      }
+    }
+  };
+
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
@@ -46,7 +82,7 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
               >
                 Hey {this.props.account.firstName},
               </H1>
-              {this.props.status !== HackerStatus.HACKER_STATUS_NONE ? (
+              {this.state.status === HackerStatus.HACKER_STATUS_APPLIED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -63,7 +99,8 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ? (
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
+                this.state.status === HackerStatus.HACKER_STATUS_NONE ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -80,21 +117,136 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
                     <Button type="button">Apply</Button>
                   </LinkDuo>
                 </Flex>
-              ) : (
-                    <Flex
-                      flexDirection={'column'}
-                      style={{ marginTop: '1em' }}
-                      alignItems={'center'}
+              ) : this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.ACCEPTED_STATUS_TEXT}
+                  </Paragraph>
+                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                    <Button
+                      type="button"
+                      style={{ marginRight: '20px' }}
+                      onClick={this.confirmStatus}
                     >
-                      <Paragraph
-                        color={theme.colors.black80}
-                        textAlign={'center'}
-                        marginBottom={'3rem'}
-                      >
-                        {CONSTANTS.DEADLINE_PASSED_LABEL}
-                      </Paragraph>
-                    </Flex>
-                  )}
+                      Confirm
+                    </Button>
+                    <Button type="button" onClick={this.withdrawStatus}>
+                      Withdraw
+                    </Button>
+                  </Flex>
+                </Flex>
+              ) : this.state.status ===
+                HackerStatus.HACKER_STATUS_WAITLISTED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.WAITLISTED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.state.status === HackerStatus.HACKER_STATUS_DECLINED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DECLINED_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : this.state.status ===
+                HackerStatus.HACKER_STATUS_CHECKED_IN ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.CHECKED_IN_STATUS_TEXT}
+                  </Paragraph>
+                  <LinkDuo
+                    to={
+                      FrontendRoute.CREATE_APPLICATION_PAGE
+                    } /* link not made yet */
+                  >
+                    <Button type="button">Live Site</Button>
+                  </LinkDuo>
+                </Flex>
+              ) : this.state.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.CONFIRMED_STATUS_TEXT}
+                  </Paragraph>
+                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
+                      <Button type="button" style={{ marginRight: '20px' }}>
+                        Travel Page
+                      </Button>
+                    </LinkDuo>
+                    <Button type="button" onClick={this.withdrawStatus}>
+                      Withdraw
+                    </Button>
+                  </Flex>
+                </Flex>
+              ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.WITHDRAWN_STATUS_TEXT}
+                  </Paragraph>
+                </Flex>
+              ) : (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DEADLINE_PASSED_LABEL}
+                  </Paragraph>
+                </Flex>
+              )}
               <BackgroundImage
                 right={'0px'}
                 bottom={'0px'}
@@ -103,8 +255,8 @@ class StatusPage extends React.Component<IStatusPageProps, {}> {
               />
             </div>
           ) : (
-              <ConfirmationEmailSentComponent />
-            )}
+            <ConfirmationEmailSentComponent />
+          )}
         </Box>
       </Flex>
     );
