@@ -130,16 +130,18 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                   >
                     {CONSTANTS.ACCEPTED_STATUS_TEXT}
                   </Paragraph>
-                  <Button
-                    type="button"
-                    style={{ marginBottom: '20px' }}
-                    onClick={this.confirmStatus}
-                  >
-                    Confirm
-                  </Button>
-                  <Button type="button" onClick={this.withdrawStatus}>
-                    Withdraw
-                  </Button>
+                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                    <Button
+                      type="button"
+                      style={{ marginRight: '20px' }}
+                      onClick={this.confirmStatus}
+                    >
+                      Confirm
+                    </Button>
+                    <Button type="button" onClick={this.withdrawStatus}>
+                      Withdraw
+                    </Button>
+                  </Flex>
                 </Flex>
               ) : this.state.status ===
                 HackerStatus.HACKER_STATUS_WAITLISTED ? (
@@ -205,14 +207,16 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                   >
                     {CONSTANTS.CONFIRMED_STATUS_TEXT}
                   </Paragraph>
-                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                    <Button type="button" style={{ marginBottom: '20px' }}>
-                      Travel Page
+                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                    <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                      <Button type="button" style={{ marginRight: '20px' }}>
+                        Travel Page
+                      </Button>
+                    </LinkDuo>
+                    <Button type="button" onClick={this.withdrawStatus}>
+                      Withdraw
                     </Button>
-                  </LinkDuo>
-                  <Button type="button" onClick={this.withdrawStatus}>
-                    Withdraw
-                  </Button>
+                  </Flex>
                 </Flex>
               ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
                 <Flex
