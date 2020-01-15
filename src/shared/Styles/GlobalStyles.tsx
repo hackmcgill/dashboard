@@ -28,10 +28,10 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(props) => props.theme.colors.black80};
+    color: ${(props) => props.theme.colors.red};
 
     &:hover {
-      color: ${(props) => props.theme.colors.black30};
+      color: ${(props) => props.theme.colors.redLight};
 
     }
 
