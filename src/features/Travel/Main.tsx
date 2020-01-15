@@ -43,6 +43,21 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             <div>
               Your request to recieve ${this.state.travel.request.toFixed(2)} in
               reimbursement for travel is still being processed.
+              <br />
+              <br />
+              <h2>Bus</h2>
+              We're offering a round-trip bus from Toronto to McHacks. Seats are
+              available on a first-come, first-serve basis. You can place a
+              deposit to secure a seat on the bus{' '}
+              <a
+                href="https://bus.mchacks.ca"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="#F2463A"
+              >
+                here
+              </a>
+              .
             </div>
           );
           break;
@@ -62,6 +77,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                 href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
                 target="_blank"
                 rel="noopener noreferrer"
+                color="#F2463A"
               >
                 travel policy
               </a>
@@ -101,6 +117,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                     href="https://forms.gle/TdxUaUn31WzXcPvu6"
                     target="_blank"
                     rel="noopener noreferrer"
+                    color="#F2463A"
                   >
                     upload your receipts
                   </a>
@@ -111,7 +128,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             reimbursement = (
               <div>
                 Unfortunately, due to financial restrictions, we are unable to
-                provide you reimbursement for funding
+                provide you reimbursement for funding.
                 <H2
                   fontSize={'30px'}
                   textAlign={'center'}
@@ -168,8 +185,7 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
               Travel
             </H1>
-            <b>Status</b>
-            <br />
+            <h2>Status</h2>
             {reimbursement}
           </MaxWidthBox>
         )}
