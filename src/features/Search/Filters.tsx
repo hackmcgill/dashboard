@@ -45,11 +45,17 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   }
   private parseInitialValues(initFilters: ISearchParameter[]) {
     const initVals = {
-      school: this.searchParam2List('school', initFilters),
-      gradYear: this.searchParam2List('graduationYear', initFilters),
-      degree: this.searchParam2List('degree', initFilters),
+      school: this.searchParam2List('application.general.school', initFilters),
+      gradYear: this.searchParam2List(
+        'application.general.graduationYear',
+        initFilters
+      ),
+      degree: this.searchParam2List('application.general.degree', initFilters),
       status: this.searchParam2List('status', initFilters),
-      skills: this.searchParam2List('application.skills', initFilters),
+      skills: this.searchParam2List(
+        'application.shortAnswer.skills',
+        initFilters
+      ),
       jobInterest: this.searchParam2List(
         'application.general.jobInterest',
         initFilters
@@ -154,19 +160,25 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
    * @param values Formik values
    */
   private handleSubmit(values: FormikValues) {
-    const schoolSearchParam = this.list2SearchParam('school', values.school);
+    const schoolSearchParam = this.list2SearchParam(
+      'application.general.school',
+      values.school
+    );
     const gradYearParam = this.list2SearchParam(
-      'graduationYear',
+      'application.general.graduationYear',
       values.gradYear
     );
-    const degreeParam = this.list2SearchParam('degree', values.degree);
+    const degreeParam = this.list2SearchParam(
+      'application.general.degree',
+      values.degree
+    );
     const statusParam = this.list2SearchParam('status', values.status);
     const skillsParam = this.list2SearchParam(
-      'application.skills',
+      'application.shortAnswer.skills',
       values.skills
     );
     const jobInterestParam = this.list2SearchParam(
-      'application.jobInterest',
+      'application.general.jobInterest',
       values.jobInterest
     );
     let search: ISearchParameter[] = [];

@@ -10,6 +10,7 @@ export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';
+export const CACHE_TRAVEL_KEY = 'travelInfo';
 
 // General information
 export const HACKATHON_NAME = 'McHacks';
@@ -52,7 +53,7 @@ export const NONE_STATUS_TEXT =
 export const APPLIED_STATUS_TEXT =
   'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
 export const ACCEPTED_STATUS_TEXT =
-  "Congratulations! We're excited to offer you a spot at McHacks! Please RSVP by January 22, 2020 to secure your spot and we'll see you there.";
+  "Congratulations! We're excited to offer you a spot at McHacks! Please RSVP by January 20, 2020 at 11:59PM EST to secure your spot and we'll see you there.";
 export const DECLINED_STATUS_TEXT =
   "Thank you so much for your interest in McHacks. Unfortunately, we don't have enough space to offer you a spot this year. That being said, please keep in touch and we'd love to see you apply again next year! In the meantime, we hope you continue to create and build awesome things!";
 export const WAITLISTED_STATUS_TEXT =
@@ -60,7 +61,7 @@ export const WAITLISTED_STATUS_TEXT =
 export const CONFIRMED_STATUS_TEXT =
   'Your attendance has been confirmed! More information on McHacks will be sent to your inbox as we get closer to the event.';
 export const WITHDRAWN_STATUS_TEXT =
-  "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one";
+  "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
 // Application management

@@ -20,6 +20,7 @@ import SingleHackerContainer from './features/SingleHacker/Main';
 import CreateSponsorContainer from './features/Sponsor/SponsorCreation';
 import EditSponsorContainer from './features/Sponsor/SponsorEdition';
 import TeamContainer from './features/Team/Main';
+import TravelContainer from './features/Travel/Main';
 
 import {
   FrontendRoute,
@@ -41,6 +42,7 @@ import {
   canAccessApplication,
   canAccessHackerPass,
   canAccessTeam,
+  canAccessTravel,
   isSponsor,
   userCanAccessHackerPage,
 } from './util';
@@ -166,6 +168,23 @@ class App extends React.Component {
                       user.confirmed && user.accountType === UserType.HACKER,
                   }
                 ), { activePage: 'team' }
+              )}
+            />
+            <Route
+              exact={true}
+              path={FrontendRoute.TRAVEL_PAGE}
+              component={withNavbar(
+                withAuthRedirect(
+                  withHackerRedirect(TravelContainer, {
+                    AuthVerification: canAccessTravel,
+                  }),
+                  {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && user.accountType === UserType.HACKER,
+                  }
+                ), { activePage: 'travel' }
               )}
             />
             <Route

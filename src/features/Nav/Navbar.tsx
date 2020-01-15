@@ -7,7 +7,7 @@ import { Hacker } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import { FrontendRoute as routes, HackerStatus } from '../../config';
 // import { Image } from '../../shared/Elements';
-import { isLoggedIn } from '../../util/UserInfoHelperFunctions';
+import { isLoggedIn, canAccessTravel } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import Burger from './Burger';
 import Icon from './Icon';
@@ -27,12 +27,13 @@ interface INavbarState {
   status: HackerStatus;
   confirmed: boolean;
   loaded: boolean;
+  showTravelLink: boolean;
 }
 
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-> {
+  > {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -40,6 +41,7 @@ export default class Navbar extends React.Component<
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
       loaded: false,
+      showTravelLink: false
     };
     this.checkLoggedIn();
   }
@@ -51,10 +53,10 @@ export default class Navbar extends React.Component<
     try {
       const response = await Hacker.getSelf();
       hacker = response.data.data;
-      this.setState({ status: hacker.status });
+      this.setState({ status: hacker.status, showTravelLink: canAccessTravel(hacker) });
     } catch (e) {
       if (e.status === 401) {
-        this.setState({ status: HackerStatus.HACKER_STATUS_NONE });
+        this.setState({ status: HackerStatus.HACKER_STATUS_NONE, showTravelLink: false });
       }
     }
 
@@ -80,7 +82,7 @@ export default class Navbar extends React.Component<
       appRoute = routes.EDIT_APPLICATION_PAGE;
     }
 
-    const route: any[] = [routes.HOME_PAGE, routes.EDIT_ACCOUNT_PAGE, appRoute];
+    const route: any[] = [routes.HOME_PAGE, routes.EDIT_ACCOUNT_PAGE, appRoute, routes.TRAVEL_PAGE];
 
     let NavItems = () => <></>;
     if (loggedIn === true) {
@@ -99,14 +101,24 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
-          status !== HackerStatus.HACKER_STATUS_NONE ? (
+            status !== HackerStatus.HACKER_STATUS_NONE ? (
+              <NavLink
+                href={route[2]}
+                className={
+                  this.props.activePage === 'application' ? 'active' : ''
+                }
+              >
+                Application
+            </NavLink>
+            ) : null}
+          {this.state.showTravelLink ? (
             <NavLink
-              href={route[2]}
+              href={route[3]}
               className={
-                this.props.activePage === 'application' ? 'active' : ''
+                this.props.activePage === 'travel' ? 'active' : ''
               }
             >
-              Application
+              Travel
             </NavLink>
           ) : null}
         </>
