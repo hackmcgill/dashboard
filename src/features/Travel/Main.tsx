@@ -53,7 +53,6 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                 href="https://bus.mchacks.ca"
                 target="_blank"
                 rel="noopener noreferrer"
-                color="#F2463A"
               >
                 here
               </a>
@@ -77,7 +76,6 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                 href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
                 target="_blank"
                 rel="noopener noreferrer"
-                color="#F2463A"
               >
                 travel policy
               </a>
@@ -95,7 +93,8 @@ class TravelContainer extends React.Component<{}, ITravelState> {
           if (this.state.travel.offer > 0) {
             reimbursement = (
               <div>
-                We will reimburse you for
+                We're happy to offer an amount to subsidize your travel to
+                McHacks. We can reimburse you up to:
                 <H2
                   fontSize={'30px'}
                   textAlign={'center'}
@@ -117,7 +116,6 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                     href="https://forms.gle/TdxUaUn31WzXcPvu6"
                     target="_blank"
                     rel="noopener noreferrer"
-                    color="#F2463A"
                   >
                     upload your receipts
                   </a>
@@ -127,8 +125,8 @@ class TravelContainer extends React.Component<{}, ITravelState> {
           } else {
             reimbursement = (
               <div>
-                Unfortunately, due to financial restrictions, we are unable to
-                provide you reimbursement for funding.
+                Unfortunately, we’re unable to offer you any travel
+                reimbursement to McHacks.
                 <H2
                   fontSize={'30px'}
                   textAlign={'center'}
@@ -138,16 +136,18 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                 >
                   No Amount
                 </H2>
-                <div
-                  style={{
-                    textAlign: 'center',
-                    border: '2px dashed #ddd',
-                    padding: '8px 0',
-                  }}
+                <h2>Bus</h2>
+                We're offering a round-trip bus from Toronto to McHacks. Seats
+                are available on a first-come, first-serve basis. You can place
+                a deposit to secure a seat on the bus{' '}
+                <a
+                  href="https://bus.mchacks.ca"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <a href="mailto:contact@mchacks.ca">Let us know</a> if you
-                  think this is an error
-                </div>
+                  here
+                </a>
+                .
               </div>
             );
           }
@@ -187,6 +187,19 @@ class TravelContainer extends React.Component<{}, ITravelState> {
             </H1>
             <h2>Status</h2>
             {reimbursement}
+            <br />
+            <br />
+            <div>
+              Please ensure you've reviewed our{' '}
+              <a
+                href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                travel policy
+              </a>{' '}
+              if using any of our travel accommodation options.
+            </div>
           </MaxWidthBox>
         )}
         <BackgroundImage
