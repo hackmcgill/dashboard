@@ -208,7 +208,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     {CONSTANTS.CONFIRMED_STATUS_TEXT}
                   </Paragraph>
                   <Flex flexDirection={'row'} justifyContent={'space-around'}>
-                    <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
                       <Button type="button" style={{ marginRight: '20px' }}>
                         Travel Page
                       </Button>
