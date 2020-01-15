@@ -56,10 +56,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
       if (hacker) {
-        await Hacker.updateStatus(
-          hacker.id,
-          HackerStatus.HACKER_STATUS_WITHDRAWN
-        );
+        await Hacker.confirm(hacker.id, false);
         this.setState({ status: HackerStatus.HACKER_STATUS_WITHDRAWN });
       }
     }
