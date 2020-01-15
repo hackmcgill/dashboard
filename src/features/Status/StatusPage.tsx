@@ -51,17 +51,6 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
     }
   };
 
-  public checkInStatus = async (e: any) => {
-    if (this.props.account) {
-      const hacker = (await Hacker.getByEmail(this.props.account.email)).data
-        .data;
-      if (hacker) {
-        await Hacker.checkin(hacker.id);
-        this.setState({ status: HackerStatus.HACKER_STATUS_CHECKED_IN });
-      }
-    }
-  };
-
   public withdrawStatus = async (e: any) => {
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
@@ -221,8 +210,8 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                       Travel Page
                     </Button>
                   </LinkDuo>
-                  <Button type="button" onClick={this.checkInStatus}>
-                    Check-In
+                  <Button type="button" onClick={this.withdrawStatus}>
+                    Withdraw
                   </Button>
                 </Flex>
               ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
