@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Job interest column for sponsors to see more info on hacker
 - Added buttons for status page based on status
 - Added travel page that displays hacker's travel status and reimbursement amount
+- Resume by tier access for search
 
 ### Changed
 
