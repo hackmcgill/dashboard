@@ -63,7 +63,32 @@ class TravelContainer extends React.Component<{}, ITravelState> {
         case 'Bus':
           reimbursement = (
             <div>
-              You are taking a bus. We should put more info about the bus here.
+              Congratulations, you've secured a seat on our Toronto bus to/from
+              McHacks!
+              <br />
+              <br />
+              <h2>Bus</h2>
+              Join the #bus-toronto channel on our official{' '}
+              <a
+                href="https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Slack
+              </a>{' '}
+              for details and more information about your bus route.
+              <br />
+              <br />
+              If you can no longer make it to McHacks, please{' '}
+              <a
+                href="https://bus.mchacks.ca"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                contact
+              </a>{' '}
+              us so we can refund your deposit and open the seat up to another
+              hacker.
             </div>
           );
           break;
