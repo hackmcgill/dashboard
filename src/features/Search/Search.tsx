@@ -189,7 +189,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.state.account.accountType === UserType.STAFF
     ) {
       headers.push('application.general.URL.resume');
-      headers.push('application.general.URL.resume');
       headers.push('application.general.URL.github');
       headers.push('application.general.URL.dribbble');
       headers.push('application.general.URL.personal');
