@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Added
+### Changed
 
 - Display travel page on navbar for hackers even if they didn't request money
 - Display message on travel page if hacker requested no money
