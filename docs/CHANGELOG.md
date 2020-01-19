@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update text for travel status: bus
 
+### Fixed
+
+- Hacker export returns field values properly
+
 ## [2.3.0](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-15
 
 ### Added

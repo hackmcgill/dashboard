@@ -175,17 +175,41 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private downloadData(): void {
     const headers = [
-      '_id',
       'accountId.firstName',
       'accountId.lastName',
-      'accountId.email',
-      'travel',
-      'major',
-      'school',
-      'graduationYear',
-      'degree',
-      'gender',
+      'application.general.school',
+      'application.general.fieldOfStudy',
+      'application.general.graduationYear',
+      'application.general.degree',
+      'application.general.jobInterest',
     ];
+    // Return all fields for admin, and only subset for sponsors
+    if (
+      this.state.account &&
+      this.state.account.accountType === UserType.STAFF
+    ) {
+      headers.push('application.general.URL.resume');
+      headers.push('application.general.URL.resume');
+      headers.push('application.general.URL.github');
+      headers.push('application.general.URL.dribbble');
+      headers.push('application.general.URL.personal');
+      headers.push('application.general.URL.linkedin');
+      headers.push('application.general.URL.other');
+      headers.push('application.shortAnswer.skills');
+      headers.push('application.shortAnswer.comments');
+      headers.push('application.shortAnswer.question1');
+      headers.push('application.shortAnswer.question2');
+      headers.push('accountId.email');
+      headers.push('application.accommodation.shirtSize');
+      headers.push('application.accommodation.impairments');
+      headers.push('application.accommodation.barriers');
+      headers.push('application.accommodation.travel');
+      headers.push('application.other.ethnicity');
+      headers.push('accountId.gender');
+    }
+    /*
+
+    */
     const csvData: string[] = [headers.join('\t')];
     this.filter().forEach((result) => {
       if (result.selected) {
