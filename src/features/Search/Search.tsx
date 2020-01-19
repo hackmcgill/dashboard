@@ -206,9 +206,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       headers.push('application.other.ethnicity');
       headers.push('accountId.gender');
     }
-    /*
-
-    */
     const csvData: string[] = [headers.join('\t')];
     this.filter().forEach((result) => {
       if (result.selected) {
