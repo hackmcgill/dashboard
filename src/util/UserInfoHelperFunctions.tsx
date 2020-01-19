@@ -128,9 +128,7 @@ export function canAccessTravel(hacker?: IHacker): boolean {
     return !!(
       hacker &&
       hacker.application &&
-      hacker.application.accommodation &&
-      hacker.application.accommodation.travel &&
-      hacker.application.accommodation.travel > 0
+      hacker.application.accommodation
     );
   }
   return false;
