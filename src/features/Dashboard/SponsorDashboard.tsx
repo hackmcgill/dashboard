@@ -41,10 +41,7 @@ class SponsorDashboard extends React.Component<
 
   public render() {
     return (
-      <DashboardView
-        cards={this.generateCards()}
-        title={`${this.props.userType} Dashboard`}
-      />
+      <DashboardView cards={this.generateCards()} title={'Sponsor Dashboard'} />
     );
   }
 
