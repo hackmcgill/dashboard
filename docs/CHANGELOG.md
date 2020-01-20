@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Hacker export returns field values properly
 
+### Added
+
+- Resume by tier access for search
+
 ## [2.3.2](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-19
 
 ### Changed
