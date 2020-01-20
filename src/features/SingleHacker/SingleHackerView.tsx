@@ -223,7 +223,11 @@ class SingleHackerView extends React.Component<
                 link={hacker.application.general.URL.dribbble}
               />
             </Flex>
-            <ViewPDFComponent hackerId={hacker.id} />
+            {/* Only tier1 sponsors and admin have access to user resumes */}
+            {this.props.userType === UserType.SPONSOR_T1 ||
+            this.props.userType === UserType.STAFF ? (
+              <ViewPDFComponent hackerId={hacker.id} />
+            ) : null}
             <SingleHackerSection
               title="Additional Information"
               hidden={!isAdmin}
