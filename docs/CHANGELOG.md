@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.2](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-19
+
+### Changed
+
+- Display travel page on navbar for hackers even if they didn't request money
+- Display message on travel page if hacker requested no money
+
+## [2.3.1](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-18
+
+### Changed
+
+- Update text for travel status: bus
+
+## [2.3.0](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-15
+
 ### Added
 
 - Status page displays appropriate message based on hacker status
@@ -16,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update application confirm deadline
+- Update travel page text
+- Update global styles for `a` tag
 
 ### Fixed
 
@@ -23,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed search queries not working
 - Update saved hackers for sponsors to view without refreshing page
 - Fixed search page not loading properly
+- Fix withdrawn button on status page
 
 ## [2.2.2](https://github.com/hackmcgill/dashboard/tree/2.2.2) - 2020-01-05
 
