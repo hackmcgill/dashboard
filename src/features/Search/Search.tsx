@@ -175,48 +175,85 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private downloadData(): void {
     const headers = [
-      'accountId.firstName',
-      'accountId.lastName',
-      'application.general.school',
-      'application.general.fieldOfStudy',
-      'application.general.graduationYear',
-      'application.general.degree',
-      'application.general.jobInterest',
+      { label: 'First Name', key: 'accountId.firstName' },
+      { label: 'Last Name', key: 'accountId.lastName' },
+      { label: 'Email', key: 'accountId.email' },
+      { label: 'School', key: 'application.general.school' },
+      { label: 'Field of Study', key: 'application.general.fieldOfStudy' },
+      { label: 'Graduation Year', key: 'application.general.graduationYear' },
+      { label: 'Degree', key: 'application.general.degree' },
+      { label: 'Job Interest', key: 'application.general.jobInterest' },
     ];
     // Return all fields for admin, and only subset for sponsors
     if (
       this.state.account &&
       this.state.account.accountType === UserType.STAFF
     ) {
-      headers.push('application.general.URL.resume');
-      headers.push('application.general.URL.github');
-      headers.push('application.general.URL.dribbble');
-      headers.push('application.general.URL.personal');
-      headers.push('application.general.URL.linkedin');
-      headers.push('application.general.URL.other');
-      headers.push('application.shortAnswer.skills');
-      headers.push('application.shortAnswer.comments');
-      headers.push('application.shortAnswer.question1');
-      headers.push('application.shortAnswer.question2');
-      headers.push('accountId.email');
-      headers.push('application.accommodation.shirtSize');
-      headers.push('application.accommodation.impairments');
-      headers.push('application.accommodation.barriers');
-      headers.push('application.accommodation.travel');
-      headers.push('application.other.ethnicity');
-      headers.push('accountId.gender');
+      headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
+      headers.push({ label: 'Github', key: 'application.general.URL.github' });
+      headers.push({
+        label: 'Dribbble',
+        key: 'application.general.URL.dribbble',
+      });
+      headers.push({
+        label: 'Personal Website',
+        key: 'application.general.URL.personal',
+      });
+      headers.push({
+        label: 'LinkedIn',
+        key: 'application.general.URL.linkedin',
+      });
+      headers.push({
+        label: 'Other Website',
+        key: 'application.general.URL.other',
+      });
+      headers.push({ label: 'Skills', key: 'application.shortAnswer.skills' });
+      headers.push({
+        label: 'Comments',
+        key: 'application.shortAnswer.comments',
+      });
+      headers.push({
+        label: 'Why McHacks?',
+        key: 'application.shortAnswer.question1',
+      });
+      headers.push({
+        label: 'Passion?',
+        key: 'application.shortAnswer.question2',
+      });
+      headers.push({
+        label: 'Shirt Size',
+        key: 'application.accommodation.shirtSize',
+      });
+      headers.push({
+        label: 'Impairments',
+        key: 'application.accommodation.impairments',
+      });
+      headers.push({
+        label: 'Barriers',
+        key: 'application.accommodation.barriers',
+      });
+      headers.push({
+        label: 'Travel',
+        key: 'application.accommodation.travel',
+      });
+      headers.push({ label: 'Ethnicity', key: 'application.other.ethnicity' });
+      headers.push({ label: 'Gender', key: 'accountId.gender' });
     }
-    const csvData: string[] = [headers.join('\t')];
+    const tempHeaders: string[] = [];
+    headers.forEach((header) => {
+      tempHeaders.push(header.label);
+    });
+    const csvData: string[] = [tempHeaders.join('\t')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
           let value;
-          if (header.indexOf('.') >= 0) {
-            const nestedAttr = header.split('.');
+          if (header.key.indexOf('.') >= 0) {
+            const nestedAttr = header.key.split('.');
             value = getNestedAttr(result.hacker, nestedAttr);
           } else {
-            value = result.hacker[header];
+            value = result.hacker[header.key];
           }
           row.push(value);
         });
