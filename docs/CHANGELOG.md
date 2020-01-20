@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- Resume by tier access for search
+
 ## [2.3.2](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-19
 
 ### Changed
@@ -26,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Job interest column for sponsors to see more info on hacker
 - Added buttons for status page based on status
 - Added travel page that displays hacker's travel status and reimbursement amount
-- Resume by tier access for search
 
 ### Changed
 
