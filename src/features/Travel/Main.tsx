@@ -147,6 +147,24 @@ class TravelContainer extends React.Component<{}, ITravelState> {
                 </div>
               </div>
             );
+          } else if (this.state.travel.request === 0) {
+            reimbursement = (
+              <div>
+                No reimbursement for travel was requested.
+                <h2>Bus</h2>
+                We're offering a round-trip bus from Toronto to McHacks. Seats
+                are available on a first-come, first-serve basis. You can place
+                a deposit to secure a seat on the bus{' '}
+                <a
+                  href="https://bus.mchacks.ca"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  here
+                </a>
+                .
+              </div>
+            )
           } else {
             reimbursement = (
               <div>
@@ -206,27 +224,27 @@ class TravelContainer extends React.Component<{}, ITravelState> {
         {this.state.isLoading ? (
           <div />
         ) : (
-          <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-            <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
-              Travel
+            <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
+              <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
+                Travel
             </H1>
-            <h2>Status</h2>
-            {reimbursement}
-            <br />
-            <br />
-            <div>
-              Please ensure you've reviewed our{' '}
-              <a
-                href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                travel policy
+              <h2>Status</h2>
+              {reimbursement}
+              <br />
+              <br />
+              <div>
+                Please ensure you've reviewed our{' '}
+                <a
+                  href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  travel policy
               </a>{' '}
-              if using any of our travel accommodation options.
+                if using any of our travel accommodation options.
             </div>
-          </MaxWidthBox>
-        )}
+            </MaxWidthBox>
+          )}
         <BackgroundImage
           right={'0'}
           bottom={'0'}
