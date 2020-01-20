@@ -3,11 +3,15 @@ import * as React from 'react';
 import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
-import { Hacker } from '../../api';
+import { Hacker, Account } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
-import { FrontendRoute as routes, HackerStatus } from '../../config';
+import { FrontendRoute as routes, HackerStatus, UserType } from '../../config';
 // import { Image } from '../../shared/Elements';
-import { isLoggedIn, canAccessTravel } from '../../util/UserInfoHelperFunctions';
+import {
+  isLoggedIn,
+  canAccessTravel,
+  getSponsorInfo,
+} from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import Burger from './Burger';
 import Icon from './Icon';
@@ -28,12 +32,14 @@ interface INavbarState {
   confirmed: boolean;
   loaded: boolean;
   showTravelLink: boolean;
+  userType: UserType;
+  hasSponsorInfo: boolean;
 }
 
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -41,7 +47,9 @@ export default class Navbar extends React.Component<
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
       loaded: false,
-      showTravelLink: false
+      showTravelLink: false,
+      userType: UserType.UNKNOWN,
+      hasSponsorInfo: false,
     };
     this.checkLoggedIn();
   }
@@ -53,11 +61,35 @@ export default class Navbar extends React.Component<
     try {
       const response = await Hacker.getSelf();
       hacker = response.data.data;
-      this.setState({ status: hacker.status, showTravelLink: canAccessTravel(hacker) });
+      this.setState({
+        status: hacker.status,
+        showTravelLink: canAccessTravel(hacker),
+      });
     } catch (e) {
       if (e.status === 401) {
-        this.setState({ status: HackerStatus.HACKER_STATUS_NONE, showTravelLink: false });
+        this.setState({
+          status: HackerStatus.HACKER_STATUS_NONE,
+          showTravelLink: false,
+        });
       }
+    }
+    try {
+      const response = await Account.getSelf();
+      const account = response.data.data;
+      this.setState({
+        userType: account.accountType,
+      });
+    } catch (e) {
+      // do nothing
+    }
+
+    try {
+      const response = await getSponsorInfo();
+      if (response !== null) {
+        this.setState({ hasSponsorInfo: true });
+      }
+    } catch (e) {
+      // do nothing
     }
 
     // set confirmed account
@@ -71,7 +103,13 @@ export default class Navbar extends React.Component<
   }
 
   public render() {
-    const { loggedIn, status, confirmed } = this.state;
+    const {
+      loggedIn,
+      status,
+      confirmed,
+      userType,
+      hasSponsorInfo,
+    } = this.state;
 
     const CTAButton = loggedIn ? <LogoutButton /> : <LoginButton />;
 
@@ -81,8 +119,22 @@ export default class Navbar extends React.Component<
     } else {
       appRoute = routes.EDIT_APPLICATION_PAGE;
     }
+    let sponsorRoute;
+    if (hasSponsorInfo) {
+      sponsorRoute = routes.EDIT_SPONSOR_PAGE;
+    } else {
+      sponsorRoute = routes.CREATE_SPONSOR_PAGE;
+    }
 
-    const route: any[] = [routes.HOME_PAGE, routes.EDIT_ACCOUNT_PAGE, appRoute, routes.TRAVEL_PAGE];
+    const route: any[] = [
+      routes.HOME_PAGE,
+      routes.EDIT_ACCOUNT_PAGE,
+      appRoute,
+      routes.TRAVEL_PAGE,
+      routes.ADMIN_SEARCH_PAGE,
+      routes.SPONSOR_SEARCH_PAGE,
+      sponsorRoute,
+    ];
 
     let NavItems = () => <></>;
     if (loggedIn === true) {
@@ -101,25 +153,55 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
-            status !== HackerStatus.HACKER_STATUS_NONE ? (
-              <NavLink
-                href={route[2]}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
+          status !== HackerStatus.HACKER_STATUS_NONE ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
             </NavLink>
-            ) : null}
+          ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={route[3]}
-              className={
-                this.props.activePage === 'travel' ? 'active' : ''
-              }
+              className={this.props.activePage === 'travel' ? 'active' : ''}
             >
               Travel
             </NavLink>
+          ) : null}
+          {userType === UserType.STAFF ||
+          userType === UserType.SPONSOR_T1 ||
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
+            userType !== UserType.STAFF ? (
+              <>
+                <NavLink
+                  href={route[5]}
+                  className={this.props.activePage === 'search' ? 'active' : ''}
+                >
+                  Search
+                </NavLink>
+                <NavLink
+                  href={route[6]}
+                  className={
+                    this.props.activePage === 'sponsor' ? 'active' : ''
+                  }
+                >
+                  Sponsor Profile
+                </NavLink>
+              </>
+            ) : (
+              <NavLink
+                href={route[4]}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+            )
           ) : null}
         </>
       );
