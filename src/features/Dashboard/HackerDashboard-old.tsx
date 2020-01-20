@@ -120,7 +120,7 @@ class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
         disabled: !hasAppAccess,
       },
       {
-        title: DashboardText.Account,
+        title: DashboardText.Profile,
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },

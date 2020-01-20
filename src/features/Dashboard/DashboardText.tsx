@@ -1,6 +1,6 @@
 export const Application: string = 'Application';
 
-export const Account: string = 'Account';
+export const Profile: string = 'Profile';
 
 // Dashboard
 export const Confirmation: string = 'Confirmation';
@@ -13,7 +13,7 @@ export const BusDeposit: string = 'Bus Deposit';
 
 export const Search: string = 'Search';
 
-export const SponsorProfile: string = 'Sponsor Profile';
+export const SponsorInfo: string = 'Info';
 
 export const Checkin: string = 'Check In';
 

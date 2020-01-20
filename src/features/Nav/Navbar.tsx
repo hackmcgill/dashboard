@@ -10,7 +10,7 @@ import { FrontendRoute as routes, HackerStatus, UserType } from '../../config';
 import {
   isLoggedIn,
   canAccessTravel,
-  getSponsorInfo,
+  // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import Burger from './Burger';
@@ -33,7 +33,7 @@ interface INavbarState {
   loaded: boolean;
   showTravelLink: boolean;
   userType: UserType;
-  hasSponsorInfo: boolean;
+  // hasSponsorInfo: boolean;
 }
 
 export default class Navbar extends React.Component<
@@ -49,7 +49,7 @@ export default class Navbar extends React.Component<
       loaded: false,
       showTravelLink: false,
       userType: UserType.UNKNOWN,
-      hasSponsorInfo: false,
+      // hasSponsorInfo: false,
     };
     this.checkLoggedIn();
   }
@@ -83,14 +83,14 @@ export default class Navbar extends React.Component<
       // do nothing
     }
 
-    try {
-      const response = await getSponsorInfo();
-      if (response !== null) {
-        this.setState({ hasSponsorInfo: true });
-      }
-    } catch (e) {
-      // do nothing
-    }
+    // try {
+    //   const response = await getSponsorInfo();
+    //   if (response !== null) {
+    //     this.setState({ hasSponsorInfo: true });
+    //   }
+    // } catch (e) {
+    //   // do nothing
+    // }
 
     // set confirmed account
     try {
@@ -108,7 +108,7 @@ export default class Navbar extends React.Component<
       status,
       confirmed,
       userType,
-      hasSponsorInfo,
+      // hasSponsorInfo,
     } = this.state;
 
     const CTAButton = loggedIn ? <LogoutButton /> : <LoginButton />;
@@ -119,12 +119,12 @@ export default class Navbar extends React.Component<
     } else {
       appRoute = routes.EDIT_APPLICATION_PAGE;
     }
-    let sponsorRoute;
-    if (hasSponsorInfo) {
-      sponsorRoute = routes.EDIT_SPONSOR_PAGE;
-    } else {
-      sponsorRoute = routes.CREATE_SPONSOR_PAGE;
-    }
+    // let sponsorRoute;
+    // if (hasSponsorInfo) {
+    //   sponsorRoute = routes.EDIT_SPONSOR_PAGE;
+    // } else {
+    //   sponsorRoute = routes.CREATE_SPONSOR_PAGE;
+    // }
 
     const route: any[] = [
       routes.HOME_PAGE,
@@ -133,7 +133,7 @@ export default class Navbar extends React.Component<
       routes.TRAVEL_PAGE,
       routes.ADMIN_SEARCH_PAGE,
       routes.SPONSOR_SEARCH_PAGE,
-      sponsorRoute,
+      // sponsorRoute,
     ];
 
     let NavItems = () => <></>;
@@ -184,14 +184,6 @@ export default class Navbar extends React.Component<
                   className={this.props.activePage === 'search' ? 'active' : ''}
                 >
                   Search
-                </NavLink>
-                <NavLink
-                  href={route[6]}
-                  className={
-                    this.props.activePage === 'sponsor' ? 'active' : ''
-                  }
-                >
-                  Sponsor Profile
                 </NavLink>
                 <NavLink
                   href={'https://mchacks.ca/sponsor-info'}
