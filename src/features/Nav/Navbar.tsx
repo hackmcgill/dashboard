@@ -193,6 +193,12 @@ export default class Navbar extends React.Component<
                 >
                   Sponsor Profile
                 </NavLink>
+                <NavLink
+                  href={'https://mchacks.ca/sponsor-info'}
+                  className={''}
+                >
+                  Info
+                </NavLink>
               </>
             ) : (
               <NavLink
