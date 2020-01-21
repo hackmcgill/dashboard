@@ -13,6 +13,7 @@ import {
   isValidSearchParameter,
   UserType,
 } from '../../config';
+import * as CONSTANTS from '../../config/constants';
 import { Button, H1 } from '../../shared/Elements';
 import { Input } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -175,14 +176,23 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private downloadData(): void {
     const headers = [
-      { label: 'First Name', key: 'accountId.firstName' },
-      { label: 'Last Name', key: 'accountId.lastName' },
-      { label: 'Email', key: 'accountId.email' },
-      { label: 'School', key: 'application.general.school' },
-      { label: 'Field of Study', key: 'application.general.fieldOfStudy' },
-      { label: 'Graduation Year', key: 'application.general.graduationYear' },
-      { label: 'Degree', key: 'application.general.degree' },
-      { label: 'Job Interest', key: 'application.general.jobInterest' },
+      { label: CONSTANTS.FIRST_NAME_LABEL, key: 'accountId.firstName' },
+      { label: CONSTANTS.LAST_NAME_LABEL, key: 'accountId.lastName' },
+      { label: CONSTANTS.EMAIL_LABEL, key: 'accountId.email' },
+      { label: CONSTANTS.SCHOOL_LABEL, key: 'application.general.school' },
+      {
+        label: CONSTANTS.FIELD_OF_STUDY_LABEL,
+        key: 'application.general.fieldOfStudy',
+      },
+      {
+        label: CONSTANTS.GRADUATION_YEAR_LABEL,
+        key: 'application.general.graduationYear',
+      },
+      { label: CONSTANTS.DEGREE_LABEL, key: 'application.general.degree' },
+      {
+        label: CONSTANTS.JOBINTEREST_LABEL,
+        key: 'application.general.jobInterest',
+      },
     ];
     // Return all fields for admin, and only subset for sponsors
     if (
@@ -192,52 +202,62 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
       headers.push({ label: 'Github', key: 'application.general.URL.github' });
       headers.push({
-        label: 'Dribbble',
+        label: CONSTANTS.DRIBBBLE_LINK_LABEL,
         key: 'application.general.URL.dribbble',
       });
       headers.push({
-        label: 'Personal Website',
+        label: CONSTANTS.PERSONAL_LABEL,
         key: 'application.general.URL.personal',
       });
       headers.push({
-        label: 'LinkedIn',
+        label: CONSTANTS.LINKEDIN_LINK_LABEL,
         key: 'application.general.URL.linkedin',
       });
       headers.push({
-        label: 'Other Website',
+        label: CONSTANTS.OTHER_LINK_LABEL,
         key: 'application.general.URL.other',
       });
-      headers.push({ label: 'Skills', key: 'application.shortAnswer.skills' });
       headers.push({
-        label: 'Comments',
+        label: CONSTANTS.SKILLS_LABEL,
+        key: 'application.shortAnswer.skills',
+      });
+      headers.push({
+        label: CONSTANTS.COMMENTS_LABEL,
         key: 'application.shortAnswer.comments',
       });
       headers.push({
-        label: 'Why McHacks?',
+        label: CONSTANTS.QUESTION1_REQUEST_LABEL,
         key: 'application.shortAnswer.question1',
       });
       headers.push({
-        label: 'Passion?',
+        label: CONSTANTS.QUESTION2_REQUEST_LABEL,
         key: 'application.shortAnswer.question2',
       });
       headers.push({
-        label: 'Shirt Size',
+        label: CONSTANTS.SHIRT_SIZE_LABEL,
         key: 'application.accommodation.shirtSize',
       });
       headers.push({
-        label: 'Impairments',
+        label: CONSTANTS.IMPAIRMENTS_LABEL,
         key: 'application.accommodation.impairments',
       });
       headers.push({
-        label: 'Barriers',
+        label: CONSTANTS.BARRIERS_LABEL,
         key: 'application.accommodation.barriers',
       });
       headers.push({
-        label: 'Travel',
+        label: CONSTANTS.TRAVEL_LABEL,
         key: 'application.accommodation.travel',
       });
-      headers.push({ label: 'Ethnicity', key: 'application.other.ethnicity' });
-      headers.push({ label: 'Gender', key: 'accountId.gender' });
+      headers.push({
+        label: CONSTANTS.ETHNICITY_LABEL,
+        key: 'application.other.ethnicity',
+      });
+      headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
+      headers.push({
+        label: CONSTANTS.PRONOUN_LABEL,
+        key: 'accountId.pronoun',
+      });
     }
     const tempHeaders: string[] = [];
     headers.forEach((header) => {

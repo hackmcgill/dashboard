@@ -99,12 +99,14 @@ export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
 export const MCHACKS_COC = 'Code of Conduct';
 export const MCHACKS_PRIVACY = 'Privacy Policy';
 export const MLH_LABEL = 'I accept the MLH policies.';
+export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
 export const SKILLS_LABEL = 'Skills';
 export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';
 export const SCHOOL_PLACEHOLDER = 'School';
+export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 
