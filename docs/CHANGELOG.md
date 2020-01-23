@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Resume by tier access for search
+- Add decision close time
 
 ## [2.3.2](https://github.com/hackmcgill/dashboard/tree/2.3.0) - 2020-01-19
 
