@@ -10,7 +10,7 @@ const LoginBtn: React.StatelessComponent<RouteComponentProps> = () => {
       to={FrontendRoute.LOGIN_PAGE}
       style={{
         textDecoration: 'none',
-        overflow: 'scroll',
+        overflow: 'none',
       }}
     >
       <Button variant={ButtonVariant.CallToAction}>Login</Button>
