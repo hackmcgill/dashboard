@@ -114,7 +114,8 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     <Button type="button">Apply</Button>
                   </LinkDuo>
                 </Flex>
-              ) : this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+              ) : Date.now() < CONSTANTS.DECISION_CLOSE_TIME &&
+                this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
                 <Flex
                   flexDirection={'column'}
                   style={{ marginTop: '1em' }}
@@ -139,6 +140,21 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                       Withdraw
                     </Button>
                   </Flex>
+                </Flex>
+              ) : Date.now() > CONSTANTS.DECISION_CLOSE_TIME &&
+                this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+                <Flex
+                  flexDirection={'column'}
+                  style={{ marginTop: '1em' }}
+                  alignItems={'center'}
+                >
+                  <Paragraph
+                    color={theme.colors.black80}
+                    textAlign={'center'}
+                    marginBottom={'3rem'}
+                  >
+                    {CONSTANTS.DECISION_DEADLINE_PASSED_LABEL}
+                  </Paragraph>
                 </Flex>
               ) : this.state.status ===
                 HackerStatus.HACKER_STATUS_WAITLISTED ? (

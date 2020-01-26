@@ -53,7 +53,7 @@ export const NONE_STATUS_TEXT =
 export const APPLIED_STATUS_TEXT =
   'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
 export const ACCEPTED_STATUS_TEXT =
-  "Congratulations! We're excited to offer you a spot at McHacks! Please RSVP by January 20, 2020 at 11:59PM EST to secure your spot and we'll see you there.";
+  "Congratulations! We're excited to offer you a spot at McHacks! Please RSVP by January 26, 2020 at 11:59PM EST to secure your spot and we'll see you there.";
 export const DECLINED_STATUS_TEXT =
   "Thank you so much for your interest in McHacks. Unfortunately, we don't have enough space to offer you a spot this year. That being said, please keep in touch and we'd love to see you apply again next year! In the meantime, we hope you continue to create and build awesome things!";
 export const WAITLISTED_STATUS_TEXT =
@@ -64,10 +64,15 @@ export const WITHDRAWN_STATUS_TEXT =
   "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
+// Times
+export const APPLICATION_CLOSE_TIME = 1578286800000; // January 6, 2020 00:00:00 GMT -0500
+export const DECISION_CLOSE_TIME = 1580101140000; // January 26, 2020 23:59:00 GMT -0500
+
 // Application management
-export const APPLICATION_CLOSE_TIME = 1578286800000; // Jan 6, 2020 00:00:00 GMT -0500
 export const DEADLINE_PASSED_LABEL =
   'Sorry, we are no longer accepting applications at this time.';
+export const DECISION_DEADLINE_PASSED_LABEL =
+  'Sorry, the deadline to RSVP has passed. We are no longer accepting applications at this time.';
 export const BARRIERS_LABEL = 'Would you require any accommodations?';
 export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE =
@@ -99,12 +104,14 @@ export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
 export const MCHACKS_COC = 'Code of Conduct';
 export const MCHACKS_PRIVACY = 'Privacy Policy';
 export const MLH_LABEL = 'I accept the MLH policies.';
+export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
 export const SKILLS_LABEL = 'Skills';
 export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';
 export const SCHOOL_PLACEHOLDER = 'School';
+export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 
