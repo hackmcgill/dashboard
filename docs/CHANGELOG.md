@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resume by tier access for search
 - Remove scrollbars on loggin button
 - Add decision close time
+- Changed the tab name for sponsor search from tier name | search to Sponsors | search
 
 ### Changed
 
