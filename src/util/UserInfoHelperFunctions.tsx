@@ -248,11 +248,11 @@ export async function generateHackPass(
   doc.setTextColor(0);
   doc.text(`${account.firstName} ${account.lastName}`, 3, 6);
 
-  /*doc.setFont('hind');
+  doc.setFont('hind');
   doc.setFontStyle('normal');
   doc.setFontSize(4);
   doc.setTextColor(0);
-  doc.text('', 3, 8);*/
+  doc.text('', 3, 8);
 
   doc.setFont('hind');
   doc.setFontStyle('normal');
@@ -272,7 +272,7 @@ export async function generateHackPass(
   const qrData = await generateHackerQRCode(hacker);
   doc.addImage(qrData, 'png', 20, 3.5, 14, 14);
 
-  //doc.autoPrint();
+  doc.autoPrint();
   doc.save(`hackPass_${hacker.id}.pdf`);
   return doc;
 }
