@@ -12,6 +12,9 @@ import {
 import * as QRCode from 'qrcode';
 
 import jsPDF from 'jspdf';
+import addBrownFont from './jsPDF-brown-font';
+import addBrownBoldFont from './jsPDF-brown-bold-font';
+import addHindFont from './jsPDF-hind-font';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -179,32 +182,97 @@ export async function generateHackPass(
   account: IAccount,
   hacker: IHacker
 ): Promise<jsPDF> {
+  // Initialize label sized document
   const doc = new jsPDF({
     orientation: 'landscape',
     unit: 'mm',
     format: [59, 102],
   });
-  doc.setFontSize(6);
+
+  // Load custom fonts
+  addBrownFont(doc);
+  addBrownBoldFont(doc);
+  await addHindFont(doc);
+
+  /*doc.setDrawColor(0)
+  doc.setFillColor(230)
+  doc.rect(0, 9.5, 22, 40, 'F')
+
+  let writeCenteredText = (text: string, y: number) => {
+    var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+    var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+    doc.text(textOffset, y, text);
+  }
+
+  // Write the hacker's name and pronouns
+  doc.setFont('brown');
   doc.setFontStyle('bold');
-  doc.text(account.accountType.toUpperCase(), 1.5, 4, { maxWidth: 18 });
-
-  doc.setFontSize(7);
-  const name: string[] = doc.splitTextToSize(
-    `${account.firstName} ${account.lastName}`,
-    19
-  );
-  doc.text(1.5, 8, name);
-
-  doc.setFontStyle('normal');
   doc.setFontSize(4);
-  const pronoun: string[] = doc.splitTextToSize(account.pronoun, 19);
-  const school: string[] = doc.splitTextToSize(`${hacker.school}`, 19);
-  doc.text(1.5, 7.5 + name.length * 3, pronoun.concat(school));
+  writeCenteredText(`${account.firstName} ${account.lastName}`, 22.5);
+  doc.setFontSize(3);
+  writeCenteredText(account.accountType.toUpperCase(), 2);
+
+
+  doc.setFont('hind');
+  doc.setFontStyle('normal');
+
+
+  // Write the school the hacker is from
+  doc.setFont('hind');
+  doc.setFontStyle('normal');
+  doc.setFontSize(3);
+  doc.setTextColor(0);
+
+  doc.setDrawColor(200);
+  doc.setLineWidth(0.1);
+  doc.line(4, 23.2, 17, 23.2);
+  doc.line(4, 26.7, 17, 26.7);
+  doc.setFontSize(3);
+
+  writeCenteredText(account.pronoun, 24.5);
+  writeCenteredText(hacker.application.general.school, 26);
+  writeCenteredText('McHacks 2020', 34.5);
 
   const qrData = await generateHackerQRCode(hacker);
-  doc.addImage(qrData, 'png', 21, 3, 15, 15);
+  doc.addImage(qrData, 'png', 4, 2.5, 13, 13);*/
 
-  doc.autoPrint();
+  // Add red bar for design purposes
+  /*doc.setDrawColor(0)
+  doc.setFillColor(242, 70, 58)
+  doc.rect(0, 0, 36, 9, 'F')*/
+
+  // Write the hacker's name and pronouns
+  doc.setFont('brown');
+  doc.setFontStyle('bold');
+  doc.setFontSize(5);
+  doc.setTextColor(0);
+  doc.text(`${account.firstName} ${account.lastName}`, 3, 6);
+
+  /*doc.setFont('hind');
+  doc.setFontStyle('normal');
+  doc.setFontSize(4);
+  doc.setTextColor(0);
+  doc.text('', 3, 8);*/
+
+  doc.setFont('hind');
+  doc.setFontStyle('normal');
+  doc.setFontSize(3);
+  doc.setTextColor(0);
+  doc.text(account.pronoun, 3, 8);
+
+  // Write the school the hacker is from
+  doc.setFont('hind');
+  doc.setFontStyle('normal');
+  doc.setFontSize(4);
+  doc.setTextColor(0);
+
+  doc.text(account.accountType, 3, 13.5);
+  doc.text(hacker.application.general.school, 3, 15.8);
+
+  const qrData = await generateHackerQRCode(hacker);
+  doc.addImage(qrData, 'png', 20, 3.5, 14, 14);
+
+  //doc.autoPrint();
   doc.save(`hackPass_${hacker.id}.pdf`);
   return doc;
 }
