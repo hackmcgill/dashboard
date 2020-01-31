@@ -13,6 +13,7 @@ import {
   isValidSearchParameter,
   UserType,
 } from '../../config';
+import * as CONSTANTS from '../../config/constants';
 import { Button, H1 } from '../../shared/Elements';
 import { Input } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -175,28 +176,104 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private downloadData(): void {
     const headers = [
-      '_id',
-      'accountId.firstName',
-      'accountId.lastName',
-      'accountId.email',
-      'travel',
-      'major',
-      'school',
-      'graduationYear',
-      'degree',
-      'gender',
+      { label: CONSTANTS.FIRST_NAME_LABEL, key: 'accountId.firstName' },
+      { label: CONSTANTS.LAST_NAME_LABEL, key: 'accountId.lastName' },
+      { label: CONSTANTS.EMAIL_LABEL, key: 'accountId.email' },
+      { label: CONSTANTS.SCHOOL_LABEL, key: 'application.general.school' },
+      {
+        label: CONSTANTS.FIELD_OF_STUDY_LABEL,
+        key: 'application.general.fieldOfStudy',
+      },
+      {
+        label: CONSTANTS.GRADUATION_YEAR_LABEL,
+        key: 'application.general.graduationYear',
+      },
+      { label: CONSTANTS.DEGREE_LABEL, key: 'application.general.degree' },
+      {
+        label: CONSTANTS.JOBINTEREST_LABEL,
+        key: 'application.general.jobInterest',
+      },
     ];
-    const csvData: string[] = [headers.join('\t')];
+    // Return all fields for admin, and only subset for sponsors
+    if (
+      this.state.account &&
+      this.state.account.accountType === UserType.STAFF
+    ) {
+      headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
+      headers.push({ label: 'Github', key: 'application.general.URL.github' });
+      headers.push({
+        label: CONSTANTS.DRIBBBLE_LINK_LABEL,
+        key: 'application.general.URL.dribbble',
+      });
+      headers.push({
+        label: CONSTANTS.PERSONAL_LABEL,
+        key: 'application.general.URL.personal',
+      });
+      headers.push({
+        label: CONSTANTS.LINKEDIN_LINK_LABEL,
+        key: 'application.general.URL.linkedin',
+      });
+      headers.push({
+        label: CONSTANTS.OTHER_LINK_LABEL,
+        key: 'application.general.URL.other',
+      });
+      headers.push({
+        label: CONSTANTS.SKILLS_LABEL,
+        key: 'application.shortAnswer.skills',
+      });
+      headers.push({
+        label: CONSTANTS.COMMENTS_LABEL,
+        key: 'application.shortAnswer.comments',
+      });
+      headers.push({
+        label: CONSTANTS.QUESTION1_REQUEST_LABEL,
+        key: 'application.shortAnswer.question1',
+      });
+      headers.push({
+        label: CONSTANTS.QUESTION2_REQUEST_LABEL,
+        key: 'application.shortAnswer.question2',
+      });
+      headers.push({
+        label: CONSTANTS.SHIRT_SIZE_LABEL,
+        key: 'application.accommodation.shirtSize',
+      });
+      headers.push({
+        label: CONSTANTS.IMPAIRMENTS_LABEL,
+        key: 'application.accommodation.impairments',
+      });
+      headers.push({
+        label: CONSTANTS.BARRIERS_LABEL,
+        key: 'application.accommodation.barriers',
+      });
+      headers.push({
+        label: CONSTANTS.TRAVEL_LABEL,
+        key: 'application.accommodation.travel',
+      });
+      headers.push({
+        label: CONSTANTS.ETHNICITY_LABEL,
+        key: 'application.other.ethnicity',
+      });
+      headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
+      headers.push({
+        label: CONSTANTS.PRONOUN_LABEL,
+        key: 'accountId.pronoun',
+      });
+    }
+    const tempHeaders: string[] = [];
+    headers.forEach((header) => {
+      tempHeaders.push(header.label);
+    });
+    const csvData: string[] = [tempHeaders.join('\t')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
           let value;
-          if (header.indexOf('.') >= 0) {
-            const nestedAttr = header.split('.');
+          if (header.key.indexOf('.') >= 0) {
+            const nestedAttr = header.key.split('.');
             value = getNestedAttr(result.hacker, nestedAttr);
           } else {
-            value = result.hacker[header];
+            value = result.hacker[header.key];
           }
           row.push(value);
         });
