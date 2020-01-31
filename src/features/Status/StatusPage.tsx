@@ -98,168 +98,173 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                 </Flex>
               ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
                 this.state.status === HackerStatus.HACKER_STATUS_NONE ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.NONE_STATUS_TEXT}
-                  </Paragraph>
-                  <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-                    <Button type="button">Apply</Button>
-                  </LinkDuo>
-                </Flex>
-              ) : Date.now() < CONSTANTS.DECISION_CLOSE_TIME &&
-                this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.ACCEPTED_STATUS_TEXT}
-                  </Paragraph>
-                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
-                    <Button
-                      type="button"
-                      style={{ marginRight: '20px' }}
-                      onClick={this.confirmStatus}
+                    <Flex
+                      flexDirection={'column'}
+                      style={{ marginTop: '1em' }}
+                      alignItems={'center'}
                     >
-                      Confirm
+                      <Paragraph
+                        color={theme.colors.black80}
+                        textAlign={'center'}
+                        marginBottom={'3rem'}
+                      >
+                        {CONSTANTS.NONE_STATUS_TEXT}
+                      </Paragraph>
+                      <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
+                        <Button type="button">Apply</Button>
+                      </LinkDuo>
+                    </Flex>
+                  ) : Date.now() < CONSTANTS.DECISION_CLOSE_TIME &&
+                    this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+                      <Flex
+                        flexDirection={'column'}
+                        style={{ marginTop: '1em' }}
+                        alignItems={'center'}
+                      >
+                        <Paragraph
+                          color={theme.colors.black80}
+                          textAlign={'center'}
+                          marginBottom={'3rem'}
+                        >
+                          {CONSTANTS.ACCEPTED_STATUS_TEXT}
+                        </Paragraph>
+                        <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                          <Button
+                            type="button"
+                            style={{ marginRight: '20px' }}
+                            onClick={this.confirmStatus}
+                          >
+                            Confirm
                     </Button>
-                    <Button type="button" onClick={this.withdrawStatus}>
-                      Withdraw
+                          <Button type="button" onClick={this.withdrawStatus}>
+                            Withdraw
                     </Button>
-                  </Flex>
-                </Flex>
-              ) : Date.now() > CONSTANTS.DECISION_CLOSE_TIME &&
-                this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.DECISION_DEADLINE_PASSED_LABEL}
-                  </Paragraph>
-                </Flex>
-              ) : this.state.status ===
-                HackerStatus.HACKER_STATUS_WAITLISTED ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.WAITLISTED_STATUS_TEXT}
-                  </Paragraph>
-                </Flex>
-              ) : this.state.status === HackerStatus.HACKER_STATUS_DECLINED ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.DECLINED_STATUS_TEXT}
-                  </Paragraph>
-                </Flex>
-              ) : this.state.status ===
-                HackerStatus.HACKER_STATUS_CHECKED_IN ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.CHECKED_IN_STATUS_TEXT}
-                  </Paragraph>
-                  <LinkDuo
-                    to={
-                      FrontendRoute.CREATE_APPLICATION_PAGE
-                    } /* link not made yet */
-                  >
-                    <Button type="button">Live Site</Button>
-                  </LinkDuo>
-                </Flex>
-              ) : this.state.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.CONFIRMED_STATUS_TEXT}
-                  </Paragraph>
-                  <Flex flexDirection={'row'} justifyContent={'space-around'}>
-                    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
-                      <Button type="button" style={{ marginRight: '20px' }}>
-                        Travel Page
+                        </Flex>
+                      </Flex>
+                    ) : Date.now() > CONSTANTS.DECISION_CLOSE_TIME &&
+                      this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
+                        <Flex
+                          flexDirection={'column'}
+                          style={{ marginTop: '1em' }}
+                          alignItems={'center'}
+                        >
+                          <Paragraph
+                            color={theme.colors.black80}
+                            textAlign={'center'}
+                            marginBottom={'3rem'}
+                          >
+                            {CONSTANTS.DECISION_DEADLINE_PASSED_LABEL}
+                          </Paragraph>
+                        </Flex>
+                      ) : this.state.status ===
+                        HackerStatus.HACKER_STATUS_WAITLISTED ? (
+                          <Flex
+                            flexDirection={'column'}
+                            style={{ marginTop: '1em' }}
+                            alignItems={'center'}
+                          >
+                            <Paragraph
+                              color={theme.colors.black80}
+                              textAlign={'center'}
+                              marginBottom={'3rem'}
+                            >
+                              {CONSTANTS.WAITLISTED_STATUS_TEXT}
+                            </Paragraph>
+                          </Flex>
+                        ) : this.state.status === HackerStatus.HACKER_STATUS_DECLINED ? (
+                          <Flex
+                            flexDirection={'column'}
+                            style={{ marginTop: '1em' }}
+                            alignItems={'center'}
+                          >
+                            <Paragraph
+                              color={theme.colors.black80}
+                              textAlign={'center'}
+                              marginBottom={'3rem'}
+                            >
+                              {CONSTANTS.DECLINED_STATUS_TEXT}
+                            </Paragraph>
+                          </Flex>
+                        ) : this.state.status ===
+                          HackerStatus.HACKER_STATUS_CHECKED_IN ? (
+                              <Flex
+                                flexDirection={'column'}
+                                style={{ marginTop: '1em' }}
+                                alignItems={'center'}
+                              >
+                                <Paragraph
+                                  color={theme.colors.black80}
+                                  textAlign={'center'}
+                                  marginBottom={'3rem'}
+                                >
+                                  {CONSTANTS.CHECKED_IN_STATUS_TEXT}
+                                </Paragraph>
+                                <LinkDuo
+                                  to={
+                                    FrontendRoute.CREATE_APPLICATION_PAGE
+                                  } /* link not made yet */
+                                >
+                                  <Button type="button">Live Site</Button>
+                                </LinkDuo>
+                              </Flex>
+                            ) : this.state.status === HackerStatus.HACKER_STATUS_CONFIRMED ? (
+                              <Flex
+                                flexDirection={'column'}
+                                style={{ marginTop: '1em' }}
+                                alignItems={'center'}
+                              >
+                                <Paragraph
+                                  color={theme.colors.black80}
+                                  textAlign={'center'}
+                                  marginBottom={'3rem'}
+                                >
+                                  {CONSTANTS.CONFIRMED_STATUS_TEXT}
+                                </Paragraph>
+                                <Flex flexDirection={'row'} justifyContent={'space-around'}>
+                                  <LinkDuo to={FrontendRoute.PASS_HACKER_PAGE}>
+                                    <Button type="button" style={{ marginRight: '20px' }}>
+                                      Hack Pass
                       </Button>
-                    </LinkDuo>
-                    <Button type="button" onClick={this.withdrawStatus}>
-                      Withdraw
+                                  </LinkDuo>
+                                  <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
+                                    <Button type="button" style={{ marginRight: '20px' }}>
+                                      Travel Page
+                      </Button>
+                                  </LinkDuo>
+                                  <Button type="button" onClick={this.withdrawStatus} style={{ marginRight: '20px' }}>
+                                    Withdraw
                     </Button>
-                  </Flex>
-                </Flex>
-              ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.WITHDRAWN_STATUS_TEXT}
-                  </Paragraph>
-                </Flex>
-              ) : (
-                <Flex
-                  flexDirection={'column'}
-                  style={{ marginTop: '1em' }}
-                  alignItems={'center'}
-                >
-                  <Paragraph
-                    color={theme.colors.black80}
-                    textAlign={'center'}
-                    marginBottom={'3rem'}
-                  >
-                    {CONSTANTS.DEADLINE_PASSED_LABEL}
-                  </Paragraph>
-                </Flex>
-              )}
+                                </Flex>
+                              </Flex>
+                            ) : this.state.status === HackerStatus.HACKER_STATUS_WITHDRAWN ? (
+                              <Flex
+                                flexDirection={'column'}
+                                style={{ marginTop: '1em' }}
+                                alignItems={'center'}
+                              >
+                                <Paragraph
+                                  color={theme.colors.black80}
+                                  textAlign={'center'}
+                                  marginBottom={'3rem'}
+                                >
+                                  {CONSTANTS.WITHDRAWN_STATUS_TEXT}
+                                </Paragraph>
+                              </Flex>
+                            ) : (
+                                  <Flex
+                                    flexDirection={'column'}
+                                    style={{ marginTop: '1em' }}
+                                    alignItems={'center'}
+                                  >
+                                    <Paragraph
+                                      color={theme.colors.black80}
+                                      textAlign={'center'}
+                                      marginBottom={'3rem'}
+                                    >
+                                      {CONSTANTS.DEADLINE_PASSED_LABEL}
+                                    </Paragraph>
+                                  </Flex>
+                                )}
               <BackgroundImage
                 right={'0px'}
                 bottom={'0px'}
@@ -268,8 +273,8 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
               />
             </div>
           ) : (
-            <ConfirmationEmailSentComponent />
-          )}
+              <ConfirmationEmailSentComponent />
+            )}
         </Box>
       </Flex>
     );
