@@ -66,7 +66,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   public render() {
     const { searchBar, account, query, loading, viewSaved } = this.state;
-    const accountType = account ? account.accountType : UserType.STAFF;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
