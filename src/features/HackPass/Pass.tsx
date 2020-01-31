@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import { IAccount, IHacker } from '../../config';
-import { H2, Image, MaxWidthBox } from '../../shared/Elements';
-import theme from '../../shared/Styles/theme';
 
 interface IPassProps {
   account: IAccount;
@@ -14,17 +12,19 @@ export const Pass: React.StatelessComponent<IPassProps> = (
   props: IPassProps
 ) => {
   return (
-    <MaxWidthBox maxWidth={'500px'} m={'0px'}>
-      <H2 textAlign={'center'} color={theme.colors.black80} fontSize={'30px'}>
-        {props.account.firstName}
-      </H2>
-      <H2 textAlign={'center'} color={theme.colors.black80}>
-        {props.account.pronoun}
-      </H2>
-      <H2 textAlign={'center'} color={theme.colors.black80} marginBottom={'0'}>
-        {props.hacker.school}
-      </H2>
-      <Image src={props.qrData} imgWidth={'100%'} />
-    </MaxWidthBox>
+    <div className="pass">
+      <img src={props.qrData} className="qrCode" />
+      <div className="info">
+        <h2>
+          {props.account.firstName}
+        </h2>
+        <h3>
+          {props.account.pronoun}
+        </h3>
+        <h3>
+          {props.hacker.application.general.school}
+        </h3>
+      </div>
+    </div>
   );
 };
