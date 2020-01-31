@@ -41,10 +41,7 @@ class SponsorDashboard extends React.Component<
 
   public render() {
     return (
-      <DashboardView
-        cards={this.generateCards()}
-        title={`${this.props.userType} Dashboard`}
-      />
+      <DashboardView cards={this.generateCards()} title={'Sponsor Dashboard'} />
     );
   }
 
@@ -56,15 +53,13 @@ class SponsorDashboard extends React.Component<
         imageSrc: SearchIcon,
       },
       {
-        title: DashboardText.Account,
+        title: DashboardText.Profile,
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,
       },
       {
-        title: DashboardText.SponsorProfile,
-        route: this.state.hasSponsor
-          ? routes.EDIT_SPONSOR_PAGE
-          : routes.CREATE_SPONSOR_PAGE,
+        title: DashboardText.SponsorInfo,
+        route: 'https://mchacks.ca/sponsor-info',
         imageSrc: SponsorIcon,
       },
     ];

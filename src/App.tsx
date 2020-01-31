@@ -233,7 +233,8 @@ class App extends React.Component {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
                     user.confirmed && user.accountType === UserType.STAFF,
-                })
+                }),
+                { activePage: 'search' }
               )}
             />
             <Route
@@ -245,7 +246,8 @@ class App extends React.Component {
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
                     user.confirmed && isSponsor(user),
-                })
+                }),
+                { activePage: 'search' }
               )}
             />
             <Route
@@ -285,7 +287,8 @@ class App extends React.Component {
                     AuthVerification: (user: IAccount) =>
                       user.confirmed && isSponsor(user),
                   }
-                )
+                ),
+                { activePage: 'sponsor' }
               )}
             />
             <Route
@@ -319,7 +322,8 @@ class App extends React.Component {
                     AuthVerification: (user: IAccount) =>
                       user.confirmed && isSponsor(user),
                   }
-                )
+                ),
+                { activePage: 'sponsor' }
               )}
             />
             <Route path="*" component={withNavbar(NotFoundContainer)} />
