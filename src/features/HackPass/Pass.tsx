@@ -13,17 +13,11 @@ export const Pass: React.StatelessComponent<IPassProps> = (
 ) => {
   return (
     <div className="pass">
-      <img src={props.qrData} className="qrCode" />
+      <img src={props.qrData} className="qrCode" alt="" />
       <div className="info">
-        <h2>
-          {props.account.firstName}
-        </h2>
-        <h3>
-          {props.account.pronoun}
-        </h3>
-        <h3>
-          {props.hacker.application.general.school}
-        </h3>
+        <h2>{props.account.firstName}</h2>
+        <h3>{props.account.pronoun}</h3>
+        <h3>{props.hacker.application.general.school}</h3>
       </div>
     </div>
   );

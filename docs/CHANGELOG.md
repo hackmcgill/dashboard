@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix toast notifs for check-in
+
+## [2.5.0](https://github.com/hackmcgill/dashboard/tree/2.5.0) - 2020-01-31
+
 ### Added
 
 - Add hackpass button to dashboard

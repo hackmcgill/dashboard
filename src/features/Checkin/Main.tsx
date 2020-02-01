@@ -104,9 +104,9 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           : hacker.accountId.id;
       const account = (await Account.get(accountId)).data.data;
       await generateHackPass(account, hacker);
-      if (hacker.accommodation.dietaryRestrictions.length > 0) {
+      if (account.dietaryRestrictions.length > 0) {
         toast.info(
-          `The user has the following dietary restrictions: ${hacker.accommodation.dietaryRestrictions.join(
+          `The user has the following dietary restrictions: ${account.dietaryRestrictions.join(
             ','
           )}`,
           {
@@ -114,7 +114,7 @@ class CheckinContainer extends React.Component<{}, ICheckinState> {
           }
         );
       }
-      toast.info(`Shirt Size: ${hacker.accommodation.shirtSize}`, {
+      toast.info(`Shirt Size: ${hacker.application.accommodation.shirtSize}`, {
         autoClose: false,
       });
     } catch (e) {
