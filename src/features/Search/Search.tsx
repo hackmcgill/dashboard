@@ -69,13 +69,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title>
-            {' '}
-            Sponsor Search | {HACKATHON_NAME}
-          </title>
+          <title> Search | {HACKATHON_NAME}</title>
         </Helmet>
         <Box width={1}>
-          <Flex>
+          <Flex
+            flexDirection={'column'}
+            style={{ marginTop: '1em' }}
+            alignItems={'center'}
+          >
             <Box alignSelf={'center'} width={1 / 6}>
               <H1 color={theme.colors.red} fontSize={'30px'}>
                 Search
@@ -292,9 +293,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
+            selected: true,
+            hacker: v,
+          }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
@@ -342,7 +343,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         const account = accountId as IAccount;
         const fullName = `${account.firstName} ${
           account.lastName
-          }`.toLowerCase();
+        }`.toLowerCase();
         foundAcct =
           fullName.includes(searchBar) ||
           account.email.toLowerCase().includes(searchBar) ||

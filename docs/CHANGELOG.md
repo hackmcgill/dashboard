@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add hackpass button to dashboard
 
+## Changed
+
+- Changed the tab name for sponsor search from tier name | search to Sponsors | search
+
+### Fixed
+
+- Add spacing to search
+
 ## [2.4.0](https://github.com/hackmcgill/dashboard/tree/2.4.0) - 2020-01-26
 
 ### Added
@@ -19,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resume by tier access for search
 - Remove scrollbars on loggin button
 - Add decision close time
-- Changed the tab name for sponsor search from tier name | search to Sponsors | search
 
 ### Changed
 
