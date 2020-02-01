@@ -79,51 +79,53 @@ class SingleHackerView extends React.Component<
           </title>
         </Helmet>
         <MaxWidthBox maxWidth="800px">
-          <H1 marginLeft="0">
-            {`${account.firstName} ${account.lastName} ${pronoun}`}
-          </H1>
-          <Form>
-            <Flex
-              width="100%"
-              flexWrap="wrap"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Box width={[1, 1 / 2]}>
-                <StyledSelect
-                  isTight={true}
-                  className="react-select-container"
-                  classNamePrefix="react-select"
-                  options={getOptionsFromEnum(HackerStatus)}
-                  isDisabled={!isAdmin}
-                  onChange={this.handleChange}
-                  value={{
-                    label: status,
-                    value: status,
-                  }}
-                />
-              </Box>
-              <Flex
-                width={[1, 1 / 2]}
-                justifyContent={['center', 'flex-start']}
-              >
-                <Button
-                  type="button"
-                  onClick={this.submit}
-                  isLoading={isLoading}
-                  disabled={isLoading || !isAdmin}
-                >
-                  Change status
-                </Button>
-              </Flex>
-            </Flex>
-          </Form>
+          <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
+            <H1 marginLeft="0">
+              {`${account.firstName} ${account.lastName} ${pronoun}`}
+            </H1>
+          </Flex>
           <hr hidden={isAdmin} />
           <Box ml="6px">
             <SingleHackerSection
               title={'Administrative Information'}
               hidden={!isAdmin}
             >
+              <Form>
+                <Flex
+                  width="100%"
+                  flexWrap="wrap"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Box width={[1, 1 / 2]}>
+                    <StyledSelect
+                      isTight={true}
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      options={getOptionsFromEnum(HackerStatus)}
+                      isDisabled={!isAdmin}
+                      onChange={this.handleChange}
+                      value={{
+                        label: status,
+                        value: status,
+                      }}
+                    />
+                  </Box>
+                  <Flex
+                    width={[1, 1 / 2]}
+                    justifyContent={['center', 'flex-start']}
+                  >
+                    <Button
+                      type="button"
+                      onClick={this.submit}
+                      isLoading={isLoading}
+                      disabled={isLoading || !isAdmin}
+                    >
+                      Change status
+                    </Button>
+                  </Flex>
+                </Flex>
+              </Form>
               <Flex
                 width="100%"
                 flexWrap="wrap"
@@ -226,7 +228,9 @@ class SingleHackerView extends React.Component<
             {/* Only tier1 sponsors and admin have access to user resumes */}
             {this.props.userType === UserType.SPONSOR_T1 ||
             this.props.userType === UserType.STAFF ? (
-              <ViewPDFComponent hackerId={hacker.id} />
+              <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
+                <ViewPDFComponent hackerId={hacker.id} />
+              </Flex>
             ) : null}
             <SingleHackerSection
               title="Additional Information"
