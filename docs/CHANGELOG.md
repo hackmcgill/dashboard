@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Redesign hackpass page and pdf printed pass
 - Resume by tier access for search
-- Remove scrollbars on loggin button
+- Remove scrollbars on login button
 - Add decision close time
 
 ### Changed
