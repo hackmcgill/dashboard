@@ -66,17 +66,17 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   public render() {
     const { searchBar, account, query, loading, viewSaved } = this.state;
-    const accountType = account ? account.accountType : UserType.STAFF;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
-          <title>
-            {' '}
-            {accountType} Search | {HACKATHON_NAME}
-          </title>
+          <title> Search | {HACKATHON_NAME}</title>
         </Helmet>
         <Box width={1}>
-          <Flex>
+          <Flex
+            flexDirection={'column'}
+            style={{ marginTop: '1em' }}
+            alignItems={'center'}
+          >
             <Box alignSelf={'center'} width={1 / 6}>
               <H1 color={theme.colors.red} fontSize={'30px'}>
                 Search
