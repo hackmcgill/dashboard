@@ -96,7 +96,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME &&
+              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
                 this.state.status === HackerStatus.HACKER_STATUS_NONE ? (
                 <Flex
                   flexDirection={'column'}

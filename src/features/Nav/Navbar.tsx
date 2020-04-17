@@ -152,7 +152,7 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          {Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME ||
+          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
           status !== HackerStatus.HACKER_STATUS_NONE ? (
             <NavLink
               href={route[2]}
