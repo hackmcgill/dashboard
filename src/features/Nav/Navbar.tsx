@@ -39,7 +39,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-> {
+  > {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -153,16 +153,16 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
-          status !== HackerStatus.HACKER_STATUS_NONE ? (
-            <NavLink
-              href={route[2]}
-              className={
-                this.props.activePage === 'application' ? 'active' : ''
-              }
-            >
-              Application
-            </NavLink>
-          ) : null}
+            status !== HackerStatus.HACKER_STATUS_NONE ? (
+              <NavLink
+                href={route[2]}
+                className={
+                  this.props.activePage === 'application' ? 'active' : ''
+                }
+              >
+                Application
+              </NavLink>
+            ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={route[3]}
@@ -172,35 +172,35 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.STAFF ||
-          userType === UserType.SPONSOR_T1 ||
-          userType === UserType.SPONSOR_T2 ||
-          userType === UserType.SPONSOR_T3 ||
-          userType === UserType.SPONSOR_T4 ||
-          userType === UserType.SPONSOR_T5 ? (
-            userType !== UserType.STAFF ? (
-              <>
-                <NavLink
-                  href={route[5]}
-                  className={this.props.activePage === 'search' ? 'active' : ''}
-                >
-                  Search
+            userType === UserType.SPONSOR_T1 ||
+            userType === UserType.SPONSOR_T2 ||
+            userType === UserType.SPONSOR_T3 ||
+            userType === UserType.SPONSOR_T4 ||
+            userType === UserType.SPONSOR_T5 ? (
+              userType !== UserType.STAFF ? (
+                <>
+                  <NavLink
+                    href={route[5]}
+                    className={this.props.activePage === 'search' ? 'active' : ''}
+                  >
+                    Search
                 </NavLink>
-                <NavLink
-                  href={'https://mchacks.ca/sponsor-info'}
-                  className={''}
-                >
-                  Info
+                  <NavLink
+                    href={'https://mchacks.ca/sponsor-info'}
+                    className={''}
+                  >
+                    Info
                 </NavLink>
-              </>
-            ) : (
-              <NavLink
-                href={route[4]}
-                className={this.props.activePage === 'search' ? 'active' : ''}
-              >
-                Search
-              </NavLink>
-            )
-          ) : null}
+                </>
+              ) : (
+                  <NavLink
+                    href={route[4]}
+                    className={this.props.activePage === 'search' ? 'active' : ''}
+                  >
+                    Search
+                  </NavLink>
+                )
+            ) : null}
         </>
       );
     }
