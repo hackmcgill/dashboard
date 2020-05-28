@@ -2,6 +2,7 @@
   "name": "hackerapi-frontend",
   "homepage": "https://app.mchacks.ca",
   "version": "2.5.1",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "PORT=1337 react-scripts start",
