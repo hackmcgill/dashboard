@@ -18,7 +18,7 @@ import {
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
-import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
+import Coders from '../../assets/images/coders.svg';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
@@ -52,31 +52,31 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
   }
   public render() {
     return (
-      <MediaQuery minWidth={1224}>
+      <MediaQuery minWidth={1224} width={"100%"}>
         {(matches) =>
           matches ? (
             <LeftContainer>
               {this.renderForm()}
               <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
+                src={Coders}
+                top={'60px'}
+                right={'0px'}
                 imgWidth={'100%'}
                 imgHeight={'100%'}
                 minHeight={'600px'}
               />
             </LeftContainer>
           ) : (
-            <div>
-              {this.renderForm()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgHeight={'100%'}
-              />
-            </div>
-          )
+              <div>
+                {this.renderForm()}
+                <BackgroundImage
+                  src={Coders}
+                  top={'60px'}
+                  right={'0px'}
+                  imgHeight={'100%'}
+                />
+              </div>
+            )
         }
       </MediaQuery>
     );

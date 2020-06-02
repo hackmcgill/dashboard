@@ -17,8 +17,6 @@ import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
 import Links from './Links';
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
 
@@ -39,7 +37,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-> {
+  > {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -66,7 +64,7 @@ export default class Navbar extends React.Component<
         showTravelLink: canAccessTravel(hacker),
       });
     } catch (e) {
-      if (e.status === 401) {
+      if (e === undefined || e.status === 401) {
         this.setState({
           status: HackerStatus.HACKER_STATUS_NONE,
           showTravelLink: false,
@@ -103,22 +101,8 @@ export default class Navbar extends React.Component<
   }
 
   public render() {
-    const {
-      loggedIn,
-      status,
-      confirmed,
-      userType,
-      // hasSponsorInfo,
-    } = this.state;
 
-    const CTAButton = loggedIn ? <LogoutButton /> : <LoginButton />;
 
-    let appRoute;
-    if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
-      appRoute = routes.CREATE_APPLICATION_PAGE;
-    } else {
-      appRoute = routes.EDIT_APPLICATION_PAGE;
-    }
     // let sponsorRoute;
     // if (hasSponsorInfo) {
     //   sponsorRoute = routes.EDIT_SPONSOR_PAGE;
@@ -126,84 +110,32 @@ export default class Navbar extends React.Component<
     //   sponsorRoute = routes.CREATE_SPONSOR_PAGE;
     // }
 
-    const route: any[] = [
-      routes.HOME_PAGE,
-      routes.EDIT_ACCOUNT_PAGE,
-      appRoute,
-      routes.TRAVEL_PAGE,
-      routes.ADMIN_SEARCH_PAGE,
-      routes.SPONSOR_SEARCH_PAGE,
-      // sponsorRoute,
-    ];
 
     let NavItems = () => <></>;
-    if (loggedIn === true) {
-      NavItems = () => (
-        <>
-          <NavLink
-            href={route[0]}
-            className={this.props.activePage === 'home' ? 'active' : ''}
-          >
-            Home
-          </NavLink>
-          <NavLink
-            href={route[1]}
-            className={this.props.activePage === 'profile' ? 'active' : ''}
-          >
-            Profile
-          </NavLink>
-          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
-          status !== HackerStatus.HACKER_STATUS_NONE ? (
-            <NavLink
-              href={route[2]}
-              className={
-                this.props.activePage === 'application' ? 'active' : ''
-              }
-            >
-              Application
-            </NavLink>
-          ) : null}
-          {this.state.showTravelLink ? (
-            <NavLink
-              href={route[3]}
-              className={this.props.activePage === 'travel' ? 'active' : ''}
-            >
-              Travel
-            </NavLink>
-          ) : null}
-          {userType === UserType.STAFF ||
-          userType === UserType.SPONSOR_T1 ||
-          userType === UserType.SPONSOR_T2 ||
-          userType === UserType.SPONSOR_T3 ||
-          userType === UserType.SPONSOR_T4 ||
-          userType === UserType.SPONSOR_T5 ? (
-            userType !== UserType.STAFF ? (
-              <>
-                <NavLink
-                  href={route[5]}
-                  className={this.props.activePage === 'search' ? 'active' : ''}
-                >
-                  Search
-                </NavLink>
-                <NavLink
-                  href={'https://mchacks.ca/sponsor-info'}
-                  className={''}
-                >
-                  Info
-                </NavLink>
-              </>
-            ) : (
-              <NavLink
-                href={route[4]}
-                className={this.props.activePage === 'search' ? 'active' : ''}
-              >
-                Search
-              </NavLink>
-            )
-          ) : null}
-        </>
-      );
-    }
+    NavItems = () => (
+      <>
+        <NavLink
+          href={CONSTANTS.STATIC_SITE}
+        >
+          About
+        </NavLink>
+        <NavLink
+          href={CONSTANTS.STATIC_SITE}
+        >
+          Sponsor
+        </NavLink>
+        <NavLink
+          href={CONSTANTS.STATIC_SITE}
+        >
+          FAQ
+        </NavLink>
+        <NavLink
+          href={CONSTANTS.STATIC_SITE}
+        >
+          2019
+        </NavLink>
+      </>
+    );
 
     return this.state.loaded ? (
       <Nav borderThickness={'2px'}>
@@ -214,11 +146,9 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {NavItems()}
-          {CTAButton}
         </Links>
         <Menu isOpen={window.innerWidth > 768} styles={Burger}>
           {NavItems()}
-          {CTAButton}
         </Menu>
       </Nav>
     ) : null;
