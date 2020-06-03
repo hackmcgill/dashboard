@@ -84,7 +84,7 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
 
   private renderForm() {
     return (
-      <MaxWidthBox maxWidth={'600px'} pl={'50px'} pr={'50px'}>
+      <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
         <Helmet>
           <title>Login | {HACKATHON_NAME}</title>
         </Helmet>

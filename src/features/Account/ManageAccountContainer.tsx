@@ -68,7 +68,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-> {
+  > {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -159,7 +159,7 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <MaxWidthBox paddingLeft={'100px'} pr={'50px'} maxWidth={'500px'}>
+      <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
         <>
           <BackgroundImage
             src={Coders}
@@ -272,8 +272,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}

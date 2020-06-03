@@ -5,12 +5,14 @@ export interface IMaxWidthBoxProps {
   maxWidth?: string;
   textAlign?: string;
   paddingLeft?: string;
+  paddingRight?: string;
 }
 
-export const MaxWidthBox = styled(Box)<IMaxWidthBoxProps>`
+export const MaxWidthBox = styled(Box) <IMaxWidthBoxProps>`
   max-width: ${(props) => props.maxWidth || '600px'};
   text-align: ${(props) => props.textAlign || 'initial'};
   padding-left: ${(props) => props.paddingLeft || '0'};
+  padding-right: ${(props) => props.paddingRight || '0'};
 `;
 
 export default MaxWidthBox;
