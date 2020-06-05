@@ -68,7 +68,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-  > {
+> {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -272,8 +272,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}

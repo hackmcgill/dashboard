@@ -39,7 +39,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -66,7 +66,7 @@ export default class Navbar extends React.Component<
         showTravelLink: canAccessTravel(hacker),
       });
     } catch (e) {
-      if (e.status === 401) {
+      if (e === undefined || e.status === 401) {
         this.setState({
           status: HackerStatus.HACKER_STATUS_NONE,
           showTravelLink: false,
