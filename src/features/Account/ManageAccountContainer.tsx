@@ -43,8 +43,7 @@ import {
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
-import Bulby from '../../assets/images/bulby.svg';
-import Drone from '../../assets/images/drone.svg';
+import Coders from '../../assets/images/coders.svg'
 
 export enum ManageAccountModes {
   CREATE,
@@ -160,29 +159,13 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      // <HorizontalSpacer
-      //   paddingLeft={mode === ManageAccountModes.CREATE ? '0' : '18%'}
-      // >
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+      <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
         <>
-          {/* <Sidebar
-                currentPage="Profile"
-                status={this.state.status}
-                confirmed={this.state.accountDetails.confirmed}
-              /> */}
           <BackgroundImage
-            right={'10%'}
-            top={'178px'}
-            src={Drone}
-            imgHeight={'133px'}
-            position={'fixed' as 'fixed'}
-          />
-          <BackgroundImage
-            left={'5%'}
-            bottom={'5%'}
-            src={Bulby}
-            imgHeight={'290px'}
-            position={'fixed' as 'fixed'}
+            src={Coders}
+            top={'60px'}
+            right={'0px'}
+            imgHeight={'100%'}
           />
         </>
         <Helmet>
