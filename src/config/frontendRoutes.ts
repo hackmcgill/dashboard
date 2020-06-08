@@ -10,6 +10,7 @@ export enum FrontendRoute {
   EDIT_ACCOUNT_PAGE = '/account/edit',
   EDIT_APPLICATION_PAGE = '/application/edit',
   FORGOT_PASSWORD_PAGE = '/password/forgot',
+  WELL_KNOWN_PASSWORD_CHANGE = '/.well-known/change-password',
   HOME_PAGE = '/',
   LOGIN_PAGE = '/login',
   RESET_PASSWORD_PAGE = '/password/reset',

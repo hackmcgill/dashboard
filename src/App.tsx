@@ -127,6 +127,11 @@ class App extends React.Component {
             />
             <Route
               exact={true}
+              path={FrontendRoute.WELL_KNOWN_PASSWORD_CHANGE}
+              component={withNavbar(ForgotPasswordContainer)}
+            />
+            <Route
+              exact={true}
               path={FrontendRoute.CREATE_APPLICATION_PAGE}
               component={withNavbar(
                 withAuthRedirect(
