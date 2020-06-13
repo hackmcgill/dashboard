@@ -8,6 +8,7 @@ export const GlobalStyles = createGlobalStyle`
     font-style: normal;
     font-weight: regular;
     src: url('/fonts/lineto-brown-regular.ttf');
+    font-display: swap;
   }
 
   @font-face {
@@ -15,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
     font-style: normal;
     font-weight: bold;
     src: url("/fonts/lineto-brown-bold.ttf");
+    font-display: swap;
   }
 
   body {
