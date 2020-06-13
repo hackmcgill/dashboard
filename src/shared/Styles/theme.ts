@@ -23,7 +23,7 @@ const theme = {
   },
   inputBorderRadius: '20px',
   fonts: {
-    header: 'Brown, -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
+    header: 'Brown, Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
     body:
       'Hind Siliguri, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;',
   },
