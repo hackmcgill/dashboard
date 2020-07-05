@@ -3,24 +3,24 @@ import Helmet from 'react-helmet';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import NotFoundContainer from './features/404/404';
-import ConfirmAccountContainer from './features/Account/ConfirmAccountContainer';
-import CreateAccountContainer from './features/Account/CreateAccountContainer';
-import EditAccountContainer from './features/Account/EditAccountContainer';
-import CreateApplicationContainer from './features/Application/CreateApplicationContainer';
-import EditApplicationContainer from './features/Application/EditApplicationContainer';
-import CheckinContainer from './features/Checkin/Main';
-import ConfirmAttendanceContainer from './features/ConfirmAttendance/ConfirmAttendance';
-import Dashboard from './features/Dashboard/Main';
-import HackPassContainer from './features/HackPass/Main';
-import LoginContainer from './features/Login/Login';
-import ForgotPasswordContainer from './features/Login/PasswordForgot';
-import resetPassword from './features/Login/PasswordReset';
+import ConfirmAccountContainer from './pages/Account/Confirm';
+import CreateAccountContainer from './pages/Account/Create';
+import EditAccountContainer from './pages/Account/Edit';
+import CreateApplicationContainer from './pages/Application/Create';
+import EditApplicationContainer from './pages/Application/Edit';
+import CheckinContainer from './pages/Hacker/Checkin';
+import ConfirmAttendanceContainer from './pages/Account/Confirm';
+import Dashboard from './pages/index';
+import HackPassContainer from './pages/Hacker/Pass';
+import LoginContainer from './pages/Login/index';
+import ForgotPasswordContainer from './pages/Password/Forgot';
+import resetPassword from './pages/Password/Reset';
 import SearchContainer from './features/Search/Search';
-import SingleHackerContainer from './features/SingleHacker/Main';
-import CreateSponsorContainer from './features/Sponsor/SponsorCreation';
-import EditSponsorContainer from './features/Sponsor/SponsorEdition';
-import TeamContainer from './features/Team/Main';
-import TravelContainer from './features/Travel/Main';
+import SingleHackerContainer from './pages/Application/View/index';
+import CreateSponsorContainer from './pages/Sponsor/Create';
+import EditSponsorContainer from './pages/Sponsor/Edit';
+import TeamContainer from './pages/Team/index';
+import TravelContainer from './pages/Travel/index';
 
 import {
   FrontendRoute,
