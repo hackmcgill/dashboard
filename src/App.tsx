@@ -15,8 +15,9 @@ import HackPassContainer from './pages/Hacker/Pass';
 import LoginContainer from './pages/Login/index';
 import ForgotPasswordContainer from './pages/Password/Forgot';
 import resetPassword from './pages/Password/Reset';
-import SearchContainer from './features/Search/Search';
-import SingleHackerContainer from './pages/Application/View/index';
+import AdminSearch from './pages/Admin/Search';
+import SponsorSearch from './pages/Sponsor/Search';
+import SingleHackerContainer from './pages/Application/View/[id]';
 import CreateSponsorContainer from './pages/Sponsor/Create';
 import EditSponsorContainer from './pages/Sponsor/Edit';
 import TeamContainer from './pages/Team/index';
@@ -44,7 +45,6 @@ import {
   canAccessTeam,
   canAccessTravel,
   isSponsor,
-  userCanAccessHackerPage,
 } from './util';
 
 class App extends React.Component {
@@ -232,39 +232,17 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.ADMIN_SEARCH_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SearchContainer, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && user.accountType === UserType.STAFF,
-                }),
-                { activePage: 'search' }
-              )}
+              component={AdminSearch}
             />
             <Route
               exact={true}
               path={FrontendRoute.SPONSOR_SEARCH_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SearchContainer, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && isSponsor(user),
-                }),
-                { activePage: 'search' }
-              )}
+              component={SponsorSearch}
             />
             <Route
               exact={true}
               path={FrontendRoute.VIEW_HACKER_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SingleHackerContainer, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: userCanAccessHackerPage,
-                })
-              )}
+              component={SingleHackerContainer}
             />
             <Route
               exact={true}
