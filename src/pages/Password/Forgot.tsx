@@ -170,5 +170,5 @@ class ForgotPasswordContainer extends React.Component<
 }
 
 export default WithToasterContainer(
-  withRouter<RouteComponentProps>(ForgotPasswordContainer)
+  withRouter(ForgotPasswordContainer)
 );

@@ -59,4 +59,4 @@ class NotFoundContainer extends React.Component<RouteComponentProps> {
   }
 }
 
-export default withRouter<RouteComponentProps>(NotFoundContainer);
+export default withRouter(NotFoundContainer);

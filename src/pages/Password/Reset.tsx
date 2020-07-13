@@ -35,7 +35,7 @@ export interface IResetPasswordContainerState {
 class ResetPasswordContainer extends React.Component<
   RouteComponentProps,
   IResetPasswordContainerState
-> {
+  > {
   constructor(props: RouteComponentProps) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,16 +64,16 @@ class ResetPasswordContainer extends React.Component<
               />
             </LeftContainer>
           ) : (
-            <div>
-              {this.renderPassReset()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgHeight={'100%'}
-              />
-            </div>
-          )
+              <div>
+                {this.renderPassReset()}
+                <BackgroundImage
+                  src={BackgroundLandscape}
+                  top={'0px'}
+                  left={'0px'}
+                  imgHeight={'100%'}
+                />
+              </div>
+            )
         }
       </MediaQuery>
     );
@@ -180,6 +180,6 @@ class ResetPasswordContainer extends React.Component<
   }
 }
 
-export default withRouter<RouteComponentProps>(
+export default withRouter(
   WithToasterContainer(ResetPasswordContainer)
 );
