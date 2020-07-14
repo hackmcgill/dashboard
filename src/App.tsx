@@ -9,7 +9,7 @@ import EditAccountContainer from './pages/Account/Edit';
 import CreateApplicationContainer from './pages/Application/Create';
 import EditApplicationContainer from './pages/Application/Edit';
 import CheckinContainer from './pages/Hacker/Checkin';
-import ConfirmAttendanceContainer from './pages/Account/Confirm';
+import ConfirmAttendanceContainer from './pages/Application/Confirm';
 import Dashboard from './pages/index';
 import HackPassContainer from './pages/Hacker/Pass';
 import LoginContainer from './pages/Login/index';
