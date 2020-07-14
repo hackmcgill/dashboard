@@ -2,26 +2,26 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import NotFoundContainer from './pages/_error';
-import ConfirmAccountContainer from './pages/Account/Confirm';
-import CreateAccountContainer from './pages/Account/Create';
-import EditAccountContainer from './pages/Account/Edit';
-import CreateApplicationContainer from './pages/Application/Create';
-import EditApplicationContainer from './pages/Application/Edit';
-import CheckinContainer from './pages/Hacker/Checkin';
-import ConfirmAttendanceContainer from './pages/Application/Confirm';
-import Dashboard from './pages/index';
-import HackPassContainer from './pages/Hacker/Pass';
-import LoginContainer from './pages/Login/index';
-import ForgotPasswordContainer from './pages/Password/Forgot';
-import resetPassword from './pages/Password/Reset';
-import AdminSearch from './pages/Admin/Search';
-import SponsorSearch from './pages/Sponsor/Search';
-import SingleHackerContainer from './pages/Application/View/[id]';
-import CreateSponsorContainer from './pages/Sponsor/Create';
-import EditSponsorContainer from './pages/Sponsor/Edit';
-import TeamContainer from './pages/Team/index';
-import TravelContainer from './pages/Travel/index';
+import DashboardPage from './pages/index';
+import LoginPage from './pages/Login/index';
+import ForgotPasswordPage from './pages/Password/Forgot';
+import ResetPasswordPage from './pages/Password/Reset';
+import CreateAccountPage from './pages/Account/Create';
+import ConfirmAccountPage from './pages/Account/Confirm';
+import EditAccountPage from './pages/Account/Edit';
+import CreateApplicationPage from './pages/Application/Create';
+import EditApplicationPage from './pages/Application/Edit';
+import CheckinPage from './pages/Hacker/Checkin';
+import ConfirmAttendancePage from './pages/Application/Confirm';
+import HackPassPage from './pages/Hacker/Pass';
+import TeamPage from './pages/Team/index'
+import TravelPage from './pages/Travel/index';
+import AdminSearchPage from './pages/Admin/Search';
+import SponsorSearchPage from './pages/Sponsor/Search';
+import SingleHackerPage from './pages/Application/View/[id]';
+import CreateSponsorPage from './pages/Sponsor/Create';
+import EditSponsorPage from './pages/Sponsor/Edit';
+import ErrorPage from './pages/_error';
 
 import {
   FrontendRoute,
@@ -80,7 +80,7 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.HOME_PAGE}
-              component={withNavbar(withAuthRedirect(Dashboard), {
+              component={withNavbar(withAuthRedirect(DashboardPage), {
                 activePage: 'home',
               })}
             />
@@ -88,7 +88,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.CREATE_ACCOUNT_PAGE}
               component={withNavbar(
-                withAuthRedirect(CreateAccountContainer, {
+                withAuthRedirect(CreateAccountPage, {
                   requiredAuthState: false,
                 }),
                 { activePage: 'profile' }
@@ -98,7 +98,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.EDIT_ACCOUNT_PAGE}
               component={withNavbar(
-                withAuthRedirect(EditAccountContainer, {
+                withAuthRedirect(EditAccountPage, {
                   redirAfterLogin: true,
                   requiredAuthState: true,
                 }),
@@ -108,13 +108,13 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.RESET_PASSWORD_PAGE}
-              component={withNavbar(withTokenRedirect(resetPassword))}
+              component={withNavbar(withTokenRedirect(ResetPasswordPage))}
             />
             <Route
               exact={true}
               path={FrontendRoute.CONFIRM_ACCOUNT_PAGE}
               component={withNavbar(
-                withAuthRedirect(ConfirmAccountContainer, {
+                withAuthRedirect(ConfirmAccountPage, {
                   requiredAuthState: true,
                   redirAfterLogin: true,
                 }),
@@ -124,19 +124,19 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.FORGOT_PASSWORD_PAGE}
-              component={withNavbar(ForgotPasswordContainer)}
+              component={withNavbar(ForgotPasswordPage)}
             />
             <Route
               exact={true}
               path={FrontendRoute.WELL_KNOWN_PASSWORD_CHANGE}
-              component={withNavbar(ForgotPasswordContainer)}
+              component={withNavbar(ForgotPasswordPage)}
             />
             <Route
               exact={true}
               path={FrontendRoute.CREATE_APPLICATION_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(CreateApplicationContainer, {
+                  withHackerRedirect(CreateApplicationPage, {
                     requiredAuthState: false,
                   }),
                   {
@@ -153,7 +153,7 @@ class App extends React.Component {
               path={FrontendRoute.EDIT_APPLICATION_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(EditApplicationContainer, {
+                  withHackerRedirect(EditApplicationPage, {
                     AuthVerification: canAccessApplication,
                   }),
                   {
@@ -171,7 +171,7 @@ class App extends React.Component {
               path={FrontendRoute.TEAM_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(TeamContainer, {
+                  withHackerRedirect(TeamPage, {
                     AuthVerification: canAccessTeam,
                   }),
                   {
@@ -189,7 +189,7 @@ class App extends React.Component {
               path={FrontendRoute.TRAVEL_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(TravelContainer, {
+                  withHackerRedirect(TravelPage, {
                     AuthVerification: canAccessTravel,
                   }),
                   {
@@ -206,7 +206,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.LOGIN_PAGE}
               component={withNavbar(
-                withAuthRedirect(LoginContainer, {
+                withAuthRedirect(LoginPage, {
                   requiredAuthState: false,
                 }),
                 { activePage: 'login' }
@@ -217,7 +217,7 @@ class App extends React.Component {
               path={FrontendRoute.CONFIRM_HACKER_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(ConfirmAttendanceContainer, {
+                  withHackerRedirect(ConfirmAttendancePage, {
                     requiredAuthState: true,
                     AuthVerification: (user: IHacker) =>
                       user.status === HackerStatus.HACKER_STATUS_ACCEPTED,
@@ -234,7 +234,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.ADMIN_SEARCH_PAGE}
               component={withNavbar(
-                withAuthRedirect(AdminSearch, {
+                withAuthRedirect(AdminSearchPage, {
                   requiredAuthState: true,
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
@@ -247,7 +247,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.SPONSOR_SEARCH_PAGE}
               component={withNavbar(
-                withAuthRedirect(SponsorSearch, {
+                withAuthRedirect(SponsorSearchPage, {
                   requiredAuthState: true,
                   redirAfterLogin: true,
                   AuthVerification: (user: IAccount) =>
@@ -260,7 +260,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.VIEW_HACKER_PAGE}
               component={withNavbar(
-                withAuthRedirect(SingleHackerContainer, {
+                withAuthRedirect(SingleHackerPage, {
                   requiredAuthState: true,
                   redirAfterLogin: true,
                   AuthVerification: userCanAccessHackerPage,
@@ -271,7 +271,7 @@ class App extends React.Component {
               exact={true}
               path={FrontendRoute.CHECKIN_HACKER_PAGE}
               component={withNavbar(
-                withAuthRedirect(CheckinContainer, {
+                withAuthRedirect(CheckinPage, {
                   requiredAuthState: true,
                   AuthVerification: (user: IAccount) =>
                     user.confirmed &&
@@ -285,7 +285,7 @@ class App extends React.Component {
               path={FrontendRoute.CREATE_SPONSOR_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withSponsorRedirect(CreateSponsorContainer, {
+                  withSponsorRedirect(CreateSponsorPage, {
                     requiredAuthState: false,
                   }),
                   {
@@ -302,7 +302,7 @@ class App extends React.Component {
               path={FrontendRoute.PASS_HACKER_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withHackerRedirect(HackPassContainer, {
+                  withHackerRedirect(HackPassPage, {
                     requiredAuthState: true,
                     AuthVerification: canAccessHackerPass,
                   }),
@@ -320,7 +320,7 @@ class App extends React.Component {
               path={FrontendRoute.EDIT_SPONSOR_PAGE}
               component={withNavbar(
                 withAuthRedirect(
-                  withSponsorRedirect(EditSponsorContainer, {
+                  withSponsorRedirect(EditSponsorPage, {
                     requiredAuthState: true,
                   }),
                   {
@@ -332,7 +332,7 @@ class App extends React.Component {
                 { activePage: 'sponsor' }
               )}
             />
-            <Route path="*" component={withNavbar(NotFoundContainer)} />
+            <Route path="*" component={withNavbar(ErrorPage)} />
           </Switch>
         </div>
       </BrowserRouter>
