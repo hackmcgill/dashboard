@@ -2,7 +2,6 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-
 import DashboardPage from './pages/index';
 import LoginPage from './pages/Login/index';
 import ForgotPasswordPage from './pages/Password/Forgot';
@@ -46,6 +45,7 @@ import {
   canAccessTeam,
   canAccessTravel,
   isSponsor,
+  userCanAccessHackerPage,
 } from './util';
 
 class App extends React.Component {
