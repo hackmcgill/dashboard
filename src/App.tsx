@@ -15,9 +15,14 @@ import HackPassContainer from './pages/Hacker/Pass';
 import LoginContainer from './pages/Login/index';
 import ForgotPasswordContainer from './pages/Password/Forgot';
 import resetPassword from './pages/Password/Reset';
+<<<<<<< HEAD
 import AdminSearch from './pages/Admin/Search';
 import SponsorSearch from './pages/Sponsor/Search';
 import SingleHackerContainer from './pages/Application/View/[id]';
+=======
+import SearchContainer from './features/Search/Search';
+import SingleHackerContainer from './pages/Application/View/index';
+>>>>>>> develop
 import CreateSponsorContainer from './pages/Sponsor/Create';
 import EditSponsorContainer from './pages/Sponsor/Edit';
 import TeamContainer from './pages/Team/index';
