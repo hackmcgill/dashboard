@@ -45,6 +45,7 @@ import {
   canAccessTeam,
   canAccessTravel,
   isSponsor,
+  userCanAccessHackerPage,
 } from './util';
 
 class App extends React.Component {
@@ -242,7 +243,13 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.VIEW_HACKER_PAGE}
-              component={SingleHackerContainer}
+              component={withNavbar(
+                withAuthRedirect(SingleHackerContainer, {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: userCanAccessHackerPage,
+                })
+              )}
             />
             <Route
               exact={true}
