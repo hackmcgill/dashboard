@@ -233,12 +233,28 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.ADMIN_SEARCH_PAGE}
-              component={AdminSearch}
+              component={withNavbar(
+                withAuthRedirect(AdminSearch, {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.STAFF,
+                }),
+                { activePage: 'search' }
+              )}
             />
             <Route
               exact={true}
               path={FrontendRoute.SPONSOR_SEARCH_PAGE}
-              component={SponsorSearch}
+              component={withNavbar(
+                withAuthRedirect(SponsorSearch, {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && isSponsor(user),
+                }),
+                { activePage: 'search' }
+              )}
             />
             <Route
               exact={true}
