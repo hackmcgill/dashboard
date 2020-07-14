@@ -31,7 +31,7 @@ import {
   PASSWORD_LABEL,
 } from '../../config';
 
-const LoginContainer: React.FC = () => {
+const LoginPage: React.FC = () => {
   // Store form's email and password values in state
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -171,4 +171,4 @@ const LoginContainer: React.FC = () => {
   );
 }
 
-export default WithToasterContainer(LoginContainer);
+export default WithToasterContainer(LoginPage);

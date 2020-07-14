@@ -16,7 +16,7 @@ import * as DashboardText from '../../features/Dashboard/DashboardText';
 
 import constructionCone from '../../assets/images/construction-cone.svg';
 
-const ConfirmAccountContainer: React.FC = () => {
+const ConfirmAccountPage: React.FC = () => {
   // Are we currently waiting on info from api?
   const [attempting, setAttempting] = useState<boolean>(true);
 
@@ -107,4 +107,4 @@ const ConfirmAccountContainer: React.FC = () => {
   );
 }
 
-export default ConfirmAccountContainer;
+export default ConfirmAccountPage;

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import ManageApplicationContainer, {
   ManageApplicationModes,
 } from '../../features/Application/ManageApplicationContainer';
 
-const CreateApplicationContainer = () => (
+const CreateApplicationPage: React.FC = () => (
   <ManageApplicationContainer mode={ManageApplicationModes.CREATE} />
 );
 
-export default CreateApplicationContainer;
+export default CreateApplicationPage;
