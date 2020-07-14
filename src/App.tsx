@@ -2,7 +2,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import NotFoundContainer from './features/404/404';
+import NotFoundContainer from './pages/_error';
 import ConfirmAccountContainer from './pages/Account/Confirm';
 import CreateAccountContainer from './pages/Account/Create';
 import EditAccountContainer from './pages/Account/Edit';
