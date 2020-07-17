@@ -1,6 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import fileDownload from 'js-file-download';
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 
 import { Account, Search, Sponsor } from '../../api';
@@ -34,118 +34,32 @@ interface IResult {
   hacker: IHacker;
 }
 
-interface ISearchState {
-  model: string;
-  query: ISearchParameter[];
-  results: IResult[];
-  searchBar: string;
-  loading: boolean;
-  viewSaved: boolean;
-  account?: IAccount;
-  sponsor?: ISponsor;
-}
+const SearchContainer: React.FC = () => {
+  const [model] = useState<string>('hacker');
+  const [query, setQuery] = useState<ISearchParameter[]>([]);
+  const [results, setResults] = useState<IResult[]>([]);
+  const [searchBar, setSearchBar] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [viewSaved, setViewSaved] = useState<boolean>(false);
+  const [account, setAccount] = useState<IAccount | null>(null);
+  const [sponsor, setSponsor] = useState<ISponsor | null>(null);
 
-class SearchContainer extends React.Component<{}, ISearchState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      model: 'hacker',
-      query: this.getSearchFromQuery(),
-      results: [],
-      searchBar: this.getSearchBarFromQuery(),
-      loading: false,
-      viewSaved: false,
-    };
+  useEffect(() => {
+    (async () => {
+      setQuery(getSearchFromQuery());
+      setSearchBar(getSearchBarFromQuery());
+      const account = (await Account.getSelf()).data.data;
+      setAccount(account);
 
-    this.onFilterChange = this.onFilterChange.bind(this);
-    this.triggerSearch = this.triggerSearch.bind(this);
-    this.downloadData = this.downloadData.bind(this);
-    this.onResetForm = this.onResetForm.bind(this);
-    this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
-  }
+      if (isSponsor(account)) {
+        const sponsor = (await Sponsor.getSelf()).data.data;
+        setSponsor(sponsor);
+      }
+      await triggerSearch();
+    })();
+  }, []);
 
-  public render() {
-    const { searchBar, account, query, loading, viewSaved } = this.state;
-    return (
-      <Flex flexDirection={'column'}>
-        <Helmet>
-          <title> Search | {HACKATHON_NAME}</title>
-        </Helmet>
-        <Box width={1}>
-          <Flex
-            flexDirection={'column'}
-            style={{ marginTop: '1em' }}
-            alignItems={'center'}
-          >
-            <Box alignSelf={'center'} width={1 / 6}>
-              <H1 color={theme.colors.red} fontSize={'30px'}>
-                Search
-              </H1>
-            </Box>
-            <Box width={5 / 6}>
-              <Flex justifyContent={'space-between'}>
-                <Box alignSelf={'center'}>
-                  <H1 color={theme.colors.red} fontSize={'30px'}>
-                    Hackers
-                  </H1>
-                </Box>
-                <Box alignSelf={'flex-start'} width={0.5}>
-                  <Input
-                    onChange={this.onSearchBarChanged}
-                    placeholder={'Refine your search...'}
-                    style={{ marginTop: 5 }}
-                    value={searchBar}
-                  />
-                </Box>
-                <Box mr={'10px'}>
-                  {account && account.accountType === UserType.STAFF && (
-                    <Button>Update Status</Button>
-                  )}
-                  {account && isSponsor(account) && (
-                    <Button onClick={this.toggleSaved}>
-                      View {viewSaved ? 'All' : 'Saved'}
-                    </Button>
-                  )}
-                  <Button onClick={this.downloadData}>Export Hackers</Button>
-                </Box>
-              </Flex>
-            </Box>
-          </Flex>
-        </Box>
-        <Box width={1}>
-          <Flex>
-            <Box width={1 / 6} m={2}>
-              <FilterComponent
-                initFilters={query}
-                onChange={this.onFilterChange}
-                onResetForm={this.onResetForm}
-                loading={loading}
-              />
-            </Box>
-            <Box width={5 / 6} m={2}>
-              <ResultsTable
-                results={this.filter()}
-                loading={loading}
-                userType={account ? account.accountType : UserType.UNKNOWN}
-                filter={searchBar}
-              />
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
-    );
-  }
-  public async componentDidMount() {
-    const account = (await Account.getSelf()).data.data;
-    this.setState({ account });
-
-    if (isSponsor(account)) {
-      const sponsor = (await Sponsor.getSelf()).data.data;
-      this.setState({ sponsor });
-    }
-    await this.triggerSearch();
-  }
-  private getSearchFromQuery(): ISearchParameter[] {
+  const getSearchFromQuery = () => {
     const search = getValueFromQuery('q');
     if (!search) {
       return [];
@@ -167,14 +81,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     } catch (e) {
       return [];
     }
-  }
+  };
 
-  private getSearchBarFromQuery(): string {
+  const getSearchBarFromQuery = () => {
     const search = getValueFromQuery('searchBar');
     return search ? decodeURIComponent(search) : '';
-  }
+  };
 
-  private downloadData(): void {
+  const downloadData = () => {
     const headers = [
       { label: CONSTANTS.FIRST_NAME_LABEL, key: 'accountId.firstName' },
       { label: CONSTANTS.LAST_NAME_LABEL, key: 'accountId.lastName' },
@@ -195,10 +109,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       },
     ];
     // Return all fields for admin, and only subset for sponsors
-    if (
-      this.state.account &&
-      this.state.account.accountType === UserType.STAFF
-    ) {
+    if (account && account.accountType === UserType.STAFF) {
       headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
       headers.push({ label: 'Github', key: 'application.general.URL.github' });
       headers.push({
@@ -264,7 +175,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       tempHeaders.push(header.label);
     });
     const csvData: string[] = [tempHeaders.join('\t')];
-    this.filter().forEach((result) => {
+    filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
         headers.forEach((header) => {
@@ -281,11 +192,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       }
     });
     fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
-  }
+  };
 
-  private async triggerSearch(): Promise<void> {
-    this.setState({ loading: true });
-    const { model, query } = this.state;
+  async function triggerSearch(): Promise<void> {
+    setLoading(true);
     try {
       const response = await Search.search(model, query, {
         expand: true,
@@ -293,36 +203,35 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
+            selected: true,
+            hacker: v,
+          }))
         : [];
-      this.setState({ results: tableData, loading: false });
+      setResults(tableData);
+      setLoading(false);
     } catch (e) {
       ValidationErrorGenerator(e.data);
-      this.setState({ loading: false });
+      setLoading(false);
     }
   }
-  private onResetForm() {
-    this.setState({ query: [] });
-    this.updateQueryURL([], this.state.searchBar);
-  }
+  const onResetForm = () => {
+    setQuery([]);
+    updateQueryURL([], searchBar);
+  };
 
-  private onFilterChange(newFilters: ISearchParameter[]) {
-    this.setState({
-      query: newFilters,
-    });
-    this.updateQueryURL(newFilters, this.state.searchBar);
-    this.triggerSearch();
-  }
+  const onFilterChange = (newFilters: ISearchParameter[]) => {
+    setQuery(newFilters);
+    updateQueryURL(newFilters, searchBar);
+    triggerSearch();
+  };
 
-  private onSearchBarChanged(e: any) {
+  const onSearchBarChanged = (e: any) => {
     const searchBar = e.target.value;
-    this.setState({ searchBar });
-    this.updateQueryURL(this.state.query, searchBar);
-  }
+    setSearchBar(searchBar);
+    updateQueryURL(query, searchBar);
+  };
 
-  private updateQueryURL(filters: ISearchParameter[], searchBar: string) {
+  const updateQueryURL = (filters: ISearchParameter[], searchBar: string) => {
     const newSearch = `?q=${encodeURIComponent(
       JSON.stringify(filters)
     )}&searchBar=${encodeURIComponent(searchBar)}`;
@@ -331,11 +240,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       '',
       window.location.href.split('?')[0] + newSearch
     );
-  }
+  };
 
-  private filter() {
-    const { sponsor, viewSaved, results } = this.state;
-    const searchBar = this.state.searchBar.toLowerCase();
+  const filter = () => {
+    const currSearchBar = searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
       let foundAcct;
@@ -343,31 +251,33 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         const account = accountId as IAccount;
         const fullName = `${account.firstName} ${
           account.lastName
-          }`.toLowerCase();
+        }`.toLowerCase();
         foundAcct =
-          fullName.includes(searchBar) ||
-          account.email.toLowerCase().includes(searchBar) ||
-          account.phoneNumber.toString().includes(searchBar) ||
-          account.gender.toLowerCase().includes(searchBar) ||
-          (account._id && account._id.includes(searchBar));
+          fullName.includes(currSearchBar) ||
+          account.email.toLowerCase().includes(currSearchBar) ||
+          account.phoneNumber.toString().includes(currSearchBar) ||
+          account.gender.toLowerCase().includes(currSearchBar) ||
+          (account._id && account._id.includes(currSearchBar));
       } else {
-        foundAcct = accountId.includes(searchBar);
+        foundAcct = accountId.includes(currSearchBar);
       }
       const foundHacker =
-        hacker.id.includes(searchBar) ||
-        hacker.application.general.school.includes(searchBar) ||
-        hacker.application.general.degree.includes(searchBar) ||
-        hacker.application.general.fieldOfStudy.includes(searchBar) ||
+        hacker.id.includes(currSearchBar) ||
+        hacker.application.general.school.includes(currSearchBar) ||
+        hacker.application.general.degree.includes(currSearchBar) ||
+        hacker.application.general.fieldOfStudy.includes(currSearchBar) ||
         hacker.application.general.graduationYear
           .toString()
-          .includes(searchBar) ||
-        hacker.application.general.jobInterest.includes(searchBar) ||
-        hacker.status.includes(searchBar) ||
-        hacker.application.shortAnswer.question1.includes(searchBar) ||
-        hacker.application.shortAnswer.question2.includes(searchBar) ||
-        hacker.application.accommodation.shirtSize.includes(searchBar) ||
+          .includes(currSearchBar) ||
+        hacker.application.general.jobInterest.includes(currSearchBar) ||
+        hacker.status.includes(currSearchBar) ||
+        hacker.application.shortAnswer.question1.includes(currSearchBar) ||
+        hacker.application.shortAnswer.question2.includes(currSearchBar) ||
+        hacker.application.accommodation.shirtSize.includes(currSearchBar) ||
         (hacker.application.shortAnswer.skills &&
-          hacker.application.shortAnswer.skills.toString().includes(searchBar));
+          hacker.application.shortAnswer.skills
+            .toString()
+            .includes(currSearchBar));
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||
@@ -375,16 +285,86 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       return (foundAcct || foundHacker) && isSavedBySponsorIfToggled;
     });
-  }
+  };
 
-  private toggleSaved = async () => {
+  async function toggleSaved() {
     // Resets the sponsor if they made changes to their saved hackers
     const sponsor = (await Sponsor.getSelf()).data.data;
-    const { viewSaved } = this.state;
     if (sponsor) {
-      this.setState({ sponsor, viewSaved: !viewSaved });
+      // this.setState({ sponsor, viewSaved: !viewSaved });
+      setSponsor(sponsor);
+      setViewSaved(!viewSaved);
     }
-  };
-}
+  }
+
+  return (
+    <Flex flexDirection={'column'}>
+      <Helmet>
+        <title> Search | {HACKATHON_NAME}</title>
+      </Helmet>
+      <Box width={1}>
+        <Flex
+          flexDirection={'column'}
+          style={{ marginTop: '1em' }}
+          alignItems={'center'}
+        >
+          <Box alignSelf={'center'} width={1 / 6}>
+            <H1 color={theme.colors.red} fontSize={'30px'}>
+              Search
+            </H1>
+          </Box>
+          <Box width={5 / 6}>
+            <Flex justifyContent={'space-between'}>
+              <Box alignSelf={'center'}>
+                <H1 color={theme.colors.red} fontSize={'30px'}>
+                  Hackers
+                </H1>
+              </Box>
+              <Box alignSelf={'flex-start'} width={0.5}>
+                <Input
+                  onChange={onSearchBarChanged}
+                  placeholder={'Refine your search...'}
+                  style={{ marginTop: 5 }}
+                  value={searchBar}
+                />
+              </Box>
+              <Box mr={'10px'}>
+                {account && account.accountType === UserType.STAFF && (
+                  <Button>Update Status</Button>
+                )}
+                {account && isSponsor(account) && (
+                  <Button onClick={toggleSaved}>
+                    View {viewSaved ? 'All' : 'Saved'}
+                  </Button>
+                )}
+                <Button onClick={downloadData}>Export Hackers</Button>
+              </Box>
+            </Flex>
+          </Box>
+        </Flex>
+      </Box>
+      <Box width={1}>
+        <Flex>
+          <Box width={1 / 6} m={2}>
+            <FilterComponent
+              initFilters={query}
+              onChange={onFilterChange}
+              onResetForm={onResetForm}
+              loading={loading}
+            />
+          </Box>
+          <Box width={5 / 6} m={2}>
+            <ResultsTable
+              results={filter()}
+              loading={loading}
+              userType={account ? account.accountType : UserType.UNKNOWN}
+              filter={searchBar}
+            />
+          </Box>
+        </Flex>
+      </Box>
+    </Flex>
+  );
+};
 
 export default withContext(WithToasterContainer(SearchContainer));

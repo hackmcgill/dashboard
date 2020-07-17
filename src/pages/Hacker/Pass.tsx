@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Account, Hacker } from '../../api';
 import { IAccount, IHacker } from '../../config';
@@ -7,14 +7,6 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import { generateHackerQRCode, generateHackPass } from '../../util';
 import { Pass } from '../../features/HackPass/Pass';
 import styled from '../../shared/Styles/styled-components';
-
-interface IDashboardState {
-  account: IAccount | null;
-  hacker: IHacker | null;
-  qrData: string;
-  loadingHacker: boolean;
-  downloadingPass: boolean;
-}
 
 const HackPassWrapper = styled.div`
   max-width: 320px;
@@ -32,7 +24,7 @@ const HackPassWrapper = styled.div`
   .pass {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-    
+
     .info {
       background: ${(props) => props.theme.colors.black5};
       padding-top: 20px;
@@ -57,69 +49,62 @@ const HackPassWrapper = styled.div`
     }
   }
 
-  button[type="submit"] {
+  button[type='submit'] {
     position: relative;
     top: calc(-50px - 38px / 2);
   }
 `;
+const HackPassContainer: React.FC = () => {
+  const [account, setAccount] = useState<IAccount | null>(null);
+  const [hacker, setHacker] = useState<IHacker | null>(null);
+  const [qrData, setQrData] = useState<string>('');
+  const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
+  const [downloadingPass, setDownloadinPass] = useState<boolean>(true);
 
-class HackPassContainer extends React.Component<{}, IDashboardState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      account: null,
-      hacker: null,
-      qrData: '',
-      loadingHacker: true,
-      downloadingPass: false,
-    };
-    this.handleDownloadPass = this.handleDownloadPass.bind(this);
-  }
-  public async componentDidMount() {
-    try {
-      const account = (await Account.getSelf()).data.data;
-      const hacker = (await Hacker.getSelf()).data.data;
-      const qrData = await generateHackerQRCode(hacker);
-      this.setState({ account, hacker, qrData });
-    } catch (e) {
-      if (e && e.data) {
-        ValidationErrorGenerator(e.data);
+  useEffect(() => {
+    (async () => {
+      try {
+        const account = (await Account.getSelf()).data.data;
+        const hacker = (await Hacker.getSelf()).data.data;
+        const qrData = await generateHackerQRCode(hacker);
+        // this.setState({ account, hacker, qrData });
+        setAccount(account);
+        setHacker(hacker);
+        setQrData(qrData);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e.data);
+        }
+      } finally {
+        // this.setState({ loadingHacker: false });
+        setLoadingHacker(false);
       }
-    } finally {
-      this.setState({ loadingHacker: false });
-    }
-  }
-  public render() {
-    const { qrData, account, hacker, downloadingPass } = this.state;
-    if (qrData && account && hacker) {
-      return (
-        <HackPassWrapper>
-          <h1>Your HackPass</h1>
-          <Pass account={account} hacker={hacker} qrData={qrData} />
-          <SubmitBtn
-            onClick={this.handleDownloadPass}
-            isLoading={downloadingPass}
-          >
-            Download pass
-          </SubmitBtn>
-        </HackPassWrapper>
-      );
-    }
-    if (this.state.loadingHacker) {
-      return <h1>Loading...</h1>;
-    }
-    return <h1>Error</h1>;
-  }
+    })();
+  }, []);
 
-  private async handleDownloadPass(): Promise<void> {
-    const { account, hacker } = this.state;
+  async function handleDownloadPass() {
     if (!hacker || !account) {
       return;
     }
-    this.setState({ downloadingPass: true });
+    setDownloadinPass(true);
     await generateHackPass(account, hacker);
-    this.setState({ downloadingPass: false });
+    setDownloadinPass(false);
   }
-}
 
+  if (qrData && account && hacker) {
+    return (
+      <HackPassWrapper>
+        <h1>Your HackPass</h1>
+        <Pass account={account} hacker={hacker} qrData={qrData} />
+        <SubmitBtn onClick={handleDownloadPass} isLoading={downloadingPass}>
+          Download pass
+        </SubmitBtn>
+      </HackPassWrapper>
+    );
+  }
+  if (loadingHacker) {
+    return <h1>Loading...</h1>;
+  }
+  return <h1>Error</h1>;
+};
 export default HackPassContainer;

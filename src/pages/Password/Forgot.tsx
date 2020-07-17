@@ -1,9 +1,9 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import * as React from 'react';
+import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 
 import { APIResponse, Auth } from '../../api';
 import { EMAIL_LABEL, HACKATHON_NAME } from '../../config';
@@ -17,64 +17,14 @@ import PasswordResetEmailConfirmationContainer from '../../features/Login/Passwo
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
-export interface IForgotState {
-  email: string;
-  sentEmail: boolean;
-}
-
 /**
  * Container that renders form to log in.
  */
-class ForgotPasswordContainer extends React.Component<
-  RouteComponentProps,
-  IForgotState
-  > {
-  constructor(props: RouteComponentProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onEmailChanged = this.onEmailChanged.bind(this);
-    this.state = {
-      email: '',
-      sentEmail: false,
-    };
-  }
-  public render() {
-    if (this.state.sentEmail) {
-      return <PasswordResetEmailConfirmationContainer />;
-    } else {
-      return (
-        <MediaQuery minWidth={1224}>
-          {(matches) =>
-            matches ? (
-              <LeftContainer>
-                {this.renderPassForgot()}
-                <BackgroundImage
-                  src={BackgroundLandscape}
-                  top={'0px'}
-                  left={'0px'}
-                  imgWidth={'100%'}
-                  imgHeight={'100%'}
-                  minHeight={'600px'}
-                />
-              </LeftContainer>
-            ) : (
-                <div>
-                  {this.renderPassForgot()}
-                  <BackgroundImage
-                    src={BackgroundLandscape}
-                    top={'0px'}
-                    left={'0px'}
-                    imgHeight={'100%'}
-                  />
-                </div>
-              )
-          }
-        </MediaQuery>
-      );
-    }
-  }
+const ForgotPasswordContainer: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [sentEmail, setSentEmail] = useState<boolean>(false);
 
-  private renderPassForgot() {
+  const renderPassForgot = () => {
     return (
       <Flex
         flexWrap={'wrap'}
@@ -97,7 +47,7 @@ class ForgotPasswordContainer extends React.Component<
           </Paragraph>
         </MaxWidthBox>
         <Box width={'100%'}>
-          <Form onSubmit={this.formSubmitHandler}>
+          <Form onSubmit={formSubmitHandler}>
             <Flex
               justifyContent={'center'}
               alignItems={'left'}
@@ -107,14 +57,14 @@ class ForgotPasswordContainer extends React.Component<
                 <EmailInput
                   label={EMAIL_LABEL}
                   required={true}
-                  onEmailChanged={this.onEmailChanged}
+                  onEmailChanged={onEmailChanged}
                   placeholder={'foo@bar.ca'}
                 />
               </MaxWidthBox>
               <Box>
                 <Button
                   type="button"
-                  onClick={this.handleSubmit}
+                  onClick={handleSubmit}
                   variant={ButtonVariant.CallToAction}
                 >
                   Submit
@@ -125,16 +75,16 @@ class ForgotPasswordContainer extends React.Component<
         </Box>
       </Flex>
     );
-  }
-  private formSubmitHandler(e: any) {
+  };
+  const formSubmitHandler = (e: any) => {
     e.preventDefault();
-  }
+  };
 
   /**
    * Function that calls the login function once the form is submitted.
    */
-  private handleSubmit(): void {
-    Auth.forgotPassword(this.state.email)
+  const handleSubmit = () => {
+    Auth.forgotPassword(email)
       .then((value: AxiosResponse) => {
         // Good response
         if (value.status === 200) {
@@ -143,9 +93,7 @@ class ForgotPasswordContainer extends React.Component<
           Auth.logout()
             .then(() => {
               // Redirect to confirmation page that we sent an email
-              this.setState({
-                sentEmail: true,
-              });
+              setSentEmail(true);
             })
             .catch((error) => {
               console.error('Could not log out', error);
@@ -159,16 +107,48 @@ class ForgotPasswordContainer extends React.Component<
           validationErrorGenerator(response.data);
         }
       });
-  }
+  };
   /**
    * Callback that is called once email is added.
    * @param email The updated email
    */
-  private onEmailChanged(email: string) {
-    this.setState({ email });
-  }
-}
+  const onEmailChanged = (email: string) => {
+    setEmail(email);
+  };
 
-export default WithToasterContainer(
-  withRouter(ForgotPasswordContainer)
-);
+  if (sentEmail) {
+    return <PasswordResetEmailConfirmationContainer />;
+  } else {
+    return (
+      <MediaQuery minWidth={1224}>
+        {(matches) =>
+          matches ? (
+            <LeftContainer>
+              {renderPassForgot()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgWidth={'100%'}
+                imgHeight={'100%'}
+                minHeight={'600px'}
+              />
+            </LeftContainer>
+          ) : (
+            <div>
+              {renderPassForgot()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgHeight={'100%'}
+              />
+            </div>
+          )
+        }
+      </MediaQuery>
+    );
+  }
+};
+
+export default WithToasterContainer(withRouter(ForgotPasswordContainer));

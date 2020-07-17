@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
           ValidationErrorGenerator(response.data);
         }
       });
-  }
+  };
 
   /**
    * Display login form to user
@@ -141,7 +141,7 @@ const LoginPage: React.FC = () => {
   );
 
   return (
-    <MediaQuery minWidth={1224} width={"100%"}>
+    <MediaQuery minWidth={1224} width={'100%'}>
       {(matches) =>
         matches ? (
           <LeftContainer>
@@ -156,19 +156,19 @@ const LoginPage: React.FC = () => {
             />
           </LeftContainer>
         ) : (
-            <div>
-              {renderForm()}
-              <BackgroundImage
-                src={Coders}
-                top={'60px'}
-                right={'0px'}
-                imgHeight={'100%'}
-              />
-            </div>
-          )
+          <div>
+            {renderForm()}
+            <BackgroundImage
+              src={Coders}
+              top={'60px'}
+              right={'0px'}
+              imgHeight={'100%'}
+            />
+          </div>
+        )
       }
     </MediaQuery>
   );
-}
+};
 
 export default WithToasterContainer(LoginPage);

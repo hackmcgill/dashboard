@@ -30,7 +30,7 @@ const ConfirmAccountPage: React.FC = () => {
       try {
         const token = getTokenFromQuery();
         const response = await Auth.confirm(token);
-        alert(response)
+        alert(response);
         if (response.status === 200) {
           console.log('Confirmed account');
           setAttempting(false);
@@ -45,7 +45,7 @@ const ConfirmAccountPage: React.FC = () => {
         setWasConfirmed(false);
         console.error('No token found in the query parameters');
       }
-    })()
+    })();
   }, []);
 
   let result;
@@ -78,10 +78,7 @@ const ConfirmAccountPage: React.FC = () => {
       <Helmet>
         <title>Confirmation | {HACKATHON_NAME}</title>
       </Helmet>
-      <MaxWidthBox
-        hidden={wasConfirmed && !attempting}
-        mb={'20px'}
-      >
+      <MaxWidthBox hidden={wasConfirmed && !attempting} mb={'20px'}>
         <Image src={constructionCone} imgHeight={'6rem'} />
       </MaxWidthBox>
       <Box style={{ marginTop: '6rem' }}>
@@ -105,6 +102,6 @@ const ConfirmAccountPage: React.FC = () => {
       </MaxWidthBox>
     </Flex>
   );
-}
+};
 
 export default ConfirmAccountPage;
