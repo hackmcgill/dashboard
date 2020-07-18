@@ -1,11 +1,49 @@
 import * as React from 'react';
-import { RouteProps } from 'react-router';
-import ManageAccountContainer, {
+import Helmet from 'react-helmet';
+import ManageAccountForm, {
   ManageAccountModes,
-} from '../../features/Account/ManageAccountContainer';
+} from '../../features/Account/ManageAccountForm';
 
-const CreateAccountContainer = (props: RouteProps) => {
-  return <ManageAccountContainer mode={ManageAccountModes.CREATE} {...props} />;
-};
+import * as CONSTANTS from '../../config/constants';
 
-export default CreateAccountContainer;
+import {
+  BackgroundImage,
+  H1,
+  // HorizontalSpacer,
+  MaxWidthBox,
+} from '../../shared/Elements';
+
+import Coders from '../../assets/images/coders.svg'
+
+const CreateAccountPage = () => (
+  <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
+    <>
+      <BackgroundImage
+        src={Coders}
+        top={'60px'}
+        right={'0px'}
+        imgHeight={'100%'}
+      />
+    </>
+    <Helmet>
+      <title>
+        Create Account |
+        {CONSTANTS.HACKATHON_NAME}
+      </title>
+    </Helmet>
+    <H1
+      fontSize={'30px'}
+      textAlign={'left'}
+      marginTop={'0px'}
+      marginBottom={'20px'}
+      marginLeft={'0px'}
+      paddingBottom={'20px'}
+      paddingTop={'70px'}
+    >
+      Your Account
+    </H1>
+    <ManageAccountForm mode={ManageAccountModes.Create} />
+  </MaxWidthBox>
+);
+
+export default CreateAccountPage;

@@ -43,7 +43,7 @@ import {
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
-import Coders from '../../assets/images/coders.svg'
+import Coders from '../../assets/images/coders.svg';
 
 export enum ManageAccountModes {
   CREATE,
