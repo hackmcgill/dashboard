@@ -33,17 +33,16 @@ const ConfirmAccountPage: React.FC = () => {
         alert(response);
         if (response.status === 200) {
           console.log('Confirmed account');
-          setAttempting(false);
           setWasConfirmed(true);
         } else {
-          setAttempting(false);
           setWasConfirmed(false);
           console.error('Did not confirm account');
         }
       } catch (e) {
-        setAttempting(true);
         setWasConfirmed(false);
         console.error('No token found in the query parameters');
+      } finally {
+        setAttempting(false);
       }
     })();
   }, []);
