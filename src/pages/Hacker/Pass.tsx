@@ -55,7 +55,7 @@ const HackPassWrapper = styled.div`
   }
 `;
 
-const HackPassContainer: React.FC = () => {
+const HackPassPage: React.FC = () => {
   // Store the user's data
   const [account, setAccount] = useState<IAccount | null>(null);
   const [hacker, setHacker] = useState<IHacker | null>(null);
@@ -127,4 +127,4 @@ const HackPassContainer: React.FC = () => {
   );
 };
 
-export default HackPassContainer;
+export default HackPassPage;

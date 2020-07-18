@@ -34,7 +34,7 @@ interface IResult {
   hacker: IHacker;
 }
 
-const SearchContainer: React.FC = () => {
+const SearchPage: React.FC = () => {
   const [model] = useState<string>('hacker');
   const [query, setQuery] = useState<ISearchParameter[]>([]);
   const [results, setResults] = useState<IResult[]>([]);
@@ -203,9 +203,9 @@ const SearchContainer: React.FC = () => {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-            selected: true,
-            hacker: v,
-          }))
+          selected: true,
+          hacker: v,
+        }))
         : [];
       setResults(tableData);
       setLoading(false);
@@ -251,7 +251,7 @@ const SearchContainer: React.FC = () => {
         const account = accountId as IAccount;
         const fullName = `${account.firstName} ${
           account.lastName
-        }`.toLowerCase();
+          }`.toLowerCase();
         foundAcct =
           fullName.includes(currSearchBar) ||
           account.email.toLowerCase().includes(currSearchBar) ||
@@ -367,4 +367,4 @@ const SearchContainer: React.FC = () => {
   );
 };
 
-export default withContext(WithToasterContainer(SearchContainer));
+export default withContext(WithToasterContainer(SearchPage));

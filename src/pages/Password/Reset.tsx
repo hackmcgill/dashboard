@@ -26,7 +26,7 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-const ResetPasswordContainer: React.FC<RouteComponentProps> = () => {
+const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
   // Are the values inputted into the form fields valid?
   const [isValid, setIsValid] = useState<boolean>(false);
 
@@ -159,4 +159,4 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = () => {
   );
 };
 
-export default WithToasterContainer(ResetPasswordContainer);
+export default WithToasterContainer(ResetPasswordPage);

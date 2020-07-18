@@ -2,8 +2,8 @@ import React from 'react';
 
 import SearchContainer from '../../features/Search/Search';
 
-const SponsorSearchContainer: React.FC = () => (
+const SponsorSearchPage: React.FC = () => (
   <SearchContainer />
 );
 
-export default SponsorSearchContainer;
+export default SponsorSearchPage;

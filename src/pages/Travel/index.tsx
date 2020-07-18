@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 
 import { Travel } from '../../api';
-import { HACKATHON_NAME, IHacker, ITravel } from '../../config';
+import { HACKATHON_NAME, ITravel } from '../../config';
 import {
   BackgroundImage,
   H1,
@@ -16,16 +16,10 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 
 import Train from '../../assets/images/train.svg';
 
-export interface ITravelState {
-  hacker: IHacker | null;
-  travel: ITravel | null;
-  isLoading: boolean;
-}
-
 /**
  * Container that renders form to log in.
  */
-const TravelContainer: React.FC = () => {
+const TravelPage: React.FC = () => {
   const [travel, setTravel] = useState<ITravel | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -237,27 +231,27 @@ const TravelContainer: React.FC = () => {
       {isLoading ? (
         <div />
       ) : (
-        <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-          <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
-            Travel
+          <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
+            <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
+              Travel
           </H1>
-          <h2>Status</h2>
-          {reimbursement}
-          <br />
-          <br />
-          <div>
-            Please ensure you've reviewed our{' '}
-            <a
-              href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              travel policy
+            <h2>Status</h2>
+            {reimbursement}
+            <br />
+            <br />
+            <div>
+              Please ensure you've reviewed our{' '}
+              <a
+                href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                travel policy
             </a>{' '}
             if using any of our travel accommodation options.
           </div>
-        </MaxWidthBox>
-      )}
+          </MaxWidthBox>
+        )}
       <BackgroundImage
         right={'0'}
         bottom={'0'}
@@ -269,4 +263,4 @@ const TravelContainer: React.FC = () => {
   );
 };
 
-export default WithToasterContainer(TravelContainer);
+export default WithToasterContainer(TravelPage);

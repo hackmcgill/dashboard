@@ -11,18 +11,10 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import { JoinCreateTeam } from '../../features/Team/JoinCreateTeam';
 import { TeamDescription } from '../../features/Team/TeamDescription';
 
-export interface ITeamState {
-  hacker: IHacker | null;
-  team: ITeam | null;
-  members: IMemberName[];
-  isLoading: boolean;
-  isLeavingTeam: boolean;
-}
-
 /**
  * Container that renders form to log in.
  */
-const TeamContainer: React.FC = () => {
+const TeamPage: React.FC = () => {
   const [hacker, setHacker] = useState<IHacker | null>(null);
   const [team, setTeam] = useState<ITeam | null>(null);
   const [members, setMembers] = useState<IMemberName[]>([]);
@@ -99,4 +91,4 @@ const TeamContainer: React.FC = () => {
   );
 };
 
-export default WithToasterContainer(TeamContainer);
+export default WithToasterContainer(TeamPage);
