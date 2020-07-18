@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ManageAccountContainer, {
   ManageAccountModes,
-} from './ManageAccountContainer';
+} from '../../features/Account/ManageAccountContainer';
 
 const EditAccountContainer = () => (
   <ManageAccountContainer mode={ManageAccountModes.EDIT} />

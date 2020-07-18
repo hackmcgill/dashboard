@@ -13,7 +13,7 @@ import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
 import validationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import PasswordResetEmailConfirmationContainer from './PasswordForgotConfirmation';
+import PasswordResetEmailConfirmationContainer from '../../features/Login/PasswordForgotConfirmation';
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
@@ -28,7 +28,7 @@ export interface IForgotState {
 class ForgotPasswordContainer extends React.Component<
   RouteComponentProps,
   IForgotState
-> {
+  > {
   constructor(props: RouteComponentProps) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,16 +58,16 @@ class ForgotPasswordContainer extends React.Component<
                 />
               </LeftContainer>
             ) : (
-              <div>
-                {this.renderPassForgot()}
-                <BackgroundImage
-                  src={BackgroundLandscape}
-                  top={'0px'}
-                  left={'0px'}
-                  imgHeight={'100%'}
-                />
-              </div>
-            )
+                <div>
+                  {this.renderPassForgot()}
+                  <BackgroundImage
+                    src={BackgroundLandscape}
+                    top={'0px'}
+                    left={'0px'}
+                    imgHeight={'100%'}
+                  />
+                </div>
+              )
           }
         </MediaQuery>
       );

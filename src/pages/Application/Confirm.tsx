@@ -14,7 +14,7 @@ import * as FormikElements from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
-import * as DashboardText from '../Dashboard/DashboardText';
+import * as DashboardText from '../../features/Dashboard/DashboardText';
 
 interface IConfirmAttendanceState {
   submitted: boolean;
@@ -24,7 +24,7 @@ interface IConfirmAttendanceState {
 class ConfirmAttendanceContainer extends React.Component<
   {},
   IConfirmAttendanceState
-> {
+  > {
   constructor(props: {}) {
     super(props);
     this.state = {

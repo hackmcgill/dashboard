@@ -1,19 +1,19 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router';
-import { Account, Hacker } from '../../api';
-import { IHacker, UserType } from '../../config';
-import { H1, H2 } from '../../shared/Elements';
-import withContext from '../../shared/HOC/withContext';
+import { Account, Hacker } from '../../../api';
+import { IHacker, UserType } from '../../../config';
+import { H1, H2 } from '../../../shared/Elements';
+import withContext from '../../../shared/HOC/withContext';
 
-import HackerSelect from '../Search/HackerSelect';
-import SingleHackerView from './SingleHackerView';
+import HackerSelect from '../../../features/Search/HackerSelect';
+import SingleHackerView from '../../../features/SingleHacker/SingleHackerView';
 
 interface IParams {
   id: string;
 }
 
-interface ISingleHackerContainerProps extends RouteComponentProps<IParams> {}
+interface ISingleHackerContainerProps extends RouteComponentProps<IParams> { }
 
 interface ISingleHackerContainerState {
   isLoading: boolean;
@@ -24,7 +24,7 @@ interface ISingleHackerContainerState {
 class SingleHackerContainer extends React.Component<
   ISingleHackerContainerProps,
   ISingleHackerContainerState
-> {
+  > {
   constructor(props: ISingleHackerContainerProps) {
     super(props);
     this.state = {
@@ -40,7 +40,7 @@ class SingleHackerContainer extends React.Component<
       console.log(viewer, viewer.accountType);
       this.setState({ userType: viewer.accountType });
       // tslint:disable-next-line:no-empty
-    } catch (e) {}
+    } catch (e) { }
     try {
       const hacker = (await Hacker.get(this.props.match.params.id)).data.data;
       const account = (await Account.get(hacker.accountId as string)).data.data;

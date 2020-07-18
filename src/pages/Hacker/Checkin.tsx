@@ -8,8 +8,8 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 import { generateHackPass } from '../../util';
-import { Email } from './Email';
-import { Reader } from './Reader';
+import { Email } from '../../features/Checkin/Email';
+import { Reader } from '../../features/Checkin/Reader';
 
 interface ICheckinState {
   loading: boolean;
