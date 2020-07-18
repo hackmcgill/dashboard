@@ -2,7 +2,6 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-
 import { Auth } from '../../api';
 import { getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
@@ -13,10 +12,11 @@ import {
   Paragraph,
 } from '../../shared/Elements';
 
-import * as DashboardText from '../Dashboard/DashboardText';
+import * as DashboardText from '../../features/Dashboard/DashboardText';
 
 import constructionCone from '../../assets/images/construction-cone.svg';
 
+// ../../src/assets/images/construction-cone.svg
 interface IConfirmAccountState {
   attempting: boolean;
   wasConfirmed: boolean;
@@ -25,7 +25,7 @@ interface IConfirmAccountState {
 class ConfirmAccountContainer extends React.Component<
   {},
   IConfirmAccountState
-> {
+  > {
   constructor(props: {}) {
     super(props);
     this.state = {
