@@ -3,8 +3,6 @@ import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { withRouter } from 'react-router';
-
 import { APIResponse, Auth } from '../../api';
 import { EMAIL_LABEL, HACKATHON_NAME } from '../../config';
 import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
@@ -151,4 +149,4 @@ const ForgotPasswordContainer: React.FC = () => {
   }
 };
 
-export default WithToasterContainer(withRouter(ForgotPasswordContainer));
+export default WithToasterContainer(ForgotPasswordContainer);

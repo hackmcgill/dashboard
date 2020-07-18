@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -36,6 +36,8 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
+
+  const history = useHistory();
 
   const renderPassReset = () => {
     return (
@@ -104,7 +106,7 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
           if (value.status === 200) {
             console.log('Reset password');
             // Redirec to login page
-            props.history.push(FrontendRoute.LOGIN_PAGE);
+            history.push(FrontendRoute.LOGIN_PAGE);
           }
         })
         .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
@@ -163,4 +165,4 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
   );
 };
 
-export default withRouter(WithToasterContainer(ResetPasswordContainer));
+export default WithToasterContainer(ResetPasswordContainer);

@@ -194,7 +194,7 @@ const SearchContainer: React.FC = () => {
     fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
   };
 
-  async function triggerSearch(): Promise<void> {
+  const triggerSearch = async (): Promise<void> => {
     setLoading(true);
     try {
       const response = await Search.search(model, query, {
@@ -213,7 +213,7 @@ const SearchContainer: React.FC = () => {
       ValidationErrorGenerator(e.data);
       setLoading(false);
     }
-  }
+  };
   const onResetForm = () => {
     setQuery([]);
     updateQueryURL([], searchBar);
@@ -287,7 +287,7 @@ const SearchContainer: React.FC = () => {
     });
   };
 
-  async function toggleSaved() {
+  const toggleSaved = async () => {
     // Resets the sponsor if they made changes to their saved hackers
     const sponsor = (await Sponsor.getSelf()).data.data;
     if (sponsor) {
@@ -295,7 +295,7 @@ const SearchContainer: React.FC = () => {
       setSponsor(sponsor);
       setViewSaved(!viewSaved);
     }
-  }
+  };
 
   return (
     <Flex flexDirection={'column'}>

@@ -59,7 +59,7 @@ const HackPassContainer: React.FC = () => {
   const [hacker, setHacker] = useState<IHacker | null>(null);
   const [qrData, setQrData] = useState<string>('');
   const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
-  const [downloadingPass, setDownloadinPass] = useState<boolean>(true);
+  const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
@@ -82,14 +82,14 @@ const HackPassContainer: React.FC = () => {
     })();
   }, []);
 
-  async function handleDownloadPass() {
+  const handleDownloadPass = async () => {
     if (!hacker || !account) {
       return;
     }
-    setDownloadinPass(true);
+    setDownloadingPass(true);
     await generateHackPass(account, hacker);
-    setDownloadinPass(false);
-  }
+    setDownloadingPass(false);
+  };
 
   if (qrData && account && hacker) {
     return (

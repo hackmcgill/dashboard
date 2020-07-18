@@ -76,7 +76,7 @@ const ConfirmAttendanceContainer: React.FC = () => {
     };
   }
 
-  async function onSubmit() {
+  const onSubmit = async () => {
     try {
       const hackerId = (await Hacker.getSelf()).data.data.id;
       switch (submissionBtn) {
@@ -91,7 +91,7 @@ const ConfirmAttendanceContainer: React.FC = () => {
     } catch (e) {
       ValidationErrorGenerator(e.data);
     }
-  }
+  };
 
   if (submitted) {
     return <Redirect to={FrontendRoute.HOME_PAGE} />;
