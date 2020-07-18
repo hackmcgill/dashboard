@@ -47,10 +47,11 @@ const ConfirmAccountPage: React.FC = () => {
     })();
   }, []);
 
-  let result;
-  let paragraphMessage;
-  let buttonMessage;
-  let link;
+  // Based upon state, calculate what message to display to users
+  let result = DashboardText.Confirming;
+  let paragraphMessage = '';
+  let buttonMessage = '';
+  let link = '';
   if (wasConfirmed) {
     result = DashboardText.ConfirmAccount;
     paragraphMessage = DashboardText.ConfirmMessage;
@@ -61,11 +62,6 @@ const ConfirmAccountPage: React.FC = () => {
     paragraphMessage = DashboardText.Error;
     buttonMessage = DashboardText.CreateAccount;
     link = DashboardText.AttemptingLink;
-  } else {
-    result = DashboardText.Confirming;
-    paragraphMessage = '';
-    buttonMessage = '';
-    link = '';
   }
 
   return (
