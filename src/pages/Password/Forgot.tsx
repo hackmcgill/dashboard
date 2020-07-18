@@ -22,62 +22,6 @@ const ForgotPasswordContainer: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [sentEmail, setSentEmail] = useState<boolean>(false);
 
-  const renderPassForgot = () => {
-    return (
-      <Flex
-        flexWrap={'wrap'}
-        justifyContent={'center'}
-        alignItems={'left'}
-        flexDirection={'column'}
-        p={'5rem 0rem 0rem 6.4rem'}
-      >
-        <Helmet>
-          <title>Forgot your password | {HACKATHON_NAME}</title>
-        </Helmet>
-        <Box>
-          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'0px'}>
-            Reset Your Password
-          </H1>
-        </Box>
-        <MaxWidthBox width={'60%'} fontSize={[2, 3, 4]}>
-          <Paragraph textAlign={'left'} fontSize={'18px'}>
-            Enter your email and we will send you a link to reset your password
-          </Paragraph>
-        </MaxWidthBox>
-        <Box width={'100%'}>
-          <Form onSubmit={formSubmitHandler}>
-            <Flex
-              justifyContent={'center'}
-              alignItems={'left'}
-              flexDirection={'column'}
-            >
-              <MaxWidthBox width={'60%'}>
-                <EmailInput
-                  label={EMAIL_LABEL}
-                  required={true}
-                  onEmailChanged={onEmailChanged}
-                  placeholder={'foo@bar.ca'}
-                />
-              </MaxWidthBox>
-              <Box>
-                <Button
-                  type="button"
-                  onClick={handleSubmit}
-                  variant={ButtonVariant.CallToAction}
-                >
-                  Submit
-                </Button>
-              </Box>
-            </Flex>
-          </Form>
-        </Box>
-      </Flex>
-    );
-  };
-  const formSubmitHandler = (e: any) => {
-    e.preventDefault();
-  };
-
   /**
    * Function that calls the login function once the form is submitted.
    */
@@ -106,45 +50,94 @@ const ForgotPasswordContainer: React.FC = () => {
         }
       });
   };
-  /**
-   * Callback that is called once email is added.
-   * @param email The updated email
-   */
-  const onEmailChanged = (email: string) => {
-    setEmail(email);
+
+  // TODO: Move this to seprate component,
+  const renderPassForgot = () => {
+    return (
+      <Flex
+        flexWrap={'wrap'}
+        justifyContent={'center'}
+        alignItems={'left'}
+        flexDirection={'column'}
+        p={'5rem 0rem 0rem 6.4rem'}
+      >
+        <Box>
+          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'0px'}>
+            Reset Your Password
+          </H1>
+        </Box>
+        <MaxWidthBox width={'60%'} fontSize={[2, 3, 4]}>
+          <Paragraph textAlign={'left'} fontSize={'18px'}>
+            Enter your email and we will send you a link to reset your password
+          </Paragraph>
+        </MaxWidthBox>
+        <Box width={'100%'}>
+          <Form onSubmit={(e: any) => e.preventDefault()}>
+            <Flex
+              justifyContent={'center'}
+              alignItems={'left'}
+              flexDirection={'column'}
+            >
+              <MaxWidthBox width={'60%'}>
+                <EmailInput
+                  label={EMAIL_LABEL}
+                  required={true}
+                  onEmailChanged={setEmail}
+                  placeholder={'foo@bar.ca'}
+                />
+              </MaxWidthBox>
+              <Box>
+                <Button
+                  type="button"
+                  onClick={handleSubmit}
+                  variant={ButtonVariant.CallToAction}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Flex>
+          </Form>
+        </Box>
+      </Flex>
+    );
   };
 
   if (sentEmail) {
     return <PasswordResetEmailConfirmationContainer />;
   } else {
     return (
-      <MediaQuery minWidth={1224}>
-        {(matches) =>
-          matches ? (
-            <LeftContainer>
-              {renderPassForgot()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgWidth={'100%'}
-                imgHeight={'100%'}
-                minHeight={'600px'}
-              />
-            </LeftContainer>
-          ) : (
-            <div>
-              {renderPassForgot()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgHeight={'100%'}
-              />
-            </div>
-          )
-        }
-      </MediaQuery>
+      <>
+        <Helmet>
+          <title>Forgot your password | {HACKATHON_NAME}</title>
+        </Helmet>
+        <MediaQuery minWidth={1224}>
+          {(matches) =>
+            matches ? (
+              <LeftContainer>
+                {renderPassForgot()}
+                <BackgroundImage
+                  src={BackgroundLandscape}
+                  top={'0px'}
+                  left={'0px'}
+                  imgWidth={'100%'}
+                  imgHeight={'100%'}
+                  minHeight={'600px'}
+                />
+              </LeftContainer>
+            ) : (
+                <div>
+                  {renderPassForgot()}
+                  <BackgroundImage
+                    src={BackgroundLandscape}
+                    top={'0px'}
+                    left={'0px'}
+                    imgHeight={'100%'}
+                  />
+                </div>
+              )
+          }
+        </MediaQuery>
+      </>
     );
   }
 };

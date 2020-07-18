@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchContainer from '../../features/Search/Search';
 
-const SponsorSearchContainer = () => (
+const SponsorSearchContainer: React.FC = () => (
   <SearchContainer />
 );
 

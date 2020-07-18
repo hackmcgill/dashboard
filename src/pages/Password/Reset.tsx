@@ -23,20 +23,20 @@ import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
-export interface IResetPasswordContainerState {
-  isValid: boolean;
-  isSubmitted: boolean;
-  password: string;
-}
-
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
+const ResetPasswordContainer: React.FC<RouteComponentProps> = () => {
+  // Are the values inputted into the form fields valid?
   const [isValid, setIsValid] = useState<boolean>(false);
+
+  // Has the reset password form been submitted?
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  // Value currently entered in password form field
   const [password, setPassword] = useState<string>('');
 
+  // Get access to broswer's router in order to progatically navigate
   const history = useHistory();
 
   const renderPassReset = () => {
@@ -62,7 +62,7 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
             >
               <Box width={7 / 8}>
                 <PasswordInput
-                  onPasswordChanged={onPasswordChanged}
+                  onPasswordChanged={setPassword}
                   label={'New password'}
                   id={'new-password'}
                 />
@@ -90,6 +90,7 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
       </Flex>
     );
   };
+
   /**
    * Function that calls the reset password function once the form is submitted.
    */
@@ -118,13 +119,6 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
       console.error(error);
     }
   };
-  /**
-   * Callback that is called once password is updated.
-   * @param password The updated password
-   */
-  const onPasswordChanged = (password: string) => {
-    setPassword(password);
-  };
 
   /**
    * Callback that is called once password is updated.
@@ -150,16 +144,16 @@ const ResetPasswordContainer: React.FC<RouteComponentProps> = (props) => {
             />
           </LeftContainer>
         ) : (
-          <div>
-            {renderPassReset()}
-            <BackgroundImage
-              src={BackgroundLandscape}
-              top={'0px'}
-              left={'0px'}
-              imgHeight={'100%'}
-            />
-          </div>
-        )
+            <div>
+              {renderPassReset()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgHeight={'100%'}
+              />
+            </div>
+          )
       }
     </MediaQuery>
   );

@@ -54,20 +54,26 @@ const HackPassWrapper = styled.div`
     top: calc(-50px - 38px / 2);
   }
 `;
+
 const HackPassContainer: React.FC = () => {
+  // Store the user's data
   const [account, setAccount] = useState<IAccount | null>(null);
   const [hacker, setHacker] = useState<IHacker | null>(null);
   const [qrData, setQrData] = useState<string>('');
+
+  // Is the hacker data currently being fetched from server?
   const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
+
+  // Is the pass currently being downloaded
   const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
 
+  // When the component mounts, fetch data associate with this hacker from server
   useEffect(() => {
     (async () => {
       try {
         const account = (await Account.getSelf()).data.data;
         const hacker = (await Hacker.getSelf()).data.data;
         const qrData = await generateHackerQRCode(hacker);
-        // this.setState({ account, hacker, qrData });
         setAccount(account);
         setHacker(hacker);
         setQrData(qrData);
@@ -76,12 +82,12 @@ const HackPassContainer: React.FC = () => {
           ValidationErrorGenerator(e.data);
         }
       } finally {
-        // this.setState({ loadingHacker: false });
         setLoadingHacker(false);
       }
     })();
   }, []);
 
+  // Generage hackpass pdf and download it to the user's computer
   const handleDownloadPass = async () => {
     if (!hacker || !account) {
       return;
@@ -91,6 +97,7 @@ const HackPassContainer: React.FC = () => {
     setDownloadingPass(false);
   };
 
+  // If user's data has loaded succesfully, display the page to them
   if (qrData && account && hacker) {
     return (
       <HackPassWrapper>
@@ -102,9 +109,22 @@ const HackPassContainer: React.FC = () => {
       </HackPassWrapper>
     );
   }
+
+  // If still loading, display loading message
   if (loadingHacker) {
-    return <h1>Loading...</h1>;
+    return (
+      <HackPassWrapper>
+        <h1>Loading...</h1>
+      </HackPassWrapper>
+    );
   }
-  return <h1>Error</h1>;
+
+  // If not loading anymore, but some of user's data is missing, display an error
+  return (
+    <HackPassWrapper>
+      <h1>Error</h1>
+    </HackPassWrapper>
+  );
 };
+
 export default HackPassContainer;
