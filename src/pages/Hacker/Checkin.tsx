@@ -13,7 +13,10 @@ import { Reader } from '../../features/Checkin/Reader';
 
 
 const CheckinPage: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // Is page currently busy doing something?
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Store details of last code scanned
   const [lastScan, setLastScan] = useState<string>('');
 
   /**
@@ -23,7 +26,7 @@ const CheckinPage: React.FC = () => {
    */
   const checkinHacker = async (id: string): Promise<boolean> => {
     let checkedIn = false;
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       await Hacker.checkin(id);
@@ -54,7 +57,7 @@ const CheckinPage: React.FC = () => {
         ValidationErrorGenerator(e.data);
       }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
     return checkedIn;
   }
@@ -64,7 +67,7 @@ const CheckinPage: React.FC = () => {
    * @param data Hacker ID, or the url to VIEW_HACKER_PAGE, such as 5c0dd463d95414ef5efd14cd, or https://app.mchacks.ca/application/view/5c0dd463d95414ef5efd14cd
    */
   const handleScan = async (data: string | null) => {
-    if (data && !loading && lastScan !== data) {
+    if (data && !isLoading && lastScan !== data) {
       setLastScan(data);
       data = data.trim();
       const subRouteRegex = FrontendRoute.VIEW_HACKER_PAGE.replace(
@@ -84,12 +87,20 @@ const CheckinPage: React.FC = () => {
     }
   }
 
+  /**
+   * If error scanning an code, display a toast popup with error message
+   * @param err the error thrown
+   */
   const handleScanError = (err: any) => {
     toast.error(err);
   }
 
+  /**
+   * Checkin hacker with a certain email address, if that address is valid
+   * @param email the email to attempt to find & checkin a hacker for
+   */
   const handleEmail = async (email: string) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const hacker = (await Hacker.getByEmail(email)).data.data;
       await checkinHacker(hacker.id);
@@ -98,7 +109,7 @@ const CheckinPage: React.FC = () => {
         ValidationErrorGenerator(e.data);
       }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 

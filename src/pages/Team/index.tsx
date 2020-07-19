@@ -27,6 +27,10 @@ const TeamPage: React.FC = () => {
     };
   }, []);
 
+  /**
+   * Get the hacker's team, if any
+   * and if they are on a team, get team's details and data on other members of team
+   */
   const getTeam = async () => {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
@@ -50,6 +54,9 @@ const TeamPage: React.FC = () => {
     }
   };
 
+  /**
+   * Have signed in hacker leave their current team
+   */
   const onLeaveTeam = async () => {
     try {
       setIsLeavingTeam(true);
@@ -81,6 +88,7 @@ const TeamPage: React.FC = () => {
   } else {
     content = <div />;
   }
+
   return (
     <div>
       <Helmet>

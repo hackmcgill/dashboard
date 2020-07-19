@@ -43,6 +43,7 @@ const SingleHackerPage: React.FC = () => {
     })();
   }, []);
 
+  // If data on hacker has loaded, display that hacker's info
   if (hacker) {
     return (
       <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
@@ -69,7 +70,8 @@ const SingleHackerPage: React.FC = () => {
     );
   }
 
-  if (isLoading) {
+  // ... otherwise if still loading display loading state
+  else if (isLoading) {
     return (
       <Flex alignItems={'center'}>
         <Box m={'auto'}>
@@ -79,7 +81,10 @@ const SingleHackerPage: React.FC = () => {
     );
   }
 
-  return <Redirect to={'/404'} />;
+  // If not loading, but hacker data didn't return, in an error state so redirect to 404 page
+  else {
+    return <Redirect to={'/404'} />;
+  }
 }
 
 export default withContext(SingleHackerPage);

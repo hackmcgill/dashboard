@@ -88,7 +88,7 @@ const HackPassPage: React.FC = () => {
   }, []);
 
   // Generage hackpass pdf and download it to the user's computer
-  const handleDownloadPass = async () => {
+  const handleDownloadPass = async (): Promise<void> => {
     if (!hacker || !account) {
       return;
     }
@@ -111,7 +111,7 @@ const HackPassPage: React.FC = () => {
   }
 
   // If still loading, display loading message
-  if (loadingHacker) {
+  else if (loadingHacker) {
     return (
       <HackPassWrapper>
         <h1>Loading...</h1>
@@ -120,11 +120,13 @@ const HackPassPage: React.FC = () => {
   }
 
   // If not loading anymore, but some of user's data is missing, display an error
-  return (
-    <HackPassWrapper>
-      <h1>Error</h1>
-    </HackPassWrapper>
-  );
+  else {
+    return (
+      <HackPassWrapper>
+        <h1>Error</h1>
+      </HackPassWrapper>
+    );
+  }
 };
 
 export default HackPassPage;

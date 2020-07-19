@@ -20,27 +20,27 @@ import Train from '../../assets/images/train.svg';
  * Container that renders form to log in.
  */
 const TravelPage: React.FC = () => {
+  // Travel details for signed in hacker
   const [travel, setTravel] = useState<ITravel | null>(null);
+
+  // Is the page currently waiting for data?
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // When this component mounts, get signed in hacker's travel info
   useEffect(() => {
-    return () => {
-      getTravelInfo();
-    };
-  }, []);
-
-  const getTravelInfo = async () => {
-    try {
-      const travel = (await Travel.getSelf()).data.data;
-      setTravel(travel);
-    } catch (e) {
-      if (e && e.data) {
-        ValidationErrorGenerator(e.data);
+    (async () => {
+      try {
+        const travel = (await Travel.getSelf()).data.data;
+        setTravel(travel);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e.data);
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    })();
+  }, []);
 
   let reimbursement = <div />;
   if (travel) {

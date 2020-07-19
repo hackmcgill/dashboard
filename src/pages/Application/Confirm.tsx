@@ -16,10 +16,15 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 import * as DashboardText from '../../features/Dashboard/DashboardText';
 
-const ConfirmAttendanceContainer: React.FC = () => {
-  const [submissionBtn, setSubmissionBtn] = useState<number>(0);
+const ConfirmAttendancePage: React.FC = () => {
+  // TODO: Think this has to do with whether the hacker is attending or not
+  // with 1 being attending and 0 being declining
+  const [submissionButton, setSubmissionButton] = useState<number>(0);
+
+  // Has this form been submitted yet?
   const [submitted, setSubmitted] = useState<boolean>(false);
 
+  // Display form asking user (who is a hacker) if they wish to attend the event or not
   const renderFormik = (fp: FormikProps<any>) => {
     return (
       <Form onSubmit={fp.handleSubmit}>
@@ -66,20 +71,28 @@ const ConfirmAttendanceContainer: React.FC = () => {
     );
   };
 
+  /**
+   * TODO: ???
+   * @param submissionBtn 
+   * @param submitForm 
+   */
   function onClickFactory(
     submissionBtn: number,
     submitForm: () => void
   ): (e: any) => void {
     return (e) => {
-      setSubmissionBtn(submissionBtn);
+      setSubmissionButton(submissionBtn);
       submitForm();
     };
   }
 
+  /**
+   * Submit the ahckers application
+   */
   const onSubmit = async () => {
     try {
       const hackerId = (await Hacker.getSelf()).data.data.id;
-      switch (submissionBtn) {
+      switch (submissionButton) {
         case 0:
           await Hacker.confirm(hackerId, false);
           break;
@@ -93,9 +106,12 @@ const ConfirmAttendanceContainer: React.FC = () => {
     }
   };
 
+  // If form has been submitted, redirect to home page
   if (submitted) {
     return <Redirect to={FrontendRoute.HOME_PAGE} />;
   }
+
+  // Display page asking user to confirm their attendance of the hackathon
   return (
     <Flex
       justifyContent={'center'}
@@ -133,4 +149,4 @@ const ConfirmAttendanceContainer: React.FC = () => {
   );
 };
 
-export default WithToasterContainer(ConfirmAttendanceContainer);
+export default WithToasterContainer(ConfirmAttendancePage);
