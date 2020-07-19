@@ -2,8 +2,8 @@ import React from 'react';
 
 import SearchContainer from '../../features/Search/Search';
 
-const AdminSearchContainer = () => (
+const AdminSearchPage: React.FC = () => (
   <SearchContainer />
 );
 
-export default AdminSearchContainer;
+export default AdminSearchPage;

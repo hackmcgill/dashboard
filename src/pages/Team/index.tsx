@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 
 import { Hacker } from '../../api';
@@ -11,103 +11,92 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import { JoinCreateTeam } from '../../features/Team/JoinCreateTeam';
 import { TeamDescription } from '../../features/Team/TeamDescription';
 
-export interface ITeamState {
-  hacker: IHacker | null;
-  team: ITeam | null;
-  members: IMemberName[];
-  isLoading: boolean;
-  isLeavingTeam: boolean;
-}
-
 /**
  * Container that renders form to log in.
  */
-class TeamContainer extends React.Component<{}, ITeamState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      hacker: null,
-      team: null,
-      members: [],
-      isLoading: true,
-      isLeavingTeam: false,
+const TeamPage: React.FC = () => {
+  const [hacker, setHacker] = useState<IHacker | null>(null);
+  const [team, setTeam] = useState<ITeam | null>(null);
+  const [members, setMembers] = useState<IMemberName[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLeavingTeam, setIsLeavingTeam] = useState<boolean>(true);
+
+  useEffect(() => {
+    return () => {
+      getTeam();
     };
-    this.onLeaveTeam = this.onLeaveTeam.bind(this);
-    this.getTeam = this.getTeam.bind(this);
-  }
-  public render() {
-    let content;
-    if (this.state.isLoading) {
-      content = <div />;
-    } else if (!this.state.team && this.state.hacker) {
-      content = (
-        <JoinCreateTeam
-          hacker={this.state.hacker}
-          onTeamChange={this.getTeam}
-        />
-      );
-    } else if (this.state.team) {
-      content = (
-        <TeamDescription
-          team={this.state.team}
-          members={this.state.members}
-          onLeaveTeam={this.onLeaveTeam}
-          isLeavingTeam={this.state.isLeavingTeam}
-        />
-      );
-    } else {
-      content = <div />;
-    }
-    return (
-      <div>
-        <Helmet>
-          <title>Team | {HACKATHON_NAME}</title>
-        </Helmet>
-        {content}
-      </div>
-    );
-  }
+  }, []);
 
-  public componentDidMount() {
-    return this.getTeam();
-  }
-
-  private async getTeam() {
+  /**
+   * Get the hacker's team, if any
+   * and if they are on a team, get team's details and data on other members of team
+   */
+  const getTeam = async () => {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
       if (hacker && hacker.teamId) {
         const id = String(hacker.teamId);
         const teamResponse: ITeamResponse = (await Team.get(id)).data.data;
-        this.setState({
-          hacker,
-          team: teamResponse.team,
-          members: teamResponse.members,
-        });
+        setHacker(hacker);
+        setTeam(teamResponse.team);
+        setMembers(teamResponse.members);
       } else if (hacker) {
-        this.setState({ hacker, team: null, members: [] });
+        setHacker(hacker);
+        setTeam(null);
+        setMembers([]);
       }
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
-  }
+  };
 
-  private async onLeaveTeam() {
+  /**
+   * Have signed in hacker leave their current team
+   */
+  const onLeaveTeam = async () => {
     try {
-      this.setState({ isLeavingTeam: true });
+      setIsLeavingTeam(true);
       await Team.leave();
     } catch (e) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
     } finally {
-      this.setState({ isLeavingTeam: false });
+      setIsLeavingTeam(false);
     }
-    return this.getTeam();
-  }
-}
+    return getTeam();
+  };
 
-export default WithToasterContainer(TeamContainer);
+  let content;
+  if (isLoading) {
+    content = <div />;
+  } else if (!team && hacker) {
+    content = <JoinCreateTeam hacker={hacker} onTeamChange={getTeam} />;
+  } else if (team) {
+    content = (
+      <TeamDescription
+        team={team}
+        members={members}
+        onLeaveTeam={onLeaveTeam}
+        isLeavingTeam={isLeavingTeam}
+      />
+    );
+  } else {
+    content = <div />;
+  }
+
+  return (
+    <div>
+      <Helmet>
+        <title>Team | {HACKATHON_NAME}</title>
+      </Helmet>
+      {content}
+    </div>
+  );
+};
+
+export default WithToasterContainer(TeamPage);
