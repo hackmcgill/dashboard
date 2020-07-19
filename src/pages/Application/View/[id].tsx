@@ -1,6 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
-import * as React from 'react';
-import { Redirect, RouteComponentProps } from 'react-router';
+import React, { useState, useEffect, useContext } from 'react';
+import { Redirect, useParams } from 'react-router';
 import { Account, Hacker } from '../../../api';
 import { IHacker, UserType } from '../../../config';
 import { H1, H2 } from '../../../shared/Elements';
@@ -9,83 +9,82 @@ import withContext from '../../../shared/HOC/withContext';
 import HackerSelect from '../../../features/Search/HackerSelect';
 import SingleHackerView from '../../../features/SingleHacker/SingleHackerView';
 
-interface IParams {
-  id: string;
-}
+import NomineeContext from '../../../features/Search/Context';
 
-interface ISingleHackerContainerProps extends RouteComponentProps<IParams> { }
+const SingleHackerPage: React.FC = () => {
+  // Is the page currently fetching data about the specified hacker
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-interface ISingleHackerContainerState {
-  isLoading: boolean;
-  hacker: IHacker | null;
-  userType: UserType;
-}
+  // Data on the hacker we are viewing
+  const [hacker, setHacker] = useState<IHacker | null>(null);
 
-class SingleHackerContainer extends React.Component<
-  ISingleHackerContainerProps,
-  ISingleHackerContainerState
-  > {
-  constructor(props: ISingleHackerContainerProps) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      hacker: null,
-      userType: UserType.UNKNOWN,
-    };
-  }
+  // The type of user viewing this page (Organzier, Sponsor_TIER, etc.)
+  const [userType, setUserType] = useState<UserType>(UserType.UNKNOWN);
 
-  public async componentDidMount() {
-    try {
-      const viewer = (await Account.getSelf()).data.data;
-      console.log(viewer, viewer.accountType);
-      this.setState({ userType: viewer.accountType });
-      // tslint:disable-next-line:no-empty
-    } catch (e) { }
-    try {
-      const hacker = (await Hacker.get(this.props.match.params.id)).data.data;
-      const account = (await Account.get(hacker.accountId as string)).data.data;
-      hacker.accountId = account;
-      this.setState({ hacker, isLoading: false });
-    } catch (e) {
-      this.setState({ isLoading: false });
-    }
-  }
+  // Get the id param from url's query
+  let { id } = useParams();
 
-  public render() {
-    if (this.state.hacker) {
-      return (
-        <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
-          <Box m={'auto'}>
-            <SingleHackerView
-              hacker={this.state.hacker}
-              userType={this.state.userType}
-            />
-            {this.context && this.context.nominees && <hr />}
-            {this.context && this.context.nominees && (
+  const nomineeContext = useContext(NomineeContext);
+
+  // When this component mounts, load hackers data
+  useEffect(() => {
+    (async () => {
+      try {
+        const viewer = (await Account.getSelf()).data.data;
+        console.log(viewer, viewer.accountType);
+        setUserType(viewer.accountType);
+        const hacker = (await Hacker.get(id)).data.data;
+        const account = (await Account.get(hacker.accountId as string)).data.data;
+        hacker.accountId = account;
+        setHacker(hacker);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
+
+  // If data on hacker has loaded, display that hacker's info
+  if (hacker) {
+    return (
+      <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
+        <Box m={'auto'}>
+          <SingleHackerView
+            hacker={hacker}
+            userType={userType}
+          />
+          {nomineeContext && nomineeContext.nominees && (
+            <>
+              <hr />
               <Flex m={'auto'}>
                 <Box>
                   <H2 marginBottom={'3px'}>Save Hacker:</H2>
                 </Box>
                 <Box>
-                  <HackerSelect hackerId={this.state.hacker.id} />
+                  <HackerSelect hackerId={hacker.id} />
                 </Box>
               </Flex>
-            )}
-          </Box>
-        </Flex>
-      );
-    } else if (this.state.isLoading) {
-      return (
-        <Flex alignItems={'center'}>
-          <Box m={'auto'}>
-            <H1>Loading...</H1>
-          </Box>
-        </Flex>
-      );
-    } else {
-      return <Redirect to={'/404'} />;
-    }
+            </>
+          )}
+        </Box>
+      </Flex>
+    );
+  }
+
+  // ... otherwise if still loading display loading state
+  else if (isLoading) {
+    return (
+      <Flex alignItems={'center'}>
+        <Box m={'auto'}>
+          <H1>Loading...</H1>
+        </Box>
+      </Flex>
+    );
+  }
+
+  // If not loading, but hacker data didn't return, in an error state so redirect to 404 page
+  else {
+    return <Redirect to={'/404'} />;
   }
 }
 
-export default withContext(SingleHackerContainer);
+export default withContext(SingleHackerPage);

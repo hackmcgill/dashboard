@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Account, Hacker } from '../../api';
 import { IAccount, IHacker } from '../../config';
@@ -7,14 +7,6 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import { generateHackerQRCode, generateHackPass } from '../../util';
 import { Pass } from '../../features/HackPass/Pass';
 import styled from '../../shared/Styles/styled-components';
-
-interface IDashboardState {
-  account: IAccount | null;
-  hacker: IHacker | null;
-  qrData: string;
-  loadingHacker: boolean;
-  downloadingPass: boolean;
-}
 
 const HackPassWrapper = styled.div`
   max-width: 320px;
@@ -32,7 +24,7 @@ const HackPassWrapper = styled.div`
   .pass {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-    
+
     .info {
       background: ${(props) => props.theme.colors.black5};
       padding-top: 20px;
@@ -57,69 +49,84 @@ const HackPassWrapper = styled.div`
     }
   }
 
-  button[type="submit"] {
+  button[type='submit'] {
     position: relative;
     top: calc(-50px - 38px / 2);
   }
 `;
 
-class HackPassContainer extends React.Component<{}, IDashboardState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      account: null,
-      hacker: null,
-      qrData: '',
-      loadingHacker: true,
-      downloadingPass: false,
-    };
-    this.handleDownloadPass = this.handleDownloadPass.bind(this);
-  }
-  public async componentDidMount() {
-    try {
-      const account = (await Account.getSelf()).data.data;
-      const hacker = (await Hacker.getSelf()).data.data;
-      const qrData = await generateHackerQRCode(hacker);
-      this.setState({ account, hacker, qrData });
-    } catch (e) {
-      if (e && e.data) {
-        ValidationErrorGenerator(e.data);
-      }
-    } finally {
-      this.setState({ loadingHacker: false });
-    }
-  }
-  public render() {
-    const { qrData, account, hacker, downloadingPass } = this.state;
-    if (qrData && account && hacker) {
-      return (
-        <HackPassWrapper>
-          <h1>Your HackPass</h1>
-          <Pass account={account} hacker={hacker} qrData={qrData} />
-          <SubmitBtn
-            onClick={this.handleDownloadPass}
-            isLoading={downloadingPass}
-          >
-            Download pass
-          </SubmitBtn>
-        </HackPassWrapper>
-      );
-    }
-    if (this.state.loadingHacker) {
-      return <h1>Loading...</h1>;
-    }
-    return <h1>Error</h1>;
-  }
+const HackPassPage: React.FC = () => {
+  // Store the user's data
+  const [account, setAccount] = useState<IAccount | null>(null);
+  const [hacker, setHacker] = useState<IHacker | null>(null);
+  const [qrData, setQrData] = useState<string>('');
 
-  private async handleDownloadPass(): Promise<void> {
-    const { account, hacker } = this.state;
+  // Is the hacker data currently being fetched from server?
+  const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
+
+  // Is the pass currently being downloaded
+  const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
+
+  // When the component mounts, fetch data associate with this hacker from server
+  useEffect(() => {
+    (async () => {
+      try {
+        const account = (await Account.getSelf()).data.data;
+        const hacker = (await Hacker.getSelf()).data.data;
+        const qrData = await generateHackerQRCode(hacker);
+        setAccount(account);
+        setHacker(hacker);
+        setQrData(qrData);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e.data);
+        }
+      } finally {
+        setLoadingHacker(false);
+      }
+    })();
+  }, []);
+
+  // Generage hackpass pdf and download it to the user's computer
+  const handleDownloadPass = async (): Promise<void> => {
     if (!hacker || !account) {
       return;
     }
-    this.setState({ downloadingPass: true });
+    setDownloadingPass(true);
     await generateHackPass(account, hacker);
-    this.setState({ downloadingPass: false });
-  }
-}
+    setDownloadingPass(false);
+  };
 
-export default HackPassContainer;
+  // If user's data has loaded succesfully, display the page to them
+  if (qrData && account && hacker) {
+    return (
+      <HackPassWrapper>
+        <h1>Your HackPass</h1>
+        <Pass account={account} hacker={hacker} qrData={qrData} />
+        <SubmitBtn onClick={handleDownloadPass} isLoading={downloadingPass}>
+          Download pass
+        </SubmitBtn>
+      </HackPassWrapper>
+    );
+  }
+
+  // If still loading, display loading message
+  else if (loadingHacker) {
+    return (
+      <HackPassWrapper>
+        <h1>Loading...</h1>
+      </HackPassWrapper>
+    );
+  }
+
+  // If not loading anymore, but some of user's data is missing, display an error
+  else {
+    return (
+      <HackPassWrapper>
+        <h1>Error</h1>
+      </HackPassWrapper>
+    );
+  }
+};
+
+export default HackPassPage;

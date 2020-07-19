@@ -30,4 +30,4 @@ function handleLogout(props: RouteComponentProps): () => void {
   };
 }
 
-export default withRouter<RouteComponentProps>(LogoutBtn);
+export default withRouter(LogoutBtn);

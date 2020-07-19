@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { RouteProps } from 'react-router';
+import React from 'react';
 import ManageAccountContainer, {
   ManageAccountModes,
 } from '../../features/Account/ManageAccountContainer';
 
-const CreateAccountContainer = (props: RouteProps) => {
-  return <ManageAccountContainer mode={ManageAccountModes.CREATE} {...props} />;
+const CreateAccountPage: React.FC = () => {
+  return <ManageAccountContainer mode={ManageAccountModes.CREATE} />;
 };
 
-export default CreateAccountContainer;
+export default CreateAccountPage;
