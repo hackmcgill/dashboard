@@ -43,7 +43,7 @@ import {
 import StatusPage from '../Status/StatusPage';
 import getValidationSchema from './validationSchema';
 
-import Coders from '../../assets/images/coders.svg'
+import Coders from '../../assets/images/coders.svg';
 
 export enum ManageAccountModes {
   CREATE,
@@ -68,7 +68,7 @@ interface IManageAccountContainerProps extends RouteProps {
 class ManageAccountContainer extends React.Component<
   IManageAccountContainerProps,
   IManageAccountContainerState
-> {
+  > {
   constructor(props: IManageAccountContainerProps) {
     super(props);
     this.state = {
@@ -159,15 +159,18 @@ class ManageAccountContainer extends React.Component<
   private renderForm() {
     const { mode, accountDetails } = this.state;
     return (
-      <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
-        <>
-          <BackgroundImage
-            src={Coders}
-            top={'60px'}
-            right={'0px'}
-            imgHeight={'100%'}
-          />
-        </>
+      <MaxWidthBox
+        paddingLeft={'100px'}
+        paddingRight={'50px'}
+        maxWidth={'500px'}
+      >
+        <BackgroundImage
+          position={'fixed'}
+          src={Coders}
+          top={'60px'}
+          right={'0px'}
+          imgHeight={'100%'}
+        />
         <Helmet>
           <title>
             {mode === ManageAccountModes.CREATE ? 'Create ' : 'Edit '} Account |{' '}
@@ -212,7 +215,10 @@ class ManageAccountContainer extends React.Component<
   private renderFormik(fp: FormikProps<any>) {
     const { mode } = this.state;
     return (
-      <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
+      <Form
+        onSubmit={fp.handleSubmit}
+        style={{ background: '#fff', padding: '10px', borderRadius: '8px' }}
+      >
         <FastField
           name={'firstName'}
           label={CONSTANTS.FIRST_NAME_LABEL}
@@ -272,8 +278,8 @@ class ManageAccountContainer extends React.Component<
             <ErrorMessage component={FormikElements.Error} name="newPassword" />
           </MaxWidthBox>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <FastField
           component={FormikElements.FormattedNumber}
           label={CONSTANTS.PHONE_NUMBER_LABEL}
