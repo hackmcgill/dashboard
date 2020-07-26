@@ -39,7 +39,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-> {
+  > {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -216,7 +216,7 @@ export default class Navbar extends React.Component<
           {NavItems()}
           {CTAButton}
         </Links>
-        <Menu isOpen={window.innerWidth > 768} styles={Burger}>
+        <Menu isOpen={true} styles={Burger}>
           {NavItems()}
           {CTAButton}
         </Menu>
