@@ -45,6 +45,7 @@ import {
   canAccessTeam,
   canAccessTravel,
   isSponsor,
+  userCanAccessHackerPage,
 } from './util';
 
 class App extends React.Component {
