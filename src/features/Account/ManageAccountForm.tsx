@@ -29,6 +29,7 @@ import {
   getOptionsFromEnum,
   getValueFromQuery,
   input2date,
+  isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
 
@@ -39,7 +40,6 @@ export enum ManageAccountModes {
 
 interface IManageAccountProps {
   mode: ManageAccountModes;
-  children?: React.ReactNode;
 }
 
 /**
@@ -47,7 +47,7 @@ interface IManageAccountProps {
  * and either allows the user to create a new account (if in CREATE mode) or edit
  * an existing account (if in EDIT mode)
  */
-const ManageAccountForm: React.FC = (props: IManageAccountProps) => {
+const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // Get access to router history in order to programatically change page
   const history = useHistory();
 
@@ -125,6 +125,13 @@ const ManageAccountForm: React.FC = (props: IManageAccountProps) => {
     } else if (props.mode === ManageAccountModes.EDIT) {
       handleEdit(formattedDetails, values.password, values.newPassword);
     }
+
+    // Once submitted, redirect user to appropriate page
+    if (isSponsor(accountDetails)) {
+      history.push(FrontendRoute.CREATE_SPONSOR_PAGE);
+    } else {
+      history.push(FrontendRoute.HOME_PAGE);
+    }
   }
 
   /**
@@ -142,6 +149,9 @@ const ManageAccountForm: React.FC = (props: IManageAccountProps) => {
     } finally {
       setIsSubmitting(false);
     }
+
+    // Once submitted redirect user to appropriate page
+    history.push(FrontendRoute.HOME_PAGE);
   }
 
   /**
