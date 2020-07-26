@@ -15,7 +15,7 @@ import MediaQuery from 'react-responsive';
 import theme from '../../shared/Styles/theme';
 
 const EditAccountPage: React.FC = () => (
-  <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+  <MaxWidthBox m={'auto'} maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
     <Helmet>
       <title>
         Edit Profile | {CONSTANTS.HACKATHON_NAME}
