@@ -127,7 +127,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     }
 
     // Once submitted, redirect user to appropriate page
-    if (isSponsor(accountDetails)) {
+    if (props.mode === ManageAccountModes.CREATE && isSponsor(accountDetails)) {
       history.push(FrontendRoute.CREATE_SPONSOR_PAGE);
     } else {
       history.push(FrontendRoute.HOME_PAGE);
