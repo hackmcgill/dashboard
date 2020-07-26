@@ -9,18 +9,25 @@ import {
   MaxWidthBox,
 } from '../../shared/Elements';
 
-import Coders from '../../assets/images/coders.svg';
+import Bulby from '../../assets/images/bulby.svg';
+import Drone from '../../assets/images/drone.svg';
 
 const EditAccountPage: React.FC = () => (
-  <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
-    <>
-      <BackgroundImage
-        src={Coders}
-        top={'60px'}
-        right={'0px'}
-        imgHeight={'100%'}
-      />
-    </>
+  <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+    <BackgroundImage
+      right={'10%'}
+      top={'178px'}
+      src={Drone}
+      imgHeight={'133px'}
+      position={'fixed' as 'fixed'}
+    />
+    <BackgroundImage
+      left={'5%'}
+      bottom={'5%'}
+      src={Bulby}
+      imgHeight={'290px'}
+      position={'fixed' as 'fixed'}
+    />
     <Helmet>
       <title>
         Edit Profile | {CONSTANTS.HACKATHON_NAME}
