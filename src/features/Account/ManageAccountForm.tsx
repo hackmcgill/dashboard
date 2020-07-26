@@ -78,7 +78,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         try {
           const response = await Account.getSelf();
           const newAccountDetails = response.data.data;
-          newAccountDetails.birthDate = date2input(accountDetails.birthDate);
+          newAccountDetails.birthDate = date2input(newAccountDetails.birthDate);
           setAccountDetails(newAccountDetails);
         } catch (e) {
           // If can't find self's account, shouldn't be logged in. Redirect to home page
