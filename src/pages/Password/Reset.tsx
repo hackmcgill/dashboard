@@ -1,9 +1,9 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import * as React from 'react';
+import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -23,63 +23,23 @@ import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
-export interface IResetPasswordContainerState {
-  isValid: boolean;
-  isSubmitted: boolean;
-  password: string;
-}
-
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-class ResetPasswordContainer extends React.Component<
-  RouteComponentProps,
-  IResetPasswordContainerState
-> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onPasswordChanged = this.onPasswordChanged.bind(this);
-    this.onConfirmationChanged = this.onConfirmationChanged.bind(this);
-    this.state = {
-      isValid: false,
-      isSubmitted: false,
-      password: '',
-    };
-  }
-  public render() {
-    return (
-      <MediaQuery minWidth={1224}>
-        {(matches) =>
-          matches ? (
-            <LeftContainer>
-              {this.renderPassReset()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgWidth={'100%'}
-                imgHeight={'100%'}
-                minHeight={'600px'}
-              />
-            </LeftContainer>
-          ) : (
-            <div>
-              {this.renderPassReset()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgHeight={'100%'}
-              />
-            </div>
-          )
-        }
-      </MediaQuery>
-    );
-  }
+const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
+  // Are the values inputted into the form fields valid?
+  const [isValid, setIsValid] = useState<boolean>(false);
 
-  private renderPassReset() {
+  // Has the reset password form been submitted?
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  // Value currently entered in password form field
+  const [password, setPassword] = useState<string>('');
+
+  // Get access to broswer's router in order to progatically navigate
+  const history = useHistory();
+
+  const renderPassReset = () => {
     return (
       <Flex
         justifyContent={'center'}
@@ -102,25 +62,23 @@ class ResetPasswordContainer extends React.Component<
             >
               <Box width={7 / 8}>
                 <PasswordInput
-                  onPasswordChanged={this.onPasswordChanged}
+                  onPasswordChanged={setPassword}
                   label={'New password'}
                   id={'new-password'}
                 />
               </Box>
               <Box width={7 / 8}>
                 <PasswordInput
-                  onPasswordChanged={this.onConfirmationChanged}
+                  onPasswordChanged={onConfirmationChanged}
                   label={'Confirm password'}
                   id={'confirm-password'}
                 />
-                {!this.state.isValid &&
-                  this.state.isSubmitted &&
-                  'Passwords must match!'}
+                {isValid && isSubmitted && 'Passwords must match!'}
               </Box>
               <Box>
                 <Button
                   type="button"
-                  onClick={this.handleSubmit}
+                  onClick={handleSubmit}
                   variant={ButtonVariant.Primary}
                 >
                   Submit
@@ -131,25 +89,25 @@ class ResetPasswordContainer extends React.Component<
         </MaxWidthBox>
       </Flex>
     );
-  }
+  };
+
   /**
    * Function that calls the reset password function once the form is submitted.
    */
-  private handleSubmit(): void {
-    const { isValid } = this.state;
-    this.setState({ isSubmitted: true });
+  const handleSubmit = () => {
+    setIsSubmitted(true);
     if (!isValid) {
       return;
     }
     try {
       const authToken: string | string[] = getTokenFromQuery();
-      Auth.resetPassword(this.state.password, authToken)
+      Auth.resetPassword(password, authToken)
         .then((value: AxiosResponse) => {
           // Good response
           if (value.status === 200) {
             console.log('Reset password');
             // Redirec to login page
-            this.props.history.push(FrontendRoute.LOGIN_PAGE);
+            history.push(FrontendRoute.LOGIN_PAGE);
           }
         })
         .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
@@ -160,26 +118,45 @@ class ResetPasswordContainer extends React.Component<
     } catch (error) {
       console.error(error);
     }
-  }
-  /**
-   * Callback that is called once password is updated.
-   * @param password The updated password
-   */
-  private onPasswordChanged(password: string) {
-    this.setState({ password });
-  }
+  };
 
   /**
    * Callback that is called once password is updated.
    * @param password The updated password
    */
-  private onConfirmationChanged(confirmation: string) {
-    this.setState((state) => ({
-      isValid: state.password === confirmation && state.password.length > 0,
-    }));
-  }
-}
+  const onConfirmationChanged = (confirmation: string) => {
+    setIsValid(password === confirmation && password.length > 0);
+  };
 
-export default withRouter<RouteComponentProps>(
-  WithToasterContainer(ResetPasswordContainer)
-);
+  return (
+    <MediaQuery minWidth={1224}>
+      {(matches) =>
+        matches ? (
+          <LeftContainer>
+            {renderPassReset()}
+            <BackgroundImage
+              src={BackgroundLandscape}
+              top={'0px'}
+              left={'0px'}
+              imgWidth={'100%'}
+              imgHeight={'100%'}
+              minHeight={'600px'}
+            />
+          </LeftContainer>
+        ) : (
+            <div>
+              {renderPassReset()}
+              <BackgroundImage
+                src={BackgroundLandscape}
+                top={'0px'}
+                left={'0px'}
+                imgHeight={'100%'}
+              />
+            </div>
+          )
+      }
+    </MediaQuery>
+  );
+};
+
+export default WithToasterContainer(ResetPasswordPage);

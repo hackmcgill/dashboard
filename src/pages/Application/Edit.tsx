@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import ManageApplicationContainer, {
   ManageApplicationModes,
 } from '../../features/Application/ManageApplicationContainer';
 
-const EditApplicationContainer = () => (
+const EditApplicationPage: React.FC = () => (
   <ManageApplicationContainer mode={ManageApplicationModes.EDIT} />
 );
 
-export default EditApplicationContainer;
+export default EditApplicationPage;

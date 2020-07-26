@@ -18,4 +18,4 @@ const LoginBtn: React.StatelessComponent<RouteComponentProps> = () => {
   );
 };
 
-export default withRouter<RouteComponentProps>(LoginBtn);
+export default withRouter(LoginBtn);

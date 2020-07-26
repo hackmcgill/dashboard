@@ -1,10 +1,10 @@
 import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
-import * as React from 'react';
+import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
@@ -31,129 +31,45 @@ import {
   PASSWORD_LABEL,
 } from '../../config';
 
-export interface ILoginState {
-  email: string;
-  password: string;
-}
+const LoginPage: React.FC = () => {
+  // Store form's email and password values in state
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-/**
- * Container that renders form to log in.
- */
-class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onPasswordChanged = this.onPasswordChanged.bind(this);
-    this.onEmailChanged = this.onEmailChanged.bind(this);
-  }
-  public render() {
-    return (
-      <MediaQuery minWidth={1224} width={"100%"}>
-        {(matches) =>
-          matches ? (
-            <LeftContainer>
-              {this.renderForm()}
-              <BackgroundImage
-                src={Coders}
-                top={'60px'}
-                right={'0px'}
-                imgWidth={'100%'}
-                imgHeight={'100%'}
-                minHeight={'600px'}
-              />
-            </LeftContainer>
-          ) : (
-              <div>
-                {this.renderForm()}
-                <BackgroundImage
-                  src={Coders}
-                  top={'60px'}
-                  right={'0px'}
-                  imgHeight={'100%'}
-                />
-              </div>
-            )
-        }
-      </MediaQuery>
-    );
-  }
-
-  private renderForm() {
-    return (
-      <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
-        <Helmet>
-          <title>Login | {HACKATHON_NAME}</title>
-        </Helmet>
-        <Form>
-          <Flex
-            alignItems={'center'}
-            flexDirection={'column'}
-            p={'4rem 0rem 0rem 5.8rem'}
-          >
-            <Box alignSelf={'flex-start'}>
-              <H1 fontSize={'24px'} marginLeft={'0px'}>
-                Sign in / Register
-              </H1>
-            </Box>
-            <EmailInput
-              label={EMAIL_LABEL}
-              onEmailChanged={this.onEmailChanged}
-              value={this.state.email}
-              isTight={true}
-            />
-            <PasswordInput
-              label={PASSWORD_LABEL}
-              onPasswordChanged={this.onPasswordChanged}
-              value={this.state.password}
-              isTight={true}
-            />
-            <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
-              <ForgotPasswordLinkComponent />
-            </Box>
-            <Flex>
-              <Box pr={'5px'}>
-                <Button type="button" onClick={this.handleSubmit}>
-                  Sign in
-                </Button>
-              </Box>
-              <Box pl={'5px'}>
-                <Link
-                  to={{
-                    pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                    state: { ...this.state },
-                  }}
-                >
-                  <Button type="button" variant={ButtonVariant.Secondary}>
-                    Register
-                  </Button>
-                </Link>
-              </Box>
-            </Flex>
-          </Flex>
-        </Form>
-      </MaxWidthBox>
-    );
-  }
+  // Get access to router's history to allow for programtic
+  // page navigation
+  const history = useHistory();
 
   /**
-   * Function that calls the login function once the form is submitted.
+   * Returns the redirect link (page user will be sent to if login
+   * attempt is successful), or undefined if it doesn't exist.
    */
-  private handleSubmit(): void {
-    Auth.login(this.state.email, this.state.password)
+  const getRedirectLink: any = () => {
+    const queries: any = QueryString.parse(window.location.search);
+    if (queries.redir) {
+      return queries.redir.toString();
+    } else {
+      return undefined;
+    }
+  };
+
+  /**
+   * Trigger authentication function once the form is submitted
+   * then redirect user to appropriate page depending upon
+   * success of login attempt
+   */
+  const handleSubmit = () => {
+    Auth.login(email, password)
       .then((value: AxiosResponse) => {
         // Good response
         if (value.status === 200) {
           // Probably want to redirect to login page or something
           console.log('Logged in');
-          const redir = this.getRedirectLink();
+          const redir = getRedirectLink();
           if (redir) {
-            this.props.history.push(redir);
+            history.push(redir);
           } else {
-            this.props.history.push(FrontendRoute.HOME_PAGE);
+            history.push(FrontendRoute.HOME_PAGE);
           }
         } else {
           console.error(value);
@@ -164,33 +80,95 @@ class LoginContainer extends React.Component<RouteComponentProps, ILoginState> {
           ValidationErrorGenerator(response.data);
         }
       });
-  }
+  };
+
   /**
-   * Callback that is called once email is added.
-   * @param email The updated email
+   * Display login form to user
    */
-  private onEmailChanged(email: string) {
-    this.setState({ email });
-  }
-  /**
-   * Callback that is called once password is added.
-   * @param password The updated password
-   */
-  private onPasswordChanged(password: string) {
-    this.setState({ password });
-  }
-  /**
-   * Returns the redirect link, or undefined if it doesn't exist.
-   */
-  private getRedirectLink(): any {
-    const queries: any = QueryString.parse(window.location.search);
-    if (queries.redir) {
-      return queries.redir.toString();
-    } else {
-      return undefined;
-    }
-  }
-}
-export default WithToasterContainer(
-  withRouter<RouteComponentProps>(LoginContainer)
-);
+  const renderForm = () => (
+    <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
+      <Helmet>
+        <title>Login | {HACKATHON_NAME}</title>
+      </Helmet>
+      <Form>
+        <Flex
+          alignItems={'center'}
+          flexDirection={'column'}
+          p={'4rem 0rem 0rem 5.8rem'}
+        >
+          <Box alignSelf={'flex-start'}>
+            <H1 fontSize={'24px'} marginLeft={'0px'}>
+              Sign in / Register
+            </H1>
+          </Box>
+          <EmailInput
+            label={EMAIL_LABEL}
+            onEmailChanged={setEmail}
+            value={email}
+            isTight={true}
+          />
+          <PasswordInput
+            label={PASSWORD_LABEL}
+            onPasswordChanged={setPassword}
+            value={password}
+            isTight={true}
+          />
+          <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
+            <ForgotPasswordLinkComponent />
+          </Box>
+          <Flex>
+            <Box pr={'5px'}>
+              <Button type="button" onClick={handleSubmit}>
+                Sign in
+              </Button>
+            </Box>
+            <Box pl={'5px'}>
+              <Link
+                to={{
+                  pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
+                  state: { email, password },
+                }}
+              >
+                <Button type="button" variant={ButtonVariant.Secondary}>
+                  Register
+                </Button>
+              </Link>
+            </Box>
+          </Flex>
+        </Flex>
+      </Form>
+    </MaxWidthBox>
+  );
+
+  return (
+    <MediaQuery minWidth={1224} width={'100%'}>
+      {(matches) =>
+        matches ? (
+          <LeftContainer>
+            {renderForm()}
+            <BackgroundImage
+              src={Coders}
+              top={'60px'}
+              right={'0px'}
+              imgWidth={'100%'}
+              imgHeight={'100%'}
+              minHeight={'600px'}
+            />
+          </LeftContainer>
+        ) : (
+          <div>
+            {renderForm()}
+            <BackgroundImage
+              src={Coders}
+              top={'60px'}
+              right={'0px'}
+              imgHeight={'100%'}
+            />
+          </div>
+        )
+      }
+    </MediaQuery>
+  );
+};
+
+export default WithToasterContainer(LoginPage);
