@@ -201,6 +201,16 @@ export default class Navbar extends React.Component<
                   </NavLink>
                 )
             ) : null}
+          {userType === UserType.STAFF ? (
+            <NavLink
+              href={routes.SETTINGS_PAGE}
+              className={this.props.activePage === 'settings' ? 'active' : ''}
+            >
+              Settings
+            </NavLink>
+          ) : (
+              <div />
+            )}
         </>
       );
     }
