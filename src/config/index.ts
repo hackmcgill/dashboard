@@ -16,6 +16,7 @@ export * from './resumeResponse';
 export * from './schools';
 export * from './searchOptions';
 export * from './searchParameter';
+export * from './settings';
 export * from './shirtSizes';
 export * from './skills';
 export * from './statsResponse';
