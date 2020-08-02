@@ -22,6 +22,7 @@ import {
   HackerStatus,
   IEthnicity,
   IHacker,
+  ISetting,
   JobInterest,
   Majors,
   ShirtSize,
@@ -52,6 +53,7 @@ import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 // import Sidebar from '../Sidebar/Sidebar';
 
+import Settings from '../../api/settings';
 import Bulby from '../../assets/images/bulby.svg';
 import Drone from '../../assets/images/drone.svg';
 
@@ -60,6 +62,7 @@ export enum ManageApplicationModes {
   EDIT,
 }
 interface IManageApplicationState {
+  settings: ISetting;
   mode: ManageApplicationModes;
   submitted: boolean;
   submitting: boolean;
@@ -79,6 +82,11 @@ class ManageApplicationContainer extends React.Component<
   constructor(props: IManageApplicationProps) {
     super(props);
     this.state = {
+      settings: {
+        openTime: new Date().toString(),
+        closeTime: new Date().toString(),
+        confirmTime: new Date().toString(),
+      },
       mode: props.mode,
       submitted: false,
       submitting: false,
@@ -125,6 +133,7 @@ class ManageApplicationContainer extends React.Component<
       },
       resume: undefined,
     };
+    this.getSettings = this.getSettings.bind(this);
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.previousPage = this.previousPage.bind(this);
@@ -133,6 +142,7 @@ class ManageApplicationContainer extends React.Component<
     this.handleCreate = this.handleCreate.bind(this);
   }
   public async componentDidMount() {
+    await this.getSettings();
     const { mode } = this.state;
     if (mode === ManageApplicationModes.EDIT) {
       try {
@@ -153,10 +163,17 @@ class ManageApplicationContainer extends React.Component<
   }
 
   public render() {
-    const { mode, hackerDetails, submitted, pageNumber, loaded } = this.state;
+    const {
+      mode,
+      hackerDetails,
+      submitted,
+      pageNumber,
+      loaded,
+      settings,
+    } = this.state;
     return loaded ? (
       // If application creation deadline of Jan 3, 2020 11:59:59PM EST has passed or form is submitted, return user to the home page
-      (Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME &&
+      (new Date() > new Date(settings.closeTime) &&
         mode === ManageApplicationModes.CREATE) ||
       submitted ? (
         <Redirect to={FrontendRoute.HOME_PAGE} />
@@ -218,6 +235,17 @@ class ManageApplicationContainer extends React.Component<
     ) : null;
   }
 
+  private async getSettings() {
+    try {
+      const result = await Settings.get();
+      const settings = result.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      if (e && e.data) {
+        ValidationErrorGenerator(e);
+      }
+    }
+  }
   /**
    * The function to pass into the formik component to render the form.
    * @param fp the formik props.

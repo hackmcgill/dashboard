@@ -1,15 +1,19 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
-import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
-import { Hacker, Account } from '../../api';
+import { Account, Hacker, Settings } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
-import { FrontendRoute as routes, HackerStatus, UserType } from '../../config';
+import {
+  ISetting,
+  FrontendRoute as routes,
+  HackerStatus,
+  UserType,
+} from '../../config';
 // import { Image } from '../../shared/Elements';
 import {
-  isLoggedIn,
   canAccessTravel,
+  isLoggedIn,
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
@@ -33,6 +37,7 @@ interface INavbarState {
   loaded: boolean;
   showTravelLink: boolean;
   userType: UserType;
+  settings: ISetting;
   // hasSponsorInfo: boolean;
 }
 
@@ -49,6 +54,11 @@ export default class Navbar extends React.Component<
       loaded: false,
       showTravelLink: false,
       userType: UserType.UNKNOWN,
+      settings: {
+        openTime: new Date().toString(),
+        closeTime: new Date().toString(),
+        confirmTime: new Date().toString(),
+      },
       // hasSponsorInfo: false,
     };
     this.checkLoggedIn();
@@ -82,6 +92,13 @@ export default class Navbar extends React.Component<
     } catch (e) {
       // do nothing
     }
+    try {
+      const response = await Settings.get();
+      const settings = response.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      // do nothing
+    }
 
     // try {
     //   const response = await getSponsorInfo();
@@ -108,6 +125,7 @@ export default class Navbar extends React.Component<
       status,
       confirmed,
       userType,
+      settings,
       // hasSponsorInfo,
     } = this.state;
 
@@ -152,7 +170,7 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
+          {new Date() < new Date(settings.closeTime) ||
             status !== HackerStatus.HACKER_STATUS_NONE ? (
               <NavLink
                 href={route[2]}

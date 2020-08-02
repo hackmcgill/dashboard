@@ -16,12 +16,15 @@ import {
   HACKATHON_NAME,
   HackerStatus,
   IAccount,
+  ISetting,
 } from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
-import { Hacker } from '../../api';
+import { Hacker, Settings } from '../../api';
 import Background from '../../assets/images/statuspage-background.svg';
+import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
+import { date2human } from '../../util';
 
 export interface IStatusPageProps {
   account?: IAccount;
@@ -31,6 +34,7 @@ export interface IStatusPageProps {
 
 export interface IStatusPageState {
   status: HackerStatus;
+  settings: ISetting;
 }
 
 class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
@@ -38,6 +42,11 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
     super(props);
     this.state = {
       status: this.props.status,
+      settings: {
+        openTime: new Date().toString(),
+        closeTime: new Date().toString(),
+        confirmTime: new Date().toString(),
+      },
     };
   }
   public confirmStatus = async (e: any) => {
@@ -96,7 +105,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     <Button type="button">View/Edit Application</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME &&
+              ) : new Date() < new Date(this.state.settings.closeTime) &&
                 this.state.status === HackerStatus.HACKER_STATUS_NONE ? (
                 <Flex
                   flexDirection={'column'}
@@ -114,7 +123,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     <Button type="button">Apply</Button>
                   </LinkDuo>
                 </Flex>
-              ) : Date.now() < CONSTANTS.DECISION_CLOSE_TIME &&
+              ) : new Date() < new Date(this.state.settings.confirmTime) &&
                 this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
                 <Flex
                   flexDirection={'column'}
@@ -126,7 +135,10 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     textAlign={'center'}
                     marginBottom={'3rem'}
                   >
-                    {CONSTANTS.ACCEPTED_STATUS_TEXT}
+                    {CONSTANTS.ACCEPTED_STATUS_TEXT}{' '}
+                    {CONSTANTS.RSVP_DEADLINE_TEXT_START}
+                    {date2human(this.state.settings.confirmTime)}
+                    {CONSTANTS.RSVP_DEADLINE_TEXT_END}
                   </Paragraph>
                   <Flex flexDirection={'row'} justifyContent={'space-around'}>
                     <Button
@@ -141,7 +153,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
                     </Button>
                   </Flex>
                 </Flex>
-              ) : Date.now() > CONSTANTS.DECISION_CLOSE_TIME &&
+              ) : new Date() > new Date(this.state.settings.confirmTime) &&
                 this.state.status === HackerStatus.HACKER_STATUS_ACCEPTED ? (
                 <Flex
                   flexDirection={'column'}
@@ -282,6 +294,22 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
         </Box>
       </Flex>
     );
+  }
+
+  public async componentDidMount() {
+    await this.getSettings();
+  }
+
+  private async getSettings() {
+    try {
+      const result = await Settings.get();
+      const settings = result.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      if (e && e.data) {
+        ValidationErrorGenerator(e);
+      }
+    }
   }
 }
 
