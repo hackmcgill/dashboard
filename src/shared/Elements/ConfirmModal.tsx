@@ -6,6 +6,7 @@ interface IConfirmModalProps {
   isOpen: boolean;
   onConfirmed: () => void;
   onCanceled: () => void;
+  children?: React.ReactNode;
 }
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = (
@@ -20,12 +21,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
       shouldCloseOnOverlayClick={true}
     >
       <Flex flexDirection={'column'}>
-        <Box alignSelf={'center'}>
-          Are you sure you want to make these changes?
-        </Box>
-        <Box mb={'10px'} alignSelf={'center'}>
-          This will change the hackathon settings.
-        </Box>
+        {props.children}
         <Flex flexDirection={'row'} justifyContent={'space-evenly'}>
           <Box>
             <Button

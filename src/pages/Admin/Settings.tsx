@@ -1,4 +1,4 @@
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { toast } from 'react-toastify';
@@ -52,7 +52,14 @@ const SettingsPage: React.FC = () => {
           patchSettings(settings);
           setIsModalOpen(false);
         }}
-      />
+      >
+        <Box alignSelf={'center'}>
+          Are you sure you want to make these changes?
+        </Box>
+        <Box mb={'10px'} alignSelf={'center'}>
+          This will change the hackathon settings.
+        </Box>
+      </ConfirmModal>
     </Flex>
   );
 };
