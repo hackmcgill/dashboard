@@ -45,7 +45,12 @@ function date2input(date: string) {
   return `${month}${day}${year}`;
 }
 
-function datetime2input(date: string) {
+/**
+ * @function datetime2input
+ * @param date a string representation of a date.
+ * @returns a string with the following format: MMDDYYYYhhmmss
+ */
+function datetime2input(date: string): string {
   const parsed = new Date(date);
   const sec = padStart(2, '0', String(parsed.getSeconds()));
   const min = padStart(2, '0', String(parsed.getMinutes()));
@@ -56,7 +61,12 @@ function datetime2input(date: string) {
   return `${month}${day}${year}${hour}${min}${sec}`;
 }
 
-function input2datetime(date: number) {
+/**
+ * @function input2datetime
+ * @param date a number of the following format: MMDDYYYYhhmmss
+ * @returns a string representation of a date. The format of the string depends on the locale.
+ */
+function input2datetime(date: number): string {
   const dateStr = String(date);
   const dateFields = [
     dateStr.substr(0, 2), // month
