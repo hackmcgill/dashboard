@@ -68,10 +68,6 @@ export const WITHDRAWN_STATUS_TEXT =
   "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
-// Times
-export const APPLICATION_CLOSE_TIME = 1578286800000; // January 6, 2020 00:00:00 GMT -0500
-export const DECISION_CLOSE_TIME = 1580101140000; // January 26, 2020 23:59:00 GMT -0500
-
 // Application management
 export const DEADLINE_PASSED_LABEL =
   'Sorry, we are no longer accepting applications at this time.';
