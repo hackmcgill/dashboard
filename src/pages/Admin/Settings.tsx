@@ -10,7 +10,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import WithToaster from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
-const SettingsContainer: React.FC = () => {
+const SettingsPage: React.FC = () => {
   const [settings, setSettings] = useState<ISetting>({
     openTime: new Date().toISOString(),
     closeTime: new Date().toISOString(),
@@ -79,4 +79,4 @@ async function patchSettings(newSettings: ISetting) {
   }
 }
 
-export default WithToaster(SettingsContainer);
+export default WithToaster(SettingsPage);
