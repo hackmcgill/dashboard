@@ -2,26 +2,27 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import ErrorPage from './pages/_error';
+import ConfirmAccountPage from './pages/Account/Confirm';
+import CreateAccountPage from './pages/Account/Create';
+import EditAccountPage from './pages/Account/Edit';
+import AdminSearchPage from './pages/Admin/Search';
+import SettingsPage from './pages/Admin/Settings';
+import ConfirmAttendancePage from './pages/Application/Confirm';
+import CreateApplicationPage from './pages/Application/Create';
+import EditApplicationPage from './pages/Application/Edit';
+import SingleHackerPage from './pages/Application/View/[id]';
+import CheckinPage from './pages/Hacker/Checkin';
+import HackPassPage from './pages/Hacker/Pass';
 import DashboardPage from './pages/index';
 import LoginPage from './pages/Login/index';
 import ForgotPasswordPage from './pages/Password/Forgot';
 import ResetPasswordPage from './pages/Password/Reset';
-import CreateAccountPage from './pages/Account/Create';
-import ConfirmAccountPage from './pages/Account/Confirm';
-import EditAccountPage from './pages/Account/Edit';
-import CreateApplicationPage from './pages/Application/Create';
-import EditApplicationPage from './pages/Application/Edit';
-import CheckinPage from './pages/Hacker/Checkin';
-import ConfirmAttendancePage from './pages/Application/Confirm';
-import HackPassPage from './pages/Hacker/Pass';
-import TeamPage from './pages/Team/index'
-import TravelPage from './pages/Travel/index';
-import AdminSearchPage from './pages/Admin/Search';
-import SponsorSearchPage from './pages/Sponsor/Search';
-import SingleHackerPage from './pages/Application/View/[id]';
 import CreateSponsorPage from './pages/Sponsor/Create';
 import EditSponsorPage from './pages/Sponsor/Edit';
-import ErrorPage from './pages/_error';
+import SponsorSearchPage from './pages/Sponsor/Search';
+import TeamPage from './pages/Team/index'
+import TravelPage from './pages/Travel/index';
 
 import {
   FrontendRoute,
@@ -241,6 +242,19 @@ class App extends React.Component {
                     user.confirmed && user.accountType === UserType.STAFF,
                 }),
                 { activePage: 'search' }
+              )}
+            />
+            <Route
+              exact={true}
+              path={FrontendRoute.SETTINGS_PAGE}
+              component={withNavbar(
+                withAuthRedirect(SettingsPage, {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.STAFF,
+                }),
+                { activePage: 'settings' }
               )}
             />
             <Route
