@@ -12,7 +12,7 @@ class SettingsAPI {
    * @param setting The settings that you want to update
    */
   public update(setting: ISetting): AxiosPromise {
-    return API.getEndpoint(APIRoute.SETTINGS).create(setting);
+    return API.getEndpoint(APIRoute.SETTINGS).patch({ id: '' }, setting);
   }
   /**
    * Get the current settings
