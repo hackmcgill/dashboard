@@ -137,6 +137,6 @@ export const SPONSOR_CONTRACT_URL_LABEL = 'Contract URL';
 export const SPONSOR_NOMINEE_LABEL = 'Nominees';
 
 // Settings management page
-export const SETTINGS_OPEN_TIME_LABEL = 'Applications Open At';
-export const SETTINGS_CLOSE_TIME_LABEL = 'Applications Close At';
-export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker Confirmations Close At';
+export const SETTINGS_OPEN_TIME_LABEL = 'Applications open at:';
+export const SETTINGS_CLOSE_TIME_LABEL = 'Applications close at:';
+export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker confirmations close at:';
