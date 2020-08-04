@@ -38,7 +38,6 @@ import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
 import withThemeProvider from './shared/HOC/withThemeProvider';
-import withGlobalStyles from './shared/HOC/withGlobalStyles';
 import withTokenRedirect from './shared/HOC/withTokenRedirect';
 
 import {
@@ -355,4 +354,4 @@ class App extends React.Component {
   }
 }
 
-export default withGlobalStyles(withThemeProvider(App));
+export default withThemeProvider(App);

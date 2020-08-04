@@ -52,6 +52,14 @@ export const GlobalStyles = createGlobalStyle`
     z-index: 100000;
   }
 
+  .background-image {
+    position: absolute;
+    z-index: -1000;
+    user-select: none;
+    width: auto;
+    height: auto;
+  }
+
   @media screen and (min-width: ${(props) => props.theme.screens.smUp}) {
     .bm-burger-button, .bm-menu-wrap {
         display: none;
