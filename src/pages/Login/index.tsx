@@ -1,20 +1,13 @@
-import { Box, Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
-import MediaQuery from 'react-responsive';
 import { Link, useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 
-import {
-  BackgroundImage,
-  H1,
-  LeftContainer,
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { H1 } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
@@ -85,89 +78,124 @@ const LoginPage: React.FC = () => {
   /**
    * Display login form to user
    */
-  const renderForm = () => (
-    <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
-      <Helmet>
-        <title>Login | {HACKATHON_NAME}</title>
-      </Helmet>
-      <Form>
-        <Flex
-          alignItems={'center'}
-          flexDirection={'column'}
-          p={'4rem 0rem 0rem 5.8rem'}
+  const renderLoginForm = () => (
+    <Form>
+      <EmailInput
+        label={EMAIL_LABEL}
+        onEmailChanged={setEmail}
+        value={email}
+        isTight={true}
+      />
+      <PasswordInput
+        label={PASSWORD_LABEL}
+        onPasswordChanged={setPassword}
+        value={password}
+        isTight={true}
+      />
+      <div className="forgot-password-container">
+        <ForgotPasswordLinkComponent />
+      </div>
+      <div className="submit-buttons-container">
+        <Button type="button" onClick={handleSubmit}>
+          Sign in
+        </Button>
+        <Link
+          to={{
+            pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
+            state: { email, password },
+          }}
         >
-          <Box alignSelf={'flex-start'}>
-            <H1 fontSize={'24px'} marginLeft={'0px'}>
-              Sign in / Register
-            </H1>
-          </Box>
-          <EmailInput
-            label={EMAIL_LABEL}
-            onEmailChanged={setEmail}
-            value={email}
-            isTight={true}
-          />
-          <PasswordInput
-            label={PASSWORD_LABEL}
-            onPasswordChanged={setPassword}
-            value={password}
-            isTight={true}
-          />
-          <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
-            <ForgotPasswordLinkComponent />
-          </Box>
-          <Flex>
-            <Box pr={'5px'}>
-              <Button type="button" onClick={handleSubmit}>
-                Sign in
-              </Button>
-            </Box>
-            <Box pl={'5px'}>
-              <Link
-                to={{
-                  pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                  state: { email, password },
-                }}
-              >
-                <Button type="button" variant={ButtonVariant.Secondary}>
-                  Register
-                </Button>
-              </Link>
-            </Box>
-          </Flex>
-        </Flex>
-      </Form>
-    </MaxWidthBox>
+          <Button type="button" variant={ButtonVariant.Secondary}>
+            Register
+          </Button>
+        </Link>
+      </div>
+    </Form>
   );
 
   return (
-    <MediaQuery minWidth={1224} width={'100%'}>
-      {(matches) =>
-        matches ? (
-          <LeftContainer>
-            {renderForm()}
-            <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgWidth={'100%'}
-              imgHeight={'100%'}
-              minHeight={'600px'}
-            />
-          </LeftContainer>
-        ) : (
-          <div>
-            {renderForm()}
-            <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgHeight={'100%'}
-            />
-          </div>
-        )
-      }
-    </MediaQuery>
+    <>
+      <Helmet>
+        <title>Login | {HACKATHON_NAME}</title>
+      </Helmet>
+
+      <div className="login-form-container">
+        <H1
+          fontSize={'30px'}
+          textAlign={'left'}
+          marginTop={'0px'}
+          marginBottom={'20px'}
+          marginLeft={'0px'}
+          paddingBottom={'20px'}
+          paddingTop={'70px'}
+        >
+          Sign in / Register
+        </H1>
+        {renderLoginForm()}
+      </div>
+
+      <img className="background-image coders" src={Coders} />
+
+      <style jsx>{`
+        .login-form-container {
+          max-width: 500px;
+          padding-left: 100px;
+          padding-right: 50px;
+          box-sizing: border-box;
+        }
+
+        .forgot-password-container {
+          margin-bottom: 30px;
+          margin-right: 10px;
+          text-align: right;
+        }
+
+        .submit-buttons-container {
+          text-align: center;
+        }
+
+        .submit-buttons-container > * {
+          padding: 0 10px;
+        }
+
+        /* When on small screen-size, center login form */
+        @media only screen and (max-width: 991px) {
+          .login-form-container {
+            margin: auto;
+            padding-left: 50px;
+            padding-right: 50px;
+          }
+        }
+
+        /* Adjust position and size of background image based on screen-size */
+        @media only screen and (max-width: 991px) {
+          .coders {
+            display: none;
+          }
+        }
+        @media only screen and (min-width: 992px) and (max-width: 1093px) {
+          .coders {
+            top: 60px;
+            right: 0;
+            height: 70%;
+          }
+        }
+        @media only screen and (min-width: 1094px) and (max-width: 1199px) {
+          .coders {
+            top: 60px;
+            right: 0;
+            height: 80%;
+          }
+        }
+        @media only screen and (min-width: 1200px) {
+          .coders {
+            top: 60px;
+            right: 0;
+            height: 90%;
+          }
+        }
+      `}</style>
+    </>
   );
 };
 

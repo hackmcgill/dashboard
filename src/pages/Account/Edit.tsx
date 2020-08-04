@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import ManageAccountContainer, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
+import ManageAccountForm, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
 
 import * as CONSTANTS from '../../config/constants';
 import {
@@ -33,7 +33,7 @@ const EditAccountPage: React.FC = () => (
     >
       Your Account
     </H1>
-    <ManageAccountContainer mode={ManageAccountModes.EDIT} />
+    <ManageAccountForm mode={ManageAccountModes.EDIT} />
 
     <MediaQuery minWidth={theme.screens.smUp} maxWidth={'986px'}>
       <BackgroundImage

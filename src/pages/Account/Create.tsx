@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import ManageAccountContainer, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
+import ManageAccountForm, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
 
 import * as CONSTANTS from '../../config/constants';
 import {
@@ -33,7 +33,7 @@ const CreateAccountPage: React.FC = () => (
         >
           Your Account
         </H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
+        <ManageAccountForm mode={ManageAccountModes.CREATE} />
       </MaxWidthBox>
     </MediaQuery>
 
@@ -50,7 +50,7 @@ const CreateAccountPage: React.FC = () => (
         >
           Your Account
         </H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
+        <ManageAccountForm mode={ManageAccountModes.CREATE} />
       </MaxWidthBox>
     </MediaQuery>
 
