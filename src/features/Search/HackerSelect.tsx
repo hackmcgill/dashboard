@@ -7,11 +7,15 @@ interface IProps {
   hackerId: string;
 }
 
+// push the selected hacker to the list of selected hacker for the search
 const HackerSelect: React.FC<IProps> = (props) => {
+  // react state.context is assigned to the variable "contet"
   const context = useContext(NomineeContext);
 
+  // state to only change one hacker selection state at a time
   const [isChanging, setIsChanging] = useState<boolean>(false);
 
+  // function to push selected hacker to the search list
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     const { hackerId } = props;
@@ -21,9 +25,11 @@ const HackerSelect: React.FC<IProps> = (props) => {
     }
 
     if (context) {
+      // push them to the selected list
       if (isChecked) {
         context.nominees.push(hackerId);
       } else {
+        // remove selected hacker from list
         context.nominees = context.nominees.filter(
           (n: string) => n !== hackerId
         );

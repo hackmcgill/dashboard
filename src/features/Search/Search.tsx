@@ -20,8 +20,8 @@ import theme from '../../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery, isSponsor } from '../../util';
 
 import withContext from '../../shared/HOC/withContext';
-import { FilterComponent } from '../../features/Search/Filters';
-import { ResultsTable } from '../../features/Search/ResultsTable';
+import { FilterComponent } from './Filters';
+import { ResultsTable } from './ResultsTable';
 
 interface IResult {
   /**
@@ -33,15 +33,23 @@ interface IResult {
 }
 
 const SearchContainer: React.FC = () => {
+  // search bar for hacker
   const [model] = useState<string>('hacker');
+  // query tused to find
   const [query, setQuery] = useState<ISearchParameter[]>([]);
+  // response from query
   const [results, setResults] = useState<IResult[]>([]);
+  // text in search bar
   const [searchBar, setSearchBar] = useState<string>('');
+  // state of loading
   const [loading, setLoading] = useState<boolean>(false);
+  // state of is saved
   const [viewSaved, setViewSaved] = useState<boolean>(false);
+  // determine if it as an admin/sponsor it used by admin or a sponsor
   const [account, setAccount] = useState<IAccount | null>(null);
   const [sponsor, setSponsor] = useState<ISponsor | null>(null);
 
+  // same as componentDidMount, checks if it is an admin or sponsor after component mounted
   useEffect(() => {
     (async () => {
       setQuery(getSearchFromQuery());
@@ -57,6 +65,7 @@ const SearchContainer: React.FC = () => {
     })();
   }, []);
 
+  // return the parameters of the search
   const getSearchFromQuery = () => {
     const search = getValueFromQuery('q');
     if (!search) {
@@ -86,6 +95,7 @@ const SearchContainer: React.FC = () => {
     return search ? decodeURIComponent(search) : '';
   };
 
+  // function to download the candidates file
   const downloadData = () => {
     const headers = [
       { label: CONSTANTS.FIRST_NAME_LABEL, key: 'accountId.firstName' },
@@ -192,6 +202,7 @@ const SearchContainer: React.FC = () => {
     fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
   };
 
+  // function to search based on query and type of user (hacker/admin/sponsor)
   const triggerSearch = async (): Promise<void> => {
     setLoading(true);
     try {
@@ -240,6 +251,7 @@ const SearchContainer: React.FC = () => {
     );
   };
 
+  // filter to read the search bar to retrieve useful info
   const filter = () => {
     const currSearchBar = searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
@@ -289,7 +301,6 @@ const SearchContainer: React.FC = () => {
     // Resets the sponsor if they made changes to their saved hackers
     const sponsor = (await Sponsor.getSelf()).data.data;
     if (sponsor) {
-      // this.setState({ sponsor, viewSaved: !viewSaved });
       setSponsor(sponsor);
       setViewSaved(!viewSaved);
     }
