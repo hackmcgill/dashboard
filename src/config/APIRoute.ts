@@ -27,6 +27,8 @@ export enum APIRoute {
   TRAVEL_SELF = 'travel/self',
   // Search routes
   SEARCH = 'search',
+  // Settings routes
+  SETTINGS = 'settings',
   // Sponsor routes
   SPONSOR = 'sponsor',
   SPONSOR_SELF = 'sponsor/self',

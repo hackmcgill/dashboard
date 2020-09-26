@@ -6,4 +6,5 @@ export * from './endpoint';
 export * from './hacker';
 export * from './travel';
 export * from './search';
+export * from './settings';
 export * from './sponsor';
