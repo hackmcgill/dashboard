@@ -142,12 +142,16 @@ const StatusHeader: React.SFC<IStatusHeaderProps> = ({
 };
 
 function insertMargin(buttons: JSX.Element[]) {
-  const margin = <div style={{ marginRight: '20px' }} />;
   const buttonsWithMargin: JSX.Element[] = [];
   for (let i = 0; i < buttons.length; i++) {
-    buttonsWithMargin.push(buttons[i]);
     if (i < buttons.length - 1) {
-      buttonsWithMargin.push(margin);
+      buttonsWithMargin.push(
+        <div key={i} style={{ marginRight: '20px' }}>
+          {buttons[i]}
+        </div>
+      );
+    } else {
+      buttonsWithMargin.push(<div key={i}>{buttons[i]}</div>);
     }
   }
   return buttonsWithMargin;

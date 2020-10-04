@@ -5,13 +5,14 @@ import { slide as Menu } from 'react-burger-menu';
 import { Account, Hacker, Settings } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import {
-  ISetting,
   FrontendRoute as routes,
   HackerStatus,
+  ISetting,
   UserType,
 } from '../../config';
 // import { Image } from '../../shared/Elements';
 import {
+  canAccessApplication,
   canAccessTravel,
   isLoggedIn,
   // getSponsorInfo,
@@ -44,7 +45,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -170,17 +171,17 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          {new Date() < new Date(settings.closeTime) ||
-            status !== HackerStatus.HACKER_STATUS_NONE ? (
-              <NavLink
-                href={route[2]}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
-              </NavLink>
-            ) : null}
+          {userType === UserType.HACKER &&
+          canAccessApplication({ status }, settings) ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={route[3]}
@@ -190,35 +191,35 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.STAFF ||
-            userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
-              userType !== UserType.STAFF ? (
-                <>
-                  <NavLink
-                    href={route[5]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
+          userType === UserType.SPONSOR_T1 ||
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
+            userType !== UserType.STAFF ? (
+              <>
+                <NavLink
+                  href={route[5]}
+                  className={this.props.activePage === 'search' ? 'active' : ''}
+                >
+                  Search
                 </NavLink>
-                  <NavLink
-                    href={'https://mchacks.ca/sponsor-info'}
-                    className={''}
-                  >
-                    Info
+                <NavLink
+                  href={'https://mchacks.ca/sponsor-info'}
+                  className={''}
+                >
+                  Info
                 </NavLink>
-                </>
-              ) : (
-                  <NavLink
-                    href={route[4]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
-                  </NavLink>
-                )
-            ) : null}
+              </>
+            ) : (
+              <NavLink
+                href={route[4]}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+            )
+          ) : null}
           {userType === UserType.STAFF ? (
             <NavLink
               href={routes.SETTINGS_PAGE}
@@ -227,8 +228,8 @@ export default class Navbar extends React.Component<
               Settings
             </NavLink>
           ) : (
-              <div />
-            )}
+            <div />
+          )}
         </>
       );
     }
