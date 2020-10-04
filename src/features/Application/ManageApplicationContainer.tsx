@@ -41,7 +41,7 @@ import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import theme from '../../shared/Styles/theme';
 
-import { Account, APIResponse, Hacker } from '../../api';
+import { Account, APIResponse, Hacker, Settings } from '../../api';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -53,7 +53,6 @@ import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 // import Sidebar from '../Sidebar/Sidebar';
 
-import Settings from '../../api/settings';
 import Bulby from '../../assets/images/bulby.svg';
 import Drone from '../../assets/images/drone.svg';
 
@@ -78,7 +77,7 @@ interface IManageApplicationProps {
 class ManageApplicationContainer extends React.Component<
   IManageApplicationProps,
   IManageApplicationState
-> {
+  > {
   constructor(props: IManageApplicationProps) {
     super(props);
     this.state = {
@@ -172,66 +171,65 @@ class ManageApplicationContainer extends React.Component<
       settings,
     } = this.state;
     return loaded ? (
-      // If application creation deadline of Jan 3, 2020 11:59:59PM EST has passed or form is submitted, return user to the home page
       (new Date() > new Date(settings.closeTime) &&
         mode === ManageApplicationModes.CREATE) ||
-      submitted ? (
-        <Redirect to={FrontendRoute.HOME_PAGE} />
-      ) : (
-        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-          <BackgroundImage
-            right={'10%'}
-            top={'178px'}
-            src={Drone}
-            imgHeight={'133px'}
-            position={'fixed' as 'fixed'}
-          />
-          <BackgroundImage
-            left={'5%'}
-            bottom={'5%'}
-            src={Bulby}
-            imgHeight={'290px'}
-            position={'fixed' as 'fixed'}
-          />
-          <Helmet>
-            <title>
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+        submitted ? (
+          <Redirect to={FrontendRoute.HOME_PAGE} />
+        ) : (
+          <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+            <BackgroundImage
+              right={'10%'}
+              top={'178px'}
+              src={Drone}
+              imgHeight={'133px'}
+              position={'fixed' as 'fixed'}
+            />
+            <BackgroundImage
+              left={'5%'}
+              bottom={'5%'}
+              src={Bulby}
+              imgHeight={'290px'}
+              position={'fixed' as 'fixed'}
+            />
+            <Helmet>
+              <title>
+                {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
               Application | {CONSTANTS.HACKATHON_NAME}
-            </title>
-          </Helmet>
-          <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-            <H1
-              color={theme.colors.red}
-              fontSize={'30px'}
-              textAlign={'left'}
-              marginTop={'0px'}
-              marginBottom={'20px'}
-              marginLeft={'0px'}
-              paddingBottom={'20px'}
-              paddingTop={'70px'}
-            >
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
+              </title>
+            </Helmet>
+            <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+              <H1
+                color={theme.colors.red}
+                fontSize={'30px'}
+                textAlign={'left'}
+                marginTop={'0px'}
+                marginBottom={'20px'}
+                marginLeft={'0px'}
+                paddingBottom={'20px'}
+                paddingTop={'70px'}
+              >
+                {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
               Application
             </H1>
-            <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+              <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+            </MaxWidthBox>
+            <Formik
+              enableReinitialize={true}
+              initialValues={{
+                hacker: hackerDetails,
+                resume: this.state.resume ? this.state.resume : undefined,
+                pageNumber,
+              }}
+              onSubmit={this.handleSubmit}
+              onReset={this.previousPage}
+              render={this.renderFormik}
+              validationSchema={getValidationSchema(
+                mode === ManageApplicationModes.CREATE,
+                this.state.pageNumber
+              )}
+            />
           </MaxWidthBox>
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              hacker: hackerDetails,
-              resume: this.state.resume ? this.state.resume : undefined,
-              pageNumber,
-            }}
-            onSubmit={this.handleSubmit}
-            onReset={this.previousPage}
-            render={this.renderFormik}
-            validationSchema={getValidationSchema(
-              mode === ManageApplicationModes.CREATE,
-              this.state.pageNumber
-            )}
-          />
-        </MaxWidthBox>
-      )
+        )
     ) : null;
   }
 
@@ -796,7 +794,7 @@ class ManageApplicationContainer extends React.Component<
             console.log('Submitted application');
             toast.success(
               `Account ${
-                mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
+              mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
               }`
             );
             this.setState({ submitted: true, submitting: false });
