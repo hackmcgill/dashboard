@@ -7,8 +7,11 @@ import { Button, LinkDuo, Paragraph } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
 
-// These call-to-actions represent states + arrows in this diagram: https://bit.ly/3ldYbgV
-enum CallToAction {
+/**
+ * These enums represent states + actions in this diagram: https://bit.ly/3ldYbgV.
+ * These differ from HackerStatus in that HackerStatus does not incorporate time-based information.
+ */
+enum DetailedState {
   NONE_CANNOT_YET_APPLY,
   NONE_CAN_APPLY,
   NONE_MISSED_DEADLINE,
@@ -75,46 +78,46 @@ const StatusHeader: React.SFC<IStatusHeaderProps> = ({
   let text = '';
   let buttons: JSX.Element[] = [];
 
-  const action = GetCallToAction(status, settings);
+  const action = GetDetailedState(status, settings);
   switch (action) {
-    case CallToAction.NONE_CANNOT_YET_APPLY:
+    case DetailedState.NONE_CANNOT_YET_APPLY:
       return <div />;
-    case CallToAction.NONE_CAN_APPLY:
+    case DetailedState.NONE_CAN_APPLY:
       text = CONSTANTS.NONE_STATUS_TEXT;
       buttons = [applyButton];
       break;
-    case CallToAction.NONE_MISSED_DEADLINE:
+    case DetailedState.NONE_MISSED_DEADLINE:
       text = CONSTANTS.DEADLINE_PASSED_LABEL;
       break;
-    case CallToAction.APPLIED:
+    case DetailedState.APPLIED:
       text = CONSTANTS.APPLIED_STATUS_TEXT;
       buttons = [editAppButton];
       break;
-    case CallToAction.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
+    case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
       text = `${CONSTANTS.ACCEPTED_STATUS_TEXT}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
       ${date2human(settings.confirmTime)}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_END}`;
       buttons = [confirmButton, withdrawButton];
       break;
-    case CallToAction.ACCEPTED_MISSED_DEADLINE:
+    case DetailedState.ACCEPTED_MISSED_DEADLINE:
       text = CONSTANTS.DECISION_DEADLINE_PASSED_LABEL;
       break;
-    case CallToAction.DECLINED:
+    case DetailedState.DECLINED:
       text = CONSTANTS.DECLINED_STATUS_TEXT;
       break;
-    case CallToAction.WAITLISTED:
+    case DetailedState.WAITLISTED:
       text = CONSTANTS.WAITLISTED_STATUS_TEXT;
       break;
-    case CallToAction.CONFIRMED:
+    case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
       buttons = [hackPassButton, travelButton, withdrawButton];
       break;
-    case CallToAction.CHECKED_IN:
+    case DetailedState.CHECKED_IN:
       text = CONSTANTS.CHECKED_IN_STATUS_TEXT;
       buttons = [liveSiteButton];
       break;
-    case CallToAction.WITHDRAWN:
+    case DetailedState.WITHDRAWN:
       text = CONSTANTS.WITHDRAWN_STATUS_TEXT;
       break;
   }
@@ -150,10 +153,16 @@ function insertMargin(buttons: JSX.Element[]) {
   return buttonsWithMargin;
 }
 
-function GetCallToAction(
+/**
+ * Gets the time-aware status of a given hacker.
+ * This is important for knowing which text to show to the hacker, as well as which buttons to display.
+ * @param status HackerStatus the status of the current hacker
+ * @param settings the settings of this hackathon
+ */
+function GetDetailedState(
   status: HackerStatus,
   settings: ISetting
-): CallToAction {
+): DetailedState {
   const now = new Date();
   const openTime = new Date(settings.openTime);
   const closeTime = new Date(settings.closeTime);
@@ -165,34 +174,34 @@ function GetCallToAction(
 
   if (status === HackerStatus.HACKER_STATUS_NONE) {
     if (inPreApplyWindow) {
-      return CallToAction.NONE_CANNOT_YET_APPLY;
+      return DetailedState.NONE_CANNOT_YET_APPLY;
     } else if (inApplyWindow) {
-      return CallToAction.NONE_CAN_APPLY;
+      return DetailedState.NONE_CAN_APPLY;
     } else {
-      return CallToAction.NONE_MISSED_DEADLINE;
+      return DetailedState.NONE_MISSED_DEADLINE;
     }
   } else if (status === HackerStatus.HACKER_STATUS_APPLIED) {
-    return CallToAction.APPLIED;
+    return DetailedState.APPLIED;
   } else if (status === HackerStatus.HACKER_STATUS_ACCEPTED) {
     if (inConfirmWindow) {
       // This is any time before the confirmation date
-      return CallToAction.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW;
+      return DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW;
     } else {
-      return CallToAction.ACCEPTED_MISSED_DEADLINE;
+      return DetailedState.ACCEPTED_MISSED_DEADLINE;
     }
   } else if (status === HackerStatus.HACKER_STATUS_DECLINED) {
-    return CallToAction.DECLINED;
+    return DetailedState.DECLINED;
   } else if (status === HackerStatus.HACKER_STATUS_WAITLISTED) {
-    return CallToAction.WAITLISTED;
+    return DetailedState.WAITLISTED;
   } else if (status === HackerStatus.HACKER_STATUS_CONFIRMED) {
-    return CallToAction.CONFIRMED;
+    return DetailedState.CONFIRMED;
   } else if (status === HackerStatus.HACKER_STATUS_CHECKED_IN) {
-    return CallToAction.CHECKED_IN;
+    return DetailedState.CHECKED_IN;
   } else if (status === HackerStatus.HACKER_STATUS_WITHDRAWN) {
-    return CallToAction.WITHDRAWN;
+    return DetailedState.WITHDRAWN;
   }
   console.warn('Unknown hacker state');
-  return CallToAction.NONE_MISSED_DEADLINE;
+  return DetailedState.NONE_MISSED_DEADLINE;
 }
 
 export default StatusHeader;
