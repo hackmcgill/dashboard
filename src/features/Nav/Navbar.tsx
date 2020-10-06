@@ -1,15 +1,20 @@
 // import { Box } from '@rebass/grid';
 import * as React from 'react';
-import * as CONSTANTS from '../../config/constants';
 
 import { slide as Menu } from 'react-burger-menu';
-import { Hacker, Account } from '../../api';
+import { Account, Hacker, Settings } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
-import { FrontendRoute as routes, HackerStatus, UserType } from '../../config';
+import {
+  FrontendRoute as routes,
+  HackerStatus,
+  ISetting,
+  UserType,
+} from '../../config';
 // import { Image } from '../../shared/Elements';
 import {
-  isLoggedIn,
+  canAccessApplication,
   canAccessTravel,
+  isLoggedIn,
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
@@ -33,13 +38,14 @@ interface INavbarState {
   loaded: boolean;
   showTravelLink: boolean;
   userType: UserType;
+  settings: ISetting;
   // hasSponsorInfo: boolean;
 }
 
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -49,6 +55,11 @@ export default class Navbar extends React.Component<
       loaded: false,
       showTravelLink: false,
       userType: UserType.UNKNOWN,
+      settings: {
+        openTime: new Date().toString(),
+        closeTime: new Date().toString(),
+        confirmTime: new Date().toString(),
+      },
       // hasSponsorInfo: false,
     };
     this.checkLoggedIn();
@@ -82,6 +93,13 @@ export default class Navbar extends React.Component<
     } catch (e) {
       // do nothing
     }
+    try {
+      const response = await Settings.get();
+      const settings = response.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      // do nothing
+    }
 
     // try {
     //   const response = await getSponsorInfo();
@@ -108,6 +126,7 @@ export default class Navbar extends React.Component<
       status,
       confirmed,
       userType,
+      settings,
       // hasSponsorInfo,
     } = this.state;
 
@@ -152,17 +171,17 @@ export default class Navbar extends React.Component<
           >
             Profile
           </NavLink>
-          {Date.now() < CONSTANTS.APPLICATION_CLOSE_TIME ||
-            status !== HackerStatus.HACKER_STATUS_NONE ? (
-              <NavLink
-                href={route[2]}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
-              </NavLink>
-            ) : null}
+          {userType === UserType.HACKER &&
+          canAccessApplication({ status }, settings) ? (
+            <NavLink
+              href={route[2]}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={route[3]}
@@ -172,35 +191,35 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.STAFF ||
-            userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
-              userType !== UserType.STAFF ? (
-                <>
-                  <NavLink
-                    href={route[5]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
+          userType === UserType.SPONSOR_T1 ||
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
+            userType !== UserType.STAFF ? (
+              <>
+                <NavLink
+                  href={route[5]}
+                  className={this.props.activePage === 'search' ? 'active' : ''}
+                >
+                  Search
                 </NavLink>
-                  <NavLink
-                    href={'https://mchacks.ca/sponsor-info'}
-                    className={''}
-                  >
-                    Info
+                <NavLink
+                  href={'https://mchacks.ca/sponsor-info'}
+                  className={''}
+                >
+                  Info
                 </NavLink>
-                </>
-              ) : (
-                  <NavLink
-                    href={route[4]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
-                  </NavLink>
-                )
-            ) : null}
+              </>
+            ) : (
+              <NavLink
+                href={route[4]}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+            )
+          ) : null}
           {userType === UserType.STAFF ? (
             <NavLink
               href={routes.SETTINGS_PAGE}
@@ -209,8 +228,8 @@ export default class Navbar extends React.Component<
               Settings
             </NavLink>
           ) : (
-              <div />
-            )}
+            <div />
+          )}
         </>
       );
     }
