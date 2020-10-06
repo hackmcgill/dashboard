@@ -1,5 +1,5 @@
 import { Box, Flex } from '@rebass/grid';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router';
 import { Account, Hacker } from '../../../api';
 import { IHacker, UserType } from '../../../config';
@@ -22,7 +22,7 @@ const SingleHackerPage: React.FC = () => {
   const [userType, setUserType] = useState<UserType>(UserType.UNKNOWN);
 
   // Get the id param from url's query
-  let { id } = useParams();
+  const { id } = useParams();
 
   const nomineeContext = useContext(NomineeContext);
 
@@ -33,25 +33,23 @@ const SingleHackerPage: React.FC = () => {
         const viewer = (await Account.getSelf()).data.data;
         console.log(viewer, viewer.accountType);
         setUserType(viewer.accountType);
-        const hacker = (await Hacker.get(id)).data.data;
-        const account = (await Account.get(hacker.accountId as string)).data.data;
-        hacker.accountId = account;
-        setHacker(hacker);
+        const newHacker = (await Hacker.get(id)).data.data;
+        const account = (await Account.get(newHacker.accountId as string)).data
+          .data;
+        newHacker.accountId = account;
+        setHacker(newHacker);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [id]);
 
   // If data on hacker has loaded, display that hacker's info
   if (hacker) {
     return (
       <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
         <Box m={'auto'}>
-          <SingleHackerView
-            hacker={hacker}
-            userType={userType}
-          />
+          <SingleHackerView hacker={hacker} userType={userType} />
           {nomineeContext && nomineeContext.nominees && (
             <>
               <hr />
@@ -85,6 +83,6 @@ const SingleHackerPage: React.FC = () => {
   else {
     return <Redirect to={'/404'} />;
   }
-}
+};
 
 export default withContext(SingleHackerPage);

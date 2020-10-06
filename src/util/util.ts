@@ -94,6 +94,20 @@ function date2age(date: string) {
   return Math.abs(ageDt.getUTCFullYear() - 1970);
 }
 
+/**
+ * @function date2human
+ * @description turns a date into a human-readable string
+ * @param date any Date-parseable string
+ */
+function date2human(date: string) {
+  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+  return dateTimeFormat.format(new Date(date));
+}
+
 function getValueFromQuery(key: string): string | undefined {
   const queries: any = QueryString.parse(window.location.search);
   return queries[key];
@@ -109,4 +123,5 @@ export {
   date2input,
   datetime2input,
   input2datetime,
+  date2human,
 };
