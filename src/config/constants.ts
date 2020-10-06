@@ -65,8 +65,8 @@ export const WITHDRAWN_STATUS_TEXT =
 export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
 
 // Times
-export const APPLICATION_CLOSE_TIME = 1578286800000; // January 6, 2020 00:00:00 GMT -0500
-export const DECISION_CLOSE_TIME = 1580101140000; // January 26, 2020 23:59:00 GMT -0500
+export const APPLICATION_CLOSE_TIME = 2578286800000; // January 6, 2020 00:00:00 GMT -0500
+export const DECISION_CLOSE_TIME = 2580101140000; // January 26, 2020 23:59:00 GMT -0500
 
 // Application management
 export const DEADLINE_PASSED_LABEL =

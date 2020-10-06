@@ -15,6 +15,7 @@ import theme from '../../shared/Styles/theme';
 
 import Bulby from '../../assets/images/bulby.svg';
 import Drone from '../../assets/images/drone.svg';
+import ApplicationForm from '../../features/Application/ApplicationForm';
 
 const CreateApplicationPage: React.FC = () => (
   <>
@@ -41,7 +42,7 @@ const CreateApplicationPage: React.FC = () => (
         <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
       </MaxWidthBox>
 
-
+      <ApplicationForm />
     </MaxWidthBox>
 
     <BackgroundImage

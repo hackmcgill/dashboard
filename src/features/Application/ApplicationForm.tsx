@@ -698,42 +698,41 @@ const ApplicationForm: React.FC = (props) => {
    * @param values Formik values
    * @param actions Formik actions
    */
-  const handleEdit = async (values: any): Promise<boolean> => {
-    const acctResponse = await Account.getSelf();
+  // const handleEdit = async (values: any): Promise<boolean> => {
+  //   const acctResponse = await Account.getSelf();
 
-    if (acctResponse.status !== 200) {
-      console.error('Error while getting current user');
-      return false;
-    }
+  //   if (acctResponse.status !== 200) {
+  //     console.error('Error while getting current user');
+  //     return false;
+  //   }
 
-    const account = acctResponse.data.data;
-    const hackerId = hackerDetails.id;
-    // convert the formik values to the application object.
-    const application = convertFormikToHacker(
-      values,
-      account.id,
-      hackerId
-    );
-    const hackerResponse = await Hacker.update(application);
+  //   const account = acctResponse.data.data;
+  //   const hackerId = hackerDetails.id;
+  //   // convert the formik values to the application object.
+  //   const application = convertFormikToHacker(
+  //     values,
+  //     account.id,
+  //     hackerId
+  //   );
+  //   const hackerResponse = await Hacker.update(application);
 
-    if (hackerResponse.status !== 200) {
-      console.error('Error while updating application');
-      return false;
-    }
-    if (values.resume) {
-      // only upload a resume if they have added a resume to the form.
-      const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
+  //   if (hackerResponse.status !== 200) {
+  //     console.error('Error while updating application');
+  //     return false;
+  //   }
+  //   if (values.resume) {
+  //     // only upload a resume if they have added a resume to the form.
+  //     const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
 
-      if (resumeResponse.status !== 200) {
-        console.error('Could not upload resume properly');
-        return false;
-      } else {
-        console.log('Uploaded application properly!');
-      }
-    }
-    return true;
-  }
-
+  //     if (resumeResponse.status !== 200) {
+  //       console.error('Could not upload resume properly');
+  //       return false;
+  //     } else {
+  //       console.log('Uploaded application properly!');
+  //     }
+  //   }
+  //   return true;
+  // }
 
   // Return rendered form, unless still loading
   if (!isLoaded) {
