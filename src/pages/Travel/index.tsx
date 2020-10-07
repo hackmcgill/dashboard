@@ -26,7 +26,7 @@ import TravelStatusPolicy from './TravelStatusPolicy';
  */
 const TravelPage: React.FC = () => {
   // Travel details for signed in hacker
-  const [travel, setTravel] = useState<ITravel | null>();
+  const [travel, setTravel] = useState<ITravel | null>(null);
 
   // Is the page currently waiting for data?
   const [isLoading, setIsLoading] = useState<boolean>(true);
