@@ -2,9 +2,6 @@
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
 
-// Travel information
-export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
-
 // Cache information
 export const CACHE_USER_KEY = 'userInfo';
 export const CACHE_HACKER_KEY = 'hackerInfo';
@@ -19,6 +16,15 @@ export const HACKATHON_DESCRIPTION = `Create, build, and play with us at ${HACKA
 export const HACKATHON_DATE = 'February 1-2, 2020';
 export const HACKATHON_LOCATION = 'McGill University';
 export const STATIC_SITE = 'https://mchacks.ca';
+
+// Travel information
+export const BUS_DEPARTURE_CITY = 'Toronto';
+export const BUS_GENERAL_INFO = `We're offering a round-trip bus from ${BUS_DEPARTURE_CITY} to ${HACKATHON_NAME}. Seats are available on a first-come, first-serve basis. You can place a deposit to secure a seat on the bus`;
+export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
+export const BUS_SLACK_PAGE = 'https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU';
+export const BUS_SLACK_CHANNEL = '#bus-toronto channel';
+export const TRAVEL_POLICY = 'https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM';
+export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/TdxUaUn31WzXcPvu6';
 
 // Social media
 export const TWITTER = '@mcgillhacks';

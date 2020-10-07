@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
 import { Travel } from '../../api';
-import { HACKATHON_NAME, ITravel } from '../../config';
+import { HACKATHON_NAME, ITravel, TRAVEL_POLICY } from '../../config';
 import {
   BackgroundImage,
   H1,
-  H2,
+  LinkDuo,
   MaxWidthBox,
-  Button,
 } from '../../shared/Elements';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -16,12 +15,18 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 
 import Train from '../../assets/images/train.svg';
 
+import TravelStatusBus from './TravelStatusBus';
+import TravelStatusClaimed from './TravelStatusClaimed';
+import TravelStatusNone from './TravelStatusNone';
+import TravelStatusOffered from './TravelStatusOffered';
+import TravelStatusPolicy from './TravelStatusPolicy';
+
 /**
  * Container that renders form to log in.
  */
 const TravelPage: React.FC = () => {
   // Travel details for signed in hacker
-  const [travel, setTravel] = useState<ITravel | null>(null);
+  const [travel, setTravel] = useState<ITravel | null>();
 
   // Is the page currently waiting for data?
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -30,8 +35,8 @@ const TravelPage: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const travel = (await Travel.getSelf()).data.data;
-        setTravel(travel);
+        const newTravel = (await Travel.getSelf()).data.data;
+        setTravel(newTravel);
       } catch (e) {
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
@@ -42,183 +47,29 @@ const TravelPage: React.FC = () => {
     })();
   }, []);
 
-  let reimbursement = <div />;
+  let reimbursement = (
+    <div>We don't have a request for a reimbursement from you.</div>
+  );
   if (travel) {
     switch (travel.status) {
       case 'None':
-        reimbursement = (
-          <div>
-            Your request to recieve ${travel.request.toFixed(2)} in
-            reimbursement for travel is still being processed.
-            <br />
-            <br />
-            <h2>Bus</h2>
-            We're offering a round-trip bus from Toronto to McHacks. Seats are
-            available on a first-come, first-serve basis. You can place a
-            deposit to secure a seat on the bus{' '}
-            <a
-              href="https://bus.mchacks.ca"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              here
-            </a>
-            .
-          </div>
-        );
+        reimbursement = <TravelStatusNone travel={travel} />;
         break;
       case 'Bus':
-        reimbursement = (
-          <div>
-            Congratulations, you've secured a seat on our Toronto bus to/from
-            McHacks!
-            <br />
-            <br />
-            <h2>Bus</h2>
-            Join the #bus-toronto channel on our official{' '}
-            <a
-              href="https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Slack
-            </a>{' '}
-            for details and more information about your bus route.
-            <br />
-            <br />
-            If you can no longer make it to McHacks, please{' '}
-            <a
-              href="https://bus.mchacks.ca"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              contact
-            </a>{' '}
-            us so we can refund your deposit and open the seat up to another
-            hacker.
-          </div>
-        );
+        reimbursement = <TravelStatusBus travel={travel} />;
         break;
       case 'Policy':
-        reimbursement = (
-          <div>
-            Your travel reimbursement decision has been released. In order to
-            see how much you will be reimbursed, you must first agree to our{' '}
-            <a
-              href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              travel policy
-            </a>
-            .
-            <div style={{ textAlign: 'center', marginTop: '18px' }}>
-              <Button>I agree to McHacks Travel Policy</Button>
-            </div>
-          </div>
-        );
+        reimbursement = <TravelStatusPolicy travel={travel} />;
         break;
       case 'Offered':
       case 'Valid':
       case 'Invalid':
         // TODO: Handle Valid and Invalid cases once reciepts are handled
-        if (travel.offer > 0) {
-          reimbursement = (
-            <div>
-              We're happy to offer an amount to subsidize your travel to
-              McHacks. We can reimburse you up to:
-              <H2
-                fontSize={'30px'}
-                textAlign={'center'}
-                marginTop={'30px'}
-                marginBottom={'30px'}
-                fontWeight={'normal'}
-              >
-                ${travel.offer.toFixed(2)}
-              </H2>
-              <div
-                style={{
-                  textAlign: 'center',
-                  border: '2px dashed #ddd',
-                  padding: '8px 0',
-                }}
-              >
-                Please{' '}
-                <a
-                  href="https://forms.gle/TdxUaUn31WzXcPvu6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  upload your receipts
-                </a>
-              </div>
-            </div>
-          );
-        } else if (travel.request === 0) {
-          reimbursement = (
-            <div>
-              No reimbursement for travel was requested.
-              <h2>Bus</h2>
-              We're offering a round-trip bus from Toronto to McHacks. Seats are
-              available on a first-come, first-serve basis. You can place a
-              deposit to secure a seat on the bus{' '}
-              <a
-                href="https://bus.mchacks.ca"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                here
-              </a>
-              .
-            </div>
-          );
-        } else {
-          reimbursement = (
-            <div>
-              Unfortunately, we’re unable to offer you any travel reimbursement
-              to McHacks.
-              <H2
-                fontSize={'30px'}
-                textAlign={'center'}
-                marginTop={'30px'}
-                marginBottom={'30px'}
-                fontWeight={'normal'}
-              >
-                No Amount
-              </H2>
-              <h2>Bus</h2>
-              We're offering a round-trip bus from Toronto to McHacks. Seats are
-              available on a first-come, first-serve basis. You can place a
-              deposit to secure a seat on the bus{' '}
-              <a
-                href="https://bus.mchacks.ca"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                here
-              </a>
-              .
-            </div>
-          );
-        }
+        reimbursement = <TravelStatusOffered travel={travel} />;
         break;
       case 'Claimed':
         // TODO: Handle Valid and Invalid cases once reciepts are handled
-        reimbursement = (
-          <div>
-            We reimbursed you for
-            <H2
-              fontSize={'30px'}
-              textAlign={'center'}
-              marginTop={'30px'}
-              marginBottom={'30px'}
-              fontWeight={'normal'}
-            >
-              ${travel.offer.toFixed(2)}
-            </H2>
-            which you have already claimed.
-          </div>
-        );
+        reimbursement = <TravelStatusClaimed travel={travel} />;
         break;
     }
   }
@@ -231,27 +82,21 @@ const TravelPage: React.FC = () => {
       {isLoading ? (
         <div />
       ) : (
-          <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-            <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
-              Travel
+        <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
+          <H1 fontSize={'30px'} marginTop={'100px'} marginLeft={'0px'}>
+            Travel
           </H1>
-            <h2>Status</h2>
-            {reimbursement}
-            <br />
-            <br />
-            <div>
-              Please ensure you've reviewed our{' '}
-              <a
-                href="https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                travel policy
-            </a>{' '}
-            if using any of our travel accommodation options.
+          <h2>Status</h2>
+          {reimbursement}
+          <br />
+          <br />
+          <div>
+            Please ensure you've reviewed our{' '}
+            <LinkDuo to={TRAVEL_POLICY}>travel policy</LinkDuo> if using any of
+            our travel accommodation options.
           </div>
-          </MaxWidthBox>
-        )}
+        </MaxWidthBox>
+      )}
       <BackgroundImage
         right={'0'}
         bottom={'0'}
