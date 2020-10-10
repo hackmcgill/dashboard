@@ -56,9 +56,9 @@ export const Button = styled.button<IButtonProps>`
       props.variant === ButtonVariant.Primary ||
       props.variant === undefined) &&
     `
-      background-color: ${props.theme.colors.red};
+      background-color: ${props.theme.colors.purple};
       color: ${props.theme.colors.white};
-      border: 1px solid ${props.theme.colors.redMed};
+      border: 1px solid ${props.theme.colors.purple};
   `}
 
   ${(props) =>
@@ -66,8 +66,8 @@ export const Button = styled.button<IButtonProps>`
     props.variant === ButtonVariant.Secondary &&
     `
       background-color: ${props.theme.colors.white};
-      color: ${props.theme.colors.red};
-      border: 2px solid ${props.theme.colors.red};
+      color: ${props.theme.colors.purpleLight};
+      border: 2px solid ${props.theme.colors.purpleLight};
   `}
 
   ${(props) =>
@@ -93,13 +93,13 @@ export const Button = styled.button<IButtonProps>`
       : `&:hover {
           background-color: ${
             props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.red
-              : props.theme.colors.redLight
+              ? props.theme.colors.purpleLight
+              : props.theme.colors.purpleLight
           };
           border-color: ${
             props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.red
-              : props.theme.colors.redLight
+              ? props.theme.colors.purpleLight
+              : props.theme.colors.purpleLight
           };
           color: ${props.theme.colors.white};
         }
@@ -122,8 +122,8 @@ export const Button = styled.button<IButtonProps>`
     &:hover {
       color: ${
         props.variant === ButtonVariant.Secondary
-          ? props.theme.colors.red
-          : props.theme.colors.redLight
+          ? props.theme.colors.purpleLight
+          : props.theme.colors.purpleLight
       };
     }
     &:before {

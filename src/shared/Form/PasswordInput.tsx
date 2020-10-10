@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 import { Input, Label, LabelText } from './';
 
 interface IPasswordInputProp {
@@ -14,7 +15,11 @@ export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (
 ) => {
   return (
     <Label>
-      <LabelText label={props.label} required={props.required} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <LabelText label={props.label} required={props.required} />
+        <ForgotPasswordLinkComponent />
+      </div>
+
       <Input
         type="password"
         onChange={handleChange(props)}

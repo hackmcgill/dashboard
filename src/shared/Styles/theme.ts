@@ -1,5 +1,8 @@
 const theme = {
   colors: {
+    purple: '#5C63AB',
+    purpleLight: '#7e85cc',
+
     red: '#F2463A',
     redMed: '#F56F65',
     redLight: '#F89790',
@@ -23,7 +26,8 @@ const theme = {
   },
   inputBorderRadius: '20px',
   fonts: {
-    header: 'Brown, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+    header:
+      'Brown, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
     body:
       'Hind Siliguri, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
   },
@@ -36,6 +40,8 @@ const theme = {
 
 export interface ITheme {
   colors: {
+    purple: string;
+    purpleLight: string;
     red: string;
     redMed: string;
     redLight: string;

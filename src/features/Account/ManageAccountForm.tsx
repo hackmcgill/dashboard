@@ -10,11 +10,11 @@ import {
 } from 'formik';
 import { Account, Auth } from '../../api';
 import {
-  DietaryRestriction,
+  // DietaryRestriction,
   FrontendRoute,
-  Genders,
+  // Genders,
   IAccount,
-  Pronouns,
+  // Pronouns,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
@@ -26,12 +26,13 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
   date2input,
   getNestedAttr,
-  getOptionsFromEnum,
+  // getOptionsFromEnum,
   getValueFromQuery,
   input2date,
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
+import AlreadyHaveAccount from './AlreadyHaveAccount';
 
 export enum ManageAccountModes {
   CREATE,
@@ -56,7 +57,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
 
   // Track the details of the account that is either being created or updated
   const [accountDetails, setAccountDetails] = useState<IAccount>({
-    accountType: (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
+    accountType:
+      (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
     birthDate: '',
     confirmed: false,
     email: getNestedAttr(props, ['location', 'state', 'email']) || '',
@@ -68,7 +70,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     pronoun: '',
     gender: '',
     dietaryRestrictions: [],
-  })
+  });
 
   // If this is an edit form, load current account's data as default value
   // for account details
@@ -82,7 +84,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           setAccountDetails(newAccountDetails);
         } catch (e) {
           // If can't find self's account, shouldn't be logged in. Redirect to home page
-          history.push(FrontendRoute.HOME_PAGE)
+          history.push(FrontendRoute.HOME_PAGE);
         }
       }
     })();
@@ -93,22 +95,23 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    * @param values Formik values
    * @param accountId the account id associated with this hacker.
    */
-  const convertFormikToAccount = (values: FormikValues, accountId: string = ''): IAccount => (
-    {
-      accountType: UserType.UNKNOWN,
-      birthDate: input2date(values.birthDate),
-      confirmed: false,
-      email: values.email,
-      firstName: values.firstName,
-      id: accountId,
-      lastName: values.lastName,
-      password: values.password,
-      phoneNumber: values.phoneNumber,
-      pronoun: values.pronoun,
-      gender: values.gender,
-      dietaryRestrictions: values.dietaryRestrictions,
-    }
-  );
+  const convertFormikToAccount = (
+    values: FormikValues,
+    accountId: string = ''
+  ): IAccount => ({
+    accountType: UserType.UNKNOWN,
+    birthDate: input2date(values.birthDate),
+    confirmed: false,
+    email: values.email,
+    firstName: values.firstName,
+    id: accountId,
+    lastName: values.lastName,
+    password: values.password,
+    phoneNumber: values.phoneNumber,
+    pronoun: values.pronoun,
+    gender: values.gender,
+    dietaryRestrictions: values.dietaryRestrictions,
+  });
 
   // Handle form submission
   const handleSubmit = (values: FormikValues) => {
@@ -132,7 +135,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     } else {
       history.push(FrontendRoute.HOME_PAGE);
     }
-  }
+  };
 
   /**
    * Create a new account
@@ -152,7 +155,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
 
     // Once submitted redirect user to appropriate page
     history.push(FrontendRoute.HOME_PAGE);
-  }
+  };
 
   /**
    * Update current user's account data to match new values
@@ -160,7 +163,11 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    * @param oldPassword user's previous password
    * @param newPassword password this user is changing to
    */
-  const handleEdit = async (payload: IAccount, oldPassword?: string, newPassword?: string) => {
+  const handleEdit = async (
+    payload: IAccount,
+    oldPassword?: string,
+    newPassword?: string
+  ) => {
     try {
       await Account.update(payload);
       if (oldPassword && newPassword) {
@@ -173,7 +180,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   // Render a formik form that allows user to edit account values and then
   // submit (triggering appropriate reaction - account create or edit - based
@@ -194,7 +201,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         birthDate: accountDetails.birthDate,
       }}
       onSubmit={handleSubmit}
-      validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
+      validationSchema={getValidationSchema(
+        props.mode === ManageAccountModes.CREATE
+      )}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
           <FastField
@@ -205,6 +214,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             isTight={true}
             disabled={props.mode === ManageAccountModes.EDIT}
             required={true}
+            style={{ display: 'inline-block' }}
           />
           <ErrorMessage component={FormikElements.Error} name="firstName" />
           <FastField
@@ -215,6 +225,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             isTight={true}
             disabled={props.mode === ManageAccountModes.EDIT}
             required={true}
+            style={{ display: 'inline-block' }}
           />
           <ErrorMessage component={FormikElements.Error} name="lastName" />
           <FastField
@@ -245,20 +256,21 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.password}
           />
           <ErrorMessage component={FormikElements.Error} name="password" />
-          {
-            props.mode === ManageAccountModes.EDIT && (
-              <>
-                <FastField
-                  label={CONSTANTS.NEW_PASSWORD_LABEL}
-                  component={FormikElements.Input}
-                  inputType={'password'}
-                  name={'newPassword'}
-                />
-                <ErrorMessage component={FormikElements.Error} name="newPassword" />
-              </>
-            )
-          }
-          <FastField
+          {props.mode === ManageAccountModes.EDIT && (
+            <>
+              <FastField
+                label={CONSTANTS.NEW_PASSWORD_LABEL}
+                component={FormikElements.Input}
+                inputType={'password'}
+                name={'newPassword'}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="newPassword"
+              />
+            </>
+          )}
+          {/* <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.PHONE_NUMBER_LABEL}
             placeholder="+# (###) ###-####"
@@ -303,17 +315,15 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           <ErrorMessage
             component={FormikElements.Error}
             name="dietaryRestrictions"
-          />
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            {props.mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
+          /> */}
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            {props.mode === ManageAccountModes.CREATE ? 'Sign up' : 'Save'}
           </SubmitBtn>
+          <AlreadyHaveAccount />
         </Form>
       )}
     />
-  )
+  );
 };
 
 export default WithToasterContainer(ManageAccountForm);
