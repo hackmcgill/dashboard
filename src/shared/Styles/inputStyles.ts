@@ -26,7 +26,10 @@ export const inputStyles = css<IInputProps>`
     color: ${(props) => props.theme.colors.black40};
   }
 
-  &:focus,
+  &:focus {
+    box-shadow: 2px 2px 16px 0px rgba(0, 105, 255, 0.25);
+  }
+
   &:hover {
     border: 2px solid ${(props) => props.theme.colors.black60};
   }
