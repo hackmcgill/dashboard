@@ -87,13 +87,13 @@ const LoginPage: React.FC = () => {
    * Display login form to user
    */
   // something big time wrong in the left padding of the form
-  const renderForm = (min_width: string) => (
+  const renderForm = (isMobile: boolean) => (
     <MaxWidthBox
-      minWidth={min_width}
+      minWidth={isMobile ? '0px' : '500px'}
       maxWidth={'500px'}
       paddingLeft={'50px'}
       paddingRight={'50px'}
-      left={'50%'}
+      left={isMobile ? '0%' : '55%'}
       position={'absolute'}
     >
       <Helmet>
@@ -140,25 +140,18 @@ const LoginPage: React.FC = () => {
       {(matches) =>
         matches ? (
           <LeftContainer>
-            {renderForm('0px')}
+            {renderForm(true)}
             <p>mobile</p>
-            <BackgroundImage
-              src={LookAtSky}
-              top={'70px'}
-              right={'0px'}
-              imgWidth={'100%'}
-              minHeight={'600px'}
-              position={'fixed' as 'fixed'}
-            />
+            <BackgroundImage src={LookAtSky} imgWidth={'100%'} />
           </LeftContainer>
         ) : (
           <div>
-            <div style={{ right: '0px' }}>{renderForm('500px')}</div>
+            <div style={{ right: '0px' }}>{renderForm(false)}</div>
             <BackgroundImage
               src={LookAtSky}
               top={'90px'}
               left={'0px'}
-              imgHeight={'90%'}
+              imgWidth={'50%'}
               position={'fixed' as 'fixed'}
             />
           </div>

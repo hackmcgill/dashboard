@@ -14,7 +14,7 @@ export interface SocialMediaBarProps {
 
 const SocialMediaBar = (props: SocialMediaBarProps) => {
   return (
-    <Flex>
+    <Flex alignItems={'center'} pr={'45px'}>
       <Box pr={'20px'}>
         <a href="https://www.facebook.com/mcgillhacks/" target="_blank">
           <Image src={Facebook} />

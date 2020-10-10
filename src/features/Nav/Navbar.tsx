@@ -21,6 +21,7 @@ import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
+import SocialMediaBar from '../Sponsor/SocialMediaBar';
 
 interface INavbarProps {
   activePage: string;
@@ -215,8 +216,7 @@ export default class Navbar extends React.Component<
       );
     }
 
-    // i want to check if this is the login page or not, how to do it??
-    return this.state.loaded && loggedIn ? (
+    return this.state.loaded && !window.location.href.includes('login') ? (
       <Nav borderThickness={'2px'}>
         <IconContainer>
           <a href={routes.HOME_PAGE}>
@@ -225,6 +225,7 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {NavItems()}
+          <SocialMediaBar />
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>
