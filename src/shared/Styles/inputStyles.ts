@@ -7,8 +7,9 @@ export interface IInputProps {
 
 export const inputStyles = css<IInputProps>`
   border-radius: 8px;
-  border: 2px solid ${(props) => props.theme.colors.black10};
   font-weight: ${(props) => props.fontWeight || 'normal'};
+  border: none;
+  box-shadow: 0px 0px 16px 0px ${(props) => props.theme.colors.greyLight};
   box-sizing: border-box;
   display: block;
   font-size: 16px;
@@ -27,11 +28,8 @@ export const inputStyles = css<IInputProps>`
   }
 
   &:focus {
+    outline: none;
     box-shadow: 2px 2px 16px 0px ${(props) => props.theme.colors.blueLight};
-  }
-
-  &:hover {
-    border: 2px solid ${(props) => props.theme.colors.black60};
   }
 
   &:disabled {

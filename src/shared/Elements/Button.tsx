@@ -78,7 +78,7 @@ export const Button = styled.button<IButtonProps>`
       props.variant === ButtonVariant.Secondary ||
       props.variant === undefined) &&
     `
-      border-radius: 4px;
+      border-radius: 8px;
       padding-left: 24px;
       padding-right: 24px;
   `}
