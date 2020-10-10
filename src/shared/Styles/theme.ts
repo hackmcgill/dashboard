@@ -4,6 +4,8 @@ const theme = {
     redMed: '#F56F65',
     redLight: '#F89790',
 
+    blueLight: '#0069FF40',
+
     yellow: '#FFD081',
     yellowLight: 'FFEFB6',
 
@@ -11,7 +13,9 @@ const theme = {
     tealLight: '#88FCFF',
 
     purple: '#5C63AB',
-    purpleLight: 'rgba(92, 99, 171, 0.1)',
+    purpleLight: '#5C63AB19',
+
+    greyLight: '#10143726',
 
     white: '#FFFFFF',
     black: '#202020',
@@ -43,12 +47,14 @@ export interface ITheme {
     red: string;
     redMed: string;
     redLight: string;
+    blueLight: string;
     yellow: string;
     yellowLight: string;
     teal: string;
     tealLight: string;
     purple: string;
     purpleLight: string;
+    greyLight: string;
     white: string;
     black: string;
     black80: string;

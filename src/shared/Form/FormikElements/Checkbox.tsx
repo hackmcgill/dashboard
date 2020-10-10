@@ -18,11 +18,10 @@ const CheckboxContainer = styled.div`
     width: 24px;
     height: 24px;
     appearance: none;
-    border: 1px solid #d2d2d2;
     border-radius: 4px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0px 0px 16px 0px rgba(16, 20, 55, 0.1);
+    box-shadow: 0px 0px 16px 0px ${(props) => props.theme.colors.greyLight};
   }
 
   input:checked {

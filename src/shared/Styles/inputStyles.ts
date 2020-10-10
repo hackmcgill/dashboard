@@ -27,7 +27,7 @@ export const inputStyles = css<IInputProps>`
   }
 
   &:focus {
-    box-shadow: 2px 2px 16px 0px rgba(0, 105, 255, 0.25);
+    box-shadow: 2px 2px 16px 0px ${(props) => props.theme.colors.blueLight};
   }
 
   &:hover {
