@@ -22,6 +22,7 @@ const CheckboxContainer = styled.div`
     border-radius: 4px;
     cursor: pointer;
     outline: none;
+    box-shadow: 0px 0px 16px 0px rgba(16, 20, 55, 0.1);
   }
 
   input:checked {
@@ -39,28 +40,28 @@ const CheckboxContainer = styled.div`
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
     position: relative;
-    left: 25px;
-    top: 3px;
+    left: 26px;
+    top: 4px;
     display: inline-block;
     cursor: pointer;
   }
 
   .checkmark_stem {
     position: absolute;
-    width: 3px;
-    height: 9px;
+    width: 2px;
+    height: 10px;
     background-color: #fff;
     left: 11px;
-    top: 6px;
+    top: 3px;
   }
 
   .checkmark_kick {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 6px;
+    height: 2px;
     background-color: #fff;
-    left: 8px;
-    top: 12px;
+    left: 7px;
+    top: 13px;
   }
 
   input:not(:checked) ~ .checkmark {
