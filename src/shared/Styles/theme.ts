@@ -10,6 +10,9 @@ const theme = {
     teal: '#48DEE2',
     tealLight: '#88FCFF',
 
+    purple: '#5C63AB',
+    purpleLight: 'rgba(92, 99, 171, 0.1)',
+
     white: '#FFFFFF',
     black: '#202020',
     black80: '#4D4D4D',
@@ -23,7 +26,8 @@ const theme = {
   },
   inputBorderRadius: '20px',
   fonts: {
-    header: 'Brown, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+    header:
+      'Brown, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
     body:
       'Hind Siliguri, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
   },
@@ -43,6 +47,8 @@ export interface ITheme {
     yellowLight: string;
     teal: string;
     tealLight: string;
+    purple: string;
+    purpleLight: string;
     white: string;
     black: string;
     black80: string;

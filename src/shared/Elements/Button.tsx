@@ -19,6 +19,7 @@ export interface IButtonProps {
   variant?: ButtonVariant; // Default to primary button if type is not provided
   isLoading?: boolean;
   isNarrow?: boolean;
+  isOutlined?: boolean;
   disabled?: boolean;
 }
 
@@ -56,18 +57,18 @@ export const Button = styled.button<IButtonProps>`
       props.variant === ButtonVariant.Primary ||
       props.variant === undefined) &&
     `
-      background-color: ${props.theme.colors.red};
+      background-color: ${props.theme.colors.purple};
       color: ${props.theme.colors.white};
-      border: 1px solid ${props.theme.colors.redMed};
+      border: 2px solid ${props.theme.colors.purple};
   `}
 
   ${(props) =>
     // Call to action and primary buttons have solid background and gradient borders
     props.variant === ButtonVariant.Secondary &&
     `
-      background-color: ${props.theme.colors.white};
-      color: ${props.theme.colors.red};
-      border: 2px solid ${props.theme.colors.red};
+      background-color: ${props.theme.colors.purpleLight};
+      color: ${props.theme.colors.purple};
+      border: 2px solid transparent;
   `}
 
   ${(props) =>
@@ -83,6 +84,18 @@ export const Button = styled.button<IButtonProps>`
   `}
 
   ${(props) =>
+    props.isOutlined &&
+    `
+    background: none;
+    color: ${props.theme.colors.purple};
+    border-color: ${
+      props.variant === ButtonVariant.Secondary
+        ? props.theme.colors.purpleLight
+        : props.theme.colors.purple
+    };
+    `}
+
+  ${(props) =>
     props.disabled
       ? `
         cursor: not-allowed;
@@ -93,15 +106,19 @@ export const Button = styled.button<IButtonProps>`
       : `&:hover {
           background-color: ${
             props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.red
-              : props.theme.colors.redLight
+              ? props.theme.colors.purple
+              : props.theme.colors.purpleLight
           };
           border-color: ${
             props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.red
-              : props.theme.colors.redLight
+              ? props.theme.colors.purple
+              : props.theme.colors.purpleLight
           };
-          color: ${props.theme.colors.white};
+          color: ${
+            props.variant === ButtonVariant.Secondary
+              ? props.theme.colors.white
+              : props.theme.colors.purple
+          };
         }
     `}
 
