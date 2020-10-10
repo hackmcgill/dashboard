@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import { FrontendRoute, IHacker } from '../../config';
-import { getHackerInfo } from '../../util/UserInfoHelperFunctions';
+import { FrontendRoute, IHacker, ISetting } from '../../config';
+import { getHackerInfo, getSettings } from '../../util/UserInfoHelperFunctions';
 
 enum authStates {
   authorized,
@@ -13,12 +13,12 @@ export interface IHackerDirectOptions {
   // True, if user must be a hacker, or False if user must not be hacker
   requiredAuthState?: boolean;
   // Function that is called when user is a hacker. This is used for further state verifications
-  AuthVerification?: (hacker: IHacker) => boolean;
+  AuthVerification?: (hacker: IHacker, settings?: ISetting) => boolean;
 }
 
 const defaultOptions = {
   requiredAuthState: true,
-  AuthVerification: (hacker: IHacker) => true,
+  AuthVerification: (hacker: IHacker, settings: ISetting) => true,
   redirOnSuccess: false,
 };
 
@@ -27,7 +27,7 @@ const withHackerRedirect = <P extends {}>(
   options: IHackerDirectOptions = defaultOptions
 ) =>
   class extends React.Component<P, { authState: authStates }> {
-    private verification: (hacker: IHacker) => boolean;
+    private verification: (hacker: IHacker, settings: ISetting) => boolean;
 
     constructor(props: any) {
       super(props);
@@ -43,9 +43,11 @@ const withHackerRedirect = <P extends {}>(
     }
 
     public async componentDidMount() {
-      const selfInfo = await getHackerInfo();
-      if (selfInfo) {
-        const verified = this.verification(selfInfo);
+      const selfInfo: IHacker | null = await getHackerInfo();
+      const settings: ISetting | null = await getSettings();
+      if (selfInfo && settings) {
+        const verified = this.verification(selfInfo, settings);
+        console.log(verified);
         this.setState({
           authState: verified ? authStates.authorized : authStates.unauthorized,
         });
@@ -63,14 +65,14 @@ const withHackerRedirect = <P extends {}>(
           return options.requiredAuthState ? (
             <Component {...this.props} />
           ) : (
-            <Redirect to={FrontendRoute.HOME_PAGE} />
-          );
+              <Redirect to={FrontendRoute.HOME_PAGE} />
+            );
         case authStates.unauthorized:
           return options.requiredAuthState ? (
             <Redirect to={FrontendRoute.HOME_PAGE} />
           ) : (
-            <Component {...this.props} />
-          );
+              <Component {...this.props} />
+            );
         default:
           return <div />;
       }
