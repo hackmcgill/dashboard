@@ -1,19 +1,17 @@
-import { Account, Hacker, Sponsor } from '../api';
-
+import jsPDF from 'jspdf';
+import * as QRCode from 'qrcode';
+import { Account, Hacker, Settings, Sponsor } from '../api';
 import {
   FrontendRoute,
   HackerStatus,
   IAccount,
   IHacker,
+  ISetting,
   ISponsor,
   UserType,
 } from '../config';
-
-import * as QRCode from 'qrcode';
-
-import jsPDF from 'jspdf';
-import addBrownFont from './jsPDF-brown-font';
 import addBrownBoldFont from './jsPDF-brown-bold-font';
+import addBrownFont from './jsPDF-brown-font';
 import addHindFont from './jsPDF-hind-font';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
@@ -80,8 +78,24 @@ export async function getHackerInfo(): Promise<IHacker | null> {
     return null;
   }
 }
-export function isAppOpen(): boolean {
-  return true;
+
+export async function getSettings(): Promise<ISetting | null> {
+  try {
+    const response = await Settings.get();
+    return response.data.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+export function isAppOpen(settings?: ISetting): boolean {
+  if (!settings) {
+    return false;
+  }
+  const now = new Date();
+  const open = new Date(settings.openTime);
+  const close = new Date(settings.closeTime);
+  return now > open && now < close;
 }
 
 export function isConfirmationOpen(): boolean {
@@ -97,14 +111,16 @@ export async function getSponsorInfo(): Promise<ISponsor | null> {
   }
 }
 
-export function canAccessApplication(hacker?: IHacker): boolean {
-  const APPS_OPEN = isAppOpen();
+export function canAccessApplication(
+  hacker?: { status: HackerStatus }, // Only outline as much as we need here.
+  settings?: ISetting
+): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
-
+  // If applications are open and a user has not yet sent in an app, let them do so.
+  // Hackers who have submitted an application AND is not waitlisted should be able to see their app.
   return (
-    APPS_OPEN &&
-    (status === HackerStatus.HACKER_STATUS_NONE ||
-      status !== HackerStatus.HACKER_STATUS_WAITLISTED)
+    (isAppOpen(settings) && status === HackerStatus.HACKER_STATUS_NONE) ||
+    status !== HackerStatus.HACKER_STATUS_WAITLISTED
   );
 }
 
@@ -128,11 +144,7 @@ export function canAccessTravel(hacker?: IHacker): boolean {
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
     status === HackerStatus.HACKER_STATUS_CHECKED_IN
   ) {
-    return !!(
-      hacker &&
-      hacker.application &&
-      hacker.application.accommodation
-    );
+    return !!(hacker && hacker.application && hacker.application.accommodation);
   }
   return false;
 }
@@ -141,10 +153,10 @@ export function canAccessBus(hacker?: IHacker): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
   return hacker
     ? Boolean(hacker.travel) &&
-    (status === HackerStatus.HACKER_STATUS_APPLIED ||
-      status === HackerStatus.HACKER_STATUS_ACCEPTED ||
-      status === HackerStatus.HACKER_STATUS_CONFIRMED ||
-      status === HackerStatus.HACKER_STATUS_CHECKED_IN)
+        (status === HackerStatus.HACKER_STATUS_APPLIED ||
+          status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+          status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+          status === HackerStatus.HACKER_STATUS_CHECKED_IN)
     : false;
 }
 
@@ -168,7 +180,7 @@ export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
   const hackerPage = `
   ${window.location.protocol}//${window.location.hostname}${
     window.location.port ? ':' + window.location.port : ''
-    }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
+  }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
   const response = await QRCode.toDataURL(hackerPage, { scale: 10 });
   return response;
 }
