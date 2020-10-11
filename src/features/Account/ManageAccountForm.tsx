@@ -206,28 +206,32 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       )}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
-          <FastField
-            name={'firstName'}
-            label={CONSTANTS.FIRST_NAME_LABEL}
-            value={fp.values.firstName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-            style={{ display: 'inline-block' }}
-          />
-          <ErrorMessage component={FormikElements.Error} name="firstName" />
-          <FastField
-            name={'lastName'}
-            label={CONSTANTS.LAST_NAME_LABEL}
-            value={fp.values.lastName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-            style={{ display: 'inline-block' }}
-          />
-          <ErrorMessage component={FormikElements.Error} name="lastName" />
+          <div style={{ display: 'flex', justifyContent: 'spaceBetween' }}>
+            <div style={{ marginRight: '20px' }}>
+              <FastField
+                name={'firstName'}
+                label={CONSTANTS.FIRST_NAME_LABEL}
+                value={fp.values.firstName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="firstName" />
+            </div>
+            <div>
+              <FastField
+                name={'lastName'}
+                label={CONSTANTS.LAST_NAME_LABEL}
+                value={fp.values.lastName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="lastName" />
+            </div>
+          </div>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}

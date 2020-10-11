@@ -94,6 +94,7 @@ const LoginPage: React.FC = () => {
       paddingLeft={'50px'}
       paddingRight={'50px'}
       left={isMobile ? '0%' : '55%'}
+      right={isMobile ? 'auto' : '0'}
       position={'absolute'}
     >
       <Helmet>
@@ -103,7 +104,7 @@ const LoginPage: React.FC = () => {
         <Flex
           alignItems={'left'}
           flexDirection={'column'}
-          p={'4rem 5.8rem 0rem 0rem'}
+          p={'1rem 5.8rem 0rem 0rem'}
         >
           <Image
             src={MartletTitle}
@@ -123,13 +124,13 @@ const LoginPage: React.FC = () => {
             value={password}
             isTight={true}
           />
-          <Box pr={'5px'} pt={'60px'} pb={'40px'}>
+          <Box pr={'5px'} pt={'40px'} pb={'20px'}>
             <Button type="button" onClick={handleSubmit}>
               Sign in
             </Button>
           </Box>
           <SignUpLink />
-          <SponsorsBar />
+          <SponsorsBar pt={'20px'} pb={'50px'} />
         </Flex>
       </Form>
     </MaxWidthBox>
@@ -146,7 +147,7 @@ const LoginPage: React.FC = () => {
           </LeftContainer>
         ) : (
           <div>
-            <div style={{ right: '0px' }}>{renderForm(false)}</div>
+            {renderForm(false)}
             <BackgroundImage
               src={LookAtSky}
               top={'90px'}

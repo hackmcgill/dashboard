@@ -10,16 +10,18 @@ export interface IMaxWidthBoxProps {
   minWidth?: string;
   left?: string;
   position?: string;
+  right?: string;
 }
 
 export const MaxWidthBox = styled(Box)<IMaxWidthBoxProps>`
-  min-width: ${(props) => props.minWidth || '400px'}
+  min-width: ${(props) => props.minWidth || '400px'};
   max-width: ${(props) => props.maxWidth || '600px'};
   text-align: ${(props) => props.textAlign || 'initial'};
   padding-left: ${(props) => props.paddingLeft || '0'};
   padding-right: ${(props) => props.paddingRight || '0'};
   float: ${(props) => props.float || 'none'};
-  left: ${(props) => props.left || '0'};
+  left: ${(props) => props.left || 'auto'};
+  right: ${(props) => props.right || 'auto'};
   position: ${(props) => props.position || 'static'};
 `;
 

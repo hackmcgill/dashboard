@@ -44,6 +44,7 @@ const CreateAccountPage: React.FC = () => (
         left={'50%'}
         paddingLeft={'50px'}
         paddingRight={'100px'}
+        minWidth={'500px'}
         maxWidth={'500px'}
       >
         <H1

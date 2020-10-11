@@ -7,14 +7,13 @@ import Twitter from '../../assets/images/twitter-logo.svg';
 import GitHub from '../../assets/images/github-logo.svg';
 
 export interface SocialMediaBarProps {
-  imgHeight?: string;
-  imgWidth?: string;
-  padding?: string;
+  pt?: string;
+  pb?: string;
 }
 
 const SocialMediaBar = (props: SocialMediaBarProps) => {
   return (
-    <Flex alignItems={'center'} pr={'45px'}>
+    <Flex alignItems={'center'} pr={'45px'} pt={props.pt} pb={props.pb}>
       <Box pr={'20px'}>
         <a href="https://www.facebook.com/mcgillhacks/" target="_blank">
           <Image src={Facebook} />
