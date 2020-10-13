@@ -5,8 +5,7 @@ import { Image, Paragraph } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 
 export default class PaginationHeader extends React.Component<
-  IPaginationHeaderProps,
-  IPaginationHeaderState
+  IPaginationHeaderProps
 > {
   constructor(props: IPaginationHeaderProps) {
     super(props);
@@ -43,10 +42,8 @@ export default class PaginationHeader extends React.Component<
 
     const pageNotSelectedBarStyle = {
       background: theme.colors.black40,
-      width: '160px',
+      width: `${(500 - 5 * 24) / 4}px`, // Design specifies 160px but ManageApplicationContainer has not been updated
       height: '2px',
-      left: '364px',
-      top: '175px',
       textAlign: 'center' as 'center',
       verticalAlign: 'center',
     };
@@ -103,7 +100,7 @@ export default class PaginationHeader extends React.Component<
         );
       }
 
-      if (pageNumber === this.state.pageNumber - 1) {
+      if (pageNumber === this.props.pageNumber - 1) {
         // Only display purple bar before current page
         barStyle = pageSelectedBarStyle;
       }
@@ -127,11 +124,11 @@ export default class PaginationHeader extends React.Component<
   }
 
   private isFilled(i: number): boolean {
-    return i <= this.state.pageNumber;
+    return i <= this.props.pageNumber;
   }
 
   private isCheck(i: number): boolean {
-    return i < this.state.lastCompletedPage && i !== this.state.pageNumber;
+    return i < this.props.lastCompletedPage && i !== this.props.pageNumber;
   }
 }
 
@@ -140,8 +137,8 @@ interface IPaginationHeaderProps {
   totalPages: number;
   lastCompletedPage: number;
 }
-
-interface IPaginationHeaderState {
-  pageNumber: number;
-  lastCompletedPage: number;
-}
+//
+// interface IPaginationHeaderState {
+//   pageNumber: number;
+//   lastCompletedPage: number;
+// }
