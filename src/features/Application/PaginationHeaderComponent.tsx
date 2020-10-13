@@ -9,10 +9,10 @@ export default class PaginationHeader extends React.Component<
 > {
   constructor(props: IPaginationHeaderProps) {
     super(props);
-    this.state = {
-      pageNumber: props.pageNumber,
-      lastCompletedPage: props.lastCompletedPage,
-    };
+    // this.state = {
+    //   pageNumber: props.pageNumber,
+    //   lastCompletedPage: props.lastCompletedPage,
+    // };
   }
 
   public render() {
@@ -67,7 +67,7 @@ export default class PaginationHeader extends React.Component<
       height: '24px',
       borderRadius: '50%',
       border: 'none',
-      boxShadow: '2px 2px 16px rgba(0, 105, 255, 0.25)',
+      boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
     };
 
     // console.log(this.props.pageNumber);
