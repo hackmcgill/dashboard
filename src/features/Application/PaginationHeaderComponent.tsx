@@ -42,7 +42,8 @@ export default class PaginationHeader extends React.Component<
 
     const pageNotSelectedBarStyle = {
       background: theme.colors.black40,
-      width: `${(500 - (this.props.totalPages - 1) * 24) / (this.props.totalPages - 1)}px`, // Design specifies 160px but ManageApplicationContainer has not been updated
+      // width: `${(500 - (this.props.totalPages - 1) * 24) / (this.props.totalPages - 1)}px`, // Design specifies 160px but ManageApplicationContainer has not been updated
+      width: '160px',
       height: '2px',
       textAlign: 'center' as 'center',
       verticalAlign: 'center',
