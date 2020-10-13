@@ -1,6 +1,8 @@
 // import { useState } from 'react';
 import * as React from 'react';
-import { Paragraph } from '../../shared/Elements';
+import done from '../../assets/images/done.svg';
+import { Image, Paragraph } from '../../shared/Elements';
+import theme from '../../shared/Styles/theme';
 
 export default class PaginationHeader extends React.Component<
   IPaginationHeaderProps,
@@ -10,6 +12,7 @@ export default class PaginationHeader extends React.Component<
     super(props);
     this.state = {
       pageNumber: props.pageNumber,
+      lastCompletedPage: props.lastCompletedPage,
     };
   }
 
@@ -19,7 +22,7 @@ export default class PaginationHeader extends React.Component<
     const pageNotSelectedTextStyle = {
       position: 'relative' as 'relative',
       fontSize: '12px',
-      color: '#A6A6A6',
+      color: theme.colors.black40,
       textAlign: 'center' as 'center',
       // top: '-65%',
       // transform: 'translateY(-50%)',
@@ -30,7 +33,7 @@ export default class PaginationHeader extends React.Component<
       height: '24px',
       borderRadius: '50%',
       background: 'none',
-      border: '2px solid #A6A6A6',
+      border: `2px solid ${theme.colors.black40}`,
       boxSizing: 'border-box' as 'border-box',
       display: 'flex',
       alignItems: 'center',
@@ -39,7 +42,7 @@ export default class PaginationHeader extends React.Component<
     };
 
     const pageNotSelectedBarStyle = {
-      background: '#A6A6A6',
+      background: theme.colors.black40,
       width: '160px',
       height: '2px',
       left: '364px',
@@ -50,8 +53,8 @@ export default class PaginationHeader extends React.Component<
 
     const pageSelectedBarStyle = {
       ...pageNotSelectedBarStyle,
-      background: '#5C63AB',
-      boxShadow: '2px 2px 16px rgba(0, 105, 255, 0.25)',
+      background: theme.colors.purple,
+      boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
     };
 
     const pageSelectedTextStyle = {
@@ -61,7 +64,7 @@ export default class PaginationHeader extends React.Component<
 
     const pageSelectedCircleStyle = {
       ...pageNotSelectedCircleStyle,
-      background: '#5C63AB',
+      background: theme.colors.purple,
       width: '24px',
       height: '24px',
       borderRadius: '50%',
@@ -76,20 +79,34 @@ export default class PaginationHeader extends React.Component<
       let barStyle = pageNotSelectedBarStyle;
       let textStyle = pageNotSelectedTextStyle;
 
-      if (i <= this.state.pageNumber - 1) {
+      const pageNumber = i + 1;
+
+      const fill = this.isFilled(pageNumber);
+      const checked = this.isCheck(pageNumber);
+
+      if (fill) {
         circleStyle = pageSelectedCircleStyle;
         textStyle = pageSelectedTextStyle;
       }
 
-      if (i === this.state.pageNumber - 2) {
-        barStyle = pageSelectedBarStyle;
+      if (!checked) {
+        elements.push(
+          <div style={circleStyle}>
+            <Paragraph style={textStyle}>{i + 1}</Paragraph>
+          </div>
+        );
+      } else {
+        elements.push(
+          <div style={circleStyle}>
+            <Image src={done} />
+          </div>
+        );
       }
 
-      elements.push(
-        <div style={circleStyle}>
-          <Paragraph style={textStyle}>{i + 1}</Paragraph>
-        </div>
-      );
+      if (pageNumber === this.state.pageNumber - 1) {
+        // Only display purple bar before current page
+        barStyle = pageSelectedBarStyle;
+      }
 
       if (i !== this.props.totalPages - 1) {
         elements.push(<div style={barStyle} />);
@@ -108,13 +125,23 @@ export default class PaginationHeader extends React.Component<
       </div>
     );
   }
+
+  private isFilled(i: number): boolean {
+    return i <= this.state.pageNumber;
+  }
+
+  private isCheck(i: number): boolean {
+    return i < this.state.lastCompletedPage && i !== this.state.pageNumber;
+  }
 }
 
 interface IPaginationHeaderProps {
   pageNumber: number;
   totalPages: number;
+  lastCompletedPage: number;
 }
 
 interface IPaginationHeaderState {
   pageNumber: number;
+  lastCompletedPage: number;
 }
