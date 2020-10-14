@@ -1,24 +1,45 @@
 // import { useState } from 'react';
+import { FunctionComponent } from 'react';
 import * as React from 'react';
 import done from '../../assets/images/done.svg';
 import { Image, Paragraph } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 
-export default class PaginationHeader extends React.Component<
-  IPaginationHeaderProps
-> {
-  constructor(props: IPaginationHeaderProps) {
-    super(props);
-    // this.state = {
-    //   pageNumber: props.pageNumber,
-    //   lastCompletedPage: props.lastCompletedPage,
-    // };
-  }
+interface ISeparatingBarProps {
+  current: boolean;
+}
 
-  public render() {
-    const elements = [];
+const SeparatingBar: FunctionComponent<ISeparatingBarProps> = (props) => {
+  const pageNotSelectedBarStyle = {
+    background: theme.colors.black40,
+    width: '160px',
+    height: '2px',
+    textAlign: 'center' as 'center',
+    verticalAlign: 'center',
+  };
 
-    const pageNotSelectedTextStyle = {
+  const pageSelectedBarStyle = {
+    ...pageNotSelectedBarStyle,
+    background: theme.colors.purple,
+    boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
+  };
+
+  const barStyle = props.current
+    ? pageSelectedBarStyle
+    : pageNotSelectedBarStyle;
+
+  return <div style={barStyle} />;
+};
+
+interface INumberPageText {
+  pageNumber: number;
+  fill: boolean;
+  check: boolean;
+}
+
+const NumberPageText: FunctionComponent<INumberPageText> = (props) => {
+  if (!props.check) {
+    const notSelectedTextStyle = {
       position: 'relative' as 'relative',
       fontSize: '12px',
       color: theme.colors.black40,
@@ -27,110 +48,68 @@ export default class PaginationHeader extends React.Component<
       // transform: 'translateY(-50%)',
     };
 
-    const pageNotSelectedCircleStyle = {
-      width: '24px',
-      height: '24px',
-      borderRadius: '50%',
-      background: 'none',
-      border: `2px solid ${theme.colors.black40}`,
-      boxSizing: 'border-box' as 'border-box',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      verticalAlign: 'center',
-    };
-
-    const pageNotSelectedBarStyle = {
-      background: theme.colors.black40,
-      // width: `${(500 - (this.props.totalPages - 1) * 24) / (this.props.totalPages - 1)}px`, // Design specifies 160px but ManageApplicationContainer has not been updated
-      width: '160px',
-      height: '2px',
-      textAlign: 'center' as 'center',
-      verticalAlign: 'center',
-    };
-
-    const pageSelectedBarStyle = {
-      ...pageNotSelectedBarStyle,
-      background: theme.colors.purple,
-      boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
-    };
-
-    const pageSelectedTextStyle = {
-      ...pageNotSelectedTextStyle,
+    const selectedTextStyle = {
+      ...notSelectedTextStyle,
       color: 'white',
     };
+    const textStyle = props.fill ? selectedTextStyle : notSelectedTextStyle;
 
-    const pageSelectedCircleStyle = {
-      ...pageNotSelectedCircleStyle,
-      background: theme.colors.purple,
-      width: '24px',
-      height: '24px',
-      borderRadius: '50%',
-      border: 'none',
-      boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
-    };
-
-    // console.log(this.props.pageNumber);
-
-    for (let i = 0; i < this.props.totalPages; i++) {
-      let circleStyle = pageNotSelectedCircleStyle;
-      let barStyle = pageNotSelectedBarStyle;
-      let textStyle = pageNotSelectedTextStyle;
-
-      const pageNumber = i + 1;
-
-      const fill = this.isFilled(pageNumber);
-      const checked = this.isCheck(pageNumber);
-
-      if (fill) {
-        circleStyle = pageSelectedCircleStyle;
-        textStyle = pageSelectedTextStyle;
-      }
-
-      if (!checked) {
-        elements.push(
-          <div style={circleStyle}>
-            <Paragraph style={textStyle}>{i + 1}</Paragraph>
-          </div>
-        );
-      } else {
-        elements.push(
-          <div style={circleStyle}>
-            <Image src={done} />
-          </div>
-        );
-      }
-
-      if (pageNumber === this.props.pageNumber - 1) {
-        // Only display purple bar before current page
-        barStyle = pageSelectedBarStyle;
-      }
-
-      if (i !== this.props.totalPages - 1) {
-        elements.push(<div style={barStyle} />);
-      }
-    }
-    // console.log(elements);
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {elements}
-      </div>
-    );
+    return <Paragraph style={textStyle}>{props.pageNumber}</Paragraph>;
+  } else {
+    return <Image src={done} />;
   }
+};
 
-  private isFilled(i: number): boolean {
-    return i <= this.props.pageNumber;
-  }
+interface INumberBubble {
+  fill: boolean;
+  current: boolean;
+}
 
-  private isCheck(i: number): boolean {
-    return i < this.props.lastCompletedPage && i !== this.props.pageNumber;
-  }
+const NumberBubble: FunctionComponent<INumberBubble> = (props) => {
+  const notSelectedBubble = {
+    width: '24px',
+    height: '24px',
+    borderRadius: '50%',
+    background: 'none',
+    border: `2px solid ${theme.colors.black40}`,
+    boxSizing: 'border-box' as 'border-box',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    verticalAlign: 'center',
+  };
+  const selectedBubble = {
+    ...notSelectedBubble,
+    background: theme.colors.purple,
+    width: '24px',
+    height: '24px',
+    borderRadius: '50%',
+    border: 'none',
+  };
+  const currentBubble = {
+    ...selectedBubble,
+    boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
+  };
+
+  const bubbleStyle = props.fill
+    ? props.current
+      ? currentBubble
+      : selectedBubble
+    : notSelectedBubble;
+
+  return <div style={bubbleStyle}>{props.children}</div>;
+};
+
+function isFilled(i: number, pageNumber: number): boolean {
+  return i <= pageNumber;
+}
+
+function isCheck(
+  i: number,
+  pageNumber: number,
+  lastCompletedPage: number
+): boolean {
+  return i < lastCompletedPage && i !== pageNumber;
 }
 
 interface IPaginationHeaderProps {
@@ -138,8 +117,42 @@ interface IPaginationHeaderProps {
   totalPages: number;
   lastCompletedPage: number;
 }
-//
-// interface IPaginationHeaderState {
-//   pageNumber: number;
-//   lastCompletedPage: number;
-// }
+
+const PaginationHeader: FunctionComponent<IPaginationHeaderProps> = (props) => {
+  const elements = [];
+
+  for (let i = 0; i < props.totalPages; i++) {
+    const pageNumber = i + 1;
+    const isCurrentPage = pageNumber === props.pageNumber - 1;
+    const fill = isFilled(pageNumber, props.pageNumber);
+    const checked = isCheck(
+      pageNumber,
+      props.pageNumber,
+      props.lastCompletedPage
+    );
+
+    elements.push(
+      <NumberBubble fill={fill} current={isCurrentPage}>
+        <NumberPageText pageNumber={pageNumber} fill={fill} check={checked} />
+      </NumberBubble>
+    );
+
+    if (i !== props.totalPages - 1) {
+      elements.push(<SeparatingBar current={isCurrentPage} />);
+    }
+  }
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {elements}
+    </div>
+  );
+};
+
+export default PaginationHeader;
