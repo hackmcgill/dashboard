@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { FunctionComponent } from 'react';
 import * as React from 'react';
 import done from '../../assets/images/done.svg';
