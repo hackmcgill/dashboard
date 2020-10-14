@@ -43,8 +43,6 @@ const NumberPageText: FunctionComponent<INumberPageText> = (props) => {
       fontSize: '12px',
       color: theme.colors.black40,
       textAlign: 'center' as 'center',
-      // top: '-65%',
-      // transform: 'translateY(-50%)',
     };
 
     const selectedTextStyle = {
