@@ -115,6 +115,9 @@ export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 
+// Application Page
+export const TOTAL_PAGES = 5;
+
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';
 export const RESEND_CONF_EMAIL = 'Resend confirmation email';

@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
 import { getOptionsFromEnum } from '../../util';
-import PaginationHeader from './PaginationHeaderComponent';
+import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -71,8 +71,6 @@ interface IManageApplicationState {
   resume?: File;
   loaded: boolean;
 }
-
-const TOTAL_PAGES = 5;
 
 interface IManageApplicationProps {
   mode: ManageApplicationModes;
@@ -180,7 +178,7 @@ class ManageApplicationContainer extends React.Component<
           <Redirect to={FrontendRoute.HOME_PAGE} />
         ) : (
           <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-              <PaginationHeader pageNumber={this.state.pageNumber} totalPages={TOTAL_PAGES} lastCompletedPage={this.state.pageNumber}/>
+              <PaginationHeader pageNumber={this.state.pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={this.state.pageNumber}/>
               <BackgroundImage
               right={'10%'}
               top={'178px'}
