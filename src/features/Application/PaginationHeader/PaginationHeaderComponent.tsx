@@ -5,8 +5,8 @@ import SeparatingBar from './SeperatingBar';
 
 /**
  * Determines whether NumberBubble or NumberPageText should be purple-filled
- * @param {number} i - Page number to check (starts from 1)
- * @param {number} pageNumber - Page number that the user is currently on
+ * @param i - Page number to check
+ * @param pageNumber - Page number that the user is currently on
  */
 function isFilled(i: number, pageNumber: number): boolean {
   return i <= pageNumber;
@@ -14,7 +14,7 @@ function isFilled(i: number, pageNumber: number): boolean {
 
 /**
  * Determines whether NumberBubble or NumberPageText should be purple-filled
- * @param i - Page number to check (starts from 1)
+ * @param i - Page number to check
  * @param pageNumber - Page number that the user is currently on
  * @param lastCompletedPage - Last application page the user has successfully completed
  */
