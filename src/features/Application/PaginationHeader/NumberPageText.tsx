@@ -9,8 +9,13 @@ interface INumberPageText {
   check: boolean;
 }
 
+/**
+ * Displays either a checkmark or page number depending on props
+ * Should be children prop of NumberBubble
+ */
 const NumberPageText: React.FC<INumberPageText> = (props) => {
   if (!props.check) {
+    // Number only displays if we are not displaying a checkmark
     const notSelectedTextStyle = {
       position: 'relative' as 'relative',
       fontSize: '12px',
@@ -22,10 +27,11 @@ const NumberPageText: React.FC<INumberPageText> = (props) => {
       ...notSelectedTextStyle,
       color: 'white',
     };
-    const textStyle = props.fill ? selectedTextStyle : notSelectedTextStyle;
+    const textStyle = props.fill ? selectedTextStyle : notSelectedTextStyle; // Style changes depending on props.fill
 
     return <Paragraph style={textStyle}>{props.pageNumber}</Paragraph>;
   } else {
+    // Checkmark svg
     return <Image src={done} />;
   }
 };

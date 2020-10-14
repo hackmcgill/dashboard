@@ -4,7 +4,9 @@ import theme from '../../../shared/Styles/theme';
 interface ISeparatingBarProps {
   current: boolean;
 }
-
+/**
+ * Dividing bar between NumberBubble components
+ */
 const SeparatingBar: React.FC<ISeparatingBarProps> = (props) => {
   const pageNotSelectedBarStyle = {
     background: theme.colors.black40,
@@ -20,7 +22,7 @@ const SeparatingBar: React.FC<ISeparatingBarProps> = (props) => {
     boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
   };
 
-  const barStyle = props.current
+  const barStyle = props.current // The bar before the current page will be purple
     ? pageSelectedBarStyle
     : pageNotSelectedBarStyle;
 

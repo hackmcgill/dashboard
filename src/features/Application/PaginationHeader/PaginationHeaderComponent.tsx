@@ -3,10 +3,21 @@ import NumberBubble from './NumberBubble';
 import NumberPageText from './NumberPageText';
 import SeparatingBar from './SeperatingBar';
 
+/**
+ * Determines whether NumberBubble or NumberPageText should be purple-filled
+ * @param {number} i - Page number to check (starts from 1)
+ * @param {number} pageNumber - Page number that the user is currently on
+ */
 function isFilled(i: number, pageNumber: number): boolean {
   return i <= pageNumber;
 }
 
+/**
+ * Determines whether NumberBubble or NumberPageText should be purple-filled
+ * @param i - Page number to check (starts from 1)
+ * @param pageNumber - Page number that the user is currently on
+ * @param lastCompletedPage - Last application page the user has successfully completed
+ */
 function isCheck(
   i: number,
   pageNumber: number,
@@ -21,6 +32,9 @@ interface IPaginationHeaderProps {
   lastCompletedPage: number;
 }
 
+/**
+ * Component that displays page numbers for Applications
+ */
 const PaginationHeader: React.FC<IPaginationHeaderProps> = (props) => {
   const elements = [];
 
@@ -41,6 +55,7 @@ const PaginationHeader: React.FC<IPaginationHeaderProps> = (props) => {
     );
 
     if (i !== props.totalPages - 1) {
+      // Only display the separating bar if not the last element
       elements.push(<SeparatingBar current={isCurrentPage} />);
     }
   }

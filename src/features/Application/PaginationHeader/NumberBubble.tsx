@@ -6,6 +6,9 @@ interface INumberBubble {
   current: boolean;
 }
 
+/**
+ * Page number Bubble that displays child component
+ */
 const NumberBubble: React.FC<INumberBubble> = (props) => {
   const notSelectedBubble = {
     width: '24px',
@@ -34,9 +37,9 @@ const NumberBubble: React.FC<INumberBubble> = (props) => {
 
   const bubbleStyle = props.fill
     ? props.current
-      ? currentBubble
-      : selectedBubble
-    : notSelectedBubble;
+      ? currentBubble // Display purple bubble with shadow if page is the current one the user is on
+      : selectedBubble // Display purple bubble if the bubble should be filled but is not current
+    : notSelectedBubble; // Display grey bubble if no fill
 
   return <div style={bubbleStyle}>{props.children}</div>;
 };
