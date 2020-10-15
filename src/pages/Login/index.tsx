@@ -4,23 +4,23 @@ import * as QueryString from 'query-string';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 
 import {
   BackgroundImage,
-  H1,
+  Image,
   LeftContainer,
   MaxWidthBox,
 } from '../../shared/Elements';
-import Button, { ButtonVariant } from '../../shared/Elements/Button';
+import Button from '../../shared/Elements/Button';
 import { EmailInput, Form, PasswordInput } from '../../shared/Form';
 
-import Coders from '../../assets/images/coders.svg';
-
+import LookAtSky from '../../assets/images/lookAtSky.svg';
+import MartletTitle from '../../assets/images/martlet-text.svg';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import SponsorsBar from '../../features/Sponsor/SocialMediaBar';
 
 import { APIResponse, Auth } from '../../api';
 
@@ -30,6 +30,7 @@ import {
   HACKATHON_NAME,
   PASSWORD_LABEL,
 } from '../../config';
+import SignUpLink from '../../features/Login/SignUpLink';
 
 const LoginPage: React.FC = () => {
   // Store form's email and password values in state
@@ -85,22 +86,32 @@ const LoginPage: React.FC = () => {
   /**
    * Display login form to user
    */
-  const renderForm = () => (
-    <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
+  // something big time wrong in the left padding of the form
+  const renderForm = (isMobile: boolean) => (
+    <MaxWidthBox
+      minWidth={isMobile ? '0px' : '500px'}
+      maxWidth={'500px'}
+      paddingLeft={'50px'}
+      paddingRight={'50px'}
+      left={isMobile ? '0%' : '55%'}
+      right={isMobile ? 'auto' : '0'}
+      position={'absolute'}
+    >
       <Helmet>
         <title>Login | {HACKATHON_NAME}</title>
       </Helmet>
       <Form>
         <Flex
-          alignItems={'center'}
+          alignItems={'left'}
           flexDirection={'column'}
-          p={'4rem 0rem 0rem 5.8rem'}
+          p={'1rem 5.8rem 0rem 0rem'}
         >
-          <Box alignSelf={'flex-start'}>
-            <H1 fontSize={'24px'} marginLeft={'0px'}>
-              Sign in / Register
-            </H1>
-          </Box>
+          <Image
+            src={MartletTitle}
+            imgHeight="60px"
+            imgWidth="200px"
+            padding="60px 0px"
+          />
           <EmailInput
             label={EMAIL_LABEL}
             onEmailChanged={setEmail}
@@ -113,28 +124,13 @@ const LoginPage: React.FC = () => {
             value={password}
             isTight={true}
           />
-          <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
-            <ForgotPasswordLinkComponent />
+          <Box pr={'5px'} pt={'40px'} pb={'20px'}>
+            <Button type="button" onClick={handleSubmit}>
+              Sign in
+            </Button>
           </Box>
-          <Flex>
-            <Box pr={'5px'}>
-              <Button type="button" onClick={handleSubmit}>
-                Sign in
-              </Button>
-            </Box>
-            <Box pl={'5px'}>
-              <Link
-                to={{
-                  pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                  state: { email, password },
-                }}
-              >
-                <Button type="button" variant={ButtonVariant.Secondary}>
-                  Register
-                </Button>
-              </Link>
-            </Box>
-          </Flex>
+          <SignUpLink />
+          <SponsorsBar pt={'20px'} pb={'50px'} />
         </Flex>
       </Form>
     </MaxWidthBox>
@@ -145,24 +141,19 @@ const LoginPage: React.FC = () => {
       {(matches) =>
         matches ? (
           <LeftContainer>
-            {renderForm()}
-            <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgWidth={'100%'}
-              imgHeight={'100%'}
-              minHeight={'600px'}
-            />
+            {renderForm(true)}
+            <p>mobile</p>
+            <BackgroundImage src={LookAtSky} imgWidth={'100%'} />
           </LeftContainer>
         ) : (
           <div>
-            {renderForm()}
+            {renderForm(false)}
             <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgHeight={'100%'}
+              src={LookAtSky}
+              top={'90px'}
+              left={'0px'}
+              imgWidth={'50%'}
+              position={'fixed' as 'fixed'}
             />
           </div>
         )

@@ -139,8 +139,8 @@ export const Button = styled.button<IButtonProps>`
     &:hover {
       color: ${
         props.variant === ButtonVariant.Secondary
-          ? props.theme.colors.red
-          : props.theme.colors.redLight
+          ? props.theme.colors.purpleLight
+          : props.theme.colors.purpleLight
       };
     }
     &:before {

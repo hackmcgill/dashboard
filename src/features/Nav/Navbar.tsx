@@ -18,6 +18,7 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
+import SocialMediaBar from '../Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
@@ -234,8 +235,8 @@ export default class Navbar extends React.Component<
       );
     }
 
-    return this.state.loaded ? (
-      <Nav borderThickness={'2px'}>
+    return this.state.loaded && !window.location.href.includes('login') ? (
+      <Nav borderThickness={'2px'} style={{ position: 'fixed' }}>
         <IconContainer>
           <a href={routes.HOME_PAGE}>
             <Icon src={Martlet} />
@@ -243,6 +244,7 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {NavItems()}
+          <SocialMediaBar />
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>

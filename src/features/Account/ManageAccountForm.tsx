@@ -10,11 +10,11 @@ import {
 } from 'formik';
 import { Account, Auth } from '../../api';
 import {
-  DietaryRestriction,
+  // DietaryRestriction,
   FrontendRoute,
-  Genders,
+  // Genders,
   IAccount,
-  Pronouns,
+  // Pronouns,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
@@ -26,12 +26,13 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
   date2input,
   getNestedAttr,
-  getOptionsFromEnum,
+  // getOptionsFromEnum,
   getValueFromQuery,
   input2date,
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
+import AlreadyHaveAccount from './AlreadyHaveAccount';
 
 export enum ManageAccountModes {
   CREATE,
@@ -200,29 +201,37 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         birthDate: accountDetails.birthDate,
       }}
       onSubmit={handleSubmit}
-      validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
+      validationSchema={getValidationSchema(
+        props.mode === ManageAccountModes.CREATE
+      )}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
-          <FastField
-            name={'firstName'}
-            label={CONSTANTS.FIRST_NAME_LABEL}
-            value={fp.values.firstName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-          />
-          <ErrorMessage component={FormikElements.Error} name="firstName" />
-          <FastField
-            name={'lastName'}
-            label={CONSTANTS.LAST_NAME_LABEL}
-            value={fp.values.lastName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-          />
-          <ErrorMessage component={FormikElements.Error} name="lastName" />
+          <div style={{ display: 'flex', justifyContent: 'spaceBetween' }}>
+            <div style={{ marginRight: '20px' }}>
+              <FastField
+                name={'firstName'}
+                label={CONSTANTS.FIRST_NAME_LABEL}
+                value={fp.values.firstName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="firstName" />
+            </div>
+            <div>
+              <FastField
+                name={'lastName'}
+                label={CONSTANTS.LAST_NAME_LABEL}
+                value={fp.values.lastName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="lastName" />
+            </div>
+          </div>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}
@@ -251,20 +260,21 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.password}
           />
           <ErrorMessage component={FormikElements.Error} name="password" />
-          {
-            props.mode === ManageAccountModes.EDIT && (
-              <>
-                <FastField
-                  label={CONSTANTS.NEW_PASSWORD_LABEL}
-                  component={FormikElements.Input}
-                  inputType={'password'}
-                  name={'newPassword'}
-                />
-                <ErrorMessage component={FormikElements.Error} name="newPassword" />
-              </>
-            )
-          }
-          <FastField
+          {props.mode === ManageAccountModes.EDIT && (
+            <>
+              <FastField
+                label={CONSTANTS.NEW_PASSWORD_LABEL}
+                component={FormikElements.Input}
+                inputType={'password'}
+                name={'newPassword'}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="newPassword"
+              />
+            </>
+          )}
+          {/* <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.PHONE_NUMBER_LABEL}
             placeholder="+# (###) ###-####"
@@ -309,13 +319,11 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           <ErrorMessage
             component={FormikElements.Error}
             name="dietaryRestrictions"
-          />
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            {props.mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
+          /> */}
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            {props.mode === ManageAccountModes.CREATE ? 'Sign up' : 'Save'}
           </SubmitBtn>
+          <AlreadyHaveAccount />
         </Form>
       )}
     />
