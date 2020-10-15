@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
 import { getOptionsFromEnum } from '../../util';
+import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -22,6 +23,7 @@ import {
   HackerStatus,
   IEthnicity,
   IHacker,
+  ISetting,
   JobInterest,
   Majors,
   ShirtSize,
@@ -40,7 +42,7 @@ import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import theme from '../../shared/Styles/theme';
 
-import { Account, APIResponse, Hacker } from '../../api';
+import { Account, APIResponse, Hacker, Settings } from '../../api';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -60,6 +62,7 @@ export enum ManageApplicationModes {
   EDIT,
 }
 interface IManageApplicationState {
+  settings: ISetting;
   mode: ManageApplicationModes;
   submitted: boolean;
   submitting: boolean;
@@ -75,10 +78,15 @@ interface IManageApplicationProps {
 class ManageApplicationContainer extends React.Component<
   IManageApplicationProps,
   IManageApplicationState
-> {
+  > {
   constructor(props: IManageApplicationProps) {
     super(props);
     this.state = {
+      settings: {
+        openTime: new Date().toString(),
+        closeTime: new Date().toString(),
+        confirmTime: new Date().toString(),
+      },
       mode: props.mode,
       submitted: false,
       submitting: false,
@@ -125,6 +133,7 @@ class ManageApplicationContainer extends React.Component<
       },
       resume: undefined,
     };
+    this.getSettings = this.getSettings.bind(this);
     this.renderFormik = this.renderFormik.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.previousPage = this.previousPage.bind(this);
@@ -133,6 +142,7 @@ class ManageApplicationContainer extends React.Component<
     this.handleCreate = this.handleCreate.bind(this);
   }
   public async componentDidMount() {
+    await this.getSettings();
     const { mode } = this.state;
     if (mode === ManageApplicationModes.EDIT) {
       try {
@@ -153,71 +163,89 @@ class ManageApplicationContainer extends React.Component<
   }
 
   public render() {
-    const { mode, hackerDetails, submitted, pageNumber, loaded } = this.state;
+    const {
+      mode,
+      hackerDetails,
+      submitted,
+      pageNumber,
+      loaded,
+      settings,
+    } = this.state;
     return loaded ? (
-      // If application creation deadline of Jan 3, 2020 11:59:59PM EST has passed or form is submitted, return user to the home page
-      (Date.now() > CONSTANTS.APPLICATION_CLOSE_TIME &&
+      (new Date() > new Date(settings.closeTime) &&
         mode === ManageApplicationModes.CREATE) ||
-      submitted ? (
-        <Redirect to={FrontendRoute.HOME_PAGE} />
-      ) : (
-        <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-          <BackgroundImage
-            right={'10%'}
-            top={'178px'}
-            src={Drone}
-            imgHeight={'133px'}
-            position={'fixed' as 'fixed'}
-          />
-          <BackgroundImage
-            left={'5%'}
-            bottom={'5%'}
-            src={Bulby}
-            imgHeight={'290px'}
-            position={'fixed' as 'fixed'}
-          />
-          <Helmet>
-            <title>
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
+        submitted ? (
+          <Redirect to={FrontendRoute.HOME_PAGE} />
+        ) : (
+          <MaxWidthBox m={'auto'} maxWidth={'500px'}>
+              <PaginationHeader pageNumber={this.state.pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={this.state.pageNumber}/>
+              <BackgroundImage
+              right={'10%'}
+              top={'178px'}
+              src={Drone}
+              imgHeight={'133px'}
+              position={'fixed' as 'fixed'}
+            />
+            <BackgroundImage
+              left={'5%'}
+              bottom={'5%'}
+              src={Bulby}
+              imgHeight={'290px'}
+              position={'fixed' as 'fixed'}
+            />
+            <Helmet>
+                <title>
+                {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
               Application | {CONSTANTS.HACKATHON_NAME}
-            </title>
-          </Helmet>
-          <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-            <H1
-              color={theme.colors.red}
-              fontSize={'30px'}
-              textAlign={'left'}
-              marginTop={'0px'}
-              marginBottom={'20px'}
-              marginLeft={'0px'}
-              paddingBottom={'20px'}
-              paddingTop={'70px'}
-            >
-              {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
+              </title>
+            </Helmet>
+              <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+              <H1
+                color={theme.colors.red}
+                fontSize={'30px'}
+                textAlign={'left'}
+                marginTop={'0px'}
+                marginBottom={'20px'}
+                marginLeft={'0px'}
+                paddingBottom={'20px'}
+                paddingTop={'70px'}
+              >
+                {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
               Application
             </H1>
-            <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+              <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
+            </MaxWidthBox>
+              <Formik
+              enableReinitialize={true}
+              initialValues={{
+                hacker: hackerDetails,
+                resume: this.state.resume ? this.state.resume : undefined,
+                pageNumber,
+              }}
+              onSubmit={this.handleSubmit}
+              onReset={this.previousPage}
+              render={this.renderFormik}
+              validationSchema={getValidationSchema(
+                mode === ManageApplicationModes.CREATE,
+                this.state.pageNumber
+              )}
+            />
           </MaxWidthBox>
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              hacker: hackerDetails,
-              resume: this.state.resume ? this.state.resume : undefined,
-              pageNumber,
-            }}
-            onSubmit={this.handleSubmit}
-            onReset={this.previousPage}
-            render={this.renderFormik}
-            validationSchema={getValidationSchema(
-              mode === ManageApplicationModes.CREATE,
-              this.state.pageNumber
-            )}
-          />
-        </MaxWidthBox>
-      )
+        )
     ) : null;
   }
 
+  private async getSettings() {
+    try {
+      const result = await Settings.get();
+      const settings = result.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      if (e && e.data) {
+        ValidationErrorGenerator(e);
+      }
+    }
+  }
   /**
    * The function to pass into the formik component to render the form.
    * @param fp the formik props.
@@ -768,7 +796,7 @@ class ManageApplicationContainer extends React.Component<
             console.log('Submitted application');
             toast.success(
               `Account ${
-                mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
+              mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
               }`
             );
             this.setState({ submitted: true, submitting: false });

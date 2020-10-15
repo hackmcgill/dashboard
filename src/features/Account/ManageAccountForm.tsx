@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -88,7 +88,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         }
       }
     })();
-  }, []);
+  }, [history, props.mode]);
 
   /**
    * This converts a formik values object into the IAccount object.

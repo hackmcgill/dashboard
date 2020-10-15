@@ -43,7 +43,9 @@ interface IManageSponsorContainerProps extends RouteProps {
 const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
   props
 ) => {
+  // just a boolean check to redirect the page once submitted
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  // either creating or editing the sponsor profile
   const [mode, setMode] = useState<ManageSponsorModes>(props.mode);
   const [sponsorDetails, setSponsorDetails] = useState<ISponsor>({
     id: '',
@@ -54,6 +56,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     nominees: [],
   });
 
+  // to check if there is an error in the sponsor's info
   useEffect(() => {
     (async () => {
       if (mode === ManageSponsorModes.EDIT) {
@@ -91,6 +94,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     );
   };
 
+  // triggered on submit button
   const handleSubmit = async (values: ISponsorProfileFormValues) => {
     try {
       await submit(values);
@@ -102,12 +106,14 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     }
   };
 
+  // function to send profile submition
   const submit = async (values: ISponsorProfileFormValues): Promise<void> => {
     const acctResponse = await Account.getSelf();
 
     const account = acctResponse.data.data;
     let sponsorTier = 0;
 
+    // sponsor tiers
     switch (account.accountType) {
       case UserType.SPONSOR_T1:
         sponsorTier = 1;
@@ -128,6 +134,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
         sponsorTier = -1;
     }
 
+    // this will content the sponsor's details in an object
     const sponsorApplication = convertFormikToSponsor(
       values,
       sponsorDetails.id,
@@ -146,6 +153,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     }
   };
 
+  // convert the values in formik form to object to pass to submit fct
   const convertFormikToSponsor = (
     values: FormikValues,
     sponsorId: string,
@@ -163,6 +171,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     };
   };
 
+  // redirect after submition
   if (formSubmitted) {
     return <Redirect to={FrontendRoute.HOME_PAGE} />;
   }
