@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
 import { getOptionsFromEnum } from '../../util';
+import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -177,7 +178,8 @@ class ManageApplicationContainer extends React.Component<
           <Redirect to={FrontendRoute.HOME_PAGE} />
         ) : (
           <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-            <BackgroundImage
+              <PaginationHeader pageNumber={this.state.pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={this.state.pageNumber}/>
+              <BackgroundImage
               right={'10%'}
               top={'178px'}
               src={Drone}
@@ -192,12 +194,12 @@ class ManageApplicationContainer extends React.Component<
               position={'fixed' as 'fixed'}
             />
             <Helmet>
-              <title>
+                <title>
                 {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
               Application | {CONSTANTS.HACKATHON_NAME}
               </title>
             </Helmet>
-            <MaxWidthBox maxWidth={'500px'} m={'auto'}>
+              <MaxWidthBox maxWidth={'500px'} m={'auto'}>
               <H1
                 color={theme.colors.red}
                 fontSize={'30px'}
@@ -213,7 +215,7 @@ class ManageApplicationContainer extends React.Component<
             </H1>
               <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
             </MaxWidthBox>
-            <Formik
+              <Formik
               enableReinitialize={true}
               initialValues={{
                 hacker: hackerDetails,
