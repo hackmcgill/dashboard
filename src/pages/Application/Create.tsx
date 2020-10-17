@@ -5,13 +5,12 @@ import {
   BackgroundImage,
   FormDescription,
   H1,
-  // HorizontalSpacer,
   MaxWidthBox,
 } from '../../shared/Elements';
 
-import ManageApplicationContainer, {
+import ManageApplicationForm, {
   ManageApplicationModes,
-} from '../../features/Application/ManageApplicationContainer';
+} from '../../features/Application/ManageApplicationForm';
 
 import * as CONSTANTS from '../../config/constants';
 import theme from '../../shared/Styles/theme';
@@ -39,7 +38,7 @@ const CreateApplicationPage: React.FC = () => (
     </H1>
     <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
 
-    <ManageApplicationContainer mode={ManageApplicationModes.CREATE} />
+    <ManageApplicationForm mode={ManageApplicationModes.CREATE} />
 
     <BackgroundImage
       right={'10%'}

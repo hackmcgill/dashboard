@@ -13,7 +13,7 @@ import {
 import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
-import { getOptionsFromEnum, getSettings } from '../../util';
+import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
@@ -47,16 +47,6 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 export enum ManageApplicationModes {
   CREATE,
   EDIT,
-}
-interface IManageApplicationState {
-  settings: ISetting;
-  mode: ManageApplicationModes;
-  submitted: boolean;
-  submitting: boolean;
-  hackerDetails: IHacker;
-  pageNumber: number;
-  resume?: File;
-  loaded: boolean;
 }
 
 interface IManageApplicationProps {
@@ -124,7 +114,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   });
 
   // Application settings
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<ISetting>({
     openTime: new Date().toString(),
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
@@ -133,8 +123,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   // When this component mounts, fetch hacker's saved appliation data if it already exists
   useEffect(() => {
     (async () => {
-      // TODO
-      await getSettings();
+      // Load settings
+      try {
+        const result = await Settings.get();
+        const newSettings = result.data.data;
+        setSettings(newSettings);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e);
+        }
+      }
 
       // If hacker's application already exists, fetch it
       if (props.mode === ManageApplicationModes.EDIT) {
@@ -155,144 +153,30 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     })();
   }, []);
 
-  // If application creation deadline has passed or if form is submitted, return user to the home page
-  if (new Date() > new Date(settings.closeTime) && props.mode === ManageApplicationModes.CREATE || isSubmitted) {
-    history.push(FrontendRoute.HOME_PAGE);
-  }
-
-  // If application is loaded, then render it
-  return isLoaded ? (
-    <>
-      <PaginationHeader pageNumber={pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={pageNumber} />
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          hacker: hackerDetails,
-          resume: resume || undefined,
-          pageNumber,
-        }}
-        onSubmit={handleSubmit}
-        onReset={previousPage}
-        render={renderFormik}
-        validationSchema={getValidationSchema(
-          mode === ManageApplicationModes.CREATE,
-          pageNumber
-        )}
-      />
-    </>
-  )
-}
-
-class ManageApplicationContainer extends React.Component<
-
-  public render() {
-    const {
-  mode,
-  hackerDetails,
-  submitted,
-  pageNumber,
-  loaded,
-  settings,
-} = this.state;
-return loaded ? (
-  (new Date() > new Date(settings.closeTime) &&
-    mode === ManageApplicationModes.CREATE) ||
-    submitted ? (
-      <Redirect to={FrontendRoute.HOME_PAGE} />
-    ) : (
-      <MaxWidthBox m={'auto'} maxWidth={'500px'}>
-        <PaginationHeader pageNumber={this.state.pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={this.state.pageNumber} />
-        <BackgroundImage
-          right={'10%'}
-          top={'178px'}
-          src={Drone}
-          imgHeight={'133px'}
-          position={'fixed' as 'fixed'}
-        />
-        <BackgroundImage
-          left={'5%'}
-          bottom={'5%'}
-          src={Bulby}
-          imgHeight={'290px'}
-          position={'fixed' as 'fixed'}
-        />
-        <Helmet>
-          <title>
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'}{' '}
-              Application | {CONSTANTS.HACKATHON_NAME}
-          </title>
-        </Helmet>
-        <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-          <H1
-            color={theme.colors.red}
-            fontSize={'30px'}
-            textAlign={'left'}
-            marginTop={'0px'}
-            marginBottom={'20px'}
-            marginLeft={'0px'}
-            paddingBottom={'20px'}
-            paddingTop={'70px'}
-          >
-            {mode === ManageApplicationModes.CREATE ? 'Create' : 'Edit'} your
-              Application
-            </H1>
-          <FormDescription>{CONSTANTS.REQUIRED_DESCRIPTION}</FormDescription>
-        </MaxWidthBox>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            hacker: hackerDetails,
-            resume: this.state.resume ? this.state.resume : undefined,
-            pageNumber,
-          }}
-          onSubmit={this.handleSubmit}
-          onReset={this.previousPage}
-          render={this.renderFormik}
-          validationSchema={getValidationSchema(
-            mode === ManageApplicationModes.CREATE,
-            this.state.pageNumber
-          )}
-        />
-      </MaxWidthBox>
-    )
-) : null;
-  }
-
-  private async getSettings() {
-  try {
-    const result = await Settings.get();
-    const settings = result.data.data;
-    this.setState({ settings });
-  } catch (e) {
-    if (e && e.data) {
-      ValidationErrorGenerator(e);
-    }
-  }
-}
   /**
-   * The function to pass into the formik component to render the form.
+   * Render the correct formik form based upon currently viewed application page
    * @param fp the formik props.
    */
-  private renderFormik(fp: FormikProps<any>) {
-  switch(fp.values.pageNumber) {
+  const renderFormik = (fp: FormikProps<any>) => {
+    switch (fp.values.pageNumber) {
       case 2:
-  return this.renderShortAnswerFormik(fp);
+        return renderShortAnswerFormik(fp);
       case 3:
-  return this.renderAccommodationFormik(fp);
+        return renderAccommodationFormik(fp);
       case 4:
-  return this.renderOtherFormik(fp);
+        return renderOtherFormik(fp);
       default:
-  return this.renderGeneralFormik(fp);
-}
+        return renderGeneralFormik(fp);
+    }
   }
 
   /**
    * Renders the general section of the application.
    * @param fp the formik props.
    */
-  private renderGeneralFormik(fp: FormikProps<any>) {
-  return(
-      <Form onKeyDown = { this.onKeyDown } onSubmit = { fp.handleSubmit } >
+  const renderGeneralFormik = (fp: FormikProps<any>) => {
+    return (
+      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit} >
         <FastField
           id="schoolName"
           name={'hacker.application.general.school'}
@@ -399,9 +283,9 @@ return loaded ? (
           name="resume"
           component={ResumeComponent}
           label={CONSTANTS.RESUME_LABEL}
-          mode={this.state.mode}
-          hackerId={this.state.hackerDetails.id}
-          required={this.props.mode === ManageApplicationModes.CREATE}
+          mode={props.mode}
+          hackerId={hackerDetails.id}
+          required={props.mode === ManageApplicationModes.CREATE}
           value={fp.values.resume}
         />
         <ErrorMessage component={FormikElements.Error} name="resume" />
@@ -419,10 +303,10 @@ return loaded ? (
           name="hacker.application.general.jobInterest"
         />
         <SubmitBtn
-          isLoading={this.state.submitting}
-          disabled={this.state.submitting}
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
         >
-        Next
+          Next
         </SubmitBtn>
       </Form>
     );
@@ -432,13 +316,13 @@ return loaded ? (
    * Renders the short answer section of the application.
    * @param fp the formik props.
    */
-  private renderShortAnswerFormik(fp: FormikProps<any>) {
-    return(
+  const renderShortAnswerFormik = (fp: FormikProps<any>) => {
+    return (
       <Form
-        onKeyDown = { this.onKeyDown }
-        onSubmit = { fp.handleSubmit }
-        onReset = { fp.handleReset }
-        >
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'hacker.application.shortAnswer.skills'}
           isMulti={true}
@@ -494,18 +378,18 @@ return loaded ? (
           <div>&nbsp;</div>
           <ResetBtn
             isLoading={false}
-            disabled={this.state.submitting}
+            disabled={isSubmitting}
             variant={2}
           >
             Back
-          </ResetBtn>
+            </ResetBtn>
 
           <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
           >
             Next
-          </SubmitBtn>
+            </SubmitBtn>
           <div>&nbsp;</div>
         </Flex>
       </Form>
@@ -516,13 +400,13 @@ return loaded ? (
    * Renders the accommodation section of the application.
    * @param fp the formik props.
    */
-  private renderAccommodationFormik(fp: FormikProps<any>) {
-          return(
+  const renderAccommodationFormik = (fp: FormikProps<any>) => {
+    return (
       <Form
-        onKeyDown = { this.onKeyDown }
-        onSubmit = { fp.handleSubmit }
-        onReset = { fp.handleReset }
-              >
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'hacker.application.accommodation.shirtSize'}
           label={CONSTANTS.SHIRT_SIZE_LABEL}
@@ -535,7 +419,7 @@ return loaded ? (
           name={'hacker.application.accommodation.shirtSize'}
           component={FormikElements.Error}
         />
-        {/* This fixes the issue with going back somehow, so leave it here temporarily */ }
+        {/* This fixes the issue with going back somehow, so leave it here temporarily */}
         <div />
         <FastField
           name={'hacker.application.accommodation.impairments'}
@@ -579,17 +463,17 @@ return loaded ? (
           <div>&nbsp;</div>
           <ResetBtn
             isLoading={false}
-            disabled={this.state.submitting}
+            disabled={isSubmitting}
             variant={2}
           >
-              Back
-          </ResetBtn>
+            Back
+            </ResetBtn>
           <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
           >
-              Next
-          </SubmitBtn>
+            Next
+            </SubmitBtn>
           <div>&nbsp;</div>
         </Flex>
       </Form >
@@ -600,13 +484,13 @@ return loaded ? (
    * Renders the other section of the application
    * @param fp the formik props.
    */
-  private renderOtherFormik(fp: FormikProps<any>) {
-                return(
+  const renderOtherFormik = (fp: FormikProps<any>) => {
+    return (
       <Form
-        onKeyDown = { this.onKeyDown }
-        onSubmit = { fp.handleSubmit }
-        onReset = { fp.handleReset }
-                    >
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <FastField
           name={'hacker.application.other.ethnicity'}
           isMulti={true}
@@ -712,16 +596,16 @@ return loaded ? (
           <div>&nbsp;</div>
           <ResetBtn
             isLoading={false}
-            disabled={this.state.submitting}
+            disabled={isSubmitting}
             variant={2}
           >
-                        Back
-          </ResetBtn>
+            Back
+            </ResetBtn>
           <SubmitBtn
-            isLoading={this.state.submitting}
-            disabled={this.state.submitting}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
           >
-            {this.state.mode === ManageApplicationModes.CREATE
+            {props.mode === ManageApplicationModes.CREATE
               ? 'Submit'
               : 'Update'}
           </SubmitBtn>
@@ -735,184 +619,201 @@ return loaded ? (
    * Stop enter submitting the form.
    * @param keyEvent Event triggered when the user presses a key.
    */
-  private onKeyDown(keyEvent: any) {
-  if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-    keyEvent.preventDefault();
+  const onKeyDown = (keyEvent: any) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
   }
-}
 
   /**
    * Event handler to go the previous section of the application, while also saving values on the current section.
    * @param values The formik values
    */
-  private previousPage(values: any) {
-  let app;
-  if (values.hacker.id && values.hacker.accountId) {
-    app = this.convertFormikToHacker(
-      values,
-      values.hacker.accountId,
-      values.hacker.id
-    );
-  } else if (values.hacker.accountId) {
-    app = this.convertFormikToHacker(values, values.hacker.accountId);
-  } else {
-    app = this.convertFormikToHacker(values);
+  const previousPage = (values: any) => {
+    let app;
+    if (values.hacker.id && values.hacker.accountId) {
+      app = convertFormikToHacker(
+        values,
+        values.hacker.accountId,
+        values.hacker.id
+      );
+    } else if (values.hacker.accountId) {
+      app = convertFormikToHacker(values, values.hacker.accountId);
+    } else {
+      app = convertFormikToHacker(values);
+    }
+
+    setPageNumber(values.pageNumber - 1);
+    setHackerDetails(app);
+    setResume(resume || values.resume);
   }
-  const pageNumber = values.pageNumber - 1;
-  this.setState({
-    pageNumber,
-    hackerDetails: app,
-    resume: this.state.resume ? this.state.resume : values.resume,
-  });
-}
 
   /**
    * Event handler to go the next section of the application, while also saving values on the current section.
    * @param values The formik values
    */
-  private nextPage(values: any) {
-  let app;
-  if (values.hacker.id && values.hacker.accountId) {
-    app = this.convertFormikToHacker(
-      values,
-      values.hacker.accountId,
-      values.hacker.id
-    );
-  } else if (values.hacker.accountId) {
-    app = this.convertFormikToHacker(values, values.hacker.accountId);
-  } else {
-    app = this.convertFormikToHacker(values);
+  const nextPage = (values: any) => {
+    let app;
+    if (values.hacker.id && values.hacker.accountId) {
+      app = convertFormikToHacker(
+        values,
+        values.hacker.accountId,
+        values.hacker.id
+      );
+    } else if (values.hacker.accountId) {
+      app = convertFormikToHacker(values, values.hacker.accountId);
+    } else {
+      app = convertFormikToHacker(values);
+    }
+
+    setPageNumber(values.pageNumber + 1);
+    setHackerDetails(app);
+    setResume(resume || values.resume);
   }
-  const pageNumber = values.pageNumber + 1;
-  this.setState({
-    pageNumber,
-    hackerDetails: app,
-    resume: this.state.resume ? this.state.resume : values.resume,
-  });
-}
 
   /**
    * Function called when formik form is submitted.
    * @param values the formik values
    * @param actions the formik actions
    */
-  private handleSubmit(values: any) {
-  if (values.pageNumber !== 4) {
-    this.nextPage(values);
-  } else {
-    this.setState({ submitting: true });
-    const { mode } = this.state;
-    let handler;
-    switch (mode) {
-      case ManageApplicationModes.EDIT:
-        handler = this.handleEdit;
-        break;
-      case ManageApplicationModes.CREATE:
-        handler = this.handleCreate;
-        break;
-      default:
-        return;
+  const handleSubmit = (values: any) => {
+    if (values.pageNumber !== 4) {
+      nextPage(values);
+    } else {
+      setIsSubmitting(true);
+      let handler = props.mode === ManageApplicationModes.EDIT ?
+        handleEdit :
+        handleCreate;
+      handler(values)
+        .then((success: boolean) => {
+          if (success) {
+            console.log('Submitted application');
+            toast.success(
+              `Account ${props.mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
+              }`
+            );
+            setIsSubmitted(true);
+          } else {
+            toast.error(`There was an error when submitting the application.`);
+          }
+        })
+        .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+          if (response) {
+            ValidationErrorGenerator(response.data);
+          }
+        });
+
+      setIsSubmitting(false);
     }
-    handler(values)
-      .then((success: boolean) => {
-        if (success) {
-          console.log('Submitted application');
-          toast.success(
-            `Account ${mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
-            }`
-          );
-          this.setState({ submitted: true, submitting: false });
-        } else {
-          toast.error(`There was an error when submitting the application.`);
-          this.setState({ submitting: false });
-        }
-      })
-      .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
-        if (response) {
-          ValidationErrorGenerator(response.data);
-        }
-        this.setState({ submitting: false });
-      });
   }
-}
+
   /**
    * Handles the creation of the application.
    * @param values the formik values
    * @param actions the formik actions
    */
-  private async handleCreate(values: any): Promise < boolean > {
-  const acctResponse = await Account.getSelf();
+  const handleCreate = async (values: any): Promise<boolean> => {
+    const acctResponse = await Account.getSelf();
 
-  if(acctResponse.status !== 200) {
-  console.error('Error while getting current user');
-  return false;
-}
-const account = acctResponse.data.data;
-const application = this.convertFormikToHacker(values, account.id);
-const hackerResponse = await Hacker.create(application);
-if (hackerResponse.status !== 200) {
-  console.error('Error while creating application');
-  return false;
-}
-const hacker = hackerResponse.data.data;
-const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
-if (resumeResponse.status !== 200) {
-  console.error('Could not upload resume properly');
-  return false;
-} else {
-  console.log('Uploaded application properly!');
-}
-return true;
+    if (acctResponse.status !== 200) {
+      console.error('Error while getting current user');
+      return false;
+    }
+    const account = acctResponse.data.data;
+    const application = convertFormikToHacker(values, account.id);
+    const hackerResponse = await Hacker.create(application);
+    if (hackerResponse.status !== 200) {
+      console.error('Error while creating application');
+      return false;
+    }
+    const hacker = hackerResponse.data.data;
+    const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
+    if (resumeResponse.status !== 200) {
+      console.error('Could not upload resume properly');
+      return false;
+    } else {
+      console.log('Uploaded application properly!');
+    }
+    return true;
   }
+
   /**
    * Handles the editing of the application.
    * @param values Formik values
    * @param actions Formik actions
    */
-  private async handleEdit(values: any): Promise < boolean > {
-  const acctResponse = await Account.getSelf();
+  const handleEdit = async (values: any): Promise<boolean> => {
+    const acctResponse = await Account.getSelf();
 
-  if(acctResponse.status !== 200) {
-  console.error('Error while getting current user');
-  return false;
-}
+    if (acctResponse.status !== 200) {
+      console.error('Error while getting current user');
+      return false;
+    }
 
-const account = acctResponse.data.data;
-const hackerId = this.state.hackerDetails.id;
-// convert the formik values to the application object.
-const application = this.convertFormikToHacker(
-  values,
-  account.id,
-  hackerId
-);
-const hackerResponse = await Hacker.update(application);
+    const account = acctResponse.data.data;
+    const hackerId = hackerDetails.id;
+    // convert the formik values to the application object.
+    const application = convertFormikToHacker(
+      values,
+      account.id,
+      hackerId
+    );
+    const hackerResponse = await Hacker.update(application);
 
-if (hackerResponse.status !== 200) {
-  console.error('Error while updating application');
-  return false;
-}
-if (values.resume) {
-  // only upload a resume if they have added a resume to the form.
-  const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
+    if (hackerResponse.status !== 200) {
+      console.error('Error while updating application');
+      return false;
+    }
+    if (values.resume) {
+      // only upload a resume if they have added a resume to the form.
+      const resumeResponse = await Hacker.uploadResume(hackerId, values.resume);
 
-  if (resumeResponse.status !== 200) {
-    console.error('Could not upload resume properly');
-    return false;
-  } else {
-    console.log('Uploaded application properly!');
+      if (resumeResponse.status !== 200) {
+        console.error('Could not upload resume properly');
+        return false;
+      } else {
+        console.log('Uploaded application properly!');
+      }
+    }
+    return true;
   }
-}
-return true;
+
+  // If application creation deadline has passed or if form is submitted, return user to the home page
+  if (isLoaded && (new Date() > new Date(settings.closeTime) && props.mode === ManageApplicationModes.CREATE || isSubmitted)) {
+    history.push(FrontendRoute.HOME_PAGE);
   }
 
-  /**
-   * This converts the formik values object into the IHacker object.
-   * @param values Formik values
-   * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
-   * @param hackerId the hacker id. Used only when the hacker is updating their application.
-   * @param accountId the account id associated with this hacker.
-   */
-  private convertFormikToHacker(
+  // If application is loaded, then render it
+  return isLoaded ? (
+    <>
+      <PaginationHeader pageNumber={pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={pageNumber} />
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          hacker: hackerDetails,
+          resume: resume || undefined,
+          pageNumber,
+        }}
+        onSubmit={handleSubmit}
+        onReset={previousPage}
+        render={renderFormik}
+        validationSchema={getValidationSchema(
+          props.mode === ManageApplicationModes.CREATE,
+          pageNumber
+        )}
+      />
+    </>
+  ) : null;
+}
+
+/**
+ * This converts the formik values object into the IHacker object.
+ * @param values Formik values
+ * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
+ * @param hackerId the hacker id. Used only when the hacker is updating their application.
+ * @param accountId the account id associated with this hacker.
+ */
+function convertFormikToHacker(
   values: FormikValues,
   accountId: string = '',
   hackerId: string = ''
@@ -924,5 +825,5 @@ return true;
     application: values.hacker.application,
   };
 }
-}
-export default WithToasterContainer(ManageApplicationContainer);
+
+export default WithToasterContainer(ManageApplicationForm);
