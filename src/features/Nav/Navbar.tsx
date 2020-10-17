@@ -236,22 +236,30 @@ export default class Navbar extends React.Component<
     }
 
     return this.state.loaded && !window.location.href.includes('login') ? (
-      <Nav borderThickness={'2px'} style={{ position: 'fixed' }}>
-        <IconContainer>
-          <a href={routes.HOME_PAGE}>
-            <Icon src={Martlet} />
-          </a>
-        </IconContainer>
-        <Links>
-          {NavItems()}
-          <SocialMediaBar />
-          {CTAButton}
-        </Links>
-        <Menu isOpen={true} styles={Burger}>
-          {NavItems()}
-          {CTAButton}
-        </Menu>
-      </Nav>
+      <div>
+        <Nav className="navbar">
+          <IconContainer>
+            <a href={routes.HOME_PAGE}>
+              <Icon src={Martlet} />
+            </a>
+          </IconContainer>
+          <Links>
+            {NavItems()}
+            <SocialMediaBar />
+            {CTAButton}
+          </Links>
+          <Menu isOpen={true} styles={Burger}>
+            {NavItems()}
+            {CTAButton}
+          </Menu>
+        </Nav>
+        <style jsx>{`
+          .navbar {
+            border-width: 2px;
+            position: fixed;
+          }
+        `}</style>
+      </div>
     ) : null;
   }
   private checkLoggedIn() {

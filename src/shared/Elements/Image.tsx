@@ -6,7 +6,6 @@ export interface IImageProps {
   imgWidth?: string;
   padding?: string;
 }
-
 export const Image = styled.img`
   src: ${(props: IImageProps) => props.src};
   height: ${(props: IImageProps) => props.imgHeight || 'auto'};

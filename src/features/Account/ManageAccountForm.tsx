@@ -9,14 +9,7 @@ import {
   FormikValues,
 } from 'formik';
 import { Account, Auth } from '../../api';
-import {
-  // DietaryRestriction,
-  FrontendRoute,
-  // Genders,
-  IAccount,
-  // Pronouns,
-  UserType,
-} from '../../config';
+import { FrontendRoute, IAccount, UserType } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
@@ -26,7 +19,6 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
   date2input,
   getNestedAttr,
-  // getOptionsFromEnum,
   getValueFromQuery,
   input2date,
   isSponsor,
@@ -206,8 +198,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       )}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
-          <div style={{ display: 'flex', justifyContent: 'spaceBetween' }}>
-            <div style={{ marginRight: '20px' }}>
+          <div className="container">
+            <div className="leftBox">
               <FastField
                 name={'firstName'}
                 label={CONSTANTS.FIRST_NAME_LABEL}
@@ -232,6 +224,16 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               <ErrorMessage component={FormikElements.Error} name="lastName" />
             </div>
           </div>
+          <style jsx>{`
+            .container {
+              display: flex;
+              justify-content: space-between;
+              position: relative;
+            }
+            .leftBox {
+              margin-right: 20px;
+            }
+          `}</style>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}
@@ -274,52 +276,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               />
             </>
           )}
-          {/* <FastField
-            component={FormikElements.FormattedNumber}
-            label={CONSTANTS.PHONE_NUMBER_LABEL}
-            placeholder="+# (###) ###-####"
-            format="+# (###) ###-####"
-            name={'phoneNumber'}
-            required={true}
-            value={fp.values.phoneNumber}
-          />
-          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-          <FastField
-            component={FormikElements.Select}
-            creatable={true}
-            label={CONSTANTS.PRONOUN_LABEL}
-            name={'pronoun'}
-            placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-            options={getOptionsFromEnum(Pronouns)}
-            required={true}
-            value={fp.values.pronoun}
-          />
-          <ErrorMessage component={FormikElements.Error} name="gender" />
-          <FastField
-            component={FormikElements.Select}
-            creatable={true}
-            label={CONSTANTS.GENDER_LABEL}
-            name={'gender'}
-            placeholder={CONSTANTS.GENDER_PLACEHOLDER}
-            options={getOptionsFromEnum(Genders)}
-            required={true}
-            value={fp.values.gender}
-          />
-          <ErrorMessage component={FormikElements.Error} name="pronoun" />
-          <FastField
-            name={'dietaryRestrictions'}
-            isMulti={true}
-            label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-            placeholder={DietaryRestriction.NONE}
-            component={FormikElements.Select}
-            options={getOptionsFromEnum(DietaryRestriction)}
-            required={true}
-            value={fp.values.dietaryRestrictions}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="dietaryRestrictions"
-          /> */}
           <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
             {props.mode === ManageAccountModes.CREATE ? 'Sign up' : 'Save'}
           </SubmitBtn>

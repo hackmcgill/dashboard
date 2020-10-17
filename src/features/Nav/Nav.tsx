@@ -1,7 +1,7 @@
 import styled from '../../shared/Styles/styled-components';
 
 interface INavProps {
-  borderThickness: string;
+  borderThickness?: string;
 }
 
 export const Nav = styled.nav<INavProps>`

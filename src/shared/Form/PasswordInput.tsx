@@ -15,10 +15,16 @@ export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (
 ) => {
   return (
     <Label>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="passwordInput">
         <LabelText label={props.label} required={props.required} />
         <ForgotPasswordLinkComponent />
       </div>
+      <style jsx>{`
+        .passwordInput {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
 
       <Input
         type="password"

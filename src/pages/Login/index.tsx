@@ -87,53 +87,62 @@ const LoginPage: React.FC = () => {
    * Display login form to user
    */
   // something big time wrong in the left padding of the form
-  const renderForm = (isMobile: boolean) => (
-    <MaxWidthBox
-      minWidth={isMobile ? '0px' : '500px'}
-      maxWidth={'500px'}
-      paddingLeft={'50px'}
-      paddingRight={'50px'}
-      left={isMobile ? '0%' : '55%'}
-      right={isMobile ? 'auto' : '0'}
-      position={'absolute'}
-    >
-      <Helmet>
-        <title>Login | {HACKATHON_NAME}</title>
-      </Helmet>
-      <Form>
-        <Flex
-          alignItems={'left'}
-          flexDirection={'column'}
-          p={'1rem 5.8rem 0rem 0rem'}
-        >
-          <Image
-            src={MartletTitle}
-            imgHeight="60px"
-            imgWidth="200px"
-            padding="60px 0px"
-          />
-          <EmailInput
-            label={EMAIL_LABEL}
-            onEmailChanged={setEmail}
-            value={email}
-            isTight={true}
-          />
-          <PasswordInput
-            label={PASSWORD_LABEL}
-            onPasswordChanged={setPassword}
-            value={password}
-            isTight={true}
-          />
-          <Box pr={'5px'} pt={'40px'} pb={'20px'}>
-            <Button type="button" onClick={handleSubmit}>
-              Sign in
-            </Button>
-          </Box>
-          <SignUpLink />
-          <SponsorsBar pt={'20px'} pb={'50px'} />
-        </Flex>
-      </Form>
-    </MaxWidthBox>
+  const renderForm = (isDesktop: boolean) => (
+    <div>
+      <MaxWidthBox className="formBox">
+        <Helmet>
+          <title>Login | {HACKATHON_NAME}</title>
+        </Helmet>
+        <Form>
+          <Flex
+            alignItems={'left'}
+            flexDirection={'column'}
+            p={'1rem 5.8rem 0rem 0rem'}
+          >
+            <Image
+              src={MartletTitle}
+              imgHeight="60px"
+              imgWidth="200px"
+              padding="60px 0px"
+            />
+            <EmailInput
+              label={EMAIL_LABEL}
+              onEmailChanged={setEmail}
+              value={email}
+              isTight={true}
+            />
+            <PasswordInput
+              label={PASSWORD_LABEL}
+              onPasswordChanged={setPassword}
+              value={password}
+              isTight={true}
+            />
+            <Box pr={'5px'} pt={'40px'} pb={'20px'}>
+              <Button type="button" onClick={handleSubmit}>
+                Sign in
+              </Button>
+            </Box>
+            <SignUpLink />
+            <SponsorsBar pt={'20px'} pb={'50px'} />
+          </Flex>
+        </Form>
+      </MaxWidthBox>
+      <style jsx>{`
+        .formBox {
+          width: 500px;
+          padding: 0px 50px;
+          position: absolute;
+        }
+      `}</style>
+      {isDesktop && (
+        <style jsx>{`
+          .formBox {
+            left: 55%;
+            right: 0;
+          }
+        `}</style>
+      )}
+    </div>
   );
 
   return (
@@ -141,13 +150,12 @@ const LoginPage: React.FC = () => {
       {(matches) =>
         matches ? (
           <LeftContainer>
-            {renderForm(true)}
-            <p>mobile</p>
+            {renderForm(false)}
             <BackgroundImage src={LookAtSky} imgWidth={'100%'} />
           </LeftContainer>
         ) : (
           <div>
-            {renderForm(false)}
+            {renderForm(true)}
             <BackgroundImage
               src={LookAtSky}
               top={'90px'}

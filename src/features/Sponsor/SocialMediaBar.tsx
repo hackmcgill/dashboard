@@ -14,17 +14,17 @@ export interface SocialMediaBarProps {
 const SocialMediaBar = (props: SocialMediaBarProps) => {
   return (
     <Flex alignItems={'center'} pr={'45px'} pt={props.pt} pb={props.pb}>
-      <Box pr={'20px'}>
+      <Box className="box">
         <a href="https://www.facebook.com/mcgillhacks/" target="_blank">
           <Image src={Facebook} />
         </a>
       </Box>
-      <Box pr={'20px'}>
+      <Box className="box">
         <a href="https://www.instagram.com/mcgillhacks/" target="_blank">
           <Image src={Instagram} />
         </a>
       </Box>
-      <Box pr={'20px'}>
+      <Box className="box">
         <a
           href="https://twitter.com/McGillHacks?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
           target="_blank"
@@ -32,11 +32,18 @@ const SocialMediaBar = (props: SocialMediaBarProps) => {
           <Image src={Twitter} />
         </a>
       </Box>
-      <Box pr={'20px'}>
+      <Box className="box">
         <a href="https://github.com/hackmcgill" target="_blank">
           <Image src={GitHub} />
         </a>
       </Box>
+      <style jsx>
+        {`
+          .box {
+            padding-right: 20px;
+          }
+        `}
+      </style>
     </Flex>
   );
 };

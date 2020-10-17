@@ -17,75 +17,51 @@ const CreateAccountPage: React.FC = () => (
     </Helmet>
 
     <MediaQuery maxWidth="991px">
-      <MaxWidthBox
-        m={'auto'}
-        paddingLeft={'50px'}
-        paddingRight={'50px'}
-        maxWidth={'500px'}
-      >
-        <H1
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-          paddingBottom={'20px'}
-          paddingTop={'70px'}
-        >
-          Create your account
-        </H1>
+      <MaxWidthBox className="mobile">
+        <H1 className="title">Create your account</H1>
         <ManageAccountContainer mode={ManageAccountModes.CREATE} />
       </MaxWidthBox>
+      <style jsx>{`
+        .mobile {
+          margin: auto;
+          max-width: 500px;
+          padding: 0 50px;
+        }
+      `}</style>
     </MediaQuery>
 
     <MediaQuery minWidth="992px">
-      <MaxWidthBox
-        position={'absolute'}
-        left={'50%'}
-        paddingLeft={'50px'}
-        paddingRight={'100px'}
-        minWidth={'500px'}
-        maxWidth={'500px'}
-      >
-        <H1
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-          paddingBottom={'20px'}
-          paddingTop={'70px'}
-        >
-          Create your account
-        </H1>
+      <MaxWidthBox className="desktop">
+        <H1 className="title">Create your account</H1>
         <ManageAccountContainer mode={ManageAccountModes.CREATE} />
       </MaxWidthBox>
+      <style jsx>{`
+        .desktop {
+          position: absolute;
+          left: 50%;
+          width: 500px;
+          padding: 0 50px;
+        }
+      `}</style>
     </MediaQuery>
-
-    <MediaQuery minWidth="992px" maxWidth="1093px">
-      <BackgroundImage
-        src={SingleCoder}
-        top={'60px'}
-        right={'0px'}
-        imgHeight={'70%'}
-      />
-    </MediaQuery>
-    <MediaQuery minWidth="1094px" maxWidth="1199px">
-      <BackgroundImage
-        src={SingleCoder}
-        top={'60px'}
-        left={'0px'}
-        imgHeight={'80%'}
-      />
-    </MediaQuery>
-    <MediaQuery minWidth="1200px">
-      <BackgroundImage
-        src={SingleCoder}
-        top={'60px'}
-        left={'0px'}
-        imgHeight={'90%'}
-        position={'fixed' as 'fixed'}
-      />
+    <style jsx>{`
+      .title {
+        font-size: 30px;
+        text-align: left;
+        margin: 0px 0px 20px 0px;
+        padding: 70px 0px 20px;
+      }
+    `}</style>
+    <MediaQuery minWidth="992px">
+      <BackgroundImage src={SingleCoder} className="singleCoderBG" />
+      <style jsx>{`
+        .singleCoderBG {
+          top: 60px;
+          left: 0px;
+          height: 100%;
+          position: fixed;
+        }
+      `}</style>
     </MediaQuery>
   </>
 );
