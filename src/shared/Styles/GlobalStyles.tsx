@@ -30,10 +30,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${(props) => props.theme.colors.red};
+    color: ${(props) => props.theme.colors.purple};
+    text-decoration: none;
 
     &:hover {
-      color: ${(props) => props.theme.colors.redLight};
+      color: ${(props) => props.theme.colors.purpleLight};
 
     }
 
