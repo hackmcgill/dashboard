@@ -26,6 +26,7 @@ import {
   ISetting,
   JobInterest,
   Majors,
+  PreviousHackathons,
   ShirtSize,
   Skills,
 } from '../../config';
@@ -114,6 +115,7 @@ class ManageApplicationContainer extends React.Component<
           },
           shortAnswer: {
             skills: [],
+            previousHackathons: '',
             question1: '',
             question2: '',
             comments: '',
@@ -425,6 +427,14 @@ class ManageApplicationContainer extends React.Component<
           placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
           component={FormikElements.Select}
           value={fp.values.hacker.application.shortAnswer.skills}
+        />
+        <FastField
+          name={'hacker.application.shortAnswer.previousHackathons'}
+          options={getOptionsFromEnum(PreviousHackathons)}
+          label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
+          component={FormikElements.Select}
+          value={fp.values.hacker.application.shortAnswer.previousHackathons}
+          required={true}
         />
         <FastField
           name={'hacker.application.shortAnswer.question1'}
