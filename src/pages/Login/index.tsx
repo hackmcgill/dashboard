@@ -156,16 +156,16 @@ const LoginPage: React.FC = () => {
             />
           </LeftContainer>
         ) : (
-          <div>
-            {renderForm()}
-            <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgHeight={'100%'}
-            />
-          </div>
-        )
+            <>
+              {renderForm()}
+              <BackgroundImage
+                src={Coders}
+                top={'60px'}
+                right={'0px'}
+                imgHeight={'100%'}
+              />
+            </>
+          )
       }
     </MediaQuery>
   );
