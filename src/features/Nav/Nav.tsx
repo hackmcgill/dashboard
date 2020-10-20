@@ -15,8 +15,6 @@ export const Nav = styled.nav<INavProps>`
   display: flex;
   justify-content: space-between;
   background: ${(props) => props.theme.colors.white};
-  border-bottom: ${(props) => props.borderThickness || '2px'} solid
-    ${(props) => props.theme.colors.black5};
 `;
 
 export default Nav;

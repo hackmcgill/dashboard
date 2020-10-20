@@ -25,6 +25,7 @@ import {
 } from '../../util';
 import getValidationSchema from './validationSchema';
 import AlreadyHaveAccount from './AlreadyHaveAccount';
+import { ButtonVariant } from '../../shared/Elements';
 
 export enum ManageAccountModes {
   CREATE,
@@ -197,7 +198,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         props.mode === ManageAccountModes.CREATE
       )}
       render={(fp: FormikProps<any>) => (
-        <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
+        <Form onSubmit={fp.handleSubmit}>
           <div className="container">
             <div className="leftBox">
               <FastField
@@ -276,10 +277,14 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               />
             </>
           )}
-          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+
+          <SubmitBtn variant={ButtonVariant.Primary} isLoading={isSubmitting} disabled={isSubmitting}>
             {props.mode === ManageAccountModes.CREATE ? 'Sign up' : 'Save'}
           </SubmitBtn>
-          <AlreadyHaveAccount />
+
+          {
+            props.mode === ManageAccountModes.CREATE && <AlreadyHaveAccount />
+          }
         </Form>
       )}
     />

@@ -89,11 +89,13 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.CREATE_ACCOUNT_PAGE}
-              component={withNavbar(
-                withAuthRedirect(CreateAccountPage, {
-                  requiredAuthState: false,
-                }),
-                { activePage: 'profile' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(CreateAccountPage, {
+                    requiredAuthState: false,
+                  }),
+                  { activePage: 'profile' }
+                )
               )}
             />
             <Route
@@ -207,12 +209,11 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.LOGIN_PAGE}
-              component={withBackground(withNavbar(
+              component={withBackground(
                 withAuthRedirect(LoginPage, {
                   requiredAuthState: false,
-                }),
-                { activePage: 'login' }
-              ))}
+                })
+              )}
             />
             <Route
               exact={true}

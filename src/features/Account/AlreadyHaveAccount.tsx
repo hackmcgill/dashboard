@@ -1,18 +1,16 @@
-import { Box } from '@rebass/grid';
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FrontendRoute } from '../../config';
+import theme from '../../shared/Styles/theme';
 
-const AlreadyHaveAccount: React.StatelessComponent<{}> = (props) => {
+const AlreadyHaveAccount: React.FC<{}> = (props) => {
   return (
-    <Box>
-      <p>
-        Already have an account?{' '}
-        <Link to={FrontendRoute.LOGIN_PAGE}>
-          <span>Sign in</span>
-        </Link>
-      </p>
-    </Box>
+    <div className="SignUpLink" style={{ fontFamily: theme.fonts.header }}>
+      Already have an account?{' '}&nbsp;
+      <Link to={FrontendRoute.LOGIN_PAGE}>
+        <span>Sign in</span>
+      </Link>
+    </div>
   );
 };
 

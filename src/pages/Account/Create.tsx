@@ -1,14 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import ManageAccountContainer, {
+import ManageAccountForm, {
   ManageAccountModes,
 } from '../../features/Account/ManageAccountForm';
 
 import * as CONSTANTS from '../../config/constants';
-import { BackgroundImage, H1, MaxWidthBox } from '../../shared/Elements';
-import MediaQuery from 'react-responsive';
+import { H1 } from '../../shared/Elements';
 
-import SingleCoder from '../../assets/images/singleCoder.svg';
+import GirlAtHome from '../../assets/images/girl-at-home.svg';
 
 const CreateAccountPage: React.FC = () => (
   <>
@@ -16,53 +15,45 @@ const CreateAccountPage: React.FC = () => (
       <title>Create Account | {CONSTANTS.HACKATHON_NAME}</title>
     </Helmet>
 
-    <MediaQuery maxWidth="991px">
-      <MaxWidthBox className="mobile">
-        <H1 className="title">Create your account</H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
-      </MaxWidthBox>
-      <style jsx>{`
-        .mobile {
-          margin: auto;
-          max-width: 500px;
-          padding: 0 50px;
-        }
-      `}</style>
-    </MediaQuery>
+    <div className="SignUp--form-container">
+      <div className="SignUp--art-wrapper">
+        <img src={GirlAtHome} className="SignUp--art" alt="Background" />
+      </div>
 
-    <MediaQuery minWidth="992px">
-      <MaxWidthBox className="desktop">
-        <H1 className="title">Create your account</H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
-      </MaxWidthBox>
+      <form className="SignUp--form">
+        <H1>Create your account</H1>
+        <ManageAccountForm mode={ManageAccountModes.CREATE} />
+      </form>
+
       <style jsx>{`
-        .desktop {
-          position: absolute;
-          left: 50%;
-          width: 500px;
-          padding: 0 50px;
+        /* Prefixing styles with SignUp until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
+        .SignUp--form-container {
+          max-width: 1080px;
+          margin: auto;
+          margin-top: 120px;
+          flex: 1;
+          display: flex;
+        }
+
+        .SignUp--art-wrapper {
+          flex: 1 1 auto;
+          display: flex;
+          align-items: center;
+        }
+
+        .SignUp--art {
+          width: 100%;
+          height: auto;
+        }
+
+        .SignUp--form {
+          box-sizing: content-box;
+          flex: 0 0 360px;
+          margin-left: 120px;
+          margin-right: 80px;
         }
       `}</style>
-    </MediaQuery>
-    <style jsx>{`
-      .title {
-        font-size: 30px;
-        text-align: left;
-        margin: 0px 0px 20px 0px;
-        padding: 70px 0px 20px;
-      }
-    `}</style>
-    <MediaQuery minWidth="992px">
-      <BackgroundImage src={SingleCoder} className="singleCoderBG" />
-      <style jsx>{`
-        .singleCoderBG {
-          top: 60px;
-          left: 0px;
-          height: 100%;
-          position: fixed;
-        }
-      `}</style>
-    </MediaQuery>
+    </div>
   </>
 );
 
