@@ -14,7 +14,7 @@ import { EmailInput, PasswordInput } from '../../shared/Form';
 import LookAtSky from '../../assets/images/lookAtSky.svg';
 import MartletTitle from '../../assets/images/martlet-text.svg';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import SponsorsBar from '../../features/Sponsor/SocialMediaBar';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 
 import { APIResponse, Auth } from '../../api';
 
@@ -72,7 +72,7 @@ const LoginPage: React.FC = () => {
 
       <div className="Login--form-container">
         <div className="Login--art-wrapper">
-          <img src={LookAtSky} className="Login--art" />
+          <img src={LookAtSky} className="Login--art" alt="Background" />
         </div>
 
         <form className="Login--form">
@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
             src={MartletTitle}
             imgHeight="60px"
             imgWidth="200px"
-            padding="20px 0 60px 0"
+            padding="0 0 60px 0"
           />
           <EmailInput
             label={EMAIL_LABEL}
@@ -103,7 +103,9 @@ const LoginPage: React.FC = () => {
             </Button>
           </Box>
           <SignUpLink />
-          <SponsorsBar pt={'20px'} pb={'50px'} />
+          <Box pt={'80px'}>
+            <SocialMediaBar />
+          </Box>
         </form>
       </div>
 

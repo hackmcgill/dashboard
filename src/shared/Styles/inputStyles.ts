@@ -9,7 +9,7 @@ export const inputStyles = css<IInputProps>`
   border-radius: 8px;
   font-weight: ${(props) => props.fontWeight || 'normal'};
   border: none;
-  box-shadow: 2px 4px 16px 1px ${(props) => props.theme.colors.greyLight};
+  box-shadow: 2px 4px 16px 0px ${(props) => props.theme.colors.greyLight};
   box-sizing: border-box;
   display: block;
   font-size: 16px;

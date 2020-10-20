@@ -1,18 +1,16 @@
-import { Box } from '@rebass/grid';
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FrontendRoute } from '../../config';
+import theme from '../../shared/Styles/theme';
 
-const SignUpLink: React.StatelessComponent<{}> = (props) => {
+const SignUpLink: React.FC<{}> = (props) => {
   return (
-    <Box>
-      <p>
-        Don't have an account?{' '}
-        <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
-          <span>Sign up</span>
-        </Link>
-      </p>
-    </Box>
+    <div className="SignUpLink" style={{fontFamily: theme.fonts.header}}>
+      Don't have an account?{' '}&nbsp;
+      <Link to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+        <span>Sign up</span>
+      </Link>
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ export const PasswordInput: React.FC<IPasswordInputProp> = (
   const placeholder = props.placeholder ? props.placeholder : '';
   return (
     <Label>
-      <div className="PasswordInput">
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <LabelText label={props.label} required={props.required} />
         {
           props.hasResetLink && <ForgotPasswordLinkComponent />
@@ -38,13 +38,6 @@ export const PasswordInput: React.FC<IPasswordInputProp> = (
         value={props.value}
         placeholder={placeholder}
       />
-
-      <style jsx>{`
-        .PasswordInput {
-          display: flex;
-          justify-content: space-between;
-        }
-      `}</style>
     </Label>
   );
 };
