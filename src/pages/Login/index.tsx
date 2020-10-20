@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 import { Image } from '../../shared/Elements';
-import Button from '../../shared/Elements/Button';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, PasswordInput } from '../../shared/Form';
 
 import LookAtSky from '../../assets/images/lookAtSky.svg';
@@ -80,22 +80,25 @@ const LoginPage: React.FC = () => {
             src={MartletTitle}
             imgHeight="60px"
             imgWidth="200px"
-            padding="60px 0px"
+            padding="20px 0 60px 0"
           />
           <EmailInput
             label={EMAIL_LABEL}
             onEmailChanged={setEmail}
             value={email}
-            isTight={true}
+            isTight={false}
+            placeholder="your_email@gmail.com"
           />
           <PasswordInput
             label={PASSWORD_LABEL}
             onPasswordChanged={setPassword}
             value={password}
-            isTight={true}
+            isTight={false}
+            hasResetLink={true}
+            placeholder="your_password"
           />
-          <Box pr={'5px'} pt={'40px'} pb={'20px'}>
-            <Button type="button" onClick={handleSubmit}>
+          <Box pr={'5px'} pt={'36px'} pb={'40px'}>
+            <Button type="button" variant={ButtonVariant.Primary} onClick={handleSubmit}>
               Sign in
             </Button>
           </Box>
@@ -135,9 +138,9 @@ const LoginPage: React.FC = () => {
 
         .Login--form {
           box-sizing: content-box;
-          flex: 0 0 400px;
+          flex: 0 0 360px;
           margin-left: 120px;
-          margin-right: 60px;
+          margin-right: 80px;
         }
       `}</style>
     </div>

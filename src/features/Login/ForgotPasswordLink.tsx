@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FrontendRoute } from '../../config';
 
-const ForgotPasswordLinkComponent: React.StatelessComponent<{}> = (props) => {
+const ForgotPasswordLinkComponent: React.FC<{}> = (props) => {
   return (
     <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
       <span>Forgot password?</span>
-    </Link>
+    </Link >
   );
 };
 

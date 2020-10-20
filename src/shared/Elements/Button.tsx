@@ -9,9 +9,11 @@ import styled from '../Styles/styled-components';
  * https://www.figma.com/file/8eJ5e9icjoAOxMRcomRhZV/ui-elements?node-id=0%3A1
  */
 export enum ButtonVariant {
-  CallToAction,
   Primary,
   Secondary,
+
+  // Deprecated
+  CallToAction,
   Tertiary,
 }
 
@@ -31,35 +33,25 @@ export const Button = styled.button<IButtonProps>`
   transition: 0.15s linear all;
   position: relative;
 
-  ${(props) =>
-    // Handle styling for primary, secondary and call-to-action buttons seperatly from tertiary action buttons
-    // as these all have the classical "button" type look while tertiary buttons have more of a "link" look
-    (props.variant === undefined || props.variant !== ButtonVariant.Tertiary) &&
-    `
-      font-family: ${props.theme.fonts.header};
-      font-size: 16px;
-      font-weight: 400;
-      text-transform: capitalize;
-      min-height: 40px;
-      max-height: 60px;
+  font-family: ${(props) => props.theme.fonts.header};
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  min-height: 40px;
+  max-height: 60px;
 
-
-      /* Default border radius to values befiting a call to action button 
-         - these values will be reset later if button is not a call to action */
-      border-radius: 40px;
-      padding-left: 32px;
-      padding-right: 32px;
-  `}
+  border-radius: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
 
   ${(props) =>
     // Call to action and primary buttons have solid background and gradient borders
-    (props.variant === ButtonVariant.CallToAction ||
-      props.variant === ButtonVariant.Primary ||
-      props.variant === undefined) &&
+    (props.variant === ButtonVariant.Primary) &&
     `
       background-color: ${props.theme.colors.purple};
       color: ${props.theme.colors.white};
-      border: 2px solid ${props.theme.colors.purple};
+      border: none;
+      box-shadow: 2px 4px 16px 0 ${props.theme.colors.purpleLight};
   `}
 
   ${(props) =>
@@ -72,28 +64,15 @@ export const Button = styled.button<IButtonProps>`
   `}
 
   ${(props) =>
-    // Primary and secondary button have only slighly rounded corners and less
-    // horizontal padding
-    (props.variant === ButtonVariant.Primary ||
-      props.variant === ButtonVariant.Secondary ||
-      props.variant === undefined) &&
-    `
-      border-radius: 8px;
-      padding-left: 24px;
-      padding-right: 24px;
-  `}
-
-  ${(props) =>
     props.isOutlined &&
     `
     background: none;
     color: ${props.theme.colors.purple};
-    border-color: ${
-      props.variant === ButtonVariant.Secondary
-        ? props.theme.colors.purpleLight
-        : props.theme.colors.purple
+    border-color: ${props.variant === ButtonVariant.Secondary
+      ? props.theme.colors.purpleLight
+      : props.theme.colors.purple
     };
-    `}
+  `}
 
   ${(props) =>
     props.disabled
@@ -104,21 +83,17 @@ export const Button = styled.button<IButtonProps>`
         border-color: ${props.theme.colors.black10};
       `
       : `&:hover {
-          background-color: ${
-            props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.purple
-              : props.theme.colors.purpleLight
-          };
-          border-color: ${
-            props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.purple
-              : props.theme.colors.purpleLight
-          };
-          color: ${
-            props.variant === ButtonVariant.Secondary
-              ? props.theme.colors.white
-              : props.theme.colors.purple
-          };
+        ${props.variant === ButtonVariant.Primary && `
+          background-color: ${props.theme.colors.purpleLight};
+          color: ${props.theme.colors.purple};
+          box-shadow: none;
+        `}
+
+        ${props.variant === ButtonVariant.Secondary && `
+          background-color: ${props.theme.colors.purple};
+          border-color: ${props.theme.colors.purple};
+          color: ${props.theme.colors.white};
+        `}
         }
     `}
 
@@ -131,17 +106,15 @@ export const Button = styled.button<IButtonProps>`
   ${(props) =>
     props.isLoading &&
     `
-    color: ${
-      props.variant === ButtonVariant.Secondary
-        ? props.theme.colors.black60
-        : props.theme.colors.red
+    color: ${props.variant === ButtonVariant.Secondary
+      ? props.theme.colors.black60
+      : props.theme.colors.red
     };
     &:hover {
-      color: ${
-        props.variant === ButtonVariant.Secondary
-          ? props.theme.colors.purpleLight
-          : props.theme.colors.purpleLight
-      };
+      color: ${props.variant === ButtonVariant.Secondary
+      ? props.theme.colors.purpleLight
+      : props.theme.colors.purpleLight
+    };
     }
     &:before {
       content: '';
@@ -154,11 +127,10 @@ export const Button = styled.button<IButtonProps>`
       margin-top: -10px;
       margin-left: -10px;
       border-radius: 50%;
-      border: 3px solid ${
-        props.variant === ButtonVariant.Secondary
-          ? props.theme.colors.black30
-          : props.theme.colors.redLight
-      };
+      border: 3px solid ${props.variant === ButtonVariant.Secondary
+      ? props.theme.colors.black30
+      : props.theme.colors.redLight
+    };
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
     }`}

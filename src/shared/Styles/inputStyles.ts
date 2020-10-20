@@ -9,19 +9,19 @@ export const inputStyles = css<IInputProps>`
   border-radius: 8px;
   font-weight: ${(props) => props.fontWeight || 'normal'};
   border: none;
-  box-shadow: 0px 0px 16px 0px ${(props) => props.theme.colors.greyLight};
+  box-shadow: 2px 4px 16px 1px ${(props) => props.theme.colors.greyLight};
   box-sizing: border-box;
   display: block;
   font-size: 16px;
   margin: auto;
-  margin-top: 16px;
-  margin-bottom: ${(props) => (props.isTight ? '8px' : '20px')};
+  margin-top: 12px;
+  margin-bottom: ${(props) => (props.isTight ? '8px' : '24px')};
   min-height: 40px;
   padding-left: 18px;
   width: 100%;
-  transition: 0.25s border ease-in;
+  transition: 0.25s border ease-in, 0.25s box-shadow ease-in;
   color: ${(props) => props.theme.colors.black80};
-  font-family: 'Hind Siliguri', sans-serif;
+  font-family: ${(props) => props.theme.fonts.header};
 
   &::placeholder {
     color: ${(props) => props.theme.colors.black40};
@@ -29,7 +29,7 @@ export const inputStyles = css<IInputProps>`
 
   &:focus {
     outline: none;
-    box-shadow: 2px 2px 16px 0px ${(props) => props.theme.colors.blueLight};
+    box-shadow: 2px 2px 16px 2px ${(props) => props.theme.colors.blueLight};
   }
 
   &:disabled {

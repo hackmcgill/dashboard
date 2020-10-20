@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 import { Input, Label, LabelText } from './';
 
@@ -9,22 +9,26 @@ interface IPasswordInputProp {
   id?: string;
   isTight?: boolean;
   value?: string;
+  placeholder?: string;
+  hasResetLink?: boolean;
 }
-export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (
+
+/**
+ * A password field in the form
+ * @prop {boolean} hasResetLink should a reset password link be displayed
+ */
+export const PasswordInput: React.FC<IPasswordInputProp> = (
   props
 ) => {
+  const placeholder = props.placeholder ? props.placeholder : '';
   return (
     <Label>
-      <div className="passwordInput">
+      <div className="PasswordInput">
         <LabelText label={props.label} required={props.required} />
-        <ForgotPasswordLinkComponent />
-      </div>
-      <style jsx>{`
-        .passwordInput {
-          display: flex;
-          justify-content: space-between;
+        {
+          props.hasResetLink && <ForgotPasswordLinkComponent />
         }
-      `}</style>
+      </div>
 
       <Input
         type="password"
@@ -32,7 +36,15 @@ export const PasswordInput: React.StatelessComponent<IPasswordInputProp> = (
         id={props.id}
         isTight={props.isTight}
         value={props.value}
+        placeholder={placeholder}
       />
+
+      <style jsx>{`
+        .PasswordInput {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
     </Label>
   );
 };
