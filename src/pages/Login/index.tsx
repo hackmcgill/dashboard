@@ -1,21 +1,15 @@
-import { Box, Flex } from '@rebass/grid';
+import { Box } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
-import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
-import {
-  BackgroundImage,
-  Image,
-  LeftContainer,
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { Image } from '../../shared/Elements';
 import Button from '../../shared/Elements/Button';
-import { EmailInput, Form, PasswordInput } from '../../shared/Form';
+import { EmailInput, PasswordInput } from '../../shared/Form';
 
 import LookAtSky from '../../assets/images/lookAtSky.svg';
 import MartletTitle from '../../assets/images/martlet-text.svg';
@@ -40,19 +34,6 @@ const LoginPage: React.FC = () => {
   // Get access to router's history to allow for programtic
   // page navigation
   const history = useHistory();
-
-  /**
-   * Returns the redirect link (page user will be sent to if login
-   * attempt is successful), or undefined if it doesn't exist.
-   */
-  const getRedirectLink: any = () => {
-    const queries: any = QueryString.parse(window.location.search);
-    if (queries.redir) {
-      return queries.redir.toString();
-    } else {
-      return undefined;
-    }
-  };
 
   /**
    * Trigger authentication function once the form is submitted
@@ -83,91 +64,97 @@ const LoginPage: React.FC = () => {
       });
   };
 
-  /**
-   * Display login form to user
-   */
-  // something big time wrong in the left padding of the form
-  const renderForm = (isDesktop: boolean) => (
-    <div>
-      <MaxWidthBox className="formBox">
-        <Helmet>
-          <title>Login | {HACKATHON_NAME}</title>
-        </Helmet>
-        <Form>
-          <Flex
-            alignItems={'left'}
-            flexDirection={'column'}
-            p={'1rem 5.8rem 0rem 0rem'}
-          >
-            <Image
-              src={MartletTitle}
-              imgHeight="60px"
-              imgWidth="200px"
-              padding="60px 0px"
-            />
-            <EmailInput
-              label={EMAIL_LABEL}
-              onEmailChanged={setEmail}
-              value={email}
-              isTight={true}
-            />
-            <PasswordInput
-              label={PASSWORD_LABEL}
-              onPasswordChanged={setPassword}
-              value={password}
-              isTight={true}
-            />
-            <Box pr={'5px'} pt={'40px'} pb={'20px'}>
-              <Button type="button" onClick={handleSubmit}>
-                Sign in
-              </Button>
-            </Box>
-            <SignUpLink />
-            <SponsorsBar pt={'20px'} pb={'50px'} />
-          </Flex>
-        </Form>
-      </MaxWidthBox>
+  return (
+    <div className="Login--centered-container">
+      <Helmet>
+        <title>Login | {HACKATHON_NAME}</title>
+      </Helmet>
+
+      <div className="Login--form-container">
+        <div className="Login--art-wrapper">
+          <img src={LookAtSky} className="Login--art" />
+        </div>
+
+        <form className="Login--form">
+          <Image
+            src={MartletTitle}
+            imgHeight="60px"
+            imgWidth="200px"
+            padding="60px 0px"
+          />
+          <EmailInput
+            label={EMAIL_LABEL}
+            onEmailChanged={setEmail}
+            value={email}
+            isTight={true}
+          />
+          <PasswordInput
+            label={PASSWORD_LABEL}
+            onPasswordChanged={setPassword}
+            value={password}
+            isTight={true}
+          />
+          <Box pr={'5px'} pt={'40px'} pb={'20px'}>
+            <Button type="button" onClick={handleSubmit}>
+              Sign in
+            </Button>
+          </Box>
+          <SignUpLink />
+          <SponsorsBar pt={'20px'} pb={'50px'} />
+        </form>
+      </div>
+
       <style jsx>{`
-        .formBox {
-          width: 500px;
-          padding: 0px 50px;
-          position: absolute;
+        /* Prefixing styles with Login until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
+        .Login--centered-container {
+          width: 100%;
+          height: 100%;
+          min-height: 100vh;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .Login--form-container {
+          max-width: 1080px;
+          flex: 1;
+          display: flex;
+        }
+
+        .Login--art-wrapper {
+          flex: 1 1 auto;
+          display: flex;
+          align-items: center;
+        }
+
+        .Login--art {
+          width: 100%;
+          height: auto;
+        }
+
+        .Login--form {
+          box-sizing: content-box;
+          flex: 0 0 400px;
+          margin-left: 120px;
+          margin-right: 60px;
         }
       `}</style>
-      {isDesktop && (
-        <style jsx>{`
-          .formBox {
-            left: 55%;
-            right: 0;
-          }
-        `}</style>
-      )}
     </div>
   );
+};
 
-  return (
-    <MediaQuery minWidth={1224} width={'100%'}>
-      {(matches) =>
-        matches ? (
-          <LeftContainer>
-            {renderForm(false)}
-            <BackgroundImage src={LookAtSky} imgWidth={'100%'} />
-          </LeftContainer>
-        ) : (
-          <div>
-            {renderForm(true)}
-            <BackgroundImage
-              src={LookAtSky}
-              top={'90px'}
-              left={'0px'}
-              imgWidth={'50%'}
-              position={'fixed' as 'fixed'}
-            />
-          </div>
-        )
-      }
-    </MediaQuery>
-  );
+/**
+   * Returns the redirect link (page user will be sent to if login
+   * attempt is successful), or undefined if it doesn't exist.
+   */
+const getRedirectLink: any = () => {
+  const queries: any = QueryString.parse(window.location.search);
+  if (queries.redir) {
+    return queries.redir.toString();
+  } else {
+    return undefined;
+  }
 };
 
 export default WithToasterContainer(LoginPage);

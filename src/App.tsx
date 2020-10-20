@@ -34,6 +34,7 @@ import {
 import * as CONSTANTS from './config/constants';
 
 import withAuthRedirect from './shared/HOC/withAuthRedirect';
+import withBackground from './shared/HOC/withBackground';
 import withHackerRedirect from './shared/HOC/withHackerRedirect';
 import withNavbar from './shared/HOC/withNavbar';
 import withSponsorRedirect from './shared/HOC/withSponsorRedirect';
@@ -206,12 +207,12 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.LOGIN_PAGE}
-              component={withNavbar(
+              component={withBackground(withNavbar(
                 withAuthRedirect(LoginPage, {
                   requiredAuthState: false,
                 }),
                 { activePage: 'login' }
-              )}
+              ))}
             />
             <Route
               exact={true}
