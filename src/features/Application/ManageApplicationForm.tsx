@@ -151,7 +151,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       // Hacker data has been loaded, record that loading is finished
       setIsLoaded(true);
     })();
-  }, []);
+  }, [props.mode]);
 
   /**
    * Render the correct formik form based upon currently viewed application page
@@ -779,7 +779,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   }
 
   // If application creation deadline has passed or if form is submitted, return user to the home page
-  if (isLoaded && (new Date() > new Date(settings.closeTime) && props.mode === ManageApplicationModes.CREATE || isSubmitted)) {
+  if (isLoaded && (isSubmitted || (new Date() > new Date(settings.closeTime) && props.mode === ManageApplicationModes.CREATE))) {
     history.push(FrontendRoute.HOME_PAGE);
   }
 
