@@ -20,7 +20,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    
+
   <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/favicon/apple-touch-icon-57x57.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/favicon/apple-touch-icon-114x114.png" />
   <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/favicon/apple-touch-icon-72x72.png" />
@@ -47,6 +47,17 @@
   <meta name="theme-color" content="#F2463A">
   <meta name="msapplication-navbutton-color" content="#F2463A">
   <meta name="apple-mobile-web-app-status-bar-style" content="#F2463A">
+
+  <style>
+    #root,
+    #root>div {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120508272-2"></script>
