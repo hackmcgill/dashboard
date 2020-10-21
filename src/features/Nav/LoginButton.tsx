@@ -13,7 +13,7 @@ const LoginBtn: React.FC<RouteComponentProps> = () => {
         overflow: 'none',
       }}
     >
-      <Button variant={ButtonVariant.Primary} isOutlined={true}>Sign In</Button>
+      <Button variant={ButtonVariant.Primary} isOutlined={true}>Sign in</Button>
     </LinkDuo>
   );
 };

@@ -9,22 +9,30 @@ import {
   FormikValues,
 } from 'formik';
 import { Account, Auth } from '../../api';
-import { FrontendRoute, IAccount, UserType } from '../../config';
+import {
+  DietaryRestriction,
+  FrontendRoute,
+  Genders,
+  IAccount,
+  Pronouns,
+  UserType,
+} from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
+import AlreadyHaveAccount from '../Account/AlreadyHaveAccount';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
   date2input,
   getNestedAttr,
+  getOptionsFromEnum,
   getValueFromQuery,
   input2date,
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
-import AlreadyHaveAccount from './AlreadyHaveAccount';
 import { ButtonVariant } from '../../shared/Elements';
 
 export enum ManageAccountModes {
@@ -194,13 +202,11 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         birthDate: accountDetails.birthDate,
       }}
       onSubmit={handleSubmit}
-      validationSchema={getValidationSchema(
-        props.mode === ManageAccountModes.CREATE
-      )}
+      validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit}>
-          <div className="container">
-            <div className="leftBox">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
               <FastField
                 name={'firstName'}
                 label={CONSTANTS.FIRST_NAME_LABEL}
@@ -212,7 +218,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               />
               <ErrorMessage component={FormikElements.Error} name="firstName" />
             </div>
-            <div>
+            <div style={{ marginLeft: '20px' }}>
               <FastField
                 name={'lastName'}
                 label={CONSTANTS.LAST_NAME_LABEL}
@@ -225,16 +231,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               <ErrorMessage component={FormikElements.Error} name="lastName" />
             </div>
           </div>
-          <style jsx>{`
-            .container {
-              display: flex;
-              justify-content: space-between;
-              position: relative;
-            }
-            .leftBox {
-              margin-right: 20px;
-            }
-          `}</style>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}
@@ -263,22 +259,78 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.password}
           />
           <ErrorMessage component={FormikElements.Error} name="password" />
-          {props.mode === ManageAccountModes.EDIT && (
-            <>
+          {
+            props.mode === ManageAccountModes.EDIT && (
+              <>
+                <FastField
+                  label={CONSTANTS.NEW_PASSWORD_LABEL}
+                  component={FormikElements.Input}
+                  inputType={'password'}
+                  name={'newPassword'}
+                />
+                <ErrorMessage component={FormikElements.Error} name="newPassword" />
+              </>
+            )
+          }
+          <FastField
+            component={FormikElements.FormattedNumber}
+            label={CONSTANTS.PHONE_NUMBER_LABEL}
+            placeholder="+# (###) ###-####"
+            format="+# (###) ###-####"
+            name={'phoneNumber'}
+            required={true}
+            value={fp.values.phoneNumber}
+          />
+          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+          <FastField
+            component={FormikElements.Select}
+            creatable={true}
+            label={CONSTANTS.PRONOUN_LABEL}
+            name={'pronoun'}
+            placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+            options={getOptionsFromEnum(Pronouns)}
+            required={true}
+            value={fp.values.pronoun}
+          />
+          <ErrorMessage component={FormikElements.Error} name="gender" />
+          <FastField
+            component={FormikElements.Select}
+            creatable={true}
+            label={CONSTANTS.GENDER_LABEL}
+            name={'gender'}
+            placeholder={CONSTANTS.GENDER_PLACEHOLDER}
+            options={getOptionsFromEnum(Genders)}
+            required={true}
+            value={fp.values.gender}
+          />
+          <ErrorMessage component={FormikElements.Error} name="pronoun" />
+
+          {
+            // Hide dietary restrictions on account creation for 2020 year - don't need because online only hackathon
+            // Add back in for future years (hopefully) :(
+            props.mode !== ManageAccountModes.CREATE && <>
               <FastField
-                label={CONSTANTS.NEW_PASSWORD_LABEL}
-                component={FormikElements.Input}
-                inputType={'password'}
-                name={'newPassword'}
+                name={'dietaryRestrictions'}
+                isMulti={true}
+                label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+                placeholder={DietaryRestriction.NONE}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(DietaryRestriction)}
+                required={true}
+                value={fp.values.dietaryRestrictions}
               />
               <ErrorMessage
                 component={FormikElements.Error}
-                name="newPassword"
+                name="dietaryRestrictions"
               />
             </>
-          )}
+          }
 
-          <SubmitBtn variant={ButtonVariant.Primary} isLoading={isSubmitting} disabled={isSubmitting}>
+          <SubmitBtn
+            variant={ButtonVariant.Primary}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
             {props.mode === ManageAccountModes.CREATE ? 'Sign up' : 'Save'}
           </SubmitBtn>
 

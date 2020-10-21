@@ -5,16 +5,16 @@ import { RequiredInputLabel, SecondaryInfoText } from './';
 
 interface ILabelTextProps {
   label: any;
-  required?: boolean;
+  showRequiredLabel?: boolean;
   secondaryInfo?: any;
 }
 
-export const LabelText: React.StatelessComponent<ILabelTextProps> = (
+export const LabelText: React.FC<ILabelTextProps> = (
   props: ILabelTextProps
 ) => {
   const requiredText = (
     <RequiredInputLabel>
-      {props.required ? REQUIRED_INPUT : ''}
+      {props.showRequiredLabel ? REQUIRED_INPUT : ''}
     </RequiredInputLabel>
   );
   const secondaryInfo = (

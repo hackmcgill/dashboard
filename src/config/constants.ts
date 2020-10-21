@@ -42,17 +42,17 @@ export const REQUIRED_DESCRIPTION =
   'Required fields are denoted with an asterisk (*)';
 
 // Account management
-export const OLD_PASSWORD_LABEL = 'Old Password';
-export const NEW_PASSWORD_LABEL = 'New Password';
-export const DIETARY_RESTRICTIONS_LABEL = 'Dietary Restrictions';
-export const PRONOUN_LABEL = 'Preferred Pronouns';
-export const PRONOUN_PLACEHOLDER = 'Preferred Pronouns';
+export const OLD_PASSWORD_LABEL = 'Old password';
+export const NEW_PASSWORD_LABEL = 'New password';
+export const DIETARY_RESTRICTIONS_LABEL = 'Dietary restrictions';
+export const PRONOUN_LABEL = 'Preferred pronouns';
+export const PRONOUN_PLACEHOLDER = 'Preferred pronouns';
 export const GENDER_LABEL = 'Gender';
 export const GENDER_PLACEHOLDER = 'Gender';
-export const PHONE_NUMBER_LABEL = 'Phone Number';
-export const BIRTH_DATE_LABEL = 'Birth Date';
-export const FIRST_NAME_LABEL = 'First Name';
-export const LAST_NAME_LABEL = 'Last Name';
+export const PHONE_NUMBER_LABEL = 'Phone number';
+export const BIRTH_DATE_LABEL = 'Birth date';
+export const FIRST_NAME_LABEL = 'First name';
+export const LAST_NAME_LABEL = 'Last name';
 
 // Status management
 export const NONE_STATUS_TEXT =

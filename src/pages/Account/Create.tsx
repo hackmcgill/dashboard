@@ -30,8 +30,8 @@ const CreateAccountPage: React.FC = () => (
         .SignUp--form-container {
           max-width: 1080px;
           margin: auto;
-          margin-top: 80px;
-          padding-bottom: 300px;
+          margin-top: 72px;
+          padding-bottom: 120px;
           flex: 1;
           display: flex;
         }
@@ -39,10 +39,11 @@ const CreateAccountPage: React.FC = () => (
         .SignUp--art-wrapper {
           flex: 1 1 auto;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
         }
 
         .SignUp--art {
+          margin-top: 112px;
           width: 100%;
           height: auto;
         }
@@ -50,7 +51,7 @@ const CreateAccountPage: React.FC = () => (
         .SignUp--form {
           box-sizing: content-box;
           flex: 0 0 360px;
-          margin-left: 120px;
+          margin-left: 180px;
           margin-right: 80px;
         }
       `}</style>

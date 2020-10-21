@@ -10,8 +10,8 @@ const LogoutBtn: React.FC<RouteComponentProps> = (
   props: RouteComponentProps
 ) => {
   return (
-    <Button variant={ButtonVariant.CallToAction} onClick={handleLogout(props)}>
-      Logout
+    <Button variant={ButtonVariant.Primary} isOutlined={true} onClick={handleLogout(props)}>
+      Sign out
     </Button>
   );
 };
