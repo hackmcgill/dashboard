@@ -30,7 +30,8 @@ const CreateAccountPage: React.FC = () => (
         .SignUp--form-container {
           max-width: 1080px;
           margin: auto;
-          margin-top: 120px;
+          margin-top: 80px;
+          padding-bottom: 300px;
           flex: 1;
           display: flex;
         }

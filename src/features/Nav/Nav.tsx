@@ -6,7 +6,7 @@ interface INavProps {
 
 export const Nav = styled.nav<INavProps>`
   z-index: 10;
-  height: 4.25rem;
+  height: 90px;
   position: sticky;
   top: 0;
   left: 0;

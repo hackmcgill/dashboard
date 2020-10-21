@@ -18,7 +18,7 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
-import SocialMediaBar from '../Sponsor/SocialMediaBar';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
@@ -236,30 +236,22 @@ export default class Navbar extends React.Component<
     }
 
     return this.state.loaded ? (
-      <div>
-        <Nav className="navbar">
-          <IconContainer>
-            <a href={routes.HOME_PAGE}>
-              <Icon src={Martlet} />
-            </a>
-          </IconContainer>
-          <Links>
-            {NavItems()}
-            <SocialMediaBar />
-            {CTAButton}
-          </Links>
-          <Menu isOpen={true} styles={Burger}>
-            {NavItems()}
-            {CTAButton}
-          </Menu>
-        </Nav>
-        <style jsx>{`
-          .navbar {
-            border-width: 2px;
-            position: fixed;
-          }
-        `}</style>
-      </div>
+      <Nav className="navbar">
+        <IconContainer>
+          <a href={routes.HOME_PAGE}>
+            <Icon src={Martlet} />
+          </a>
+        </IconContainer>
+        <Links>
+          {NavItems()}
+          <SocialMediaBar />
+          {CTAButton}
+        </Links>
+        <Menu isOpen={true} styles={Burger}>
+          {NavItems()}
+          {CTAButton}
+        </Menu>
+      </Nav>
     ) : null;
   }
   private checkLoggedIn() {

@@ -9,7 +9,7 @@ import GitHub from '../../assets/images/github-logo.svg';
 
 const SocialMediaBar: React.FC = () => {
   return (
-    <Flex alignItems={'center'} pr={'45px'}>
+    <Flex alignItems={'center'} pr={'30px'}>
       <Box className="SocialMediaBar--box">
         <a href="https://www.facebook.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
           <Image src={Facebook} height="24px" />
@@ -43,6 +43,10 @@ const SocialMediaBar: React.FC = () => {
 
           .SocialMediaBar--box:hover {
             filter: invert(41%) sepia(9%) saturate(3131%) hue-rotate(197deg) brightness(92%) contrast(84%);
+          }
+
+          .SocialMediaBar--box a {
+            display: flex;
           }
         `}
       </style>
