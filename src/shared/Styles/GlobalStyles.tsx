@@ -34,7 +34,7 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
 
     &:hover {
-      color: ${(props) => props.theme.colors.purpleLight};
+      color: ${(props) => props.theme.colors.yellow};
 
     }
 

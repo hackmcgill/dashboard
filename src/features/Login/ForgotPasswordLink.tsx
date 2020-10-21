@@ -6,7 +6,7 @@ const ForgotPasswordLinkComponent: React.FC<{}> = (props) => {
   return (
     <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
       <span>Forgot password?</span>
-    </Link >
+    </Link>
   );
 };
 
