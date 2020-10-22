@@ -13,8 +13,10 @@ import {
 import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
+import { H1 } from '../../shared/Elements';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
+import TwoColumn from './TwoColumnComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -177,108 +179,83 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderGeneralFormik = (fp: FormikProps<any>) => {
     return (
       <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit} >
-        <FastField
-          id="schoolName"
-          name={'hacker.application.general.school'}
-          component={SchoolComponent}
-          value={fp.values.hacker.application.general.school}
-          required={true}
-          label={CONSTANTS.SCHOOL_LABEL}
-          placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.school"
-        />
-        <FastField
-          name={'hacker.application.general.degree'}
-          label={CONSTANTS.DEGREE_LABEL}
-          placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
-          creatable={true}
-          options={getOptionsFromEnum(Degrees)}
-          component={FormikElements.Select}
-          value={fp.values.hacker.application.general.degree}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.degree"
-        />
-        <FastField
-          name={'hacker.application.general.graduationYear'}
-          label={CONSTANTS.GRADUATION_YEAR_LABEL}
-          placeholder="YYYY"
-          format="####"
-          component={FormikElements.FormattedNumber}
-          value={fp.values.hacker.application.general.graduationYear}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.graduationYear"
-        />
-        <FastField
-          name={'hacker.application.general.fieldOfStudy'}
-          options={Majors}
-          isMulti={true}
-          creatable={true}
-          component={FormikElements.Select}
-          label={CONSTANTS.FIELD_OF_STUDY_LABEL}
-          placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
-          value={fp.values.hacker.application.general.fieldOfStudy}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.fieldOfStudy"
-        />
-        <FastField
-          name={'hacker.application.general.URL.github'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.GITHUB_LINK_LABEL}
-          placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.URL.github"
-        />
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+          Personal Details
+        </H1>
+        <TwoColumn>
+          <FastField
+            id="schoolName"
+            name={'hacker.application.general.school'}
+            component={SchoolComponent}
+            value={fp.values.hacker.application.general.school}
+            required={true}
+            label={CONSTANTS.SCHOOL_LABEL}
+            placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.school"
+          />
+          <FastField
+            name={'hacker.application.general.degree'}
+            label={CONSTANTS.DEGREE_LABEL}
+            placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
+            creatable={true}
+            options={getOptionsFromEnum(Degrees)}
+            component={FormikElements.Select}
+            value={fp.values.hacker.application.general.degree}
+            required={true}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.degree"
+          />
+          <FastField
+            name={'hacker.application.general.graduationYear'}
+            label={CONSTANTS.GRADUATION_YEAR_LABEL}
+            placeholder="YYYY"
+            format="####"
+            component={FormikElements.FormattedNumber}
+            value={fp.values.hacker.application.general.graduationYear}
+            required={true}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.graduationYear"
+          />
+          <FastField
+            name={'hacker.application.general.fieldOfStudy'}
+            options={Majors}
+            isMulti={true}
+            creatable={true}
+            component={FormikElements.Select}
+            label={CONSTANTS.FIELD_OF_STUDY_LABEL}
+            placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
+            value={fp.values.hacker.application.general.fieldOfStudy}
+            required={true}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.fieldOfStudy"
+          />
+        </TwoColumn>
 
-        <FastField
-          name={'hacker.application.general.URL.dribbble'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.DRIBBBLE_LINK_LABEL}
-          placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.URL.dribbble"
-        />
-        <FastField
-          name={'hacker.application.general.URL.linkedIn'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.LINKEDIN_LINK_LABEL}
-          placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-          value={fp.values.hacker.application.general.URL.linkedIn}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.URL.linkedIn"
-        />
-        <FastField
-          name={'hacker.application.general.URL.other'}
-          inputType="url"
-          component={FormikElements.Input}
-          label={CONSTANTS.OTHER_LINK_LABEL}
-          placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-          value={fp.values.hacker.application.general.URL.other}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.URL.other"
-        />
+
+        {/*<FastField*/}
+        {/*  name={'hacker.application.general.URL.dribbble'}*/}
+        {/*  inputType="url"*/}
+        {/*  component={FormikElements.Input}*/}
+        {/*  label={CONSTANTS.DRIBBBLE_LINK_LABEL}*/}
+        {/*  placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}*/}
+        {/*/>*/}
+        {/*<ErrorMessage*/}
+        {/*  component={FormikElements.Error}*/}
+        {/*  name="hacker.application.general.URL.dribbble"*/}
+        {/*/>*/}
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+          Portfolio
+        </H1>
+
         <Field
           name="resume"
           component={ResumeComponent}
@@ -289,6 +266,46 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           value={fp.values.resume}
         />
         <ErrorMessage component={FormikElements.Error} name="resume" />
+
+        <TwoColumn>
+          <FastField
+            name={'hacker.application.general.URL.github'}
+            inputType="url"
+            component={FormikElements.Input}
+            label={CONSTANTS.GITHUB_LINK_LABEL}
+            placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.URL.github"
+          />
+          <FastField
+            name={'hacker.application.general.URL.linkedIn'}
+            inputType="url"
+            component={FormikElements.Input}
+            label={CONSTANTS.LINKEDIN_LINK_LABEL}
+            placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
+            value={fp.values.hacker.application.general.URL.linkedIn}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.URL.linkedIn"
+          />
+          <FastField
+            name={'hacker.application.general.URL.other'}
+            inputType="url"
+            component={FormikElements.Input}
+            label={CONSTANTS.OTHER_LINK_LABEL}
+            placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
+            value={fp.values.hacker.application.general.URL.other}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="hacker.application.general.URL.other"
+          />
+        </TwoColumn>
+
+
         <FastField
           name={'hacker.application.general.jobInterest'}
           component={FormikElements.Select}
@@ -786,7 +803,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   // If application is loaded, then render it
   return isLoaded ? (
     <>
-      <PaginationHeader pageNumber={pageNumber} totalPages={CONSTANTS.TOTAL_PAGES} lastCompletedPage={pageNumber} />
+      <PaginationHeader
+        pageNumber={pageNumber}
+        totalPages={CONSTANTS.TOTAL_PAGES}
+        lastCompletedPage={pageNumber}
+      />
       <Formik
         enableReinitialize={true}
         initialValues={{
