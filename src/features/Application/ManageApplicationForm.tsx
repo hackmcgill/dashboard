@@ -99,7 +99,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         question1: '',
         question2: '',
         comments: '',
-        previousHackathons: '',
+        previousHackathons: NaN,
       },
       other: {
         ethnicity: [],

@@ -100,7 +100,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: string().required('Required'),
+              previousHackathons: number().required('Required'),
               question1: string()
                 .required('Required')
                 .test(
@@ -176,7 +176,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: string().required('Required'),
+              previousHackathons: number().required('Required'),
               question1: string()
                 .required('Required')
                 .test(
@@ -262,7 +262,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: string().required('Required'),
+              previousHackathons: number().required('Required'),
               question1: string()
                 .required('Required')
                 .test(
