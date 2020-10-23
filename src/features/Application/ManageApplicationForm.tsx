@@ -12,8 +12,10 @@ import {
 } from 'formik';
 import { toast } from 'react-toastify';
 
+import RobotDrone from '../../assets/images/robotDrone.svg'
 import * as CONSTANTS from '../../config/constants';
 import { H1 } from '../../shared/Elements';
+import { Image } from '../../shared/Elements';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import TwoColumn from './TwoColumnComponent';
@@ -334,82 +336,98 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderShortAnswerFormik = (fp: FormikProps<any>) => {
+    const style = {
+      display: 'grid',
+      gridTemplateColumns: '600px 1fr',
+      columnGap: '90px',
+    };
     return (
-      <Form
-        onKeyDown={onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'hacker.application.shortAnswer.skills'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(Skills)}
-          label={CONSTANTS.SKILLS_LABEL}
-          placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.hacker.application.shortAnswer.skills}
-        />
-        <FastField
-          name={'hacker.application.shortAnswer.question1'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.QUESTION1_REQUEST_LABEL}
-          value={fp.values.hacker.application.shortAnswer.question1}
-          maxLength={2000}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.shortAnswer.question1"
-        />
-        <FastField
-          name={'hacker.application.shortAnswer.question2'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.QUESTION2_REQUEST_LABEL}
-          value={fp.values.hacker.application.shortAnswer.question2}
-          maxLength={2000}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.shortAnswer.question2"
-        />
-        <FastField
-          name={'hacker.application.shortAnswer.comments'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.COMMENTS_LABEL}
-          value={fp.values.hacker.application.shortAnswer.comments}
-          maxLength={500}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.shortAnswer.comments"
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          {/* Add for spacing purposes */}
-          <div>&nbsp;</div>
-          <ResetBtn
-            isLoading={false}
-            disabled={isSubmitting}
-            variant={2}
+      <div>
+        <div style={style}>
+          <Form
+            onKeyDown={onKeyDown}
+            onSubmit={fp.handleSubmit}
+            onReset={fp.handleReset}
           >
-            Back
-            </ResetBtn>
+            <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+              Questions
+            </H1>
+            <FastField
+              name={'hacker.application.shortAnswer.skills'}
+              isMulti={true}
+              creatable={true}
+              options={getOptionsFromEnum(Skills)}
+              label={CONSTANTS.SKILLS_LABEL}
+              placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
+              component={FormikElements.Select}
+              value={fp.values.hacker.application.shortAnswer.skills}
+            />
+            <FastField
+              name={'hacker.application.shortAnswer.question1'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.QUESTION1_REQUEST_LABEL}
+              value={fp.values.hacker.application.shortAnswer.question1}
+              maxLength={2000}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.shortAnswer.question1"
+            />
+            <FastField
+              name={'hacker.application.shortAnswer.question2'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.QUESTION2_REQUEST_LABEL}
+              value={fp.values.hacker.application.shortAnswer.question2}
+              maxLength={2000}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.shortAnswer.question2"
+            />
+            <FastField
+              name={'hacker.application.shortAnswer.comments'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.COMMENTS_LABEL}
+              value={fp.values.hacker.application.shortAnswer.comments}
+              maxLength={500}
+              required={false}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.shortAnswer.comments"
+            />
+            <Flex
+              flexDirection={'row'}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+            >
+              {/* Add for spacing purposes */}
+              <div>&nbsp;</div>
+              <ResetBtn
+                isLoading={false}
+                disabled={isSubmitting}
+                variant={2}
+              >
+                Back
+              </ResetBtn>
 
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            Next
-            </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
-      </Form>
+              <SubmitBtn
+                isLoading={isSubmitting}
+                disabled={isSubmitting}
+              >
+                Next
+              </SubmitBtn>
+              <div>&nbsp;</div>
+            </Flex>
+          </Form>
+          <Image src={RobotDrone} />
+        </div>
+
+      </div>
+
+
     );
   }
 
@@ -418,7 +436,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderAccommodationFormik = (fp: FormikProps<any>) => {
+    const style = {
+      display: 'grid',
+      gridTemplateColumns: '600px 1fr',
+      columnGap: '90px',
+    };
     return (
+      <div style={style}>
+        <div>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+          Accommodation
+        </H1>
       <Form
         onKeyDown={onKeyDown}
         onSubmit={fp.handleSubmit}
@@ -494,6 +522,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           <div>&nbsp;</div>
         </Flex>
       </Form >
+        </div>
+      </div>
     );
   }
 
@@ -808,21 +838,24 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         totalPages={CONSTANTS.TOTAL_PAGES}
         lastCompletedPage={pageNumber}
       />
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          hacker: hackerDetails,
-          resume: resume || undefined,
-          pageNumber,
-        }}
-        onSubmit={handleSubmit}
-        onReset={previousPage}
-        render={renderFormik}
-        validationSchema={getValidationSchema(
-          props.mode === ManageApplicationModes.CREATE,
-          pageNumber
-        )}
-      />
+      <div style={{ marginTop: '90px' }}>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            hacker: hackerDetails,
+            resume: resume || undefined,
+            pageNumber,
+          }}
+          onSubmit={handleSubmit}
+          onReset={previousPage}
+          render={renderFormik}
+          validationSchema={getValidationSchema(
+            props.mode === ManageApplicationModes.CREATE,
+            pageNumber
+          )}
+        />
+      </div>
+
     </>
   ) : null;
 }
