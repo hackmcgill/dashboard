@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
 
 import { AxiosResponse } from 'axios';
@@ -11,6 +12,7 @@ import {
   FormikValues,
 } from 'formik';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
 
 import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
@@ -18,7 +20,7 @@ import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
-import TwoColumn from './TwoColumnComponent';
+import GridTwoColumn from './TwoColumnComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -157,6 +159,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     })();
   }, [props.mode]);
 
+  const Width60Grid = styled.div`
+      display: grid;
+      grid-template-columns: 600px 1fr;
+      column-gap: 90px;
+      @media (max-width: 1024px) {
+        display: initial;
+      }
+    `;
+
   /**
    * Render the correct formik form based upon currently viewed application page
    * @param fp the formik props.
@@ -184,7 +195,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
           Personal Details
         </H1>
-        <TwoColumn>
+        <GridTwoColumn>
           <FastField
             id="schoolName"
             name={'hacker.application.general.school'}
@@ -240,7 +251,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             component={FormikElements.Error}
             name="hacker.application.general.fieldOfStudy"
           />
-        </TwoColumn>
+        </GridTwoColumn>
 
         {/*<FastField*/}
         {/*  name={'hacker.application.general.URL.dribbble'}*/}
@@ -268,7 +279,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         />
         <ErrorMessage component={FormikElements.Error} name="resume" />
 
-        <TwoColumn>
+        <GridTwoColumn>
           <FastField
             name={'hacker.application.general.URL.github'}
             inputType="url"
@@ -304,7 +315,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             component={FormikElements.Error}
             name="hacker.application.general.URL.other"
           />
-        </TwoColumn>
+        </GridTwoColumn>
 
         <FastField
           name={'hacker.application.general.jobInterest'}
@@ -331,14 +342,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderShortAnswerFormik = (fp: FormikProps<any>) => {
-    const style = {
-      display: 'grid',
-      gridTemplateColumns: '600px 1fr',
-      columnGap: '90px',
-    };
+    // const style = {
+    //   display: 'grid',
+    //   gridTemplateColumns: '600px 1fr',
+    //   columnGap: '90px',
+    // };
+
     return (
       <div>
-        <div style={style}>
+        <Width60Grid>
           <Form
             onKeyDown={onKeyDown}
             onSubmit={fp.handleSubmit}
@@ -410,8 +422,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               <div>&nbsp;</div>
             </Flex>
           </Form>
-          <Image src={RobotDrone} />
-        </div>
+          <MediaQuery minWidth={1024}>
+            <Image src={RobotDrone} />
+          </MediaQuery>
+        </Width60Grid>
       </div>
     );
   };
@@ -421,13 +435,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderAccommodationFormik = (fp: FormikProps<any>) => {
-    const style = {
-      display: 'grid',
-      gridTemplateColumns: '600px 1fr',
-      columnGap: '90px',
-    };
+
     return (
-      <div style={style}>
+      <Width60Grid>
         <div>
           <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
             Accommodation
@@ -501,7 +511,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </Flex>
           </Form>
         </div>
-      </div>
+      </Width60Grid>
     );
   };
 
