@@ -160,13 +160,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   }, [props.mode]);
 
   const Width60Grid = styled.div`
-      display: grid;
-      grid-template-columns: 600px 1fr;
-      column-gap: 90px;
-      @media (max-width: 1024px) {
-        display: initial;
-      }
-    `;
+    display: grid;
+    grid-template-columns: 600px 1fr;
+    column-gap: 90px;
+    @media (max-width: 1024px) {
+      display: initial;
+    }
+  `;
 
   /**
    * Render the correct formik form based upon currently viewed application page
@@ -252,18 +252,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             name="hacker.application.general.fieldOfStudy"
           />
         </GridTwoColumn>
-
-        {/*<FastField*/}
-        {/*  name={'hacker.application.general.URL.dribbble'}*/}
-        {/*  inputType="url"*/}
-        {/*  component={FormikElements.Input}*/}
-        {/*  label={CONSTANTS.DRIBBBLE_LINK_LABEL}*/}
-        {/*  placeholder={CONSTANTS.DRIBBBLE_LINK_PLACEHOLDER}*/}
-        {/*/>*/}
-        {/*<ErrorMessage*/}
-        {/*  component={FormikElements.Error}*/}
-        {/*  name="hacker.application.general.URL.dribbble"*/}
-        {/*/>*/}
         <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
           Portfolio
         </H1>
@@ -342,12 +330,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderShortAnswerFormik = (fp: FormikProps<any>) => {
-    // const style = {
-    //   display: 'grid',
-    //   gridTemplateColumns: '600px 1fr',
-    //   columnGap: '90px',
-    // };
-
     return (
       <div>
         <Width60Grid>
@@ -435,7 +417,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param fp the formik props.
    */
   const renderAccommodationFormik = (fp: FormikProps<any>) => {
-
     return (
       <Width60Grid>
         <div>

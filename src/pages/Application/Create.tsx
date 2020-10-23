@@ -1,9 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import {
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { MaxWidthBox } from '../../shared/Elements';
 
 import ManageApplicationForm, {
   ManageApplicationModes,
@@ -11,7 +9,6 @@ import ManageApplicationForm, {
 
 import * as CONSTANTS from '../../config/constants';
 import withBackground from '../../shared/HOC/withBackground';
-// import theme from '../../shared/Styles/theme';
 
 
 const CreateApplicationPage: React.FC = () => (
