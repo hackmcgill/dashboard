@@ -12,7 +12,7 @@ import {
 } from 'formik';
 import { toast } from 'react-toastify';
 
-import RobotDrone from '../../assets/images/robotDrone.svg'
+import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
 import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
@@ -172,7 +172,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       default:
         return renderGeneralFormik(fp);
     }
-  }
+  };
 
   /**
    * Renders the general section of the application.
@@ -180,7 +180,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderGeneralFormik = (fp: FormikProps<any>) => {
     return (
-      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit} >
+      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
         <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
           Personal Details
         </H1>
@@ -241,7 +241,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             name="hacker.application.general.fieldOfStudy"
           />
         </TwoColumn>
-
 
         {/*<FastField*/}
         {/*  name={'hacker.application.general.URL.dribbble'}*/}
@@ -307,7 +306,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           />
         </TwoColumn>
 
-
         <FastField
           name={'hacker.application.general.jobInterest'}
           component={FormikElements.Select}
@@ -321,15 +319,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           component={FormikElements.Error}
           name="hacker.application.general.jobInterest"
         />
-        <SubmitBtn
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
+        <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
           Next
         </SubmitBtn>
       </Form>
     );
-  }
+  };
 
   /**
    * Renders the short answer section of the application.
@@ -405,18 +400,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             >
               {/* Add for spacing purposes */}
               <div>&nbsp;</div>
-              <ResetBtn
-                isLoading={false}
-                disabled={isSubmitting}
-                variant={2}
-              >
+              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
                 Back
               </ResetBtn>
 
-              <SubmitBtn
-                isLoading={isSubmitting}
-                disabled={isSubmitting}
-              >
+              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
                 Next
               </SubmitBtn>
               <div>&nbsp;</div>
@@ -424,12 +412,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           </Form>
           <Image src={RobotDrone} />
         </div>
-
       </div>
-
-
     );
-  }
+  };
 
   /**
    * Renders the accommodation section of the application.
@@ -444,88 +429,81 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     return (
       <div style={style}>
         <div>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-          Accommodation
-        </H1>
-      <Form
-        onKeyDown={onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'hacker.application.accommodation.shirtSize'}
-          label={CONSTANTS.SHIRT_SIZE_LABEL}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(ShirtSize)}
-          required={true}
-          value={fp.values.hacker.application.accommodation.shirtSize}
-        />
-        <ErrorMessage
-          name={'hacker.application.accommodation.shirtSize'}
-          component={FormikElements.Error}
-        />
-        {/* This fixes the issue with going back somehow, so leave it here temporarily */}
-        <div />
-        <FastField
-          name={'hacker.application.accommodation.impairments'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.IMPAIRMENTS_LABEL}
-          value={fp.values.hacker.application.accommodation.impairments}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name={'hacker.application.accommodation.impairments'}
-        />
-        <FastField
-          name={'hacker.application.accommodation.barriers'}
-          component={FormikElements.LongTextInput}
-          label={CONSTANTS.BARRIERS_LABEL}
-          value={fp.values.hacker.application.accommodation.barriers}
-          required={false}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name={'hacker.application.accommodation.barriers'}
-        />
-        <FastField
-          name={'hacker.application.accommodation.travel'}
-          component={FormikElements.FormattedNumber}
-          label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-          placeholder={0}
-          required={false}
-          value={fp.values.hacker.application.accommodation.travel}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name={'hacker.application.accommodation.travel'}
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <div>&nbsp;</div>
-          <ResetBtn
-            isLoading={false}
-            disabled={isSubmitting}
-            variant={2}
+          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+            Accommodation
+          </H1>
+          <Form
+            onKeyDown={onKeyDown}
+            onSubmit={fp.handleSubmit}
+            onReset={fp.handleReset}
           >
-            Back
-            </ResetBtn>
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            Next
-            </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
-      </Form >
+            <FastField
+              name={'hacker.application.accommodation.shirtSize'}
+              label={CONSTANTS.SHIRT_SIZE_LABEL}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(ShirtSize)}
+              required={true}
+              value={fp.values.hacker.application.accommodation.shirtSize}
+            />
+            <ErrorMessage
+              name={'hacker.application.accommodation.shirtSize'}
+              component={FormikElements.Error}
+            />
+            {/* This fixes the issue with going back somehow, so leave it here temporarily */}
+            <div />
+            <FastField
+              name={'hacker.application.accommodation.impairments'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.IMPAIRMENTS_LABEL}
+              value={fp.values.hacker.application.accommodation.impairments}
+              required={false}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'hacker.application.accommodation.impairments'}
+            />
+            <FastField
+              name={'hacker.application.accommodation.barriers'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.BARRIERS_LABEL}
+              value={fp.values.hacker.application.accommodation.barriers}
+              required={false}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'hacker.application.accommodation.barriers'}
+            />
+            <FastField
+              name={'hacker.application.accommodation.travel'}
+              component={FormikElements.FormattedNumber}
+              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+              placeholder={0}
+              required={false}
+              value={fp.values.hacker.application.accommodation.travel}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'hacker.application.accommodation.travel'}
+            />
+            <Flex
+              flexDirection={'row'}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+            >
+              <div>&nbsp;</div>
+              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
+                Back
+              </ResetBtn>
+              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+                Next
+              </SubmitBtn>
+              <div>&nbsp;</div>
+            </Flex>
+          </Form>
         </div>
       </div>
     );
-  }
+  };
 
   /**
    * Renders the other section of the application
@@ -641,26 +619,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           justifyContent={'space-between'}
         >
           <div>&nbsp;</div>
-          <ResetBtn
-            isLoading={false}
-            disabled={isSubmitting}
-            variant={2}
-          >
+          <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
             Back
-            </ResetBtn>
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            {props.mode === ManageApplicationModes.CREATE
-              ? 'Submit'
-              : 'Update'}
+          </ResetBtn>
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
           </SubmitBtn>
           <div>&nbsp;</div>
         </Flex>
       </Form>
     );
-  }
+  };
 
   /**
    * Stop enter submitting the form.
@@ -670,7 +639,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
       keyEvent.preventDefault();
     }
-  }
+  };
 
   /**
    * Event handler to go the previous section of the application, while also saving values on the current section.
@@ -693,7 +662,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     setPageNumber(values.pageNumber - 1);
     setHackerDetails(app);
     setResume(resume || values.resume);
-  }
+  };
 
   /**
    * Event handler to go the next section of the application, while also saving values on the current section.
@@ -716,7 +685,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     setPageNumber(values.pageNumber + 1);
     setHackerDetails(app);
     setResume(resume || values.resume);
-  }
+  };
 
   /**
    * Function called when formik form is submitted.
@@ -728,15 +697,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       nextPage(values);
     } else {
       setIsSubmitting(true);
-      let handler = props.mode === ManageApplicationModes.EDIT ?
-        handleEdit :
-        handleCreate;
+      const handler =
+        props.mode === ManageApplicationModes.EDIT ? handleEdit : handleCreate;
       handler(values)
         .then((success: boolean) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${props.mode === ManageApplicationModes.EDIT ? 'edited'! : 'created!'
+              `Account ${
+                props.mode === ManageApplicationModes.EDIT
+                  ? 'edited'!
+                  : 'created!'
               }`
             );
             setIsSubmitted(true);
@@ -752,7 +723,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
       setIsSubmitting(false);
     }
-  }
+  };
 
   /**
    * Handles the creation of the application.
@@ -782,7 +753,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       console.log('Uploaded application properly!');
     }
     return true;
-  }
+  };
 
   /**
    * Handles the editing of the application.
@@ -800,11 +771,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     const account = acctResponse.data.data;
     const hackerId = hackerDetails.id;
     // convert the formik values to the application object.
-    const application = convertFormikToHacker(
-      values,
-      account.id,
-      hackerId
-    );
+    const application = convertFormikToHacker(values, account.id, hackerId);
     const hackerResponse = await Hacker.update(application);
 
     if (hackerResponse.status !== 200) {
@@ -823,10 +790,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       }
     }
     return true;
-  }
+  };
 
   // If application creation deadline has passed or if form is submitted, return user to the home page
-  if (isLoaded && (isSubmitted || (new Date() > new Date(settings.closeTime) && props.mode === ManageApplicationModes.CREATE))) {
+  if (
+    isLoaded &&
+    (isSubmitted ||
+      (new Date() > new Date(settings.closeTime) &&
+        props.mode === ManageApplicationModes.CREATE))
+  ) {
     history.push(FrontendRoute.HOME_PAGE);
   }
 
@@ -855,10 +827,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           )}
         />
       </div>
-
     </>
   ) : null;
-}
+};
 
 /**
  * This converts the formik values object into the IHacker object.
