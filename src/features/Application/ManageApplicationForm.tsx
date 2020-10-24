@@ -20,7 +20,7 @@ import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
-import GridTwoColumn from './TwoColumnComponent';
+import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import getValidationSchema from './validationSchema';
 
 import {
