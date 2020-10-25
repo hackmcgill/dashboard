@@ -8,8 +8,6 @@ import ManageApplicationForm, {
 } from '../../features/Application/ManageApplicationForm';
 
 import * as CONSTANTS from '../../config/constants';
-import withBackground from '../../shared/HOC/withBackground';
-
 
 const CreateApplicationPage: React.FC = () => (
   <MaxWidthBox m={'auto'} maxWidth={'1000px'}>
@@ -21,4 +19,4 @@ const CreateApplicationPage: React.FC = () => (
   </MaxWidthBox>
 );
 
-export default withBackground(CreateApplicationPage);
+export default CreateApplicationPage;
