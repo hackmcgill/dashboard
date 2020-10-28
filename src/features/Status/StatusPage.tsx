@@ -89,8 +89,8 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
               />
             </div>
           ) : (
-            <ConfirmationEmailSentComponent />
-          )}
+              <ConfirmationEmailSentComponent />
+            )}
         </Box>
       </Flex>
     );
