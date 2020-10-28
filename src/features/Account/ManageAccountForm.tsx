@@ -306,26 +306,20 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           />
           <ErrorMessage component={FormikElements.Error} name="pronoun" />
 
-          {
-            // Hide dietary restrictions on account creation for 2020 year - don't need because online only hackathon
-            // Add back in for future years (hopefully) :(
-            props.mode !== ManageAccountModes.CREATE && <>
-              <FastField
-                name={'dietaryRestrictions'}
-                isMulti={true}
-                label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-                placeholder={DietaryRestriction.NONE}
-                component={FormikElements.Select}
-                options={getOptionsFromEnum(DietaryRestriction)}
-                required={true}
-                value={fp.values.dietaryRestrictions}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="dietaryRestrictions"
-              />
-            </>
-          }
+          <FastField
+            name={'dietaryRestrictions'}
+            isMulti={true}
+            label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+            placeholder={DietaryRestriction.NONE}
+            component={FormikElements.Select}
+            options={getOptionsFromEnum(DietaryRestriction)}
+            required={true}
+            value={fp.values.dietaryRestrictions}
+          />
+          <ErrorMessage
+            component={FormikElements.Error}
+            name="dietaryRestrictions"
+          />
 
           <SubmitBtn
             variant={ButtonVariant.Primary}
