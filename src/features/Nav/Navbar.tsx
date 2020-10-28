@@ -39,6 +39,7 @@ interface INavbarState {
   showTravelLink: boolean;
   userType: UserType;
   settings: ISetting;
+  hasBorder: boolean;
   // hasSponsorInfo: boolean;
 }
 
@@ -61,13 +62,27 @@ export default class Navbar extends React.Component<
         confirmTime: new Date().toString(),
       },
       // hasSponsorInfo: false,
+      hasBorder: false,
     };
     this.checkLoggedIn();
   }
 
+  listenToScrollEvent = (): void => {
+    document.addEventListener('scroll', () => {
+      requestAnimationFrame(() => {
+        this.calculateScrollDistance();
+      });
+    });
+  };
+
+  calculateScrollDistance = (): void => {
+    console.log(window.pageYOffset);
+    this.setState({ hasBorder: window.pageYOffset !== 0 });
+  };
+
   public async componentDidMount() {
     let hacker;
-
+    this.listenToScrollEvent();
     // set hacker status
     try {
       const response = await Hacker.getSelf();
@@ -235,7 +250,7 @@ export default class Navbar extends React.Component<
     }
 
     return this.state.loaded ? (
-      <Nav borderThickness={'2px'}>
+      <Nav hasBorder={this.state.hasBorder}>
         <IconContainer>
           <a href={routes.HOME_PAGE}>
             <Icon src={Martlet} />

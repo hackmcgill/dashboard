@@ -1,7 +1,7 @@
 import styled from '../../shared/Styles/styled-components';
 
 interface INavProps {
-  borderThickness: string;
+  hasBorder: boolean;
 }
 
 export const Nav = styled.nav<INavProps>`
@@ -15,8 +15,10 @@ export const Nav = styled.nav<INavProps>`
   display: flex;
   justify-content: space-between;
   background: ${(props) => props.theme.colors.white};
-  border-bottom: ${(props) => props.borderThickness || '2px'} solid
+  border-bottom: ${(props) => (props.hasBorder ? '2px solid' : '0px')}
     ${(props) => props.theme.colors.black5};
+  transition: ${(props) =>
+    props.hasBorder ? '0.25s border ease-in' : 'all 0s ease 0s'};
 `;
 
 export default Nav;
