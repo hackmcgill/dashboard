@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
-import { Image, } from '../../shared/Elements';
+import { Image } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, PasswordInput } from '../../shared/Form';
 
@@ -75,7 +75,7 @@ const LoginPage: React.FC = () => {
           <img src={LookAtSky} className="Login--art" alt="Background" />
         </div>
 
-        <div className="Login--form">
+        <form className="Login--form">
           <Image
             src={MartletTitle}
             imgHeight="60px"
@@ -106,7 +106,7 @@ const LoginPage: React.FC = () => {
           <Box pt={'80px'}>
             <SocialMediaBar />
           </Box>
-        </div>
+        </form>
       </div>
 
       <style jsx>{`
