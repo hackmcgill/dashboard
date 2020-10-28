@@ -34,6 +34,7 @@ import {
 } from '../../util';
 import getValidationSchema from './validationSchema';
 import { ButtonVariant } from '../../shared/Elements';
+import { Box, Flex } from '@rebass/grid';
 
 export enum ManageAccountModes {
   CREATE,
@@ -205,8 +206,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
+          <Flex justifyContent="space-between">
+            <Box>
               <FastField
                 name={'firstName'}
                 label={CONSTANTS.FIRST_NAME_LABEL}
@@ -217,8 +218,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
                 required={true}
               />
               <ErrorMessage component={FormikElements.Error} name="firstName" />
-            </div>
-            <div style={{ marginLeft: '20px' }}>
+            </Box>
+            <Box ml="20px">
               <FastField
                 name={'lastName'}
                 label={CONSTANTS.LAST_NAME_LABEL}
@@ -229,8 +230,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
                 required={true}
               />
               <ErrorMessage component={FormikElements.Error} name="lastName" />
-            </div>
-          </div>
+            </Box>
+          </Flex>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}

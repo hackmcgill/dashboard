@@ -1,4 +1,5 @@
 import React from 'react';
+import { Flex } from '@rebass/grid';
 import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 import { Input, Label, LabelText } from './';
 
@@ -23,12 +24,12 @@ export const PasswordInput: React.FC<IPasswordInputProp> = (
   const placeholder = props.placeholder ? props.placeholder : '';
   return (
     <Label>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Flex justifyContent="space-between">
         <LabelText label={props.label} required={props.required} />
         {
           props.hasResetLink && <ForgotPasswordLinkComponent />
         }
-      </div>
+      </Flex>
 
       <Input
         type="password"
