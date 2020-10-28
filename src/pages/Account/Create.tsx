@@ -20,10 +20,10 @@ const CreateAccountPage: React.FC = () => (
         <img src={GirlAtHome} className="SignUp--art" alt="Background" />
       </div>
 
-      <form className="SignUp--form">
+      <div className="SignUp--form-content">
         <H1>Create your account</H1>
         <ManageAccountForm mode={ManageAccountModes.CREATE} />
-      </form>
+      </div>
 
       <style jsx>{`
         /* Prefixing styles with SignUp until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
@@ -48,7 +48,7 @@ const CreateAccountPage: React.FC = () => (
           height: auto;
         }
 
-        .SignUp--form {
+        .SignUp--form-content {
           box-sizing: content-box;
           flex: 0 0 360px;
           margin-left: 180px;
