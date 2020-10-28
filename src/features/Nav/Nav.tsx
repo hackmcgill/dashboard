@@ -14,11 +14,12 @@ export const Nav = styled.nav<INavProps>`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background: ${(props) => props.theme.colors.white};
-  border-bottom: ${(props) => (props.hasBorder ? '2px solid' : '0px')}
-    ${(props) => props.theme.colors.black5};
-  transition: ${(props) =>
-    props.hasBorder ? '0.25s border ease-in' : 'all 0s ease 0s'};
+  background: ${(props) =>
+    props.hasBorder ? props.theme.colors.white : 'transparent'};
+  border-bottom: 2px solid transparent;
+  border-color: ${(props) =>
+    props.hasBorder ? props.theme.colors.black5 : 'transparent'};
+  transition: 0.25s all ease-in;
 `;
 
 export default Nav;
