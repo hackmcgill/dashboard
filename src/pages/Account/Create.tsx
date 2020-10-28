@@ -15,19 +15,18 @@ const CreateAccountPage: React.FC = () => (
       <title>Create Account | {CONSTANTS.HACKATHON_NAME}</title>
     </Helmet>
 
-    <div className="SignUp--form-container">
-      <div className="SignUp--art-wrapper">
-        <img src={GirlAtHome} className="SignUp--art" alt="Background" />
+    <div className="form-container">
+      <div className="art-wrapper">
+        <img src={GirlAtHome} className="art" alt="Background" />
       </div>
 
-      <div className="SignUp--form-content">
+      <div className="form-content">
         <H1>Create your account</H1>
         <ManageAccountForm mode={ManageAccountModes.CREATE} />
       </div>
 
       <style jsx>{`
-        /* Prefixing styles with SignUp until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
-        .SignUp--form-container {
+        .form-container {
           max-width: 1080px;
           margin: auto;
           margin-top: 72px;
@@ -36,19 +35,19 @@ const CreateAccountPage: React.FC = () => (
           display: flex;
         }
 
-        .SignUp--art-wrapper {
+        .art-wrapper {
           flex: 1 1 auto;
           display: flex;
           align-items: flex-start;
         }
 
-        .SignUp--art {
+        .art {
           margin-top: 112px;
           width: 100%;
           height: auto;
         }
 
-        .SignUp--form-content {
+        .form-content {
           box-sizing: content-box;
           flex: 0 0 360px;
           margin-left: 180px;

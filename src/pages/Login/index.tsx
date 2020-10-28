@@ -65,17 +65,17 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="Login--centered-container">
+    <div className="centered-container">
       <Helmet>
         <title>Login | {HACKATHON_NAME}</title>
       </Helmet>
 
-      <div className="Login--form-container">
-        <div className="Login--art-wrapper">
-          <img src={LookAtSky} className="Login--art" alt="Background" />
+      <div className="form-container">
+        <div className="art-wrapper">
+          <img src={LookAtSky} className="art" alt="Background" />
         </div>
 
-        <form className="Login--form">
+        <form className="form-content">
           <Image
             src={MartletTitle}
             imgHeight="60px"
@@ -110,8 +110,7 @@ const LoginPage: React.FC = () => {
       </div>
 
       <style jsx>{`
-        /* Prefixing styles with Login until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
-        .Login--centered-container {
+        .centered-container {
           width: 100%;
           height: 100%;
           min-height: 100vh;
@@ -121,24 +120,24 @@ const LoginPage: React.FC = () => {
           align-items: center;
         }
 
-        .Login--form-container {
+        .form-container {
           max-width: 1080px;
           flex: 1;
           display: flex;
         }
 
-        .Login--art-wrapper {
+        .art-wrapper {
           flex: 1 1 auto;
           display: flex;
           align-items: center;
         }
 
-        .Login--art {
+        .art {
           width: 100%;
           height: auto;
         }
 
-        .Login--form {
+        .form-content {
           box-sizing: content-box;
           flex: 0 0 360px;
           margin-left: 120px;
