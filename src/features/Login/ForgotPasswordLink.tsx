@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FrontendRoute } from '../../config';
+import { LinkDuo } from '../../shared/Elements';
 
 const ForgotPasswordLinkComponent: React.FC<{}> = (props) => {
   return (
-    <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
+    <LinkDuo to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
       <span>Forgot password?</span>
-    </Link>
+    </LinkDuo>
   );
 };
 

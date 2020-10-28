@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+import { LinkDuo } from '../shared/Elements';
 
 import { HACKATHON_NAME } from '../config';
 
@@ -48,9 +48,9 @@ class NotFoundContainer extends React.Component<RouteComponentProps> {
             flexDirection={'column'}
           >
             <Box>
-              <Link to={'/'}>
+              <LinkDuo to={'/'}>
                 <Button type="button">Click to go home</Button>
-              </Link>
+              </LinkDuo>
             </Box>
           </Flex>
         </Box>
