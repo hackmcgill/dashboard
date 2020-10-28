@@ -67,21 +67,25 @@ export default class Navbar extends React.Component<
     this.checkLoggedIn();
   }
 
-  listenToScrollEvent = (): void => {
+  calculateScrollDistance = (): void => {
+    this.setState({ hasBorder: window.pageYOffset !== 0 });
+  };
+
+  public async componentWillUnmount() {
+    document.removeEventListener('scroll', () => {
+      requestAnimationFrame(() => {
+        this.calculateScrollDistance();
+      });
+    });
+  }
+
+  public async componentDidMount() {
     document.addEventListener('scroll', () => {
       requestAnimationFrame(() => {
         this.calculateScrollDistance();
       });
     });
-  };
-
-  calculateScrollDistance = (): void => {
-    this.setState({ hasBorder: window.pageYOffset !== 0 });
-  };
-
-  public async componentDidMount() {
     let hacker;
-    this.listenToScrollEvent();
     // set hacker status
     try {
       const response = await Hacker.getSelf();
