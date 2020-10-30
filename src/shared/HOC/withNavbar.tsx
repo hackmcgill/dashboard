@@ -17,10 +17,12 @@ const withNavbar = <P extends {}>(
 ) =>
   class extends React.Component<P> {
     public render() {
-      return [
-        <Navbar key={0} activePage={options.activePage} />,
-        <Component key={1} {...this.props} />,
-      ];
+      return (
+        <div style={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+          <Navbar key={0} activePage={options.activePage} />
+          <Component key={1} {...this.props} />
+        </div>
+      );
     }
   };
 

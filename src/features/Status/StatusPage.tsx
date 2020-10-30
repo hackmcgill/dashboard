@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { Box, Flex } from '@rebass/grid';
-import { BackgroundImage, H1 } from '../../shared/Elements';
+import { H1 } from '../../shared/Elements';
 
 import { HackerStatus, IAccount, ISetting } from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 import { Hacker, Settings } from '../../api';
-import Background from '../../assets/images/statuspage-background.svg';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusHeader from './StatusHeader';
 
@@ -59,36 +57,28 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
 
   public render() {
     return (
-      <Flex flexDirection={'column'} alignItems={'center'}>
-        <Box style={{ marginTop: '6rem' }}>
-          {this.props.confirmed && this.props.account ? (
-            <div>
-              <H1
-                color={theme.colors.red}
-                display={'absolute'}
-                textAlign={'center'}
-                marginLeft={'0'}
-              >
-                Hey {this.props.account.firstName},
-              </H1>
-              <StatusHeader
-                status={this.state.status}
-                settings={this.state.settings}
-                onClickConfirm={this.confirmStatus}
-                onClickWithdraw={this.withdrawStatus}
-              />
-              <BackgroundImage
-                right={'0px'}
-                bottom={'0px'}
-                src={Background}
-                imgHeight={'87%'}
-              />
-            </div>
-          ) : (
-              <ConfirmationEmailSentComponent />
-            )}
-        </Box>
-      </Flex>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '6px 30px 96px 30px' }}>
+        {this.props.confirmed && this.props.account ? (
+          <div>
+            <H1
+              color={theme.colors.red}
+              display={'absolute'}
+              textAlign={'center'}
+              marginLeft={'0'}
+            >
+              Hey {this.props.account.firstName},
+            </H1>
+            <StatusHeader
+              status={this.state.status}
+              settings={this.state.settings}
+              onClickConfirm={this.confirmStatus}
+              onClickWithdraw={this.withdrawStatus}
+            />
+          </div>
+        ) : (
+            <ConfirmationEmailSentComponent />
+          )}
+      </div>
     );
   }
 

@@ -243,12 +243,15 @@ export default class Navbar extends React.Component<
           </a>
         </IconContainer>
         <Links>
-          {NavItems()}
-          <SocialMediaBar />
+          {loggedIn && confirmed && NavItems()}
+          {
+            (!loggedIn || !confirmed) &&
+            <SocialMediaBar />
+          }
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>
-          {NavItems()}
+          {loggedIn && confirmed && NavItems()}
           {CTAButton}
         </Menu>
       </Nav>
