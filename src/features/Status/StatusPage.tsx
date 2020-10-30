@@ -1,10 +1,9 @@
-import * as React from 'react';
-import Helmet from 'react-helmet';
+import React from 'react';
 
 import { Box, Flex } from '@rebass/grid';
 import { BackgroundImage, H1 } from '../../shared/Elements';
 
-import { HACKATHON_NAME, HackerStatus, IAccount, ISetting } from '../../config';
+import { HackerStatus, IAccount, ISetting } from '../../config';
 import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
@@ -61,9 +60,6 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
   public render() {
     return (
       <Flex flexDirection={'column'} alignItems={'center'}>
-        <Helmet>
-          <title>Home | {HACKATHON_NAME}</title>
-        </Helmet>
         <Box style={{ marginTop: '6rem' }}>
           {this.props.confirmed && this.props.account ? (
             <div>

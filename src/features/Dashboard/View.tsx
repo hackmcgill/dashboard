@@ -1,9 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
-import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 
-import { HACKATHON_NAME } from '../../config';
 import {
   BackgroundImage,
   Card,
@@ -38,9 +36,6 @@ const DashboardView: React.SFC<IDashboardView> = ({
 }) => {
   return (
     <Flex flexDirection={'column'} alignItems={'center'}>
-      <Helmet>
-        <title>Dashboard | {HACKATHON_NAME}</title>
-      </Helmet>
       <Box style={{ marginTop: '6rem' }}>
         <H1 marginLeft={'0px'} textAlign={'center'}>
           {title}
@@ -54,8 +49,8 @@ const DashboardView: React.SFC<IDashboardView> = ({
             {subtitle}
           </H2>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
           {cards.map((card) => (
             <LinkDuo

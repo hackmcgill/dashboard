@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { UserType } from '../config';
+import { HACKATHON_NAME, UserType } from '../config';
 import { H1 } from '../shared/Elements';
 import { getUserInfo } from '../util';
 import HackerDashboard from '../features/Dashboard/HackerDashboard';
 import SponsorDashboard from '../features/Dashboard/SponsorDashboard';
 import StaffDashboardContainer from '../features/Dashboard/StaffDashboard';
+import Helmet from 'react-helmet';
 
 const DashboardPage: React.FC = () => {
   // Until we figure out what type of user account we are dealing with, store as UNKNOWN
@@ -30,6 +31,29 @@ const DashboardPage: React.FC = () => {
     })();
   }, []);
 
+  // If done loading and still don't know account type
+  const dashboard = getDashboard(accountType);
+
+  // If page is still loading, display loading message
+  if (isLoading) {
+    return <H1>Loading...</H1>;
+  } else if (!dashboard) {
+    // If page is done and no dashboard to display, return 404
+    return <Redirect to={'/404'} />;
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>Dashboard | {HACKATHON_NAME}</title>
+      </Helmet>
+      {dashboard}
+    </>
+  )
+}
+
+// Get the special type of dashboard for a specific user AccountType
+const getDashboard = (accountType: UserType) => {
   switch (accountType) {
     case UserType.HACKER:
       return <HackerDashboard />;
@@ -47,11 +71,7 @@ const DashboardPage: React.FC = () => {
       return <SponsorDashboard userType={UserType.SPONSOR_T5} />;
   }
 
-  if (isLoading) {
-    return <H1>Loading...</H1>;
-  }
-
-  return <Redirect to={'/404'} />;
+  return null;
 }
 
 export default DashboardPage;
