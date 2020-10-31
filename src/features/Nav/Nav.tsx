@@ -1,7 +1,7 @@
 import styled from '../../shared/Styles/styled-components';
 
 interface INavProps {
-  borderThickness?: string;
+  hasBorder: boolean;
 }
 
 export const Nav = styled.nav<INavProps>`
@@ -14,7 +14,12 @@ export const Nav = styled.nav<INavProps>`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background: ${(props) => props.theme.colors.white};
+  background: ${(props) =>
+    props.hasBorder ? props.theme.colors.white : 'transparent'};
+  border-bottom: 2px solid transparent;
+  border-color: ${(props) =>
+    props.hasBorder ? props.theme.colors.black5 : 'transparent'};
+  transition: 0.25s all ease-in;
 `;
 
 export default Nav;
