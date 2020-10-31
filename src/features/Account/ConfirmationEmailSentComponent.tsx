@@ -52,7 +52,7 @@ class ConfirmationEmailSentComponent extends React.Component<
           padding={'0 0 68px 0'}
         />
 
-        <H1 textAlign={'center'} marginBottom="0">Confirm your Email</H1>
+        <H1 textAlign={'center'} marginBottom="0">Confirm your email</H1>
 
         <div className="explanation">
           Please check your inbox for a confirmation email.<br />

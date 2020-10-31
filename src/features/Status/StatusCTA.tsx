@@ -84,24 +84,24 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
 
   const action = GetDetailedState(status, settings);
   switch (action) {
-    case DetailedState.NONE_CANNOT_YET_APPLY: // -
+    case DetailedState.NONE_CANNOT_YET_APPLY:
       return <div />;
-    case DetailedState.NONE_CAN_APPLY: // -
+    case DetailedState.NONE_CAN_APPLY:
       heading = CONSTANTS.NONE_STATUS_HEADING;
       text = CONSTANTS.NONE_STATUS_TEXT;
       art = rocket;
       buttons = [applyButton];
       break;
-    case DetailedState.NONE_MISSED_DEADLINE: // Built
+    case DetailedState.NONE_MISSED_DEADLINE:
       text = CONSTANTS.DEADLINE_PASSED_LABEL;
       art = computer2;
       break;
-    case DetailedState.APPLIED: // -
+    case DetailedState.APPLIED:
       heading = CONSTANTS.APPLIED_STATUS_HEADING;
       text = CONSTANTS.APPLIED_STATUS_TEXT;
       art = computer2;
       break;
-    case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW: // -
+    case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
       heading = CONSTANTS.ACCEPTED_STATUS_HEADING;
       text = `${CONSTANTS.ACCEPTED_STATUS_TEXT}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
