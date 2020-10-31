@@ -4,7 +4,7 @@ import Hacker from '../../api/hacker';
 import { HackerStatus, IAccount } from '../../config';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import { isConfirmed } from '../../util';
-import StatusPage from '../Status/StatusPage';
+import StatusCTAContainer from '../Status/StatusCTAContainer';
 
 const HackerDashboard: React.FC = () => {
   // Account object for logged in hacker
@@ -52,7 +52,7 @@ const HackerDashboard: React.FC = () => {
   }, []);
 
   // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
-  return isLoaded ? <StatusPage {...{ account, status, confirmed }} /> : null;
+  return isLoaded ? <StatusCTAContainer {...{ account, status, confirmed }} /> : null;
 }
 
 export default WithToasterContainer(HackerDashboard);

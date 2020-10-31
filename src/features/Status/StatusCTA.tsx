@@ -1,11 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Flex } from '@rebass/grid';
 import { FrontendRoute, HackerStatus, ISetting } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { Button, LinkDuo, Paragraph } from '../../shared/Elements';
+import { Button, H1, LinkDuo, Image, ButtonVariant } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
+import developer from '../../assets/images/developer.svg';
+import rocket from '../../assets/images/rocket.svg';
+import chill from '../../assets/images/chill.svg';
+import hacker from '../../assets/images/hacker.svg';
+import computer2 from '../../assets/images/computer2.svg';
 
 /**
  * These enums represent states + actions in this diagram: https://bit.ly/3ldYbgV.
@@ -27,116 +32,146 @@ enum DetailedState {
 
 interface IStatusHeaderProps {
   status: HackerStatus;
+  firstName: string;
   settings: ISetting;
   onClickConfirm: (e: any) => Promise<void>;
   onClickWithdraw: (e: any) => Promise<void>;
 }
 
-const StatusHeader: React.SFC<IStatusHeaderProps> = ({
+/**
+ * Inform the hacker of their current application status and give them the really important actions they
+ * can do right now 
+ */
+const StatusCTA: React.FC<IStatusHeaderProps> = ({
   status,
+  firstName,
   settings,
   onClickConfirm,
-  onClickWithdraw,
+  onClickWithdraw
 }) => {
   const confirmButton = (
-    <Button type="button" onClick={onClickConfirm}>
+    <Button type="button" onClick={onClickConfirm} variant={ButtonVariant.Primary}>
       Confirm
     </Button>
   );
   const withdrawButton = (
-    <Button type="button" onClick={onClickWithdraw}>
+    <Button type="button" onClick={onClickWithdraw} variant={ButtonVariant.Secondary} isOutlined={true}>
       Withdraw
     </Button>
   );
   const applyButton = (
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button">Apply</Button>
-    </LinkDuo>
-  );
-  const editAppButton = (
-    <LinkDuo to={FrontendRoute.EDIT_APPLICATION_PAGE}>
-      <Button type="button">View/Edit Application</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Apply</Button>
     </LinkDuo>
   );
   const liveSiteButton = (
     /* link not made yet */
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button">Live Site</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Event Info</Button>
     </LinkDuo>
   );
   const hackPassButton = (
     <LinkDuo to={FrontendRoute.PASS_HACKER_PAGE}>
-      <Button type="button">Hack Pass</Button>
-    </LinkDuo>
-  );
-  const travelButton = (
-    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
-      <Button type="button">Travel Page</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Hack Pass</Button>
     </LinkDuo>
   );
 
+  let heading = 'Hey ' + firstName + ',';
   let text = '';
+  let art = developer;
+  let artHeight = '300px';
   let buttons: JSX.Element[] = [];
 
   const action = GetDetailedState(status, settings);
   switch (action) {
-    case DetailedState.NONE_CANNOT_YET_APPLY:
+    case DetailedState.NONE_CANNOT_YET_APPLY: // -
       return <div />;
-    case DetailedState.NONE_CAN_APPLY:
+    case DetailedState.NONE_CAN_APPLY: // -
+      heading = CONSTANTS.NONE_STATUS_HEADING;
       text = CONSTANTS.NONE_STATUS_TEXT;
+      art = rocket;
       buttons = [applyButton];
       break;
-    case DetailedState.NONE_MISSED_DEADLINE:
+    case DetailedState.NONE_MISSED_DEADLINE: // Built
       text = CONSTANTS.DEADLINE_PASSED_LABEL;
+      art = computer2;
       break;
-    case DetailedState.APPLIED:
+    case DetailedState.APPLIED: // -
+      heading = CONSTANTS.APPLIED_STATUS_HEADING;
       text = CONSTANTS.APPLIED_STATUS_TEXT;
-      buttons = [editAppButton];
+      art = computer2;
       break;
-    case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
+    case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW: // -
+      heading = CONSTANTS.ACCEPTED_STATUS_HEADING;
       text = `${CONSTANTS.ACCEPTED_STATUS_TEXT}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
       ${date2human(settings.confirmTime)}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_END}`;
-      buttons = [confirmButton, withdrawButton];
+      artHeight = '280px';
+      buttons = [withdrawButton, confirmButton];
       break;
     case DetailedState.ACCEPTED_MISSED_DEADLINE:
       text = CONSTANTS.DECISION_DEADLINE_PASSED_LABEL;
       break;
     case DetailedState.DECLINED:
       text = CONSTANTS.DECLINED_STATUS_TEXT;
+      art = hacker;
       break;
     case DetailedState.WAITLISTED:
       text = CONSTANTS.WAITLISTED_STATUS_TEXT;
+      art = hacker;
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
-      buttons = [hackPassButton, travelButton, withdrawButton];
+      buttons = [withdrawButton, liveSiteButton, hackPassButton];
+      art = hacker;
       break;
     case DetailedState.CHECKED_IN:
+      heading = CONSTANTS.CHECKED_IN_STATUS_HEADING;
       text = CONSTANTS.CHECKED_IN_STATUS_TEXT;
       buttons = [liveSiteButton];
+      art = rocket;
       break;
     case DetailedState.WITHDRAWN:
       text = CONSTANTS.WITHDRAWN_STATUS_TEXT;
+      art = chill;
+      artHeight = '250px';
       break;
   }
   return (
     <Flex
-      flexDirection={'column'}
-      style={{ marginTop: '1em' }}
+      justifyContent={'center'}
       alignItems={'center'}
+      flexDirection={'column'}
     >
-      <Paragraph
-        color={theme.colors.black80}
-        textAlign={'center'}
-        marginBottom={'3rem'}
-      >
+      <Image
+        src={art}
+        imgHeight={artHeight}
+        padding={'0 0 68px 0'}
+      />
+
+      <H1 marginBottom="0">{heading}</H1>
+
+      <div className="status-details">
         {text}
-      </Paragraph>
+      </div>
+
       <Flex flexDirection={'row'} justifyContent={'space-around'}>
         {insertMargin(buttons)}
       </Flex>
+
+      <style jsx>{`
+        .status-details {
+          max-width: 500px;
+          text-align: center;
+
+          margin-top: 28px;
+          margin-bottom: ${buttons.length > 0 ? '68px' : '0'};
+
+          font-size: 20px;
+          color: ${theme.colors.black80};
+        }
+      `}</style>
     </Flex>
   );
 };
@@ -208,4 +243,4 @@ function GetDetailedState(
   return DetailedState.NONE_MISSED_DEADLINE;
 }
 
-export default StatusHeader;
+export default StatusCTA;

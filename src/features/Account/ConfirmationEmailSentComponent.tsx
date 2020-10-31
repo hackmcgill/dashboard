@@ -1,6 +1,6 @@
+import React from 'react';
 import { Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
@@ -45,9 +45,10 @@ class ConfirmationEmailSentComponent extends React.Component<
         <Helmet>
           <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
+
         <Image
           src={robot}
-          imgHeight={'260px'}
+          imgHeight={'220px'}
           padding={'0 0 68px 0'}
         />
 

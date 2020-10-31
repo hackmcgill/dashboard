@@ -1,28 +1,25 @@
 import React from 'react';
 
-import { H1 } from '../../shared/Elements';
-
 import { HackerStatus, IAccount, ISetting } from '../../config';
-import theme from '../../shared/Styles/theme';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 import { Hacker, Settings } from '../../api';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import StatusHeader from './StatusHeader';
+import StatusCTA from './StatusCTA';
 
-export interface IStatusPageProps {
+export interface IStatusCTAContainerProps {
   account?: IAccount;
   status: HackerStatus;
   confirmed: boolean;
 }
 
-export interface IStatusPageState {
+export interface IStatusCTAContainerState {
   status: HackerStatus;
   settings: ISetting;
 }
 
-class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
-  constructor(props: IStatusPageProps) {
+class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStatusCTAContainerState> {
+  constructor(props: IStatusCTAContainerProps) {
     super(props);
     this.state = {
       status: this.props.status,
@@ -59,22 +56,13 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
     return (
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '6px 30px 96px 30px' }}>
         {this.props.confirmed && this.props.account ? (
-          <div>
-            <H1
-              color={theme.colors.red}
-              display={'absolute'}
-              textAlign={'center'}
-              marginLeft={'0'}
-            >
-              Hey {this.props.account.firstName},
-            </H1>
-            <StatusHeader
-              status={this.state.status}
-              settings={this.state.settings}
-              onClickConfirm={this.confirmStatus}
-              onClickWithdraw={this.withdrawStatus}
-            />
-          </div>
+          <StatusCTA
+            status={this.state.status}
+            firstName={this.props.account.firstName}
+            settings={this.state.settings}
+            onClickConfirm={this.confirmStatus}
+            onClickWithdraw={this.withdrawStatus}
+          />
         ) : (
             <ConfirmationEmailSentComponent />
           )}
@@ -99,4 +87,4 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
   }
 }
 
-export default StatusPage;
+export default StatusCTAContainer;

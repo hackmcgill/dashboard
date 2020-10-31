@@ -55,10 +55,13 @@ export const FIRST_NAME_LABEL = 'First name';
 export const LAST_NAME_LABEL = 'Last name';
 
 // Status management
+export const NONE_STATUS_HEADING = "Let's get started";
 export const NONE_STATUS_TEXT =
   'You’re all set! Ready to start your application?';
+export const APPLIED_STATUS_HEADING = "You're all set";
 export const APPLIED_STATUS_TEXT =
   'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
+export const ACCEPTED_STATUS_HEADING = 'Confirm your spot'
 export const ACCEPTED_STATUS_TEXT =
   "Congratulations! We're excited to offer you a spot at McHacks!";
 export const RSVP_DEADLINE_TEXT_START = 'Please RSVP by';
@@ -72,7 +75,8 @@ export const CONFIRMED_STATUS_TEXT =
   'Your attendance has been confirmed! More information on McHacks will be sent to your inbox as we get closer to the event.';
 export const WITHDRAWN_STATUS_TEXT =
   "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
-export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go!';
+export const CHECKED_IN_STATUS_HEADING = 'Welcome to McHacks!';
+export const CHECKED_IN_STATUS_TEXT = 'You’re checked-in and ready to go.';
 
 // Application management
 export const DEADLINE_PASSED_LABEL =

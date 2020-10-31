@@ -11,7 +11,7 @@ import { Image } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, PasswordInput } from '../../shared/Form';
 
-import LookAtSky from '../../assets/images/lookAtSky.svg';
+import launchpad from '../../assets/images/launchpad.svg';
 import MartletTitle from '../../assets/images/martlet-text.svg';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
@@ -72,7 +72,7 @@ const LoginPage: React.FC = () => {
 
       <div className="Login--form-container">
         <div className="Login--art-wrapper">
-          <img src={LookAtSky} className="Login--art" alt="Background" />
+          <img src={launchpad} className="Login--art" alt="Background" />
         </div>
 
         <form className="Login--form">

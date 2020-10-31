@@ -42,7 +42,7 @@ export const Button = styled.button<IButtonProps>`
   border-radius: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  box-shadow: ${(props) => !(props.variant === ButtonVariant.Secondary && props.isOutlined) ? `2px 4px 16px 0 ${props.theme.colors.purpleLight}` : 'none'};
+  box-shadow: ${(props) => !(props.variant === ButtonVariant.Secondary) ? `2px 4px 16px 0 ${props.theme.colors.purpleLight}` : 'none'};
   border: 2px solid transparent;
   outline: none;
 
