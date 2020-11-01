@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { HACKATHON_NAME } from '../../config/constants';
 import InviteForm from '../../features/Invite/InviteForm';
 import { H1, MaxWidthBox } from '../../shared/Elements';
+import WithToaster from '../../shared/HOC/withToaster';
 
 const InvitePage: React.FC = () => (
   <>
@@ -32,4 +33,4 @@ const InvitePage: React.FC = () => (
   </>
 );
 
-export default InvitePage;
+export default WithToaster(InvitePage);
