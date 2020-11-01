@@ -32,6 +32,7 @@ import {
   ISetting,
   JobInterest,
   Majors,
+  PreviousHackathons,
   ShirtSize,
   Skills,
 } from '../../config';
@@ -104,6 +105,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         question1: '',
         question2: '',
         comments: '',
+        previousHackathons: NaN,
       },
       other: {
         ethnicity: [],
@@ -125,6 +127,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
   });
+
+  const getPreviousHackathonOptions = (options: any) => {
+    return Object.keys(options).map((o) => ({
+      label: o,
+      value: options[o],
+    }));
+  };
 
   // When this component mounts, fetch hacker's saved appliation data if it already exists
   useEffect(() => {
@@ -350,6 +359,14 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
               component={FormikElements.Select}
               value={fp.values.hacker.application.shortAnswer.skills}
+            />
+            <FastField
+              name={'hacker.application.shortAnswer.previousHackathons'}
+              options={getPreviousHackathonOptions(PreviousHackathons)}
+              label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
+              component={FormikElements.Select}
+              value={fp.values.hacker.application.shortAnswer.previousHackathons}
+              required={true}
             />
             <FastField
               name={'hacker.application.shortAnswer.question1'}
@@ -834,6 +851,7 @@ function convertFormikToHacker(
   accountId: string = '',
   hackerId: string = ''
 ): IHacker {
+  values.hacker.application.shortAnswer.previousHackathons = parseInt(values.hacker.application.shortAnswer.previousHackathons, 10);
   return {
     id: hackerId,
     accountId,
