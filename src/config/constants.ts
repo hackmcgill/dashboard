@@ -121,6 +121,9 @@ export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 
+// Invite Page
+export const ACCOUNT_TYPE_LABEL = 'Account type';
+
 // Application Page
 export const TOTAL_PAGES = 5;
 
