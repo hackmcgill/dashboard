@@ -120,6 +120,8 @@ export const SCHOOL_PLACEHOLDER = 'School';
 export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
+export const PREVIOUS_HACKATHONS_LABEL =
+  'How many hackathons have you been to?';
 
 // Invite Page
 export const ACCOUNT_TYPE_LABEL = 'Account type';

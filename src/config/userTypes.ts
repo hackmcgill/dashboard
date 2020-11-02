@@ -51,6 +51,8 @@ export interface IHacker {
     shortAnswer: {
       // array of mongoose ids referencing different skills
       skills?: string[];
+      // number of previously attended hackathons
+      previousHackathons: number;
       // any miscelaneous comments that the user has
       comments?: string;
       // "Why do you want to come to our hackathon?"
