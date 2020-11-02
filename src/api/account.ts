@@ -87,6 +87,13 @@ class AccountAPI {
   public invite(info: IInviteInfo): AxiosPromise<APIResponse<{}>> {
     return API.getEndpoint(APIRoute.ACCOUNT_INVITE).create(info);
   }
+
+  /**
+   * Get all of the invites to the platform.
+   */
+  public getInvites(): AxiosPromise<APIResponse<{ invites: IInviteInfo[] }>> {
+    return API.getEndpoint(APIRoute.ACCOUNT_INVITE).getAll();
+  }
 }
 export const Account = new AccountAPI();
 export default Account;
