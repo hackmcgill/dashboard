@@ -15,12 +15,11 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import RobotDrone from '../../assets/images/robotDrone.svg';
-import { IS_REMOTE_HACKATHON } from '../../config/constants';
 import * as CONSTANTS from '../../config/constants';
 import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
-import { getOptionsFromEnum, renderIfNotRemote } from '../../util';
+import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
@@ -127,6 +126,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     openTime: new Date().toString(),
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
+    isRemote: false,
   });
 
   const getPreviousHackathonOptions = (options: any) => {
@@ -448,7 +448,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             onSubmit={fp.handleSubmit}
             onReset={fp.handleReset}
           >
-            {renderIfNotRemote(
+            {!settings.isRemote && (
               <FastField
                 name={'hacker.application.accommodation.shirtSize'}
                 label={CONSTANTS.SHIRT_SIZE_LABEL}
@@ -458,7 +458,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 value={fp.values.hacker.application.accommodation.shirtSize}
               />
             )}
-            {renderIfNotRemote(
+            {!settings.isRemote && (
               <ErrorMessage
                 name={'hacker.application.accommodation.shirtSize'}
                 component={FormikElements.Error}
@@ -488,7 +488,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            {renderIfNotRemote(
+            {!settings.isRemote && (
               <FastField
                 name={'hacker.application.accommodation.travel'}
                 component={FormikElements.FormattedNumber}
@@ -498,7 +498,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 value={fp.values.hacker.application.accommodation.travel}
               />
             )}
-            {renderIfNotRemote(
+            {!settings.isRemote && (
               <ErrorMessage
                 component={FormikElements.Error}
                 name={'hacker.application.accommodation.travel'}
@@ -649,6 +649,38 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       </Form>
     );
   };
+
+  /**
+   * This converts the formik values object into the IHacker object.
+   * @param values Formik values
+   * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
+   * @param hackerId the hacker id. Used only when the hacker is updating their application.
+   * @param accountId the account id associated with this hacker.
+   */
+  function convertFormikToHacker(
+    values: FormikValues,
+    accountId: string = '',
+    hackerId: string = ''
+  ): IHacker {
+    values.hacker.application.shortAnswer.previousHackathons = parseInt(
+      values.hacker.application.shortAnswer.previousHackathons,
+      10
+    );
+
+    const hacker: IHacker = {
+      id: hackerId,
+      accountId,
+      status: HackerStatus.HACKER_STATUS_NONE,
+      application: values.hacker.application,
+    };
+
+    if (settings.isRemote) {
+      hacker.application.accommodation.shirtSize = ShirtSize.M;
+      hacker.application.accommodation.travel = 0;
+    }
+
+    return hacker;
+  }
 
   /**
    * Stop enter submitting the form.
@@ -849,37 +881,5 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     </>
   ) : null;
 };
-
-/**
- * This converts the formik values object into the IHacker object.
- * @param values Formik values
- * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
- * @param hackerId the hacker id. Used only when the hacker is updating their application.
- * @param accountId the account id associated with this hacker.
- */
-function convertFormikToHacker(
-  values: FormikValues,
-  accountId: string = '',
-  hackerId: string = ''
-): IHacker {
-  values.hacker.application.shortAnswer.previousHackathons = parseInt(
-    values.hacker.application.shortAnswer.previousHackathons,
-    10
-  );
-
-  const hacker: IHacker = {
-    id: hackerId,
-    accountId,
-    status: HackerStatus.HACKER_STATUS_NONE,
-    application: values.hacker.application,
-  };
-
-  if (IS_REMOTE_HACKATHON) {
-    hacker.application.accommodation.shirtSize = ShirtSize.M;
-    hacker.application.accommodation.travel = 0;
-  }
-
-  return hacker;
-}
 
 export default WithToasterContainer(ManageApplicationForm);

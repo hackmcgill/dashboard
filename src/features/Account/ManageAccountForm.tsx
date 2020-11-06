@@ -8,13 +8,13 @@ import {
   FormikProps,
   FormikValues,
 } from 'formik';
-import { Account, Auth } from '../../api';
+import { Account, Auth, Settings } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
   Genders,
   IAccount,
-  IS_REMOTE_HACKATHON,
+  ISetting,
   Pronouns,
   UserType,
 } from '../../config';
@@ -55,6 +55,14 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // Is the form submission currently being processed? (loading state)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  // Application settings
+  const [settings, setSettings] = useState<ISetting>({
+    openTime: new Date().toString(),
+    closeTime: new Date().toString(),
+    confirmTime: new Date().toString(),
+    isRemote: false,
+  });
+
   // Track the details of the account that is either being created or updated
   const [accountDetails, setAccountDetails] = useState<IAccount>({
     accountType:
@@ -76,6 +84,17 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // for account details
   useEffect(() => {
     (async () => {
+      // Load settings
+      try {
+        const result = await Settings.get();
+        const newSettings = result.data.data;
+        setSettings(newSettings);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e);
+        }
+      }
+
       if (props.mode === ManageAccountModes.EDIT) {
         try {
           const response = await Account.getSelf();
@@ -110,7 +129,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     phoneNumber: values.phoneNumber,
     pronoun: values.pronoun,
     gender: values.gender,
-    dietaryRestrictions: IS_REMOTE_HACKATHON
+    dietaryRestrictions: settings.isRemote
       ? ['Unknown']
       : values.dietaryRestrictions,
   });
@@ -303,7 +322,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.gender}
           />
           <ErrorMessage component={FormikElements.Error} name="pronoun" />
-          {!IS_REMOTE_HACKATHON && (
+          {!settings.isRemote && (
             <FastField
               name={'dietaryRestrictions'}
               isMulti={true}
@@ -315,7 +334,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
               value={fp.values.dietaryRestrictions}
             />
           )}
-          {!IS_REMOTE_HACKATHON && (
+          {!settings.isRemote && (
             <ErrorMessage
               component={FormikElements.Error}
               name="dietaryRestrictions"

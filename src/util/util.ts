@@ -1,6 +1,4 @@
 import * as QueryString from 'query-string';
-import React from 'react';
-import {IS_REMOTE_HACKATHON} from '../config';
 
 function padStart(padNum: number, padValue: string, value: string): string {
   if (value.length < padNum) {
@@ -115,20 +113,6 @@ function getValueFromQuery(key: string): string | undefined {
   return queries[key];
 }
 
-/**
- * @function renderIfNotRemove
- * @description render element if IS_REMOTE_HACKATHON is false
- * @param element
- */
-function renderIfNotRemote(
-  element: React.ReactElement
-): React.ReactElement | boolean {
-  if (!IS_REMOTE_HACKATHON) {
-    return element;
-  }
-  return false;
-}
-
 export {
   padStart,
   getNestedAttr,
@@ -140,5 +124,4 @@ export {
   datetime2input,
   input2datetime,
   date2human,
-  renderIfNotRemote,
 };

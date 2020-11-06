@@ -33,6 +33,7 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
         openTime: new Date().toString(),
         closeTime: new Date().toString(),
         confirmTime: new Date().toString(),
+        isRemote: false,
       },
     };
   }
