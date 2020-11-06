@@ -17,10 +17,11 @@ const SettingsForm: React.FC<ISettingsFormProps> = (
   const openTime = datetime2input(props.settings.openTime);
   const closeTime = datetime2input(props.settings.closeTime);
   const confirmTime = datetime2input(props.settings.confirmTime);
+  const isRemote = props.settings.isRemote;
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={{ openTime, closeTime, confirmTime }}
+      initialValues={{ openTime, closeTime, confirmTime, isRemote }}
       onSubmit={onSubmitFactory(props)}
       render={renderForm}
     />
@@ -67,6 +68,13 @@ function renderForm(fp: FormikProps<ISetting>) {
         format="##/##/#### ##:##:##"
         required={true}
       />
+      <FastField
+        name={'isRemote'}
+        label={CONSTANTS.SETTINGS_IS_REMOTE_LABEL}
+        value={fp.values.isRemote}
+        component={FormikElements.Checkbox}
+        required={true}
+      />
       <SubmitBtn>Update</SubmitBtn>
     </Form>
   );
@@ -80,6 +88,7 @@ function handleSubmit(
     openTime: input2datetime(values.openTime),
     closeTime: input2datetime(values.closeTime),
     confirmTime: input2datetime(values.confirmTime),
+    isRemote: values.isRemote,
   });
 }
 

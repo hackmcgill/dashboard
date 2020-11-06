@@ -18,9 +18,9 @@ import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
 import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
+import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
-import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -126,6 +126,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     openTime: new Date().toString(),
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
+    isRemote: false,
   });
 
   const getPreviousHackathonOptions = (options: any) => {
@@ -365,7 +366,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
               component={FormikElements.Select}
-              value={fp.values.hacker.application.shortAnswer.previousHackathons}
+              value={
+                fp.values.hacker.application.shortAnswer.previousHackathons
+              }
               required={true}
             />
             <FastField
@@ -445,18 +448,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             onSubmit={fp.handleSubmit}
             onReset={fp.handleReset}
           >
-            <FastField
-              name={'hacker.application.accommodation.shirtSize'}
-              label={CONSTANTS.SHIRT_SIZE_LABEL}
-              component={FormikElements.Select}
-              options={getOptionsFromEnum(ShirtSize)}
-              required={true}
-              value={fp.values.hacker.application.accommodation.shirtSize}
-            />
-            <ErrorMessage
-              name={'hacker.application.accommodation.shirtSize'}
-              component={FormikElements.Error}
-            />
+            {!settings.isRemote && (
+              <FastField
+                name={'hacker.application.accommodation.shirtSize'}
+                label={CONSTANTS.SHIRT_SIZE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(ShirtSize)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.shirtSize}
+              />
+            )}
+            {!settings.isRemote && (
+              <ErrorMessage
+                name={'hacker.application.accommodation.shirtSize'}
+                component={FormikElements.Error}
+              />
+            )}
             {/* This fixes the issue with going back somehow, so leave it here temporarily */}
             <div />
             <FastField
@@ -481,18 +488,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            <FastField
-              name={'hacker.application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-              placeholder={0}
-              required={false}
-              value={fp.values.hacker.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.travel'}
-            />
+            {!settings.isRemote && (
+              <FastField
+                name={'hacker.application.accommodation.travel'}
+                component={FormikElements.FormattedNumber}
+                label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                placeholder={0}
+                required={false}
+                value={fp.values.hacker.application.accommodation.travel}
+              />
+            )}
+            {!settings.isRemote && (
+              <ErrorMessage
+                component={FormikElements.Error}
+                name={'hacker.application.accommodation.travel'}
+              />
+            )}
             <Flex
               flexDirection={'row'}
               alignItems={'center'}
@@ -638,6 +649,38 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       </Form>
     );
   };
+
+  /**
+   * This converts the formik values object into the IHacker object.
+   * @param values Formik values
+   * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
+   * @param hackerId the hacker id. Used only when the hacker is updating their application.
+   * @param accountId the account id associated with this hacker.
+   */
+  function convertFormikToHacker(
+    values: FormikValues,
+    accountId: string = '',
+    hackerId: string = ''
+  ): IHacker {
+    values.hacker.application.shortAnswer.previousHackathons = parseInt(
+      values.hacker.application.shortAnswer.previousHackathons,
+      10
+    );
+
+    const hacker: IHacker = {
+      id: hackerId,
+      accountId,
+      status: HackerStatus.HACKER_STATUS_NONE,
+      application: values.hacker.application,
+    };
+
+    if (settings.isRemote) {
+      hacker.application.accommodation.shirtSize = ShirtSize.M;
+      hacker.application.accommodation.travel = 0;
+    }
+
+    return hacker;
+  }
 
   /**
    * Stop enter submitting the form.
@@ -838,26 +881,5 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     </>
   ) : null;
 };
-
-/**
- * This converts the formik values object into the IHacker object.
- * @param values Formik values
- * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
- * @param hackerId the hacker id. Used only when the hacker is updating their application.
- * @param accountId the account id associated with this hacker.
- */
-function convertFormikToHacker(
-  values: FormikValues,
-  accountId: string = '',
-  hackerId: string = ''
-): IHacker {
-  values.hacker.application.shortAnswer.previousHackathons = parseInt(values.hacker.application.shortAnswer.previousHackathons, 10);
-  return {
-    id: hackerId,
-    accountId,
-    status: HackerStatus.HACKER_STATUS_NONE,
-    application: values.hacker.application,
-  };
-}
 
 export default WithToasterContainer(ManageApplicationForm);

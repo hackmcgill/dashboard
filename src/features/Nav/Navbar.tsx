@@ -60,6 +60,7 @@ export default class Navbar extends React.Component<
         openTime: new Date().toString(),
         closeTime: new Date().toString(),
         confirmTime: new Date().toString(),
+        isRemote: false,
       },
       // hasSponsorInfo: false,
       hasBorder: false,
@@ -67,7 +68,7 @@ export default class Navbar extends React.Component<
     this.checkLoggedIn();
   }
 
-  calculateScrollDistance = (): void => {
+  public calculateScrollDistance = (): void => {
     this.setState({ hasBorder: window.pageYOffset !== 0 });
   };
 
@@ -85,6 +86,15 @@ export default class Navbar extends React.Component<
         this.calculateScrollDistance();
       });
     });
+
+    try {
+      const response = await Settings.get();
+      const settings = response.data.data;
+      this.setState({ settings });
+    } catch (e) {
+      // do nothing
+    }
+
     let hacker;
     // set hacker status
     try {
@@ -92,7 +102,8 @@ export default class Navbar extends React.Component<
       hacker = response.data.data;
       this.setState({
         status: hacker.status,
-        showTravelLink: canAccessTravel(hacker),
+        showTravelLink:
+          canAccessTravel(hacker) && !this.state.settings.isRemote,
       });
     } catch (e) {
       if (e === undefined || e.status === 401) {
@@ -108,13 +119,6 @@ export default class Navbar extends React.Component<
       this.setState({
         userType: account.accountType,
       });
-    } catch (e) {
-      // do nothing
-    }
-    try {
-      const response = await Settings.get();
-      const settings = response.data.data;
-      this.setState({ settings });
     } catch (e) {
       // do nothing
     }
