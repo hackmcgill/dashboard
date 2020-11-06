@@ -15,12 +15,13 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import RobotDrone from '../../assets/images/robotDrone.svg';
+import { IS_REMOTE_HACKATHON } from '../../config/constants';
 import * as CONSTANTS from '../../config/constants';
 import { H1 } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
-import { getOptionsFromEnum } from '../../util';
-import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
+import { getOptionsFromEnum, renderIfNotRemote } from '../../util';
+import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -365,7 +366,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
               component={FormikElements.Select}
-              value={fp.values.hacker.application.shortAnswer.previousHackathons}
+              value={
+                fp.values.hacker.application.shortAnswer.previousHackathons
+              }
               required={true}
             />
             <FastField
@@ -445,18 +448,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             onSubmit={fp.handleSubmit}
             onReset={fp.handleReset}
           >
-            <FastField
-              name={'hacker.application.accommodation.shirtSize'}
-              label={CONSTANTS.SHIRT_SIZE_LABEL}
-              component={FormikElements.Select}
-              options={getOptionsFromEnum(ShirtSize)}
-              required={true}
-              value={fp.values.hacker.application.accommodation.shirtSize}
-            />
-            <ErrorMessage
-              name={'hacker.application.accommodation.shirtSize'}
-              component={FormikElements.Error}
-            />
+            {renderIfNotRemote(
+              <FastField
+                name={'hacker.application.accommodation.shirtSize'}
+                label={CONSTANTS.SHIRT_SIZE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(ShirtSize)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.shirtSize}
+              />
+            )}
+            {renderIfNotRemote(
+              <ErrorMessage
+                name={'hacker.application.accommodation.shirtSize'}
+                component={FormikElements.Error}
+              />
+            )}
             {/* This fixes the issue with going back somehow, so leave it here temporarily */}
             <div />
             <FastField
@@ -481,18 +488,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            <FastField
-              name={'hacker.application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-              placeholder={0}
-              required={false}
-              value={fp.values.hacker.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.travel'}
-            />
+            {renderIfNotRemote(
+              <FastField
+                name={'hacker.application.accommodation.travel'}
+                component={FormikElements.FormattedNumber}
+                label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                placeholder={0}
+                required={false}
+                value={fp.values.hacker.application.accommodation.travel}
+              />
+            )}
+            {renderIfNotRemote(
+              <ErrorMessage
+                component={FormikElements.Error}
+                name={'hacker.application.accommodation.travel'}
+              />
+            )}
             <Flex
               flexDirection={'row'}
               alignItems={'center'}
@@ -851,13 +862,24 @@ function convertFormikToHacker(
   accountId: string = '',
   hackerId: string = ''
 ): IHacker {
-  values.hacker.application.shortAnswer.previousHackathons = parseInt(values.hacker.application.shortAnswer.previousHackathons, 10);
-  return {
+  values.hacker.application.shortAnswer.previousHackathons = parseInt(
+    values.hacker.application.shortAnswer.previousHackathons,
+    10
+  );
+
+  const hacker: IHacker = {
     id: hackerId,
     accountId,
     status: HackerStatus.HACKER_STATUS_NONE,
     application: values.hacker.application,
   };
+
+  if (IS_REMOTE_HACKATHON) {
+    hacker.application.accommodation.shirtSize = ShirtSize.M;
+    hacker.application.accommodation.travel = 0;
+  }
+
+  return hacker;
 }
 
 export default WithToasterContainer(ManageApplicationForm);

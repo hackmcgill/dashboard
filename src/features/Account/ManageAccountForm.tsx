@@ -14,6 +14,7 @@ import {
   FrontendRoute,
   Genders,
   IAccount,
+  IS_REMOTE_HACKATHON,
   Pronouns,
   UserType,
 } from '../../config';
@@ -109,7 +110,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     phoneNumber: values.phoneNumber,
     pronoun: values.pronoun,
     gender: values.gender,
-    dietaryRestrictions: values.dietaryRestrictions,
+    dietaryRestrictions: IS_REMOTE_HACKATHON
+      ? ['Unknown']
+      : values.dietaryRestrictions,
   });
 
   // Handle form submission
@@ -146,6 +149,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       await Auth.login(payload.email, payload.password);
     } catch (e) {
       if (e && e.data) {
+        console.log(e);
         ValidationErrorGenerator(e.data);
       }
     } finally {
@@ -200,7 +204,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         birthDate: accountDetails.birthDate,
       }}
       onSubmit={handleSubmit}
-      validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
+      validationSchema={getValidationSchema(
+        props.mode === ManageAccountModes.CREATE
+      )}
       render={(fp: FormikProps<any>) => (
         <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
           <FastField
@@ -251,19 +257,20 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.password}
           />
           <ErrorMessage component={FormikElements.Error} name="password" />
-          {
-            props.mode === ManageAccountModes.EDIT && (
-              <>
-                <FastField
-                  label={CONSTANTS.NEW_PASSWORD_LABEL}
-                  component={FormikElements.Input}
-                  inputType={'password'}
-                  name={'newPassword'}
-                />
-                <ErrorMessage component={FormikElements.Error} name="newPassword" />
-              </>
-            )
-          }
+          {props.mode === ManageAccountModes.EDIT && (
+            <>
+              <FastField
+                label={CONSTANTS.NEW_PASSWORD_LABEL}
+                component={FormikElements.Input}
+                inputType={'password'}
+                name={'newPassword'}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="newPassword"
+              />
+            </>
+          )}
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -296,25 +303,28 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.gender}
           />
           <ErrorMessage component={FormikElements.Error} name="pronoun" />
-          <FastField
-            name={'dietaryRestrictions'}
-            isMulti={true}
-            label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-            placeholder={DietaryRestriction.NONE}
-            component={FormikElements.Select}
-            options={getOptionsFromEnum(DietaryRestriction)}
-            required={true}
-            value={fp.values.dietaryRestrictions}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="dietaryRestrictions"
-          />
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            {props.mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
+          {!IS_REMOTE_HACKATHON && (
+            <FastField
+              name={'dietaryRestrictions'}
+              isMulti={true}
+              label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+              placeholder={DietaryRestriction.NONE}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(DietaryRestriction)}
+              required={true}
+              value={fp.values.dietaryRestrictions}
+            />
+          )}
+          {!IS_REMOTE_HACKATHON && (
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="dietaryRestrictions"
+            />
+          )}
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            {props.mode === ManageAccountModes.CREATE
+              ? 'Create Account'
+              : 'Save'}
           </SubmitBtn>
         </Form>
       )}
