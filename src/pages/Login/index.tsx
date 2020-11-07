@@ -1,26 +1,20 @@
-import { Box, Flex } from '@rebass/grid';
+import { Box } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
-import MediaQuery from 'react-responsive';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 
-import {
-  BackgroundImage,
-  H1,
-  LeftContainer,
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { Image } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
-import { EmailInput, Form, PasswordInput } from '../../shared/Form';
+import { EmailInput, PasswordInput } from '../../shared/Form';
 
-import Coders from '../../assets/images/coders.svg';
-
+import LookAtSky from '../../assets/images/lookAtSky.svg';
+import MartletTitle from '../../assets/images/martlet-text.svg';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 
 import { APIResponse, Auth } from '../../api';
 
@@ -30,6 +24,7 @@ import {
   HACKATHON_NAME,
   PASSWORD_LABEL,
 } from '../../config';
+import SignUpLink from '../../features/Login/SignUpLink';
 
 const LoginPage: React.FC = () => {
   // Store form's email and password values in state
@@ -39,19 +34,6 @@ const LoginPage: React.FC = () => {
   // Get access to router's history to allow for programtic
   // page navigation
   const history = useHistory();
-
-  /**
-   * Returns the redirect link (page user will be sent to if login
-   * attempt is successful), or undefined if it doesn't exist.
-   */
-  const getRedirectLink: any = () => {
-    const queries: any = QueryString.parse(window.location.search);
-    if (queries.redir) {
-      return queries.redir.toString();
-    } else {
-      return undefined;
-    }
-  };
 
   /**
    * Trigger authentication function once the form is submitted
@@ -82,93 +64,101 @@ const LoginPage: React.FC = () => {
       });
   };
 
-  /**
-   * Display login form to user
-   */
-  const renderForm = () => (
-    <MaxWidthBox maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
+  return (
+    <div className="centered-container">
       <Helmet>
         <title>Login | {HACKATHON_NAME}</title>
       </Helmet>
-      <Form>
-        <Flex
-          alignItems={'center'}
-          flexDirection={'column'}
-          p={'4rem 0rem 0rem 5.8rem'}
-        >
-          <Box alignSelf={'flex-start'}>
-            <H1 fontSize={'24px'} marginLeft={'0px'}>
-              Sign in / Register
-            </H1>
-          </Box>
+
+      <div className="form-container">
+        <div className="art-wrapper">
+          <img src={LookAtSky} className="art" alt="Background" />
+        </div>
+
+        <form className="form-content">
+          <Image
+            src={MartletTitle}
+            imgHeight="60px"
+            imgWidth="200px"
+            padding="0 0 60px 0"
+          />
           <EmailInput
             label={EMAIL_LABEL}
             onEmailChanged={setEmail}
             value={email}
-            isTight={true}
+            isTight={false}
+            placeholder="your_email@gmail.com"
           />
           <PasswordInput
             label={PASSWORD_LABEL}
             onPasswordChanged={setPassword}
             value={password}
-            isTight={true}
+            isTight={false}
+            hasResetLink={true}
+            placeholder="your_password"
           />
-          <Box alignSelf={'flex-end'} mb={'30px'} pr={'10px'}>
-            <ForgotPasswordLinkComponent />
+          <Box pr={'5px'} pt={'36px'} pb={'40px'}>
+            <Button type="button" variant={ButtonVariant.Primary} onClick={handleSubmit}>
+              Sign in
+            </Button>
           </Box>
-          <Flex>
-            <Box pr={'5px'}>
-              <Button type="button" onClick={handleSubmit}>
-                Sign in
-              </Button>
-            </Box>
-            <Box pl={'5px'}>
-              <Link
-                to={{
-                  pathname: FrontendRoute.CREATE_ACCOUNT_PAGE,
-                  state: { email, password },
-                }}
-              >
-                <Button type="button" variant={ButtonVariant.Secondary}>
-                  Register
-                </Button>
-              </Link>
-            </Box>
-          </Flex>
-        </Flex>
-      </Form>
-    </MaxWidthBox>
-  );
+          <SignUpLink />
+          <Box pt={'80px'}>
+            <SocialMediaBar />
+          </Box>
+        </form>
+      </div>
 
-  return (
-    <MediaQuery minWidth={1224} width={'100%'}>
-      {(matches) =>
-        matches ? (
-          <LeftContainer>
-            {renderForm()}
-            <BackgroundImage
-              src={Coders}
-              top={'60px'}
-              right={'0px'}
-              imgWidth={'100%'}
-              imgHeight={'100%'}
-              minHeight={'600px'}
-            />
-          </LeftContainer>
-        ) : (
-            <>
-              {renderForm()}
-              <BackgroundImage
-                src={Coders}
-                top={'60px'}
-                right={'0px'}
-                imgHeight={'100%'}
-              />
-            </>
-          )
-      }
-    </MediaQuery>
+      <style jsx>{`
+        .centered-container {
+          width: 100%;
+          height: 100%;
+          min-height: 100vh;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .form-container {
+          max-width: 1080px;
+          flex: 1;
+          display: flex;
+        }
+
+        .art-wrapper {
+          flex: 1 1 auto;
+          display: flex;
+          align-items: center;
+        }
+
+        .art {
+          width: 100%;
+          height: auto;
+        }
+
+        .form-content {
+          box-sizing: content-box;
+          flex: 0 0 360px;
+          margin-left: 120px;
+          margin-right: 80px;
+        }
+      `}</style>
+    </div>
   );
+};
+
+/**
+   * Returns the redirect link (page user will be sent to if login
+   * attempt is successful), or undefined if it doesn't exist.
+   */
+const getRedirectLink: any = () => {
+  const queries: any = QueryString.parse(window.location.search);
+  if (queries.redir) {
+    return queries.redir.toString();
+  } else {
+    return undefined;
+  }
 };
 
 export default WithToasterContainer(LoginPage);

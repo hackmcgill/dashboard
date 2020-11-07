@@ -1,17 +1,17 @@
+import React from 'react';
 import { AxiosResponse } from 'axios';
-import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { APIResponse, Auth } from '../../api';
 import { FrontendRoute, IValidationError } from '../../config';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
-const LogoutBtn: React.StatelessComponent<RouteComponentProps> = (
+const LogoutBtn: React.FC<RouteComponentProps> = (
   props: RouteComponentProps
 ) => {
   return (
-    <Button variant={ButtonVariant.CallToAction} onClick={handleLogout(props)}>
-      Logout
+    <Button variant={ButtonVariant.Primary} isOutlined={true} onClick={handleLogout(props)}>
+      Sign out
     </Button>
   );
 };

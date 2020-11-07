@@ -153,10 +153,10 @@ export function canAccessBus(hacker?: IHacker): boolean {
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
   return hacker
     ? Boolean(hacker.travel) &&
-    (status === HackerStatus.HACKER_STATUS_APPLIED ||
-      status === HackerStatus.HACKER_STATUS_ACCEPTED ||
-      status === HackerStatus.HACKER_STATUS_CONFIRMED ||
-      status === HackerStatus.HACKER_STATUS_CHECKED_IN)
+        (status === HackerStatus.HACKER_STATUS_APPLIED ||
+          status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+          status === HackerStatus.HACKER_STATUS_CONFIRMED ||
+          status === HackerStatus.HACKER_STATUS_CHECKED_IN)
     : false;
 }
 
@@ -180,7 +180,7 @@ export async function generateHackerQRCode(hacker: IHacker): Promise<string> {
   const hackerPage = `
   ${window.location.protocol}//${window.location.hostname}${
     window.location.port ? ':' + window.location.port : ''
-    }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
+  }${FrontendRoute.VIEW_HACKER_PAGE.replace(':id', hacker.id)}`;
   const response = await QRCode.toDataURL(hackerPage, { scale: 10 });
   return response;
 }

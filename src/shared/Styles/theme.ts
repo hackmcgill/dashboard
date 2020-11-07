@@ -4,10 +4,11 @@ const theme = {
     redMed: '#F56F65',
     redLight: '#F89790',
 
-    blueLight: '#0069FF40',
+    blue: '#0069FF',
+    blueLight: '#0069FF30',
 
     yellow: '#FFD081',
-    yellowLight: 'FFEFB6',
+    yellowLight: '#FFEFB6',
 
     teal: '#48DEE2',
     tealLight: '#88FCFF',
@@ -15,7 +16,7 @@ const theme = {
     purple: '#5C63AB',
     purpleLight: '#5C63AB19',
 
-    greyLight: '#10143726',
+    greyLight: '#10143712',
 
     white: '#FFFFFF',
     black: '#202020',

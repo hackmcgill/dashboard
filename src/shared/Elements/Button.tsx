@@ -36,7 +36,6 @@ export const Button = styled.button<IButtonProps>`
   font-family: ${(props) => props.theme.fonts.header};
   font-size: 16px;
   font-weight: 400;
-  text-transform: capitalize;
   min-height: 40px;
   max-height: 60px;
 

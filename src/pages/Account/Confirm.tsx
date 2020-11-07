@@ -1,13 +1,13 @@
 import { Box, Flex } from '@rebass/grid';
 import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
 import { Auth } from '../../api';
 import { getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
   Button,
   H1,
   Image,
+  LinkDuo,
   MaxWidthBox,
   Paragraph,
 } from '../../shared/Elements';
@@ -91,9 +91,9 @@ const ConfirmAccountPage: React.FC = () => {
         </Paragraph>
       </MaxWidthBox>
       <MaxWidthBox hidden={attempting}>
-        <Link to={link}>
+        <LinkDuo to={link}>
           <Button>{buttonMessage}</Button>
-        </Link>
+        </LinkDuo>
       </MaxWidthBox>
     </Flex>
   );
