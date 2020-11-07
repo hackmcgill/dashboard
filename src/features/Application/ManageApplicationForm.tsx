@@ -1003,7 +1003,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param actions the formik actions
    */
   const handleSubmit = (values: any) => {
-    if (values.pageNumber !== 5) {
+    if (values.pageNumber !== CONSTANTS.TOTAL_PAGES) {
       nextPage(values);
     } else {
       setIsSubmitting(true);
