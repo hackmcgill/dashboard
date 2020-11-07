@@ -120,6 +120,8 @@ export const SCHOOL_PLACEHOLDER = 'School';
 export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
+export const PREVIOUS_HACKATHONS_LABEL =
+  'How many hackathons have you been to?';
 
 // Application Page
 export const TOTAL_PAGES = 5;
@@ -149,3 +151,4 @@ export const SPONSOR_NOMINEE_LABEL = 'Nominees';
 export const SETTINGS_OPEN_TIME_LABEL = 'Applications open at:';
 export const SETTINGS_CLOSE_TIME_LABEL = 'Applications close at:';
 export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker confirmations close at:';
+export const SETTINGS_IS_REMOTE_LABEL = 'Hackathon is remote:';

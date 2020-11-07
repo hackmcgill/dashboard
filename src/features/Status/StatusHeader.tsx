@@ -111,7 +111,11 @@ const StatusHeader: React.SFC<IStatusHeaderProps> = ({
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
-      buttons = [hackPassButton, travelButton, withdrawButton];
+      if (!settings.isRemote) {
+        buttons = [hackPassButton, travelButton, withdrawButton];
+      } else {
+        buttons = [hackPassButton, withdrawButton];
+      }
       break;
     case DetailedState.CHECKED_IN:
       text = CONSTANTS.CHECKED_IN_STATUS_TEXT;
