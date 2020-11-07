@@ -6,7 +6,7 @@ interface INavProps {
 
 export const Nav = styled.nav<INavProps>`
   z-index: 10;
-  height: 4.25rem;
+  height: 90px;
   position: sticky;
   top: 0;
   left: 0;
@@ -19,7 +19,7 @@ export const Nav = styled.nav<INavProps>`
   border-bottom: 2px solid transparent;
   border-color: ${(props) =>
     props.hasBorder ? props.theme.colors.black5 : 'transparent'};
-  transition: 0.25s all ease-in;
+  transition: 0.25s border-color ease-in;
 `;
 
 export default Nav;

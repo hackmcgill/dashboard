@@ -15,6 +15,7 @@ const SettingsPage: React.FC = () => {
     openTime: new Date().toISOString(),
     closeTime: new Date().toISOString(),
     confirmTime: new Date().toISOString(),
+    isRemote: false,
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

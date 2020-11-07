@@ -209,12 +209,11 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.LOGIN_PAGE}
-              component={withBackground(withNavbar(
+              component={withBackground(
                 withAuthRedirect(LoginPage, {
                   requiredAuthState: false,
-                }),
-                { activePage: 'login' }
-              ))}
+                })
+              )}
             />
             <Route
               exact={true}
