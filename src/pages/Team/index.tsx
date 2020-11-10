@@ -22,9 +22,9 @@ const TeamPage: React.FC = () => {
   const [isLeavingTeam, setIsLeavingTeam] = useState<boolean>(true);
 
   useEffect(() => {
-    return () => {
+    (async () => {
       getTeam();
-    };
+    })();
   }, []);
 
   /**
@@ -91,9 +91,7 @@ const TeamPage: React.FC = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>Team | {HACKATHON_NAME}</title>
-      </Helmet>
+      <Helmet title={'Team | ' + HACKATHON_NAME} />
       {content}
     </div>
   );
