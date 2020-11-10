@@ -16,7 +16,7 @@ import {
   MaxWidthBox,
 } from '../../shared/Elements';
 
-import { IHacker } from '../../config';
+import { IHacker, TEAM_OVERVIEW } from '../../config';
 
 import Team from '../../api/team';
 import { Form } from '../../shared/Form';
@@ -58,7 +58,7 @@ class JoinCreateTeam extends React.Component<
           Team
         </H1>
         <FormDescription>
-          Join an existing team, or create a team.
+          {TEAM_OVERVIEW}
         </FormDescription>
         <Formik
           initialValues={{
