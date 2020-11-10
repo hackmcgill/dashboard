@@ -1,14 +1,14 @@
 import { Box } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
-import React, {FormEvent, useState} from 'react';
+import React, { FormEvent, useState } from 'react';
 import Helmet from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 import { Image } from '../../shared/Elements';
-import { ButtonVariant } from '../../shared/Elements/Button';
+import { ButtonVariant } from '../../shared/Elements';
 import { EmailInput, PasswordInput, SubmitBtn } from '../../shared/Form';
 
 import LookAtSky from '../../assets/images/lookAtSky.svg';
@@ -106,7 +106,7 @@ const LoginPage: React.FC = () => {
         </form>
       </div>
 
-      <style jsx={true}>{`
+      <style jsx>{`
         .centered-container {
           width: 100%;
           height: 100%;
