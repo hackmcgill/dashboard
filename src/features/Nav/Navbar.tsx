@@ -10,7 +10,6 @@ import {
   ISetting,
   UserType,
 } from '../../config';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,

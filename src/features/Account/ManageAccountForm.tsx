@@ -34,10 +34,6 @@ import {
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
-<<<<<<< HEAD
-import { ButtonVariant } from '../../shared/Elements';
-=======
->>>>>>> develop
 import { Box, Flex } from '@rebass/grid';
 
 export enum ManageAccountModes {

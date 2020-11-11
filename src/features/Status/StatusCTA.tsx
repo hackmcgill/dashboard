@@ -75,6 +75,11 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       <Button type="button" variant={ButtonVariant.Secondary}>Hack Pass</Button>
     </LinkDuo>
   );
+  const travelButton = (
+    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
+      <Button type="button" variant={ButtonVariant.Secondary}>Travel</Button>
+    </LinkDuo>
+  );
 
   let heading = 'Hey ' + firstName + ',';
   let text = '';

@@ -15,7 +15,6 @@ import launchpad from '../../assets/images/launchpad.svg';
 import MartletTitle from '../../assets/images/martlet-text.svg';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 
 import { APIResponse, Auth } from '../../api';
 
