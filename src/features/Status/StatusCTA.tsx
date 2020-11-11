@@ -8,7 +8,6 @@ import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
 import developer from '../../assets/images/developer.svg';
 import rocket from '../../assets/images/rocket.svg';
-import chill from '../../assets/images/chill.svg';
 import hacker from '../../assets/images/hacker.svg';
 import computer2 from '../../assets/images/computer2.svg';
 
@@ -81,10 +80,16 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
     </LinkDuo>
   );
 
+  // Possible choices for art
+  const rocketArt = <Image src={rocket} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const computerArt = <Image src={computer2} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const developerArt = <Image src={developer} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const developerArtSmall = <Image src={developer} imgHeight="280px" padding={'0 0 68px 0'} />;
+  const hackerArt = <Image src={hacker} imgHeight="300px" padding={'0 0 68px 0'} />;
+
   let heading = 'Hey ' + firstName + ',';
   let text = '';
-  let art = developer;
-  let artHeight = '300px';
+  let art = null;
   let buttons: JSX.Element[] = [];
 
   const action = GetDetailedState(status, settings);
@@ -94,17 +99,17 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
     case DetailedState.NONE_CAN_APPLY:
       heading = CONSTANTS.NONE_STATUS_HEADING;
       text = CONSTANTS.NONE_STATUS_TEXT;
-      art = rocket;
+      art = rocketArt;
       buttons = [applyButton];
       break;
     case DetailedState.NONE_MISSED_DEADLINE:
       text = CONSTANTS.DEADLINE_PASSED_LABEL;
-      art = computer2;
+      art = computerArt;
       break;
     case DetailedState.APPLIED:
       heading = CONSTANTS.APPLIED_STATUS_HEADING;
       text = CONSTANTS.APPLIED_STATUS_TEXT;
-      art = computer2;
+      art = computerArt;
       break;
     case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
       heading = CONSTANTS.ACCEPTED_STATUS_HEADING;
@@ -112,19 +117,20 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
       ${date2human(settings.confirmTime)}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_END}`;
-      artHeight = '280px';
+      art = developerArtSmall;
       buttons = [withdrawButton, confirmButton];
       break;
     case DetailedState.ACCEPTED_MISSED_DEADLINE:
       text = CONSTANTS.DECISION_DEADLINE_PASSED_LABEL;
+      art = developerArt;
       break;
     case DetailedState.DECLINED:
       text = CONSTANTS.DECLINED_STATUS_TEXT;
-      art = hacker;
+      art = hackerArt;
       break;
     case DetailedState.WAITLISTED:
       text = CONSTANTS.WAITLISTED_STATUS_TEXT;
-      art = hacker;
+      art = hackerArt;
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
@@ -133,18 +139,17 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       } else {
         buttons = [hackPassButton, liveSiteButton, withdrawButton];
       }
-      art = hacker;
+      art = hackerArt;
       break;
     case DetailedState.CHECKED_IN:
       heading = CONSTANTS.CHECKED_IN_STATUS_HEADING;
       text = CONSTANTS.CHECKED_IN_STATUS_TEXT;
       buttons = [liveSiteButton];
-      art = rocket;
+      art = rocketArt;
       break;
     case DetailedState.WITHDRAWN:
       text = CONSTANTS.WITHDRAWN_STATUS_TEXT;
-      art = chill;
-      artHeight = '250px';
+      art = developerArt;
       break;
   }
   return (
@@ -153,11 +158,7 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       alignItems={'center'}
       flexDirection={'column'}
     >
-      <Image
-        src={art}
-        imgHeight={artHeight}
-        padding={'0 0 68px 0'}
-      />
+      {art}
 
       <H1 marginBottom="0">{heading}</H1>
 
