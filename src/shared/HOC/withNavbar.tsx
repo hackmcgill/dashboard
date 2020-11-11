@@ -1,3 +1,4 @@
+import { Flex } from '@rebass/grid';
 import * as React from 'react';
 import Navbar from '../../features/Nav/Navbar';
 
@@ -18,10 +19,10 @@ const withNavbar = <P extends {}>(
   class extends React.Component<P> {
     public render() {
       return (
-        <div style={{ height: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Flex style={{ height: '100%', minHeight: '100vh' }} flexDirection="column">
           <Navbar key={0} activePage={options.activePage} />
           <Component key={1} {...this.props} />
-        </div>
+        </Flex>
       );
     }
   };

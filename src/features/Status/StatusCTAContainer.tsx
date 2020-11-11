@@ -6,6 +6,7 @@ import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComp
 import { Hacker, Settings } from '../../api';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
+import { Flex } from '@rebass/grid';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -55,7 +56,7 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
 
   public render() {
     return (
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '6px 30px 96px 30px' }}>
+      <Flex flex={1} flexDirection="column" justifyContent="center" alignItems="center" p="6px 30px 96px 30px">
         {this.props.confirmed && this.props.account ? (
           <StatusCTA
             status={this.state.status}
@@ -67,7 +68,7 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
         ) : (
             <ConfirmationEmailSentComponent />
           )}
-      </div>
+      </Flex>
     );
   }
 
