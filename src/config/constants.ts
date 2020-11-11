@@ -123,6 +123,9 @@ export const TRAVEL_REQUEST_LABEL =
 export const PREVIOUS_HACKATHONS_LABEL =
   'How many hackathons have you been to?';
 
+// Invite Page
+export const ACCOUNT_TYPE_LABEL = 'Account type';
+
 // Application Page
 export const TOTAL_PAGES = 5;
 
