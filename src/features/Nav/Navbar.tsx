@@ -10,6 +10,7 @@ import {
   ISetting,
   UserType,
 } from '../../config';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,
@@ -18,7 +19,6 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
@@ -47,7 +47,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -155,11 +155,9 @@ export default class Navbar extends React.Component<
 
     const CTAButton = loggedIn ? <LogoutButton /> : <LoginButton />;
 
-    let appRoute;
+    let appRoute = routes.EDIT_APPLICATION_PAGE;
     if (status === HackerStatus.HACKER_STATUS_NONE && confirmed) {
       appRoute = routes.CREATE_APPLICATION_PAGE;
-    } else {
-      appRoute = routes.EDIT_APPLICATION_PAGE;
     }
     // let sponsorRoute;
     // if (hasSponsorInfo) {
@@ -168,91 +166,82 @@ export default class Navbar extends React.Component<
     //   sponsorRoute = routes.CREATE_SPONSOR_PAGE;
     // }
 
-    const route: any[] = [
-      routes.HOME_PAGE,
-      routes.EDIT_ACCOUNT_PAGE,
-      appRoute,
-      routes.TRAVEL_PAGE,
-      routes.ADMIN_SEARCH_PAGE,
-      routes.SPONSOR_SEARCH_PAGE,
-      // sponsorRoute,
-    ];
-
     let NavItems = () => <></>;
     if (loggedIn === true) {
       NavItems = () => (
         <>
           <NavLink
-            href={route[0]}
+            href={routes.HOME_PAGE}
             className={this.props.activePage === 'home' ? 'active' : ''}
           >
             Home
           </NavLink>
           <NavLink
-            href={route[1]}
+            href={routes.EDIT_ACCOUNT_PAGE}
             className={this.props.activePage === 'profile' ? 'active' : ''}
           >
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-            canAccessApplication({ status }, settings) ? (
-              <NavLink
-                href={route[2]}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
-              </NavLink>
-            ) : null}
+          canAccessApplication({ status }, settings) ? (
+            <NavLink
+              href={appRoute}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
           {this.state.showTravelLink ? (
             <NavLink
-              href={route[3]}
+              href={routes.TRAVEL_PAGE}
               className={this.props.activePage === 'travel' ? 'active' : ''}
             >
               Travel
             </NavLink>
           ) : null}
-          {userType === UserType.STAFF ||
-            userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
-              userType !== UserType.STAFF ? (
-                <>
-                  <NavLink
-                    href={route[5]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
-                </NavLink>
-                  <NavLink
-                    href={'https://mchacks.ca/sponsor-info'}
-                    className={''}
-                  >
-                    Info
-                </NavLink>
-                </>
-              ) : (
-                  <NavLink
-                    href={route[4]}
-                    className={this.props.activePage === 'search' ? 'active' : ''}
-                  >
-                    Search
-                  </NavLink>
-                )
-            ) : null}
+          {userType === UserType.SPONSOR_T1 ||
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
+            <>
+              <NavLink
+                href={routes.SPONSOR_SEARCH_PAGE}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+              <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
+                Info
+              </NavLink>
+            </>
+          ) : null}
           {userType === UserType.STAFF ? (
-            <NavLink
-              href={routes.SETTINGS_PAGE}
-              className={this.props.activePage === 'settings' ? 'active' : ''}
-            >
-              Settings
-            </NavLink>
+            <>
+              <NavLink
+                href={routes.ADMIN_SEARCH_PAGE}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+              <NavLink
+                href={routes.INVITE_PAGE}
+                className={this.props.activePage === 'invite' ? 'active' : ''}
+              >
+                Invite
+              </NavLink>
+              <NavLink
+                href={routes.SETTINGS_PAGE}
+                className={this.props.activePage === 'settings' ? 'active' : ''}
+              >
+                Settings
+              </NavLink>
+            </>
           ) : (
-              <div />
-            )}
+            <div />
+          )}
         </>
       );
     }

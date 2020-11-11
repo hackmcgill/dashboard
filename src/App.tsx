@@ -49,6 +49,7 @@ import {
   isSponsor,
   userCanAccessHackerPage,
 } from './util';
+import InvitePage from './pages/Admin/Invite';
 
 class App extends React.Component {
   public render() {
@@ -259,6 +260,19 @@ class App extends React.Component {
                     user.confirmed && user.accountType === UserType.STAFF,
                 }),
                 { activePage: 'settings' }
+              )}
+            />
+            <Route
+              exact={true}
+              path={FrontendRoute.INVITE_PAGE}
+              component={withNavbar(
+                withAuthRedirect(InvitePage, {
+                  requiredAuthState: true,
+                  redirAfterLogin: true,
+                  AuthVerification: (user: IAccount) =>
+                    user.confirmed && user.accountType === UserType.STAFF,
+                }),
+                { activePage: 'invite' }
               )}
             />
             <Route
