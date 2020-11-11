@@ -10,6 +10,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import { JoinCreateTeam } from '../../features/Team/JoinCreateTeam';
 import { TeamDescription } from '../../features/Team/TeamDescription';
+import { Flex } from '@rebass/grid';
 
 /**
  * Container that renders form to log in.
@@ -91,10 +92,10 @@ const TeamPage: React.FC = () => {
   }
 
   return (
-    <div>
+    <Flex flexDirection={'column'} alignItems={'center'}>
       <Helmet title={'Team | ' + HACKATHON_NAME} />
       {content}
-    </div>
+    </Flex>
   );
 };
 

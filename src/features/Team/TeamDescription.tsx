@@ -3,7 +3,8 @@ import * as React from 'react';
 import { Box, Flex } from '@rebass/grid';
 
 import { IMemberName, ITeam } from '../../config';
-import { Button, H1, MaxWidthBox } from '../../shared/Elements';
+import { H1 } from '../../shared/Elements';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { TeamView } from './TeamView';
 
 interface ITeamDescriptionProps {
@@ -17,8 +18,8 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
-    <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-      <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
+    <div className="centered-container">
+      <H1>
         Your Team
       </H1>
       <Flex flexDirection={'column'}>
@@ -31,6 +32,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
               <Button
                 onClick={props.onLeaveTeam}
                 isLoading={props.isLeavingTeam}
+                variant={ButtonVariant.Secondary}
               >
                 Leave team
               </Button>
@@ -38,7 +40,20 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           </Flex>
         </Box>
       </Flex>
-    </MaxWidthBox>
+
+      <style jsx>{`
+        .centered-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          /* Once dashboard pr is merged can switch to automatic centering */
+          padding-top: 160px;
+        }
+      `}</style>
+    </div>
   );
 };
 
