@@ -123,7 +123,11 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
-      buttons = [withdrawButton, liveSiteButton, hackPassButton];
+      if (!settings.isRemote) {
+        buttons = [hackPassButton, travelButton, withdrawButton];
+      } else {
+        buttons = [hackPassButton, liveSiteButton, withdrawButton];
+      }
       art = hacker;
       break;
     case DetailedState.CHECKED_IN:

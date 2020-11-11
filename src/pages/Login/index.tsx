@@ -1,18 +1,19 @@
 import { Box } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
 import * as QueryString from 'query-string';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Helmet from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 import { Image } from '../../shared/Elements';
-import Button, { ButtonVariant } from '../../shared/Elements/Button';
-import { EmailInput, PasswordInput } from '../../shared/Form';
+import { ButtonVariant } from '../../shared/Elements';
+import { EmailInput, PasswordInput, SubmitBtn } from '../../shared/Form';
 
 import launchpad from '../../assets/images/launchpad.svg';
 import MartletTitle from '../../assets/images/martlet-text.svg';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 
@@ -40,7 +41,8 @@ const LoginPage: React.FC = () => {
    * then redirect user to appropriate page depending upon
    * success of login attempt
    */
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
     Auth.login(email, password)
       .then((value: AxiosResponse) => {
         // Good response
@@ -65,17 +67,17 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="Login--centered-container">
+    <div className="centered-container">
       <Helmet>
         <title>Login | {HACKATHON_NAME}</title>
       </Helmet>
 
-      <div className="Login--form-container">
-        <div className="Login--art-wrapper">
+      <div className="form-container">
+        <div className="art-wrapper">
           <img src={launchpad} className="Login--art" alt="Background" />
         </div>
 
-        <form className="Login--form">
+        <form className="form-content" onSubmit={handleSubmit}>
           <Image
             src={MartletTitle}
             imgHeight="60px"
@@ -97,11 +99,7 @@ const LoginPage: React.FC = () => {
             hasResetLink={true}
             placeholder="your_password"
           />
-          <Box pr={'5px'} pt={'36px'} pb={'40px'}>
-            <Button type="button" variant={ButtonVariant.Primary} onClick={handleSubmit}>
-              Sign in
-            </Button>
-          </Box>
+          <SubmitBtn variant={ButtonVariant.Primary}>Sign in</SubmitBtn>
           <SignUpLink />
           <Box pt={'80px'}>
             <SocialMediaBar />
@@ -110,8 +108,7 @@ const LoginPage: React.FC = () => {
       </div>
 
       <style jsx>{`
-        /* Prefixing styles with Login until styled-jsx plugin integrated with babel to avoid global scoped styling conflicts */
-        .Login--centered-container {
+        .centered-container {
           width: 100%;
           height: 100%;
           min-height: 100vh;
@@ -121,24 +118,24 @@ const LoginPage: React.FC = () => {
           align-items: center;
         }
 
-        .Login--form-container {
+        .form-container {
           max-width: 1080px;
           flex: 1;
           display: flex;
         }
 
-        .Login--art-wrapper {
+        .art-wrapper {
           flex: 1 1 auto;
           display: flex;
           align-items: center;
         }
 
-        .Login--art {
+        .art {
           width: 100%;
           height: auto;
         }
 
-        .Login--form {
+        .form-content {
           box-sizing: content-box;
           flex: 0 0 360px;
           margin-left: 120px;
@@ -150,9 +147,9 @@ const LoginPage: React.FC = () => {
 };
 
 /**
-   * Returns the redirect link (page user will be sent to if login
-   * attempt is successful), or undefined if it doesn't exist.
-   */
+ * Returns the redirect link (page user will be sent to if login
+ * attempt is successful), or undefined if it doesn't exist.
+ */
 const getRedirectLink: any = () => {
   const queries: any = QueryString.parse(window.location.search);
   if (queries.redir) {

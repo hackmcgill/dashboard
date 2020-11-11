@@ -16,11 +16,11 @@ import styled from 'styled-components';
 
 import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
-import { H1 } from '../../shared/Elements';
+import { H1, Paragraph } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
+import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
-import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -32,10 +32,12 @@ import {
   ISetting,
   JobInterest,
   Majors,
+  PreviousHackathons,
   ShirtSize,
   Skills,
 } from '../../config';
 
+import { ButtonVariant } from '../../shared/Elements/Button';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -49,6 +51,7 @@ import SchoolComponent from './SchoolComponent';
 import { Flex } from '@rebass/grid';
 import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import theme from '../../shared/Styles/theme';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -104,6 +107,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         question1: '',
         question2: '',
         comments: '',
+        previousHackathons: NaN,
       },
       other: {
         ethnicity: [],
@@ -124,7 +128,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     openTime: new Date().toString(),
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
+    isRemote: false,
   });
+
+  const getPreviousHackathonOptions = (options: any) => {
+    return Object.keys(options).map((o) => ({
+      label: o,
+      value: options[o],
+    }));
+  };
 
   // When this component mounts, fetch hacker's saved appliation data if it already exists
   useEffect(() => {
@@ -180,6 +192,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         return renderAccommodationFormik(fp);
       case 4:
         return renderOtherFormik(fp);
+      case 5:
+        return renderReviewFormik(fp);
       default:
         return renderGeneralFormik(fp);
     }
@@ -352,6 +366,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.skills}
             />
             <FastField
+              name={'hacker.application.shortAnswer.previousHackathons'}
+              options={getPreviousHackathonOptions(PreviousHackathons)}
+              label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
+              component={FormikElements.Select}
+              value={
+                fp.values.hacker.application.shortAnswer.previousHackathons
+              }
+              required={true}
+            />
+            <FastField
               name={'hacker.application.shortAnswer.question1'}
               component={FormikElements.LongTextInput}
               label={CONSTANTS.QUESTION1_REQUEST_LABEL}
@@ -428,18 +452,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             onSubmit={fp.handleSubmit}
             onReset={fp.handleReset}
           >
-            <FastField
-              name={'hacker.application.accommodation.shirtSize'}
-              label={CONSTANTS.SHIRT_SIZE_LABEL}
-              component={FormikElements.Select}
-              options={getOptionsFromEnum(ShirtSize)}
-              required={true}
-              value={fp.values.hacker.application.accommodation.shirtSize}
-            />
-            <ErrorMessage
-              name={'hacker.application.accommodation.shirtSize'}
-              component={FormikElements.Error}
-            />
+            {!settings.isRemote && (
+              <FastField
+                name={'hacker.application.accommodation.shirtSize'}
+                label={CONSTANTS.SHIRT_SIZE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(ShirtSize)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.shirtSize}
+              />
+            )}
+            {!settings.isRemote && (
+              <ErrorMessage
+                name={'hacker.application.accommodation.shirtSize'}
+                component={FormikElements.Error}
+              />
+            )}
             {/* This fixes the issue with going back somehow, so leave it here temporarily */}
             <div />
             <FastField
@@ -464,18 +492,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            <FastField
-              name={'hacker.application.accommodation.travel'}
-              component={FormikElements.FormattedNumber}
-              label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-              placeholder={0}
-              required={false}
-              value={fp.values.hacker.application.accommodation.travel}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.travel'}
-            />
+            {!settings.isRemote && (
+              <FastField
+                name={'hacker.application.accommodation.travel'}
+                component={FormikElements.FormattedNumber}
+                label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                placeholder={0}
+                required={false}
+                value={fp.values.hacker.application.accommodation.travel}
+              />
+            )}
+            {!settings.isRemote && (
+              <ErrorMessage
+                component={FormikElements.Error}
+                name={'hacker.application.accommodation.travel'}
+              />
+            )}
             <Flex
               flexDirection={'row'}
               alignItems={'center'}
@@ -614,6 +646,304 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             Back
           </ResetBtn>
           <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            Next
+            {/* {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'} */}
+          </SubmitBtn>
+          <div>&nbsp;</div>
+        </Flex>
+      </Form>
+    );
+  };
+
+  /**
+   * Renders the review section of the application
+   * @param fp the formik props.
+   */
+  const renderReviewFormik = (fp: FormikProps<any>) => {
+    return (
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <H1 fontSize={'32px'} marginLeft={'0px'} marginBottom={'16px'}>
+          Review
+        </H1>
+        <Paragraph fontSize={'16px'} maxWidth={'auto'}>
+          Your responses are now saved. Please review your application before
+          submitting. You won’t be able to edit your responses later.
+        </Paragraph>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
+          Personal Details
+        </H1>
+        <GridTwoColumn rowGap={'0'}>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.ETHNICITY_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.other.ethnicity}
+            </Paragraph>
+          </div>
+        </GridTwoColumn>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
+          Portfolio
+        </H1>
+        <GridTwoColumn rowGap={'0'}>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.RESUME_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {resume && resume.name}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.LINKEDIN_LINK_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.URL.linkedIn || 'N/A'}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.GITHUB_LINK_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.URL.github || 'N/A'}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.OTHER_LINK_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.URL.other || 'N/A'}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.JOBINTEREST_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.jobInterest}
+            </Paragraph>
+          </div>
+        </GridTwoColumn>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
+          Education
+        </H1>
+        <GridTwoColumn rowGap={'0'}>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.SCHOOL_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.school}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.DEGREE_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.degree}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.FIELD_OF_STUDY_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.fieldOfStudy}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.GRADUATION_YEAR_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.general.graduationYear}
+            </Paragraph>
+          </div>
+        </GridTwoColumn>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
+          Questions
+        </H1>
+        <div>
+          <H1
+            fontSize={'16px'}
+            marginLeft={'0px'}
+            marginTop={'6px'}
+            color={theme.colors.black80}
+            fontWeight={'700'}
+          >
+            {CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
+          </H1>
+          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+            {hackerDetails.application.shortAnswer.previousHackathons}
+          </Paragraph>
+        </div>
+        <div>
+          <H1
+            fontSize={'16px'}
+            marginLeft={'0px'}
+            marginTop={'6px'}
+            color={theme.colors.black80}
+            fontWeight={'700'}
+          >
+            {CONSTANTS.QUESTION1_REQUEST_LABEL}
+          </H1>
+          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+            {hackerDetails.application.shortAnswer.question1}
+          </Paragraph>
+        </div>
+        <div>
+          <H1
+            fontSize={'16px'}
+            marginLeft={'0px'}
+            marginTop={'24px'}
+            color={theme.colors.black80}
+            fontWeight={'700'}
+          >
+            {CONSTANTS.QUESTION2_REQUEST_LABEL}
+          </H1>
+          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+            {hackerDetails.application.shortAnswer.question2}
+          </Paragraph>
+        </div>
+        <div>
+          <H1
+            fontSize={'16px'}
+            marginLeft={'0px'}
+            marginTop={'6px'}
+            color={theme.colors.black80}
+            fontWeight={'700'}
+          >
+            {CONSTANTS.COMMENTS_LABEL}
+          </H1>
+          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+            {hackerDetails.application.shortAnswer.comments || 'N/A'}
+          </Paragraph>
+        </div>
+        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
+          Accommodation
+        </H1>
+        <GridTwoColumn rowGap={'0'} margin={'0'}>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.SHIRT_SIZE_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.accommodation.shirtSize}
+            </Paragraph>
+          </div>
+          <div>
+            <H1
+              fontSize={'16px'}
+              marginLeft={'0px'}
+              marginTop={'6px'}
+              color={theme.colors.black80}
+              fontWeight={'700'}
+            >
+              {CONSTANTS.IMPAIRMENTS_LABEL}
+            </H1>
+            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+              {hackerDetails.application.accommodation.impairments || 'N/A'}
+            </Paragraph>
+          </div>
+        </GridTwoColumn>
+        <div>
+          <H1
+            fontSize={'16px'}
+            marginLeft={'0px'}
+            color={theme.colors.black80}
+            fontWeight={'700'}
+          >
+            {CONSTANTS.BARRIERS_LABEL}
+          </H1>
+          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
+            {hackerDetails.application.accommodation.barriers || 'N/A'}
+          </Paragraph>
+        </div>
+        <Flex
+          flexDirection={'row'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          <div>&nbsp;</div>
+          <SubmitBtn 
+            isLoading={isSubmitting} 
+            disabled={isSubmitting} 
+            variant={ButtonVariant.Secondary}
+          >
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
           </SubmitBtn>
           <div>&nbsp;</div>
@@ -621,6 +951,38 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       </Form>
     );
   };
+
+  /**
+   * This converts the formik values object into the IHacker object.
+   * @param values Formik values
+   * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
+   * @param hackerId the hacker id. Used only when the hacker is updating their application.
+   * @param accountId the account id associated with this hacker.
+   */
+  function convertFormikToHacker(
+    values: FormikValues,
+    accountId: string = '',
+    hackerId: string = ''
+  ): IHacker {
+    values.hacker.application.shortAnswer.previousHackathons = parseInt(
+      values.hacker.application.shortAnswer.previousHackathons,
+      10
+    );
+
+    const hacker: IHacker = {
+      id: hackerId,
+      accountId,
+      status: HackerStatus.HACKER_STATUS_NONE,
+      application: values.hacker.application,
+    };
+
+    if (settings.isRemote) {
+      hacker.application.accommodation.shirtSize = ShirtSize.M;
+      hacker.application.accommodation.travel = 0;
+    }
+
+    return hacker;
+  }
 
   /**
    * Stop enter submitting the form.
@@ -684,7 +1046,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * @param actions the formik actions
    */
   const handleSubmit = (values: any) => {
-    if (values.pageNumber !== 4) {
+    if (values.pageNumber !== CONSTANTS.TOTAL_PAGES) {
       nextPage(values);
     } else {
       setIsSubmitting(true);
@@ -821,25 +1183,5 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     </>
   ) : null;
 };
-
-/**
- * This converts the formik values object into the IHacker object.
- * @param values Formik values
- * @param resumeLink the link to the resume. Used only when the hacker is updating their application.
- * @param hackerId the hacker id. Used only when the hacker is updating their application.
- * @param accountId the account id associated with this hacker.
- */
-function convertFormikToHacker(
-  values: FormikValues,
-  accountId: string = '',
-  hackerId: string = ''
-): IHacker {
-  return {
-    id: hackerId,
-    accountId,
-    status: HackerStatus.HACKER_STATUS_NONE,
-    application: values.hacker.application,
-  };
-}
 
 export default WithToasterContainer(ManageApplicationForm);

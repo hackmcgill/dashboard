@@ -1,4 +1,4 @@
-import { Box, Flex } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 import React from 'react';
 import { Image } from '../../shared/Elements';
 
@@ -10,17 +10,19 @@ import GitHub from '../../assets/images/github-logo.svg';
 const SocialMediaBar: React.FC = () => {
   return (
     <Flex alignItems={'center'} pr={'30px'}>
-      <Box className="SocialMediaBar--box">
+      <div className="social-icon">
         <a href="https://www.facebook.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
           <Image src={Facebook} height="24px" />
         </a>
-      </Box>
-      <Box className="SocialMediaBar--box">
+      </div>
+
+      <div className="social-icon">
         <a href="https://www.instagram.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
           <Image src={Instagram} height="24px" />
         </a>
-      </Box>
-      <Box className="SocialMediaBar--box">
+      </div>
+
+      <div className="social-icon">
         <a
           href="https://twitter.com/McGillHacks?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
           target="_blank"
@@ -28,24 +30,25 @@ const SocialMediaBar: React.FC = () => {
         >
           <Image src={Twitter} height="24px" />
         </a>
-      </Box>
-      <Box className="SocialMediaBar--box">
+      </div>
+
+      <div className="social-icon">
         <a href="https://github.com/hackmcgill" target="_blank" rel="noopener noreferrer">
           <Image src={GitHub} height="24px" />
         </a>
-      </Box>
+      </div>
       <style jsx>
         {`
-          .SocialMediaBar--box {
+          .social-icon {
             padding-right: 20px;
             transition: filter 0.25s ease-in;
           }
 
-          .SocialMediaBar--box:hover {
+          .social-icon:hover {
             filter: invert(41%) sepia(9%) saturate(3131%) hue-rotate(197deg) brightness(92%) contrast(84%);
           }
 
-          .SocialMediaBar--box a {
+          .social-icon a {
             display: flex;
           }
         `}
