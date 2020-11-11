@@ -26,7 +26,6 @@ export const ExistingInvites: React.FC = () => {
       setIsLoading(false);
     })();
   }, []);
-  console.log(invites);
   return <ExistingInvitesTable invites={invites} isLoading={isLoading} />;
 };
 
