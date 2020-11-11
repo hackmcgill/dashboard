@@ -1,84 +1,60 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import ManageAccountContainer, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
+import ManageAccountForm, {
+  ManageAccountModes,
+} from '../../features/Account/ManageAccountForm';
 
 import * as CONSTANTS from '../../config/constants';
-import {
-  BackgroundImage,
-  H1,
-  MaxWidthBox,
-} from '../../shared/Elements';
-import MediaQuery from 'react-responsive';
+import { H1 } from '../../shared/Elements';
 
-import Coders from '../../assets/images/coders.svg';
+import GirlAtHome from '../../assets/images/girl-at-home.svg';
 
 const CreateAccountPage: React.FC = () => (
   <>
     <Helmet>
-      <title>
-        Create Account | {CONSTANTS.HACKATHON_NAME}
-      </title>
+      <title>Create Account | {CONSTANTS.HACKATHON_NAME}</title>
     </Helmet>
 
-    <MediaQuery maxWidth="991px">
-      <MaxWidthBox m={'auto'} paddingLeft={'50px'} paddingRight={'50px'} maxWidth={'500px'}>
-        <H1
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-          paddingBottom={'20px'}
-          paddingTop={'70px'}
-        >
-          Your Account
-        </H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
-      </MaxWidthBox>
-    </MediaQuery>
+    <div className="form-container">
+      <div className="art-wrapper">
+        <img src={GirlAtHome} className="art" alt="Background" />
+      </div>
 
-    <MediaQuery minWidth="992px">
-      <MaxWidthBox paddingLeft={'100px'} paddingRight={'50px'} maxWidth={'500px'}>
-        <H1
-          fontSize={'30px'}
-          textAlign={'left'}
-          marginTop={'0px'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-          paddingBottom={'20px'}
-          paddingTop={'70px'}
-        >
-          Your Account
-        </H1>
-        <ManageAccountContainer mode={ManageAccountModes.CREATE} />
-      </MaxWidthBox>
-    </MediaQuery>
+      <div className="form-content">
+        <H1>Create your account</H1>
+        <ManageAccountForm mode={ManageAccountModes.CREATE} />
+      </div>
 
-    <MediaQuery minWidth="992px" maxWidth="1093px">
-      <BackgroundImage
-        src={Coders}
-        top={'60px'}
-        right={'0px'}
-        imgHeight={'70%'}
-      />
-    </MediaQuery>
-    <MediaQuery minWidth="1094px" maxWidth="1199px">
-      <BackgroundImage
-        src={Coders}
-        top={'60px'}
-        right={'0px'}
-        imgHeight={'80%'}
-      />
-    </MediaQuery>
-    <MediaQuery minWidth="1200px">
-      <BackgroundImage
-        src={Coders}
-        top={'60px'}
-        right={'0px'}
-        imgHeight={'90%'}
-        position={'fixed' as 'fixed'}
-      />
-    </MediaQuery>
+      <style jsx>{`
+        .form-container {
+          max-width: 1080px;
+          margin: auto;
+          margin-top: 72px;
+          padding-bottom: 120px;
+          flex: 1;
+          display: flex;
+        }
+
+        .art-wrapper {
+          flex: 1 1 auto;
+          display: flex;
+          align-items: flex-start;
+        }
+
+        .art {
+          margin-top: 112px;
+          width: 100%;
+          height: auto;
+        }
+
+        .form-content {
+          box-sizing: content-box;
+          flex: 0 0 360px;
+          margin-left: 180px;
+          margin-right: 80px;
+        }
+      `}</style>
+    </div>
   </>
 );
 

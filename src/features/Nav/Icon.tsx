@@ -1,7 +1,7 @@
 import styled from '../../shared/Styles/styled-components';
 
 export const Icon = styled.img`
-  height: 2.5rem;
+  height: 44px;
 `;
 
 export default Icon;

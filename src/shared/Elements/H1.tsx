@@ -15,12 +15,13 @@ interface IH1Props {
 }
 
 export const H1 = styled.h1<IH1Props>`
-  font-size: ${(props) => props.fontSize || '36px'};
+  font-size: ${(props) => props.fontSize || '32px'};
+  font-faimly: ${(props) => props.theme.fonts.header};
   text-align: ${(props) => props.textAlign || 'left'};
   color: ${(props) => props.color || props.theme.colors.red};
-  margin-left: ${(props) => props.marginLeft || '18px'};
-  margin-bottom: ${(props) => props.marginBottom || '18px'};
-  margin-top: ${(props) => props.marginTop || 'initial'};
+  margin-left: ${(props) => props.marginLeft || '0'};
+  margin-bottom: ${(props) => props.marginBottom || '64px'};
+  margin-top: ${(props) => props.marginTop || '0'};
   display: ${(props) => props.display || ''};
   font-weight: ${(props) => props.fontWeight || 'normal'};
   padding-top: ${(props) => props.paddingTop || '0'};

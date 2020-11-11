@@ -8,18 +8,20 @@ import {
   FormikProps,
   FormikValues,
 } from 'formik';
-import { Account, Auth } from '../../api';
+import { Account, Auth, Settings } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
   Genders,
   IAccount,
+  ISetting,
   Pronouns,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
+import AlreadyHaveAccount from '../Account/AlreadyHaveAccount';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -32,6 +34,7 @@ import {
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
+import { Box, Flex } from '@rebass/grid';
 
 export enum ManageAccountModes {
   CREATE,
@@ -54,6 +57,14 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // Is the form submission currently being processed? (loading state)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  // Application settings
+  const [settings, setSettings] = useState<ISetting>({
+    openTime: new Date().toString(),
+    closeTime: new Date().toString(),
+    confirmTime: new Date().toString(),
+    isRemote: false,
+  });
+
   // Track the details of the account that is either being created or updated
   const [accountDetails, setAccountDetails] = useState<IAccount>({
     accountType:
@@ -75,6 +86,17 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // for account details
   useEffect(() => {
     (async () => {
+      // Load settings
+      try {
+        const result = await Settings.get();
+        const newSettings = result.data.data;
+        setSettings(newSettings);
+      } catch (e) {
+        if (e && e.data) {
+          ValidationErrorGenerator(e);
+        }
+      }
+
       if (props.mode === ManageAccountModes.EDIT) {
         try {
           const response = await Account.getSelf();
@@ -109,7 +131,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     phoneNumber: values.phoneNumber,
     pronoun: values.pronoun,
     gender: values.gender,
-    dietaryRestrictions: values.dietaryRestrictions,
+    dietaryRestrictions: settings.isRemote
+      ? ['Unknown']
+      : values.dietaryRestrictions,
   });
 
   // Handle form submission
@@ -146,6 +170,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       await Auth.login(payload.email, payload.password);
     } catch (e) {
       if (e && e.data) {
+        console.log(e);
         ValidationErrorGenerator(e.data);
       }
     } finally {
@@ -200,29 +225,37 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         birthDate: accountDetails.birthDate,
       }}
       onSubmit={handleSubmit}
-      validationSchema={getValidationSchema(props.mode === ManageAccountModes.CREATE)}
+      validationSchema={getValidationSchema(
+        props.mode === ManageAccountModes.CREATE
+      )}
       render={(fp: FormikProps<any>) => (
-        <Form onSubmit={fp.handleSubmit} style={{ background: '#fff' }}>
-          <FastField
-            name={'firstName'}
-            label={CONSTANTS.FIRST_NAME_LABEL}
-            value={fp.values.firstName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-          />
-          <ErrorMessage component={FormikElements.Error} name="firstName" />
-          <FastField
-            name={'lastName'}
-            label={CONSTANTS.LAST_NAME_LABEL}
-            value={fp.values.lastName}
-            component={FormikElements.Input}
-            isTight={true}
-            disabled={props.mode === ManageAccountModes.EDIT}
-            required={true}
-          />
-          <ErrorMessage component={FormikElements.Error} name="lastName" />
+        <Form onSubmit={fp.handleSubmit}>
+          <Flex justifyContent="space-between">
+            <Box>
+              <FastField
+                name={'firstName'}
+                label={CONSTANTS.FIRST_NAME_LABEL}
+                value={fp.values.firstName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="firstName" />
+            </Box>
+            <Box ml="20px">
+              <FastField
+                name={'lastName'}
+                label={CONSTANTS.LAST_NAME_LABEL}
+                value={fp.values.lastName}
+                component={FormikElements.Input}
+                isTight={true}
+                disabled={props.mode === ManageAccountModes.EDIT}
+                required={true}
+              />
+              <ErrorMessage component={FormikElements.Error} name="lastName" />
+            </Box>
+          </Flex>
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.BIRTH_DATE_LABEL}
@@ -251,19 +284,20 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.password}
           />
           <ErrorMessage component={FormikElements.Error} name="password" />
-          {
-            props.mode === ManageAccountModes.EDIT && (
-              <>
-                <FastField
-                  label={CONSTANTS.NEW_PASSWORD_LABEL}
-                  component={FormikElements.Input}
-                  inputType={'password'}
-                  name={'newPassword'}
-                />
-                <ErrorMessage component={FormikElements.Error} name="newPassword" />
-              </>
-            )
-          }
+          {props.mode === ManageAccountModes.EDIT && (
+            <>
+              <FastField
+                label={CONSTANTS.NEW_PASSWORD_LABEL}
+                component={FormikElements.Input}
+                inputType={'password'}
+                name={'newPassword'}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="newPassword"
+              />
+            </>
+          )}
           <FastField
             component={FormikElements.FormattedNumber}
             label={CONSTANTS.PHONE_NUMBER_LABEL}
@@ -296,26 +330,34 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             value={fp.values.gender}
           />
           <ErrorMessage component={FormikElements.Error} name="pronoun" />
-          <FastField
-            name={'dietaryRestrictions'}
-            isMulti={true}
-            label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-            placeholder={DietaryRestriction.NONE}
-            component={FormikElements.Select}
-            options={getOptionsFromEnum(DietaryRestriction)}
-            required={true}
-            value={fp.values.dietaryRestrictions}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="dietaryRestrictions"
-          />
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-          >
-            {props.mode === ManageAccountModes.CREATE ? 'Create Account' : 'Save'}
+
+          {!settings.isRemote && (
+            <FastField
+              name={'dietaryRestrictions'}
+              isMulti={true}
+              label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+              placeholder={DietaryRestriction.NONE}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(DietaryRestriction)}
+              required={true}
+              value={fp.values.dietaryRestrictions}
+            />
+          )}
+          {!settings.isRemote && (
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="dietaryRestrictions"
+            />
+          )}
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            {props.mode === ManageAccountModes.CREATE
+              ? 'Create account'
+              : 'Save'}
           </SubmitBtn>
+
+          {
+            props.mode === ManageAccountModes.CREATE && <AlreadyHaveAccount />
+          }
         </Form>
       )}
     />

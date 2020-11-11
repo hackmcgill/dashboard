@@ -4,7 +4,7 @@ import { FrontendRoute } from '../../config';
 import { LinkDuo } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 
-const LoginBtn: React.StatelessComponent<RouteComponentProps> = () => {
+const LoginBtn: React.FC<RouteComponentProps> = () => {
   return (
     <LinkDuo
       to={FrontendRoute.LOGIN_PAGE}
@@ -13,7 +13,7 @@ const LoginBtn: React.StatelessComponent<RouteComponentProps> = () => {
         overflow: 'none',
       }}
     >
-      <Button variant={ButtonVariant.CallToAction}>Login</Button>
+      <Button variant={ButtonVariant.Primary} isOutlined={true}>Sign in</Button>
     </LinkDuo>
   );
 };

@@ -11,7 +11,7 @@ interface IEmailInputProp {
   required?: boolean;
 }
 
-export const EmailInput: React.StatelessComponent<IEmailInputProp> = (
+export const EmailInput: React.FC<IEmailInputProp> = (
   props: IEmailInputProp
 ) => {
   const placeholder = props.placeholder ? props.placeholder : '';

@@ -4,17 +4,26 @@ import { REQUIRED_INPUT } from '../../config';
 import { RequiredInputLabel, SecondaryInfoText } from './';
 
 interface ILabelTextProps {
+  // Label text
   label: any;
+
+  // Is this a required field
   required?: boolean;
+
+  // Should this field display a * to let user know it's required
+  // (a field can be required, but still have showRequiredLabel set to false)
+  showRequiredLabel?: boolean;
+
+  // Subtext underlabel, explaining in more detail
   secondaryInfo?: any;
 }
 
-export const LabelText: React.StatelessComponent<ILabelTextProps> = (
+export const LabelText: React.FC<ILabelTextProps> = (
   props: ILabelTextProps
 ) => {
   const requiredText = (
     <RequiredInputLabel>
-      {props.required ? REQUIRED_INPUT : ''}
+      {props.showRequiredLabel ? REQUIRED_INPUT : ''}
     </RequiredInputLabel>
   );
   const secondaryInfo = (
