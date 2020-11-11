@@ -1,11 +1,8 @@
 import * as React from 'react';
 
-import { Box, Flex } from '@rebass/grid';
-
-import { IMemberName, ITeam } from '../../config';
+import { IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
 import { H1 } from '../../shared/Elements';
-import Button, { ButtonVariant } from '../../shared/Elements/Button';
-import { TeamView } from './TeamView';
+import theme from '../../shared/Styles/theme';
 
 interface ITeamDescriptionProps {
   team: ITeam;
@@ -18,31 +15,41 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
-    <div className="centered-container">
-      <H1>
-        Your Team
-      </H1>
-      <Flex flexDirection={'column'}>
-        <Box>
-          <TeamView team={props.team} members={props.members} />
-        </Box>
-        <Box mt={'15px'}>
-          <Flex justifyContent={'center'}>
-            <Box>
-              <Button
-                onClick={props.onLeaveTeam}
-                isLoading={props.isLeavingTeam}
-                variant={ButtonVariant.Secondary}
-              >
-                Leave team
-              </Button>
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
+    <div className="centered">
+      <div className="team-box">
+        <div className="title">
+          <H1 marginBottom="8px">Your Team</H1>
+          <div className="info-text">{TEAM_OVERVIEW}</div>
+        </div>
+
+        <div className="team-code-container">
+          <div className="label">Team code</div>
+          <div className="info-text">Share this code with your team members to let them join:</div>
+          <div className="team-code">{props.team.name}</div>
+        </div>
+
+        <div className="team-members-container">
+          <div className="label">Members</div>
+          <div className="members">
+            {props.members.map((member, index) => (
+              <div className="member" key={index}>{member.firstName} {member.lastName}</div>
+            ))}
+          </div>
+        </div>
+
+        {
+          !props.isLeavingTeam ?
+            <div className="text-button" onClick={props.onLeaveTeam}>
+              Leave team
+            </div> :
+            <div>
+              Leaving team...
+            </div>
+        }
+      </div>
 
       <style jsx>{`
-        .centered-container {
+        .centered {
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -50,7 +57,52 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           align-items: center;
 
           /* Once dashboard pr is merged can switch to automatic centering */
-          padding-top: 160px;
+          padding-top: 120px;
+        }
+
+        .team-box {
+          max-width: 400px;
+          text-align: left;
+        }
+
+        .title {
+          margin-bottom: 32px;
+        }
+
+        .label {
+          font-family: ${theme.fonts.header};
+          margin-bottom: 8px;
+        }
+
+        .team-code {
+          color: ${theme.colors.black60};
+          font-family: ${theme.fonts.header};
+          font-size: 24px;
+
+          text-align: center;
+          margin-top: 36px;
+          margin-bottom: 48px;
+        }
+
+        .members {
+          margin-top: 24px;
+          margin-bottom: 16px;
+        }
+
+        .member:first-child {
+          border-top: 1px solid ${theme.colors.black10};
+        }
+
+        .member {
+          border-bottom: 1px solid ${theme.colors.black10};
+          padding: 16px 24px;
+        }
+
+        .text-button {
+          display: inline-block;
+          color: ${theme.colors.black60};
+          text-decoration: underline;
+          cursor: pointer;
         }
       `}</style>
     </div>

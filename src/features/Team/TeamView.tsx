@@ -22,48 +22,51 @@ interface ITeamViewProps {
   members: IMemberName[];
 }
 
-const TV: React.FC<ITeamViewProps> = (props) => {
+const TeamView: React.FC<ITeamViewProps> = (props) => {
   const firstColumnWidth = 0.5;
   const nameList = props.members.map((member, index) => (
     <Box key={index}>{member.firstName}</Box>
   ));
   return (
-    <Flex flexDirection={'column'}>
-      <Box>
-        <Flex justifyContent={'space-between'} alignItems={'flex-start'}>
-          <Box width={firstColumnWidth}>
-            <Bold>{TEAM_NAME}</Bold>
-            <Box fontSize={'smaller'}>{TEAM_NAME_SUBTITLE}</Box>
-          </Box>
-          <Box>
-            <ClipboardComponent
-              value={props.team.name}
-              onSuccess={onCopied}
-              onError={onCopyFailed}
-            />
-          </Box>
-        </Flex>
-      </Box>
-      <Box mt={'10px'}>
-        <Flex justifyContent={'space-between'}>
-          <Box width={firstColumnWidth}>
-            <Bold>{TEAM_MEMBERS}</Bold>
-            <Box fontSize={'smaller'}>{TEAM_MAX_SIZE}</Box>
-          </Box>
-          <Box>
-            <Flex flexDirection={'column'}>{nameList}</Flex>
-          </Box>
-        </Flex>
-      </Box>
-    </Flex>
+    <>
+      <Flex flexDirection={'column'}>
+        <Box>
+          <Flex justifyContent={'space-between'} alignItems={'flex-start'}>
+            <Box width={firstColumnWidth}>
+              <Bold>{TEAM_NAME}</Bold>
+              <Box fontSize={'smaller'}>{TEAM_NAME_SUBTITLE}</Box>
+            </Box>
+            <Box>
+              <ClipboardComponent
+                value={props.team.name}
+                onSuccess={onCopied}
+                onError={onCopyFailed}
+              />
+            </Box>
+          </Flex>
+        </Box>
+        <Box mt={'10px'}>
+          <Flex justifyContent={'space-between'}>
+            <Box width={firstColumnWidth}>
+              <Bold>{TEAM_MEMBERS}</Bold>
+              <Box fontSize={'smaller'}>{TEAM_MAX_SIZE}</Box>
+            </Box>
+            <Box>
+              <Flex flexDirection={'column'}>{nameList}</Flex>
+            </Box>
+          </Flex>
+        </Box>
+      </Flex>
+    </>
   );
 };
 
 function onCopied(e: any) {
   toast.success('Copied!');
 }
+
 function onCopyFailed(e: any) {
   toast.error('Error.');
 }
 
-export const TeamView = WithToasterContainer(TV);
+export default WithToasterContainer(TeamView);
