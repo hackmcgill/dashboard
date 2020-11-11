@@ -10,6 +10,7 @@ import {
   ISetting,
   UserType,
 } from '../../config';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,
@@ -18,7 +19,6 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
