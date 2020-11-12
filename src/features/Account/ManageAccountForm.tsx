@@ -23,6 +23,7 @@ import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import AlreadyHaveAccount from '../Account/AlreadyHaveAccount';
 
+import { Box, Flex } from '@rebass/grid';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
@@ -34,7 +35,6 @@ import {
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
-import { Box, Flex } from '@rebass/grid';
 
 export enum ManageAccountModes {
   CREATE,
