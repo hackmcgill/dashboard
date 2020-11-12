@@ -73,7 +73,7 @@ const LoginPage: React.FC = () => {
 
       <div className="form-container">
         <div className="art-wrapper">
-          <img src={launchpad} className="Login--art" alt="Background" />
+          <img src={launchpad} className="art" alt="Background" />
         </div>
 
         <form className="form-content" onSubmit={handleSubmit}>
