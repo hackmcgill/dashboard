@@ -19,12 +19,12 @@ const TeamPage: React.FC = () => {
   const [team, setTeam] = useState<ITeam | null>(null);
   const [members, setMembers] = useState<IMemberName[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isLeavingTeam, setIsLeavingTeam] = useState<boolean>(true);
+  const [isLeavingTeam, setIsLeavingTeam] = useState<boolean>(false);
 
   useEffect(() => {
-    return () => {
+    (async () => {
       getTeam();
-    };
+    })();
   }, []);
 
   /**
@@ -32,6 +32,7 @@ const TeamPage: React.FC = () => {
    * and if they are on a team, get team's details and data on other members of team
    */
   const getTeam = async () => {
+    setIsLoading(true);
     try {
       const hacker = (await Hacker.getSelf()).data.data;
       if (hacker && hacker.teamId) {
@@ -91,9 +92,7 @@ const TeamPage: React.FC = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>Team | {HACKATHON_NAME}</title>
-      </Helmet>
+      <Helmet title={'Team | ' + HACKATHON_NAME} />
       {content}
     </div>
   );

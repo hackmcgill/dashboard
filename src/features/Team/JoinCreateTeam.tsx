@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
 
 import { Box, Flex } from '@rebass/grid';
 import {
@@ -17,7 +16,7 @@ import {
   MaxWidthBox,
 } from '../../shared/Elements';
 
-import { HACKATHON_NAME, IHacker } from '../../config';
+import { IHacker, TEAM_OVERVIEW } from '../../config';
 
 import Team from '../../api/team';
 import { Form } from '../../shared/Form';
@@ -26,7 +25,6 @@ import {
   Input,
 } from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-// import Sidebar from '../Sidebar/Sidebar';
 import getValidationSchema from './validationSchema';
 
 interface IJoinCreateTeamProps {
@@ -42,7 +40,7 @@ interface IJoinCreateTeamState {
 class JoinCreateTeam extends React.Component<
   IJoinCreateTeamProps,
   IJoinCreateTeamState
-> {
+  > {
   constructor(props: IJoinCreateTeamProps) {
     super(props);
     this.state = {
@@ -52,22 +50,15 @@ class JoinCreateTeam extends React.Component<
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderFormik = this.renderFormik.bind(this);
   }
+
   public render() {
     return (
       <MaxWidthBox maxWidth={'500px'} m={'auto'}>
-        {/* <Sidebar
-          currentPage="Team"
-          status={HackerStatus.HACKER_STATUS_CONFIRMED}
-          confirmed={true}
-        /> */}
-        <Helmet>
-          <title>Join/Create Team | {HACKATHON_NAME}</title>
-        </Helmet>
         <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
           Team
         </H1>
         <FormDescription>
-          Join an existing team, or create a team.
+          {TEAM_OVERVIEW}
         </FormDescription>
         <Formik
           initialValues={{
@@ -80,6 +71,7 @@ class JoinCreateTeam extends React.Component<
       </MaxWidthBox>
     );
   }
+
   private renderFormik(fp: FormikProps<any>) {
     return (
       <Form>
@@ -117,6 +109,7 @@ class JoinCreateTeam extends React.Component<
       </Form>
     );
   }
+
   private onClickFactory(
     submissionBtn: number,
     submitForm: () => void

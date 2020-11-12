@@ -4,7 +4,6 @@ import { Box, Flex } from '@rebass/grid';
 
 import { IMemberName, ITeam } from '../../config';
 import { Button, H1, MaxWidthBox } from '../../shared/Elements';
-// import Sidebar from '../Sidebar/Sidebar';
 import { TeamView } from './TeamView';
 
 interface ITeamDescriptionProps {
@@ -14,16 +13,11 @@ interface ITeamDescriptionProps {
   isLeavingTeam: boolean;
 }
 
-const TeamDescription: React.StatelessComponent<ITeamDescriptionProps> = (
+const TeamDescription: React.FC<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
     <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-      {/* <Sidebar
-        currentPage="Team"
-        status={HackerStatus.HACKER_STATUS_CONFIRMED}
-        confirmed={true}
-      /> */}
       <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
         Your Team
       </H1>

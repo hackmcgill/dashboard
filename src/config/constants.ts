@@ -139,6 +139,7 @@ export const REQUIRED_INPUT = '*';
 export const OPTIONAL_INPUT = '(Optional)';
 
 // Team page
+export const TEAM_OVERVIEW = 'Form a team with up to 3 other friends in order to have your applications considered as a group.';
 export const TEAM_NAME = 'Team name:';
 export const TEAM_NAME_SUBTITLE =
   'Other hackers can join your team with this string.';
