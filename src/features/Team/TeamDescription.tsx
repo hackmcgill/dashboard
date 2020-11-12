@@ -32,7 +32,10 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           <div className="label">Members</div>
           <div className="members">
             {props.members.map((member, index) => (
-              <div className="member" key={index}>{member.firstName} {member.lastName}</div>
+              <div className="member" key={index}>
+                <div className="name">{member.firstName} {member.lastName}</div>
+                <div className="school">{member.school}</div>
+              </div>
             ))}
           </div>
         </div>
@@ -50,14 +53,15 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
 
       <style jsx>{`
         .centered {
+          /* Center vertically */
           flex: 1;
+          padding-top: 24px;
+          padding-bottom: 114px; /* Offset for navbar (90px) + 24px vertical padding */
+
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-
-          /* Once dashboard pr is merged can switch to automatic centering */
-          padding-top: 120px;
         }
 
         .team-box {
@@ -69,23 +73,37 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           margin-bottom: 32px;
         }
 
+        .title .info-text {
+          border-left: 4px solid ${theme.colors.purpleLight};
+          padding: 4px 16px;
+          margin-left: -20px;
+        }
+
         .label {
           font-family: ${theme.fonts.header};
           margin-bottom: 8px;
         }
 
+        .info-text {
+          color: ${theme.colors.black80};
+          font-size: 14px;
+        }
+
         .team-code {
-          color: ${theme.colors.black60};
+          background: ${theme.colors.purpleLight};
+          color: ${theme.colors.purple};
           font-family: ${theme.fonts.header};
           font-size: 24px;
+          padding: 16px;
+          border-radius: 8px;
 
           text-align: center;
-          margin-top: 36px;
+          margin-top: 8px;
           margin-bottom: 48px;
         }
 
         .members {
-          margin-top: 24px;
+          margin-top: 16px;
           margin-bottom: 16px;
         }
 
@@ -96,6 +114,11 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         .member {
           border-bottom: 1px solid ${theme.colors.black10};
           padding: 16px 24px;
+        }
+
+        .member .school {
+          font-size: 14px;
+          color: ${theme.colors.black60};
         }
 
         .text-button {
