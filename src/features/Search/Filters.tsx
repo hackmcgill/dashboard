@@ -127,11 +127,12 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           value={fp.values.jobInterest}
         />
         <Flex justifyContent={'center'}>
-          <Box>
+          <Box mr={'10px'}>
             <Button
               type="submit"
               isLoading={this.props.loading}
               disabled={this.props.loading}
+              variant={ButtonVariant.Primary}
             >
               Submit
             </Button>
@@ -140,7 +141,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
             <Button
               onClick={this.resetForm(fp)}
               type="button"
-              variant={ButtonVariant.Secondary}
+              variant={ButtonVariant.Primary}
             >
               Reset
             </Button>

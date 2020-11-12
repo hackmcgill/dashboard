@@ -3,7 +3,12 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FrontendRoute, IHacker, UserType } from '../../config';
-import { Button, Image, StyledModal } from '../../shared/Elements';
+import {
+  Button,
+  ButtonVariant,
+  Image,
+  StyledModal,
+} from '../../shared/Elements';
 import SingleHackerView from './SingleHackerView';
 
 import Arrow from '../../assets/images/backarrow.svg';
@@ -45,7 +50,11 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
-        <Button type="button" onClick={this.handleOpenModal}>
+        <Button
+          type="button"
+          onClick={this.handleOpenModal}
+          variant={ButtonVariant.Primary}
+        >
           See more
         </Button>
         <StyledModal
@@ -61,17 +70,23 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
             justifyContent="flex-end"
             style={{ position: 'absolute', top: '10px', right: '10px' }}
           >
-            <Box>
+            <Box mr={'10px'}>
               <Link
                 to={hackerPage}
                 target={'_blank'}
                 style={{ color: 'white' }}
               >
-                <Button>Open in new window</Button>
+                <Button variant={ButtonVariant.Primary}>
+                  Open in new window
+                </Button>
               </Link>
             </Box>
             <Box>
-              <Button type="button" onClick={this.handleCloseModal}>
+              <Button
+                type="button"
+                variant={ButtonVariant.Primary}
+                onClick={this.handleCloseModal}
+              >
                 Close
               </Button>
             </Box>
@@ -83,6 +98,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
                 type="button"
                 onClick={this.handlePrevious}
                 disabled={this.state.currentHackerIndex <= 0}
+                variant={ButtonVariant.Primary}
               >
                 <Image src={Arrow} imgHeight="20px" alt="Previous" />
               </Button>
@@ -108,6 +124,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
                   this.state.currentHackerIndex >=
                   this.props.allHackers.length - 1
                 }
+                variant={ButtonVariant.Primary}
               >
                 <Image
                   style={{ transform: 'rotate(180deg)' }}
