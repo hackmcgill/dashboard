@@ -1,63 +1,58 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Account } from '../../api';
 import Hacker from '../../api/hacker';
 import { HackerStatus, IAccount } from '../../config';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import { isConfirmed } from '../../util';
-import StatusPage from '../Status/StatusPage';
+import StatusCTAContainer from '../Status/StatusCTAContainer';
 
-export interface IDashboardState {
-  account: IAccount;
-  status: HackerStatus;
-  confirmed: boolean;
-  loaded: boolean;
-}
+const HackerDashboard: React.FC = () => {
+  // Account object for logged in hacker
+  const [account, setAccount] = useState<IAccount>(Object());
 
-class HackerDashboardContainer extends React.Component<{}, IDashboardState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      account: Object(),
-      status: HackerStatus.HACKER_STATUS_NONE,
-      confirmed: false,
-      loaded: false,
-    };
-  }
-  public async componentDidMount() {
-    let status;
-    let confirmed = false;
-    let account;
+  // Currently logged in hacker's status (e.g. APPLIED, CONFIRMED, etc.)
+  const [status, setStatus] = useState<HackerStatus>(HackerStatus.HACKER_STATUS_NONE);
 
-    try {
-      const res = await Account.getSelf();
-      account = res.data.data;
-      this.setState({ account });
-    } catch (e) {
-      // should not set the account if it doesn't exist.
-    }
-    // set hacker status and confirmed status
-    try {
-      const response = await Hacker.getSelf();
-      status = response.data.data.status;
-      this.setState({ status });
-    } catch (e) {
-      if (e.status === 401) {
-        status = HackerStatus.HACKER_STATUS_NONE;
-        this.setState({ status });
+  // Is the currently logged in hacker confirmed as attending event?
+  const [confirmed, setConfirmed] = useState<boolean>(false);
+
+  // Has the page finished loading needed data
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  // When component mounts, figure out user's account type
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await Account.getSelf();
+        setAccount(response.data.data);
+      } catch (e) {
+        // Should not set the account if it doesn't exist.
       }
-    }
-    try {
-      confirmed = await isConfirmed();
-      this.setState({ confirmed });
-    } catch (e) {
-      this.setState({ confirmed });
-    }
-    this.setState({ loaded: true });
-  }
-  public render() {
-    // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
-    return this.state.loaded ? <StatusPage {...this.state} /> : null;
-  }
+
+      // Set hacker status
+      try {
+        const response = await Hacker.getSelf();
+        setStatus(response.data.data.status);
+      } catch (e) {
+        if (e.status === 401) {
+          setStatus(HackerStatus.HACKER_STATUS_NONE);
+        }
+      }
+
+      // Check if hacker is confirmed
+      try {
+        setConfirmed(await isConfirmed());
+      } catch (e) {
+        setConfirmed(false);
+      }
+
+      // Whatever the results are, we've finshed loading at this point
+      setIsLoaded(true);
+    })();
+  }, []);
+
+  // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
+  return isLoaded ? <StatusCTAContainer {...{ account, status, confirmed }} /> : null;
 }
 
-export default WithToasterContainer(HackerDashboardContainer);
+export default WithToasterContainer(HackerDashboard);

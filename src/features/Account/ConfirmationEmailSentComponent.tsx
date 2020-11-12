@@ -1,6 +1,6 @@
-import { Box, Flex } from '@rebass/grid';
+import React from 'react';
+import { Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import * as React from 'react';
 import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
@@ -9,13 +9,13 @@ import {
   Button,
   H1,
   Image,
-  MaxWidthBox,
-  Paragraph,
+  ButtonVariant
 } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
-import telescope from '../../assets/images/telescope.svg';
+import robot from '../../assets/images/robot.svg';
+import theme from '../../shared/Styles/theme';
 
 interface IConfirmationEmailSentState {
   buttonDisabled: boolean;
@@ -41,38 +41,46 @@ class ConfirmationEmailSentComponent extends React.Component<
         justifyContent={'center'}
         alignItems={'center'}
         flexDirection={'column'}
-        mx={3}
       >
         <Helmet>
           <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
-        <Flex alignItems={'center'} flexDirection={'column'}>
-          <Box>
-            <Image
-              src={telescope}
-              imgHeight={'11rem'}
-              padding={'0 0 30px 0'}
-            />
-          </Box>
-          <Box>
-            <H1 fontSize={'48px'} textAlign={'center'}>Confirm your Email</H1>
-          </Box>
-        </Flex>
-        <MaxWidthBox width={1} fontSize={[2, 3, 4]} mb={'28px'}>
-          <Paragraph textAlign={'center'}>
-            Please check your inbox for a confirmation email. Click the link in
-            the email to confirm your email address.
-          </Paragraph>
-        </MaxWidthBox>
-        <Box>
-          <Button
-            type="button"
-            onClick={this.handleSubmit}
-            disabled={this.state.buttonDisabled}
-          >
-            {!this.state.buttonDisabled ? RESEND_CONF_EMAIL : EMAIL_SENT}
-          </Button>
-        </Box>
+
+        <Image
+          src={robot}
+          imgHeight={'220px'}
+          padding={'0 0 68px 0'}
+        />
+
+        <H1 textAlign={'center'} marginBottom="0">Confirm your email</H1>
+
+        <div className="explanation">
+          Please check your inbox for a confirmation email.<br />
+          Click the link in the email to confirm your email address.
+        </div>
+
+        <Button
+          type="button"
+          variant={ButtonVariant.Secondary}
+          isOutlined={true}
+          onClick={this.handleSubmit}
+          disabled={this.state.buttonDisabled}
+        >
+          {!this.state.buttonDisabled ? RESEND_CONF_EMAIL : EMAIL_SENT}
+        </Button>
+
+        <style jsx>{`
+          .explanation {
+            max-width: 500px;
+            text-align: center;
+
+            margin-top: 28px;
+            margin-bottom: 68px;
+
+            font-size: 20px;
+            color: ${theme.colors.black80};
+          }
+        `}</style>
       </Flex>
     );
   }

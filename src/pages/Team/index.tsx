@@ -92,10 +92,10 @@ const TeamPage: React.FC = () => {
   }
 
   return (
-    <Flex flexDirection={'column'} alignItems={'center'}>
+    <div>
       <Helmet title={'Team | ' + HACKATHON_NAME} />
       {content}
-    </Flex>
+    </div>
   );
 };
 
