@@ -1,31 +1,26 @@
-import * as React from 'react';
-import Helmet from 'react-helmet';
+import React from 'react';
 
-import { Box, Flex } from '@rebass/grid';
-import { BackgroundImage, H1 } from '../../shared/Elements';
-
-import { HACKATHON_NAME, HackerStatus, IAccount, ISetting } from '../../config';
-import theme from '../../shared/Styles/theme';
+import { HackerStatus, IAccount, ISetting } from '../../config';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 import { Hacker, Settings } from '../../api';
-import Background from '../../assets/images/statuspage-background.svg';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import StatusHeader from './StatusHeader';
+import StatusCTA from './StatusCTA';
+import { Flex } from '@rebass/grid';
 
-export interface IStatusPageProps {
+export interface IStatusCTAContainerProps {
   account?: IAccount;
   status: HackerStatus;
   confirmed: boolean;
 }
 
-export interface IStatusPageState {
+export interface IStatusCTAContainerState {
   status: HackerStatus;
   settings: ISetting;
 }
 
-class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
-  constructor(props: IStatusPageProps) {
+class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStatusCTAContainerState> {
+  constructor(props: IStatusCTAContainerProps) {
     super(props);
     this.state = {
       status: this.props.status,
@@ -61,38 +56,18 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
 
   public render() {
     return (
-      <Flex flexDirection={'column'} alignItems={'center'}>
-        <Helmet>
-          <title>Home | {HACKATHON_NAME}</title>
-        </Helmet>
-        <Box style={{ marginTop: '6rem' }}>
-          {this.props.confirmed && this.props.account ? (
-            <div>
-              <H1
-                color={theme.colors.red}
-                display={'absolute'}
-                textAlign={'center'}
-                marginLeft={'0'}
-              >
-                Hey {this.props.account.firstName},
-              </H1>
-              <StatusHeader
-                status={this.state.status}
-                settings={this.state.settings}
-                onClickConfirm={this.confirmStatus}
-                onClickWithdraw={this.withdrawStatus}
-              />
-              <BackgroundImage
-                right={'0px'}
-                bottom={'0px'}
-                src={Background}
-                imgHeight={'87%'}
-              />
-            </div>
-          ) : (
+      <Flex flex={1} flexDirection="column" justifyContent="center" alignItems="center" p="6px 30px 96px 30px">
+        {this.props.confirmed && this.props.account ? (
+          <StatusCTA
+            status={this.state.status}
+            firstName={this.props.account.firstName}
+            settings={this.state.settings}
+            onClickConfirm={this.confirmStatus}
+            onClickWithdraw={this.withdrawStatus}
+          />
+        ) : (
             <ConfirmationEmailSentComponent />
           )}
-        </Box>
       </Flex>
     );
   }
@@ -114,4 +89,4 @@ class StatusPage extends React.Component<IStatusPageProps, IStatusPageState> {
   }
 }
 
-export default StatusPage;
+export default StatusCTAContainer;
