@@ -83,9 +83,9 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.HOME_PAGE}
-              component={withNavbar(withAuthRedirect(DashboardPage), {
+              component={withBackground(withNavbar(withAuthRedirect(DashboardPage), {
                 activePage: 'home',
-              })}
+              }))}
             />
             <Route
               exact={true}
@@ -174,19 +174,21 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.TEAM_PAGE}
-              component={withNavbar(
-                withAuthRedirect(
-                  withHackerRedirect(TeamPage, {
-                    AuthVerification: canAccessTeam,
-                  }),
-                  {
-                    requiredAuthState: true,
-                    redirAfterLogin: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed && user.accountType === UserType.HACKER,
-                  }
-                ),
-                { activePage: 'team' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withHackerRedirect(TeamPage, {
+                      AuthVerification: canAccessTeam,
+                    }),
+                    {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.HACKER,
+                    }
+                  ),
+                  { activePage: 'team' }
+                )
               )}
             />
             <Route

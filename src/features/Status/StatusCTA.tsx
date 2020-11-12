@@ -1,11 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Flex } from '@rebass/grid';
 import { FrontendRoute, HackerStatus, ISetting } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { Button, LinkDuo, Paragraph } from '../../shared/Elements';
+import { Button, H1, LinkDuo, Image, ButtonVariant } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
+import developer from '../../assets/images/developer.svg';
+import rocket from '../../assets/images/rocket.svg';
+import hacker from '../../assets/images/hacker.svg';
+import computer2 from '../../assets/images/computer2.svg';
 
 /**
  * These enums represent states + actions in this diagram: https://bit.ly/3ldYbgV.
@@ -27,55 +31,65 @@ enum DetailedState {
 
 interface IStatusHeaderProps {
   status: HackerStatus;
+  firstName: string;
   settings: ISetting;
   onClickConfirm: (e: any) => Promise<void>;
   onClickWithdraw: (e: any) => Promise<void>;
 }
 
-const StatusHeader: React.SFC<IStatusHeaderProps> = ({
+/**
+ * Inform the hacker of their current application status and give them the really important actions they
+ * can do right now 
+ */
+const StatusCTA: React.FC<IStatusHeaderProps> = ({
   status,
+  firstName,
   settings,
   onClickConfirm,
-  onClickWithdraw,
+  onClickWithdraw
 }) => {
   const confirmButton = (
-    <Button type="button" onClick={onClickConfirm}>
+    <Button type="button" onClick={onClickConfirm} variant={ButtonVariant.Primary}>
       Confirm
     </Button>
   );
   const withdrawButton = (
-    <Button type="button" onClick={onClickWithdraw}>
+    <Button type="button" onClick={onClickWithdraw} variant={ButtonVariant.Secondary} isOutlined={true}>
       Withdraw
     </Button>
   );
   const applyButton = (
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button">Apply</Button>
-    </LinkDuo>
-  );
-  const editAppButton = (
-    <LinkDuo to={FrontendRoute.EDIT_APPLICATION_PAGE}>
-      <Button type="button">View/Edit Application</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Apply</Button>
     </LinkDuo>
   );
   const liveSiteButton = (
     /* link not made yet */
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button">Live Site</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Event Info</Button>
     </LinkDuo>
   );
   const hackPassButton = (
     <LinkDuo to={FrontendRoute.PASS_HACKER_PAGE}>
-      <Button type="button">Hack Pass</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Hack Pass</Button>
     </LinkDuo>
   );
   const travelButton = (
     <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
-      <Button type="button">Travel Page</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>Travel</Button>
     </LinkDuo>
   );
 
+  // Possible choices for art
+  const rocketArt = <Image src={rocket} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const computerArt = <Image src={computer2} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const developerArt = <Image src={developer} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const developerArtSmall = <Image src={developer} imgHeight="280px" padding={'0 0 68px 0'} />;
+  const hackerArt = <Image src={hacker} imgHeight="300px" padding={'0 0 68px 0'} />;
+
+  let heading = 'Hey ' + firstName + ',';
   let text = '';
+  let art = null;
   let buttons: JSX.Element[] = [];
 
   const action = GetDetailedState(status, settings);
@@ -83,64 +97,91 @@ const StatusHeader: React.SFC<IStatusHeaderProps> = ({
     case DetailedState.NONE_CANNOT_YET_APPLY:
       return <div />;
     case DetailedState.NONE_CAN_APPLY:
+      heading = CONSTANTS.NONE_STATUS_HEADING;
       text = CONSTANTS.NONE_STATUS_TEXT;
+      art = rocketArt;
       buttons = [applyButton];
       break;
     case DetailedState.NONE_MISSED_DEADLINE:
       text = CONSTANTS.DEADLINE_PASSED_LABEL;
+      art = computerArt;
       break;
     case DetailedState.APPLIED:
+      heading = CONSTANTS.APPLIED_STATUS_HEADING;
       text = CONSTANTS.APPLIED_STATUS_TEXT;
-      buttons = [editAppButton];
+      art = computerArt;
       break;
     case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
+      heading = CONSTANTS.ACCEPTED_STATUS_HEADING;
       text = `${CONSTANTS.ACCEPTED_STATUS_TEXT}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
       ${date2human(settings.confirmTime)}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_END}`;
-      buttons = [confirmButton, withdrawButton];
+      art = developerArtSmall;
+      buttons = [withdrawButton, confirmButton];
       break;
     case DetailedState.ACCEPTED_MISSED_DEADLINE:
       text = CONSTANTS.DECISION_DEADLINE_PASSED_LABEL;
+      art = developerArt;
       break;
     case DetailedState.DECLINED:
       text = CONSTANTS.DECLINED_STATUS_TEXT;
+      art = hackerArt;
       break;
     case DetailedState.WAITLISTED:
       text = CONSTANTS.WAITLISTED_STATUS_TEXT;
+      art = hackerArt;
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
       if (!settings.isRemote) {
         buttons = [hackPassButton, travelButton, withdrawButton];
       } else {
-        buttons = [hackPassButton, withdrawButton];
+        buttons = [hackPassButton, liveSiteButton, withdrawButton];
       }
+      art = hackerArt;
       break;
     case DetailedState.CHECKED_IN:
+      heading = CONSTANTS.CHECKED_IN_STATUS_HEADING;
       text = CONSTANTS.CHECKED_IN_STATUS_TEXT;
       buttons = [liveSiteButton];
+      art = rocketArt;
       break;
     case DetailedState.WITHDRAWN:
       text = CONSTANTS.WITHDRAWN_STATUS_TEXT;
+      art = developerArt;
       break;
   }
   return (
     <Flex
-      flexDirection={'column'}
-      style={{ marginTop: '1em' }}
+      justifyContent={'center'}
       alignItems={'center'}
+      flexDirection={'column'}
     >
-      <Paragraph
-        color={theme.colors.black80}
-        textAlign={'center'}
-        marginBottom={'3rem'}
-      >
+      {art}
+
+      <H1 marginBottom="0">{heading}</H1>
+
+      <div className="status-details">
         {text}
-      </Paragraph>
+      </div>
+
       <Flex flexDirection={'row'} justifyContent={'space-around'}>
         {insertMargin(buttons)}
       </Flex>
+
+      <style jsx>{`
+        .status-details {
+          max-width: 500px;
+          text-align: center;
+
+          margin-top: 28px;
+          margin-bottom: ${buttons.length > 0 ? '68px' : '0'};
+
+          font-size: 20px;
+          color: ${theme.colors.black80};
+        }
+      `}</style>
     </Flex>
   );
 };
@@ -212,4 +253,4 @@ function GetDetailedState(
   return DetailedState.NONE_MISSED_DEADLINE;
 }
 
-export default StatusHeader;
+export default StatusCTA;

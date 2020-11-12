@@ -10,7 +10,6 @@ import {
   ISetting,
   UserType,
 } from '../../config';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,
@@ -19,6 +18,7 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
@@ -47,7 +47,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-> {
+  > {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -183,16 +183,16 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-          canAccessApplication({ status }, settings) ? (
-            <NavLink
-              href={appRoute}
-              className={
-                this.props.activePage === 'application' ? 'active' : ''
-              }
-            >
-              Application
-            </NavLink>
-          ) : null}
+            canAccessApplication({ status }, settings) ? (
+              <NavLink
+                href={appRoute}
+                className={
+                  this.props.activePage === 'application' ? 'active' : ''
+                }
+              >
+                Application
+              </NavLink>
+            ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={routes.TRAVEL_PAGE}
@@ -202,22 +202,22 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.SPONSOR_T1 ||
-          userType === UserType.SPONSOR_T2 ||
-          userType === UserType.SPONSOR_T3 ||
-          userType === UserType.SPONSOR_T4 ||
-          userType === UserType.SPONSOR_T5 ? (
-            <>
-              <NavLink
-                href={routes.SPONSOR_SEARCH_PAGE}
-                className={this.props.activePage === 'search' ? 'active' : ''}
-              >
-                Search
+            userType === UserType.SPONSOR_T2 ||
+            userType === UserType.SPONSOR_T3 ||
+            userType === UserType.SPONSOR_T4 ||
+            userType === UserType.SPONSOR_T5 ? (
+              <>
+                <NavLink
+                  href={routes.SPONSOR_SEARCH_PAGE}
+                  className={this.props.activePage === 'search' ? 'active' : ''}
+                >
+                  Search
               </NavLink>
-              <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
-                Info
+                <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
+                  Info
               </NavLink>
-            </>
-          ) : null}
+              </>
+            ) : null}
           {userType === UserType.STAFF ? (
             <>
               <NavLink
@@ -240,8 +240,8 @@ export default class Navbar extends React.Component<
               </NavLink>
             </>
           ) : (
-            <div />
-          )}
+              <div />
+            )}
         </>
       );
     }
@@ -254,12 +254,15 @@ export default class Navbar extends React.Component<
           </a>
         </IconContainer>
         <Links>
-          {NavItems()}
-          <SocialMediaBar />
+          {loggedIn && confirmed && NavItems()}
+          {
+            (!loggedIn || !confirmed) &&
+            <SocialMediaBar />
+          }
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>
-          {NavItems()}
+          {loggedIn && confirmed && NavItems()}
           {CTAButton}
         </Menu>
       </Nav>

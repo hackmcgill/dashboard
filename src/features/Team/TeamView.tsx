@@ -22,7 +22,7 @@ interface ITeamViewProps {
   members: IMemberName[];
 }
 
-const TV: React.StatelessComponent<ITeamViewProps> = (props) => {
+const TV: React.FC<ITeamViewProps> = (props) => {
   const firstColumnWidth = 0.5;
   const nameList = props.members.map((member, index) => (
     <Box key={index}>{member.firstName}</Box>
