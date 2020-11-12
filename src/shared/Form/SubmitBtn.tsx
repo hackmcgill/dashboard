@@ -6,7 +6,7 @@ import { Button, IButtonProps } from '../Elements';
 export const SubmitBtn: React.FC<
   IButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = (props) => (
-  <Flex justifyContent={'left'} mt={'60px'} mb={'40px'}>
+  <Flex justifyContent={'left'} mt={'50px'} mb={'50px'}>
     <Box>
       <Button type={'submit'} {...props}>
         {props.children}

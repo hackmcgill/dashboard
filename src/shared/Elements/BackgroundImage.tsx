@@ -14,7 +14,7 @@ interface IBackgroundImageProps {
 
 export const BackgroundImage = styled.img`
   position: ${(props: IBackgroundImageProps) => props.position || 'absolute'};
-  z-index: 1;
+  z-index: -10;
   user-select: none;
   top: ${(props: IBackgroundImageProps) => props.top || ''};
   left: ${(props: IBackgroundImageProps) => props.left || ''};

@@ -939,9 +939,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           justifyContent={'center'}
         >
           <div>&nbsp;</div>
-          <SubmitBtn 
-            isLoading={isSubmitting} 
-            disabled={isSubmitting} 
+          <SubmitBtn
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
             variant={ButtonVariant.Secondary}
           >
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
@@ -1057,10 +1057,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${
-                props.mode === ManageApplicationModes.EDIT
-                  ? 'edited'!
-                  : 'created!'
+              `Account ${props.mode === ManageApplicationModes.EDIT
+                ? 'edited'!
+                : 'created!'
               }`
             );
             setIsSubmitted(true);
