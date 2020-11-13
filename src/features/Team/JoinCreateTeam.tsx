@@ -75,7 +75,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         </Button>
       </div>
 
-      <Form onSubmit={joinTeam}>
+      <Form onSubmit={(e) => { e.preventDefault(); joinTeam(); }}>
         <div className="join">
           <Label style={{ maxWidth: '272px' }}>
             Already have a team?
