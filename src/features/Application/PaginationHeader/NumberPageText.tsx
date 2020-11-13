@@ -1,6 +1,6 @@
 import React from 'react';
 import done from '../../../assets/images/done.svg';
-import { Image, Paragraph } from '../../../shared/Elements';
+import { Image } from '../../../shared/Elements';
 import theme from '../../../shared/Styles/theme';
 
 interface INumberPageText {
@@ -21,6 +21,8 @@ const NumberPageText: React.FC<INumberPageText> = (props) => {
       fontSize: '12px',
       color: theme.colors.black40,
       textAlign: 'center' as 'center',
+      fontFamily: theme.fonts.header,
+      lineHeight: '24px'
     };
 
     const selectedTextStyle = {
@@ -29,7 +31,7 @@ const NumberPageText: React.FC<INumberPageText> = (props) => {
     };
     const textStyle = props.fill ? selectedTextStyle : notSelectedTextStyle; // Style changes depending on props.fill
 
-    return <Paragraph style={textStyle}>{props.pageNumber}</Paragraph>;
+    return <span style={textStyle}>{props.pageNumber}</span>;
   } else {
     // Checkmark svg
     return <Image src={done} />;

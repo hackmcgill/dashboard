@@ -20,7 +20,7 @@ import { H1, Paragraph } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
-import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
+import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -195,7 +195,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderGeneralFormik(fp);
+        return renderEducationFormik(fp);
     }
   };
 
@@ -203,13 +203,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * Renders the general section of the application.
    * @param fp the formik props.
    */
-  const renderGeneralFormik = (fp: FormikProps<any>) => {
+  const renderEducationFormik = (fp: FormikProps<any>) => {
     return (
       <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-          Personal Details
+        <H1 fontSize={'24px'} marginBottom={'40px'}>
+          Education
         </H1>
-        <GridTwoColumn>
+        <div className="container">
           <FastField
             id="schoolName"
             name={'hacker.application.general.school'}
@@ -265,76 +265,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             component={FormikElements.Error}
             name="hacker.application.general.fieldOfStudy"
           />
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-          Portfolio
-        </H1>
+        </div>
 
-        <Field
-          name="resume"
-          component={ResumeComponent}
-          label={CONSTANTS.RESUME_LABEL}
-          mode={props.mode}
-          hackerId={hackerDetails.id}
-          required={props.mode === ManageApplicationModes.CREATE}
-          value={fp.values.resume}
-        />
-        <ErrorMessage component={FormikElements.Error} name="resume" />
-
-        <GridTwoColumn>
-          <FastField
-            name={'hacker.application.general.URL.github'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.GITHUB_LINK_LABEL}
-            placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.github"
-          />
-          <FastField
-            name={'hacker.application.general.URL.linkedIn'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.LINKEDIN_LINK_LABEL}
-            placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-            value={fp.values.hacker.application.general.URL.linkedIn}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.linkedIn"
-          />
-          <FastField
-            name={'hacker.application.general.URL.other'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.OTHER_LINK_LABEL}
-            placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-            value={fp.values.hacker.application.general.URL.other}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.other"
-          />
-        </GridTwoColumn>
-
-        <FastField
-          name={'hacker.application.general.jobInterest'}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(JobInterest)}
-          label={CONSTANTS.JOBINTEREST_LABEL}
-          placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-          value={fp.values.hacker.application.general.jobInterest}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.jobInterest"
-        />
         <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
           Next
         </SubmitBtn>
+
+        <style jsx>{`
+          .container {
+            max-width: 440px;
+          }
+        `}</style>
       </Form>
     );
   };
@@ -410,6 +351,73 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             <ErrorMessage
               component={FormikElements.Error}
               name="hacker.application.shortAnswer.comments"
+            />
+
+            <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+              Portfolio
+        </H1>
+
+            <Field
+              name="resume"
+              component={ResumeComponent}
+              label={CONSTANTS.RESUME_LABEL}
+              mode={props.mode}
+              hackerId={hackerDetails.id}
+              required={props.mode === ManageApplicationModes.CREATE}
+              value={fp.values.resume}
+            />
+            <ErrorMessage component={FormikElements.Error} name="resume" />
+
+            <GridTwoColumn>
+              <FastField
+                name={'hacker.application.general.URL.github'}
+                inputType="url"
+                component={FormikElements.Input}
+                label={CONSTANTS.GITHUB_LINK_LABEL}
+                placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.general.URL.github"
+              />
+              <FastField
+                name={'hacker.application.general.URL.linkedIn'}
+                inputType="url"
+                component={FormikElements.Input}
+                label={CONSTANTS.LINKEDIN_LINK_LABEL}
+                placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
+                value={fp.values.hacker.application.general.URL.linkedIn}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.general.URL.linkedIn"
+              />
+              <FastField
+                name={'hacker.application.general.URL.other'}
+                inputType="url"
+                component={FormikElements.Input}
+                label={CONSTANTS.OTHER_LINK_LABEL}
+                placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
+                value={fp.values.hacker.application.general.URL.other}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.general.URL.other"
+              />
+            </GridTwoColumn>
+
+            <FastField
+              name={'hacker.application.general.jobInterest'}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(JobInterest)}
+              label={CONSTANTS.JOBINTEREST_LABEL}
+              placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
+              value={fp.values.hacker.application.general.jobInterest}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.jobInterest"
             />
             <Flex
               flexDirection={'row'}
@@ -939,9 +947,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           justifyContent={'center'}
         >
           <div>&nbsp;</div>
-          <SubmitBtn 
-            isLoading={isSubmitting} 
-            disabled={isSubmitting} 
+          <SubmitBtn
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
             variant={ButtonVariant.Secondary}
           >
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
@@ -1057,10 +1065,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${
-                props.mode === ManageApplicationModes.EDIT
-                  ? 'edited'!
-                  : 'created!'
+              `Account ${props.mode === ManageApplicationModes.EDIT
+                ? 'edited'!
+                : 'created!'
               }`
             );
             setIsSubmitted(true);
