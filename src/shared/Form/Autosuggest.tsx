@@ -17,10 +17,6 @@ const AutosuggestWrapper = styled.div`
     ${inputStyles};
   }
 
-  .react-autosuggest__input:hover {
-    border: 2px solid ${(props) => props.theme.colors.black80};
-  }
-
   .react-autosuggest__input--focused {
     outline: none;
   }

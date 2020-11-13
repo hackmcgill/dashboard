@@ -26,7 +26,7 @@ import {
   Degrees,
   FrontendRoute,
   HackerStatus,
-  IEthnicity,
+  // IEthnicity,
   IHacker,
   ISetting,
   JobInterest,
@@ -36,7 +36,7 @@ import {
   Skills,
 } from '../../config';
 
-import { ButtonVariant } from '../../shared/Elements/Button';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
@@ -189,11 +189,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderShortAnswerFormik(fp);
+        return renderPortfolioFormik(fp);
       case 3:
         return renderAccommodationFormik(fp);
       case 4:
-        return renderOtherFormik(fp);
+        return renderShortAnswerFormik(fp);
       case 5:
         return renderReviewFormik(fp);
       default:
@@ -202,7 +202,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   };
 
   /**
-   * Renders the general section of the application.
+   * Renders the education section of the application.
    * @param fp the formik props.
    */
   const renderEducationFormik = (fp: FormikProps<any>) => {
@@ -275,9 +275,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         </div>
 
         <div className="buttons">
-          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
             Next
-          </SubmitBtn>
+          </Button>
         </div>
 
         <style jsx>{`
@@ -298,6 +298,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           .buttons {
             display: flex;
             justify-content: center;
+            margin-top: 56px;
           }
 
           .art {
@@ -306,6 +307,133 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           }
         `}</style>
       </Form>
+    );
+  };
+
+  /**
+   * Renders the portfolio section of the application.
+   * @param fp the formik props.
+   */
+  const renderPortfolioFormik = (fp: FormikProps<any>) => {
+    return (
+      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Portfolio
+            </H1>
+
+            <Field
+              name="resume"
+              component={ResumeComponent}
+              label={CONSTANTS.RESUME_LABEL}
+              mode={props.mode}
+              hackerId={hackerDetails.id}
+              required={props.mode === ManageApplicationModes.CREATE}
+              value={fp.values.resume}
+            />
+            <ErrorMessage component={FormikElements.Error} name="resume" />
+
+            <GridTwoColumn columnWidth="440px" rowGap="0" margin="0">
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.github'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.GITHUB_LINK_LABEL}
+                  placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.github"
+                />
+              </div>
+
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.linkedIn'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.LINKEDIN_LINK_LABEL}
+                  placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
+                  value={fp.values.hacker.application.general.URL.linkedIn}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.linkedIn"
+                />
+              </div>
+
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.other'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.OTHER_LINK_LABEL}
+                  placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
+                  value={fp.values.hacker.application.general.URL.other}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.other"
+                />
+              </div>
+            </GridTwoColumn>
+
+            <div className="field">
+              <FastField
+                name={'hacker.application.general.jobInterest'}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(JobInterest)}
+                label={CONSTANTS.JOBINTEREST_LABEL}
+                placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
+                value={fp.values.hacker.application.general.jobInterest}
+                required={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.general.jobInterest"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 960px;
+            flex: 1;
+          }
+
+          .field {
+            max-width: 440px;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+          }
+        `}</style>
+      </Form >
     );
   };
 
@@ -382,72 +510,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               name="hacker.application.shortAnswer.comments"
             />
 
-            <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-              Portfolio
-        </H1>
-
-            <Field
-              name="resume"
-              component={ResumeComponent}
-              label={CONSTANTS.RESUME_LABEL}
-              mode={props.mode}
-              hackerId={hackerDetails.id}
-              required={props.mode === ManageApplicationModes.CREATE}
-              value={fp.values.resume}
-            />
-            <ErrorMessage component={FormikElements.Error} name="resume" />
-
-            <GridTwoColumn>
-              <FastField
-                name={'hacker.application.general.URL.github'}
-                inputType="url"
-                component={FormikElements.Input}
-                label={CONSTANTS.GITHUB_LINK_LABEL}
-                placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="hacker.application.general.URL.github"
-              />
-              <FastField
-                name={'hacker.application.general.URL.linkedIn'}
-                inputType="url"
-                component={FormikElements.Input}
-                label={CONSTANTS.LINKEDIN_LINK_LABEL}
-                placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-                value={fp.values.hacker.application.general.URL.linkedIn}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="hacker.application.general.URL.linkedIn"
-              />
-              <FastField
-                name={'hacker.application.general.URL.other'}
-                inputType="url"
-                component={FormikElements.Input}
-                label={CONSTANTS.OTHER_LINK_LABEL}
-                placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-                value={fp.values.hacker.application.general.URL.other}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="hacker.application.general.URL.other"
-              />
-            </GridTwoColumn>
-
-            <FastField
-              name={'hacker.application.general.jobInterest'}
-              component={FormikElements.Select}
-              options={getOptionsFromEnum(JobInterest)}
-              label={CONSTANTS.JOBINTEREST_LABEL}
-              placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-              value={fp.values.hacker.application.general.jobInterest}
-              required={true}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="hacker.application.general.jobInterest"
-            />
             <Flex
               flexDirection={'row'}
               alignItems={'center'}
@@ -569,128 +631,128 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    * Renders the other section of the application
    * @param fp the formik props.
    */
-  const renderOtherFormik = (fp: FormikProps<any>) => {
-    return (
-      <Form
-        onKeyDown={onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'hacker.application.other.ethnicity'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(IEthnicity)}
-          label={CONSTANTS.ETHNICITY_LABEL}
-          placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.hacker.application.other.ethnicity}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.ethnicity"
-        />
-        <FastField
-          name={'hacker.application.other.codeOfConduct'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}
-              {' McHacks '}
-              <a
-                href="https://mchacks.ca/code-of-conduct"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {CONSTANTS.MCHACKS_COC}
-              </a>
-              {' and '}
-              <a
-                href="https://mchacks.ca/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {CONSTANTS.MCHACKS_PRIVACY}
-              </a>
-            </span>
-          }
-          value={fp.values.hacker.application.other.codeOfConduct}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.codeOfConduct"
-        />
-        <FastField
-          name={'hacker.application.other.privacyPolicy'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.MLH_LABEL}
-          subtitle={
-            <span>
-              {'I have read and agree to the '}
-              <a
-                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Code of Conduct'}
-              </a>
-              {'. '}
-              {
-                'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
-              }
-              <a
-                href="https://mlh.io/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Privacy Policy'}
-              </a>
-              {'. I further agree to the terms of both the '}
-              <a
-                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Contest Terms and Conditions'}
-              </a>
-              {' and the '}
-              <a
-                href="https://mlh.io/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Privacy Policy'}
-                {'.'}
-              </a>
-            </span>
-          }
-          value={fp.values.hacker.application.other.privacyPolicy}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.privacyPolicy"
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <div>&nbsp;</div>
-          <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-            Back
-          </ResetBtn>
-          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-            Next
-            {/* {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'} */}
-          </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
-      </Form>
-    );
-  };
+  // const renderOtherFormik = (fp: FormikProps<any>) => {
+  //   return (
+  //     <Form
+  //       onKeyDown={onKeyDown}
+  //       onSubmit={fp.handleSubmit}
+  //       onReset={fp.handleReset}
+  //     >
+  //       <FastField
+  //         name={'hacker.application.other.ethnicity'}
+  //         isMulti={true}
+  //         creatable={true}
+  //         options={getOptionsFromEnum(IEthnicity)}
+  //         label={CONSTANTS.ETHNICITY_LABEL}
+  //         placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
+  //         component={FormikElements.Select}
+  //         value={fp.values.hacker.application.other.ethnicity}
+  //         required={true}
+  //       />
+  //       <ErrorMessage
+  //         component={FormikElements.Error}
+  //         name="hacker.application.other.ethnicity"
+  //       />
+  //       <FastField
+  //         name={'hacker.application.other.codeOfConduct'}
+  //         component={FormikElements.Checkbox}
+  //         label={
+  //           <span>
+  //             {CONSTANTS.COC_ACCEPTANCE_PHRASE}
+  //             {' McHacks '}
+  //             <a
+  //               href="https://mchacks.ca/code-of-conduct"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {CONSTANTS.MCHACKS_COC}
+  //             </a>
+  //             {' and '}
+  //             <a
+  //               href="https://mchacks.ca/privacy"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {CONSTANTS.MCHACKS_PRIVACY}
+  //             </a>
+  //           </span>
+  //         }
+  //         value={fp.values.hacker.application.other.codeOfConduct}
+  //         required={true}
+  //       />
+  //       <ErrorMessage
+  //         component={FormikElements.Error}
+  //         name="hacker.application.other.codeOfConduct"
+  //       />
+  //       <FastField
+  //         name={'hacker.application.other.privacyPolicy'}
+  //         component={FormikElements.Checkbox}
+  //         label={CONSTANTS.MLH_LABEL}
+  //         subtitle={
+  //           <span>
+  //             {'I have read and agree to the '}
+  //             <a
+  //               href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {'MLH Code of Conduct'}
+  //             </a>
+  //             {'. '}
+  //             {
+  //               'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+  //             }
+  //             <a
+  //               href="https://mlh.io/privacy"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {'MLH Privacy Policy'}
+  //             </a>
+  //             {'. I further agree to the terms of both the '}
+  //             <a
+  //               href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {'MLH Contest Terms and Conditions'}
+  //             </a>
+  //             {' and the '}
+  //             <a
+  //               href="https://mlh.io/privacy"
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               {'MLH Privacy Policy'}
+  //               {'.'}
+  //             </a>
+  //           </span>
+  //         }
+  //         value={fp.values.hacker.application.other.privacyPolicy}
+  //         required={true}
+  //       />
+  //       <ErrorMessage
+  //         component={FormikElements.Error}
+  //         name="hacker.application.other.privacyPolicy"
+  //       />
+  //       <Flex
+  //         flexDirection={'row'}
+  //         alignItems={'center'}
+  //         justifyContent={'space-between'}
+  //       >
+  //         <div>&nbsp;</div>
+  //         <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
+  //           Back
+  //         </ResetBtn>
+  //         <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+  //           Next
+  //           {/* {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'} */}
+  //         </SubmitBtn>
+  //         <div>&nbsp;</div>
+  //       </Flex>
+  //     </Form>
+  //   );
+  // };
 
   /**
    * Renders the review section of the application
