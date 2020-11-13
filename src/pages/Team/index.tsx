@@ -9,7 +9,6 @@ import { ITeamResponse } from '../../config/teamGETResponse';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import JoinCreateTeam from '../../features/Team/JoinCreateTeam';
 import TeamDescription from '../../features/Team/TeamDescription';
-import WithToasterContainer from '../../shared/HOC/withToaster';
 import { H1 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 
@@ -138,4 +137,4 @@ const TeamPage: React.FC = () => {
   );
 };
 
-export default WithToasterContainer(TeamPage);
+export default TeamPage;

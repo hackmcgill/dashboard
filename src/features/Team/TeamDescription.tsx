@@ -21,7 +21,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   return (
     <>
       <div className="team-code-container">
-        <div className="label">Team name</div>
+        <div className="label">Team code</div>
         <div className="info-text">Share this code with your team members to let them join:</div>
         <div className="team-code">
           <ClipboardComponent
