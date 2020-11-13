@@ -4,6 +4,10 @@ import { IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
 import { H1 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 
+import { toast } from 'react-toastify';
+import ClipboardComponent from '../../shared/Elements/Clipboard';
+import WithToasterContainer from '../../shared/HOC/withToaster';
+
 interface ITeamDescriptionProps {
   team: ITeam;
   members: IMemberName[];
@@ -25,7 +29,13 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         <div className="team-code-container">
           <div className="label">Team code</div>
           <div className="info-text">Share this code with your team members to let them join:</div>
-          <div className="team-code">{props.team.name}</div>
+          <div className="team-code">
+            <ClipboardComponent
+              value={props.team.name}
+              onSuccess={onCopied}
+              onError={onCopyFailed}
+            />
+          </div>
         </div>
 
         <div className="team-members-container">
@@ -90,16 +100,19 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         }
 
         .team-code {
-          background: ${theme.colors.purpleLight};
-          color: ${theme.colors.purple};
+          border: 1px solid ${theme.colors.purpleLight};
           font-family: ${theme.fonts.header};
+          color: ${theme.colors.black70};
           font-size: 24px;
           padding: 16px;
           border-radius: 8px;
 
-          text-align: center;
           margin-top: 8px;
           margin-bottom: 48px;
+
+          /* Horizontally center contents */
+          display: flex;
+          justify-content: center;
         }
 
         .members {
@@ -108,11 +121,11 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         }
 
         .member:first-child {
-          border-top: 1px solid ${theme.colors.black10};
+          border-top: 1px solid ${theme.colors.purpleLight};
         }
 
         .member {
-          border-bottom: 1px solid ${theme.colors.black10};
+          border-bottom: 1px solid ${theme.colors.purpleLight};
           padding: 16px 24px;
         }
 
@@ -132,4 +145,12 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   );
 };
 
-export { TeamDescription };
+function onCopied(e: any) {
+  toast.success('Copied!');
+}
+
+function onCopyFailed(e: any) {
+  toast.error('Error.');
+}
+
+export default WithToasterContainer(TeamDescription);

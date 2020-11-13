@@ -9,7 +9,7 @@ import { ITeamResponse } from '../../config/teamGETResponse';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import { JoinCreateTeam } from '../../features/Team/JoinCreateTeam';
-import { TeamDescription } from '../../features/Team/TeamDescription';
+import TeamDescription from '../../features/Team/TeamDescription';
 
 /**
  * Container that renders form to log in.
