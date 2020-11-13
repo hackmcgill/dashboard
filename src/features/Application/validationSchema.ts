@@ -63,27 +63,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 other: string().url('Must be a valid URL'),
               }),
             }),
-            shortAnswer: object().shape({
-              previousHackathons: number().required('Required'),
-              question1: string()
-                .required('Required')
-                .test(
-                  'length',
-                  'At most 2000 characters',
-                  (value) => value && value.length < 2000
-                ),
-              question2: string()
-                .required('Required')
-                .test(
-                  'length',
-                  'At most 2000 characters',
-                  (value) => value && value.length < 2000
-                ),
-              comments: string().test(
-                'length',
-                'At most 500 characters',
-                (value) => !value || value.length < 500
-              ),
+            other: object().shape({
+              ethnicity: array().required('Required'),
             }),
           }),
         }),
@@ -161,15 +142,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 (value) => !value || value.length < 500
               ),
             }),
-            accommodation: object().shape({
-              shirtSize: string().required('Required'),
-              impairments: string(),
-              barriers: string(),
-              travel: number()
-                .min(0, 'Must be between 0 and 100')
-                .max(100, 'Must be between 0 and 100')
-                .integer('Must be an integer')
-                .typeError('Must be a number'),
+            other: object().shape({
+              ethnicity: array().required('Required'),
             }),
           }),
         }),

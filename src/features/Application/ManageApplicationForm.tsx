@@ -23,7 +23,7 @@ import {
   Degrees,
   FrontendRoute,
   HackerStatus,
-  // IEthnicity,
+  IEthnicity,
   IHacker,
   ISetting,
   JobInterest,
@@ -176,15 +176,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderEducationFormik(fp);
-      case 3:
         return renderPortfolioFormik(fp);
-      case 4:
+      case 3:
         return renderShortAnswerFormik(fp);
+      case 4:
+        return renderAccommodationFormik(fp);
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderAccommodationFormik(fp);
+        return renderEducationFormik(fp);
     }
   };
 
@@ -371,7 +371,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               </div>
             </GridTwoColumn>
 
-            <div className="field">
+            <div className="short-fields">
               <FastField
                 name={'hacker.application.shortAnswer.skills'}
                 isMulti={true}
@@ -395,6 +395,26 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               <ErrorMessage
                 component={FormikElements.Error}
                 name="hacker.application.general.jobInterest"
+              />
+
+              <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
+                Personal Details
+              </H1>
+
+              <FastField
+                name={'hacker.application.other.ethnicity'}
+                isMulti={true}
+                creatable={true}
+                options={getOptionsFromEnum(IEthnicity)}
+                label={CONSTANTS.ETHNICITY_LABEL}
+                placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.other.ethnicity}
+                required={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.ethnicity"
               />
             </div>
           </div>
@@ -425,7 +445,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             flex: 1;
           }
 
-          .field {
+          .short-fields {
             max-width: 440px;
           }
 
@@ -466,6 +486,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               }
               required={true}
               style={{ maxWidth: '160px' }}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.shortAnswer.previousHackathons"
             />
             <FastField
               name={'hacker.application.shortAnswer.question1'}
@@ -765,52 +789,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       </Form>
     );
   };
-
-  /**
-   * Renders the other section of the application
-   * @param fp the formik props.
-   */
-  // const renderOtherFormik = (fp: FormikProps<any>) => {
-  //   return (
-  //     <Form
-  //       onKeyDown={onKeyDown}
-  //       onSubmit={fp.handleSubmit}
-  //       onReset={fp.handleReset}
-  //     >
-  //       <FastField
-  //         name={'hacker.application.other.ethnicity'}
-  //         isMulti={true}
-  //         creatable={true}
-  //         options={getOptionsFromEnum(IEthnicity)}
-  //         label={CONSTANTS.ETHNICITY_LABEL}
-  //         placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
-  //         component={FormikElements.Select}
-  //         value={fp.values.hacker.application.other.ethnicity}
-  //         required={true}
-  //       />
-  //       <ErrorMessage
-  //         component={FormikElements.Error}
-  //         name="hacker.application.other.ethnicity"
-  //       />
-  //      
-  //       <Flex
-  //         flexDirection={'row'}
-  //         alignItems={'center'}
-  //         justifyContent={'space-between'}
-  //       >
-  //         <div>&nbsp;</div>
-  //         <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-  //           Back
-  //         </ResetBtn>
-  //         <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-  //           Next
-  //           {/* {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'} */}
-  //         </SubmitBtn>
-  //         <div>&nbsp;</div>
-  //       </Flex>
-  //     </Form>
-  //   );
-  // };
 
   /**
    * Renders the review section of the application
