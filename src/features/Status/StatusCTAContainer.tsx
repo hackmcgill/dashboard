@@ -6,7 +6,8 @@ import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComp
 import { Hacker, Settings } from '../../api';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
-import { Flex } from '@rebass/grid';
+import { Box, Flex } from '@rebass/grid';
+import { ConfirmModal } from '../../shared/Elements';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -17,6 +18,7 @@ export interface IStatusCTAContainerProps {
 export interface IStatusCTAContainerState {
   status: HackerStatus;
   settings: ISetting;
+  isModalOpen: boolean;
 }
 
 class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStatusCTAContainerState> {
@@ -30,6 +32,7 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
         confirmTime: new Date().toString(),
         isRemote: false,
       },
+      isModalOpen: false,
     };
   }
   public confirmStatus = async (e: any) => {
@@ -43,7 +46,7 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
     }
   };
 
-  public withdrawStatus = async (e: any) => {
+  public withdrawStatus = async () => {
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
@@ -63,11 +66,29 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
             firstName={this.props.account.firstName}
             settings={this.state.settings}
             onClickConfirm={this.confirmStatus}
-            onClickWithdraw={this.withdrawStatus}
+            // tslint:disable-next-line: jsx-no-lambda
+            onClickWithdraw={() => this.setState({ isModalOpen: true })}
           />
         ) : (
-            <ConfirmationEmailSentComponent />
-          )}
+          <ConfirmationEmailSentComponent />
+        )}
+        <ConfirmModal
+          isOpen={this.state.isModalOpen}
+          // tslint:disable-next-line: jsx-no-lambda
+          onCanceled={() => this.setState({ isModalOpen: false })}
+          // tslint:disable-next-line: jsx-no-lambda
+          onConfirmed={() => {
+            this.withdrawStatus();
+            this.setState({ isModalOpen: false });
+          }}
+        >
+          <Box alignSelf={'center'}>
+            Are you sure you want to make these changes?
+          </Box>
+          <Box mb={'10px'} alignSelf={'center'}>
+            This will withdraw you from the event.
+          </Box>
+        </ConfirmModal>
       </Flex>
     );
   }
