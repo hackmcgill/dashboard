@@ -11,6 +11,7 @@ interface IStylizedSelectFormikProps {
   creatable: boolean;
   required?: boolean;
   disabled?: boolean;
+  style?: object;
 }
 
 const StylizedSelectFormikComponent: React.StatelessComponent<
@@ -31,15 +32,17 @@ const StylizedSelectFormikComponent: React.StatelessComponent<
   return (
     <Label>
       <LabelText label={props.label} required={props.required} />
-      {props.creatable ? (
-        <StyledCreatableSelect
-          {...commonProps}
-          allowCreateWhileLoading={true}
-          createOptionPosition={'first'}
-        />
-      ) : (
-        <StyledSelect {...commonProps} />
-      )}
+      <div style={props.style}>
+        {props.creatable ? (
+          <StyledCreatableSelect
+            {...commonProps}
+            allowCreateWhileLoading={true}
+            createOptionPosition={'first'}
+          />
+        ) : (
+            <StyledSelect {...commonProps} />
+          )}
+      </div>
     </Label>
   );
 };

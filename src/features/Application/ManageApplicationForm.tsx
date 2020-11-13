@@ -31,7 +31,6 @@ import {
   Majors,
   PreviousHackathons,
   ShirtSize,
-  Skills,
 } from '../../config';
 
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
@@ -457,16 +456,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               Questions
             </H1>
             <FastField
-              name={'hacker.application.shortAnswer.skills'}
-              isMulti={true}
-              creatable={true}
-              options={getOptionsFromEnum(Skills)}
-              label={CONSTANTS.SKILLS_LABEL}
-              placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
-              component={FormikElements.Select}
-              value={fp.values.hacker.application.shortAnswer.skills}
-            />
-            <FastField
               name={'hacker.application.shortAnswer.previousHackathons'}
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
@@ -475,6 +464,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 fp.values.hacker.application.shortAnswer.previousHackathons
               }
               required={true}
+              style={{ maxWidth: '160px' }}
             />
             <FastField
               name={'hacker.application.shortAnswer.question1'}
