@@ -12,10 +12,9 @@ import {
 import {
   Button,
   ButtonVariant,
-  H1,
 } from '../../shared/Elements';
 
-import { IHacker, TEAM_OVERVIEW } from '../../config';
+import { IHacker } from '../../config';
 
 import Team from '../../api/team';
 import { Form } from '../../shared/Form';
@@ -25,7 +24,6 @@ import {
 } from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import getValidationSchema from './validationSchema';
-import theme from '../../shared/Styles/theme';
 
 interface IJoinCreateTeamProps {
   hacker: IHacker;
@@ -119,51 +117,14 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
   }
 
   return (
-    <div className="centered">
-      <div className="team-box">
-        <div className="title">
-          <H1 marginBottom="8px">Your Team</H1>
-          <div className="info-text">{TEAM_OVERVIEW}</div>
-        </div>
-        <Formik
-          initialValues={{
-            name: '',
-          }}
-          onSubmit={handleSubmit}
-          render={renderFormik}
-          validationSchema={getValidationSchema}
-        />
-      </div>
-
-      <style jsx>{`
-        .centered {
-          /* Center vertically */
-          flex: 1;
-          padding-top: 24px;
-          padding-bottom: 114px; /* Offset for navbar (90px) + 24px vertical padding */
-
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .team-box {
-          max-width: 400px;
-          text-align: left;
-        }
-
-        .title {
-          margin-bottom: 32px;
-        }
-
-        .title .info-text {
-          border-left: 4px solid ${theme.colors.purpleLight};
-          padding: 4px 16px;
-          margin-left: -20px;
-        }
-      `}</style>
-    </div>
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      onSubmit={handleSubmit}
+      render={renderFormik}
+      validationSchema={getValidationSchema}
+    />
   );
 }
 

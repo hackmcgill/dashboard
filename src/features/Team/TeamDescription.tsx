@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { HackerStatus, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
-import { H1 } from '../../shared/Elements';
+import { HackerStatus, IMemberName, ITeam } from '../../config';
 import theme from '../../shared/Styles/theme';
 
 import { toast } from 'react-toastify';
@@ -20,77 +19,43 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
-    <div className="centered">
-      <div className="team-box">
-        <div className="title">
-          <H1 marginBottom="8px">Your Team</H1>
-          <div className="info-text">{TEAM_OVERVIEW}</div>
+    <>
+      <div className="team-code-container">
+        <div className="label">Team name</div>
+        <div className="info-text">Share this code with your team members to let them join:</div>
+        <div className="team-code">
+          <ClipboardComponent
+            value={props.team.name}
+            onSuccess={onCopied}
+            onError={onCopyFailed}
+          />
         </div>
-
-        <div className="team-code-container">
-          <div className="label">Team name</div>
-          <div className="info-text">Share this code with your team members to let them join:</div>
-          <div className="team-code">
-            <ClipboardComponent
-              value={props.team.name}
-              onSuccess={onCopied}
-              onError={onCopyFailed}
-            />
-          </div>
-        </div>
-
-        <div className="team-members-container">
-          <div className="label">Members</div>
-          <div className="members">
-            {props.members.map((member, index) => {
-              const applied = member.status === HackerStatus.HACKER_STATUS_NONE;
-
-              return <div className="member" key={index}>
-                <div>
-                  <div className="name">{member.firstName} {member.lastName}</div>
-                  <div className="school">{member.school}</div>
-                </div>
-                <div className={'status' + (applied ? ' incomplete' : ' applied')}>
-                  {applied ? 'Incomplete Application' : 'Applied'}
-                </div>
-              </div>
-            })}
-          </div>
-        </div>
-
-        <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
-          Leave team
-        </TextButton>
       </div>
 
+      <div className="team-members-container">
+        <div className="label">Members</div>
+        <div className="members">
+          {props.members.map((member, index) => {
+            const applied = member.status === HackerStatus.HACKER_STATUS_NONE;
+
+            return <div className="member" key={index}>
+              <div>
+                <div className="name">{member.firstName} {member.lastName}</div>
+                <div className="school">{member.school}</div>
+              </div>
+              <div className={'status' + (applied ? ' incomplete' : ' applied')}>
+                {applied ? 'Incomplete Application' : 'Applied'}
+              </div>
+            </div>
+          })}
+        </div>
+      </div>
+
+      <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
+        Leave team
+      </TextButton>
+
       <style jsx>{`
-        .centered {
-          /* Center vertically */
-          flex: 1;
-          padding-top: 24px;
-          padding-bottom: 114px; /* Offset for navbar (90px) + 24px vertical padding */
-
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .team-box {
-          max-width: 400px;
-          text-align: left;
-        }
-
-        .title {
-          margin-bottom: 32px;
-        }
-
-        .title .info-text {
-          border-left: 4px solid ${theme.colors.purpleLight};
-          padding: 4px 16px;
-          margin-left: -20px;
-        }
-
         .label {
           font-family: ${theme.fonts.header};
           margin-bottom: 8px;
@@ -149,7 +114,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           color: ${theme.colors.redMed};
         }
       `}</style>
-    </div>
+    </>
   );
 };
 
