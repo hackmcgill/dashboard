@@ -3,7 +3,7 @@ import theme from '../Styles/theme';
 
 export interface ITextButtonProps {
     isLoading?: boolean;
-    onClick?: (e: any) => Promise<void>;
+    onClick?: any;
 }
 
 /**
