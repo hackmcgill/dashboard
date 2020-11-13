@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Flex } from '@rebass/grid';
 import {
@@ -32,76 +32,14 @@ interface IJoinCreateTeamProps {
   onTeamChange: () => void;
 }
 
-interface IJoinCreateTeamState {
-  submissionBtn: number;
-  isLoading: boolean;
-}
+const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
+  // Is the user currently trying to join or create a team?
+  const [isLoading, setIsLoading] = useState(false);
 
-class JoinCreateTeam extends React.Component<
-  IJoinCreateTeamProps,
-  IJoinCreateTeamState
-  > {
-  constructor(props: IJoinCreateTeamProps) {
-    super(props);
-    this.state = {
-      submissionBtn: 0,
-      isLoading: false,
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderFormik = this.renderFormik.bind(this);
-  }
+  // Keep track of which button was clicked
+  const [submissionBtn, setSubmissionBtn] = useState(0);
 
-  public render() {
-    return (
-      <div className="centered">
-        <div className="team-box">
-          <div className="title">
-            <H1 marginBottom="8px">Your Team</H1>
-            <div className="info-text">{TEAM_OVERVIEW}</div>
-          </div>
-          <Formik
-            initialValues={{
-              name: '',
-            }}
-            onSubmit={this.handleSubmit}
-            render={this.renderFormik}
-            validationSchema={getValidationSchema}
-          />
-        </div>
-
-        <style jsx>{`
-          .centered {
-            /* Center vertically */
-            flex: 1;
-            padding-top: 24px;
-            padding-bottom: 114px; /* Offset for navbar (90px) + 24px vertical padding */
-  
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-          }
-
-          .team-box {
-            max-width: 400px;
-            text-align: left;
-          }
-
-          .title {
-            margin-bottom: 32px;
-          }
-  
-          .title .info-text {
-            border-left: 4px solid ${theme.colors.purpleLight};
-            padding: 4px 16px;
-            margin-left: -20px;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  private renderFormik(fp: FormikProps<any>) {
+  const renderFormik = (fp: FormikProps<any>) => {
     return (
       <Form>
         <FastField
@@ -118,9 +56,9 @@ class JoinCreateTeam extends React.Component<
             <Button
               type="button"
               variant={ButtonVariant.Secondary}
-              onClick={this.onClickFactory(0, fp.submitForm)}
-              isLoading={this.state.isLoading}
-              disabled={this.state.isLoading}
+              onClick={onClickFactory(0, fp.submitForm)}
+              isLoading={isLoading}
+              disabled={isLoading}
             >
               Create new team
             </Button>
@@ -129,9 +67,9 @@ class JoinCreateTeam extends React.Component<
             <Button
               type="button"
               variant={ButtonVariant.Secondary}
-              onClick={this.onClickFactory(1, fp.submitForm)}
-              isLoading={this.state.isLoading}
-              disabled={this.state.isLoading}
+              onClick={onClickFactory(1, fp.submitForm)}
+              isLoading={isLoading}
+              disabled={isLoading}
             >
               Join team
             </Button>
@@ -141,25 +79,25 @@ class JoinCreateTeam extends React.Component<
     );
   }
 
-  private onClickFactory(
-    submissionBtn: number,
+  const onClickFactory = (
+    btn: number,
     submitForm: () => void
-  ): (e: any) => void {
+  ): (e: any) => void => {
     return (e) => {
-      this.setState({ submissionBtn });
+      setSubmissionBtn(btn)
       submitForm();
     };
   }
 
-  private async handleSubmit(values: FormikValues) {
-    this.setState({ isLoading: true });
-    if (this.state.submissionBtn === 0) {
+  const handleSubmit = async (values: FormikValues) => {
+    setIsLoading(true);
+    if (submissionBtn === 0) {
       try {
         await Team.create({
           name: values.name,
-          members: [this.props.hacker.id],
+          members: [props.hacker.id],
         });
-        this.props.onTeamChange();
+        props.onTeamChange();
       } catch (e) {
         if (e.status === 409) {
           if (e && e.data) {
@@ -170,15 +108,63 @@ class JoinCreateTeam extends React.Component<
     } else {
       try {
         await Team.join(values.name);
-        this.props.onTeamChange();
+        props.onTeamChange();
       } catch (e) {
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
         }
       }
     }
-    this.setState({ isLoading: false });
+    setIsLoading(false);
   }
+
+  return (
+    <div className="centered">
+      <div className="team-box">
+        <div className="title">
+          <H1 marginBottom="8px">Your Team</H1>
+          <div className="info-text">{TEAM_OVERVIEW}</div>
+        </div>
+        <Formik
+          initialValues={{
+            name: '',
+          }}
+          onSubmit={handleSubmit}
+          render={renderFormik}
+          validationSchema={getValidationSchema}
+        />
+      </div>
+
+      <style jsx>{`
+        .centered {
+          /* Center vertically */
+          flex: 1;
+          padding-top: 24px;
+          padding-bottom: 114px; /* Offset for navbar (90px) + 24px vertical padding */
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .team-box {
+          max-width: 400px;
+          text-align: left;
+        }
+
+        .title {
+          margin-bottom: 32px;
+        }
+
+        .title .info-text {
+          border-left: 4px solid ${theme.colors.purpleLight};
+          padding: 4px 16px;
+          margin-left: -20px;
+        }
+      `}</style>
+    </div>
+  );
 }
 
-export { JoinCreateTeam };
+export default JoinCreateTeam;

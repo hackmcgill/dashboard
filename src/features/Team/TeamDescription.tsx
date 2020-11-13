@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { HackerStatus, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
 import { H1 } from '../../shared/Elements';

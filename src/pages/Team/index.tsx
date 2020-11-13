@@ -7,9 +7,9 @@ import { HACKATHON_NAME, IHacker, IMemberName, ITeam } from '../../config';
 
 import { ITeamResponse } from '../../config/teamGETResponse';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
-import WithToasterContainer from '../../shared/HOC/withToaster';
-import { JoinCreateTeam } from '../../features/Team/JoinCreateTeam';
+import JoinCreateTeam from '../../features/Team/JoinCreateTeam';
 import TeamDescription from '../../features/Team/TeamDescription';
+import WithToasterContainer from '../../shared/HOC/withToaster';
 
 /**
  * Container that renders form to log in.
