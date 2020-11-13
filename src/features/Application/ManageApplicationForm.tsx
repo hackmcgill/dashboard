@@ -14,7 +14,6 @@ import {
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
-import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
 import { H1, Paragraph } from '../../shared/Elements';
 import { Image } from '../../shared/Elements';
@@ -52,6 +51,9 @@ import { Flex } from '@rebass/grid';
 import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
+
+import RobotDrone from '../../assets/images/robotDrone.svg';
+import books from '../../assets/images/books.svg';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -206,74 +208,101 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderEducationFormik = (fp: FormikProps<any>) => {
     return (
       <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
-        <H1 fontSize={'24px'} marginBottom={'40px'}>
-          Education
-        </H1>
         <div className="container">
-          <FastField
-            id="schoolName"
-            name={'hacker.application.general.school'}
-            component={SchoolComponent}
-            value={fp.values.hacker.application.general.school}
-            required={true}
-            label={CONSTANTS.SCHOOL_LABEL}
-            placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.school"
-          />
-          <FastField
-            name={'hacker.application.general.degree'}
-            label={CONSTANTS.DEGREE_LABEL}
-            placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
-            creatable={true}
-            options={getOptionsFromEnum(Degrees)}
-            component={FormikElements.Select}
-            value={fp.values.hacker.application.general.degree}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.degree"
-          />
-          <FastField
-            name={'hacker.application.general.graduationYear'}
-            label={CONSTANTS.GRADUATION_YEAR_LABEL}
-            placeholder="YYYY"
-            format="####"
-            component={FormikElements.FormattedNumber}
-            value={fp.values.hacker.application.general.graduationYear}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.graduationYear"
-          />
-          <FastField
-            name={'hacker.application.general.fieldOfStudy'}
-            options={Majors}
-            isMulti={true}
-            creatable={true}
-            component={FormikElements.Select}
-            label={CONSTANTS.FIELD_OF_STUDY_LABEL}
-            placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
-            value={fp.values.hacker.application.general.fieldOfStudy}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.fieldOfStudy"
-          />
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Education
+            </H1>
+
+            <FastField
+              id="schoolName"
+              name={'hacker.application.general.school'}
+              component={SchoolComponent}
+              value={fp.values.hacker.application.general.school}
+              required={true}
+              label={CONSTANTS.SCHOOL_LABEL}
+              placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.school"
+            />
+            <FastField
+              name={'hacker.application.general.degree'}
+              label={CONSTANTS.DEGREE_LABEL}
+              placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
+              creatable={true}
+              options={getOptionsFromEnum(Degrees)}
+              component={FormikElements.Select}
+              value={fp.values.hacker.application.general.degree}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.degree"
+            />
+            <FastField
+              name={'hacker.application.general.graduationYear'}
+              label={CONSTANTS.GRADUATION_YEAR_LABEL}
+              placeholder="YYYY"
+              format="####"
+              component={FormikElements.FormattedNumber}
+              value={fp.values.hacker.application.general.graduationYear}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.graduationYear"
+            />
+            <FastField
+              name={'hacker.application.general.fieldOfStudy'}
+              options={Majors}
+              isMulti={true}
+              creatable={true}
+              component={FormikElements.Select}
+              label={CONSTANTS.FIELD_OF_STUDY_LABEL}
+              placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
+              value={fp.values.hacker.application.general.fieldOfStudy}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.fieldOfStudy"
+            />
+          </div>
+
+          <img src={books} alt="background" className="art" />
         </div>
 
-        <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-          Next
-        </SubmitBtn>
+        <div className="buttons">
+          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </SubmitBtn>
+        </div>
 
         <style jsx>{`
           .container {
+            max-width: 1057px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
             max-width: 440px;
+            flex: 1;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+          }
+
+          .art {
+            width: 481px;
+            height: auto;
           }
         `}</style>
       </Form>
@@ -1170,23 +1199,21 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         totalPages={CONSTANTS.TOTAL_PAGES}
         lastCompletedPage={pageNumber}
       />
-      <div style={{ marginTop: '90px' }}>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            hacker: hackerDetails,
-            resume: resume || undefined,
-            pageNumber,
-          }}
-          onSubmit={handleSubmit}
-          onReset={previousPage}
-          render={renderFormik}
-          validationSchema={getValidationSchema(
-            props.mode === ManageApplicationModes.CREATE,
-            pageNumber
-          )}
-        />
-      </div>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          hacker: hackerDetails,
+          resume: resume || undefined,
+          pageNumber,
+        }}
+        onSubmit={handleSubmit}
+        onReset={previousPage}
+        render={renderFormik}
+        validationSchema={getValidationSchema(
+          props.mode === ManageApplicationModes.CREATE,
+          pageNumber
+        )}
+      />
     </>
   ) : null;
 };
