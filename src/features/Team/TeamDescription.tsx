@@ -7,6 +7,7 @@ import theme from '../../shared/Styles/theme';
 import { toast } from 'react-toastify';
 import ClipboardComponent from '../../shared/Elements/Clipboard';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import TextButton from '../../shared/Elements/TextButton';
 
 interface ITeamDescriptionProps {
   team: ITeam;
@@ -27,7 +28,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         </div>
 
         <div className="team-code-container">
-          <div className="label">Team code</div>
+          <div className="label">Team name</div>
           <div className="info-text">Share this code with your team members to let them join:</div>
           <div className="team-code">
             <ClipboardComponent
@@ -57,15 +58,9 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           </div>
         </div>
 
-        {
-          !props.isLeavingTeam ?
-            <div className="text-button" onClick={props.onLeaveTeam}>
-              Leave team
-            </div> :
-            <div>
-              Leaving team...
-            </div>
-        }
+        <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
+          Leave team
+        </TextButton>
       </div>
 
       <style jsx>{`
@@ -152,13 +147,6 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
 
         .member .status.incomplete {
           color: ${theme.colors.redMed};
-        }
-
-        .text-button {
-          display: inline-block;
-          color: ${theme.colors.black60};
-          text-decoration: underline;
-          cursor: pointer;
         }
       `}</style>
     </div>
