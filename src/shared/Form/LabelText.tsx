@@ -31,11 +31,11 @@ export const LabelText: React.FC<ILabelTextProps> = (
   );
   return (
     <Flex flexDirection={'row'} justifyContent={'space-between'}>
-      <Box ml="2px">
+      <Box>
         {props.label}
         {requiredText}
       </Box>
-      {props.secondaryInfo && <Box mr="8px">{secondaryInfo}</Box>}
+      {props.secondaryInfo && <Box>{secondaryInfo}</Box>}
     </Flex>
   );
 };

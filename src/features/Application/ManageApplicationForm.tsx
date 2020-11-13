@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
 
 import { AxiosResponse } from 'axios';
@@ -16,7 +15,6 @@ import styled from 'styled-components';
 
 import * as CONSTANTS from '../../config/constants';
 import { H1, Paragraph } from '../../shared/Elements';
-import { Image } from '../../shared/Elements';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeader';
@@ -52,7 +50,7 @@ import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
-import RobotDrone from '../../assets/images/robotDrone.svg';
+import robotDrone from '../../assets/images/robotDrone.svg';
 import books from '../../assets/images/books.svg';
 
 export enum ManageApplicationModes {
@@ -193,11 +191,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       case 3:
         return renderAccommodationFormik(fp);
       case 4:
-        return renderShortAnswerFormik(fp);
+        return renderEducationFormik(fp);
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderEducationFormik(fp);
+        return renderShortAnswerFormik(fp);
     }
   };
 
@@ -282,7 +280,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
         <style jsx>{`
           .container {
-            max-width: 1057px;
+            max-width: 960px;
             margin: auto;
 
             display: flex;
@@ -299,11 +297,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             display: flex;
             justify-content: center;
             margin-top: 56px;
+            margin-bottom: 80px;
           }
 
           .art {
             width: 481px;
             height: auto;
+
+            position: relative;
+            left: 97px;
           }
         `}</style>
       </Form>
@@ -431,6 +433,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             display: flex;
             justify-content: center;
             margin-top: 56px;
+            margin-bottom: 80px;
           }
         `}</style>
       </Form >
@@ -443,13 +446,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderShortAnswerFormik = (fp: FormikProps<any>) => {
     return (
-      <div>
-        <Width60Grid>
-          <Form
-            onKeyDown={onKeyDown}
-            onSubmit={fp.handleSubmit}
-            onReset={fp.handleReset}
-          >
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <div className="container">
+          <div className="fields">
             <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
               Questions
             </H1>
@@ -480,6 +483,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.question1}
               maxLength={2000}
               required={true}
+              style={{ minHeight: '220px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -492,6 +496,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.question2}
               maxLength={2000}
               required={true}
+              style={{ minHeight: '220px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -504,34 +509,60 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.comments}
               maxLength={500}
               required={false}
+              style={{ minHeight: '88px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
               name="hacker.application.shortAnswer.comments"
             />
+          </div>
 
-            <Flex
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-            >
-              {/* Add for spacing purposes */}
-              <div>&nbsp;</div>
-              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-                Back
-              </ResetBtn>
+          <img src={robotDrone} alt="background" className="art" />
+        </div>
 
-              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-                Next
-              </SubmitBtn>
-              <div>&nbsp;</div>
-            </Flex>
-          </Form>
-          <MediaQuery minWidth={1024}>
-            <Image src={RobotDrone} />
-          </MediaQuery>
-        </Width60Grid>
-      </div>
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 600px;
+            flex: 1;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            height: 882px;
+            width: auto;
+            align-self: flex-end;
+
+            position: relative;
+            left: 128px;
+            top: 52px;
+          }
+        `}</style>
+      </Form>
     );
   };
 

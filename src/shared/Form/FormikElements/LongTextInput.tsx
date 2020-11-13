@@ -9,6 +9,7 @@ export interface ITextAreaProp {
   value?: string;
   required?: boolean;
   maxLength?: number;
+  style?: object;
 }
 
 export const LongTextInput: React.StatelessComponent<
@@ -31,6 +32,7 @@ export const LongTextInput: React.StatelessComponent<
         placeholder={placeholder}
         value={props.value}
         maxLength={props.maxLength}
+        style={props.style}
       />
     </Label>
   );
