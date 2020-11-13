@@ -11,7 +11,6 @@ import {
   FormikValues,
 } from 'formik';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 
 import * as CONSTANTS from '../../config/constants';
 import { H1, Paragraph } from '../../shared/Elements';
@@ -31,6 +30,7 @@ import {
   Majors,
   PreviousHackathons,
   ShirtSize,
+  Skills,
 } from '../../config';
 
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
@@ -45,7 +45,6 @@ import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
 import { Flex } from '@rebass/grid';
-import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
@@ -170,15 +169,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     })();
   }, [props.mode]);
 
-  const Width60Grid = styled.div`
-    display: grid;
-    grid-template-columns: 600px 1fr;
-    column-gap: 90px;
-    @media (max-width: 1024px) {
-      display: initial;
-    }
-  `;
-
   /**
    * Render the correct formik form based upon currently viewed application page
    * @param fp the formik props.
@@ -186,15 +176,15 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderPortfolioFormik(fp);
-      case 3:
-        return renderAccommodationFormik(fp);
-      case 4:
         return renderEducationFormik(fp);
+      case 3:
+        return renderPortfolioFormik(fp);
+      case 4:
+        return renderShortAnswerFormik(fp);
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderShortAnswerFormik(fp);
+        return renderAccommodationFormik(fp);
     }
   };
 
@@ -383,6 +373,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
             <div className="field">
               <FastField
+                name={'hacker.application.shortAnswer.skills'}
+                isMulti={true}
+                creatable={true}
+                options={getOptionsFromEnum(Skills)}
+                label={CONSTANTS.SKILLS_LABEL}
+                placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.shortAnswer.skills}
+              />
+
+              <FastField
                 name={'hacker.application.general.jobInterest'}
                 component={FormikElements.Select}
                 options={getOptionsFromEnum(JobInterest)}
@@ -452,7 +453,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       >
         <div className="container">
           <div className="fields">
-            <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
               Questions
             </H1>
             <FastField
@@ -562,40 +563,52 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderAccommodationFormik = (fp: FormikProps<any>) => {
     return (
-      <Width60Grid>
-        <div>
-          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-            Accommodation
-          </H1>
-          <Form
-            onKeyDown={onKeyDown}
-            onSubmit={fp.handleSubmit}
-            onReset={fp.handleReset}
-          >
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Accommodation
+            </H1>
             {!settings.isRemote && (
-              <FastField
-                name={'hacker.application.accommodation.shirtSize'}
-                label={CONSTANTS.SHIRT_SIZE_LABEL}
-                component={FormikElements.Select}
-                options={getOptionsFromEnum(ShirtSize)}
-                required={true}
-                value={fp.values.hacker.application.accommodation.shirtSize}
-              />
+              <div className="shorter-fields">
+                <FastField
+                  name={'hacker.application.accommodation.shirtSize'}
+                  label={CONSTANTS.SHIRT_SIZE_LABEL}
+                  component={FormikElements.Select}
+                  options={getOptionsFromEnum(ShirtSize)}
+                  required={true}
+                  value={fp.values.hacker.application.accommodation.shirtSize}
+                />
+                <ErrorMessage
+                  name={'hacker.application.accommodation.shirtSize'}
+                  component={FormikElements.Error}
+                />
+                <FastField
+                  name={'hacker.application.accommodation.travel'}
+                  component={FormikElements.FormattedNumber}
+                  label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                  placeholder={0}
+                  required={false}
+                  value={fp.values.hacker.application.accommodation.travel}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name={'hacker.application.accommodation.travel'}
+                />
+              </div>
             )}
-            {!settings.isRemote && (
-              <ErrorMessage
-                name={'hacker.application.accommodation.shirtSize'}
-                component={FormikElements.Error}
-              />
-            )}
-            {/* This fixes the issue with going back somehow, so leave it here temporarily */}
-            <div />
+
             <FastField
               name={'hacker.application.accommodation.impairments'}
               component={FormikElements.LongTextInput}
               label={CONSTANTS.IMPAIRMENTS_LABEL}
               value={fp.values.hacker.application.accommodation.impairments}
               required={false}
+              style={{ minHeight: '88px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -607,44 +620,149 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               label={CONSTANTS.BARRIERS_LABEL}
               value={fp.values.hacker.application.accommodation.barriers}
               required={false}
+              style={{ minHeight: '88px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            {!settings.isRemote && (
-              <FastField
-                name={'hacker.application.accommodation.travel'}
-                component={FormikElements.FormattedNumber}
-                label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-                placeholder={0}
-                required={false}
-                value={fp.values.hacker.application.accommodation.travel}
-              />
-            )}
-            {!settings.isRemote && (
-              <ErrorMessage
-                component={FormikElements.Error}
-                name={'hacker.application.accommodation.travel'}
-              />
-            )}
-            <Flex
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-            >
-              <div>&nbsp;</div>
-              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-                Back
-              </ResetBtn>
-              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-                Next
-              </SubmitBtn>
-              <div>&nbsp;</div>
-            </Flex>
-          </Form>
+
+            <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
+              Terms and Conditions
+            </H1>
+
+            <FastField
+              name={'hacker.application.other.codeOfConduct'}
+              component={FormikElements.Checkbox}
+              label={
+                <span>
+                  {CONSTANTS.COC_ACCEPTANCE_PHRASE}
+                  {' McHacks '}
+                  <a
+                    href="https://mchacks.ca/code-of-conduct"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {CONSTANTS.MCHACKS_COC}
+                  </a>
+                  {' and '}
+                  <a
+                    href="https://mchacks.ca/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {CONSTANTS.MCHACKS_PRIVACY}
+                  </a>
+                </span>
+              }
+              value={fp.values.hacker.application.other.codeOfConduct}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.other.codeOfConduct"
+            />
+            <FastField
+              name={'hacker.application.other.privacyPolicy'}
+              component={FormikElements.Checkbox}
+              label={CONSTANTS.MLH_LABEL}
+              subtitle={
+                <span>
+                  {'I have read and agree to the '}
+                  <a
+                    href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Code of Conduct'}
+                  </a>
+                  {'. '}
+                  {
+                    'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+                  }
+                  <a
+                    href="https://mlh.io/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Privacy Policy'}
+                  </a>
+                  {'. I further agree to the terms of both the '}
+                  <a
+                    href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Contest Terms and Conditions'}
+                  </a>
+                  {' and the '}
+                  <a
+                    href="https://mlh.io/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Privacy Policy'}
+                    {'.'}
+                  </a>
+                </span>
+              }
+              value={fp.values.hacker.application.other.privacyPolicy}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.other.privacyPolicy"
+            />
+          </div>
         </div>
-      </Width60Grid>
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+            </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 600px;
+            flex: 1;
+          }
+
+          .shorter-fields {
+            max-width: 440px;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            height: 882px;
+            width: auto;
+            align-self: flex-end;
+
+            position: relative;
+            left: 128px;
+            top: 52px;
+          }
+        `}</style>
+      </Form>
     );
   };
 
@@ -674,88 +792,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   //         component={FormikElements.Error}
   //         name="hacker.application.other.ethnicity"
   //       />
-  //       <FastField
-  //         name={'hacker.application.other.codeOfConduct'}
-  //         component={FormikElements.Checkbox}
-  //         label={
-  //           <span>
-  //             {CONSTANTS.COC_ACCEPTANCE_PHRASE}
-  //             {' McHacks '}
-  //             <a
-  //               href="https://mchacks.ca/code-of-conduct"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {CONSTANTS.MCHACKS_COC}
-  //             </a>
-  //             {' and '}
-  //             <a
-  //               href="https://mchacks.ca/privacy"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {CONSTANTS.MCHACKS_PRIVACY}
-  //             </a>
-  //           </span>
-  //         }
-  //         value={fp.values.hacker.application.other.codeOfConduct}
-  //         required={true}
-  //       />
-  //       <ErrorMessage
-  //         component={FormikElements.Error}
-  //         name="hacker.application.other.codeOfConduct"
-  //       />
-  //       <FastField
-  //         name={'hacker.application.other.privacyPolicy'}
-  //         component={FormikElements.Checkbox}
-  //         label={CONSTANTS.MLH_LABEL}
-  //         subtitle={
-  //           <span>
-  //             {'I have read and agree to the '}
-  //             <a
-  //               href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {'MLH Code of Conduct'}
-  //             </a>
-  //             {'. '}
-  //             {
-  //               'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
-  //             }
-  //             <a
-  //               href="https://mlh.io/privacy"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {'MLH Privacy Policy'}
-  //             </a>
-  //             {'. I further agree to the terms of both the '}
-  //             <a
-  //               href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {'MLH Contest Terms and Conditions'}
-  //             </a>
-  //             {' and the '}
-  //             <a
-  //               href="https://mlh.io/privacy"
-  //               target="_blank"
-  //               rel="noopener noreferrer"
-  //             >
-  //               {'MLH Privacy Policy'}
-  //               {'.'}
-  //             </a>
-  //           </span>
-  //         }
-  //         value={fp.values.hacker.application.other.privacyPolicy}
-  //         required={true}
-  //       />
-  //       <ErrorMessage
-  //         component={FormikElements.Error}
-  //         name="hacker.application.other.privacyPolicy"
-  //       />
+  //      
   //       <Flex
   //         flexDirection={'row'}
   //         alignItems={'center'}

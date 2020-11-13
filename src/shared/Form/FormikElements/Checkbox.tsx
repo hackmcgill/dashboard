@@ -15,34 +15,36 @@ interface ICheckboxProps {
 
 const CheckboxContainer = styled.div`
   input {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
+
     appearance: none;
     border-radius: 4px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0px 0px 16px 0px ${(props) => props.theme.colors.greyLight};
+    margin: 0;
+    box-shadow: 2px 4px 16px 5px ${(props) => props.theme.colors.greyLight};
   }
 
   input:checked {
     background-color: #f2463a;
     border-color: #f2463a;
-    z-index: -1;
   }
 
   /* Checkmark icon based on StackOverflow icon by dayuloli
   https://stackoverflow.com/questions/21968531/how-to-draw-a-checkmark-tick-using-css */
   .checkmark {
-    width: 22px;
-    height: 22px;
+    width: auto;
+    height: 18px;
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
     position: relative;
-    left: 26px;
-    top: 4px;
+    left: 4px;
+    top: -7px;
     display: inline-block;
     cursor: pointer;
+    z-index: 100;
   }
 
   .checkmark_stem {
@@ -68,7 +70,7 @@ const CheckboxContainer = styled.div`
   }
 `;
 
-const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
+const FormikCheckbox: React.FC<ICheckboxProps & FieldProps> = ({
   isTight,
   subtitle,
   label,
@@ -82,9 +84,8 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
         <Flex
           flexDirection={'row'}
           alignItems={'center'}
-          justifyContent={'space-between'}
+          justifyContent={'flex-start'}
         >
-          <LabelText label={labelElement} required={required} />
           <CheckboxContainer>
             <Flex>
               <span className="checkmark">
@@ -94,10 +95,13 @@ const FormikCheckbox: React.StatelessComponent<ICheckboxProps & FieldProps> = ({
               <Checkbox {...field} checked={field.value} />
             </Flex>
           </CheckboxContainer>
+          <Box ml="18px" style={{ position: 'relative', top: '-1px' }}>
+            <LabelText label={labelElement} required={required} />
+          </Box>
         </Flex>
       </Label>
-      <FormDescription maxWidth={'90%'}>{subtitle}</FormDescription>
-    </Box>
+      <FormDescription marginLeft="40px">{subtitle}</FormDescription>
+    </Box >
   );
 };
 
