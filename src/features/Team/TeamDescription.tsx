@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
+import { HackerStatus, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
 import { H1 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 
@@ -41,12 +41,19 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         <div className="team-members-container">
           <div className="label">Members</div>
           <div className="members">
-            {props.members.map((member, index) => (
-              <div className="member" key={index}>
-                <div className="name">{member.firstName} {member.lastName}</div>
-                <div className="school">{member.school}</div>
+            {props.members.map((member, index) => {
+              const applied = member.status === HackerStatus.HACKER_STATUS_NONE;
+
+              return <div className="member" key={index}>
+                <div>
+                  <div className="name">{member.firstName} {member.lastName}</div>
+                  <div className="school">{member.school}</div>
+                </div>
+                <div className={'status' + (applied ? ' incomplete' : ' applied')}>
+                  {applied ? 'Incomplete Application' : 'Applied'}
+                </div>
               </div>
-            ))}
+            })}
           </div>
         </div>
 
@@ -120,18 +127,31 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           margin-bottom: 16px;
         }
 
-        .member:first-child {
-          border-top: 1px solid ${theme.colors.purpleLight};
-        }
-
         .member {
           border-bottom: 1px solid ${theme.colors.purpleLight};
           padding: 16px 24px;
+          
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .member:first-child {
+          border-top: 1px solid ${theme.colors.purpleLight};
         }
 
         .member .school {
           font-size: 14px;
           color: ${theme.colors.black60};
+        }
+
+        .member .status {
+          font-size: 14px;
+          color: ${theme.colors.purple};
+        }
+
+        .member .status.incomplete {
+          color: ${theme.colors.redMed};
         }
 
         .text-button {
