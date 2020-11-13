@@ -807,11 +807,23 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             submitting. You won’t be able to edit your responses later.
           </div>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Personal Details</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
           <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
-              <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
-              <div className="value">{hackerDetails.application.other.ethnicity}</div>
+              <div className="name">{CONSTANTS.SCHOOL_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.school}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.DEGREE_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.degree}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.fieldOfStudy}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GRADUATION_YEAR_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.graduationYear}</div>
             </div>
           </GridTwoColumn>
 
@@ -839,23 +851,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </div>
           </GridTwoColumn>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Personal Details</H2>
           <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
-              <div className="name">{CONSTANTS.SCHOOL_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.school}</div>
-            </div>
-            <div className="field">
-              <div className="name">{CONSTANTS.DEGREE_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.degree}</div>
-            </div>
-            <div className="field">
-              <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.fieldOfStudy}</div>
-            </div>
-            <div className="field">
-              <div className="name">{CONSTANTS.GRADUATION_YEAR_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.graduationYear}</div>
+              <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
+              <div className="value">{hackerDetails.application.other.ethnicity}</div>
             </div>
           </GridTwoColumn>
 
