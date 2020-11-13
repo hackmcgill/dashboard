@@ -933,6 +933,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             font-size: 16px;
             font-family: ${theme.fonts.header};
             color: ${theme.colors.purple};
+            overflow-wrap: break-word;
           }
 
           .buttons {
