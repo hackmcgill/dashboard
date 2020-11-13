@@ -13,7 +13,7 @@ import {
 import { toast } from 'react-toastify';
 
 import * as CONSTANTS from '../../config/constants';
-import { H1, Paragraph } from '../../shared/Elements';
+import { H1, H2 } from '../../shared/Elements';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
 import PaginationHeader from './PaginationHeader/PaginationHeader';
@@ -34,7 +34,7 @@ import {
 } from '../../config';
 
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
-import { Form, SubmitBtn } from '../../shared/Form';
+import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
 import { Account, APIResponse, Hacker, Settings } from '../../api';
@@ -44,7 +44,6 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
-import { Flex } from '@rebass/grid';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
@@ -801,288 +800,148 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         onSubmit={fp.handleSubmit}
         onReset={fp.handleReset}
       >
-        <H1 fontSize={'32px'} marginLeft={'0px'} marginBottom={'16px'}>
-          Review
-        </H1>
-        <Paragraph fontSize={'16px'} maxWidth={'auto'}>
-          Your responses are now saved. Please review your application before
-          submitting. You won’t be able to edit your responses later.
-        </Paragraph>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Personal Details
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.ETHNICITY_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.other.ethnicity}
-            </Paragraph>
+        <div className="container">
+          <H1 marginBottom="16px">Review</H1>
+          <div className="info-text">
+            Your responses are now saved. Please review your application before
+            submitting. You won’t be able to edit your responses later.
           </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Portfolio
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.RESUME_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {resume && resume.name}
-            </Paragraph>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Personal Details</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
+              <div className="value">{hackerDetails.application.other.ethnicity}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Portfolio</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.RESUME_LABEL}</div>
+              <div className="value">{resume && resume.name}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.LINKEDIN_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.linkedIn || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GITHUB_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.github || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.OTHER_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.other || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.JOBINTEREST_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.jobInterest || 'N/A'}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.SCHOOL_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.school}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.DEGREE_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.degree}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.fieldOfStudy}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GRADUATION_YEAR_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.graduationYear}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Questions</H2>
+          <div className="field">
+            <div className="name">{CONSTANTS.PREVIOUS_HACKATHONS_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.previousHackathons}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.LINKEDIN_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.linkedIn || 'N/A'}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.QUESTION1_REQUEST_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.question1}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.GITHUB_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.github || 'N/A'}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.QUESTION2_REQUEST_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.question2}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.OTHER_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.other || 'N/A'}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.COMMENTS_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.comments || 'N/A'}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.JOBINTEREST_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.jobInterest}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Education
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.SCHOOL_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.school}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.DEGREE_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.degree}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.FIELD_OF_STUDY_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.fieldOfStudy}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.GRADUATION_YEAR_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.graduationYear}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Questions
-        </H1>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.previousHackathons}
-          </Paragraph>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Accommodation</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
+              <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.IMPAIRMENTS_LABEL}</div>
+              <div className="value">{hackerDetails.application.accommodation.impairments || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.BARRIERS_LABEL}</div>
+              <div className="value">{hackerDetails.application.accommodation.barriers || 'N/A'}</div>
+            </div>
+          </GridTwoColumn>
         </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.QUESTION1_REQUEST_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.question1}
-          </Paragraph>
-        </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'24px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.QUESTION2_REQUEST_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.question2}
-          </Paragraph>
-        </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.COMMENTS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.comments || 'N/A'}
-          </Paragraph>
-        </div>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Accommodation
-        </H1>
-        <GridTwoColumn rowGap={'0'} margin={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.SHIRT_SIZE_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.accommodation.shirtSize}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.IMPAIRMENTS_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.accommodation.impairments || 'N/A'}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.BARRIERS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.accommodation.barriers || 'N/A'}
-          </Paragraph>
-        </div>
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'center'}
-        >
-          <div>&nbsp;</div>
-          <SubmitBtn
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
-            variant={ButtonVariant.Secondary}
-          >
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Primary}>
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
-          </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+          }
+
+          .info-text {
+            color: ${theme.colors.black80};
+            font-family: ${theme.fonts.header};
+            font-size: 16px;
+            margin-bottom: 4px;
+          }
+
+          .field {
+            margin-bottom: 24px;
+          }
+
+          .field .name {
+            font-size: 16px;
+            font-family: ${theme.fonts.header};
+            color: ${theme.colors.black80};
+            margin-bottom: 8px;
+            font-weight: bold;
+          }
+
+          .field .value {
+            font-size: 16px;
+            font-family: ${theme.fonts.header};
+            color: ${theme.colors.purple};
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+        `}</style>
       </Form>
     );
   };
