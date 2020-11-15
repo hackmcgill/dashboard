@@ -102,12 +102,14 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.EDIT_ACCOUNT_PAGE}
-              component={withNavbar(
-                withAuthRedirect(EditAccountPage, {
-                  redirAfterLogin: true,
-                  requiredAuthState: true,
-                }),
-                { activePage: 'profile' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(EditAccountPage, {
+                    redirAfterLogin: true,
+                    requiredAuthState: true,
+                  }),
+                  { activePage: 'profile' }
+                )
               )}
             />
             <Route
