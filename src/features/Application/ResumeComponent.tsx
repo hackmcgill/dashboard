@@ -12,9 +12,7 @@ export interface IResumeProps {
   value?: boolean;
   required?: boolean;
 }
-const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
-  props
-) => {
+const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <Flex mb={'20px'}>

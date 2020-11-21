@@ -26,38 +26,45 @@ export const FileUpload: React.StatelessComponent<
     <Dropzone
       onDrop={onUpload}
       multiple={false}
-      maxSize={1000000}
+      maxSize={4000000}
       accept={'.pdf'}
     >
       {({ getRootProps, getInputProps }) => (
-        <section
-          style={{
-            width: 'min(100vw, 960px)',
-            height: '280px',
-            border: '4px dashed #BCBCBC',
-            borderRadius: '8px',
-            boxSizing: 'border-box',
-          }}
-        >
-          <div
-            {...getRootProps()}
-            style={{ textAlign: 'center', height: '100%' }}
-          >
+        <section className={'drop-zone'}>
+          <div {...getRootProps()} className={'container'}>
             <input {...getInputProps()} />
-            <div
-              style={{
-                position: 'relative',
-                transform: 'translateY(-50%)',
-                top: '50%',
-              }}
-            >
+            <div className={'drop-content'}>
               <img src={Upload} alt={'upload'} />
               <p>Drag and drop or click here to upload</p>
-              <p style={{ color: theme.colors.black30 }}>
-                {fileName || 'You can upload 1 PDF file up to 1MB'}
+              <p className={'subtitle'}>
+                {fileName || 'You can upload a PDF file up to 4MB'}
               </p>
             </div>
           </div>
+          <style jsx>{`
+            .subtitle {
+              color: ${theme.colors.black30};
+            }
+            .container {
+              text-align: center;
+              height: 100%;
+            }
+            .drop-zone {
+              width: min(100vw, 960px);
+              height: 280px;
+              border: 4px dashed #bcbcbc;
+              border-radius: 8px;
+              box-sizing: border-box;
+            }
+            .drop-content {
+              position: relative;
+              transform: translateY(-50%);
+              top: 50%;
+            }
+            .container:focus {
+              outline: none;
+            }
+          `}</style>
         </section>
       )}
     </Dropzone>
