@@ -121,7 +121,11 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: number().required('Required'),
+              previousHackathons: number()
+                .typeError('Required')
+                .required('Required')
+                .min(0, 'Must be between at least 0')
+                .max(5, 'Must be at most 5'),
               question1: string()
                 .required('Required')
                 .test(
@@ -200,7 +204,11 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: number().required('Required'),
+              previousHackathons: number()
+                .typeError('Required')
+                .required('Required')
+                .min(0, 'Must be between at least 0')
+                .max(5, 'Must be at most 5'),
               question1: string()
                 .required('Required')
                 .test(
