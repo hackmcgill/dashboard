@@ -33,9 +33,10 @@ export const inputStyles = css<IInputProps>`
   }
 
   &:disabled {
-    border-color: ${(props) => props.theme.colors.black10} !important;
+    border-color: ${(props) => props.theme.colors.black5} !important;
     background-color: ${(props) => props.theme.colors.black5} !important;
     cursor: not-allowed;
+    box-shadow: none;
   }
 `;
 
