@@ -898,10 +898,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
           <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Accommodation</H2>
           <GridTwoColumn rowGap="0" margin="0">
-            <div className="field">
-              <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
-              <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
-            </div>
+            {!settings.isRemote && (
+              <div className="field">
+                <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
+                <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
+              </div>
+            )}
             <div className="field">
               <div className="name">{CONSTANTS.IMPAIRMENTS_LABEL}</div>
               <div className="value">{hackerDetails.application.accommodation.impairments || 'N/A'}</div>
