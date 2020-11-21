@@ -140,7 +140,7 @@ export const EMAIL_SENT = 'Email sent!';
 
 // LabelTextComponent page
 export const REQUIRED_INPUT = '*';
-export const OPTIONAL_INPUT = '(Optional)';
+export const OPTIONAL_INPUT = '(optional)';
 
 // Team page
 export const TEAM_OVERVIEW = 'Form a team with up to 3 other friends in order to have your applications considered as a group.';

@@ -294,6 +294,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
             position: relative;
             left: 97px;
+            
+            align-self: flex-start;
+            top: 72px;
           }
         `}</style>
       </Form>
@@ -332,6 +335,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   component={FormikElements.Input}
                   label={CONSTANTS.GITHUB_LINK_LABEL}
                   placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -347,6 +351,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   label={CONSTANTS.LINKEDIN_LINK_LABEL}
                   placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
                   value={fp.values.hacker.application.general.URL.linkedIn}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -362,6 +367,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   label={CONSTANTS.OTHER_LINK_LABEL}
                   placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
                   value={fp.values.hacker.application.general.URL.other}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -380,6 +386,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
                 component={FormikElements.Select}
                 value={fp.values.hacker.application.shortAnswer.skills}
+                showOptionalLabel={true}
               />
 
               <FastField
