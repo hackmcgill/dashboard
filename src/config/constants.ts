@@ -126,6 +126,8 @@ export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 export const PREVIOUS_HACKATHONS_LABEL =
   'How many hackathons have you been to?';
+export const REVIEW_APPLICIATION_DESCRIPTION =
+  'Your are about to submit. Please review your application before submitting. You won’t be able to edit your responses later.';
 
 // Invite Page
 export const ACCOUNT_TYPE_LABEL = 'Account type';

@@ -821,10 +821,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       >
         <div className="container">
           <H1 marginBottom="16px">Review</H1>
-          <div className="info-text">
-            Your responses are now saved. Please review your application before
-            submitting. You won’t be able to edit your responses later.
-          </div>
+          <div className="info-text">{CONSTANTS.REVIEW_APPLICIATION_DESCRIPTION}</div>
 
           <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
           <GridTwoColumn rowGap="0" margin="0">
