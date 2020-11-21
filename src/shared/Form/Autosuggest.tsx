@@ -30,6 +30,7 @@ const AutosuggestWrapper = styled.div`
     padding-top: 5px;
     padding-bottom: 5px;
     position: absolute;
+    margin-top: -24px;
     width: 100%;
     align-self: center;
     background: ${(props) => props.theme.colors.white};
