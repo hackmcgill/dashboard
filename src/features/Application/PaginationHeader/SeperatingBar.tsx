@@ -19,7 +19,7 @@ const SeparatingBar: React.FC<ISeparatingBarProps> = (props) => {
   const pageSelectedBarStyle = {
     ...pageNotSelectedBarStyle,
     background: theme.colors.purple,
-    boxShadow: `2px 2px 16px ${theme.colors.purpleLight}`,
+    boxShadow: `2px 2px 16px 2px ${theme.colors.blueLight}`,
   };
 
   const barStyle = props.current // The bar before the current page will be purple

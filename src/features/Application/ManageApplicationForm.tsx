@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
 
 import { AxiosResponse } from 'axios';
@@ -12,15 +11,12 @@ import {
   FormikValues,
 } from 'formik';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 
-import RobotDrone from '../../assets/images/robotDrone.svg';
 import * as CONSTANTS from '../../config/constants';
-import { H1, Paragraph } from '../../shared/Elements';
-import { Image } from '../../shared/Elements';
+import { H1, H2 } from '../../shared/Elements';
 import GridTwoColumn from '../../shared/Elements/GridTwoColumn';
 import { getOptionsFromEnum } from '../../util';
-import PaginationHeader from './PaginationHeader/PaginationHeaderComponent';
+import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
@@ -37,8 +33,8 @@ import {
   Skills,
 } from '../../config';
 
-import { ButtonVariant } from '../../shared/Elements/Button';
-import { Form, SubmitBtn } from '../../shared/Form';
+import Button, { ButtonVariant } from '../../shared/Elements/Button';
+import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 
 import { Account, APIResponse, Hacker, Settings } from '../../api';
@@ -48,10 +44,11 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
 
-import { Flex } from '@rebass/grid';
-import { ResetBtn } from '../../shared/Form/ResetBtn';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
+
+import robotDrone from '../../assets/images/robotDrone.svg';
+import books from '../../assets/images/books.svg';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -171,15 +168,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     })();
   }, [props.mode]);
 
-  const Width60Grid = styled.div`
-    display: grid;
-    grid-template-columns: 600px 1fr;
-    column-gap: 90px;
-    @media (max-width: 1024px) {
-      display: initial;
-    }
-  `;
-
   /**
    * Render the correct formik form based upon currently viewed application page
    * @param fp the formik props.
@@ -187,155 +175,294 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderShortAnswerFormik(fp);
+        return renderPortfolioFormik(fp);
       case 3:
-        return renderAccommodationFormik(fp);
+        return renderShortAnswerFormik(fp);
       case 4:
-        return renderOtherFormik(fp);
+        return renderAccommodationFormik(fp);
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderGeneralFormik(fp);
+        return renderEducationFormik(fp);
     }
   };
 
   /**
-   * Renders the general section of the application.
+   * Renders the education section of the application.
    * @param fp the formik props.
    */
-  const renderGeneralFormik = (fp: FormikProps<any>) => {
+  const renderEducationFormik = (fp: FormikProps<any>) => {
     return (
       <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-          Personal Details
-        </H1>
-        <GridTwoColumn>
-          <FastField
-            id="schoolName"
-            name={'hacker.application.general.school'}
-            component={SchoolComponent}
-            value={fp.values.hacker.application.general.school}
-            required={true}
-            label={CONSTANTS.SCHOOL_LABEL}
-            placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.school"
-          />
-          <FastField
-            name={'hacker.application.general.degree'}
-            label={CONSTANTS.DEGREE_LABEL}
-            placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
-            creatable={true}
-            options={getOptionsFromEnum(Degrees)}
-            component={FormikElements.Select}
-            value={fp.values.hacker.application.general.degree}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.degree"
-          />
-          <FastField
-            name={'hacker.application.general.graduationYear'}
-            label={CONSTANTS.GRADUATION_YEAR_LABEL}
-            placeholder="YYYY"
-            format="####"
-            component={FormikElements.FormattedNumber}
-            value={fp.values.hacker.application.general.graduationYear}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.graduationYear"
-          />
-          <FastField
-            name={'hacker.application.general.fieldOfStudy'}
-            options={Majors}
-            isMulti={true}
-            creatable={true}
-            component={FormikElements.Select}
-            label={CONSTANTS.FIELD_OF_STUDY_LABEL}
-            placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
-            value={fp.values.hacker.application.general.fieldOfStudy}
-            required={true}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.fieldOfStudy"
-          />
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-          Portfolio
-        </H1>
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Education
+            </H1>
 
-        <Field
-          name="resume"
-          component={ResumeComponent}
-          label={CONSTANTS.RESUME_LABEL}
-          mode={props.mode}
-          hackerId={hackerDetails.id}
-          required={props.mode === ManageApplicationModes.CREATE}
-          value={fp.values.resume}
-        />
-        <ErrorMessage component={FormikElements.Error} name="resume" />
+            <FastField
+              id="schoolName"
+              name={'hacker.application.general.school'}
+              component={SchoolComponent}
+              value={fp.values.hacker.application.general.school}
+              required={true}
+              label={CONSTANTS.SCHOOL_LABEL}
+              placeholder={CONSTANTS.SCHOOL_PLACEHOLDER}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.school"
+            />
+            <FastField
+              name={'hacker.application.general.degree'}
+              label={CONSTANTS.DEGREE_LABEL}
+              placeholder={CONSTANTS.DEGREE_PLACEHOLDER}
+              creatable={true}
+              options={getOptionsFromEnum(Degrees)}
+              component={FormikElements.Select}
+              value={fp.values.hacker.application.general.degree}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.degree"
+            />
+            <FastField
+              name={'hacker.application.general.graduationYear'}
+              label={CONSTANTS.GRADUATION_YEAR_LABEL}
+              placeholder="YYYY"
+              format="####"
+              component={FormikElements.FormattedNumber}
+              value={fp.values.hacker.application.general.graduationYear}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.graduationYear"
+            />
+            <FastField
+              name={'hacker.application.general.fieldOfStudy'}
+              options={Majors}
+              isMulti={true}
+              creatable={true}
+              component={FormikElements.Select}
+              label={CONSTANTS.FIELD_OF_STUDY_LABEL}
+              placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
+              value={fp.values.hacker.application.general.fieldOfStudy}
+              required={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.general.fieldOfStudy"
+            />
+          </div>
 
-        <GridTwoColumn>
-          <FastField
-            name={'hacker.application.general.URL.github'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.GITHUB_LINK_LABEL}
-            placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.github"
-          />
-          <FastField
-            name={'hacker.application.general.URL.linkedIn'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.LINKEDIN_LINK_LABEL}
-            placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
-            value={fp.values.hacker.application.general.URL.linkedIn}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.linkedIn"
-          />
-          <FastField
-            name={'hacker.application.general.URL.other'}
-            inputType="url"
-            component={FormikElements.Input}
-            label={CONSTANTS.OTHER_LINK_LABEL}
-            placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
-            value={fp.values.hacker.application.general.URL.other}
-          />
-          <ErrorMessage
-            component={FormikElements.Error}
-            name="hacker.application.general.URL.other"
-          />
-        </GridTwoColumn>
+          <img src={books} alt="background" className="art" />
+        </div>
 
-        <FastField
-          name={'hacker.application.general.jobInterest'}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(JobInterest)}
-          label={CONSTANTS.JOBINTEREST_LABEL}
-          placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-          value={fp.values.hacker.application.general.jobInterest}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.general.jobInterest"
-        />
-        <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-          Next
-        </SubmitBtn>
+        <div className="buttons">
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 440px;
+            flex: 1;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            width: 481px;
+            height: auto;
+
+            position: relative;
+            left: 97px;
+            
+            align-self: flex-start;
+            top: 72px;
+          }
+        `}</style>
       </Form>
+    );
+  };
+
+  /**
+   * Renders the portfolio section of the application.
+   * @param fp the formik props.
+   */
+  const renderPortfolioFormik = (fp: FormikProps<any>) => {
+    return (
+      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Portfolio
+            </H1>
+
+            <Field
+              name="resume"
+              component={ResumeComponent}
+              label={CONSTANTS.RESUME_LABEL}
+              mode={props.mode}
+              hackerId={hackerDetails.id}
+              required={props.mode === ManageApplicationModes.CREATE}
+              value={fp.values.resume}
+            />
+            <ErrorMessage component={FormikElements.Error} name="resume" />
+
+            <GridTwoColumn columnWidth="440px" rowGap="0" margin="0">
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.github'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.GITHUB_LINK_LABEL}
+                  placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+                  showOptionalLabel={true}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.github"
+                />
+              </div>
+
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.linkedIn'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.LINKEDIN_LINK_LABEL}
+                  placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
+                  value={fp.values.hacker.application.general.URL.linkedIn}
+                  showOptionalLabel={true}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.linkedIn"
+                />
+              </div>
+
+              <div>
+                <FastField
+                  name={'hacker.application.general.URL.other'}
+                  inputType="url"
+                  component={FormikElements.Input}
+                  label={CONSTANTS.OTHER_LINK_LABEL}
+                  placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
+                  value={fp.values.hacker.application.general.URL.other}
+                  showOptionalLabel={true}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.URL.other"
+                />
+              </div>
+            </GridTwoColumn>
+
+            <div className="short-fields">
+              <FastField
+                name={'hacker.application.shortAnswer.skills'}
+                isMulti={true}
+                creatable={true}
+                options={getOptionsFromEnum(Skills)}
+                label={CONSTANTS.SKILLS_LABEL}
+                placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.shortAnswer.skills}
+                showOptionalLabel={true}
+              />
+
+              <FastField
+                name={'hacker.application.general.jobInterest'}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(JobInterest)}
+                label={CONSTANTS.JOBINTEREST_LABEL}
+                placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
+                value={fp.values.hacker.application.general.jobInterest}
+                required={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.general.jobInterest"
+              />
+
+              <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
+                Personal Details
+              </H1>
+
+              <FastField
+                name={'hacker.application.other.ethnicity'}
+                isMulti={true}
+                creatable={true}
+                options={getOptionsFromEnum(IEthnicity)}
+                label={CONSTANTS.ETHNICITY_LABEL}
+                placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.other.ethnicity}
+                required={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.ethnicity"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 960px;
+            flex: 1;
+          }
+
+          .short-fields {
+            max-width: 440px;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+        `}</style>
+      </Form >
     );
   };
 
@@ -345,26 +472,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderShortAnswerFormik = (fp: FormikProps<any>) => {
     return (
-      <div>
-        <Width60Grid>
-          <Form
-            onKeyDown={onKeyDown}
-            onSubmit={fp.handleSubmit}
-            onReset={fp.handleReset}
-          >
-            <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
               Questions
             </H1>
-            <FastField
-              name={'hacker.application.shortAnswer.skills'}
-              isMulti={true}
-              creatable={true}
-              options={getOptionsFromEnum(Skills)}
-              label={CONSTANTS.SKILLS_LABEL}
-              placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
-              component={FormikElements.Select}
-              value={fp.values.hacker.application.shortAnswer.skills}
-            />
             <FastField
               name={'hacker.application.shortAnswer.previousHackathons'}
               options={getPreviousHackathonOptions(PreviousHackathons)}
@@ -374,6 +491,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 fp.values.hacker.application.shortAnswer.previousHackathons
               }
               required={true}
+              style={{ maxWidth: '160px' }}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name="hacker.application.shortAnswer.previousHackathons"
             />
             <FastField
               name={'hacker.application.shortAnswer.question1'}
@@ -382,6 +504,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.question1}
               maxLength={2000}
               required={true}
+              style={{ minHeight: '220px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -394,6 +517,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.question2}
               maxLength={2000}
               required={true}
+              style={{ minHeight: '220px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -406,33 +530,60 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.shortAnswer.comments}
               maxLength={500}
               required={false}
+              style={{ minHeight: '88px' }}
             />
             <ErrorMessage
               component={FormikElements.Error}
               name="hacker.application.shortAnswer.comments"
             />
-            <Flex
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-            >
-              {/* Add for spacing purposes */}
-              <div>&nbsp;</div>
-              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-                Back
-              </ResetBtn>
+          </div>
 
-              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-                Next
-              </SubmitBtn>
-              <div>&nbsp;</div>
-            </Flex>
-          </Form>
-          <MediaQuery minWidth={1024}>
-            <Image src={RobotDrone} />
-          </MediaQuery>
-        </Width60Grid>
-      </div>
+          <img src={robotDrone} alt="background" className="art" />
+        </div>
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+            Next
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 600px;
+            flex: 1;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            height: 882px;
+            width: auto;
+            align-self: flex-end;
+
+            position: relative;
+            left: 128px;
+            top: 52px;
+          }
+        `}</style>
+      </Form>
     );
   };
 
@@ -442,40 +593,53 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderAccommodationFormik = (fp: FormikProps<any>) => {
     return (
-      <Width60Grid>
-        <div>
-          <H1 fontSize={'24px'} marginLeft={'0px'} marginBottom={'40px'}>
-            Accommodation
-          </H1>
-          <Form
-            onKeyDown={onKeyDown}
-            onSubmit={fp.handleSubmit}
-            onReset={fp.handleReset}
-          >
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Accommodation
+            </H1>
             {!settings.isRemote && (
-              <FastField
-                name={'hacker.application.accommodation.shirtSize'}
-                label={CONSTANTS.SHIRT_SIZE_LABEL}
-                component={FormikElements.Select}
-                options={getOptionsFromEnum(ShirtSize)}
-                required={true}
-                value={fp.values.hacker.application.accommodation.shirtSize}
-              />
+              <div className="shorter-fields">
+                <FastField
+                  name={'hacker.application.accommodation.shirtSize'}
+                  label={CONSTANTS.SHIRT_SIZE_LABEL}
+                  component={FormikElements.Select}
+                  options={getOptionsFromEnum(ShirtSize)}
+                  required={true}
+                  value={fp.values.hacker.application.accommodation.shirtSize}
+                />
+                <ErrorMessage
+                  name={'hacker.application.accommodation.shirtSize'}
+                  component={FormikElements.Error}
+                />
+                <FastField
+                  name={'hacker.application.accommodation.travel'}
+                  component={FormikElements.FormattedNumber}
+                  label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                  placeholder={0}
+                  required={false}
+                  value={fp.values.hacker.application.accommodation.travel}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name={'hacker.application.accommodation.travel'}
+                />
+              </div>
             )}
-            {!settings.isRemote && (
-              <ErrorMessage
-                name={'hacker.application.accommodation.shirtSize'}
-                component={FormikElements.Error}
-              />
-            )}
-            {/* This fixes the issue with going back somehow, so leave it here temporarily */}
-            <div />
+
             <FastField
               name={'hacker.application.accommodation.impairments'}
               component={FormikElements.LongTextInput}
               label={CONSTANTS.IMPAIRMENTS_LABEL}
               value={fp.values.hacker.application.accommodation.impairments}
               required={false}
+              style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -487,170 +651,159 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               label={CONSTANTS.BARRIERS_LABEL}
               value={fp.values.hacker.application.accommodation.barriers}
               required={false}
+              style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
               name={'hacker.application.accommodation.barriers'}
             />
-            {!settings.isRemote && (
-              <FastField
-                name={'hacker.application.accommodation.travel'}
-                component={FormikElements.FormattedNumber}
-                label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-                placeholder={0}
-                required={false}
-                value={fp.values.hacker.application.accommodation.travel}
-              />
-            )}
-            {!settings.isRemote && (
+
+            <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
+              Terms and Conditions
+            </H1>
+
+            <FastField
+              name={'hacker.application.other.codeOfConduct'}
+              component={FormikElements.Checkbox}
+              label={
+                <span>
+                  {CONSTANTS.COC_ACCEPTANCE_PHRASE}
+                  {' McHacks '}
+                  <a
+                    href="https://mchacks.ca/code-of-conduct"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {CONSTANTS.MCHACKS_COC}
+                  </a>
+                  {' and '}
+                  <a
+                    href="https://mchacks.ca/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {CONSTANTS.MCHACKS_PRIVACY}
+                  </a>
+                </span>
+              }
+              value={fp.values.hacker.application.other.codeOfConduct}
+              required={true}
+            />
+            <div className="checkbox-error-message">
               <ErrorMessage
                 component={FormikElements.Error}
-                name={'hacker.application.accommodation.travel'}
+                name="hacker.application.other.codeOfConduct"
               />
-            )}
-            <Flex
-              flexDirection={'row'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-            >
-              <div>&nbsp;</div>
-              <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
-                Back
-              </ResetBtn>
-              <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-                Next
-              </SubmitBtn>
-              <div>&nbsp;</div>
-            </Flex>
-          </Form>
-        </div>
-      </Width60Grid>
-    );
-  };
-
-  /**
-   * Renders the other section of the application
-   * @param fp the formik props.
-   */
-  const renderOtherFormik = (fp: FormikProps<any>) => {
-    return (
-      <Form
-        onKeyDown={onKeyDown}
-        onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
-      >
-        <FastField
-          name={'hacker.application.other.ethnicity'}
-          isMulti={true}
-          creatable={true}
-          options={getOptionsFromEnum(IEthnicity)}
-          label={CONSTANTS.ETHNICITY_LABEL}
-          placeholder={CONSTANTS.ETHNICITY_PLACEHOLDER}
-          component={FormikElements.Select}
-          value={fp.values.hacker.application.other.ethnicity}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.ethnicity"
-        />
-        <FastField
-          name={'hacker.application.other.codeOfConduct'}
-          component={FormikElements.Checkbox}
-          label={
-            <span>
-              {CONSTANTS.COC_ACCEPTANCE_PHRASE}
-              {' McHacks '}
-              <a
-                href="https://mchacks.ca/code-of-conduct"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {CONSTANTS.MCHACKS_COC}
-              </a>
-              {' and '}
-              <a
-                href="https://mchacks.ca/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {CONSTANTS.MCHACKS_PRIVACY}
-              </a>
-            </span>
-          }
-          value={fp.values.hacker.application.other.codeOfConduct}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.codeOfConduct"
-        />
-        <FastField
-          name={'hacker.application.other.privacyPolicy'}
-          component={FormikElements.Checkbox}
-          label={CONSTANTS.MLH_LABEL}
-          subtitle={
-            <span>
-              {'I have read and agree to the '}
-              <a
-                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Code of Conduct'}
-              </a>
-              {'. '}
-              {
-                'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+            </div>
+            <FastField
+              name={'hacker.application.other.privacyPolicy'}
+              component={FormikElements.Checkbox}
+              label={CONSTANTS.MLH_LABEL}
+              subtitle={
+                <span>
+                  {'I have read and agree to the '}
+                  <a
+                    href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Code of Conduct'}
+                  </a>
+                  {'. '}
+                  {
+                    'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+                  }
+                  <a
+                    href="https://mlh.io/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Privacy Policy'}
+                  </a>
+                  {'. I further agree to the terms of both the '}
+                  <a
+                    href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Contest Terms and Conditions'}
+                  </a>
+                  {' and the '}
+                  <a
+                    href="https://mlh.io/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {'MLH Privacy Policy'}
+                    {'.'}
+                  </a>
+                </span>
               }
-              <a
-                href="https://mlh.io/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Privacy Policy'}
-              </a>
-              {'. I further agree to the terms of both the '}
-              <a
-                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Contest Terms and Conditions'}
-              </a>
-              {' and the '}
-              <a
-                href="https://mlh.io/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {'MLH Privacy Policy'}
-                {'.'}
-              </a>
-            </span>
-          }
-          value={fp.values.hacker.application.other.privacyPolicy}
-          required={true}
-        />
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="hacker.application.other.privacyPolicy"
-        />
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
-          <div>&nbsp;</div>
-          <ResetBtn isLoading={false} disabled={isSubmitting} variant={2}>
+              value={fp.values.hacker.application.other.privacyPolicy}
+              required={true}
+            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.privacyPolicy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
             Back
-          </ResetBtn>
-          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+            </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
             Next
-            {/* {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'} */}
-          </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .fields {
+            max-width: 600px;
+            flex: 1;
+          }
+
+          .shorter-fields {
+            max-width: 440px;
+          }
+
+          .checkbox-error-message {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            margin-left: 40px;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            height: 882px;
+            width: auto;
+            align-self: flex-end;
+
+            position: relative;
+            left: 128px;
+            top: 52px;
+          }
+        `}</style>
       </Form>
     );
   };
@@ -666,288 +819,148 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         onSubmit={fp.handleSubmit}
         onReset={fp.handleReset}
       >
-        <H1 fontSize={'32px'} marginLeft={'0px'} marginBottom={'16px'}>
-          Review
-        </H1>
-        <Paragraph fontSize={'16px'} maxWidth={'auto'}>
-          Your responses are now saved. Please review your application before
-          submitting. You won’t be able to edit your responses later.
-        </Paragraph>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Personal Details
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.ETHNICITY_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.other.ethnicity}
-            </Paragraph>
+        <div className="container">
+          <H1 marginBottom="16px">Review</H1>
+          <div className="info-text">{CONSTANTS.REVIEW_APPLICIATION_DESCRIPTION}</div>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.SCHOOL_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.school}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.DEGREE_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.degree}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.fieldOfStudy}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GRADUATION_YEAR_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.graduationYear}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Portfolio</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.RESUME_LABEL}</div>
+              <div className="value">{resume && resume.name}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.LINKEDIN_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.linkedIn || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GITHUB_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.github || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.OTHER_LINK_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.URL.other || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.JOBINTEREST_LABEL}</div>
+              <div className="value">{hackerDetails.application.general.jobInterest || 'N/A'}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Personal Details</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
+              <div className="value">{hackerDetails.application.other.ethnicity}</div>
+            </div>
+          </GridTwoColumn>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Questions</H2>
+          <div className="field">
+            <div className="name">{CONSTANTS.PREVIOUS_HACKATHONS_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.previousHackathons}</div>
           </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Portfolio
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.RESUME_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {resume && resume.name}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.QUESTION1_REQUEST_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.question1}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.LINKEDIN_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.linkedIn || 'N/A'}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.QUESTION2_REQUEST_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.question2}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.GITHUB_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.github || 'N/A'}
-            </Paragraph>
+          <div className="field">
+            <div className="name">{CONSTANTS.COMMENTS_LABEL}</div>
+            <div className="value">{hackerDetails.application.shortAnswer.comments || 'N/A'}</div>
           </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.OTHER_LINK_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.URL.other || 'N/A'}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.JOBINTEREST_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.jobInterest}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Education
-        </H1>
-        <GridTwoColumn rowGap={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.SCHOOL_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.school}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.DEGREE_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.degree}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.FIELD_OF_STUDY_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.fieldOfStudy}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.GRADUATION_YEAR_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.general.graduationYear}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Questions
-        </H1>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.previousHackathons}
-          </Paragraph>
+
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Accommodation</H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            {!settings.isRemote && (
+              <div className="field">
+                <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
+                <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
+              </div>
+            )}
+            <div className="field">
+              <div className="name">{CONSTANTS.IMPAIRMENTS_LABEL}</div>
+              <div className="value">{hackerDetails.application.accommodation.impairments || 'N/A'}</div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.BARRIERS_LABEL}</div>
+              <div className="value">{hackerDetails.application.accommodation.barriers || 'N/A'}</div>
+            </div>
+          </GridTwoColumn>
         </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.QUESTION1_REQUEST_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.question1}
-          </Paragraph>
-        </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'24px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.QUESTION2_REQUEST_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.question2}
-          </Paragraph>
-        </div>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            marginTop={'6px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.COMMENTS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.shortAnswer.comments || 'N/A'}
-          </Paragraph>
-        </div>
-        <H1 fontSize={'24px'} marginLeft={'0px'} marginTop={'40px'}>
-          Accommodation
-        </H1>
-        <GridTwoColumn rowGap={'0'} margin={'0'}>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.SHIRT_SIZE_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.accommodation.shirtSize}
-            </Paragraph>
-          </div>
-          <div>
-            <H1
-              fontSize={'16px'}
-              marginLeft={'0px'}
-              marginTop={'6px'}
-              color={theme.colors.black80}
-              fontWeight={'700'}
-            >
-              {CONSTANTS.IMPAIRMENTS_LABEL}
-            </H1>
-            <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-              {hackerDetails.application.accommodation.impairments || 'N/A'}
-            </Paragraph>
-          </div>
-        </GridTwoColumn>
-        <div>
-          <H1
-            fontSize={'16px'}
-            marginLeft={'0px'}
-            color={theme.colors.black80}
-            fontWeight={'700'}
-          >
-            {CONSTANTS.BARRIERS_LABEL}
-          </H1>
-          <Paragraph fontSize={'16px'} color={theme.colors.purple}>
-            {hackerDetails.application.accommodation.barriers || 'N/A'}
-          </Paragraph>
-        </div>
-        <Flex
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'center'}
-        >
-          <div>&nbsp;</div>
-          <SubmitBtn 
-            isLoading={isSubmitting} 
-            disabled={isSubmitting} 
-            variant={ButtonVariant.Secondary}
-          >
+
+        <div className="buttons">
+          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+            Back
+          </Button>
+
+          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Primary}>
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
-          </SubmitBtn>
-          <div>&nbsp;</div>
-        </Flex>
+          </Button>
+        </div>
+
+        <style jsx>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+          }
+
+          .info-text {
+            color: ${theme.colors.black80};
+            font-family: ${theme.fonts.header};
+            font-size: 16px;
+            margin-bottom: 4px;
+          }
+
+          .field {
+            margin-bottom: 24px;
+          }
+
+          .field .name {
+            font-size: 16px;
+            font-family: ${theme.fonts.header};
+            color: ${theme.colors.black80};
+            margin-bottom: 8px;
+            font-weight: bold;
+          }
+
+          .field .value {
+            font-size: 16px;
+            font-family: ${theme.fonts.header};
+            color: ${theme.colors.purple};
+            overflow-wrap: break-word;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+        `}</style>
       </Form>
     );
   };
@@ -1015,6 +1028,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     setPageNumber(values.pageNumber - 1);
     setHackerDetails(app);
     setResume(resume || values.resume);
+
+    // Reset scroll to top of page
+    window.scrollTo(0, 0);
   };
 
   /**
@@ -1034,10 +1050,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     } else {
       app = convertFormikToHacker(values);
     }
-
     setPageNumber(values.pageNumber + 1);
     setHackerDetails(app);
     setResume(resume || values.resume);
+
+    // Reset scroll to top of page
+    window.scrollTo(0, 0);
   };
 
   /**
@@ -1057,10 +1075,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${
-                props.mode === ManageApplicationModes.EDIT
-                  ? 'edited'!
-                  : 'created!'
+              `Account ${props.mode === ManageApplicationModes.EDIT
+                ? 'edited'!
+                : 'created!'
               }`
             );
             setIsSubmitted(true);
@@ -1163,23 +1180,21 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         totalPages={CONSTANTS.TOTAL_PAGES}
         lastCompletedPage={pageNumber}
       />
-      <div style={{ marginTop: '90px' }}>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            hacker: hackerDetails,
-            resume: resume || undefined,
-            pageNumber,
-          }}
-          onSubmit={handleSubmit}
-          onReset={previousPage}
-          render={renderFormik}
-          validationSchema={getValidationSchema(
-            props.mode === ManageApplicationModes.CREATE,
-            pageNumber
-          )}
-        />
-      </div>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          hacker: hackerDetails,
+          resume: resume || undefined,
+          pageNumber,
+        }}
+        onSubmit={handleSubmit}
+        onReset={previousPage}
+        render={renderFormik}
+        validationSchema={getValidationSchema(
+          props.mode === ManageApplicationModes.CREATE,
+          pageNumber
+        )}
+      />
     </>
   ) : null;
 };
