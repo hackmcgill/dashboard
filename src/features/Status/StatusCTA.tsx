@@ -34,7 +34,7 @@ interface IStatusHeaderProps {
   firstName: string;
   settings: ISetting;
   onClickConfirm: (e: any) => Promise<void>;
-  onClickWithdraw: (e: any) => Promise<void>;
+  onClickWithdraw: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
