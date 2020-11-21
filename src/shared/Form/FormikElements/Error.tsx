@@ -1,11 +1,11 @@
 import styled from '../../Styles/styled-components';
+import theme from '../../Styles/theme';
 
 const FormikError = styled.div`
-  color: red;
-  margin-left: 10px;
-  margin-top: -15px;
-  margin-bottom: 15px;
-  font-style: italic;
+  color: ${theme.colors.red};
+  font-size: 14px;
+  margin-top: -26px;
+  margin-bottom: 16px;
   text-align: left;
 `;
 
