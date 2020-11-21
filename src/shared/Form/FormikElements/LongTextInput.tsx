@@ -1,5 +1,5 @@
+import React from 'react';
 import { FieldProps } from 'formik';
-import * as React from 'react';
 import { Label, LabelText } from '../';
 import { Textarea } from '../../Elements';
 
@@ -10,9 +10,10 @@ export interface ITextAreaProp {
   required?: boolean;
   maxLength?: number;
   style?: object;
+  showOptionalLabel?: boolean;
 }
 
-export const LongTextInput: React.StatelessComponent<
+export const LongTextInput: React.FC<
   ITextAreaProp & FieldProps
 > = (props) => {
   const placeholder = props.placeholder ? props.placeholder : '';
@@ -26,6 +27,7 @@ export const LongTextInput: React.StatelessComponent<
         label={props.label}
         required={props.required}
         secondaryInfo={charLeft}
+        showOptionalLabel={props.showOptionalLabel}
       />
       <Textarea
         onChange={handleChange(props)}

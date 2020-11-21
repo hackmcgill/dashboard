@@ -639,6 +639,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.accommodation.impairments}
               required={false}
               style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -651,6 +652,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.accommodation.barriers}
               required={false}
               style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -688,10 +690,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.other.codeOfConduct}
               required={true}
             />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="hacker.application.other.codeOfConduct"
-            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.codeOfConduct"
+              />
+            </div>
             <FastField
               name={'hacker.application.other.privacyPolicy'}
               component={FormikElements.Checkbox}
@@ -739,10 +743,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.other.privacyPolicy}
               required={true}
             />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="hacker.application.other.privacyPolicy"
-            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.privacyPolicy"
+              />
+            </div>
           </div>
         </div>
 
@@ -773,6 +779,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
           .shorter-fields {
             max-width: 440px;
+          }
+
+          .checkbox-error-message {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            margin-left: 40px;
           }
 
           .buttons {

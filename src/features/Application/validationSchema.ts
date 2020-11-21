@@ -223,8 +223,16 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
-              impairments: string(),
-              barriers: string(),
+              impairments: string().test(
+                'length',
+                'At most 2000 characters',
+                (value) => !value || value.length < 2000
+              ),
+              barriers: string().test(
+                'length',
+                'At most 2000 characters',
+                (value) => !value || value.length < 2000
+              ),
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')
