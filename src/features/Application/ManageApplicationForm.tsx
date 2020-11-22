@@ -1296,7 +1296,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
   // If application is loaded, then render it
   return isLoaded ? (
-    <>
+    <div style={{ padding: '0 25px' }}>
       <PaginationHeader
         pageNumber={pageNumber}
         totalPages={CONSTANTS.TOTAL_PAGES}
@@ -1317,7 +1317,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           pageNumber
         )}
       />
-    </>
+    </div>
   ) : null;
 };
 

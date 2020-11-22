@@ -3,6 +3,7 @@ import theme from '../../../shared/Styles/theme';
 
 interface ISeparatingBarProps {
   current: boolean;
+  totalPages?: number;
 }
 /**
  * Dividing bar between NumberBubble components
@@ -10,7 +11,7 @@ interface ISeparatingBarProps {
 const SeparatingBar: React.FC<ISeparatingBarProps> = (props) => {
   const pageNotSelectedBarStyle = {
     background: theme.colors.black40,
-    width: '160px',
+    width: props.totalPages ? `min(calc(100% / ${props.totalPages}), 160px)` : '160px',
     height: '2px',
     textAlign: 'center' as 'center',
     verticalAlign: 'center',

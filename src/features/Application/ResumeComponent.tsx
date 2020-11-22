@@ -17,7 +17,7 @@ const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   return (
     <div style={{ marginBottom: '20px' }}>
       <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
-      <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
+      <Box>
         <Label>
           <LabelText label={props.label} required={props.required} />
         </Label>

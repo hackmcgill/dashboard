@@ -52,7 +52,7 @@ export const FileUpload: React.StatelessComponent<
               height: 100%;
             }
             .drop-zone {
-              width: min(100vw, 960px);
+              width: min(100%, 960px);
               height: 280px;
               border: 4px dashed #bcbcbc;
               border-radius: 8px;
