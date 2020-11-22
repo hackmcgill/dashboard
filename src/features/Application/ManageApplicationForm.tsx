@@ -175,7 +175,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderEducationFormik(fp);
+        return renderPortfolioFormik(fp);
       case 3:
         return renderShortAnswerFormik(fp);
       case 4:
@@ -183,7 +183,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderPortfolioFormik(fp);
+        return renderEducationFormik(fp);
     }
   };
 
@@ -330,6 +330,22 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             <GridTwoColumn columnWidth="440px" rowGap="0" margin="0">
               <div>
                 <FastField
+                  name={'hacker.application.general.jobInterest'}
+                  component={FormikElements.Select}
+                  options={getOptionsFromEnum(JobInterest)}
+                  label={CONSTANTS.JOBINTEREST_LABEL}
+                  placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
+                  value={fp.values.hacker.application.general.jobInterest}
+                  required={true}
+                />
+                <ErrorMessage
+                  component={FormikElements.Error}
+                  name="hacker.application.general.jobInterest"
+                />
+              </div>
+
+              <div>
+                <FastField
                   name={'hacker.application.general.URL.github'}
                   inputType="url"
                   component={FormikElements.Input}
@@ -387,20 +403,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Select}
                 value={fp.values.hacker.application.shortAnswer.skills}
                 showOptionalLabel={true}
-              />
-
-              <FastField
-                name={'hacker.application.general.jobInterest'}
-                component={FormikElements.Select}
-                options={getOptionsFromEnum(JobInterest)}
-                label={CONSTANTS.JOBINTEREST_LABEL}
-                placeholder={CONSTANTS.JOBINTEREST_PLACEHOLDER}
-                value={fp.values.hacker.application.general.jobInterest}
-                required={true}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="hacker.application.general.jobInterest"
               />
 
               <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
