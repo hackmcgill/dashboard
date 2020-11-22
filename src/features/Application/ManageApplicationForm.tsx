@@ -297,7 +297,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             display: none;
           }
 
-          @media (min-width: 768px) {
+          @media (min-width: 992px) {
             .art {
               width: 481px;
               height: auto;
@@ -613,7 +613,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             display: none;
           }
 
-          @media (min-width: 768px) {
+          @media (min-width: 1280px) {
             .art {
               height: 882px;
               width: auto;
