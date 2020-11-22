@@ -1027,7 +1027,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
     setPageNumber(values.pageNumber - 1);
     setHackerDetails(app);
-    setResume(resume || values.resume);
+
+    if (resume !== values.resume && values.resume) {
+      setResume(values.resume);
+    } else {
+      setResume(resume || values.resume);
+    }
 
     // Reset scroll to top of page
     window.scrollTo(0, 0);
@@ -1052,7 +1057,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     }
     setPageNumber(values.pageNumber + 1);
     setHackerDetails(app);
-    setResume(resume || values.resume);
+
+    if (resume !== values.resume && values.resume) {
+      setResume(values.resume);
+    } else {
+      setResume(resume || values.resume);
+    }
 
     // Reset scroll to top of page
     window.scrollTo(0, 0);
