@@ -102,12 +102,14 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.EDIT_ACCOUNT_PAGE}
-              component={withNavbar(
-                withAuthRedirect(EditAccountPage, {
-                  redirAfterLogin: true,
-                  requiredAuthState: true,
-                }),
-                { activePage: 'profile' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(EditAccountPage, {
+                    redirAfterLogin: true,
+                    requiredAuthState: true,
+                  }),
+                  { activePage: 'profile' }
+                )
               )}
             />
             <Route
@@ -159,20 +161,23 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.EDIT_APPLICATION_PAGE}
-              component={withNavbar(
-                withAuthRedirect(
-                  withHackerRedirect(EditApplicationPage, {
-                    AuthVerification: canAccessApplication,
-                  }),
-                  {
-                    requiredAuthState: true,
-                    redirAfterLogin: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed && user.accountType === UserType.HACKER,
-                  }
-                ),
-                { activePage: 'application' }
-              )}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(
+                      withHackerRedirect(EditApplicationPage, {
+                        AuthVerification: canAccessApplication,
+                      }),
+                      {
+                        requiredAuthState: true,
+                        redirAfterLogin: true,
+                        AuthVerification: (user: IAccount) =>
+                          user.confirmed && user.accountType === UserType.HACKER,
+                      }
+                    ),
+                    { activePage: 'application' }
+                  )
+                )}
             />
             <Route
               exact={true}
