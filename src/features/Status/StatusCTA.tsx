@@ -81,11 +81,11 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
   );
 
   // Possible choices for art
-  const rocketArt = <Image src={rocket} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const computerArt = <Image src={computer2} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const developerArt = <Image src={developer} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const developerArtSmall = <Image src={developer} imgHeight="280px" padding={'0 0 68px 0'} />;
-  const hackerArt = <Image src={hacker} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const rocketArt = <Image src={rocket} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const computerArt = <Image src={computer2} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const developerArt = <Image src={developer} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const developerArtSmall = <Image src={developer} imgHeight="280px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const hackerArt = <Image src={hacker} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
 
   let heading = 'Hey ' + firstName + ',';
   let text = '';
