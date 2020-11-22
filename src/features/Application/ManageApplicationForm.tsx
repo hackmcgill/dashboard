@@ -47,8 +47,8 @@ import SchoolComponent from './SchoolComponent';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
-import robotDrone from '../../assets/images/robotDrone.svg';
 import books from '../../assets/images/books.svg';
+import robotDrone from '../../assets/images/robotDrone.svg';
 
 export enum ManageApplicationModes {
   CREATE,
@@ -261,12 +261,17 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         </div>
 
         <div className="buttons">
-          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+          >
             Next
           </Button>
         </div>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .container {
             max-width: 960px;
             margin: auto;
@@ -289,14 +294,21 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           }
 
           .art {
-            width: 481px;
-            height: auto;
+            display: none;
+          }
 
-            position: relative;
-            left: 97px;
-            
-            align-self: flex-start;
-            top: 72px;
+          @media (min-width: 768px) {
+            .art {
+              width: 481px;
+              height: auto;
+
+              position: relative;
+              left: 97px;
+
+              align-self: flex-start;
+              top: 72px;
+              display: initial;
+            }
           }
         `}</style>
       </Form>
@@ -427,16 +439,28 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         </div>
 
         <div className="buttons">
-          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+          <Button
+            type="reset"
+            isLoading={false}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ marginRight: '24px' }}
+          >
             Back
           </Button>
 
-          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+          >
             Next
           </Button>
         </div>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .container {
             max-width: 960px;
             margin: auto;
@@ -462,7 +486,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             margin-bottom: 80px;
           }
         `}</style>
-      </Form >
+      </Form>
     );
   };
 
@@ -542,16 +566,28 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         </div>
 
         <div className="buttons">
-          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+          <Button
+            type="reset"
+            isLoading={false}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ marginRight: '24px' }}
+          >
             Back
           </Button>
 
-          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+          >
             Next
           </Button>
         </div>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .container {
             max-width: 960px;
             margin: auto;
@@ -574,13 +610,20 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           }
 
           .art {
-            height: 882px;
-            width: auto;
-            align-self: flex-end;
+            display: none;
+          }
 
-            position: relative;
-            left: 128px;
-            top: 52px;
+          @media (min-width: 768px) {
+            .art {
+              height: 882px;
+              width: auto;
+              align-self: flex-end;
+
+              position: relative;
+              left: 128px;
+              top: 52px;
+              display: initial;
+            }
           }
         `}</style>
       </Form>
@@ -753,16 +796,28 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         </div>
 
         <div className="buttons">
-          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+          <Button
+            type="reset"
+            isLoading={false}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ marginRight: '24px' }}
+          >
             Back
           </Button>
-          
-          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
+
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+          >
             Next
           </Button>
         </div>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .container {
             max-width: 960px;
             margin: auto;
@@ -821,29 +876,43 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       >
         <div className="container">
           <H1 marginBottom="16px">Review</H1>
-          <div className="info-text">{CONSTANTS.REVIEW_APPLICIATION_DESCRIPTION}</div>
+          <div className="info-text">
+            {CONSTANTS.REVIEW_APPLICIATION_DESCRIPTION}
+          </div>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Education
+          </H2>
           <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
               <div className="name">{CONSTANTS.SCHOOL_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.school}</div>
+              <div className="value">
+                {hackerDetails.application.general.school}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.DEGREE_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.degree}</div>
+              <div className="value">
+                {hackerDetails.application.general.degree}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.fieldOfStudy}</div>
+              <div className="value">
+                {hackerDetails.application.general.fieldOfStudy}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.GRADUATION_YEAR_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.graduationYear}</div>
+              <div className="value">
+                {hackerDetails.application.general.graduationYear}
+              </div>
             </div>
           </GridTwoColumn>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Portfolio</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Portfolio
+          </H2>
           <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
               <div className="name">{CONSTANTS.RESUME_LABEL}</div>
@@ -851,78 +920,120 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.LINKEDIN_LINK_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.URL.linkedIn || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.general.URL.linkedIn || 'N/A'}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.GITHUB_LINK_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.URL.github || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.general.URL.github || 'N/A'}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.OTHER_LINK_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.URL.other || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.general.URL.other || 'N/A'}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.JOBINTEREST_LABEL}</div>
-              <div className="value">{hackerDetails.application.general.jobInterest || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.general.jobInterest || 'N/A'}
+              </div>
             </div>
           </GridTwoColumn>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Personal Details</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Personal Details
+          </H2>
           <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
               <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
-              <div className="value">{hackerDetails.application.other.ethnicity}</div>
+              <div className="value">
+                {hackerDetails.application.other.ethnicity}
+              </div>
             </div>
           </GridTwoColumn>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Questions</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Questions
+          </H2>
           <div className="field">
             <div className="name">{CONSTANTS.PREVIOUS_HACKATHONS_LABEL}</div>
-            <div className="value">{hackerDetails.application.shortAnswer.previousHackathons}</div>
+            <div className="value">
+              {hackerDetails.application.shortAnswer.previousHackathons}
+            </div>
           </div>
           <div className="field">
             <div className="name">{CONSTANTS.QUESTION1_REQUEST_LABEL}</div>
-            <div className="value">{hackerDetails.application.shortAnswer.question1}</div>
+            <div className="value">
+              {hackerDetails.application.shortAnswer.question1}
+            </div>
           </div>
           <div className="field">
             <div className="name">{CONSTANTS.QUESTION2_REQUEST_LABEL}</div>
-            <div className="value">{hackerDetails.application.shortAnswer.question2}</div>
+            <div className="value">
+              {hackerDetails.application.shortAnswer.question2}
+            </div>
           </div>
           <div className="field">
             <div className="name">{CONSTANTS.COMMENTS_LABEL}</div>
-            <div className="value">{hackerDetails.application.shortAnswer.comments || 'N/A'}</div>
+            <div className="value">
+              {hackerDetails.application.shortAnswer.comments || 'N/A'}
+            </div>
           </div>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Accommodation</H2>
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Accommodation
+          </H2>
           <GridTwoColumn rowGap="0" margin="0">
             {!settings.isRemote && (
               <div className="field">
                 <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
-                <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
+                <div className="value">
+                  {hackerDetails.application.accommodation.shirtSize}
+                </div>
               </div>
             )}
             <div className="field">
               <div className="name">{CONSTANTS.IMPAIRMENTS_LABEL}</div>
-              <div className="value">{hackerDetails.application.accommodation.impairments || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.accommodation.impairments || 'N/A'}
+              </div>
             </div>
             <div className="field">
               <div className="name">{CONSTANTS.BARRIERS_LABEL}</div>
-              <div className="value">{hackerDetails.application.accommodation.barriers || 'N/A'}</div>
+              <div className="value">
+                {hackerDetails.application.accommodation.barriers || 'N/A'}
+              </div>
             </div>
           </GridTwoColumn>
         </div>
 
         <div className="buttons">
-          <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
+          <Button
+            type="reset"
+            isLoading={false}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ marginRight: '24px' }}
+          >
             Back
           </Button>
 
-          <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Primary}>
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Primary}
+          >
             {props.mode === ManageApplicationModes.CREATE ? 'Submit' : 'Update'}
           </Button>
         </div>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .container {
             max-width: 960px;
             margin: auto;
@@ -1085,9 +1196,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${props.mode === ManageApplicationModes.EDIT
-                ? 'edited'!
-                : 'created!'
+              `Account ${
+                props.mode === ManageApplicationModes.EDIT
+                  ? 'edited'!
+                  : 'created!'
               }`
             );
             setIsSubmitted(true);
