@@ -294,6 +294,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
             position: relative;
             left: 97px;
+            
+            align-self: flex-start;
+            top: 72px;
           }
         `}</style>
       </Form>
@@ -332,6 +335,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   component={FormikElements.Input}
                   label={CONSTANTS.GITHUB_LINK_LABEL}
                   placeholder={CONSTANTS.GITHUB_LINK_PLACEHOLDER}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -347,6 +351,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   label={CONSTANTS.LINKEDIN_LINK_LABEL}
                   placeholder={CONSTANTS.LINKEDIN_LINK_PLACEHOLDER}
                   value={fp.values.hacker.application.general.URL.linkedIn}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -362,6 +367,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   label={CONSTANTS.OTHER_LINK_LABEL}
                   placeholder={CONSTANTS.OTHER_LINK_PLACEHOLDER}
                   value={fp.values.hacker.application.general.URL.other}
+                  showOptionalLabel={true}
                 />
                 <ErrorMessage
                   component={FormikElements.Error}
@@ -380,6 +386,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 placeholder={CONSTANTS.SKILLS_PLACEHOLDER}
                 component={FormikElements.Select}
                 value={fp.values.hacker.application.shortAnswer.skills}
+                showOptionalLabel={true}
               />
 
               <FastField
@@ -632,6 +639,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.accommodation.impairments}
               required={false}
               style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -644,6 +652,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.accommodation.barriers}
               required={false}
               style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
             />
             <ErrorMessage
               component={FormikElements.Error}
@@ -681,10 +690,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.other.codeOfConduct}
               required={true}
             />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="hacker.application.other.codeOfConduct"
-            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.codeOfConduct"
+              />
+            </div>
             <FastField
               name={'hacker.application.other.privacyPolicy'}
               component={FormikElements.Checkbox}
@@ -732,10 +743,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               value={fp.values.hacker.application.other.privacyPolicy}
               required={true}
             />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="hacker.application.other.privacyPolicy"
-            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.privacyPolicy"
+              />
+            </div>
           </div>
         </div>
 
@@ -766,6 +779,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
           .shorter-fields {
             max-width: 440px;
+          }
+
+          .checkbox-error-message {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            margin-left: 40px;
           }
 
           .buttons {
@@ -802,10 +821,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       >
         <div className="container">
           <H1 marginBottom="16px">Review</H1>
-          <div className="info-text">
-            Your responses are now saved. Please review your application before
-            submitting. You won’t be able to edit your responses later.
-          </div>
+          <div className="info-text">{CONSTANTS.REVIEW_APPLICIATION_DESCRIPTION}</div>
 
           <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Education</H2>
           <GridTwoColumn rowGap="0" margin="0">
@@ -879,10 +895,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
           <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">Accommodation</H2>
           <GridTwoColumn rowGap="0" margin="0">
-            <div className="field">
-              <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
-              <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
-            </div>
+            {!settings.isRemote && (
+              <div className="field">
+                <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
+                <div className="value">{hackerDetails.application.accommodation.shirtSize}</div>
+              </div>
+            )}
             <div className="field">
               <div className="name">{CONSTANTS.IMPAIRMENTS_LABEL}</div>
               <div className="value">{hackerDetails.application.accommodation.impairments || 'N/A'}</div>

@@ -1,7 +1,8 @@
+import React from 'react';
 import { Box, Flex } from '@rebass/grid';
-import * as React from 'react';
-import { REQUIRED_INPUT } from '../../config';
+import { REQUIRED_INPUT, OPTIONAL_INPUT } from '../../config';
 import { RequiredInputLabel, SecondaryInfoText } from './';
+import theme from '../Styles/theme';
 
 interface ILabelTextProps {
   // Label text
@@ -14,6 +15,10 @@ interface ILabelTextProps {
   // (a field can be required, but still have showRequiredLabel set to false)
   showRequiredLabel?: boolean;
 
+  // Should this field display a (optional) message to let user know
+  // it's safe to skip this field?
+  showOptionalLabel?: boolean;
+
   // Subtext underlabel, explaining in more detail
   secondaryInfo?: any;
 }
@@ -21,11 +26,13 @@ interface ILabelTextProps {
 export const LabelText: React.FC<ILabelTextProps> = (
   props: ILabelTextProps
 ) => {
-  const requiredText = (
-    <RequiredInputLabel>
-      {props.showRequiredLabel ? REQUIRED_INPUT : ''}
-    </RequiredInputLabel>
-  );
+  const requiredText =
+    props.showRequiredLabel ?
+      <RequiredInputLabel>{REQUIRED_INPUT}</RequiredInputLabel> :
+      props.showOptionalLabel ?
+        <span style={{ marginLeft: '6px', color: theme.colors.black60, fontSize: '14px' }}>{OPTIONAL_INPUT}</span> :
+        null;
+
   const secondaryInfo = (
     <SecondaryInfoText>{props.secondaryInfo}</SecondaryInfoText>
   );
