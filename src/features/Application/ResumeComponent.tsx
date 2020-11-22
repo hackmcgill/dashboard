@@ -12,9 +12,7 @@ export interface IResumeProps {
   value?: boolean;
   required?: boolean;
 }
-const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
-  props
-) => {
+const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <Flex mb={'20px'}>
@@ -22,9 +20,7 @@ const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
       <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
         <Label>
           <LabelText label={props.label} required={props.required} />
-          <div style={{ marginLeft: '-10px' }}>
-            <FileUpload {...props} />
-          </div>
+          <FileUpload {...props} />
         </Label>
       </Box>
     </Flex>
