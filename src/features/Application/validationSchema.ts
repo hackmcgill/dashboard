@@ -121,7 +121,11 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: number().required('Required'),
+              previousHackathons: number()
+                .typeError('Required')
+                .required('Required')
+                .min(0, 'Must be between at least 0')
+                .max(5, 'Must be at most 5'),
               question1: string()
                 .required('Required')
                 .test(
@@ -200,7 +204,11 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               }),
             }),
             shortAnswer: object().shape({
-              previousHackathons: number().required('Required'),
+              previousHackathons: number()
+                .typeError('Required')
+                .required('Required')
+                .min(0, 'Must be between at least 0')
+                .max(5, 'Must be at most 5'),
               question1: string()
                 .required('Required')
                 .test(
@@ -223,8 +231,16 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
-              impairments: string(),
-              barriers: string(),
+              impairments: string().test(
+                'length',
+                'At most 2000 characters',
+                (value) => !value || value.length < 2000
+              ),
+              barriers: string().test(
+                'length',
+                'At most 2000 characters',
+                (value) => !value || value.length < 2000
+              ),
               travel: number()
                 .min(0, 'Must be between 0 and 100')
                 .max(100, 'Must be between 0 and 100')

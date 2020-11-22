@@ -15,7 +15,7 @@ export const inputStyles = css<IInputProps>`
   font-size: 16px;
   margin: auto;
   margin-top: 12px;
-  margin-bottom: ${(props) => (props.isTight ? '8px' : '24px')};
+  margin-bottom: ${(props) => (props.isTight ? '24px' : '32px')};
   min-height: 40px;
   padding-left: 18px;
   width: 100%;
