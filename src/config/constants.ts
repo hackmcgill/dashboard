@@ -102,7 +102,7 @@ export const ETHNICITY_PLACEHOLDER = 'Ethnicity';
 export const GITHUB_LINK_LABEL = 'GitHub URL';
 export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
 export const GRADUATION_YEAR_LABEL = 'Graduation Year';
-export const IMPAIRMENTS_LABEL = 'Do you have hearing/visual impairments?';
+export const IMPAIRMENTS_LABEL = 'Do you have any hearing and/or visual impairments?';
 export const JOBINTEREST_LABEL = 'Job Interest';
 export const JOBINTEREST_PLACEHOLDER = 'None';
 export const LINKEDIN_LINK_LABEL = 'LinkedIn URL';
@@ -126,6 +126,8 @@ export const TRAVEL_REQUEST_LABEL =
   'Will you require any travel reimbursement? (up to $100)';
 export const PREVIOUS_HACKATHONS_LABEL =
   'How many hackathons have you been to?';
+export const REVIEW_APPLICIATION_DESCRIPTION =
+  'Your are about to submit. Please review your application before submitting. You won’t be able to edit your responses later.';
 
 // Invite Page
 export const ACCOUNT_TYPE_LABEL = 'Account type';
@@ -140,7 +142,7 @@ export const EMAIL_SENT = 'Email sent!';
 
 // LabelTextComponent page
 export const REQUIRED_INPUT = '*';
-export const OPTIONAL_INPUT = '(Optional)';
+export const OPTIONAL_INPUT = '(optional)';
 
 // Team page
 export const TEAM_OVERVIEW = 'Form a team with up to 3 other friends in order to have your applications considered as a group.';
