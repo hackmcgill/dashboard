@@ -15,13 +15,15 @@ export interface IResumeProps {
 const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
-    <Flex mb={'20px'}>
+    <Flex mb={'32px'}>
       <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
       <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
-        <Label>
-          <LabelText label={props.label} required={props.required} />
-          <FileUpload {...props} />
-        </Label>
+        <Box mb={'8px'}>
+          <Label>
+            <LabelText label={props.label} required={props.required} />
+          </Label>
+        </Box>
+        <FileUpload {...props} />
       </Box>
     </Flex>
   );

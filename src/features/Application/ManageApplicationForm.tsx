@@ -175,7 +175,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   const renderFormik = (fp: FormikProps<any>) => {
     switch (fp.values.pageNumber) {
       case 2:
-        return renderPortfolioFormik(fp);
+        return renderEducationFormik(fp);
       case 3:
         return renderShortAnswerFormik(fp);
       case 4:
@@ -183,7 +183,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       case 5:
         return renderReviewFormik(fp);
       default:
-        return renderEducationFormik(fp);
+        return renderPortfolioFormik(fp);
     }
   };
 
@@ -756,7 +756,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
             Back
           </Button>
-          
+
           <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} variant={ButtonVariant.Secondary}>
             Next
           </Button>

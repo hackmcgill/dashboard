@@ -30,39 +30,69 @@ export const FileUpload: React.StatelessComponent<
       accept={'.pdf'}
     >
       {({ getRootProps, getInputProps }) => (
-        <section className={'drop-zone'}>
-          <div {...getRootProps()} className={'container'}>
+        <section className="drop-zone">
+          <div {...getRootProps()} className="container">
             <input {...getInputProps()} />
-            <div className={'drop-content'}>
-              <img src={Upload} alt={'upload'} />
-              <p>Drag and drop or click here to upload</p>
-              <p className={'subtitle'}>
+            <div className="drop-content">
+              <img src={Upload} className="art" alt="upload" />
+              <div className="title">Drag and drop or click here to upload</div>
+              <div className="subtitle">
                 {fileName || 'You can upload a PDF file up to 4MB'}
-              </p>
+              </div>
             </div>
           </div>
           <style jsx>{`
-            .subtitle {
-              color: ${theme.colors.black30};
-            }
             .container {
               text-align: center;
               height: 100%;
             }
+
+            .container:focus {
+              outline: none;
+            }
+            
             .drop-zone {
               width: min(100vw, 960px);
               height: 280px;
-              border: 4px dashed #bcbcbc;
+              border: 4px dashed ${theme.colors.black20};
               border-radius: 8px;
               box-sizing: border-box;
+              cursor: pointer;
+              transition: border-color 0.3s;
             }
+
+            .art {
+              margin-top: 8px;
+              margin-bottom: 16px;
+              opacity: 0.6;
+              filter: invert(89%) sepia(11%) saturate(2206%) hue-rotate(187deg) brightness(98%) contrast(109%);
+              transition: opacity 0.3s;
+            }
+
+            .title {
+              margin-bottom: 8px;
+              font-family: ${theme.fonts.header};
+              color: ${theme.colors.black80};
+            }
+            
+            .subtitle {
+              font-family: ${theme.fonts.header};
+              color: ${theme.colors.black40};
+            }
+            
             .drop-content {
               position: relative;
               transform: translateY(-50%);
               top: 50%;
             }
-            .container:focus {
-              outline: none;
+
+            .drop-zone:hover {
+              filter: none;
+              border-color: ${theme.colors.purple}66;
+            }
+
+            .drop-zone:hover .art {
+              opacity: 1;
             }
           `}</style>
         </section>
