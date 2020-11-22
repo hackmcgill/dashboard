@@ -87,14 +87,14 @@ const LoginPage: React.FC = () => {
             label={EMAIL_LABEL}
             onEmailChanged={setEmail}
             value={email}
-            isTight={false}
+            isTight={true}
             placeholder="your_email@gmail.com"
           />
           <PasswordInput
             label={PASSWORD_LABEL}
             onPasswordChanged={setPassword}
             value={password}
-            isTight={false}
+            isTight={true}
             hasResetLink={true}
             placeholder="your_password"
           />
