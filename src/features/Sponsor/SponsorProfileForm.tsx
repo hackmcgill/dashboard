@@ -73,7 +73,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
         }
       }
     })();
-  }, []);
+  }, [mode]);
 
   const renderFormik = (fp: FormikProps<any>) => {
     return (
