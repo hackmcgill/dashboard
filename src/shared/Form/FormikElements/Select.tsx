@@ -1,5 +1,5 @@
+import React from 'react';
 import { FieldProps } from 'formik';
-import * as React from 'react';
 import { Label, LabelText, StyledCreatableSelect, StyledSelect } from '..';
 
 interface IStylizedSelectFormikProps {
@@ -11,9 +11,11 @@ interface IStylizedSelectFormikProps {
   creatable: boolean;
   required?: boolean;
   disabled?: boolean;
+  style?: object;
+  showOptionalLabel?: boolean;
 }
 
-const StylizedSelectFormikComponent: React.StatelessComponent<
+const StylizedSelectFormikComponent: React.FC<
   IStylizedSelectFormikProps & FieldProps
 > = (props) => {
   const handleChange = props.isMulti ? handleChangeMulti : handleChangeSingle;
@@ -30,16 +32,18 @@ const StylizedSelectFormikComponent: React.StatelessComponent<
   };
   return (
     <Label>
-      <LabelText label={props.label} required={props.required} />
-      {props.creatable ? (
-        <StyledCreatableSelect
-          {...commonProps}
-          allowCreateWhileLoading={true}
-          createOptionPosition={'first'}
-        />
-      ) : (
-        <StyledSelect {...commonProps} />
-      )}
+      <LabelText label={props.label} required={props.required} showOptionalLabel={props.showOptionalLabel} />
+      <div style={props.style}>
+        {props.creatable ? (
+          <StyledCreatableSelect
+            {...commonProps}
+            allowCreateWhileLoading={true}
+            createOptionPosition={'first'}
+          />
+        ) : (
+            <StyledSelect {...commonProps} />
+          )}
+      </div>
     </Label>
   );
 };
