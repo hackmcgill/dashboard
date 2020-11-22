@@ -13,6 +13,7 @@ import {
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,
+  canAccessTeam,
   canAccessTravel,
   isLoggedIn,
   // getSponsorInfo,
@@ -37,6 +38,7 @@ interface INavbarState {
   status: HackerStatus;
   confirmed: boolean;
   loaded: boolean;
+  showTeamLink: boolean;
   showTravelLink: boolean;
   userType: UserType;
   settings: ISetting;
@@ -55,6 +57,7 @@ export default class Navbar extends React.Component<
       status: HackerStatus.HACKER_STATUS_NONE,
       confirmed: true,
       loaded: false,
+      showTeamLink: false,
       showTravelLink: false,
       userType: UserType.UNKNOWN,
       settings: {
@@ -103,6 +106,7 @@ export default class Navbar extends React.Component<
       hacker = response.data.data;
       this.setState({
         status: hacker.status,
+        showTeamLink: canAccessTeam(hacker),
         showTravelLink:
           canAccessTravel(hacker) && !this.state.settings.isRemote,
       });
@@ -193,6 +197,14 @@ export default class Navbar extends React.Component<
                 Application
               </NavLink>
             ) : null}
+          {this.state.showTeamLink ? (
+            <NavLink
+              href={routes.TEAM_PAGE}
+              className={this.props.activePage === 'team' ? 'active' : ''}
+            >
+              Team
+            </NavLink>
+          ) : null}
           {this.state.showTravelLink ? (
             <NavLink
               href={routes.TRAVEL_PAGE}
