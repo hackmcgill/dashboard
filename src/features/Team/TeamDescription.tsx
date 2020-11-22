@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { HackerStatus, IMemberName, ITeam } from '../../config';
+import { IMemberName, ITeam } from '../../config';
 import theme from '../../shared/Styles/theme';
 
 import { toast } from 'react-toastify';
 import ClipboardComponent from '../../shared/Elements/Clipboard';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import TextButton from '../../shared/Elements/TextButton';
+import MemberList from './MemberList/MemberList';
 
 interface ITeamDescriptionProps {
   team: ITeam;
@@ -34,21 +35,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
 
       <div className="team-members-container">
         <div className="label">Members</div>
-        <div className="members">
-          {props.members.map((member, index) => {
-            const applied = member.status === HackerStatus.HACKER_STATUS_NONE;
-
-            return <div className="member" key={index}>
-              <div>
-                <div className="name">{member.firstName} {member.lastName}</div>
-                <div className="school">{member.school}</div>
-              </div>
-              <div className={'status' + (applied ? ' incomplete' : ' applied')}>
-                {applied ? 'Incomplete Application' : 'Applied'}
-              </div>
-            </div>
-          })}
-        </div>
+        <MemberList members={props.members} />
       </div>
 
       <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
@@ -80,38 +67,6 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
           /* Horizontally center contents */
           display: flex;
           justify-content: center;
-        }
-
-        .members {
-          margin-top: 16px;
-          margin-bottom: 16px;
-        }
-
-        .member {
-          border-bottom: 1px solid ${theme.colors.purpleLight};
-          padding: 16px 24px;
-          
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .member:first-child {
-          border-top: 1px solid ${theme.colors.purpleLight};
-        }
-
-        .member .school {
-          font-size: 14px;
-          color: ${theme.colors.black60};
-        }
-
-        .member .status {
-          font-size: 14px;
-          color: ${theme.colors.purple};
-        }
-
-        .member .status.incomplete {
-          color: ${theme.colors.redMed};
         }
       `}</style>
     </>
