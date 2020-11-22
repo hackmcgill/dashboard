@@ -751,7 +751,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </div>
           </div>
         </div>
-
+        
         <div className="buttons">
           <Button type="reset" isLoading={false} disabled={isSubmitting} variant={ButtonVariant.Secondary} isOutlined={true} style={{ marginRight: '24px' }}>
             Back
