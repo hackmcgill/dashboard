@@ -16,7 +16,9 @@ const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <div style={{ marginBottom: '20px' }}>
-      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
+      <Box mb="20px">
+        {props.mode === ManageApplicationModes.EDIT && viewResume}
+      </Box>
       <Box>
         <Label>
           <LabelText label={props.label} required={props.required} />
