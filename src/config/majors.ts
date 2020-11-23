@@ -15,6 +15,7 @@ const MajorsList = [
   'Chemical Engineering',
   'Chemistry',
   'Civil Engineering',
+  'Cognitive Science',
   'Communications',
   'Computer Engineering',
   'Computer Science',

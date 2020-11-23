@@ -58,10 +58,12 @@ export const LAST_NAME_LABEL = 'Last name';
 export const NONE_STATUS_HEADING = "Let's get started";
 export const NONE_STATUS_TEXT =
   'You’re all set! Ready to start your application?';
-export const APPLIED_STATUS_HEADING = "You're all set";
+export const APPLIED_STATUS_HEADING = "You've applied to McHacks!";
 export const APPLIED_STATUS_TEXT =
-  'Your application has been submitted. Decisions will be sent out in January so stay tuned!';
-export const ACCEPTED_STATUS_HEADING = 'Confirm your spot'
+  'Keep an eye on your email for when decisions come out. ';
+export const SOCIAL_MEDIA_PROMPT_START = 'Follow us on ';
+export const SOCIAL_MEDIA_PROMPT_END = ' for the latest updates.';
+export const ACCEPTED_STATUS_HEADING = 'Confirm your spot';
 export const ACCEPTED_STATUS_TEXT =
   "Congratulations! We're excited to offer you a spot at McHacks!";
 export const RSVP_DEADLINE_TEXT_START = 'Please RSVP by';
@@ -70,9 +72,9 @@ export const RSVP_DEADLINE_TEXT_END =
 export const DECLINED_STATUS_TEXT =
   "Thank you so much for your interest in McHacks. Unfortunately, we don't have enough space to offer you a spot this year. That being said, please keep in touch and we'd love to see you apply again next year! In the meantime, we hope you continue to create and build awesome things!";
 export const WAITLISTED_STATUS_TEXT =
-  "Thank you so much for your interest in McHacks. We receive many applications each year and wish we had the capacity to offer a spot to everyone. At the moment, we aren't able to offer you a spot and have placed you on the waitlist. Keep an eye out on the dashboard to see if your status changes and a spot opens up!";
+  "Thank you so much for your interest in McHacks. At the moment, we've placed you on the waitlist. We received many great applications this year and wish we had the capacity accept them all. Currently, we can only place you on the waitlist, but please keep an eye on the dashboard to see if your status changes and a spot opens up!";
 export const CONFIRMED_STATUS_TEXT =
-  'Your attendance has been confirmed! More information on McHacks will be sent to your inbox as we get closer to the event.';
+  'Your attendance has been confirmed! More information on McHacks will be sent to your email as we get closer to the event.';
 export const WITHDRAWN_STATUS_TEXT =
   "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_HEADING = 'Welcome to McHacks!';
@@ -104,7 +106,7 @@ export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
 export const GRADUATION_YEAR_LABEL = 'Graduation Year';
 export const IMPAIRMENTS_LABEL = 'Do you have any hearing and/or visual impairments?';
 export const JOBINTEREST_LABEL = 'Job Interest';
-export const JOBINTEREST_PLACEHOLDER = 'None';
+export const JOBINTEREST_PLACEHOLDER = 'Full Time, Internship, None...';
 export const LINKEDIN_LINK_LABEL = 'LinkedIn URL';
 export const LINKEDIN_LINK_PLACEHOLDER = 'https://linkedin.com/in/';
 export const FIELD_OF_STUDY_PLACEHOLDER = 'Field of Study';
