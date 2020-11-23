@@ -55,6 +55,10 @@ const CreateAccountPage: React.FC = () => (
         }
 
         @media (max-width: 959px) {
+          .form-container {
+            margin-top: 40px;
+          }
+
           .art-wrapper {
             display: none;
           }

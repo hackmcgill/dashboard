@@ -142,7 +142,7 @@ const LoginPage: React.FC = () => {
           margin-right: 80px;
         }
 
-        @media (max-width: 991px) {
+        @media screen and (max-width: 959px) {
           .form-container {
             padding: 108px 0;
           }
@@ -156,6 +156,17 @@ const LoginPage: React.FC = () => {
             max-width: 360px;
             margin: auto;
             padding: 0 40px;
+          }
+        }
+
+        @media screen and (min-width: 960px) and (max-width: 1200px) {
+          .art {
+            margin: 0 80px;
+            width: 90%;
+          }
+
+          .form-content {
+            margin-right: 80px;
           }
         }
       `}</style>
