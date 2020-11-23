@@ -119,6 +119,7 @@ const TeamPage: React.FC = () => {
         .team-box {
           max-width: 400px;
           text-align: left;
+          padding: 20px;
         }
 
         .title {
