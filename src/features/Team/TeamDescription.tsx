@@ -1,10 +1,13 @@
-import * as React from 'react';
-
-import { Box, Flex } from '@rebass/grid';
+import React from 'react';
 
 import { IMemberName, ITeam } from '../../config';
-import { Button, H1, MaxWidthBox } from '../../shared/Elements';
-import { TeamView } from './TeamView';
+import theme from '../../shared/Styles/theme';
+
+import { toast } from 'react-toastify';
+import ClipboardComponent from '../../shared/Elements/Clipboard';
+import WithToasterContainer from '../../shared/HOC/withToaster';
+import TextButton from '../../shared/Elements/TextButton';
+import MemberList from './MemberList/MemberList';
 
 interface ITeamDescriptionProps {
   team: ITeam;
@@ -17,29 +20,65 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
   props: ITeamDescriptionProps
 ) => {
   return (
-    <MaxWidthBox maxWidth={'400px'} mx={[5, 'auto']}>
-      <H1 fontSize={'30px'} marginTop={'0px'} marginLeft={'0px'}>
-        Your Team
-      </H1>
-      <Flex flexDirection={'column'}>
-        <Box>
-          <TeamView team={props.team} members={props.members} />
-        </Box>
-        <Box mt={'15px'}>
-          <Flex justifyContent={'center'}>
-            <Box>
-              <Button
-                onClick={props.onLeaveTeam}
-                isLoading={props.isLeavingTeam}
-              >
-                Leave team
-              </Button>
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
-    </MaxWidthBox>
+    <>
+      <div className="team-code-container">
+        <div className="label">Team code</div>
+        <div className="info-text">Share this code with your team members to let them join:</div>
+        <div className="team-code">
+          <ClipboardComponent
+            value={props.team.name}
+            onSuccess={onCopied}
+            onError={onCopyFailed}
+          />
+        </div>
+      </div>
+
+      <div className="team-members-container">
+        <div className="label">Members</div>
+        <MemberList members={props.members} />
+      </div>
+
+      <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
+        Leave team
+      </TextButton>
+
+      <style jsx>{`
+        .label {
+          font-family: ${theme.fonts.header};
+          margin-bottom: 8px;
+        }
+
+        .info-text {
+          color: ${theme.colors.black80};
+          font-size: 14px;
+        }
+
+        .team-code {
+          border: 1px solid ${theme.colors.purpleLight};
+          font-family: ${theme.fonts.header};
+          color: ${theme.colors.black70};
+          font-size: 24px;
+          padding: 16px;
+          border-radius: 8px;
+
+          margin-top: 8px;
+          margin-bottom: 48px;
+
+          /* Horizontally center contents */
+          display: flex;
+          justify-content: center;
+        }
+      `}</style>
+    </>
   );
 };
 
-export { TeamDescription };
+function onCopied(e: any) {
+  toast.success('Copied!');
+}
+
+function onCopyFailed(e: any) {
+  toast.error('Error.');
+}
+
+export default WithToasterContainer(TeamDescription);

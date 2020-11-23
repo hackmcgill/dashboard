@@ -1,4 +1,4 @@
-import { Box, Flex } from '@rebass/grid';
+import { Box } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
