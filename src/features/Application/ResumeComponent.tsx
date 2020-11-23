@@ -16,15 +16,17 @@ const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
     <div style={{ marginBottom: '32px' }}>
-      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
-      <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
-        <Box mb={'8px'}>
-          <Label>
-            <LabelText label={props.label} required={props.required} />
-          </Label>
-        </Box>
-        <FileUpload {...props} />
+      <Box mb={'8px'}>
+        <Label>
+          <LabelText label={props.label} required={props.required} />
+        </Label>
       </Box>
+      {
+        props.mode === ManageApplicationModes.EDIT ?
+          <Box mt="16px" mb="16px">{viewResume}</Box> :
+          null
+      }
+      <FileUpload {...props} />
     </div>
   );
 };
