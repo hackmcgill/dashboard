@@ -1198,10 +1198,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${
-                props.mode === ManageApplicationModes.EDIT
-                  ? 'edited'!
-                  : 'created!'
+              `Account ${props.mode === ManageApplicationModes.EDIT
+                ? 'edited'!
+                : 'created!'
               }`
             );
             setIsSubmitted(true);
