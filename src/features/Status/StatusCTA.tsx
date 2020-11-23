@@ -176,7 +176,9 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       alignItems={'center'}
       flexDirection={'column'}
     >
-      {art}
+      <div className="art">
+        {art}
+      </div>
 
       <H1 marginBottom="0" textAlign="center">{heading}</H1>
 
@@ -199,6 +201,21 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
           font-size: 20px;
           color: ${theme.colors.black80};
           font-family: ${theme.fonts.header};
+        }
+
+        @media screen and (max-height: 670px) {
+          h1 {
+            margin-top: 68px;
+          }
+
+          .art {
+            height: 80px;
+            visibility: hidden;
+          }
+
+          .status-details {
+            margin-bottom: 28px;
+          }
         }
       `}</style>
     </Flex>
