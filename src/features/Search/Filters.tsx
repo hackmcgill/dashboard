@@ -24,47 +24,26 @@ interface IFilterProps {
   loading: boolean;
 }
 
-class FilterComponent extends React.Component<IFilterProps, {}> {
-  constructor(props: IFilterProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderFormik = this.renderFormik.bind(this);
-    this.resetForm = this.resetForm.bind(this);
-  }
-  public render() {
-    return (
-      <Box>
-        <Formik
-          enableReinitialize={true}
-          initialValues={this.parseInitialValues(this.props.initFilters)}
-          onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-        />
-      </Box>
-    );
-  }
-  private parseInitialValues(initFilters: ISearchParameter[]) {
+const FilterComponent: React.FC<IFilterProps> = (props) => {
+  const parseInitialValues = (initFilters: ISearchParameter[]) => {
     const initVals = {
-      school: this.searchParam2List('application.general.school', initFilters),
-      gradYear: this.searchParam2List(
+      school: searchParam2List('application.general.school', initFilters),
+      gradYear: searchParam2List(
         'application.general.graduationYear',
         initFilters
       ),
-      degree: this.searchParam2List('application.general.degree', initFilters),
-      status: this.searchParam2List('status', initFilters),
-      skills: this.searchParam2List(
-        'application.shortAnswer.skills',
-        initFilters
-      ),
-      jobInterest: this.searchParam2List(
+      degree: searchParam2List('application.general.degree', initFilters),
+      status: searchParam2List('status', initFilters),
+      skills: searchParam2List('application.shortAnswer.skills', initFilters),
+      jobInterest: searchParam2List(
         'application.general.jobInterest',
         initFilters
       ),
     };
     return initVals;
-  }
+  };
 
-  private renderFormik(fp: FormikProps<any>) {
+  const renderFormik = (fp: FormikProps<any>) => {
     return (
       <Form onSubmit={fp.handleSubmit}>
         <FastField
@@ -130,15 +109,15 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           <Box>
             <Button
               type="submit"
-              isLoading={this.props.loading}
-              disabled={this.props.loading}
+              isLoading={props.loading}
+              disabled={props.loading}
             >
               Submit
             </Button>
           </Box>
           <Box>
             <Button
-              onClick={this.resetForm(fp)}
+              onClick={resetForm(fp)}
               type="button"
               variant={ButtonVariant.Secondary}
             >
@@ -148,36 +127,36 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         </Flex>
       </Form>
     );
-  }
-  private resetForm(fp: FormikProps<any>): () => void {
+  };
+  const resetForm = (fp: FormikProps<any>): (() => void) => {
     return () => {
       fp.resetForm();
-      this.props.onResetForm();
+      props.onResetForm();
     };
-  }
+  };
   /**
    * Converts the formik values into a search parameter list, and calls onChange hook.
    * @param values Formik values
    */
-  private handleSubmit(values: FormikValues) {
-    const schoolSearchParam = this.list2SearchParam(
+  const handleSubmit = (values: FormikValues) => {
+    const schoolSearchParam = list2SearchParam(
       'application.general.school',
       values.school
     );
-    const gradYearParam = this.list2SearchParam(
+    const gradYearParam = list2SearchParam(
       'application.general.graduationYear',
       values.gradYear
     );
-    const degreeParam = this.list2SearchParam(
+    const degreeParam = list2SearchParam(
       'application.general.degree',
       values.degree
     );
-    const statusParam = this.list2SearchParam('status', values.status);
-    const skillsParam = this.list2SearchParam(
+    const statusParam = list2SearchParam('status', values.status);
+    const skillsParam = list2SearchParam(
       'application.shortAnswer.skills',
       values.skills
     );
-    const jobInterestParam = this.list2SearchParam(
+    const jobInterestParam = list2SearchParam(
       'application.general.jobInterest',
       values.jobInterest
     );
@@ -190,18 +169,18 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       skillsParam,
       jobInterestParam
     );
-    this.props.onChange(search);
-  }
+    props.onChange(search);
+  };
 
   /**
    * Converts formik value to SearchParameter list.
    * @param param the location in the schema that these values must be in.
    * @param values the formik values.
    */
-  private list2SearchParam(
+  const list2SearchParam = (
     param: string,
     values: string[]
-  ): ISearchParameter[] {
+  ): ISearchParameter[] => {
     return values.length > 0
       ? [
           {
@@ -211,11 +190,11 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           },
         ]
       : [];
-  }
-  private searchParam2List(
+  };
+  const searchParam2List = (
     param: string,
     searchParamList: ISearchParameter[]
-  ): Array<string | number | boolean> {
+  ): Array<string | number | boolean> => {
     let searches: Array<string | number | boolean> = [];
     searchParamList.forEach((searchParam) => {
       if (searchParam.param === param) {
@@ -227,7 +206,18 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       }
     });
     return searches;
-  }
-}
+  };
+
+  return (
+    <Box>
+      <Formik
+        enableReinitialize={true}
+        initialValues={parseInitialValues(props.initFilters)}
+        onSubmit={handleSubmit}
+        render={renderFormik}
+      />
+    </Box>
+  );
+};
 
 export { FilterComponent };

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { Sponsor } from '../../api';
 import { Checkbox } from '../../shared/Form';
 import NomineeContext from './Context';
@@ -7,55 +7,55 @@ interface IProps {
   hackerId: string;
 }
 
-interface IState {
-  isChanging: boolean;
-}
+// push the selected hacker to the list of selected hacker for the search
+const HackerSelect: React.FC<IProps> = (props) => {
+  // react state.context is assigned to the variable "contet"
+  const context = useContext(NomineeContext);
 
-class HackerSelect extends React.Component<IProps, IState> {
-  public static contextType = NomineeContext;
+  // state to only change one hacker selection state at a time
+  const [isChanging, setIsChanging] = useState<boolean>(false);
 
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      isChanging: false,
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-  public render() {
-    const { hackerId } = this.props;
-    if (!this.context || !this.context.nominees) {
-      return <div />;
-    }
-    const isChecked = this.context.nominees.indexOf(hackerId) > -1;
-    return (
-      <div>
-        <Checkbox checked={isChecked} onChange={this.handleChange} />
-      </div>
-    );
-  }
-
-  private async handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  // function to push selected hacker to the search list
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
-    const { isChanging } = this.state;
-    const { hackerId } = this.props;
+    const { hackerId } = props;
 
     if (isChanging) {
       return;
     }
 
-    if (isChecked) {
-      this.context.nominees.push(hackerId);
-    } else {
-      this.context.nominees = this.context.nominees.filter(
-        (n: string) => n !== hackerId
-      );
+    if (context) {
+      // push them to the selected list
+      if (isChecked) {
+        context.nominees.push(hackerId);
+      } else {
+        // remove selected hacker from list
+        context.nominees = context.nominees.filter(
+          (n: string) => n !== hackerId
+        );
+      }
     }
 
-    this.setState({ isChanging: true });
-    await Sponsor.update(this.context);
-    this.setState({ isChanging: false });
+    setIsChanging(true);
+    if (context) {
+      await Sponsor.update(context);
+    }
+    setIsChanging(false);
+  };
+
+  const { hackerId } = props;
+  if (!context || !context.nominees) {
+    return <div />;
   }
-}
+  let isChecked: boolean = false;
+  if (context) {
+    isChecked = context.nominees.indexOf(hackerId) > -1;
+  }
+  return (
+    <div>
+      <Checkbox checked={isChecked} onChange={handleChange} />
+    </div>
+  );
+};
 
 export default HackerSelect;
