@@ -53,6 +53,29 @@ const CreateAccountPage: React.FC = () => (
           margin-left: 180px;
           margin-right: 80px;
         }
+
+        @media (max-width: 959px) {
+          .art-wrapper {
+            display: none;
+          }
+
+          .form-content {
+            flex: 1;
+            margin: auto;
+            padding: 0 40px;
+          }
+        }
+
+        @media screen and (min-width: 960px) and (max-width: 1200px) {
+          .art {
+            padding: 0 60px;
+            width: 90%;
+          }
+
+          .form-content {
+            margin-left: 120px;
+          }
+        }
       `}</style>
     </div>
   </>
