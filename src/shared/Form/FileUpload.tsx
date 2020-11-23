@@ -13,7 +13,9 @@ interface IUploadComponent {
 export const FileUpload: React.StatelessComponent<
   IUploadComponent & FieldProps
 > = (props) => {
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState(
+    props.field.value != null ? props.field.value.name : ''
+  );
   const onUpload = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setFileName(acceptedFiles[0].name);
