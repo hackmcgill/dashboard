@@ -25,7 +25,7 @@ const CreateAccountPage: React.FC = () => (
         <ManageAccountForm mode={ManageAccountModes.CREATE} />
       </div>
 
-      <style jsx={true}>{`
+      <style jsx>{`
         .form-container {
           max-width: 1080px;
           margin: auto;
@@ -42,27 +42,16 @@ const CreateAccountPage: React.FC = () => (
         }
 
         .art {
-          display: none;
-        }
-
-        @media (min-width: 992px) {
-          .form-content {
-            box-sizing: content-box;
-            flex: 0 0 360px;
-            margin-left: 180px;
-            margin-right: 80px;
-          }
-          .art {
-            margin-top: 112px;
-            width: 100%;
-            height: auto;
-            display: initial;
-          }
+          margin-top: 112px;
+          width: 100%;
+          height: auto;
         }
 
         .form-content {
           box-sizing: content-box;
-          padding: 0 25px;
+          flex: 0 0 360px;
+          margin-left: 180px;
+          margin-right: 80px;
         }
 
         @media (max-width: 959px) {
@@ -77,7 +66,7 @@ const CreateAccountPage: React.FC = () => (
           .form-content {
             flex: 1;
             margin: auto;
-            padding: 0 40px;
+            padding: 0 25px;
           }
         }
 
