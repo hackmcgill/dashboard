@@ -321,7 +321,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const renderPortfolioFormik = (fp: FormikProps<any>) => {
     return (
-      <Form onKeyDown={onKeyDown} onSubmit={fp.handleSubmit}>
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
         <div className="container">
           <div className="fields">
             <H1 fontSize={'24px'} marginBottom={'40px'}>
