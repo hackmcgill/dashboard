@@ -14,7 +14,7 @@ import {
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { Button, H1 } from '../../shared/Elements';
+import { Button, ButtonVariant, H1, H2 } from '../../shared/Elements';
 import { Input } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -71,50 +71,15 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         <Helmet>
           <title> Search | {HACKATHON_NAME}</title>
         </Helmet>
-        <Box width={1}>
-          <Flex
-            flexDirection={'column'}
-            style={{ marginTop: '1em' }}
-            alignItems={'center'}
-          >
-            <Box alignSelf={'center'} width={1 / 6}>
-              <H1 color={theme.colors.red} fontSize={'30px'}>
-                Search
-              </H1>
-            </Box>
-            <Box width={5 / 6}>
-              <Flex justifyContent={'space-between'}>
-                <Box alignSelf={'center'}>
-                  <H1 color={theme.colors.red} fontSize={'30px'}>
-                    Hackers
-                  </H1>
-                </Box>
-                <Box alignSelf={'flex-start'} width={0.5}>
-                  <Input
-                    onChange={this.onSearchBarChanged}
-                    placeholder={'Refine your search...'}
-                    style={{ marginTop: 5 }}
-                    value={searchBar}
-                  />
-                </Box>
-                <Box mr={'10px'}>
-                  {account && account.accountType === UserType.STAFF && (
-                    <Button>Update Status</Button>
-                  )}
-                  {account && isSponsor(account) && (
-                    <Button onClick={this.toggleSaved}>
-                      View {viewSaved ? 'All' : 'Saved'}
-                    </Button>
-                  )}
-                  <Button onClick={this.downloadData}>Export Hackers</Button>
-                </Box>
-              </Flex>
-            </Box>
-          </Flex>
+        <Box width={1 / 6} alignSelf={'center'}>
+          <H1 color={theme.colors.red} fontSize={'30px'}>
+            Search Hackers
+          </H1>
         </Box>
         <Box width={1}>
           <Flex>
-            <Box width={1 / 6} m={2}>
+            <Box width={1 / 6} mx={2}>
+              <H2>Filters</H2>
               <FilterComponent
                 initFilters={query}
                 onChange={this.onFilterChange}
@@ -122,13 +87,46 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 loading={loading}
               />
             </Box>
-            <Box width={5 / 6} m={2}>
-              <ResultsTable
-                results={this.filter()}
-                loading={loading}
-                userType={account ? account.accountType : UserType.UNKNOWN}
-                filter={searchBar}
-              />
+            <Box width={5 / 6} mx={2}>
+              <Flex flexDirection={'column'}>
+                <Box width={6 / 6}>
+                  <Flex justifyContent={'space-between'}>
+                    <Box alignSelf={'flex-start'} width={0.5}>
+                      <Input
+                        onChange={this.onSearchBarChanged}
+                        placeholder={'Refine your search...'}
+                        style={{ marginTop: 5 }}
+                        value={searchBar}
+                      />
+                    </Box>
+                    <Box mr={'10px'}>
+                      {account && account.accountType === UserType.STAFF && (
+                        <Button style={{ marginRight: '10px' }} variant={ButtonVariant.Secondary} isOutlined={true}>
+                          Update Status
+                        </Button>
+                      )}
+                      {account && isSponsor(account) && (
+                        <Button
+                          onClick={this.toggleSaved}
+                          style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary} isOutlined={true}
+                        >
+                          View {viewSaved ? 'All' : 'Saved'}
+                        </Button>
+                      )}
+                      <Button onClick={this.downloadData} variant={ButtonVariant.Secondary} isOutlined={true}>
+                        Export Hackers
+                      </Button>
+                    </Box>
+                  </Flex>
+                </Box>
+                <ResultsTable
+                  results={this.filter()}
+                  loading={loading}
+                  userType={account ? account.accountType : UserType.UNKNOWN}
+                  filter={searchBar}
+                />
+              </Flex>
             </Box>
           </Flex>
         </Box>
@@ -293,9 +291,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-            selected: true,
-            hacker: v,
-          }))
+          selected: true,
+          hacker: v,
+        }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
@@ -341,15 +339,15 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       let foundAcct;
       if (typeof accountId !== 'string') {
         const account = accountId as IAccount;
-        const fullName = `${account.firstName} ${
-          account.lastName
-        }`.toLowerCase();
-        foundAcct =
-          fullName.includes(searchBar) ||
-          account.email.toLowerCase().includes(searchBar) ||
-          account.phoneNumber.toString().includes(searchBar) ||
-          account.gender.toLowerCase().includes(searchBar) ||
-          (account._id && account._id.includes(searchBar));
+        if (account) {
+          const fullName = `${account.firstName} ${account.lastName}`.toLowerCase();
+          foundAcct =
+            fullName.includes(searchBar) ||
+            account.email.toLowerCase().includes(searchBar) ||
+            account.phoneNumber.toString().includes(searchBar) ||
+            account.gender.toLowerCase().includes(searchBar) ||
+            (account._id && account._id.includes(searchBar));
+        }
       } else {
         foundAcct = accountId.includes(searchBar);
       }
