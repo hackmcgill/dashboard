@@ -128,7 +128,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     id: accountId,
     lastName: values.lastName,
     password: values.password,
-    phoneNumber: props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
+    phoneNumber:
+      props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
     pronoun: values.pronoun,
     gender: values.gender,
     dietaryRestrictions: settings.isRemote
@@ -137,7 +138,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   });
 
   // Handle form submission
-  const handleSubmit = (values: FormikValues) => {
+  const handleSubmit = async (values: FormikValues) => {
     // Record that form is being submitted
     setIsSubmitting(true);
 
@@ -147,7 +148,10 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     // Depending on the mode of this form either create a new account with form data
     // or update user's existing account to match form data
     if (props.mode === ManageAccountModes.CREATE) {
-      handleCreate(formattedDetails);
+      const success = await handleCreate(formattedDetails);
+      if (!success) {
+        return;
+      }
     } else if (props.mode === ManageAccountModes.EDIT) {
       handleEdit(formattedDetails, values.password, values.newPassword);
     }
@@ -164,21 +168,27 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    * Create a new account
    * @param payload details for the account that's being created
    */
-  const handleCreate = async (payload: IAccount) => {
+  const handleCreate = async (payload: IAccount): Promise<boolean> => {
+    let success = true;
     try {
-      await Account.create(payload, getValueFromQuery('token'));
-      await Auth.login(payload.email, payload.password);
+      const result = await Account.create(payload, getValueFromQuery('token'));
+      if (result.status === 200) {
+        await Auth.login(payload.email, payload.password);
+        // Once submitted redirect user to appropriate page
+        history.push(FrontendRoute.HOME_PAGE);
+      } else {
+        success = false;
+      }
     } catch (e) {
       if (e && e.data) {
         console.log(e);
         ValidationErrorGenerator(e.data);
+        success = false;
       }
     } finally {
       setIsSubmitting(false);
     }
-
-    // Once submitted redirect user to appropriate page
-    history.push(FrontendRoute.HOME_PAGE);
+    return success;
   };
 
   /**
