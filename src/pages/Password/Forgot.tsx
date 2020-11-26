@@ -90,7 +90,7 @@ const ForgotPasswordContainer: React.FC = () => {
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  variant={ButtonVariant.CallToAction}
+                  variant={ButtonVariant.Primary}
                 >
                   Submit
                 </Button>
