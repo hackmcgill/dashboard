@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
 import { Image } from '../../shared/Elements';
-import { ButtonVariant } from '../../shared/Elements';
+import { ButtonVariant, LinkDuo } from '../../shared/Elements';
+import { Button } from '../../shared/Elements/Button';
 import { EmailInput, PasswordInput, SubmitBtn } from '../../shared/Form';
 
 import launchpad from '../../assets/images/launchpad.svg';
@@ -24,7 +25,6 @@ import {
   HACKATHON_NAME,
   PASSWORD_LABEL,
 } from '../../config';
-import SignUpLink from '../../features/Login/SignUpLink';
 
 const LoginPage: React.FC = () => {
   // Store form's email and password values in state
@@ -98,8 +98,17 @@ const LoginPage: React.FC = () => {
             hasResetLink={true}
             placeholder="your_password"
           />
-          <SubmitBtn variant={ButtonVariant.Primary}>Sign in</SubmitBtn>
-          <SignUpLink />
+          <div className="form-buttons">
+            <SubmitBtn
+              variant={ButtonVariant.Primary}
+              style={{ marginRight: 24 }}
+            >
+              Sign in
+            </SubmitBtn>
+            <LinkDuo to={FrontendRoute.CREATE_ACCOUNT_PAGE}>
+              <Button variant={ButtonVariant.Secondary}>Sign up</Button>
+            </LinkDuo>
+          </div>
           <Box pt={'80px'}>
             <SocialMediaBar />
           </Box>
@@ -122,6 +131,13 @@ const LoginPage: React.FC = () => {
           max-width: 1080px;
           flex: 1;
           display: flex;
+        }
+
+        .form-buttons {
+          display: flex;
+          align-items: center;
+          position: relative;
+          bottom: 20px;
         }
 
         .art-wrapper {
