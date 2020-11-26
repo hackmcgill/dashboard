@@ -1,4 +1,4 @@
-import { Box, Flex } from '@rebass/grid';
+import { Box } from '@rebass/grid';
 import { FieldProps } from 'formik';
 import * as React from 'react';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
@@ -12,22 +12,22 @@ export interface IResumeProps {
   value?: boolean;
   required?: boolean;
 }
-const ResumeComponent: React.StatelessComponent<IResumeProps & FieldProps> = (
-  props
-) => {
+const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
   const viewResume = <ViewPDFComponent {...props} />;
   return (
-    <Flex mb={'20px'}>
-      <Box>{props.mode === ManageApplicationModes.EDIT && viewResume}</Box>
-      <Box ml={props.mode === ManageApplicationModes.EDIT ? '10px' : ''}>
+    <div style={{ marginBottom: '32px' }}>
+      <Box mb={'8px'}>
         <Label>
           <LabelText label={props.label} required={props.required} />
-          <div style={{ marginLeft: '-10px' }}>
-            <FileUpload {...props} />
-          </div>
         </Label>
       </Box>
-    </Flex>
+      {
+        props.mode === ManageApplicationModes.EDIT ?
+          <Box mt="16px" mb="16px">{viewResume}</Box> :
+          null
+      }
+      <FileUpload {...props} />
+    </div>
   );
 };
 export { ResumeComponent };

@@ -81,14 +81,14 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
   );
 
   // Possible choices for art
-  const rocketArt = <Image src={rocket} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const computerArt = <Image src={computer2} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const developerArt = <Image src={developer} imgHeight="300px" padding={'0 0 68px 0'} />;
-  const developerArtSmall = <Image src={developer} imgHeight="280px" padding={'0 0 68px 0'} />;
-  const hackerArt = <Image src={hacker} imgHeight="300px" padding={'0 0 68px 0'} />;
+  const rocketArt = <Image src={rocket} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const computerArt = <Image src={computer2} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const developerArt = <Image src={developer} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const developerArtSmall = <Image src={developer} imgHeight="280px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const hackerArt = <Image src={hacker} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
 
   let heading = 'Hey ' + firstName + ',';
-  let text = '';
+  let text;
   let art = null;
   let buttons: JSX.Element[] = [];
 
@@ -108,7 +108,25 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       break;
     case DetailedState.APPLIED:
       heading = CONSTANTS.APPLIED_STATUS_HEADING;
-      text = CONSTANTS.APPLIED_STATUS_TEXT;
+      text = (<span>
+        {CONSTANTS.APPLIED_STATUS_TEXT}
+        {CONSTANTS.SOCIAL_MEDIA_PROMPT_START}
+        <a href="https://www.facebook.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
+          Facebook
+        </a>,{' '}
+        <a
+          href="https://twitter.com/McGillHacks?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Twitter
+        </a>,{' '}
+        and{' '}
+        <a href="https://www.instagram.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+        {CONSTANTS.SOCIAL_MEDIA_PROMPT_END}
+      </span>);
       art = computerArt;
       break;
     case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
@@ -158,9 +176,11 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       alignItems={'center'}
       flexDirection={'column'}
     >
-      {art}
+      <div className="art">
+        {art}
+      </div>
 
-      <H1 marginBottom="0">{heading}</H1>
+      <H1 marginBottom="0" textAlign="center">{heading}</H1>
 
       <div className="status-details">
         {text}
@@ -180,6 +200,22 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
 
           font-size: 20px;
           color: ${theme.colors.black80};
+          font-family: ${theme.fonts.header};
+        }
+
+        @media screen and (max-height: 670px) {
+          h1 {
+            margin-top: 68px;
+          }
+
+          .art {
+            height: 80px;
+            visibility: hidden;
+          }
+
+          .status-details {
+            margin-bottom: 28px;
+          }
         }
       `}</style>
     </Flex>
