@@ -271,29 +271,18 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             name={'newPassword'}
           />
           <ErrorMessage component={FormikElements.Error} name="newPassword" />
+          <FastField
+            component={FormikElements.FormattedNumber}
+            label={CONSTANTS.PHONE_NUMBER_LABEL}
+            placeholder="+# (###) ###-####"
+            format="+# (###) ###-####"
+            name={'phoneNumber'}
+            required={true}
+            value={fp.values.phoneNumber}
+          />
+          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
         </>
       )}
-      <FastField
-        component={FormikElements.FormattedNumber}
-        label={CONSTANTS.PHONE_NUMBER_LABEL}
-        placeholder="+# (###) ###-####"
-        format="+# (###) ###-####"
-        name={'phoneNumber'}
-        required={true}
-        value={fp.values.phoneNumber}
-      />
-      <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-      <FastField
-        component={FormikElements.Select}
-        creatable={true}
-        label={CONSTANTS.PRONOUN_LABEL}
-        name={'pronoun'}
-        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-        options={getOptionsFromEnum(Pronouns)}
-        required={true}
-        value={fp.values.pronoun}
-      />
-      <ErrorMessage component={FormikElements.Error} name="gender" />
       <FastField
         component={FormikElements.Select}
         creatable={true}
@@ -303,6 +292,19 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         options={getOptionsFromEnum(Genders)}
         required={true}
         value={fp.values.gender}
+        showOptionalLabel={true}
+      />
+      <ErrorMessage component={FormikElements.Error} name="gender" />
+      <FastField
+        component={FormikElements.Select}
+        creatable={true}
+        label={CONSTANTS.PRONOUN_LABEL}
+        name={'pronoun'}
+        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+        options={getOptionsFromEnum(Pronouns)}
+        required={true}
+        value={fp.values.pronoun}
+        showOptionalLabel={true}
       />
       <ErrorMessage component={FormikElements.Error} name="pronoun" />
 
