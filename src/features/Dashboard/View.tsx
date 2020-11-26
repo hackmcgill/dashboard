@@ -1,9 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
-import MediaQuery from 'react-responsive';
 
 import {
-  BackgroundImage,
   Card,
   H1,
   H2,
@@ -11,7 +9,6 @@ import {
   LinkDuo,
 } from '../../shared/Elements';
 
-import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 import theme from '../../shared/Styles/theme';
 
 interface IDashboardView {
@@ -76,17 +73,6 @@ const DashboardView: React.SFC<IDashboardView> = ({
               </Card>
             </LinkDuo>
           ))}
-          <MediaQuery minWidth={960}>
-            <Box width={1}>
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgWidth={'100%'}
-                imgHeight={'100%'}
-              />
-            </Box>
-          </MediaQuery>
         </Flex>
       </Box>
     </Flex>

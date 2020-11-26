@@ -120,12 +120,14 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.CONFIRM_ACCOUNT_PAGE}
-              component={withNavbar(
-                withAuthRedirect(ConfirmAccountPage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                }),
-                { activePage: 'home' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(ConfirmAccountPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                  }),
+                  { activePage: 'home' }
+                )
               )}
             />
             <Route
@@ -263,51 +265,60 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.SETTINGS_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SettingsPage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && user.accountType === UserType.STAFF,
-                }),
-                { activePage: 'settings' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(SettingsPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && user.accountType === UserType.STAFF,
+                  }),
+                  { activePage: 'settings' }
+                )
               )}
             />
             <Route
               exact={true}
               path={FrontendRoute.INVITE_PAGE}
-              component={withNavbar(
-                withAuthRedirect(InvitePage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && user.accountType === UserType.STAFF,
-                }),
-                { activePage: 'invite' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(InvitePage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && user.accountType === UserType.STAFF,
+                  }),
+                  { activePage: 'invite' }
+                )
               )}
             />
             <Route
               exact={true}
               path={FrontendRoute.SPONSOR_SEARCH_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SponsorSearchPage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && isSponsor(user),
-                }),
-                { activePage: 'search' }
-              )}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(SponsorSearchPage, {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && isSponsor(user),
+                    }),
+                    { activePage: 'search' }
+                  )
+                )}
             />
             <Route
               exact={true}
               path={FrontendRoute.VIEW_HACKER_PAGE}
-              component={withNavbar(
-                withAuthRedirect(SingleHackerPage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: userCanAccessHackerPage,
-                })
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(SingleHackerPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: userCanAccessHackerPage,
+                  })
+                )
               )}
             />
             <Route
@@ -326,56 +337,62 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.CREATE_SPONSOR_PAGE}
-              component={withNavbar(
-                withAuthRedirect(
-                  withSponsorRedirect(CreateSponsorPage, {
-                    requiredAuthState: false,
-                  }),
-                  {
-                    redirAfterLogin: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed && isSponsor(user),
-                  }
-                ),
-                { activePage: 'sponsor' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withSponsorRedirect(CreateSponsorPage, {
+                      requiredAuthState: false,
+                    }),
+                    {
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && isSponsor(user),
+                    }
+                  ),
+                  { activePage: 'sponsor' }
+                )
               )}
             />
             <Route
               exact={true}
               path={FrontendRoute.PASS_HACKER_PAGE}
-              component={withNavbar(
-                withAuthRedirect(
-                  withHackerRedirect(HackPassPage, {
-                    requiredAuthState: true,
-                    AuthVerification: canAccessHackerPass,
-                  }),
-                  {
-                    redirAfterLogin: true,
-                    requiredAuthState: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed && user.accountType === UserType.HACKER,
-                  }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withHackerRedirect(HackPassPage, {
+                      requiredAuthState: true,
+                      AuthVerification: canAccessHackerPass,
+                    }),
+                    {
+                      redirAfterLogin: true,
+                      requiredAuthState: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.HACKER,
+                    }
+                  )
                 )
               )}
             />
             <Route
               exact={true}
               path={FrontendRoute.EDIT_SPONSOR_PAGE}
-              component={withNavbar(
-                withAuthRedirect(
-                  withSponsorRedirect(EditSponsorPage, {
-                    requiredAuthState: true,
-                  }),
-                  {
-                    redirAfterLogin: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed && isSponsor(user),
-                  }
-                ),
-                { activePage: 'sponsor' }
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withSponsorRedirect(EditSponsorPage, {
+                      requiredAuthState: true,
+                    }),
+                    {
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && isSponsor(user),
+                    }
+                  ),
+                  { activePage: 'sponsor' }
+                )
               )}
             />
-            <Route path="*" component={withNavbar(ErrorPage)} />
+            <Route path="*" component={withBackground(withNavbar(ErrorPage))} />
           </Switch>
         </>
       </BrowserRouter>
