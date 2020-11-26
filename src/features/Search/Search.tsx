@@ -338,14 +338,15 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       let foundAcct;
       if (typeof accountId !== 'string') {
         const account = accountId as IAccount;
-        const fullName = `${account.firstName} ${account.lastName
-          }`.toLowerCase();
-        foundAcct =
-          fullName.includes(searchBar) ||
-          account.email.toLowerCase().includes(searchBar) ||
-          account.phoneNumber.toString().includes(searchBar) ||
-          account.gender.toLowerCase().includes(searchBar) ||
-          (account._id && account._id.includes(searchBar));
+        if (account) {
+          const fullName = `${account.firstName} ${account.lastName}`.toLowerCase();
+          foundAcct =
+            fullName.includes(searchBar) ||
+            account.email.toLowerCase().includes(searchBar) ||
+            account.phoneNumber.toString().includes(searchBar) ||
+            account.gender.toLowerCase().includes(searchBar) ||
+            (account._id && account._id.includes(searchBar));
+        }
       } else {
         foundAcct = accountId.includes(searchBar);
       }
