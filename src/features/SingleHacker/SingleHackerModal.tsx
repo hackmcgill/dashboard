@@ -12,6 +12,7 @@ import {
 import SingleHackerView from './SingleHackerView';
 
 import Arrow from '../../assets/images/backarrow.svg';
+import TextButton from '../../shared/Elements/TextButton';
 
 interface IModalProps {
   hacker: IHacker;
@@ -50,13 +51,9 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
-        <Button
-          type="button"
-          onClick={this.handleOpenModal}
-          variant={ButtonVariant.Primary}
-        >
+        <TextButton onClick={this.handleOpenModal}>
           See more
-        </Button>
+        </TextButton>
         <StyledModal
           appElement={document.getElementById('root') || undefined}
           isOpen={this.state.showModal}
@@ -76,7 +73,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
                 target={'_blank'}
                 style={{ color: 'white' }}
               >
-                <Button variant={ButtonVariant.Primary}>
+                <Button variant={ButtonVariant.Secondary} isOutlined={true}>
                   Open in new window
                 </Button>
               </Link>

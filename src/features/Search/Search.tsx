@@ -14,7 +14,7 @@ import {
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { Button, H1, H2 } from '../../shared/Elements';
+import { Button, ButtonVariant, H1, H2 } from '../../shared/Elements';
 import { Input } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
@@ -101,7 +101,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Box>
                     <Box mr={'10px'}>
                       {account && account.accountType === UserType.STAFF && (
-                        <Button style={{ marginRight: '10px' }}>
+                        <Button style={{ marginRight: '10px' }} variant={ButtonVariant.Secondary} isOutlined={true}>
                           Update Status
                         </Button>
                       )}
@@ -109,11 +109,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                         <Button
                           onClick={this.toggleSaved}
                           style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary} isOutlined={true}
                         >
                           View {viewSaved ? 'All' : 'Saved'}
                         </Button>
                       )}
-                      <Button onClick={this.downloadData}>
+                      <Button onClick={this.downloadData} variant={ButtonVariant.Secondary} isOutlined={true}>
                         Export Hackers
                       </Button>
                     </Box>

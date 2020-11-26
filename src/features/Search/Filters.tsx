@@ -129,21 +129,22 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         <Flex justifyContent={'center'}>
           <Box mr={'10px'}>
             <Button
+              onClick={this.resetForm(fp)}
+              type="button"
+              variant={ButtonVariant.Secondary}
+              isOutlined={true}
+            >
+              Reset
+            </Button>
+          </Box>
+          <Box>
+            <Button
               type="submit"
               isLoading={this.props.loading}
               disabled={this.props.loading}
               variant={ButtonVariant.Primary}
             >
               Submit
-            </Button>
-          </Box>
-          <Box>
-            <Button
-              onClick={this.resetForm(fp)}
-              type="button"
-              variant={ButtonVariant.Primary}
-            >
-              Reset
             </Button>
           </Box>
         </Flex>
@@ -205,12 +206,12 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   ): ISearchParameter[] {
     return values.length > 0
       ? [
-          {
-            param,
-            operation: StringOperations.IN,
-            value: values,
-          },
-        ]
+        {
+          param,
+          operation: StringOperations.IN,
+          value: values,
+        },
+      ]
       : [];
   }
   private searchParam2List(
