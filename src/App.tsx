@@ -247,15 +247,18 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.ADMIN_SEARCH_PAGE}
-              component={withNavbar(
-                withAuthRedirect(AdminSearchPage, {
-                  requiredAuthState: true,
-                  redirAfterLogin: true,
-                  AuthVerification: (user: IAccount) =>
-                    user.confirmed && user.accountType === UserType.STAFF,
-                }),
-                { activePage: 'search' }
-              )}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(AdminSearchPage, {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.STAFF,
+                    }),
+                    { activePage: 'search' }
+                  )
+                )}
             />
             <Route
               exact={true}

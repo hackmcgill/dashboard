@@ -153,8 +153,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       if (props.mode === ManageApplicationModes.EDIT) {
         try {
           const response = await Hacker.getSelf();
-          const hackerDetails = response.data.data;
-          setHackerDetails(hackerDetails);
+          setHackerDetails(response.data.data);
         } catch (e) {
           // If failed, probably because hacker hasn't created application before
           if (e && e.data) {

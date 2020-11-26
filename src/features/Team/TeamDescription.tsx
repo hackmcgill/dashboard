@@ -38,7 +38,7 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         <MemberList members={props.members} />
       </div>
 
-      <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam}>
+      <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam} isGrey={true}>
         Leave team
       </TextButton>
 
