@@ -133,6 +133,7 @@ const ForgotPasswordContainer: React.FC = () => {
                     top={'0px'}
                     left={'0px'}
                     imgHeight={'100%'}
+                    zIndex={-1}
                   />
                 </div>
               )

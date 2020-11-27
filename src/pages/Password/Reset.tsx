@@ -141,6 +141,7 @@ const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
               imgWidth={'100%'}
               imgHeight={'100%'}
               minHeight={'600px'}
+              zIndex={-1}
             />
           </LeftContainer>
         ) : (
@@ -151,6 +152,7 @@ const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
                 top={'0px'}
                 left={'0px'}
                 imgHeight={'100%'}
+                zIndex={-1}
               />
             </div>
           )
