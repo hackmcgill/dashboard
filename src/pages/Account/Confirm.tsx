@@ -6,6 +6,7 @@ import { Auth } from '../../api';
 import { getTokenFromQuery, HACKATHON_NAME } from '../../config';
 import {
   Button,
+  ButtonVariant,
   H1,
   Image,
   MaxWidthBox,
@@ -85,7 +86,7 @@ class ConfirmAccountPage extends React.Component<
         </MaxWidthBox>
         <MaxWidthBox hidden={this.state.attempting}>
           <Link to={link}>
-            <Button>{buttonMessage}</Button>
+            <Button variant={ButtonVariant.Primary}>{buttonMessage}</Button>
           </Link>
         </MaxWidthBox>
       </Flex>

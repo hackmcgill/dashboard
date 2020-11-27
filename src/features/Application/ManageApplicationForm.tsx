@@ -323,7 +323,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       <Form
         onKeyDown={onKeyDown}
         onSubmit={fp.handleSubmit}
-        onReset={fp.handleReset}
       >
         <div className="container">
           <div className="fields">
