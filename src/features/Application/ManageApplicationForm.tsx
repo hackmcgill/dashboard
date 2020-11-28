@@ -266,7 +266,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             disabled={true}
             variant={ButtonVariant.Secondary}
             isOutlined={true}
-            style={{ marginRight: '24px', display: 'none' }}
+            style={{ display: 'none' }}
           >
             Back
           </Button>
