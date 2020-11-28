@@ -261,6 +261,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
         <div className="buttons">
           <Button
+            type="reset"
+            isLoading={false}
+            disabled={true}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ display: 'none' }}
+          >
+            Back
+          </Button>
+          <Button
             type="submit"
             isLoading={isSubmitting}
             disabled={isSubmitting}
@@ -323,6 +333,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       <Form
         onKeyDown={onKeyDown}
         onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
       >
         <div className="container">
           <div className="fields">
@@ -1193,7 +1204,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     } else {
       setResume(resume || values.resume);
     }
-
     // Reset scroll to top of page
     window.scrollTo(0, 0);
   };
