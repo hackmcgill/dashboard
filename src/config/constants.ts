@@ -27,6 +27,7 @@ export const TRAVEL_POLICY = 'https://docs.google.com/document/d/1K8WSGQtWfKrybT
 export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/TdxUaUn31WzXcPvu6';
 
 // Social media
+export const FACEBOOK_EVENT_URL = 'https://fb.me/e/2O3BZ9r6b';
 export const TWITTER = '@mcgillhacks';
 
 // SEO
@@ -45,8 +46,8 @@ export const REQUIRED_DESCRIPTION =
 export const OLD_PASSWORD_LABEL = 'Old password';
 export const NEW_PASSWORD_LABEL = 'New password';
 export const DIETARY_RESTRICTIONS_LABEL = 'Dietary restrictions';
-export const PRONOUN_LABEL = 'Preferred pronouns';
-export const PRONOUN_PLACEHOLDER = 'Preferred pronouns';
+export const PRONOUN_LABEL = 'Pronouns';
+export const PRONOUN_PLACEHOLDER = 'Pronouns';
 export const GENDER_LABEL = 'Gender';
 export const GENDER_PLACEHOLDER = 'Gender';
 export const PHONE_NUMBER_LABEL = 'Phone number';
@@ -163,4 +164,4 @@ export const SPONSOR_NOMINEE_LABEL = 'Nominees';
 export const SETTINGS_OPEN_TIME_LABEL = 'Applications open at:';
 export const SETTINGS_CLOSE_TIME_LABEL = 'Applications close at:';
 export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker confirmations close at:';
-export const SETTINGS_IS_REMOTE_LABEL = 'Hackathon is remote:';
+export const SETTINGS_IS_REMOTE_LABEL = 'Remote hackathon mode';

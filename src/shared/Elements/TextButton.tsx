@@ -2,6 +2,7 @@ import React from 'react';
 import theme from '../Styles/theme';
 
 export interface ITextButtonProps {
+    isGrey?: boolean;
     isLoading?: boolean;
     onClick?: any;
 }
@@ -19,14 +20,14 @@ const TextButton: React.FC<ITextButtonProps> = (props) => (
         <style jsx>{`
             .button {
                 display: inline-block;
-                color: ${theme.colors.black60};
+                color: ${props.isGrey ? theme.colors.black60 : theme.colors.purple};
                 text-decoration: underline;
                 cursor: pointer;
                 transition: color 0.25s ease-in;
             }
 
             .button:hover {
-                color: ${theme.colors.red};
+                color: ${props.isGrey ? theme.colors.red : theme.colors.yellow};
             }
 
             .loading {

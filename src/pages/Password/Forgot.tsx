@@ -90,7 +90,7 @@ const ForgotPasswordContainer: React.FC = () => {
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  variant={ButtonVariant.CallToAction}
+                  variant={ButtonVariant.Primary}
                 >
                   Submit
                 </Button>
@@ -122,6 +122,7 @@ const ForgotPasswordContainer: React.FC = () => {
                   imgWidth={'100%'}
                   imgHeight={'100%'}
                   minHeight={'600px'}
+                  zIndex={-1}
                 />
               </LeftContainer>
             ) : (
@@ -132,6 +133,7 @@ const ForgotPasswordContainer: React.FC = () => {
                     top={'0px'}
                     left={'0px'}
                     imgHeight={'100%'}
+                    zIndex={-1}
                   />
                 </div>
               )

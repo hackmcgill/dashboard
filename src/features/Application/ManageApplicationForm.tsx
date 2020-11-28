@@ -153,8 +153,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       if (props.mode === ManageApplicationModes.EDIT) {
         try {
           const response = await Hacker.getSelf();
-          const hackerDetails = response.data.data;
-          setHackerDetails(hackerDetails);
+          setHackerDetails(response.data.data);
         } catch (e) {
           // If failed, probably because hacker hasn't created application before
           if (e && e.data) {
@@ -1015,6 +1014,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               </div>
             </div>
           </GridTwoColumn>
+
+          <div className="eventPrompt">
+            Make sure to mark yourself as going to our{' '}
+            <a href={CONSTANTS.FACEBOOK_EVENT_URL} target="_blank" rel="noopener noreferrer">Facebook event</a>!
+          </div>
         </div>
 
         <div className="buttons">
@@ -1076,6 +1080,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             justify-content: center;
             margin-top: 56px;
             margin-bottom: 80px;
+          }
+
+          .eventPrompt {
+            background: ${theme.colors.purpleLight};
+            font-family: ${theme.fonts.header};
+            font-size: 20px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 46px;
           }
         `}</style>
       </Form>

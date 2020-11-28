@@ -10,11 +10,12 @@ interface IBackgroundImageProps {
   minWidth?: string | number;
   imgWidth?: string | number;
   position?: string;
+  zIndex?: number;
 }
 
 export const BackgroundImage = styled.img`
   position: ${(props: IBackgroundImageProps) => props.position || 'absolute'};
-  z-index: 1;
+  z-index: ${(props: IBackgroundImageProps) => props.zIndex || '1'};
   user-select: none;
   top: ${(props: IBackgroundImageProps) => props.top || ''};
   left: ${(props: IBackgroundImageProps) => props.left || ''};

@@ -23,6 +23,7 @@ import { Form, SubmitBtn } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import AlreadyHaveAccount from '../Account/AlreadyHaveAccount';
 
+import { Box, Flex } from '@rebass/grid';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import {
@@ -34,7 +35,6 @@ import {
   isSponsor,
 } from '../../util';
 import getValidationSchema from './validationSchema';
-import { Box, Flex } from '@rebass/grid';
 
 export enum ManageAccountModes {
   CREATE,
@@ -128,7 +128,8 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     id: accountId,
     lastName: values.lastName,
     password: values.password,
-    phoneNumber: props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
+    phoneNumber:
+      props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
     pronoun: values.pronoun,
     gender: values.gender,
     dietaryRestrictions: settings.isRemote
@@ -137,7 +138,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   });
 
   // Handle form submission
-  const handleSubmit = (values: FormikValues) => {
+  const handleSubmit = async (values: FormikValues) => {
     // Record that form is being submitted
     setIsSubmitting(true);
 
@@ -147,7 +148,10 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     // Depending on the mode of this form either create a new account with form data
     // or update user's existing account to match form data
     if (props.mode === ManageAccountModes.CREATE) {
-      handleCreate(formattedDetails);
+      const success = await handleCreate(formattedDetails);
+      if (!success) {
+        return;
+      }
     } else if (props.mode === ManageAccountModes.EDIT) {
       handleEdit(formattedDetails, values.password, values.newPassword);
     }
@@ -164,21 +168,27 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    * Create a new account
    * @param payload details for the account that's being created
    */
-  const handleCreate = async (payload: IAccount) => {
+  const handleCreate = async (payload: IAccount): Promise<boolean> => {
+    let success = true;
     try {
-      await Account.create(payload, getValueFromQuery('token'));
-      await Auth.login(payload.email, payload.password);
+      const result = await Account.create(payload, getValueFromQuery('token'));
+      if (result.status === 200) {
+        await Auth.login(payload.email, payload.password);
+        // Once submitted redirect user to appropriate page
+        history.push(FrontendRoute.HOME_PAGE);
+      } else {
+        success = false;
+      }
     } catch (e) {
       if (e && e.data) {
         console.log(e);
         ValidationErrorGenerator(e.data);
+        success = false;
       }
     } finally {
       setIsSubmitting(false);
     }
-
-    // Once submitted redirect user to appropriate page
-    history.push(FrontendRoute.HOME_PAGE);
+    return success;
   };
 
   /**
@@ -206,6 +216,134 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     }
   };
 
+  const renderFormik = (fp: FormikProps<any>) => (
+    <Form onSubmit={fp.handleSubmit}>
+      <Flex justifyContent="space-between">
+        <Box>
+          <FastField
+            name={'firstName'}
+            label={CONSTANTS.FIRST_NAME_LABEL}
+            value={fp.values.firstName}
+            component={FormikElements.Input}
+            isTight={true}
+            disabled={props.mode === ManageAccountModes.EDIT}
+            required={true}
+          />
+          <ErrorMessage component={FormikElements.Error} name="firstName" />
+        </Box>
+        <Box ml="20px">
+          <FastField
+            name={'lastName'}
+            label={CONSTANTS.LAST_NAME_LABEL}
+            value={fp.values.lastName}
+            component={FormikElements.Input}
+            isTight={true}
+            disabled={props.mode === ManageAccountModes.EDIT}
+            required={true}
+          />
+          <ErrorMessage component={FormikElements.Error} name="lastName" />
+        </Box>
+      </Flex>
+      <FastField
+        component={FormikElements.FormattedNumber}
+        label={CONSTANTS.BIRTH_DATE_LABEL}
+        placeholder="MM/DD/YYYY"
+        format="##/##/####"
+        name={'birthDate'}
+        required={true}
+        value={fp.values.birthDate}
+        disabled={props.mode === ManageAccountModes.EDIT}
+      />
+      <ErrorMessage component={FormikElements.Error} name="birthDate" />
+      <FastField
+        name={'email'}
+        label={CONSTANTS.EMAIL_LABEL}
+        value={fp.values.email}
+        component={FormikElements.Input}
+        required={true}
+      />
+      <ErrorMessage component={FormikElements.Error} name="email" />
+      <FastField
+        component={FormikElements.Input}
+        inputType={'password'}
+        label={CONSTANTS.PASSWORD_LABEL}
+        name={'password'}
+        required={props.mode === ManageAccountModes.CREATE}
+        value={fp.values.password}
+      />
+      <ErrorMessage component={FormikElements.Error} name="password" />
+      {props.mode === ManageAccountModes.EDIT && (
+        <>
+          <FastField
+            label={CONSTANTS.NEW_PASSWORD_LABEL}
+            component={FormikElements.Input}
+            inputType={'password'}
+            name={'newPassword'}
+          />
+          <ErrorMessage component={FormikElements.Error} name="newPassword" />
+          <FastField
+            component={FormikElements.FormattedNumber}
+            label={CONSTANTS.PHONE_NUMBER_LABEL}
+            placeholder="+# (###) ###-####"
+            format="+# (###) ###-####"
+            name={'phoneNumber'}
+            required={true}
+            value={fp.values.phoneNumber}
+          />
+          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+        </>
+      )}
+      <FastField
+        component={FormikElements.Select}
+        creatable={true}
+        label={CONSTANTS.GENDER_LABEL}
+        name={'gender'}
+        placeholder={CONSTANTS.GENDER_PLACEHOLDER}
+        options={getOptionsFromEnum(Genders)}
+        required={true}
+        value={fp.values.gender}
+        showOptionalLabel={true}
+      />
+      <ErrorMessage component={FormikElements.Error} name="gender" />
+      <FastField
+        component={FormikElements.Select}
+        creatable={true}
+        label={CONSTANTS.PRONOUN_LABEL}
+        name={'pronoun'}
+        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+        options={getOptionsFromEnum(Pronouns)}
+        required={true}
+        value={fp.values.pronoun}
+        showOptionalLabel={true}
+      />
+      <ErrorMessage component={FormikElements.Error} name="pronoun" />
+
+      {!settings.isRemote && (
+        <FastField
+          name={'dietaryRestrictions'}
+          isMulti={true}
+          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+          placeholder={DietaryRestriction.NONE}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(DietaryRestriction)}
+          required={true}
+          value={fp.values.dietaryRestrictions}
+        />
+      )}
+      {!settings.isRemote && (
+        <ErrorMessage
+          component={FormikElements.Error}
+          name="dietaryRestrictions"
+        />
+      )}
+      <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
+        {props.mode === ManageAccountModes.CREATE ? 'Create account' : 'Save'}
+      </SubmitBtn>
+
+      {props.mode === ManageAccountModes.CREATE && <AlreadyHaveAccount />}
+    </Form>
+  );
+
   // Render a formik form that allows user to edit account values and then
   // submit (triggering appropriate reaction - account create or edit - based
   // up mode)
@@ -228,138 +366,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       validationSchema={getValidationSchema(
         props.mode === ManageAccountModes.CREATE
       )}
-      render={(fp: FormikProps<any>) => (
-        <Form onSubmit={fp.handleSubmit}>
-          <Flex justifyContent="space-between">
-            <Box>
-              <FastField
-                name={'firstName'}
-                label={CONSTANTS.FIRST_NAME_LABEL}
-                value={fp.values.firstName}
-                component={FormikElements.Input}
-                isTight={true}
-                disabled={props.mode === ManageAccountModes.EDIT}
-                required={true}
-              />
-              <ErrorMessage component={FormikElements.Error} name="firstName" />
-            </Box>
-            <Box ml="20px">
-              <FastField
-                name={'lastName'}
-                label={CONSTANTS.LAST_NAME_LABEL}
-                value={fp.values.lastName}
-                component={FormikElements.Input}
-                isTight={true}
-                disabled={props.mode === ManageAccountModes.EDIT}
-                required={true}
-              />
-              <ErrorMessage component={FormikElements.Error} name="lastName" />
-            </Box>
-          </Flex>
-          <FastField
-            component={FormikElements.FormattedNumber}
-            label={CONSTANTS.BIRTH_DATE_LABEL}
-            placeholder="MM/DD/YYYY"
-            format="##/##/####"
-            name={'birthDate'}
-            required={true}
-            value={fp.values.birthDate}
-            disabled={props.mode === ManageAccountModes.EDIT}
-          />
-          <ErrorMessage component={FormikElements.Error} name="birthDate" />
-          <FastField
-            name={'email'}
-            label={CONSTANTS.EMAIL_LABEL}
-            value={fp.values.email}
-            component={FormikElements.Input}
-            required={true}
-          />
-          <ErrorMessage component={FormikElements.Error} name="email" />
-          <FastField
-            component={FormikElements.Input}
-            inputType={'password'}
-            label={CONSTANTS.PASSWORD_LABEL}
-            name={'password'}
-            required={props.mode === ManageAccountModes.CREATE}
-            value={fp.values.password}
-          />
-          <ErrorMessage component={FormikElements.Error} name="password" />
-          {props.mode === ManageAccountModes.EDIT && (
-            <>
-              <FastField
-                label={CONSTANTS.NEW_PASSWORD_LABEL}
-                component={FormikElements.Input}
-                inputType={'password'}
-                name={'newPassword'}
-              />
-              <ErrorMessage
-                component={FormikElements.Error}
-                name="newPassword"
-              />
-              <FastField
-                component={FormikElements.FormattedNumber}
-                label={CONSTANTS.PHONE_NUMBER_LABEL}
-                placeholder="+# (###) ###-####"
-                format="+# (###) ###-####"
-                name={'phoneNumber'}
-                required={true}
-                value={fp.values.phoneNumber}
-              />
-              <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-            </>
-          )}
-          <FastField
-            component={FormikElements.Select}
-            creatable={true}
-            label={CONSTANTS.PRONOUN_LABEL}
-            name={'pronoun'}
-            placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-            options={getOptionsFromEnum(Pronouns)}
-            required={true}
-            value={fp.values.pronoun}
-          />
-          <ErrorMessage component={FormikElements.Error} name="gender" />
-          <FastField
-            component={FormikElements.Select}
-            creatable={true}
-            label={CONSTANTS.GENDER_LABEL}
-            name={'gender'}
-            placeholder={CONSTANTS.GENDER_PLACEHOLDER}
-            options={getOptionsFromEnum(Genders)}
-            required={true}
-            value={fp.values.gender}
-          />
-          <ErrorMessage component={FormikElements.Error} name="pronoun" />
-
-          {!settings.isRemote && (
-            <FastField
-              name={'dietaryRestrictions'}
-              isMulti={true}
-              label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-              placeholder={DietaryRestriction.NONE}
-              component={FormikElements.Select}
-              options={getOptionsFromEnum(DietaryRestriction)}
-              required={true}
-              value={fp.values.dietaryRestrictions}
-            />
-          )}
-          {!settings.isRemote && (
-            <ErrorMessage
-              component={FormikElements.Error}
-              name="dietaryRestrictions"
-            />
-          )}
-          <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
-            {props.mode === ManageAccountModes.CREATE
-              ? 'Create account'
-              : 'Save'}
-          </SubmitBtn>
-
-          {
-            props.mode === ManageAccountModes.CREATE && <AlreadyHaveAccount />
-          }
-        </Form>
-      )}
+      render={renderFormik}
     />
   );
 };
