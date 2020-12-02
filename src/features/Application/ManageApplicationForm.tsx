@@ -1232,16 +1232,16 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             );
             setIsSubmitted(true);
           } else {
+            setIsSubmitting(false);
             toast.error(`There was an error when submitting the application.`);
           }
         })
         .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
+          setIsSubmitting(false);
           if (response) {
             ValidationErrorGenerator(response.data);
           }
         });
-
-      setIsSubmitting(false);
     }
   };
 
