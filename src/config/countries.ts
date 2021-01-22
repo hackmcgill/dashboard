@@ -33,6 +33,7 @@ export const Countries: string[] = [
   'Burundi',
   'Cambodia',
   'Cameroon',
+  'Canada',
   'Cape Verde',
   'Cayman Islands',
   'Chad',
