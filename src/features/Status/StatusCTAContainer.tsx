@@ -1,20 +1,15 @@
 import React from 'react';
 
+import StatusCTALocationModal from './StatusCTALocationModal';
+
 import { HackerStatus, IAccount, IHacker, ISetting } from '../../config';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 import { Box, Flex } from '@rebass/grid';
 import { Hacker, Settings } from '../../api';
 import { ConfirmModal } from '../../shared/Elements';
-import { Label, Input, StyledSelect } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
-import {
-  CountriesLVpair,
-} from '../../config/countries';
-import {
-  TimeZonesLVpair,
-} from '../../config/timeZones';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -114,53 +109,17 @@ class StatusCTAContainer extends React.Component<
         ) : (
           <ConfirmationEmailSentComponent />
         )}
-        <ConfirmModal
-          isOpen={this.state.isLocationModalOpen}
+        <StatusCTALocationModal
+          isModalOpen={this.state.isLocationModalOpen}
           onCanceled={() => this.setState({ isLocationModalOpen: false })}
           onConfirmed={this.confirmStatus}
-          cancelLabel="Cancel"
-          confirmLabel="Submit"
-        >
-          <Box mb={'10px'} alignSelf={'center'}>
-            <Label style={{ minWidth: '300px', maxWidth: '300px', marginBottom: '1em' }}>
-              What is your time zone?
-              <StyledSelect
-                className="react-select-container"
-                classNamePrefix="react-select"
-                options={TimeZonesLVpair}
-                onChange={this.handleChangeTimeZone}
-                value={{
-                  label: timeZone,
-                  value: timeZone
-                }}
-              />
-            </Label>
-          </Box>
-          <Box mb={'10px'} alignSelf={'center'}>
-            <Label style={{ minWidth: '300px', maxWidth: '300px' }}>
-              In which country are you currently residing?
-              <StyledSelect
-                className="react-select-container"
-                classNamePrefix="react-select"              
-                options={CountriesLVpair}
-                onChange={this.handleChangeCountry}
-                value={{
-                  label: country,
-                  value: country
-                }}
-              />
-            </Label>
-          </Box>
-          <Box mb={'10px'} alignSelf={'center'}>
-            <Label style={{ minWidth: '300px', maxWidth: '300px' }}>
-              In which city are you currently residing?
-              <Input
-                onChange={(e) => this.setState({ city: e.target.value })}
-                value={city}
-              />
-            </Label>
-          </Box>
-        </ConfirmModal>
+          timeZone={timeZone}
+          country={country}
+          city={city}
+          handleChangeTimeZone={this.handleChangeTimeZone}
+          handleChangeCountry={this.handleChangeCountry}
+          handleChangeCity={console.log('test')}
+        />
         <ConfirmModal
           isOpen={this.state.isModalOpen}
           // tslint:disable-next-line: jsx-no-lambda
