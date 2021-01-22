@@ -31,7 +31,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
               onClick={props.onCanceled}
               variant={ButtonVariant.Primary}
             >
-              {props.cancelLabel || "No"}
+              {props.cancelLabel}
             </Button>
           </Box>
           <Box>
@@ -40,7 +40,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
               onClick={props.onConfirmed}
               variant={ButtonVariant.Primary}
             >
-              {props.confirmLabel || "Yes"}
+              {props.confirmLabel}
             </Button>
           </Box>
         </Flex>
@@ -48,5 +48,10 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
     </StyledModalSmall>
   );
 };
+
+ConfirmModal.defaultProps = {
+  cancelLabel: "No",
+  confirmLabel: "Yes",
+}
 
 export default ConfirmModal;
