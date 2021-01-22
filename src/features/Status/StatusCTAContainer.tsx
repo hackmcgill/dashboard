@@ -20,7 +20,7 @@ export interface IStatusCTAContainerProps {
 export interface IStatusCTAContainerState {
   status: HackerStatus;
   settings: ISetting;
-  isModalOpen: boolean;
+  isWithdrawModalOpen: boolean;
   isLocationModalOpen: boolean;
   timeZone: string;
   country: string;
@@ -41,7 +41,7 @@ class StatusCTAContainer extends React.Component<
         confirmTime: new Date().toString(),
         isRemote: false,
       },
-      isModalOpen: false,
+      isWithdrawModalOpen: false,
       isLocationModalOpen: false,
       timeZone: '',
       country: '',
@@ -104,7 +104,7 @@ class StatusCTAContainer extends React.Component<
               this.setState({ isLocationModalOpen: true })
             }
             // tslint:disable-next-line: jsx-no-lambda
-            onClickWithdraw={() => this.setState({ isModalOpen: true })}
+            onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
           />
         ) : (
           <ConfirmationEmailSentComponent />
@@ -121,11 +121,11 @@ class StatusCTAContainer extends React.Component<
           handleChangeCity={console.log('test')}
         />
         <ConfirmModal
-          isOpen={this.state.isModalOpen}
+          isOpen={this.state.isWithdrawModalOpen}
           // tslint:disable-next-line: jsx-no-lambda
-          onCanceled={() => this.setState({ isModalOpen: false })}
+          onCanceled={() => this.setState({ isWithdrawModalOpen: false })}
           // tslint:disable-next-line: jsx-no-lambda
-          onConfirmed={() => this.setState({ isModalOpen: false })}
+          onConfirmed={() => this.setState({ isWithdrawModalOpen: false })}
         >
           <Box alignSelf={'center'}>
             Are you sure you want to make these changes?
