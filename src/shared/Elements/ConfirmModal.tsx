@@ -29,7 +29,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
             <Button
               type="button"
               onClick={props.onCanceled}
-              variant={ButtonVariant.Primary}
+              variant={ButtonVariant.Secondary}
             >
               {props.cancelLabel}
             </Button>
