@@ -125,7 +125,10 @@ class StatusCTAContainer extends React.Component<
           // tslint:disable-next-line: jsx-no-lambda
           onCanceled={() => this.setState({ isWithdrawModalOpen: false })}
           // tslint:disable-next-line: jsx-no-lambda
-          onConfirmed={() => this.setState({ isWithdrawModalOpen: false })}
+          onConfirmed={() => {
+            this.withdrawStatus()
+            this.setState({ isWithdrawModalOpen: false });
+          }}
         >
           <Box alignSelf={'center'}>
             Are you sure you want to make these changes?
