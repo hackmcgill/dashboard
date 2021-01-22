@@ -30,7 +30,7 @@ const StatusCTALocationModal: React.FC<StatusCTALocationModalProps> = (props) =>
           onCanceled={props.onCanceled}
           onConfirmed={props.onConfirmed}
           cancelLabel="Cancel"
-          confirmLabel="Submit"
+          confirmLabel="Confirm"
         >
           <Box mb={'10px'} alignSelf={'center'}>
             <Label style={{ minWidth: '300px', maxWidth: '300px', marginBottom: '1em' }}>
