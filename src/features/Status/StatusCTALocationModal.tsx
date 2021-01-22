@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box } from '@rebass/grid';
-import { ConfirmModal } from '../../shared/Elements';
+import { H1, H2, ConfirmModal } from '../../shared/Elements';
 import { Label, Input, StyledSelect } from '../../shared/Form';
 
 import {
@@ -32,6 +32,10 @@ const StatusCTALocationModal: React.FC<StatusCTALocationModalProps> = (props) =>
           cancelLabel="Cancel"
           confirmLabel="Confirm"
         >
+          <Box mb={'10px'} alignSelf={'center'}>
+            <H1 textAlign="center" marginBottom="32px">Confirm your spot</H1>
+            <H2 fontSize="1rem" color="#4D4D4D" marginBottom="32px">Please let us know where you'll be hacking from</H2>
+          </Box>
           <Box mb={'10px'} alignSelf={'center'}>
             <Label style={{ minWidth: '300px', maxWidth: '300px', marginBottom: '1em' }}>
               What is your time zone?
