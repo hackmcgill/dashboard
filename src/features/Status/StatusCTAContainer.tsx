@@ -54,11 +54,12 @@ class StatusCTAContainer extends React.Component<
     };
   }
   public confirmStatus = async () => {
-    this.setState({ isLocationModalOpen: false });
+    const { timeZone, city, country } = this.state;
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
-      if (hacker) {
+      if (hacker && timeZone.length > 0 && city.length > 0 && country.length > 0) {
+        this.setState({ isLocationModalOpen: false });
         const newHacker = await this.modifyHacker(hacker);
         await Hacker.update(newHacker);
         await Hacker.confirm(hacker.id, true);
