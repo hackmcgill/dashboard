@@ -13,14 +13,14 @@ import {
 
   interface StatusCTALocationModalProps {
       isModalOpen: boolean;
-      onCanceled: any;
-      onConfirmed: any;
+      onCanceled: () => void;
+      onConfirmed: () => void;
       timeZone: string;
       country: string;
       city: string;
-      handleChangeTimeZone: any;
-      handleChangeCountry: any;
-      handleChangeCity: any;
+      handleChangeTimeZone: (value: any) => void;
+      handleChangeCountry: (value: any) => void;
+      handleChangeCity: (value: any) => void;
   }
 
 const StatusCTALocationModal: React.FC<StatusCTALocationModalProps> = (props) => {

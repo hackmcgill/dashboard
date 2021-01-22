@@ -118,7 +118,7 @@ class StatusCTAContainer extends React.Component<
           city={city}
           handleChangeTimeZone={this.handleChangeTimeZone}
           handleChangeCountry={this.handleChangeCountry}
-          handleChangeCity={console.log('test')}
+          handleChangeCity={this.handleChangeCity}
         />
         <ConfirmModal
           isOpen={this.state.isWithdrawModalOpen}
@@ -161,6 +161,10 @@ class StatusCTAContainer extends React.Component<
   private handleChangeCountry = ({ value }: any) => {
     this.setState({ country: value });
   };
+
+  private handleChangeCity = ({ value }: any) => {
+    this.setState({ city: value });
+  }
 }
 
 export default StatusCTAContainer;
