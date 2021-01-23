@@ -76,6 +76,11 @@ export interface IHacker {
       // If the user requires a bus
       travel?: number;
     };
+    location?: {
+      timeZone: string;
+      country: string;
+      city: string;
+    }
   };
   teamId?: string | ITeam;
 }
