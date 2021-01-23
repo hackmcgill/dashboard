@@ -75,7 +75,7 @@ export const DECLINED_STATUS_TEXT =
 export const WAITLISTED_STATUS_TEXT =
   "Thank you so much for your interest in McHacks. At the moment, we've placed you on the waitlist. We received many great applications this year and wish we had the capacity accept them all. Currently, we can only place you on the waitlist, but please keep an eye on the dashboard to see if your status changes and a spot opens up!";
 export const CONFIRMED_STATUS_TEXT =
-  'Your attendance has been confirmed! More information on McHacks will be sent to your email as we get closer to the event.';
+  'Your attendance has been confirmed! More information on McHacks will be sent to your email as we get closer to the event, including an invite to our virtual platform.';
 export const WITHDRAWN_STATUS_TEXT =
   "We're sorry to hear you're unable to make it to McHacks this year. Please keep in touch and hopefully we'll see you at the next one.";
 export const CHECKED_IN_STATUS_HEADING = 'Welcome to McHacks!';
