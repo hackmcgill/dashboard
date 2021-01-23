@@ -30,7 +30,7 @@ export interface IStatusCTAContainerState {
 class StatusCTAContainer extends React.Component<
   IStatusCTAContainerProps,
   IStatusCTAContainerState
-> {
+  > {
   constructor(props: IStatusCTAContainerProps) {
     super(props);
     this.state = {
@@ -53,12 +53,14 @@ class StatusCTAContainer extends React.Component<
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
-      if (hacker && timeZone.length > 0 && city.length > 0 && country.length > 0) {
+      if (hacker && timeZone && city && country && timeZone.length > 0 && city.length > 0 && country.length > 0) {
         this.setState({ isLocationModalOpen: false });
         const newHacker = await this.modifyHacker(hacker);
         await Hacker.update(newHacker);
         await Hacker.confirm(hacker.id, true);
         this.setState({ status: HackerStatus.HACKER_STATUS_CONFIRMED });
+      } else {
+        alert("Please let us know where you will be hacking from")
       }
     }
   };
@@ -107,8 +109,8 @@ class StatusCTAContainer extends React.Component<
             onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
           />
         ) : (
-          <ConfirmationEmailSentComponent />
-        )}
+            <ConfirmationEmailSentComponent />
+          )}
         <StatusCTALocationModal
           isModalOpen={this.state.isLocationModalOpen}
           onCanceled={() => this.setState({ isLocationModalOpen: false })}
@@ -165,8 +167,8 @@ class StatusCTAContainer extends React.Component<
     this.setState({ country: value });
   };
 
-  private handleChangeCity = ({ value }: any) => {
-    this.setState({ city: value });
+  private handleChangeCity = ({ target }: any) => {
+    this.setState({ city: target.value });
   }
 }
 
