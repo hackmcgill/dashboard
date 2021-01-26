@@ -17,6 +17,7 @@ export enum FrontendRoute {
   RESET_PASSWORD_PAGE = '/password/reset',
   SETTINGS_PAGE = '/settings',
   SPONSOR_SEARCH_PAGE = '/sponsor/search',
+  SPONSOR_ONBOARDING_PAGE = '/sponsor/onboarding',
   TEAM_PAGE = '/team',
   TRAVEL_PAGE = '/travel',
 
