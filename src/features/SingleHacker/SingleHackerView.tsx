@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
 import { Box, Flex } from '@rebass/grid';
@@ -12,7 +12,7 @@ import {
   IHacker,
   UserType,
 } from '../../config';
-import { Button, H1, H2, MaxWidthBox } from '../../shared/Elements';
+import { Button, ButtonVariant, H1, H2, MaxWidthBox } from '../../shared/Elements';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -29,239 +29,25 @@ interface IHackerViewProps {
   userType: UserType;
 }
 
-interface IHackerViewState {
-  isAdmin: boolean;
-  isLoading: boolean;
-  status: HackerStatus;
-}
+const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
+  const [status, setStatus] = useState(props.hacker.status);
+  const [isAdmin, setIsAdmin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-class SingleHackerView extends React.Component<
-  IHackerViewProps,
-  IHackerViewState
-> {
-  constructor(props: IHackerViewProps) {
-    super(props);
-    this.state = {
-      status: props.hacker.status,
-      isAdmin: true,
-      isLoading: false,
-    };
-  }
+  useEffect(() => {
+    setIsAdmin(props.userType === UserType.STAFF);
+  }, [])
 
-  public componentDidMount() {
-    const isAdmin = this.props.userType === UserType.STAFF;
-    this.setState({ isAdmin });
-    this.submit = this.submit.bind(this);
-  }
+  useEffect(() => {
+    setStatus(props.hacker.status)
+  }, [props])
 
-  public componentDidUpdate(prevProps: IHackerViewProps) {
-    if (
-      prevProps.hacker.id !== this.props.hacker.id &&
-      this.props.hacker.status !== this.state.status
-    ) {
-      const {
-        hacker: { status },
-      } = this.props;
-      this.setState({ status });
-    }
-  }
-
-  public render() {
-    const { hacker } = this.props;
-    const { isAdmin, isLoading, status } = this.state;
-    const account = (hacker.accountId as IAccount) || {};
-    const pronoun = account.pronoun ? `(${account.pronoun})` : '';
-    return (
-      <article>
-        <Helmet>
-          <title>
-            {`${account.firstName} ${account.lastName}`} | {HACKATHON_NAME}
-          </title>
-        </Helmet>
-        <MaxWidthBox maxWidth="800px">
-          <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
-            <H1 marginLeft="0">
-              {`${account.firstName} ${account.lastName} ${pronoun}`}
-            </H1>
-          </Flex>
-          <hr hidden={isAdmin} />
-          <Box ml="6px">
-            <SingleHackerSection
-              title={'Administrative Information'}
-              hidden={!isAdmin}
-            >
-              <Form>
-                <Flex
-                  width="100%"
-                  flexWrap="wrap"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Box width={[1, 1 / 2]}>
-                    <StyledSelect
-                      isTight={true}
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                      options={getOptionsFromEnum(HackerStatus)}
-                      isDisabled={!isAdmin}
-                      onChange={this.handleChange}
-                      value={{
-                        label: status,
-                        value: status,
-                      }}
-                    />
-                  </Box>
-                  <Flex
-                    width={[1, 1 / 2]}
-                    justifyContent={['center', 'flex-start']}
-                  >
-                    <Button
-                      type="button"
-                      onClick={this.submit}
-                      isLoading={isLoading}
-                      disabled={isLoading || !isAdmin}
-                    >
-                      Change status
-                    </Button>
-                  </Flex>
-                </Flex>
-              </Form>
-              <Flex
-                width="100%"
-                flexWrap="wrap"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <SHField label="Age" text={date2age(account.birthDate)} />
-                <SHField
-                  label="Shirt Size"
-                  text={hacker.application.accommodation.shirtSize}
-                />
-                {/* Removed as shirt size is no longer a property of account
-                  <SHField label="Shirt Size" text={account.shirtSize} /> */}
-                <SHField label="Gender" text={account.gender} />
-                <SHLink
-                  label="Phone Number"
-                  link={`tel:${account.phoneNumber}`}
-                  linkText={account.phoneNumber}
-                />
-                <SHField
-                  label="Dietary Restrictions"
-                  text={
-                    account.dietaryRestrictions &&
-                    account.dietaryRestrictions.join(', ')
-                  }
-                />
-                <SHParagraph
-                  label="Impairments"
-                  text={hacker.application.accommodation.impairments}
-                />
-                <SHParagraph
-                  label="Barriers"
-                  text={hacker.application.accommodation.barriers}
-                />
-              </Flex>
-              <hr />
-            </SingleHackerSection>
-            <H2 color={theme.colors.black60}>Basic Information</H2>
-            <Flex
-              width="100%"
-              flexWrap="wrap"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <SHField label="Email" text={account.email} />
-              <SHField
-                label="School"
-                text={hacker.application.general.school}
-              />
-              <SHField
-                label="Degree"
-                text={hacker.application.general.degree}
-              />
-              <SHField label="Status" text={hacker.status} />
-              <SHField
-                label="Graduation Year"
-                text={hacker.application.general.graduationYear}
-              />
-              <SHField
-                label="Field(s) of Study"
-                text={hacker.application.general.fieldOfStudy}
-              />
-              <SHField
-                label="Skills"
-                text={
-                  hacker.application.shortAnswer.skills &&
-                  hacker.application.shortAnswer.skills.join(', ')
-                }
-              />
-              <SHField
-                label="Job interest"
-                text={hacker.application.general.jobInterest}
-              />
-            </Flex>
-            <hr />
-            <H2 color={theme.colors.black60}>Links</H2>
-            <Flex
-              width="100%"
-              flexWrap="wrap"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <SHLink
-                label="GitHub"
-                link={hacker.application.general.URL.github}
-              />
-              <SHLink
-                label="LinkedIn"
-                link={hacker.application.general.URL.linkedIn}
-              />
-              <SHLink
-                label="Website"
-                link={hacker.application.general.URL.personal}
-              />
-              <SHLink
-                label="Dribbble"
-                link={hacker.application.general.URL.dribbble}
-              />
-            </Flex>
-            {/* Only tier1 sponsors and admin have access to user resumes */}
-            {this.props.userType === UserType.SPONSOR_T1 ||
-            this.props.userType === UserType.STAFF ? (
-              <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
-                <ViewPDFComponent hackerId={hacker.id} />
-              </Flex>
-            ) : null}
-            <SingleHackerSection
-              title="Additional Information"
-              hidden={!isAdmin}
-            >
-              <SHParagraph
-                label="Why McHacks?"
-                text={hacker.application.shortAnswer.question1}
-              />
-              <SHParagraph
-                label="Some Q?"
-                text={hacker.application.shortAnswer.question2}
-              />
-              <SHParagraph
-                label="Comments"
-                text={hacker.application.shortAnswer.comments}
-              />
-            </SingleHackerSection>
-          </Box>
-        </MaxWidthBox>
-      </article>
-    );
-  }
-
-  private async submit() {
+  const submit = async () => {
     try {
-      const { hacker } = this.props;
-      const { status } = this.state;
-      this.setState({ isLoading: true });
+      const { hacker } = props;
+      setIsLoading(true);
       await Hacker.updateStatus(hacker.id, status);
-      this.setState({ isLoading: false });
+      setIsLoading(false);
       toast.success(`Hacker status updated to ${status}!`);
     } catch (e) {
       if (e && e.data) {
@@ -270,9 +56,198 @@ class SingleHackerView extends React.Component<
     }
   }
 
-  private handleChange = ({ value }: any) => {
-    this.setState({ status: value });
+  const handleChange = ({ value }: any) => {
+    setStatus(value);
   };
+
+
+  const { hacker } = props;
+  const account = (hacker.accountId as IAccount) || {};
+  const pronoun = account.pronoun ? `(${account.pronoun})` : '';
+
+  return (
+    <article>
+      <Helmet>
+        <title>
+          {`${account.firstName} ${account.lastName}`} | {HACKATHON_NAME}
+        </title>
+      </Helmet>
+      <MaxWidthBox maxWidth="800px">
+        <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
+          <H1 marginLeft="0">
+            {`${account.firstName} ${account.lastName} ${pronoun}`}
+          </H1>
+        </Flex>
+        <hr hidden={isAdmin} />
+        <Box ml="6px">
+          <SingleHackerSection
+            title={'Administrative Information'}
+            hidden={!isAdmin}
+          >
+            <Form>
+              <Flex
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Box width={[1, 1 / 2]}>
+                  <StyledSelect
+                    isTight={true}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                    options={getOptionsFromEnum(HackerStatus)}
+                    isDisabled={!isAdmin}
+                    onChange={handleChange}
+                    value={{
+                      label: status,
+                      value: status,
+                    }}
+                  />
+                </Box>
+                <Flex
+                  width={[1, 1 / 2]}
+                  justifyContent={['center', 'flex-start']}
+                >
+                  <Button
+                    type="button"
+                    onClick={submit}
+                    variant={ButtonVariant.Primary}
+                    isLoading={isLoading}
+                    disabled={isLoading || !isAdmin}
+                  >
+                    Change status
+                  </Button>
+                </Flex>
+              </Flex>
+            </Form>
+            <Flex
+              width="100%"
+              flexWrap="wrap"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <SHField label="Age" text={date2age(account.birthDate)} />
+              <SHField
+                label="Shirt Size"
+                text={hacker.application.accommodation.shirtSize}
+              />
+              {/* Removed as shirt size is no longer a property of account
+                <SHField label="Shirt Size" text={account.shirtSize} /> */}
+              <SHField label="Gender" text={account.gender} />
+              <SHLink
+                label="Phone Number"
+                link={`tel:${account.phoneNumber}`}
+                linkText={account.phoneNumber}
+              />
+              <SHField
+                label="Dietary Restrictions"
+                text={
+                  account.dietaryRestrictions &&
+                  account.dietaryRestrictions.join(', ')
+                }
+              />
+              <SHParagraph
+                label="Impairments"
+                text={hacker.application.accommodation.impairments}
+              />
+              <SHParagraph
+                label="Barriers"
+                text={hacker.application.accommodation.barriers}
+              />
+            </Flex>
+            <hr />
+          </SingleHackerSection>
+          <H2 color={theme.colors.black60}>Basic Information</H2>
+          <Flex
+            width="100%"
+            flexWrap="wrap"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <SHField label="Email" text={account.email} />
+            <SHField
+              label="School"
+              text={hacker.application.general.school}
+            />
+            <SHField
+              label="Degree"
+              text={hacker.application.general.degree}
+            />
+            <SHField label="Status" text={hacker.status} />
+            <SHField
+              label="Graduation Year"
+              text={hacker.application.general.graduationYear}
+            />
+            <SHField
+              label="Field(s) of Study"
+              text={hacker.application.general.fieldOfStudy}
+            />
+            <SHField
+              label="Skills"
+              text={
+                hacker.application.shortAnswer.skills &&
+                hacker.application.shortAnswer.skills.join(', ')
+              }
+            />
+            <SHField
+              label="Job interest"
+              text={hacker.application.general.jobInterest}
+            />
+          </Flex>
+          <hr />
+          <H2 color={theme.colors.black60}>Links</H2>
+          <Flex
+            width="100%"
+            flexWrap="wrap"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <SHLink
+              label="GitHub"
+              link={hacker.application.general.URL.github}
+            />
+            <SHLink
+              label="LinkedIn"
+              link={hacker.application.general.URL.linkedIn}
+            />
+            <SHLink
+              label="Website"
+              link={hacker.application.general.URL.other}
+            />
+            <SHLink
+              label="Dribbble"
+              link={hacker.application.general.URL.dribbble}
+            />
+          </Flex>
+          {/* Only tier1 sponsors and admin have access to user resumes */}
+          {props.userType === UserType.SPONSOR_T1 ||
+            props.userType === UserType.STAFF ? (
+              <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
+                <ViewPDFComponent hackerId={hacker.id} />
+              </Flex>
+            ) : null}
+          <SingleHackerSection
+            title="Additional Information"
+            hidden={!isAdmin}
+          >
+            <SHParagraph
+              label="Why McHacks?"
+              text={hacker.application.shortAnswer.question1}
+            />
+            <SHParagraph
+              label="Some Q?"
+              text={hacker.application.shortAnswer.question2}
+            />
+            <SHParagraph
+              label="Comments"
+              text={hacker.application.shortAnswer.comments}
+            />
+          </SingleHackerSection>
+        </Box>
+      </MaxWidthBox>
+    </article>
+  )
 }
 
 export default SingleHackerView;
