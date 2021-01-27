@@ -224,10 +224,16 @@ export default class Navbar extends React.Component<
                   className={this.props.activePage === 'search' ? 'active' : ''}
                 >
                   Search
-              </NavLink>
-                <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
+                </NavLink>
+                <NavLink
+                  href={routes.SPONSOR_ONBOARDING_PAGE}
+                  className={this.props.activePage === 'onboarding' ? 'active' : ''}
+                >
+                  Onboarding
+                </NavLink>
+                {/* <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
                   Info
-              </NavLink>
+              </NavLink> */}
               </>
             ) : null}
           {userType === UserType.STAFF ? (

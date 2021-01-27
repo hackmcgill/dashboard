@@ -21,6 +21,7 @@ import ResetPasswordPage from './pages/Password/Reset';
 import CreateSponsorPage from './pages/Sponsor/Create';
 import EditSponsorPage from './pages/Sponsor/Edit';
 import SponsorSearchPage from './pages/Sponsor/Search';
+import SponsorOnboardingPage from './pages/Sponsor/Onboarding';
 import TeamPage from './pages/Team/index'
 import TravelPage from './pages/Travel/index';
 
@@ -305,6 +306,22 @@ class App extends React.Component {
                         user.confirmed && isSponsor(user),
                     }),
                     { activePage: 'search' }
+                  )
+                )}
+            />
+            <Route
+              exact={true}
+              path={FrontendRoute.SPONSOR_ONBOARDING_PAGE}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(SponsorOnboardingPage, {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && isSponsor(user),
+                    }),
+                    { activePage: 'onboarding' }
                   )
                 )}
             />
