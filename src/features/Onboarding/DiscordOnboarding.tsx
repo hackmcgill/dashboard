@@ -2,6 +2,7 @@ import React from 'react';
 import Text from "./Text";
 import Container from './Container';
 import Content from './Content';
+import StyledGIF from './StyledGIF';
 import SetNickNameGIF from '../../assets/gifs/setnickname.gif';
 import MarkAsReadGIF from '../../assets/gifs/markasread.gif';
 import ScreenshareGIF from '../../assets/gifs/screenshare.gif';
@@ -12,7 +13,6 @@ const DiscordOnboarding: React.FC = () => (
         <Container>
             <Content>
                 <Text>
-                    <h1>Discord Guide</h1>
                     <h2>What is Discord?</h2>
                     <p>
                         Discord is a voice and text platform that allows people to interact in real time through audio 
@@ -122,7 +122,7 @@ const DiscordOnboarding: React.FC = () => (
                         </li>
                     </ul>
                     <p>How to set your nickname on a Server:</p>
-                    <img src={SetNickNameGIF} />
+                    <StyledGIF src={SetNickNameGIF} />
                     <h2>What are text and video channels?</h2>
                     <p>Each server is made up of voice channels and text channels.</p>
                     <ul>
@@ -207,17 +207,17 @@ const DiscordOnboarding: React.FC = () => (
                                     Just next to the video options, you will see a “screen” button. If you click on it, it will share your screen
                                 </li>
                             </ul>
-                            <img src={ScreenshareGIF} />
+                            <StyledGIF src={ScreenshareGIF} />
                             <br></br>
                         </li>
                         <li>
                             <p>Marking messages as read:</p>
-                            <img src={MarkAsReadGIF} />
+                            <StyledGIF src={MarkAsReadGIF} />
                             <br></br>
                         </li>
                         <li>
                             <p>Change notifications from all to mentions only: </p>
-                            <img src={NotifsToMentionGIF} />
+                            <StyledGIF src={NotifsToMentionGIF} />
                             <br></br>
                         </li>
                     </ul>

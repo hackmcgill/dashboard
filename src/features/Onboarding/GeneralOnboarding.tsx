@@ -8,7 +8,6 @@ const GeneralOnboarding: React.FC = () => (
         <Container>
             <Content>
                 <Text>
-                <h1>Sponsor Info</h1>
                 <h2>Introduction</h2>
                 <p>
                     Hey there, sponsor! We’re looking forward to seeing you for round eight 
