@@ -103,13 +103,6 @@ const GeneralOnboarding: React.FC = () => (
                 so that we can include that in your workshop description. We encourage bringing mentors to 
                 help during and after the workshop so hackers can explore their new skills with friendly 
                 faces around to assist them.
-                <h2>Schedule</h2>
-                {/* <Image src={Schedule} /> */}
-                <p>
-                    <i>
-                    Please note the above schedule is tentative and subject to change.
-                    </i>
-                </p>
                 <h2>Communication</h2>
                 <p>
                     For the weekend of McHacks, we will be using Discord as the primary means of 
