@@ -1,4 +1,5 @@
 import React from 'react';
+import { LinkDuo } from '../../shared/Elements';
 import Text from "./Text";
 import Container from './Container';
 import Content from './Content';
@@ -18,21 +19,13 @@ const DiscordOnboarding: React.FC = () => (
                         Discord is a voice and text platform that allows people to interact in real time through audio 
                         and video channels. If you are familiar with Slack, then you can think of Discord as a more 
                         casual version! You can download both the desktop and mobile version of Discord by visiting{" "}
-                        <a
-                            href="https://discord.com/download"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            https://discord.com/download
-                        </a>
+                        <LinkDuo to="https://discord.com/download">
+                            <span>https://discord.com/download</span>
+                        </LinkDuo>
                         {" "}or open Discord in your browser by visiting{" "} 
-                        <a
-                            href="https://discord.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            https://discord.com/.
-                        </a>
+                        <LinkDuo to="https://discord.com/">
+                            <span>https://discord.com/.</span>
+                        </LinkDuo>
                     </p>
                     <h2>What is a discord server?</h2>
                     <ul>
@@ -57,13 +50,9 @@ const DiscordOnboarding: React.FC = () => (
                     <ol>
                         <li>
                             Visit{" "} 
-                            <a
-                                href="https://discord.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://discord.com/.
-                            </a>
+                            <LinkDuo to="https://discord.com/">
+                                <span>https://discord.com/.</span>
+                            </LinkDuo>
                         </li>
                         <li>
                             Create your username
@@ -178,7 +167,7 @@ const DiscordOnboarding: React.FC = () => (
                     <h2>How do I voice chat?</h2>
                     <ul>
                         <li>
-                            First you need to join a voice channel. Voice channels have the following logo “🔉”
+                            First you need to join a voice channel. Voice channels have the following logo “<span role="img" aria-label="speaker">🔉</span>”
                         </li>
                         <li>
                             <p>After this you will be able to start talking.</p>
@@ -224,31 +213,19 @@ const DiscordOnboarding: React.FC = () => (
                     <h2>Helpful Online Resources</h2>
                     <ul>
                         <li>
-                            <a
-                                href="https://support.discord.com/hc/en-us/sections/360008206871-Discord-Basics"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://support.discord.com/hc/en-us/sections/360008206871-Discord-Basics
-                            </a>
+                            <LinkDuo to="https://support.discord.com/hc/en-us/sections/360008206871-Discord-Basics">
+                                <span>https://support.discord.com/hc/en-us/sections/360008206871-Discord-Basics</span>
+                            </LinkDuo>
                         </li>
                         <li>
-                            <a
-                                href="https://www.tomsguide.com/us/what-is-discord,review-5203.html"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://www.tomsguide.com/us/what-is-discord,review-5203.html
-                            </a>
+                            <LinkDuo to="https://www.tomsguide.com/us/what-is-discord,review-5203.html">
+                                <span>https://www.tomsguide.com/us/what-is-discord,review-5203.html</span>
+                            </LinkDuo>
                         </li>
                         <li>
-                            <a
-                                href="https://www.techradar.com/how-to/how-to-use-discord"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://www.techradar.com/how-to/how-to-use-discord
-                            </a>
+                            <LinkDuo to="https://www.techradar.com/how-to/how-to-use-discord">
+                                <span>https://www.techradar.com/how-to/how-to-use-discord</span>
+                            </LinkDuo>
                         </li>
                     </ul>
                 </Text>

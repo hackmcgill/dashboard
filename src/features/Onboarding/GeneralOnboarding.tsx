@@ -1,4 +1,5 @@
 import React from 'react';
+import { LinkDuo } from '../../shared/Elements';
 import Text from "./Text";
 import Container from './Container';
 import Content from './Content';
@@ -32,13 +33,9 @@ const GeneralOnboarding: React.FC = () => (
                     <br></br>
                     If part of your package involves speaking at the opening ceremonies, please ensure 
                     your video is uploaded to{" "}
-                    <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSfNpGJqIaWfaK7uJIZk0vq-ia3wZksEnnem0GPz3M6tutQ0aQ/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                        this form
-                    </a>
+                    <LinkDuo to="https://docs.google.com/forms/d/e/1FAIpQLSfNpGJqIaWfaK7uJIZk0vq-ia3wZksEnnem0GPz3M6tutQ0aQ/viewform">
+                        <span>this form</span>
+                    </LinkDuo>
                     . If you are unable to provide a video, please 
                     let your coordinator know for accommodations.
                 </p>
@@ -61,14 +58,10 @@ const GeneralOnboarding: React.FC = () => (
                     <br></br>
                     <br></br>
                     We ask that each individual representative fill out the{" "}
-                    <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    sponsor representative form
-                    </a>{" "}
-                    if you haven’t already to help us stay connected for the hackathon.
+                    <LinkDuo to="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link">
+                        <span>sponsor representative form</span>
+                    </LinkDuo>
+                    {" "}if you haven’t already to help us stay connected for the hackathon.
                 </p>
                 <h2>Engineers and Designers</h2>
                 <p>
@@ -80,13 +73,9 @@ const GeneralOnboarding: React.FC = () => (
                     <br></br>
                     <br></br>
                     In the{" "}
-                    <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    sponsor representative form
-                    </a>
+                    <LinkDuo to="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link">
+                        <span>sponsor representative form</span>
+                    </LinkDuo>
                     , mentors will be able to submit a quick bio outlining their areas of
                     expertise and general areas of interest. We will be integrating
                     mentorship requests into our slack and this information will help us
@@ -114,8 +103,8 @@ const GeneralOnboarding: React.FC = () => (
                 so that we can include that in your workshop description. We encourage bringing mentors to 
                 help during and after the workshop so hackers can explore their new skills with friendly 
                 faces around to assist them.
-                {/* <h2>Schedule</h2>
-                <Image src={Schedule} /> */}
+                <h2>Schedule</h2>
+                {/* <Image src={Schedule} /> */}
                 <p>
                     <i>
                     Please note the above schedule is tentative and subject to change.
@@ -126,13 +115,9 @@ const GeneralOnboarding: React.FC = () => (
                     For the weekend of McHacks, we will be using Discord as the primary means of 
                     communication between hackers, organizers, volunteers, and of course, sponsors! 
                     Once each of your representatives has filled out the{" "}
-                    <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    sponsor representative form
-                    </a>
+                    <LinkDuo to="https://docs.google.com/forms/d/e/1FAIpQLScsDpuCxaFJnV7DBSGuIDjEHKhbAe2dH7O9bBZ180FKOzPb1Q/viewform?usp=sf_link">
+                        <span>sponsor representative form</span>
+                    </LinkDuo>
                     , they will be invited to join. More information on Discord can be found on our Sponsor 
                     Discord Guide.
                     <br></br>
