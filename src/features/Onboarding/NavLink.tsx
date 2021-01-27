@@ -5,6 +5,7 @@ export const NavLink = styled.a`
   cursor: pointer;
   color: ${(props) => props.theme.colors.black60};
   text-decoration: none;
+  font-size: 0.8rem;
 
   &:focus,
   &:hover,
@@ -16,6 +17,7 @@ export const NavLink = styled.a`
   @media only screen and (min-width: ${(props) => props.theme.screens.smUp}) {
     margin-right: 2rem;
     margin-top: 1px;
+    font-size: 1rem;
   }
 
   &.active {
