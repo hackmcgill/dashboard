@@ -88,10 +88,11 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               <Flex
                 width="100%"
                 flexWrap="wrap"
-                justifyContent="center"
+                justifyContent="start"
                 alignItems="center"
+                mb="16px"
               >
-                <Box width={[1, 1 / 2]}>
+                <Box width={[1, 1 / 2]} style={{ paddingTop: '10px' }}>
                   <StyledSelect
                     isTight={true}
                     className="react-select-container"
@@ -106,8 +107,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                   />
                 </Box>
                 <Flex
-                  width={[1, 1 / 2]}
                   justifyContent={['center', 'flex-start']}
+                  alignItems="center"
+                  ml="16px"
                 >
                   <Button
                     type="button"
@@ -236,7 +238,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               text={hacker.application.shortAnswer.question1}
             />
             <SHParagraph
-              label="Some Q?"
+              label="What are you passionate about?"
               text={hacker.application.shortAnswer.question2}
             />
             <SHParagraph
