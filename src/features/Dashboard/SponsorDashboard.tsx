@@ -58,8 +58,8 @@ class SponsorDashboard extends React.Component<
         imageSrc: AccountIcon,
       },
       {
-        title: DashboardText.SponsorInfo,
-        route: 'https://mchacks.ca/sponsor-info',
+        title: DashboardText.SponsorOnboarding,
+        route: routes.SPONSOR_ONBOARDING_PAGE,
         imageSrc: SponsorIcon,
       },
     ];
