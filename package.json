@@ -5,7 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "set PORT=1338 && react-app-rewired start",
+    "start": "PORT=1337 react-app-rewired start",
+    "start-windows": "set PORT=1337 && react-app-rewired start",
     "build": "PORT=1337 react-app-rewired build",
     "predeploy": "yarn build",
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
