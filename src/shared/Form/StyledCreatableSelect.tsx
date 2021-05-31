@@ -1,6 +1,7 @@
 import CreatableSelect from 'react-select/lib/Creatable';
 import { inputStyles } from '../Styles/inputStyles';
 import styled from '../Styles/styled-components';
+import { ITheme } from '../Styles/theme';
 
 export const StyledCreatableSelect = styled(CreatableSelect)`
   font-family: ${(props) => props.theme.fonts.body};
@@ -10,7 +11,8 @@ export const StyledCreatableSelect = styled(CreatableSelect)`
     display: flex;
     cursor: pointer;
     &--is-focused {
-      box-shadow: 2px 2px 16px 0px ${(props) => props.theme.colors.blueLight};
+      box-shadow: 2px 2px 16px 0px
+        ${(props: any) => props.theme.colors.blueLight};
     }
   }
 

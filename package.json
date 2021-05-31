@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "PORT=1337 react-app-rewired start",
+    "start": "set PORT=1338 && react-app-rewired start",
     "build": "PORT=1337 react-app-rewired build",
     "predeploy": "yarn build",
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@rebass/grid": "^6.0.0-7",
+    "@sentry/react": "^5.30.0",
+    "@sentry/tracing": "^5.30.0",
     "@types/react-burger-menu": "^2.6.0",
     "@types/styled-jsx": "^2.2.8",
     "ajv": "^6.7.0",
@@ -51,13 +53,13 @@
     "@types/jest": "^23.3.13",
     "@types/jspdf": "^1.2.2",
     "@types/lodash": "^4.14.120",
-    "@types/node": "^10.12.19",
+    "@types/node": "^10.17.60",
     "@types/qrcode": "^1.3.0",
     "@types/query-string": "^6.1.0",
     "@types/react": "^16.9.43",
     "@types/react-alert": "^4.0.0",
     "@types/react-autosuggest": "^9.3.6",
-    "@types/react-dom": "^16.9.8",
+    "@types/react-dom": "^16.9.13",
     "@types/react-helmet": "^5.0.8",
     "@types/react-modal": "^3.8.0",
     "@types/react-qr-reader": "^2.1.2",
@@ -79,7 +81,7 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.7.7"
   },
   "browserslist": [
     ">0.2%",
