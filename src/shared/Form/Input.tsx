@@ -8,7 +8,4 @@ export const Input = styled(inputBase)<IInputProps>`
   ${inputStyles}
 `;
 
-// export const Input = styled.input`
-//   ${inputStyles}
-// `;
 export default Input;
