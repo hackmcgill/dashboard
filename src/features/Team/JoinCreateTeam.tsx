@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {FormEvent, useState} from 'react';
 
 import {
   Button,
@@ -75,7 +75,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         </Button>
       </div>
 
-      <Form onSubmit={(e) => { e.preventDefault(); joinTeam(); }}>
+      <Form onSubmit={(e: any) => { e.preventDefault(); joinTeam(); }}>
         <div className="join">
           <Label style={{ maxWidth: '272px' }}>
             Already have a team?
@@ -83,7 +83,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
               type="text"
               name="name"
               value={teamCode}
-              onChange={(e) => setTeamCode(e.target.value)}
+              onChange={(e: any) => setTeamCode(e.target.value)}
               placeholder="Enter team code"
               style={{ marginBottom: 0 }}
             />

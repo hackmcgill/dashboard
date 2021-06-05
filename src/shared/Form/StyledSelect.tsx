@@ -10,7 +10,7 @@ export const StyledSelect = styled(Select)`
     display: flex;
     cursor: pointer;
     &--is-focused {
-      box-shadow: 2px 2px 16px 0px ${(props) => props.theme.colors.blueLight};
+      box-shadow: 2px 2px 16px 0px ${(props: any) => props.theme.colors.blueLight};
     }
   }
 
