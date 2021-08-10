@@ -37,7 +37,6 @@ const AutosuggestWrapper = styled.div`
     overflow-y: auto;
     max-height: 200px;
     border: 1px solid ${(props) => props.theme.colors.black30};
-    font-family: 'Hind Siliguri', sans-serif;
     border-radius: 2px;
     z-index: 10;
   }

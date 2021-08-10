@@ -3,14 +3,15 @@ import inputStyles from '../Styles/inputStyles';
 import styled from '../Styles/styled-components';
 
 export const StyledSelect = styled(Select)`
-  font-family: ${(props) => props.theme.fonts.body};
+  font-family: ${(props) => props.theme.fonts.header};
 
   .react-select__control {
     ${inputStyles}
     display: flex;
     cursor: pointer;
     &--is-focused {
-      box-shadow: 2px 2px 16px 0px ${(props: any) => props.theme.colors.blueLight};
+      box-shadow: 2px 2px 16px 0px
+        ${(props: any) => props.theme.colors.blueLight};
     }
   }
 
