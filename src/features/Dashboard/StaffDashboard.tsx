@@ -70,6 +70,11 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
         route: routes.CHECKIN_HACKER_PAGE,
         imageSrc: CheckinIcon,
       },
+      {
+        title: DashboardText.HackerStats,
+        route: routes.ADMIN_HACKER_STATS_PAGE,
+        imageSrc: CheckinIcon,
+      },
     ];
 
     return cards;

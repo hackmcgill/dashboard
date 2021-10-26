@@ -8,6 +8,7 @@ import CreateAccountPage from './pages/Account/Create';
 import EditAccountPage from './pages/Account/Edit';
 import AdminSearchPage from './pages/Admin/Search';
 import SettingsPage from './pages/Admin/Settings';
+import AdminStatsPage from './pages/Admin/Stats';
 import ConfirmAttendancePage from './pages/Application/Confirm';
 import CreateApplicationPage from './pages/Application/Create';
 import EditApplicationPage from './pages/Application/Edit';
@@ -254,6 +255,22 @@ class App extends React.Component {
                 withBackground(
                   withNavbar(
                     withAuthRedirect(AdminSearchPage, {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.STAFF,
+                    }),
+                    { activePage: 'search' }
+                  )
+                )}
+            />
+            <Route 
+              exact={true}
+              path={FrontendRoute.ADMIN_HACKER_STATS_PAGE}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(AdminStatsPage, {
                       requiredAuthState: true,
                       redirAfterLogin: true,
                       AuthVerification: (user: IAccount) =>

@@ -113,6 +113,15 @@ function getValueFromQuery(key: string): string | undefined {
   return queries[key];
 }
 
+function normalizeArray<T>(array: T[], indexKey: keyof T) {
+  const normalizedObject: any = {};
+  for (const el of array) {
+    const key = el[indexKey];
+    normalizedObject[key] = el;
+  }
+  return normalizedObject as { [key: string]: T };
+}
+
 export {
   padStart,
   getNestedAttr,
@@ -124,4 +133,5 @@ export {
   datetime2input,
   input2datetime,
   date2human,
+  normalizeArray,
 };

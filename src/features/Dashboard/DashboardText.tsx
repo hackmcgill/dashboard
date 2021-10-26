@@ -17,6 +17,8 @@ export const SponsorOnboarding: string = 'Onboarding';
 
 export const Checkin: string = 'Check In';
 
+export const HackerStats: string = 'Hacker Stats';
+
 // Confirm Attendence
 export const ConfirmPresence: string = 'Confirm presence | McHacks';
 

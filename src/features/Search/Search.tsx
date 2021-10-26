@@ -3,7 +3,7 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Account, Search, Sponsor } from '../../api';
+import { Account, Hacker, Search, Sponsor } from '../../api';
 import {
   HACKATHON_NAME,
   IAccount,
