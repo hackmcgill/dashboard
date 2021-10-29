@@ -49,7 +49,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -188,15 +188,15 @@ export default class Navbar extends React.Component<
           </NavLink>
           {userType === UserType.HACKER &&
             canAccessApplication({ status }, settings) ? (
-              <NavLink
-                href={appRoute}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
-              </NavLink>
-            ) : null}
+            <NavLink
+              href={appRoute}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
           {this.state.showTeamLink ? (
             <NavLink
               href={routes.TEAM_PAGE}
@@ -218,24 +218,24 @@ export default class Navbar extends React.Component<
             userType === UserType.SPONSOR_T3 ||
             userType === UserType.SPONSOR_T4 ||
             userType === UserType.SPONSOR_T5 ? (
-              <>
-                <NavLink
-                  href={routes.SPONSOR_SEARCH_PAGE}
-                  className={this.props.activePage === 'search' ? 'active' : ''}
-                >
-                  Search
-                </NavLink>
-                <NavLink
-                  href={routes.SPONSOR_ONBOARDING_PAGE}
-                  className={this.props.activePage === 'onboarding' ? 'active' : ''}
-                >
-                  Onboarding
-                </NavLink>
-                {/* <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
+            <>
+              <NavLink
+                href={routes.SPONSOR_SEARCH_PAGE}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+              <NavLink
+                href={routes.SPONSOR_ONBOARDING_PAGE}
+                className={this.props.activePage === 'onboarding' ? 'active' : ''}
+              >
+                Onboarding
+              </NavLink>
+              {/* <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
                   Info
               </NavLink> */}
-              </>
-            ) : null}
+            </>
+          ) : null}
           {userType === UserType.STAFF ? (
             <>
               <NavLink
@@ -243,6 +243,12 @@ export default class Navbar extends React.Component<
                 className={this.props.activePage === 'search' ? 'active' : ''}
               >
                 Search
+              </NavLink>
+              <NavLink
+                href={routes.ADMIN_STATS_PAGE}
+                className={this.props.activePage === 'stats' ? 'active' : ''}
+              >
+                Stats
               </NavLink>
               <NavLink
                 href={routes.INVITE_PAGE}
@@ -258,8 +264,8 @@ export default class Navbar extends React.Component<
               </NavLink>
             </>
           ) : (
-              <div />
-            )}
+            <div />
+          )}
         </>
       );
     }
