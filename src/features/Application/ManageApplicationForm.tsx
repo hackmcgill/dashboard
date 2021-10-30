@@ -686,7 +686,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   value={fp.values.hacker.application.accommodation.attendencePreference}
                 />
                 <ErrorMessage
-                  name={'hacker.application.accommodation.attendenceType'}
+                  name={'hacker.application.accommodation.attendencePreference'}
                   component={FormikElements.Error}
                 />
                 <FastField
