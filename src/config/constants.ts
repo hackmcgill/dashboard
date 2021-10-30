@@ -120,6 +120,7 @@ export const MLH_LABEL = 'I accept the MLH policies.';
 export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
+export const ATTENDENCE_OPTION_PREFERENCE_LABEL = 'Would you prefer to attend McHacks in person or virtually?';
 export const SKILLS_LABEL = 'Skills';
 export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';

@@ -20,6 +20,7 @@ import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
+  AttendenceOptions,
   Degrees,
   FrontendRoute,
   HackerStatus,
@@ -113,6 +114,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       },
       accommodation: {
         shirtSize: '',
+        attendencePreference: '',
         impairments: '',
         barriers: '',
         travel: 0,
@@ -673,6 +675,18 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 />
                 <ErrorMessage
                   name={'hacker.application.accommodation.shirtSize'}
+                  component={FormikElements.Error}
+                />
+                <FastField
+                  name={'hacker.application.accommodation.attendencePreference'}
+                  label={CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
+                  component={FormikElements.Select}
+                  options={getOptionsFromEnum(AttendenceOptions)}
+                  required={true}
+                  value={fp.values.hacker.application.accommodation.attendencePreference}
+                />
+                <ErrorMessage
+                  name={'hacker.application.accommodation.attendenceType'}
                   component={FormikElements.Error}
                 />
                 <FastField

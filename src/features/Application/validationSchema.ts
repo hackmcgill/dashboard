@@ -231,6 +231,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
+              attendencePreference: string().required('Required'),
               impairments: string().test(
                 'length',
                 'At most 2000 characters',
