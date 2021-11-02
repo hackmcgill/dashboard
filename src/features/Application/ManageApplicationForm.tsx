@@ -435,11 +435,11 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 value={fp.values.hacker.application.shortAnswer.skills}
                 showOptionalLabel={true}
               />
-
-              <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
-                Personal Details
-              </H1>
-
+            </div>
+            <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
+              Personal Details
+            </H1>
+            <GridTwoColumn columnWidth="440px" rowGap="0" margin="0">
               <FastField
                 name={'hacker.application.other.ethnicity'}
                 isMulti={true}
@@ -485,7 +485,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Error}
                 name="hacker.application.demographics.pronoun"
               />
-            </div>
+            </GridTwoColumn>
           </div>
         </div>
 
@@ -1075,7 +1075,14 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
           <div className="eventPrompt">
             Make sure to mark yourself as going to our{' '}
-            <a href={CONSTANTS.FACEBOOK_EVENT_URL} target="_blank" rel="noopener noreferrer">Facebook event</a>!
+            <a
+              href={CONSTANTS.FACEBOOK_EVENT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook event
+            </a>
+            !
           </div>
         </div>
 
@@ -1273,9 +1280,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${props.mode === ManageApplicationModes.EDIT
-                ? 'edited'!
-                : 'created!'
+              `Account ${
+                props.mode === ManageApplicationModes.EDIT
+                  ? 'edited'!
+                  : 'created!'
               }`
             );
             setIsSubmitted(true);
