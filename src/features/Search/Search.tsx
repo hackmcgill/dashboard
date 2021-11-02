@@ -251,10 +251,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.ETHNICITY_LABEL,
         key: 'application.other.ethnicity',
       });
-      headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
+      headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'application.demographics.gender' });
       headers.push({
         label: CONSTANTS.PRONOUN_LABEL,
-        key: 'accountId.pronoun',
+        key: 'application.demographics.pronoun',
       });
     }
     const tempHeaders: string[] = [];
