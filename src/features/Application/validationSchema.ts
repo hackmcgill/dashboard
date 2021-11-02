@@ -146,6 +146,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 (value) => !value || value.length < 500
               ),
             }),
+            demographics: object().shape({
+              gender: string(),
+              pronoun: string(),
+            }),    
             other: object().shape({
               ethnicity: array().required('Required'),
             }),
