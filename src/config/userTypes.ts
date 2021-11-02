@@ -60,6 +60,10 @@ export interface IHacker {
       // "Some q"
       question2: string;
     };
+    demographics: {
+      gender: string;
+      pronoun: string;
+    };
     other: {
       // no enum for these
       ethnicity: string[];

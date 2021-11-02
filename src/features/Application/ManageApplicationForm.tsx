@@ -24,6 +24,8 @@ import {
   FrontendRoute,
   HackerStatus,
   IEthnicity,
+  Genders,
+  Pronouns,
   IHacker,
   ISetting,
   JobInterest,
@@ -105,6 +107,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         question2: '',
         comments: '',
         previousHackathons: NaN,
+      },
+      demographics: {
+        gender: '',
+        pronoun: '',
       },
       other: {
         ethnicity: [],
@@ -448,6 +454,36 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               <ErrorMessage
                 component={FormikElements.Error}
                 name="hacker.application.other.ethnicity"
+              />
+              <FastField
+                name={'hacker.application.demographics.gender'}
+                creatable={true}
+                options={getOptionsFromEnum(Genders)}
+                label={CONSTANTS.GENDER_LABEL}
+                placeholder={CONSTANTS.GENDER_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.demographics.gender}
+                required={true}
+                showOptionalLabel={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.demographics.gender"
+              />
+              <FastField
+                name={'hacker.application.demographics.pronoun'}
+                creatable={true}
+                options={getOptionsFromEnum(Pronouns)}
+                label={CONSTANTS.PRONOUN_LABEL}
+                placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.demographics.pronoun}
+                required={true}
+                showOptionalLabel={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.demographics.pronoun"
               />
             </div>
           </div>
@@ -967,6 +1003,18 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
               <div className="value">
                 {hackerDetails.application.other.ethnicity}
+              </div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.GENDER_LABEL}</div>
+              <div className="value">
+                {hackerDetails.application.demographics.gender}
+              </div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.PRONOUN_LABEL}</div>
+              <div className="value">
+                {hackerDetails.application.demographics.pronoun}
               </div>
             </div>
           </GridTwoColumn>
