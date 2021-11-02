@@ -345,7 +345,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             fullName.includes(searchBar) ||
             account.email.toLowerCase().includes(searchBar) ||
             account.phoneNumber.toString().includes(searchBar) ||
-            account.gender.toLowerCase().includes(searchBar) ||
             (account._id && account._id.includes(searchBar));
         }
       } else {
@@ -364,6 +363,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.application.shortAnswer.question1.includes(searchBar) ||
         hacker.application.shortAnswer.question2.includes(searchBar) ||
         hacker.application.accommodation.shirtSize.includes(searchBar) ||
+        hacker.application.demographics.gender.toLowerCase().includes(searchBar) ||
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 

@@ -12,16 +12,12 @@ export interface IAccount {
   email: string;
   // The user's dietary restrictions
   dietaryRestrictions: string[];
-  // The user's gender
-  gender: string;
   // The password
   password: string;
   // The user's phone number
   phoneNumber: string;
   // The birthdate
   birthDate: string;
-  // The preferred pronoun
-  pronoun: string;
   // The database id (if new, leave blank / make '')
   id: string;
   _id?: string;

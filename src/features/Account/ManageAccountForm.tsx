@@ -12,10 +12,8 @@ import { Account, Auth, Settings } from '../../api';
 import {
   DietaryRestriction,
   FrontendRoute,
-  Genders,
   IAccount,
   ISetting,
-  Pronouns,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
@@ -77,8 +75,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     lastName: '',
     password: getNestedAttr(props, ['location', 'state', 'password']) || '',
     phoneNumber: '',
-    pronoun: '',
-    gender: '',
     dietaryRestrictions: [],
   });
 
@@ -130,8 +126,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     password: values.password,
     phoneNumber:
       props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
-    pronoun: values.pronoun,
-    gender: values.gender,
     dietaryRestrictions: settings.isRemote
       ? ['Unknown']
       : values.dietaryRestrictions,
@@ -293,31 +287,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
         </>
       )}
-      <FastField
-        component={FormikElements.Select}
-        creatable={true}
-        label={CONSTANTS.GENDER_LABEL}
-        name={'gender'}
-        placeholder={CONSTANTS.GENDER_PLACEHOLDER}
-        options={getOptionsFromEnum(Genders)}
-        required={true}
-        value={fp.values.gender}
-        showOptionalLabel={true}
-      />
-      <ErrorMessage component={FormikElements.Error} name="gender" />
-      <FastField
-        component={FormikElements.Select}
-        creatable={true}
-        label={CONSTANTS.PRONOUN_LABEL}
-        name={'pronoun'}
-        placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
-        options={getOptionsFromEnum(Pronouns)}
-        required={true}
-        value={fp.values.pronoun}
-        showOptionalLabel={true}
-      />
-      <ErrorMessage component={FormikElements.Error} name="pronoun" />
-
       {!settings.isRemote && (
         <FastField
           name={'dietaryRestrictions'}
@@ -356,8 +325,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         email: accountDetails.email,
         password: accountDetails.password || '',
         newPassword: '',
-        pronoun: accountDetails.pronoun,
-        gender: accountDetails.gender,
         dietaryRestrictions: accountDetails.dietaryRestrictions,
         phoneNumber: accountDetails.phoneNumber,
         birthDate: accountDetails.birthDate,
