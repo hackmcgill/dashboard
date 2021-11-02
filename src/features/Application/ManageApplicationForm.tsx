@@ -440,6 +440,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               Personal Details
             </H1>
             <GridTwoColumn columnWidth="440px" rowGap="0" margin="0">
+              <div>
               <FastField
                 name={'hacker.application.other.ethnicity'}
                 isMulti={true}
@@ -455,6 +456,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Error}
                 name="hacker.application.other.ethnicity"
               />
+              </div>
+              <div>
               <FastField
                 name={'hacker.application.demographics.gender'}
                 creatable={true}
@@ -470,6 +473,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Error}
                 name="hacker.application.demographics.gender"
               />
+              </div>
+              <div>
               <FastField
                 name={'hacker.application.demographics.pronoun'}
                 creatable={true}
@@ -485,6 +490,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Error}
                 name="hacker.application.demographics.pronoun"
               />
+              </div>
             </GridTwoColumn>
           </div>
         </div>

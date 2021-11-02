@@ -63,6 +63,10 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 other: string().url('Must be a valid URL'),
               }),
             }),
+            demographics: object().shape({
+              gender: string(),
+              pronoun: string(),
+            }),
             other: object().shape({
               ethnicity: array().required('Required'),
             }),
