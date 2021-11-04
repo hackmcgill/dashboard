@@ -16,11 +16,11 @@ import {
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { Button, ButtonVariant, H1, H2 } from '../../shared/Elements';
-import { Input ,StyledSelect} from '../../shared/Form';
+import { Input } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
-import { getNestedAttr, getValueFromQuery, isSponsor, getOptionsFromEnum } from '../../util';
+import { getNestedAttr, getValueFromQuery, isSponsor } from '../../util';
 
 import withContext from '../../shared/HOC/withContext';
 import { FilterComponent } from './Filters';
