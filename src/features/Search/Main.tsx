@@ -3,27 +3,29 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Account, Search, Sponsor } from '../../api';
+import { Account, Search, Sponsor, Hacker } from '../../api';
 import {
   HACKATHON_NAME,
   IAccount,
   IHacker,
   ISearchParameter,
   ISponsor,
+  IStats,
   isValidSearchParameter,
   UserType,
 } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import { Button, ButtonVariant, H1, H2 } from '../../shared/Elements';
-import { Input } from '../../shared/Form';
+import { Input ,StyledSelect} from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
-import { getNestedAttr, getValueFromQuery, isSponsor } from '../../util';
+import { getNestedAttr, getValueFromQuery, isSponsor, getOptionsFromEnum } from '../../util';
 
 import withContext from '../../shared/HOC/withContext';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
+import { StatsComponent } from './Stats/Stats';
 
 interface IResult {
   /**
@@ -34,15 +36,22 @@ interface IResult {
   hacker: IHacker;
 }
 
+enum SearchMode {
+  STATS = 'Stats',
+  TABLE = 'Table',
+}
+
 interface ISearchState {
   model: string;
+  mode: SearchMode;
   query: ISearchParameter[];
-  results: IResult[];
+  tableResults: IResult[];
   searchBar: string;
   loading: boolean;
   viewSaved: boolean;
   account?: IAccount;
   sponsor?: ISponsor;
+  statsResults: IStats | null;
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -50,8 +59,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     super(props);
     this.state = {
       model: 'hacker',
+      mode: SearchMode.TABLE,
       query: this.getSearchFromQuery(),
-      results: [],
+      tableResults: [],
+      statsResults: null,
       searchBar: this.getSearchBarFromQuery(),
       loading: false,
       viewSaved: false,
@@ -62,6 +73,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
+    this.handleSearchModeChanged = this.handleSearchModeChanged.bind(this);
   }
 
   public render() {
@@ -91,7 +103,19 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               <Flex flexDirection={'column'}>
                 <Box width={6 / 6}>
                   <Flex justifyContent={'space-between'}>
-                    <Box alignSelf={'flex-start'} width={0.5}>
+                  <Box mr={'10px'}>
+                    <Button style={{ marginRight: '10px' }}
+                      onClick={() => this.setState({ mode: SearchMode.TABLE }, this.triggerSearch)} 
+                      value={this.state.mode} variant={ButtonVariant.Secondary} isOutlined={true}>
+                      Table
+                    </Button>
+                    <Button style={{ marginRight: '10px' }}
+                      onClick={() => this.setState({ mode: SearchMode.STATS }, this.triggerSearch)} 
+                      variant={ButtonVariant.Secondary} isOutlined={true}>
+                      Stats
+                    </Button>
+                  </Box>
+                    <Box alignSelf={'flex-start'} width={0.3}>
                       <Input
                         onChange={this.onSearchBarChanged}
                         placeholder={'Refine your search...'}
@@ -120,11 +144,22 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Box>
                   </Flex>
                 </Box>
-                <ResultsTable
-                  results={this.filter()}
-                  loading={loading}
-                  userType={account ? account.accountType : UserType.UNKNOWN}
-                />
+                <Box>
+                  {this.state.mode === SearchMode.TABLE ? (
+                    <ResultsTable
+                      results={this.filter()}
+                      loading={loading}
+                      userType={account ? account.accountType : UserType.UNKNOWN}
+                    />
+                  ) : (
+                    <StatsComponent
+                      stats={this.state.statsResults}
+                      loading={this.state.loading}
+                      onFilterChange={this.onFilterChange}
+                      existingFilters={this.state.query}
+                    />
+                  )}
+                </Box>
               </Flex>
             </Box>
           </Flex>
@@ -163,6 +198,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       return isValidSearch ? searchParam : [];
     } catch (e) {
       return [];
+    }
+  }
+
+  private handleSearchModeChanged({ value }: any) {
+    console.log(value);
+    this.setState({ mode: value }, this.triggerSearch);
+  }
+
+  private async triggerStatsSearch(): Promise<void> {
+    try {
+      this.setState({ loading: true });
+      const statsResponse = await Hacker.getStats(this.state.query);
+      const stats: IStats | null = getNestedAttr(statsResponse, [
+        'data',
+        'data',
+        'stats',
+      ]);
+      this.setState({ statsResults: stats, loading: false });
+    } catch (e) {
+      ValidationErrorGenerator(e.data);
+      this.setState({ loading: false });
     }
   }
 
@@ -281,6 +337,15 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private async triggerSearch(): Promise<void> {
+    const { mode } = this.state;
+    switch (mode) {
+      case SearchMode.STATS:
+        return this.triggerStatsSearch();
+      case SearchMode.TABLE:
+        return this.triggerTableSearch();
+    }
+  }
+  private async triggerTableSearch(): Promise<void> {
     this.setState({ loading: true });
     const { model, query } = this.state;
     try {
@@ -294,23 +359,22 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           hacker: v,
         }))
         : [];
-      this.setState({ results: tableData, loading: false });
+      this.setState({ tableResults: tableData, loading: false });
     } catch (e) {
       ValidationErrorGenerator(e.data);
       this.setState({ loading: false });
     }
   }
   private onResetForm() {
-    this.setState({ query: [] });
     this.updateQueryURL([], this.state.searchBar);
+    this.setState({ query: [] }, this.triggerSearch);
   }
 
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
-    });
+    }, this.triggerSearch);
     this.updateQueryURL(newFilters, this.state.searchBar);
-    this.triggerSearch();
   }
 
   private onSearchBarChanged(e: any) {
@@ -331,7 +395,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private filter() {
-    const { sponsor, viewSaved, results } = this.state;
+    const { sponsor, viewSaved, tableResults: results } = this.state;
     const searchBar = this.state.searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
