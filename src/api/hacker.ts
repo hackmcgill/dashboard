@@ -181,6 +181,23 @@ class HackerAPI {
     LocalCache.set(key, value, new Date(Date.now() + 5 * 60 * 1000));
     return value;
   }
+
+  /**
+   * Get all hacker stats info
+   */
+  public async getAllStats(): Promise<AxiosResponse<APIResponse<IStatsResponse>>> {
+    const key = CACHE_STATS_KEY;
+    const value = await API.getEndpoint(APIRoute.HACKER_STATS).getAll({
+      params: {
+        model: "hacker",
+        q: {}
+      }
+    });
+    LocalCache.set(key, value, new Date(Date.now() + 5 * 60 * 1000));
+    return value;
+  }
+
+
 }
 
 export const Hacker = new HackerAPI();

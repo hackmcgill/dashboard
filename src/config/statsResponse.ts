@@ -15,5 +15,6 @@ export interface IStatsResponse {
     dietaryRestriction: { [key in DietaryRestriction & string]: number };
     ShirtSize: { [key in ShirtSize]: number };
     age: { [key: string]: number };
+    applicationDate: {[key: string]: number}
   };
 }

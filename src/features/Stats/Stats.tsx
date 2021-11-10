@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { Box, Flex } from '@rebass/grid';
+import { Hacker } from '../../api';
 import { H1 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import {
   HACKATHON_NAME,
 } from '../../config';
 
-type IStatsState = {
-  count: number; // TODO: decide states needed
-};
+const Stats: React.FC = ({ }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [applications, setApplications] = useState<number>(0);
 
-class Stats extends React.Component<{}, IStatsState> {
-  state: IStatsState = {
-    count: 0,
-  };
+  useEffect(() => {
+    async function getApplications() {
+      try {
+        const result = await Hacker.getAllStats();
+        const applicationDate = result.data.data.stats.applicationDate;
+        const curDate = new Date().toISOString().split('T')[0];
+        const applications = curDate in applicationDate ? applicationDate[curDate] : 0;
+        setApplications(applications);
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
-  public render() {
-    return (<Flex flexDirection={'column'}>
+    getApplications();
+    setIsLoading(true);
+  }, []);
+
+  return (
+    <Flex flexDirection={'column'}>
       <Helmet>
         <title> Stats | {HACKATHON_NAME}</title>
       </Helmet>
@@ -27,9 +40,16 @@ class Stats extends React.Component<{}, IStatsState> {
           Hackers Stats
         </H1>
       </Box>
+
+      <Box width={2 / 6} alignSelf={'center'}>
+        <p>
+          Number of hackers applied today: {applications}
+        </p>
+      </Box>
+
     </Flex>
-    );
-  }
+  );
+
 }
 
 export default Stats;
