@@ -1,7 +1,6 @@
 import CreatableSelect from 'react-select/lib/Creatable';
 import { inputStyles } from '../Styles/inputStyles';
 import styled from '../Styles/styled-components';
-import { ITheme } from '../Styles/theme';
 
 export const StyledCreatableSelect = styled(CreatableSelect)`
   font-family: ${(props) => props.theme.fonts.body};

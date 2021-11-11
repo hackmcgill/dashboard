@@ -12,10 +12,9 @@ interface IResultsTableProps {
   }>;
   loading: boolean;
   userType: UserType;
-  filter: string;
 }
 
-const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
+const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
   const volunteerColumns = [
     {
       Header: 'First Name',

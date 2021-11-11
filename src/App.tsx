@@ -6,7 +6,7 @@ import ErrorPage from './pages/_error';
 import ConfirmAccountPage from './pages/Account/Confirm';
 import CreateAccountPage from './pages/Account/Create';
 import EditAccountPage from './pages/Account/Edit';
-import AdminSearchPage from './pages/Admin/Search';
+import AdminSearchPage from './features/Search/Main';
 import SettingsPage from './pages/Admin/Settings';
 import ConfirmAttendancePage from './pages/Application/Confirm';
 import CreateApplicationPage from './pages/Application/Create';
@@ -259,7 +259,7 @@ class App extends React.Component {
                       AuthVerification: (user: IAccount) =>
                         user.confirmed && user.accountType === UserType.STAFF,
                     }),
-                    { activePage: 'search' }
+                    { activePage: 'stats' }
                   )
                 )}
             />
