@@ -36,7 +36,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setIsAdmin(props.userType === UserType.STAFF);
-  }, [])
+  }, [props])
 
   useEffect(() => {
     setStatus(props.hacker.status)
