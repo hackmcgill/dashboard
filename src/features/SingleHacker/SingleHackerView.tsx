@@ -36,7 +36,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setIsAdmin(props.userType === UserType.STAFF);
-  }, [])
+  }, [props])
 
   useEffect(() => {
     setStatus(props.hacker.status)
@@ -63,7 +63,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   const { hacker } = props;
   const account = (hacker.accountId as IAccount) || {};
-  const pronoun = account.pronoun ? `(${account.pronoun})` : '';
+  const pronoun = hacker.application.demographics.pronoun ? `(${hacker.application.demographics.pronoun})` : '';
 
   return (
     <article>
@@ -136,7 +136,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               />
               {/* Removed as shirt size is no longer a property of account
                 <SHField label="Shirt Size" text={account.shirtSize} /> */}
-              <SHField label="Gender" text={account.gender} />
+              <SHField label="Gender" text={hacker.application.demographics.gender} />
               <SHLink
                 label="Phone Number"
                 link={`tel:${account.phoneNumber}`}

@@ -12,16 +12,12 @@ export interface IAccount {
   email: string;
   // The user's dietary restrictions
   dietaryRestrictions: string[];
-  // The user's gender
-  gender: string;
   // The password
   password: string;
   // The user's phone number
   phoneNumber: string;
   // The birthdate
   birthDate: string;
-  // The preferred pronoun
-  pronoun: string;
   // The database id (if new, leave blank / make '')
   id: string;
   _id?: string;
@@ -59,6 +55,10 @@ export interface IHacker {
       question1: string;
       // "Some q"
       question2: string;
+    };
+    demographics: {
+      gender: string;
+      pronoun: string;
     };
     other: {
       // no enum for these
