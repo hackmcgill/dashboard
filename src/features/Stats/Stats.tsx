@@ -1,7 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Box, Flex } from '@rebass/grid';
-import styled from "styled-components"
 
 import { Hacker } from '../../api';
 import { H1 } from '../../shared/Elements';
@@ -22,9 +21,6 @@ interface IStatsState {
   loading: boolean;
 }
 
-const HeightBox = styled.div`
-  height: 300px;
-`
 
 class Stats extends React.Component<{}, IStatsState> {
   constructor(props: {}) {
