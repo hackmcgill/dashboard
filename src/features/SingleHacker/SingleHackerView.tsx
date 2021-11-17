@@ -36,7 +36,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setIsAdmin(props.userType === UserType.STAFF);
-  }, [])
+  }, [props.userType])
 
   useEffect(() => {
     setStatus(props.hacker.status)
@@ -225,10 +225,10 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           {/* Only tier1 sponsors and admin have access to user resumes */}
           {props.userType === UserType.SPONSOR_T1 ||
             props.userType === UserType.STAFF ? (
-              <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
-                <ViewPDFComponent hackerId={hacker.id} />
-              </Flex>
-            ) : null}
+            <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
+              <ViewPDFComponent hackerId={hacker.id} />
+            </Flex>
+          ) : null}
           <SingleHackerSection
             title="Additional Information"
             hidden={!isAdmin}
