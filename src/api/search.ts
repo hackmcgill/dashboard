@@ -33,7 +33,9 @@ class SearchAPI {
         ...searchOptions,
       },
     });
-    LocalCache.set(key, result, new Date(Date.now() + 5 * 60 * 1000));
+    // save the response in local cache for 5 minutes
+    const fiveMinutes = 5 * 60 * 1000;
+    LocalCache.set(key, result, new Date(Date.now() + fiveMinutes));
     return result;
   }
 }

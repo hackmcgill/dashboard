@@ -47,34 +47,34 @@ class SingleStatComponent extends React.Component<
       if (!this.props.stat) {
             return (null);
       } else {
-            return (
-            <Box width={400}>
-                <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
-                <PieChart
-                width={400}
-                height={300}
-                onClick={this.handleClick}
-                style={this.props.searchReference ? { cursor: 'pointer' } : {}}
-                >
-                <Pie
-                    nameKey={'name'}
-                    dataKey={'value'}
-                    data={this.state.data}
-                    innerRadius={'30%'}
-                    outerRadius={'50%'}
-                    onMouseEnter={this.onPieEnter}
-                    activeShape={ActiveShapeComponent}
-                    activeIndex={this.state.activeIndex}
-                    isAnimationActive={false}
-                >
-                    {this.state.data.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                </Pie>
-                </PieChart>
-            </Box>
-            );
-            }
+        return (
+          <Box width={400}>
+            <H2 marginLeft={'10px'}>{this.props.statName}:</H2>
+            <PieChart
+              width={400}
+              height={300}
+              onClick={this.handleClick}
+              style={this.props.searchReference ? { cursor: 'pointer' } : {}}
+            >
+              <Pie
+                nameKey={'name'}
+                dataKey={'value'}
+                data={this.state.data}
+                innerRadius={'30%'}
+                outerRadius={'50%'}
+                onMouseEnter={this.onPieEnter}
+                activeShape={ActiveShapeComponent}
+                activeIndex={this.state.activeIndex}
+                isAnimationActive={false}
+              >
+                {this.state.data.map((entry, index) => (
+                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </Box>
+        );
+      }
   }
   private onPieEnter(data: any, index: number) {
     this.setState({
