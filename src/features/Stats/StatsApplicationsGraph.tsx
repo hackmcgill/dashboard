@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IStatsApplications } from '../../config';
 
 import {
     LineChart,
@@ -11,13 +12,8 @@ import {
 } from 'recharts';
 
 
-interface IApplications {
-    date: string,
-    count: number,
-}
-
 interface IStatsApplicationsGraph {
-    applications: Array<IApplications>;
+    applications: Array<IStatsApplications>;
 }
 
 const StatsApplicationsGraph: React.FC<IStatsApplicationsGraph> = (props) => {
@@ -44,7 +40,7 @@ const StatsApplicationsGraph: React.FC<IStatsApplicationsGraph> = (props) => {
             <Legend />
             <Line
                 type="monotone"
-                dataKey="count"
+                dataKey="applications"
                 stroke="#8884d8"
                 activeDot={{ r: 8 }}
             />

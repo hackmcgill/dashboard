@@ -7,16 +7,13 @@ import { H1 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import {
   HACKATHON_NAME,
+  IStatsApplications,
 } from '../../config';
 import { StatsApplicationsGraph } from './StatsApplicationsGraph';
 
-interface IApplications {
-  date: string,
-  count: number,
-}
 
 interface IStatsState {
-  applications: Array<IApplications>;
+  applications: Array<IStatsApplications>;
   applicationsToday: number;
   loading: boolean;
 }
@@ -26,7 +23,7 @@ class Stats extends React.Component<{}, IStatsState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      applications: new Array<IApplications>(),
+      applications: new Array<IStatsApplications>(),
       applicationsToday: 0,
       loading: true,
     };
@@ -37,25 +34,25 @@ class Stats extends React.Component<{}, IStatsState> {
       applications => {
         this.setState({
           applications,
-          applicationsToday: applications[0].count,
+          applicationsToday: applications[0].applications,
           loading: false,
         });
       }
     );
   }
 
-  private async getApplications(): Promise<Array<IApplications>> {
+  private async getApplications(): Promise<Array<IStatsApplications>> {
     const result = await Hacker.getAllStats();
     const applicationDate = result.data.data.stats.applicationDate;
     var d = new Date();
-    var applications = new Array<IApplications>();
+    var statsApplications = new Array<IStatsApplications>();
     for (var i = 0; i < 30; i++) {
       const date = d.toISOString().split('T')[0];
-      const count = date in applicationDate ? applicationDate[date] : 0;
-      applications.push({ date, count });
+      const applications = date in applicationDate ? applicationDate[date] : 0;
+      statsApplications.push({ date, applications });
       d.setDate(d.getDate() - 1);
     }
-    return applications;
+    return statsApplications;
   }
 
   public render() {
