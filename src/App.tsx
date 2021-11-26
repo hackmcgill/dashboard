@@ -260,7 +260,7 @@ class App extends React.Component {
                       AuthVerification: (user: IAccount) =>
                         user.confirmed && user.accountType === UserType.STAFF,
                     }),
-                    { activePage: 'search' }
+                    { activePage: 'stats' }
                   )
                 )}
             />
