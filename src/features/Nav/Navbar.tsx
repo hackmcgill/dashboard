@@ -18,7 +18,6 @@ import {
   isLoggedIn,
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
-import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
@@ -139,7 +138,7 @@ export default class Navbar extends React.Component<
 
     // set confirmed account
     try {
-      const confirmed = await isConfirmed();
+      const confirmed = true;//await isConfirmed();
       this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });

@@ -3,7 +3,6 @@ import React from 'react';
 import StatusCTALocationModal from './StatusCTALocationModal';
 
 import { HackerStatus, IAccount, IHacker, ISetting } from '../../config';
-import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 import { Box, Flex } from '@rebass/grid';
 import { Hacker, Settings } from '../../api';
@@ -30,7 +29,7 @@ export interface IStatusCTAContainerState {
 class StatusCTAContainer extends React.Component<
   IStatusCTAContainerProps,
   IStatusCTAContainerState
-  > {
+> {
   constructor(props: IStatusCTAContainerProps) {
     super(props);
     this.state = {
@@ -97,7 +96,7 @@ class StatusCTAContainer extends React.Component<
         alignItems="center"
         p="6px 30px 96px 30px"
       >
-        {this.props.confirmed && this.props.account ? (
+        {this.props.account && (
           <StatusCTA
             status={this.state.status}
             firstName={this.props.account.firstName}
@@ -108,9 +107,7 @@ class StatusCTAContainer extends React.Component<
             // tslint:disable-next-line: jsx-no-lambda
             onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
           />
-        ) : (
-            <ConfirmationEmailSentComponent />
-          )}
+        )}
         <StatusCTALocationModal
           isModalOpen={this.state.isLocationModalOpen}
           onCanceled={() => this.setState({ isLocationModalOpen: false })}

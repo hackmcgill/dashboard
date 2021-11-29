@@ -3,7 +3,6 @@ import { Account } from '../../api';
 import Hacker from '../../api/hacker';
 import { HackerStatus, IAccount } from '../../config';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import { isConfirmed } from '../../util';
 import StatusCTAContainer from '../Status/StatusCTAContainer';
 
 const HackerDashboard: React.FC = () => {
@@ -41,7 +40,7 @@ const HackerDashboard: React.FC = () => {
 
       // Check if hacker is confirmed
       try {
-        setConfirmed(await isConfirmed());
+        setConfirmed(true);//await isConfirmed());
       } catch (e) {
         setConfirmed(false);
       }

@@ -1,4 +1,4 @@
-import { DietaryRestriction, HackerStatus, JobInterest, ShirtSize } from '.';
+import { AttendenceOptions, DietaryRestriction, HackerStatus, JobInterest, ShirtSize } from '.';
 
 export interface IStatsResponse {
   stats: IStats;

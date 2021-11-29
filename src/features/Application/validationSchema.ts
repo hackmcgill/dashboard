@@ -17,8 +17,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019, 'Graduation year must be 2019 or later')
-                .max(2025, 'Graduation year must be between 2019 and 2025'),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2026, 'Graduation year must be between 2020 and 2026'),
             }),
           }),
         }),
@@ -36,8 +36,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019, 'Graduation year must be 2019 or later')
-                .max(2025, 'Graduation year must be between 2019 and 2025'),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2026, 'Graduation year must be between 2020 and 2026'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
@@ -62,6 +62,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 personal: string().url('Must be a valid URL'),
                 other: string().url('Must be a valid URL'),
               }),
+            }),
+            accommodation: object().shape({
+              attendancePreference: string().required('Required'),
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
@@ -93,8 +96,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019, 'Graduation year must be 2019 or later')
-                .max(2025, 'Graduation year must be between 2019 and 2025'),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2026, 'Graduation year must be between 2020 and 2026'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
@@ -146,6 +149,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 (value) => !value || value.length < 500
               ),
             }),
+            accommodation: object().shape({
+              attendancePreference: string().required('Required'),
+            }),
             other: object().shape({
               ethnicity: array().required('Required'),
             }),
@@ -176,8 +182,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
                 .required('Required')
-                .min(2019, 'Graduation year must be 2019 or later')
-                .max(2025, 'Graduation year must be between 2019 and 2025'),
+                .min(2020, 'Graduation year must be 2020 or later')
+                .max(2026, 'Graduation year must be between 2020 and 2026'),
               jobInterest: string().required('Required'),
               URL: object().shape({
                 resume: string(),
@@ -231,6 +237,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             accommodation: object().shape({
               shirtSize: string().required('Required'),
+              attendancePreference: string().required('Required'),
               impairments: string().test(
                 'length',
                 'At most 2000 characters',

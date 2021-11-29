@@ -1,4 +1,5 @@
 export * from './APIRoute';
+export * from './attendanceOptions';
 export * from './authToken';
 export * from './constants';
 export * from './degrees';
