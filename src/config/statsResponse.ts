@@ -14,7 +14,7 @@ export interface IStatsResponse {
     graduationYear: { [key: string]: number };
     dietaryRestriction: { [key in DietaryRestriction & string]: number };
     ShirtSize: { [key in ShirtSize]: number };
-    attendencePreference: { [key in AttendenceOptions]: number };
+    attendancePreference: { [key in AttendenceOptions]: number };
     age: { [key: string]: number };
   };
 }

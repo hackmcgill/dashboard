@@ -70,7 +70,7 @@ export interface IHacker {
       // The shirt size
       shirtSize: string;
       // If user is attending in-person or virtually (due to COVID)
-      attendencePreference: string;
+      attendancePreference: string;
       // Any impairments the user might have
       impairments?: string;
       // Any barriers the user might have

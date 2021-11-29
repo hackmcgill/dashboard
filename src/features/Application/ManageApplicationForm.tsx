@@ -114,7 +114,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       },
       accommodation: {
         shirtSize: '',
-        attendencePreference: '',
+        attendancePreference: '',
         impairments: '',
         barriers: '',
         travel: 0,
@@ -431,6 +431,33 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 value={fp.values.hacker.application.shortAnswer.skills}
                 showOptionalLabel={true}
               />
+            </div>
+
+            <H1 fontSize={'24px'} marginBottom={'16px'} marginTop={'60px'}>
+              In-person or Remote
+            </H1>
+
+            <p>
+              You can choose to attend McHacks either virtually or in-person in Montreal.
+              Covid saftey protocols will be in place at the in-person edition of McHacks in order
+              to protect the saftey of everyone at our event. These include vacine passport checks
+              at sign-in, limited capacity, social distancing, and mask-wearing.
+            </p>
+
+            <div className="short-fields">
+
+              <FastField
+                name={'hacker.application.accommodation.attendancePreference'}
+                label={CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(AttendenceOptions)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.attendancePreference}
+              />
+              <ErrorMessage
+                name={'hacker.application.accommodation.attendancePreference'}
+                component={FormikElements.Error}
+              />
 
               <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
                 Personal Details
@@ -675,18 +702,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 />
                 <ErrorMessage
                   name={'hacker.application.accommodation.shirtSize'}
-                  component={FormikElements.Error}
-                />
-                <FastField
-                  name={'hacker.application.accommodation.attendencePreference'}
-                  label={CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
-                  component={FormikElements.Select}
-                  options={getOptionsFromEnum(AttendenceOptions)}
-                  required={true}
-                  value={fp.values.hacker.application.accommodation.attendencePreference}
-                />
-                <ErrorMessage
-                  name={'hacker.application.accommodation.attendencePreference'}
                   component={FormikElements.Error}
                 />
                 <FastField
@@ -1035,6 +1050,12 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               <div className="name">{CONSTANTS.BARRIERS_LABEL}</div>
               <div className="value">
                 {hackerDetails.application.accommodation.barriers || 'N/A'}
+              </div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}</div>
+              <div className="value">
+                {hackerDetails.application.accommodation.attendancePreference || 'N/A'}
               </div>
             </div>
           </GridTwoColumn>
