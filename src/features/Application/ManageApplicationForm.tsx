@@ -690,34 +690,36 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             <H1 fontSize={'24px'} marginBottom={'40px'}>
               Accommodation
             </H1>
-            {!settings.isRemote && (
-              <div className="shorter-fields">
-                <FastField
-                  name={'hacker.application.accommodation.shirtSize'}
-                  label={CONSTANTS.SHIRT_SIZE_LABEL}
-                  component={FormikElements.Select}
-                  options={getOptionsFromEnum(ShirtSize)}
-                  required={true}
-                  value={fp.values.hacker.application.accommodation.shirtSize}
-                />
-                <ErrorMessage
-                  name={'hacker.application.accommodation.shirtSize'}
-                  component={FormikElements.Error}
-                />
-                <FastField
-                  name={'hacker.application.accommodation.travel'}
-                  component={FormikElements.FormattedNumber}
-                  label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-                  placeholder={0}
-                  required={false}
-                  value={fp.values.hacker.application.accommodation.travel}
-                />
-                <ErrorMessage
-                  component={FormikElements.Error}
-                  name={'hacker.application.accommodation.travel'}
-                />
-              </div>
-            )}
+            <div className="shorter-fields">
+              <FastField
+                name={'hacker.application.accommodation.shirtSize'}
+                label={CONSTANTS.SHIRT_SIZE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(ShirtSize)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.shirtSize}
+              />
+              <ErrorMessage
+                name={'hacker.application.accommodation.shirtSize'}
+                component={FormikElements.Error}
+              />
+              {!settings.isRemote && (
+                <>
+                  <FastField
+                    name={'hacker.application.accommodation.travel'}
+                    component={FormikElements.FormattedNumber}
+                    label={CONSTANTS.TRAVEL_REQUEST_LABEL}
+                    placeholder={0}
+                    required={false}
+                    value={fp.values.hacker.application.accommodation.travel}
+                  />
+                  <ErrorMessage
+                    component={FormikElements.Error}
+                    name={'hacker.application.accommodation.travel'}
+                  />
+                </>
+              )}
+            </div>
 
             <FastField
               name={'hacker.application.accommodation.impairments'}
@@ -1166,7 +1168,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     };
 
     if (settings.isRemote) {
-      hacker.application.accommodation.shirtSize = ShirtSize.M;
       hacker.application.accommodation.travel = 0;
     }
 

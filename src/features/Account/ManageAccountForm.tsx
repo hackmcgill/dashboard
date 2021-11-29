@@ -318,24 +318,21 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       />
       <ErrorMessage component={FormikElements.Error} name="pronoun" />
 
-      {!settings.isRemote && (
-        <FastField
-          name={'dietaryRestrictions'}
-          isMulti={true}
-          label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
-          placeholder={DietaryRestriction.NONE}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(DietaryRestriction)}
-          required={true}
-          value={fp.values.dietaryRestrictions}
-        />
-      )}
-      {!settings.isRemote && (
-        <ErrorMessage
-          component={FormikElements.Error}
-          name="dietaryRestrictions"
-        />
-      )}
+      <FastField
+        name={'dietaryRestrictions'}
+        isMulti={true}
+        label={CONSTANTS.DIETARY_RESTRICTIONS_LABEL}
+        placeholder={DietaryRestriction.NONE}
+        component={FormikElements.Select}
+        options={getOptionsFromEnum(DietaryRestriction)}
+        required={true}
+        value={fp.values.dietaryRestrictions}
+      />
+      <ErrorMessage
+        component={FormikElements.Error}
+        name="dietaryRestrictions"
+      />
+
       <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
         {props.mode === ManageAccountModes.CREATE ? 'Create account' : 'Save'}
       </SubmitBtn>
