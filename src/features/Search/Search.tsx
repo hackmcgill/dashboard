@@ -236,6 +236,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         key: 'application.accommodation.shirtSize',
       });
       headers.push({
+        label: CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL,
+        key: 'application.accommodation.attendancePreference',
+      });
+      headers.push({
         label: CONSTANTS.IMPAIRMENTS_LABEL,
         key: 'application.accommodation.impairments',
       });
@@ -364,6 +368,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.application.shortAnswer.question1.includes(searchBar) ||
         hacker.application.shortAnswer.question2.includes(searchBar) ||
         hacker.application.accommodation.shirtSize.includes(searchBar) ||
+        hacker.application.accommodation.attendancePreference.includes(searchBar) ||
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 

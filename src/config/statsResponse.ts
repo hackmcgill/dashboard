@@ -1,4 +1,4 @@
-import { DietaryRestriction, HackerStatus, JobInterest, ShirtSize } from '.';
+import { AttendenceOptions, DietaryRestriction, HackerStatus, JobInterest, ShirtSize } from '.';
 
 export interface IStatsResponse {
   stats: {
@@ -14,6 +14,7 @@ export interface IStatsResponse {
     graduationYear: { [key: string]: number };
     dietaryRestriction: { [key in DietaryRestriction & string]: number };
     ShirtSize: { [key in ShirtSize]: number };
+    attendancePreference: { [key in AttendenceOptions]: number };
     age: { [key: string]: number };
   };
 }

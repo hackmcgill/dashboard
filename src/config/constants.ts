@@ -27,7 +27,7 @@ export const TRAVEL_POLICY = 'https://docs.google.com/document/d/1K8WSGQtWfKrybT
 export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/TdxUaUn31WzXcPvu6';
 
 // Social media
-export const FACEBOOK_EVENT_URL = 'https://fb.me/e/2O3BZ9r6b';
+export const FACEBOOK_EVENT_URL = 'https://www.facebook.com/events/1086921742114789';
 export const TWITTER = '@mcgillhacks';
 
 // SEO
@@ -120,6 +120,7 @@ export const MLH_LABEL = 'I accept the MLH policies.';
 export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
+export const ATTENDENCE_OPTION_PREFERENCE_LABEL = 'Would you prefer to attend McHacks in person or virtually?';
 export const SKILLS_LABEL = 'Skills';
 export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';
