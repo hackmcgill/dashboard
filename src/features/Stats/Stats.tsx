@@ -131,11 +131,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 </Box>
               </Flex>
             </Box>
-
           )}
         </Box>
-
-
 
       </Flex>
     );
