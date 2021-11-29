@@ -19,7 +19,7 @@ interface IStatsApplicationsGraph {
 
 const StatsApplicationsGraph: React.FC<IStatsApplicationsGraph> = (props) => {
     const applications = props.applications;
-    applications.reverse();
+    applications.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));
 
     // cannot use ResponsiveContainer since parent has no width and height
     return (
