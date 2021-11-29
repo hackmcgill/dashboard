@@ -434,7 +434,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </div>
 
             <H1 fontSize={'24px'} marginBottom={'16px'} marginTop={'60px'}>
-              In-person or Remote
+              Attendance Preference
             </H1>
 
             <p>
