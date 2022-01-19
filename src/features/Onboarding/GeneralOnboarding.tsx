@@ -24,8 +24,12 @@ const GeneralOnboarding: React.FC = () => (
                 <p>
                 To initiate the check-in process, you first need to join our Discord. we recommend 
                 that you read our Discord Onboarding Guide first if you don’t know what Discord is. 
-                Once you are ready, join the channel by clicking this (Jen update) link.
-
+                Once you are ready, join the channel by clicking 
+                <LinkDuo to="https://discord.gg/fqbjr43cKf">
+                    <span> this link. </span>
+                </LinkDuo>
+                <br></br>
+                <br></br>
                 When you join our Discord, please send a message to Lucy Chen on Discord with your name, 
                 company, and role so we can add you to the channel we will communicate with you on.
                     <br></br>
