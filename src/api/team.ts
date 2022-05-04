@@ -25,21 +25,24 @@ class TeamAPI {
    */
   public join(name: string): AxiosPromise<APIResponse<{}>> {
     LocalCache.remove(CACHE_HACKER_KEY);
-    return API.getEndpoint(APIRoute.TEAM_JOIN).patch({ id: '' }, { name });
+    return API.getEndpoint(APIRoute.TEAM_JOIN).patch(
+      { identifier: -1 },
+      { name: name }
+    );
   }
   /**
    * Get information about a team
-   * @param id the ID of the hacker in a team
+   * @param identifier the ID of the hacker in a team
    */
-  public get(id: string): AxiosPromise<APIResponse<ITeamResponse>> {
-    return API.getEndpoint(APIRoute.TEAM).getOne({ id });
+  public get(identifier: number): AxiosPromise<APIResponse<ITeamResponse>> {
+    return API.getEndpoint(APIRoute.TEAM).getOne({ identifier });
   }
   /**
    * Current hacker leaves their team
    */
   public leave(): AxiosPromise<APIResponse<{}>> {
     LocalCache.remove(CACHE_HACKER_KEY);
-    return API.getEndpoint(APIRoute.TEAM_LEAVE).patch({ id: '' }, {});
+    return API.getEndpoint(APIRoute.TEAM_LEAVE).patch({ identifier: -1 }, {});
   }
 }
 

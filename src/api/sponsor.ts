@@ -34,8 +34,8 @@ class SponsorAPI {
    * Get information about a sponsor
    * @param id the ID of the sponsor
    */
-  public get(id: string): AxiosPromise {
-    return API.getEndpoint(APIRoute.SPONSOR).getOne({ id });
+  public get(identifier: number): AxiosPromise {
+    return API.getEndpoint(APIRoute.SPONSOR).getOne({ identifier });
   }
 
   /**
@@ -43,7 +43,7 @@ class SponsorAPI {
    * @param sponsor The sponsor object with an id
    */
   public update(sponsor: ISponsor): AxiosPromise {
-    const key = CACHE_SPONSOR_KEY + '-' + sponsor.id;
+    const key = CACHE_SPONSOR_KEY + '-' + sponsor.identifier;
     const value = API.getEndpoint(APIRoute.SPONSOR).patch(sponsor, sponsor);
     LocalCache.remove(CACHE_SPONSOR_KEY);
     LocalCache.remove(key);

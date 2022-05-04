@@ -1,12 +1,12 @@
 export enum APIRoute {
   // Auth routes
-  AUTH_LOGIN = 'auth/login',
-  AUTH_LOGOUT = 'auth/logout',
-  AUTH_FORGOT_PASS = 'auth/password/forgot',
-  AUTH_RESET_PASS = 'auth/password/reset',
-  AUTH_CONFIRM_ACCT = 'auth/confirm',
-  AUTH_RESEND_CONF_EMAIL = 'auth/confirm/resend',
-  AUTH_CHANGE_PASS = 'auth/password/change',
+  AUTH_LOGIN = 'authentication/sign-in',
+  AUTH_LOGOUT = 'authentication/sign-out',
+  AUTH_FORGOT_PASS = 'authentication/password/forgot',
+  AUTH_RESET_PASS = 'authentication/password/reset',
+  AUTH_CONFIRM_ACCT = 'authentication/confirm',
+  AUTH_RESEND_CONF_EMAIL = 'authentication/confirm/resend',
+  AUTH_CHANGE_PASS = 'authentication/password/change',
 
   // Account routes
   ACCOUNT = 'account',
@@ -24,17 +24,17 @@ export enum APIRoute {
   // Travel routes
   TRAVEL = 'travel',
   TRAVEL_EMAIL = 'travel/email',
-  TRAVEL_SELF = 'travel/self',
+  TRAVEL_SELF = 'travel/',
   // Search routes
   SEARCH = 'search',
   // Settings routes
   SETTINGS = 'settings',
   // Sponsor routes
   SPONSOR = 'sponsor',
-  SPONSOR_SELF = 'sponsor/self',
+  SPONSOR_SELF = 'sponsor/',
 
   TEAM = 'team',
-  TEAM_JOIN = 'team/join',
-  TEAM_LEAVE = 'team/leave',
+  TEAM_JOIN = 'team/members/join',
+  TEAM_LEAVE = 'team/members/leave',
 }
 export default APIRoute;

@@ -12,7 +12,13 @@ import {
   IHacker,
   UserType,
 } from '../../config';
-import { Button, ButtonVariant, H1, H2, MaxWidthBox } from '../../shared/Elements';
+import {
+  Button,
+  ButtonVariant,
+  H1,
+  H2,
+  MaxWidthBox,
+} from '../../shared/Elements';
 import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -26,6 +32,7 @@ import SingleHackerSection from './SingleHackerSection';
 
 interface IHackerViewProps {
   hacker: IHacker;
+  account: IAccount;
   userType: UserType;
 }
 
@@ -36,11 +43,11 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setIsAdmin(props.userType === UserType.STAFF);
-  }, [props.userType])
+  }, [props.userType]);
 
   useEffect(() => {
-    setStatus(props.hacker.status)
-  }, [props])
+    setStatus(props.hacker.status);
+  }, [props]);
 
   const submit = async () => {
     try {
@@ -54,15 +61,13 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         ValidationErrorGenerator(e.data);
       }
     }
-  }
+  };
 
   const handleChange = ({ value }: any) => {
     setStatus(value);
   };
 
-
-  const { hacker } = props;
-  const account = (hacker.accountId as IAccount) || {};
+  const { hacker, account } = props;
   const pronoun = account.pronoun ? `(${account.pronoun})` : '';
 
   return (
@@ -94,7 +99,6 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               >
                 <Box width={[1, 1 / 2]} style={{ paddingTop: '10px' }}>
                   <StyledSelect
-                    isTight={true}
                     className="react-select-container"
                     classNamePrefix="react-select"
                     options={getOptionsFromEnum(HackerStatus)}
@@ -144,10 +148,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               />
               <SHField
                 label="Dietary Restrictions"
-                text={
-                  account.dietaryRestrictions &&
-                  account.dietaryRestrictions.join(', ')
-                }
+                text={account.dietaryRestrictions.toString()}
               />
               <SHParagraph
                 label="Impairments"
@@ -168,14 +169,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             alignItems="center"
           >
             <SHField label="Email" text={account.email} />
-            <SHField
-              label="School"
-              text={hacker.application.general.school}
-            />
-            <SHField
-              label="Degree"
-              text={hacker.application.general.degree}
-            />
+            <SHField label="School" text={hacker.application.general.school} />
+            <SHField label="Degree" text={hacker.application.general.degree} />
             <SHField label="Status" text={hacker.status} />
             <SHField
               label="Graduation Year"
@@ -224,15 +219,12 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           </Flex>
           {/* Only tier1 sponsors and admin have access to user resumes */}
           {props.userType === UserType.SPONSOR_T1 ||
-            props.userType === UserType.STAFF ? (
+          props.userType === UserType.STAFF ? (
             <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
               <ViewPDFComponent hackerId={hacker.id} />
             </Flex>
           ) : null}
-          <SingleHackerSection
-            title="Additional Information"
-            hidden={!isAdmin}
-          >
+          <SingleHackerSection title="Additional Information" hidden={!isAdmin}>
             <SHParagraph
               label="Why McHacks?"
               text={hacker.application.shortAnswer.question1}
@@ -249,7 +241,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         </Box>
       </MaxWidthBox>
     </article>
-  )
-}
+  );
+};
 
 export default SingleHackerView;

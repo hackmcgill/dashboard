@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FrontendRoute, IHacker, UserType } from '../../config';
+import { FrontendRoute, IAccount, IHacker, UserType } from '../../config';
 import {
   Button,
   ButtonVariant,
@@ -15,8 +15,10 @@ import Arrow from '../../assets/images/backarrow.svg';
 import TextButton from '../../shared/Elements/TextButton';
 
 interface IModalProps {
+  account: IAccount;
   hacker: IHacker;
   allHackers: IHacker[];
+  allAccounts: IAccount[];
   userType: UserType;
 }
 interface IModalState {
@@ -31,6 +33,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
       showModal: false,
       currentHackerIndex: -1,
     };
+    console.log(props);
   }
 
   public componentDidMount() {
@@ -51,9 +54,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
-        <TextButton onClick={this.handleOpenModal}>
-          See more
-        </TextButton>
+        <TextButton onClick={this.handleOpenModal}>See more</TextButton>
         <StyledModal
           appElement={document.getElementById('root') || undefined}
           isOpen={this.state.showModal}
@@ -109,6 +110,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
               }}
             >
               <SingleHackerView
+                account={this.props.allAccounts[this.state.currentHackerIndex]}
                 hacker={this.props.allHackers[this.state.currentHackerIndex]}
                 userType={this.props.userType}
               />

@@ -55,7 +55,7 @@ export async function isConfirmed(): Promise<boolean> {
   try {
     const response = await Account.getSelf();
     const user = response.data.data;
-    return Boolean(user) && user.confirmed;
+    return user && user.confirmed;
   } catch (error) {
     return false;
   }
@@ -90,7 +90,7 @@ export async function getSettings(): Promise<ISetting | null> {
 
 export function isAppOpen(settings?: ISetting): boolean {
   if (!settings) {
-    return false;
+    return true;
   }
   const now = new Date();
   const open = new Date(settings.openTime);

@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 
-import {
-  Button,
-  ButtonVariant,
-} from '../../shared/Elements';
+import { Button, ButtonVariant } from '../../shared/Elements';
 
 import { IHacker } from '../../config';
 
 // import Team from '../../api/team';
 import { Form, Label } from '../../shared/Form';
-import {
-  Input,
-} from '../../shared/Form';
+import { Input } from '../../shared/Form';
 import theme from '../../shared/Styles/theme';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import Team from '../../api/team';
@@ -35,7 +30,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
     try {
       await Team.create({
         name: generateRandomTeamCode(14),
-        members: [props.hacker.id],
+        members: [props.hacker.account.identifier],
       });
       props.onTeamChange();
     } catch (e) {
@@ -46,7 +41,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
       }
     }
     setIsLoading(false);
-  }
+  };
 
   // Attempt to join the team with a name of state.teamCode
   const joinTeam = async () => {
@@ -60,7 +55,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
       }
     }
     setIsLoading(false);
-  }
+  };
 
   return (
     <>
@@ -75,7 +70,12 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         </Button>
       </div>
 
-      <Form onSubmit={(e: any) => { e.preventDefault(); joinTeam(); }}>
+      <Form
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          joinTeam();
+        }}
+      >
         <div className="join">
           <Label style={{ maxWidth: '272px' }}>
             Already have a team?
@@ -118,7 +118,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
       `}</style>
     </>
   );
-}
+};
 
 // Create a new random n-long character alphanumeric team code.
 // Since there are 1.24017694e25 team names possible when n=14 and
@@ -126,7 +126,8 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
 // about handling that
 function generateRandomTeamCode(n: number): string {
   let id = '';
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const chars =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   for (let i = 0; i < n; i++) {
     id += chars.charAt(Math.floor(Math.random() * chars.length));
   }

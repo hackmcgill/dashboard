@@ -1,21 +1,21 @@
 export enum StringOperations {
-  EQUALS = 'equals',
-  NOT_EQUALS = 'ne',
+  EQUALS = '=',
+  NOT_EQUALS = '!=',
   REGEXP = 'regex',
-  IN = 'in',
+  IN = 'IN',
 }
 export enum NumberOperations {
-  EQUALS = 'equals',
-  NOT_EQUALS = 'ne',
-  GREATER_THAN_OR_EQUAL = 'gte',
-  LESS_THAN_OR_EQUAL = 'lte',
-  GREATER_THAN = 'gt',
-  LESS_THAN = 'lt',
-  IN = 'in',
+  EQUALS = '=',
+  NOT_EQUALS = '!=',
+  GREATER_THAN_OR_EQUAL = '>=',
+  LESS_THAN_OR_EQUAL = '<=',
+  GREATER_THAN = '>',
+  LESS_THAN = '<',
+  IN = 'IN',
 }
 export enum BooleanOperations {
-  EQUALS = 'equals',
-  NOT_EQUALS = 'ne',
+  EQUALS = '=',
+  NOT_EQUALS = '!=',
 }
 export interface ISearchParameter {
   param: string;

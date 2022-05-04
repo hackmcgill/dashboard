@@ -3,7 +3,7 @@ import { Hacker } from '../../api';
 import Button, { ButtonVariant } from './Button';
 
 interface IViewPDFProps {
-  hackerId: string;
+  hackerId: number;
 }
 interface IViewPDFState {
   isLoading: boolean;

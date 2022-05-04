@@ -27,6 +27,7 @@ import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Nav from './Nav';
 import NavLink from './NavLink';
+import { isConfirmed } from '../../util';
 
 interface INavbarProps {
   activePage: string;
@@ -110,7 +111,7 @@ export default class Navbar extends React.Component<
           canAccessTravel(hacker) && !this.state.settings.isRemote,
       });
     } catch (e) {
-      if (e === undefined || e.status === 401) {
+      if (e === undefined || e.status === 401 || e.status === 403) {
         this.setState({
           status: HackerStatus.HACKER_STATUS_NONE,
           showTravelLink: false,
@@ -138,7 +139,7 @@ export default class Navbar extends React.Component<
 
     // set confirmed account
     try {
-      const confirmed = true;//await isConfirmed();
+      const confirmed = await isConfirmed();
       this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });
@@ -186,7 +187,7 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-            canAccessApplication({ status }, settings) ? (
+          canAccessApplication({ status }, settings) ? (
             <NavLink
               href={appRoute}
               className={
@@ -213,10 +214,10 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
             <>
               <NavLink
                 href={routes.SPONSOR_SEARCH_PAGE}
@@ -226,7 +227,9 @@ export default class Navbar extends React.Component<
               </NavLink>
               <NavLink
                 href={routes.SPONSOR_ONBOARDING_PAGE}
-                className={this.props.activePage === 'onboarding' ? 'active' : ''}
+                className={
+                  this.props.activePage === 'onboarding' ? 'active' : ''
+                }
               >
                 Onboarding
               </NavLink>
@@ -272,10 +275,7 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {loggedIn && confirmed && NavItems()}
-          {
-            (!loggedIn || !confirmed) &&
-            <SocialMediaBar />
-          }
+          {(!loggedIn || !confirmed) && <SocialMediaBar />}
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>

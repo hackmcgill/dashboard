@@ -68,12 +68,12 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   // Track the details of the account that is either being created or updated
   const [accountDetails, setAccountDetails] = useState<IAccount>({
     accountType:
-      (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
+      (getValueFromQuery('accountType') as UserType) || UserType.HACKER,
     birthDate: '',
     confirmed: false,
     email: getNestedAttr(props, ['location', 'state', 'email']) || '',
     firstName: '',
-    id: '',
+    identifier: -1,
     lastName: '',
     password: getNestedAttr(props, ['location', 'state', 'password']) || '',
     phoneNumber: '',
@@ -118,14 +118,14 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    */
   const convertFormikToAccount = (
     values: FormikValues,
-    accountId: string = ''
+    accountId: number = -1
   ): IAccount => ({
-    accountType: UserType.UNKNOWN,
-    birthDate: input2date(values.birthDate),
+    accountType: UserType.HACKER,
+    birthDate: input2date(values.birthDate).toDateString(),
     confirmed: false,
     email: values.email,
     firstName: values.firstName,
-    id: accountId,
+    identifier: accountId,
     lastName: values.lastName,
     password: values.password,
     phoneNumber:
@@ -143,7 +143,10 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     setIsSubmitting(true);
 
     // Turn data entered into form fields into an IAccount
-    const formattedDetails = convertFormikToAccount(values, accountDetails.id);
+    const formattedDetails = convertFormikToAccount(
+      values,
+      accountDetails.identifier
+    );
 
     // Depending on the mode of this form either create a new account with form data
     // or update user's existing account to match form data

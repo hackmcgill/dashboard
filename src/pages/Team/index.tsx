@@ -3,7 +3,13 @@ import Helmet from 'react-helmet';
 
 import { Hacker } from '../../api';
 import Team from '../../api/team';
-import { HACKATHON_NAME, IHacker, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
+import {
+  HACKATHON_NAME,
+  IHacker,
+  IMemberName,
+  ITeam,
+  TEAM_OVERVIEW,
+} from '../../config';
 
 import { ITeamResponse } from '../../config/teamGETResponse';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -17,7 +23,7 @@ import theme from '../../shared/Styles/theme';
  */
 const TeamPage: React.FC = () => {
   const [hacker, setHacker] = useState<IHacker | null>(null);
-  const [team, setTeam] = useState<ITeam | null>(null);
+  const [team, setTeam] = useState<Omit<ITeam, 'members'> | null>(null);
   const [members, setMembers] = useState<IMemberName[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLeavingTeam, setIsLeavingTeam] = useState<boolean>(false);
@@ -36,9 +42,12 @@ const TeamPage: React.FC = () => {
     setIsLoading(true);
     try {
       const hacker = (await Hacker.getSelf()).data.data;
-      if (hacker && hacker.teamId) {
-        const id = String(hacker.teamId);
-        const teamResponse: ITeamResponse = (await Team.get(id)).data.data;
+      if (hacker && hacker.team) {
+        const identifier = hacker.team;
+        const teamResponse: ITeamResponse = (await Team.get(identifier)).data
+          .data;
+        console.log(teamResponse);
+
         setHacker(hacker);
         setTeam(teamResponse.team);
         setMembers(teamResponse.members);

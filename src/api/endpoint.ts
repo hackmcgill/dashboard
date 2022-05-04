@@ -1,5 +1,6 @@
 import axios, { AxiosPromise } from 'axios';
 import { AxiosRequestConfig } from 'axios';
+import { IHacker } from '../config';
 axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(
@@ -11,6 +12,11 @@ axios.interceptors.response.use(
   }
 );
 
+type Identifier = Pick<IHacker, 'identifier'>;
+type Account = Pick<IHacker, 'identifier'> & {
+  account: number;
+};
+
 export default class Endpoint {
   private resourceURL: string;
   private name: string;
@@ -21,14 +27,27 @@ export default class Endpoint {
   }
   /**
    * Get a specific resource
-   * @param {*} id the the id for a given resource
+   * @param {*} identifier the identifier for a given resource
    * @param {AxiosRequestConfig} config
    */
   public getOne(
-    { id }: { id: string },
+    { identifier }: { identifier: number },
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.get(`${this.resourceURL}/${id}`, config);
+    return axios.get(
+      `${this.resourceURL}/${identifier === -1 ? '' : identifier}`,
+      config
+    );
+  }
+
+  public getOneByEmail(
+    { email }: { email: string },
+    config: AxiosRequestConfig = {}
+  ): AxiosPromise {
+    return axios.get(`${this.resourceURL}/`, {
+      data: email,
+      ...config,
+    });
   }
   /**
    * Get all resources
@@ -60,11 +79,15 @@ export default class Endpoint {
    * @param {AxiosRequestConfig} config
    */
   public update(
-    { id }: { id: string },
+    { identifier }: { identifier: number },
     toUpdate: any,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.put(`${this.resourceURL}/${id}`, toUpdate, config);
+    return axios.put(
+      `${this.resourceURL}/${identifier === -1 ? '' : identifier}`,
+      toUpdate,
+      config
+    );
   }
   /**
    * Patch a specified resource by calling axios.patch
@@ -73,11 +96,15 @@ export default class Endpoint {
    * @param {AxiosRequestConfig} config
    */
   public patch(
-    { id }: { id: string },
+    { identifier }: { identifier: number },
     toPatch: any,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.patch(`${this.resourceURL}/${id}`, toPatch, config);
+    return axios.patch(
+      `${this.resourceURL}/${identifier === -1 ? '' : identifier}`,
+      toPatch,
+      config
+    );
   }
   /**
    * Delete a specified resource by calling axios.delete
@@ -85,10 +112,13 @@ export default class Endpoint {
    * @param {AxiosRequestConfig} config
    */
   public delete(
-    { id }: { id: string },
+    { identifier }: { identifier: number },
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.delete(`${this.resourceURL}/${id}`, config);
+    return axios.delete(
+      `${this.resourceURL}/${identifier === -1 ? '' : identifier}`,
+      config
+    );
   }
   /**
    * Gets the name of api

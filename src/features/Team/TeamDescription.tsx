@@ -10,7 +10,7 @@ import TextButton from '../../shared/Elements/TextButton';
 import MemberList from './MemberList/MemberList';
 
 interface ITeamDescriptionProps {
-  team: ITeam;
+  team: Omit<ITeam, 'members'>;
   members: IMemberName[];
   onLeaveTeam: () => void;
   isLeavingTeam: boolean;
@@ -23,7 +23,9 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
     <>
       <div className="team-code-container">
         <div className="label">Team code</div>
-        <div className="info-text">Share this code with your team members to let them join:</div>
+        <div className="info-text">
+          Share this code with your team members to let them join:
+        </div>
         <div className="team-code">
           <ClipboardComponent
             value={props.team.name}
@@ -38,7 +40,11 @@ const TeamDescription: React.FC<ITeamDescriptionProps> = (
         <MemberList members={props.members} />
       </div>
 
-      <TextButton isLoading={props.isLeavingTeam} onClick={props.onLeaveTeam} isGrey={true}>
+      <TextButton
+        isLoading={props.isLeavingTeam}
+        onClick={props.onLeaveTeam}
+        isGrey={true}
+      >
         Leave team
       </TextButton>
 

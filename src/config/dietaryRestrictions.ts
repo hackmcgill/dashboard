@@ -1,4 +1,4 @@
-export enum DietaryRestriction {
+ export enum DietaryRestriction {
   NONE = 'None',
   DAIRY_FREE = 'Dairy-Free',
   GLUTEN_FREE = 'Gluten-Free',

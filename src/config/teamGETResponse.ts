@@ -1,6 +1,7 @@
+import { IHacker } from '.';
 import { IMemberName, ITeam } from './team';
 
 export interface ITeamResponse {
-  team: ITeam;
+  team: Omit<ITeam, 'members'>;
   members: IMemberName[];
 }

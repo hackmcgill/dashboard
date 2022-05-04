@@ -34,9 +34,8 @@ const SingleHackerPage: React.FC = () => {
         console.log(viewer, viewer.accountType);
         setUserType(viewer.accountType);
         const newHacker = (await Hacker.get(id)).data.data;
-        const account = (await Account.get(newHacker.accountId as string)).data
-          .data;
-        newHacker.accountId = account;
+        const account = (await Account.get(newHacker.accountId)).data.data;
+        newHacker.account = account;
         setHacker(newHacker);
       } finally {
         setIsLoading(false);
@@ -49,7 +48,11 @@ const SingleHackerPage: React.FC = () => {
     return (
       <Flex justify-content={'center'} m={'10px'} flexDirection={'column'}>
         <Box m={'auto'}>
-          <SingleHackerView hacker={hacker} userType={userType} />
+          <SingleHackerView
+            hacker={hacker}
+            account={hacker.account}
+            userType={userType}
+          />
           {nomineeContext && nomineeContext.nominees && (
             <>
               <hr />
@@ -58,7 +61,7 @@ const SingleHackerPage: React.FC = () => {
                   <H2 marginBottom={'3px'}>Save Hacker:</H2>
                 </Box>
                 <Box>
-                  <HackerSelect hackerId={hacker.id} />
+                  <HackerSelect hackerId={hacker.identifier} />
                 </Box>
               </Flex>
             </>

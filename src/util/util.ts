@@ -34,7 +34,7 @@ function input2date(date: number) {
     Number(dateFields[0]) - 1,
     Number(dateFields[1])
   );
-  return formattedDate.toString();
+  return formattedDate;
 }
 
 function date2input(date: string) {

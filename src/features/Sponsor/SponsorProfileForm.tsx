@@ -48,9 +48,8 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
   // either creating or editing the sponsor profile
   const [mode, setMode] = useState<ManageSponsorModes>(props.mode);
   const [sponsorDetails, setSponsorDetails] = useState<ISponsor>({
-    id: '',
+    identifier: -1,
     tier: 0,
-    accountId: '',
     company: '',
     contractURL: 'https://default_url.com',
     nominees: [],
@@ -137,8 +136,8 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     // this will content the sponsor's details in an object
     const sponsorApplication = convertFormikToSponsor(
       values,
-      sponsorDetails.id,
-      account.id,
+      sponsorDetails.identifier,
+      account.identifier,
       sponsorTier,
       sponsorDetails.contractURL
     );
@@ -156,14 +155,13 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
   // convert the values in formik form to object to pass to submit fct
   const convertFormikToSponsor = (
     values: FormikValues,
-    sponsorId: string,
-    accountId: string,
+    sponsorId: number,
+    accountId: number,
     sponsorTier: number,
     contractURL: string
   ): ISponsor => {
     return {
-      id: sponsorId,
-      accountId,
+      identifier: accountId,
       tier: sponsorTier,
       company: values.company,
       contractURL,

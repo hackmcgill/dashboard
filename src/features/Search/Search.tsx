@@ -32,6 +32,7 @@ interface IResult {
    */
   selected: boolean;
   hacker: IHacker;
+  account: IAccount;
 }
 
 interface ISearchState {
@@ -101,7 +102,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Box>
                     <Box mr={'10px'}>
                       {account && account.accountType === UserType.STAFF && (
-                        <Button style={{ marginRight: '10px' }} variant={ButtonVariant.Secondary} isOutlined={true}>
+                        <Button
+                          style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
+                        >
                           Update Status
                         </Button>
                       )}
@@ -109,12 +114,17 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                         <Button
                           onClick={this.toggleSaved}
                           style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary} isOutlined={true}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
                         >
                           View {viewSaved ? 'All' : 'Saved'}
                         </Button>
                       )}
-                      <Button onClick={this.downloadData} variant={ButtonVariant.Secondary} isOutlined={true}>
+                      <Button
+                        onClick={this.downloadData}
+                        variant={ButtonVariant.Secondary}
+                        isOutlined={true}
+                      >
                         Export Hackers
                       </Button>
                     </Box>
@@ -174,9 +184,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private downloadData(): void {
     const headers = [
-      { label: CONSTANTS.FIRST_NAME_LABEL, key: 'accountId.firstName' },
-      { label: CONSTANTS.LAST_NAME_LABEL, key: 'accountId.lastName' },
-      { label: CONSTANTS.EMAIL_LABEL, key: 'accountId.email' },
+      { label: CONSTANTS.FIRST_NAME_LABEL, key: 'account.firstName' },
+      { label: CONSTANTS.LAST_NAME_LABEL, key: 'account.lastName' },
+      { label: CONSTANTS.EMAIL_LABEL, key: 'account.email' },
       { label: CONSTANTS.SCHOOL_LABEL, key: 'application.general.school' },
       {
         label: CONSTANTS.FIELD_OF_STUDY_LABEL,
@@ -293,12 +303,18 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         expand: true,
       });
       const isArray = Array.isArray(response.data.data);
-      const tableData = isArray
-        ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
-        : [];
+      var tableData: IResult[];
+      if (isArray)
+        tableData = await Promise.all(
+          response.data.data.map(
+            async (v): Promise<IResult> => ({
+              selected: true,
+              hacker: v as IHacker,
+              account: (await Account.get(v.account)).data.data,
+            })
+          )
+        );
+      else tableData = [];
       this.setState({ results: tableData, loading: false });
     } catch (e) {
       ValidationErrorGenerator(e.data);
@@ -338,25 +354,25 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   private filter() {
     const { sponsor, viewSaved, results } = this.state;
     const searchBar = this.state.searchBar.toLowerCase();
-    return results.filter(({ hacker }) => {
-      const { accountId } = hacker;
+    return results.filter(({ hacker, account }) => {
+      const { identifier } = hacker;
       let foundAcct;
-      if (typeof accountId !== 'string') {
-        const account = accountId as IAccount;
+      if (typeof identifier !== 'number') {
         if (account) {
-          const fullName = `${account.firstName} ${account.lastName}`.toLowerCase();
+          const fullName = `${account.firstName} ${
+            account.lastName
+          }`.toLowerCase();
           foundAcct =
             fullName.includes(searchBar) ||
             account.email.toLowerCase().includes(searchBar) ||
             account.phoneNumber.toString().includes(searchBar) ||
             account.gender.toLowerCase().includes(searchBar) ||
-            (account._id && account._id.includes(searchBar));
+            account.identifier === identifier;
         }
       } else {
-        foundAcct = accountId.includes(searchBar);
+        foundAcct = identifier === parseInt(searchBar);
       }
       const foundHacker =
-        hacker.id.includes(searchBar) ||
         hacker.application.general.school.includes(searchBar) ||
         hacker.application.general.degree.includes(searchBar) ||
         hacker.application.general.fieldOfStudy.includes(searchBar) ||
@@ -368,7 +384,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.application.shortAnswer.question1.includes(searchBar) ||
         hacker.application.shortAnswer.question2.includes(searchBar) ||
         hacker.application.accommodation.shirtSize.includes(searchBar) ||
-        hacker.application.accommodation.attendancePreference.includes(searchBar) ||
+        hacker.application.accommodation.attendancePreference.includes(
+          searchBar
+        ) ||
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 

@@ -45,19 +45,25 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   }
   private parseInitialValues(initFilters: ISearchParameter[]) {
     const initVals = {
-      school: this.searchParam2List('application.general.school', initFilters),
-      gradYear: this.searchParam2List(
-        'application.general.graduationYear',
+      school: this.searchParam2List(
+        "jsonb_extract_path_text(application,'general','school')",
         initFilters
       ),
-      degree: this.searchParam2List('application.general.degree', initFilters),
+      gradYear: this.searchParam2List(
+        "jsonb_extract_path_text(application,'general','graduationYear')",
+        initFilters
+      ),
+      degree: this.searchParam2List(
+        "jsonb_extract_path_text(application,'general','degree')",
+        initFilters
+      ),
       status: this.searchParam2List('status', initFilters),
       skills: this.searchParam2List(
-        'application.shortAnswer.skills',
+        "jsonb_extract_path_text(application,'shortAnswer','skills')",
         initFilters
       ),
       jobInterest: this.searchParam2List(
-        'application.general.jobInterest',
+        "jsonb_extract_path_text(application,'general','jobInterest')",
         initFilters
       ),
     };
@@ -163,24 +169,24 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
    */
   private handleSubmit(values: FormikValues) {
     const schoolSearchParam = this.list2SearchParam(
-      'application.general.school',
+      "ARRAY[jsonb_extract_path_text(application,'general','school')]",
       values.school
     );
     const gradYearParam = this.list2SearchParam(
-      'application.general.graduationYear',
+      "ARRAY[jsonb_extract_path_text(application,'general','graduationYear')]",
       values.gradYear
     );
     const degreeParam = this.list2SearchParam(
-      'application.general.degree',
+      "ARRAY[jsonb_extract_path_text(application,'general','degree')]",
       values.degree
     );
     const statusParam = this.list2SearchParam('status', values.status);
     const skillsParam = this.list2SearchParam(
-      'application.shortAnswer.skills',
+      "ARRAY[jsonb_extract_path_text(application,'shortAnswer','skills')]",
       values.skills
     );
     const jobInterestParam = this.list2SearchParam(
-      'application.general.jobInterest',
+      "ARRAY[jsonb_extract_path_text(application,'general','jobInterest')]",
       values.jobInterest
     );
     let search: ISearchParameter[] = [];
@@ -206,18 +212,18 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   ): ISearchParameter[] {
     return values.length > 0
       ? [
-        {
-          param,
-          operation: StringOperations.IN,
-          value: values,
-        },
-      ]
+          {
+            param,
+            operation: StringOperations.EQUALS,
+            value: values,
+          },
+        ]
       : [];
   }
   private searchParam2List(
     param: string,
     searchParamList: ISearchParameter[]
-  ): Array<string | number | boolean> {
+  ): string {
     let searches: Array<string | number | boolean> = [];
     searchParamList.forEach((searchParam) => {
       if (searchParam.param === param) {
@@ -228,7 +234,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         }
       }
     });
-    return searches;
+    // We go from Array to String to allow SQL query to execute.
+    return `ARRAY[${searches}]`;
   }
 }
 

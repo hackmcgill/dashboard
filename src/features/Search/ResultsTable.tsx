@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IHacker, UserType } from '../../config';
+import { IAccount, IHacker, UserType } from '../../config';
 import { StyledTable } from '../../shared/Elements';
 import SingleHackerModal from '../SingleHacker/SingleHackerModal';
 import HackerSelect from './HackerSelect';
@@ -9,6 +9,7 @@ interface IResultsTableProps {
   results: Array<{
     selected: boolean;
     hacker: IHacker;
+    account: IAccount;
   }>;
   loading: boolean;
   userType: UserType;
@@ -19,14 +20,14 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   const volunteerColumns = [
     {
       Header: 'First Name',
-      accessor: 'hacker.accountId.firstName',
+      accessor: 'account.firstName',
     },
   ];
   const generalColumns = [
     ...volunteerColumns,
     {
       Header: 'Last Name',
-      accessor: 'hacker.accountId.lastName',
+      accessor: 'account.lastName',
     },
     {
       Header: 'School',
@@ -58,7 +59,9 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
         <div>
           <SingleHackerModal
             hacker={original.hacker}
+            account={original.account}
             allHackers={props.results.map((r) => r.hacker)}
+            allAccounts={props.results.map((r) => r.account)}
             userType={props.userType}
           />
         </div>
@@ -78,7 +81,9 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
         <div>
           <SingleHackerModal
             hacker={original.hacker}
+            account={original.account}
             allHackers={props.results.map((r) => r.hacker)}
+            allAccounts={props.results.map((r) => r.account)}
             userType={props.userType}
           />
         </div>

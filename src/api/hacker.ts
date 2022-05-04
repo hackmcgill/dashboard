@@ -12,6 +12,12 @@ import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
 
+type RenamedHacker = Omit<IHacker, 'identifier'> & {
+  account: number;
+};
+
+type HackerWithoutIdentifier = Omit<IHacker, 'identifier'>;
+
 class HackerAPI {
   constructor() {
     API.createEntity(APIRoute.HACKER_CONFIRMATION);
@@ -23,6 +29,7 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER);
     API.createEntity(APIRoute.HACKER_STATUS);
   }
+
   /**
    * Create an account.
    * @param hacker The account that you want to create
@@ -31,11 +38,18 @@ class HackerAPI {
   public async create(
     hacker: IHacker
   ): Promise<AxiosResponse<APIResponse<IHacker>>> {
+    const renameFromIdentifierToAccount = ({
+      identifier,
+      ...hacker
+    }: IHacker): RenamedHacker => ({ account: identifier, ...hacker });
     const config: AxiosRequestConfig = {};
     // return API.getEndpoint(Route.HACKER).create(hacker, { config });
-    const value = await API.getEndpoint(APIRoute.HACKER).create(hacker, {
-      config,
-    });
+    const value = await API.getEndpoint(APIRoute.HACKER).create(
+      renameFromIdentifierToAccount(hacker),
+      {
+        config,
+      }
+    );
     LocalCache.set(CACHE_HACKER_KEY, value);
     return value;
   }
@@ -55,18 +69,18 @@ class HackerAPI {
   }
   /**
    * Get information about a hacker
-   * @param id the ID of the hacker
+   * @param identifier the ID of the hacker
    */
   public async get(
-    id: string,
+    identifier: number,
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<IHacker>>> {
-    const key = CACHE_HACKER_KEY + '-' + id;
+    const key = CACHE_HACKER_KEY + '-' + identifier;
     const cached: any = LocalCache.get(key);
     if (cached && !overrideCache) {
       return cached as Promise<AxiosResponse<APIResponse<IHacker>>>;
     }
-    const value = await API.getEndpoint(APIRoute.HACKER).getOne({ id });
+    const value = await API.getEndpoint(APIRoute.HACKER).getOne({ identifier });
     LocalCache.set(key, value);
     return value;
   }
@@ -79,8 +93,8 @@ class HackerAPI {
     email: string,
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<IHacker>>> {
-    const value = await API.getEndpoint(APIRoute.HACKER_EMAIL).getOne({
-      id: email,
+    const value = await API.getEndpoint(APIRoute.HACKER_EMAIL).getOneByEmail({
+      email: email,
     });
     return value;
   }
@@ -91,8 +105,16 @@ class HackerAPI {
    * @param {IHacker} hacker
    */
   public update(hacker: IHacker): AxiosPromise {
-    const key = CACHE_HACKER_KEY + '-' + hacker.id;
-    const value = API.getEndpoint(APIRoute.HACKER).patch(hacker, hacker);
+    const key = CACHE_HACKER_KEY + '-' + hacker.identifier;
+    const renameFromIdentifierToAccount = ({
+      identifier,
+      ...hacker
+    }: IHacker): RenamedHacker => ({ account: identifier, ...hacker });
+
+    const value = API.getEndpoint(APIRoute.HACKER).patch(
+      hacker,
+      renameFromIdentifierToAccount(hacker)
+    );
     LocalCache.remove(CACHE_HACKER_KEY);
     LocalCache.remove(key);
     return value;
@@ -103,10 +125,10 @@ class HackerAPI {
    * @param {String} id The id of the hacker to be updated
    * @param {HackerStatus} status The new status of the hacker
    */
-  public updateStatus(id: string, status: HackerStatus): AxiosPromise {
-    const key = CACHE_HACKER_KEY + '-' + id;
+  public updateStatus(identifier: number, status: HackerStatus): AxiosPromise {
+    const key = CACHE_HACKER_KEY + '-' + identifier;
     const value = API.getEndpoint(APIRoute.HACKER_STATUS).patch(
-      { id },
+      { identifier },
       { status }
     );
     LocalCache.remove(CACHE_HACKER_KEY);
@@ -118,10 +140,12 @@ class HackerAPI {
    * Update's a hacker's status to checked-in if the hacker is accepted or confirmed.
    * @param {String} id The id of the hacker to be updated
    */
-  public async checkin(id: string): Promise<AxiosResponse<APIResponse<{}>>> {
-    const key = CACHE_HACKER_KEY + '-' + id;
+  public async checkin(
+    identifier: number
+  ): Promise<AxiosResponse<APIResponse<{}>>> {
+    const key = CACHE_HACKER_KEY + '-' + identifier;
     const value = await API.getEndpoint(APIRoute.HACKER_CHECKIN).patch(
-      { id },
+      { identifier },
       {}
     );
     LocalCache.remove(CACHE_HACKER_KEY);
@@ -135,12 +159,12 @@ class HackerAPI {
    * @param confirm Whether the hacker wishes to confirm their attendence or not.
    */
   public async confirm(
-    id: string,
+    identifier: number,
     confirm: boolean
   ): Promise<AxiosResponse<APIResponse<{}>>> {
-    const key = CACHE_HACKER_KEY + '-' + id;
+    const key = CACHE_HACKER_KEY + '-' + identifier;
     const value = await API.getEndpoint(APIRoute.HACKER_CONFIRMATION).patch(
-      { id },
+      { identifier },
       { confirm }
     );
     LocalCache.remove(CACHE_HACKER_KEY);
@@ -150,26 +174,26 @@ class HackerAPI {
 
   /**
    * Downloads a hacker's resume
-   * @param id The id of the hacker who the resume belongs to
+   * @param identifier The id of the hacker who the resume belongs to
    */
   public async downloadResume(
-    id: string
+    identifier: number
   ): Promise<AxiosResponse<APIResponse<IResumeResponse>>> {
     const result = await API.getEndpoint(APIRoute.HACKER_RESUME).getOne({
-      id,
+      identifier,
     });
     return result;
   }
 
   public async uploadResume(
-    id: string,
+    id: number,
     resume: File
   ): Promise<AxiosResponse<APIResponse<{}>>> {
     const data = new FormData();
     data.append('resume', resume);
     const key = CACHE_HACKER_KEY + '-' + id;
     const value = await API.getEndpoint(APIRoute.HACKER_RESUME).create(data, {
-      subURL: id,
+      subURL: id.toLocaleString(),
     });
     LocalCache.remove(key);
     return value;

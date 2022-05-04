@@ -4,7 +4,7 @@ import { Checkbox } from '../../shared/Form';
 import NomineeContext from './Context';
 
 interface IProps {
-  hackerId: string;
+  hackerId: number;
 }
 
 interface IState {
@@ -48,7 +48,7 @@ class HackerSelect extends React.Component<IProps, IState> {
       this.context.nominees.push(hackerId);
     } else {
       this.context.nominees = this.context.nominees.filter(
-        (n: string) => n !== hackerId
+        (n: number) => n !== hackerId
       );
     }
 
