@@ -11,6 +11,10 @@ axios.interceptors.response.use(
   }
 );
 
+type IdentifierWithNumber = { identifier: number };
+type IdentifierWithString = { identifier: string };
+type Identifier = IdentifierWithNumber | IdentifierWithString;
+
 export default class Endpoint {
   private resourceURL: string;
   private name: string;
@@ -25,10 +29,10 @@ export default class Endpoint {
    * @param {AxiosRequestConfig} config
    */
   public getOne(
-    { id }: { id: string },
+    { identifier }: Identifier,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.get(`${this.resourceURL}/${id}`, config);
+    return axios.get(`${this.resourceURL}/${identifier}`, config);
   }
   /**
    * Get all resources
@@ -55,40 +59,40 @@ export default class Endpoint {
   }
   /**
    * Update a specified resource by calling axios.put
-   * @param {{id:string}} object object to update. Should contain an id.
+   * @param {{identifier}:Identifier} object object to update. Should contain an id.
    * @param {*} toUpdate the update data.
    * @param {AxiosRequestConfig} config
    */
   public update(
-    { id }: { id: string },
+    { identifier }: Identifier,
     toUpdate: any,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.put(`${this.resourceURL}/${id}`, toUpdate, config);
+    return axios.put(`${this.resourceURL}/${identifier}`, toUpdate, config);
   }
   /**
    * Patch a specified resource by calling axios.patch
-   * @param {{id:string}} object object to patch. Should contain an id.
+   * @param {{identifier}:Identifier} object object to patch. Should contain an id.
    * @param {*} toPatch the patched data.
    * @param {AxiosRequestConfig} config
    */
   public patch(
-    { id }: { id: string },
+    { identifier }: Identifier,
     toPatch: any,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.patch(`${this.resourceURL}/${id}`, toPatch, config);
+    return axios.patch(`${this.resourceURL}/${identifier}`, toPatch, config);
   }
   /**
    * Delete a specified resource by calling axios.delete
-   * @param {{id:string}} object object to delete. Must contain an id.
+   * @param {{identifier}:Identifier} object object to delete. Must contain an id.
    * @param {AxiosRequestConfig} config
    */
   public delete(
-    { id }: { id: string },
+    { identifier }: Identifier,
     config: AxiosRequestConfig = {}
   ): AxiosPromise {
-    return axios.delete(`${this.resourceURL}/${id}`, config);
+    return axios.delete(`${this.resourceURL}/${identifier}`, config);
   }
   /**
    * Gets the name of api
