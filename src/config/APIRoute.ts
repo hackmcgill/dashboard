@@ -1,7 +1,7 @@
 export enum APIRoute {
   // Auth routes
-  AUTH_LOGIN = 'auth/login',
-  AUTH_LOGOUT = 'auth/logout',
+  AUTH_LOGIN = 'authentication/sign-in',
+  AUTH_LOGOUT = 'authentication/sign-out',
   AUTH_FORGOT_PASS = 'auth/password/forgot',
   AUTH_RESET_PASS = 'auth/password/reset',
   AUTH_CONFIRM_ACCT = 'auth/confirm',

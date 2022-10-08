@@ -49,18 +49,20 @@ class AccountAPI {
   }
   /**
    * Get information about a user
-   * @param id the ID of the account
+   * @param identifier the ID of the account
    */
   public async get(
-    id: string,
+    identifier: number,
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<IAccount>>> {
-    const key = CACHE_USER_KEY + '-' + id;
+    const key = CACHE_USER_KEY + '-' + identifier;
     const cached: any = LocalCache.get(key);
     if (cached && !overrideCache) {
       return cached as AxiosResponse<APIResponse<IAccount>>;
     }
-    const value = await API.getEndpoint(APIRoute.ACCOUNT).getOne({ id });
+    const value = await API.getEndpoint(APIRoute.ACCOUNT).getOne({
+      identifier,
+    });
     LocalCache.set(key, value);
     return value;
   }

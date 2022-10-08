@@ -8,7 +8,7 @@ import { ManageApplicationModes } from './ManageApplicationForm';
 export interface IResumeProps {
   label: string;
   mode: ManageApplicationModes;
-  hackerId: string;
+  hackerId: number;
   value?: boolean;
   required?: boolean;
 }
@@ -21,11 +21,11 @@ const ResumeComponent: React.FC<IResumeProps & FieldProps> = (props) => {
           <LabelText label={props.label} required={props.required} />
         </Label>
       </Box>
-      {
-        props.mode === ManageApplicationModes.EDIT ?
-          <Box mt="16px" mb="16px">{viewResume}</Box> :
-          null
-      }
+      {props.mode === ManageApplicationModes.EDIT ? (
+        <Box mt="16px" mb="16px">
+          {viewResume}
+        </Box>
+      ) : null}
       <FileUpload {...props} />
     </div>
   );

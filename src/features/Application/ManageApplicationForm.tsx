@@ -81,8 +81,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
 
   // Hacker's application data
   const [hackerDetails, setHackerDetails] = useState<IHacker>({
-    id: '',
-    accountId: '',
+    identifier: -1,
+    account: -1,
     status: HackerStatus.HACKER_STATUS_NONE,
     application: {
       general: {
@@ -438,21 +438,24 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </H1>
 
             <p>
-              You can choose to attend McHacks either virtually or in-person in Montreal.
-              Covid saftey protocols will be in place at the in-person edition of McHacks in order
-              to protect the saftey of everyone at our event. These include vacine passport checks
-              at sign-in, limited capacity, social distancing, and mask-wearing.
+              You can choose to attend McHacks either virtually or in-person in
+              Montreal. Covid saftey protocols will be in place at the in-person
+              edition of McHacks in order to protect the saftey of everyone at
+              our event. These include vacine passport checks at sign-in,
+              limited capacity, social distancing, and mask-wearing.
             </p>
 
             <div className="short-fields">
-
               <FastField
                 name={'hacker.application.accommodation.attendancePreference'}
                 label={CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
                 component={FormikElements.Select}
                 options={getOptionsFromEnum(AttendenceOptions)}
                 required={true}
-                value={fp.values.hacker.application.accommodation.attendancePreference}
+                value={
+                  fp.values.hacker.application.accommodation
+                    .attendancePreference
+                }
               />
               <ErrorMessage
                 name={'hacker.application.accommodation.attendancePreference'}
@@ -1055,16 +1058,26 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               </div>
             </div>
             <div className="field">
-              <div className="name">{CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}</div>
+              <div className="name">
+                {CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
+              </div>
               <div className="value">
-                {hackerDetails.application.accommodation.attendancePreference || 'N/A'}
+                {hackerDetails.application.accommodation.attendancePreference ||
+                  'N/A'}
               </div>
             </div>
           </GridTwoColumn>
 
           <div className="eventPrompt">
             Make sure to mark yourself as going to our{' '}
-            <a href={CONSTANTS.FACEBOOK_EVENT_URL} target="_blank" rel="noopener noreferrer">Facebook event</a>!
+            <a
+              href={CONSTANTS.FACEBOOK_EVENT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook event
+            </a>
+            !
           </div>
         </div>
 
@@ -1152,8 +1165,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   function convertFormikToHacker(
     values: FormikValues,
-    accountId: string = '',
-    hackerId: string = ''
+    hackerId: number = -1
   ): IHacker {
     values.hacker.application.shortAnswer.previousHackathons = parseInt(
       values.hacker.application.shortAnswer.previousHackathons,
@@ -1161,8 +1173,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     );
 
     const hacker: IHacker = {
-      id: hackerId,
-      accountId,
+      identifier: hackerId,
+      account: hackerId,
       status: HackerStatus.HACKER_STATUS_NONE,
       application: values.hacker.application,
     };
@@ -1190,14 +1202,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const previousPage = (values: any) => {
     let app;
-    if (values.hacker.id && values.hacker.accountId) {
-      app = convertFormikToHacker(
-        values,
-        values.hacker.accountId,
-        values.hacker.id
-      );
-    } else if (values.hacker.accountId) {
-      app = convertFormikToHacker(values, values.hacker.accountId);
+    if (values.hacker.identifier && values.hacker.account) {
+      app = convertFormikToHacker(values, values.hacker.identifier);
+    } else if (values.hacker.account) {
+      app = convertFormikToHacker(values, values.hacker.account);
     } else {
       app = convertFormikToHacker(values);
     }
@@ -1221,14 +1229,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
    */
   const nextPage = (values: any) => {
     let app;
-    if (values.hacker.id && values.hacker.accountId) {
-      app = convertFormikToHacker(
-        values,
-        values.hacker.accountId,
-        values.hacker.id
-      );
-    } else if (values.hacker.accountId) {
-      app = convertFormikToHacker(values, values.hacker.accountId);
+    if (values.hacker.identifier && values.hacker.account) {
+      app = convertFormikToHacker(values, values.hacker.identifier);
+    } else if (values.hacker.account) {
+      app = convertFormikToHacker(values, values.hacker.account);
     } else {
       app = convertFormikToHacker(values);
     }
@@ -1261,9 +1265,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${props.mode === ManageApplicationModes.EDIT
-                ? 'edited'!
-                : 'created!'
+              `Account ${
+                props.mode === ManageApplicationModes.EDIT
+                  ? 'edited'!
+                  : 'created!'
               }`
             );
             setIsSubmitted(true);
@@ -1294,7 +1299,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       return false;
     }
     const account = acctResponse.data.data;
-    const application = convertFormikToHacker(values, account.id);
+    const application = convertFormikToHacker(values, account.identifier);
     const hackerResponse = await Hacker.create(application);
     if (hackerResponse.status !== 200) {
       console.error('Error while creating application');
@@ -1327,7 +1332,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     const account = acctResponse.data.data;
     const hackerId = hackerDetails.id;
     // convert the formik values to the application object.
-    const application = convertFormikToHacker(values, account.id, hackerId);
+    const application = convertFormikToHacker(values, account.identifier);
     const hackerResponse = await Hacker.update(application);
 
     if (hackerResponse.status !== 200) {

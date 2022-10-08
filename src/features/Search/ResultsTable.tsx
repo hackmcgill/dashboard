@@ -19,14 +19,14 @@ const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
   const volunteerColumns = [
     {
       Header: 'First Name',
-      accessor: 'hacker.accountId.firstName',
+      accessor: 'hacker.account.firstName',
     },
   ];
   const generalColumns = [
     ...volunteerColumns,
     {
       Header: 'Last Name',
-      accessor: 'hacker.accountId.lastName',
+      accessor: 'hacker.account.lastName',
     },
     {
       Header: 'School',

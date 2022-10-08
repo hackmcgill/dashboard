@@ -11,7 +11,6 @@ import { generateHackPass } from '../../util';
 import { Email } from '../../features/Checkin/Email';
 import { Reader } from '../../features/Checkin/Reader';
 
-
 const CheckinPage: React.FC = () => {
   // Is page currently busy doing something?
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -24,20 +23,16 @@ const CheckinPage: React.FC = () => {
    * @param id the id of the Hacker.
    * @returns boolean whether the hacker was properly checked in.
    */
-  const checkinHacker = async (id: string): Promise<boolean> => {
+  const checkinHacker = async (identifier: number): Promise<boolean> => {
     let checkedIn = false;
     setIsLoading(true);
 
     try {
-      await Hacker.checkin(id);
+      await Hacker.checkin(identifier);
       checkedIn = true;
       toast.success('Hacker checked in.');
-      const hacker = (await Hacker.get(id)).data.data;
-      const accountId =
-        typeof hacker.accountId === 'string'
-          ? hacker.accountId
-          : hacker.accountId.id;
-      const account = (await Account.get(accountId)).data.data;
+      const hacker = (await Hacker.get(identifier)).data.data;
+      const account = (await Account.get(identifier)).data.data;
       await generateHackPass(account, hacker);
       if (account.dietaryRestrictions.length > 0) {
         toast.info(
@@ -60,7 +55,7 @@ const CheckinPage: React.FC = () => {
       setIsLoading(false);
     }
     return checkedIn;
-  }
+  };
 
   /**
    * Function which checks in a hacker as long as the provided data is of the correct format.
@@ -83,9 +78,9 @@ const CheckinPage: React.FC = () => {
         toast.error('Invalid QR Code');
         return;
       }
-      await checkinHacker(data);
+      await checkinHacker(Number.parseInt(data));
     }
-  }
+  };
 
   /**
    * If error scanning an code, display a toast popup with error message
@@ -93,7 +88,7 @@ const CheckinPage: React.FC = () => {
    */
   const handleScanError = (err: any) => {
     toast.error(err);
-  }
+  };
 
   /**
    * Checkin hacker with a certain email address, if that address is valid
@@ -111,7 +106,7 @@ const CheckinPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Flex flexDirection={'column'}>
@@ -142,10 +137,7 @@ const CheckinPage: React.FC = () => {
               By QR Code:
             </H1>
             <Box>
-              <Reader
-                onError={handleScanError}
-                onScan={handleScan}
-              />
+              <Reader onError={handleScanError} onScan={handleScan} />
             </Box>
           </MaxWidthBox>
           <MaxWidthBox maxWidth={'330px'} width={1}>
@@ -166,6 +158,6 @@ const CheckinPage: React.FC = () => {
       </Box>
     </Flex>
   );
-}
+};
 
 export default WithToasterContainer(CheckinPage);

@@ -22,7 +22,7 @@ const SingleHackerPage: React.FC = () => {
   const [userType, setUserType] = useState<UserType>(UserType.UNKNOWN);
 
   // Get the id param from url's query
-  const { id } = useParams();
+  const { identifier } = useParams();
 
   const nomineeContext = useContext(NomineeContext);
 
@@ -33,16 +33,15 @@ const SingleHackerPage: React.FC = () => {
         const viewer = (await Account.getSelf()).data.data;
         console.log(viewer, viewer.accountType);
         setUserType(viewer.accountType);
-        const newHacker = (await Hacker.get(id)).data.data;
-        const account = (await Account.get(newHacker.accountId as string)).data
-          .data;
-        newHacker.accountId = account;
+        const newHacker = (await Hacker.get(identifier)).data.data;
+        const account = (await Account.get(newHacker.identifier)).data.data;
+        newHacker.account = account;
         setHacker(newHacker);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [id]);
+  }, [identifier]);
 
   // If data on hacker has loaded, display that hacker's info
   if (hacker) {

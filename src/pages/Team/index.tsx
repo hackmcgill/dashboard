@@ -3,7 +3,13 @@ import Helmet from 'react-helmet';
 
 import { Hacker } from '../../api';
 import Team from '../../api/team';
-import { HACKATHON_NAME, IHacker, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
+import {
+  HACKATHON_NAME,
+  IHacker,
+  IMemberName,
+  ITeam,
+  TEAM_OVERVIEW,
+} from '../../config';
 
 import { ITeamResponse } from '../../config/teamGETResponse';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -37,7 +43,7 @@ const TeamPage: React.FC = () => {
     try {
       const hacker = (await Hacker.getSelf()).data.data;
       if (hacker && hacker.teamId) {
-        const id = String(hacker.teamId);
+        const id = Number.parseInt(hacker.teamId as string);
         const teamResponse: ITeamResponse = (await Team.get(id)).data.data;
         setHacker(hacker);
         setTeam(teamResponse.team);

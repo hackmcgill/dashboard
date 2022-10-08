@@ -1,9 +1,5 @@
 import { AxiosResponse } from 'axios';
-import {
-  APIRoute,
-  CACHE_TRAVEL_KEY,
-  ITravel
-} from '../config';
+import { APIRoute, CACHE_TRAVEL_KEY, ITravel } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
@@ -33,15 +29,15 @@ class TravelAPI {
    * @param id the ID of the travel
    */
   public async get(
-    id: string,
+    identifier: number,
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<ITravel>>> {
-    const key = CACHE_TRAVEL_KEY + '-' + id;
+    const key = CACHE_TRAVEL_KEY + '-' + identifier;
     const cached: any = LocalCache.get(key);
     if (cached && !overrideCache) {
       return cached as Promise<AxiosResponse<APIResponse<ITravel>>>;
     }
-    const value = await API.getEndpoint(APIRoute.TRAVEL).getOne({ id });
+    const value = await API.getEndpoint(APIRoute.TRAVEL).getOne({ identifier });
     LocalCache.set(key, value);
     return value;
   }
@@ -55,7 +51,7 @@ class TravelAPI {
     overrideCache?: boolean
   ): Promise<AxiosResponse<APIResponse<ITravel>>> {
     const value = await API.getEndpoint(APIRoute.TRAVEL_EMAIL).getOne({
-      id: email,
+      identifier: email,
     });
     return value;
   }

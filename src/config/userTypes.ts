@@ -23,14 +23,13 @@ export interface IAccount {
   // The preferred pronoun
   pronoun: string;
   // The database id (if new, leave blank / make '')
-  id: string;
-  _id?: string;
+  identifier: number;
 }
 
 export interface IHacker {
   [key: string]: any;
-  id: string;
-  accountId: string | IAccount; // for querying account as well
+  identifier: number;
+  account: number | IAccount; // for querying account as well
   status: HackerStatus;
   application: {
     general: {
@@ -82,16 +81,14 @@ export interface IHacker {
       timeZone: string;
       country: string;
       city: string;
-    }
+    };
   };
   teamId?: string | ITeam;
 }
 
 export interface ISponsor {
   // The sponsor's id
-  id: string;
-  // The Sponsor's account id.
-  accountId: string;
+  identifier: number;
   // What tier the sponsor is.
   tier: number;
   // The sponsor's company
