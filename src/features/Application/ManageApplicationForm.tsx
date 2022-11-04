@@ -21,6 +21,7 @@ import getValidationSchema from './validationSchema';
 
 import {
   AttendenceOptions,
+  defaultSettings,
   Degrees,
   FrontendRoute,
   HackerStatus,
@@ -88,7 +89,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       general: {
         school: '',
         degree: '',
-        fieldOfStudy: '',
+        fieldOfStudy: [],
         graduationYear: NaN,
         jobInterest: '',
         URL: {
@@ -123,12 +124,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   });
 
   // Application settings
-  const [settings, setSettings] = useState<ISetting>({
-    openTime: new Date().toString(),
-    closeTime: new Date().toString(),
-    confirmTime: new Date().toString(),
-    isRemote: false,
-  });
+  const [settings, setSettings] = useState<ISetting>(defaultSettings);
 
   const getPreviousHackathonOptions = (options: any) => {
     return Object.keys(options).map((o) => ({
@@ -706,7 +702,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 name={'hacker.application.accommodation.shirtSize'}
                 component={FormikElements.Error}
               />
-              {!settings.isRemote && (
+              {!settings.IS_REMOTE && (
                 <>
                   <FastField
                     name={'hacker.application.accommodation.travel'}
@@ -1037,7 +1033,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             Accommodation
           </H2>
           <GridTwoColumn rowGap="0" margin="0">
-            {!settings.isRemote && (
+            {!settings.IS_REMOTE && (
               <div className="field">
                 <div className="name">{CONSTANTS.SHIRT_SIZE_LABEL}</div>
                 <div className="value">
@@ -1179,7 +1175,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       application: values.hacker.application,
     };
 
-    if (settings.isRemote) {
+    if (settings.IS_REMOTE) {
       hacker.application.accommodation.travel = 0;
     }
 
@@ -1306,7 +1302,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       return false;
     }
     const hacker = hackerResponse.data.data;
-    const resumeResponse = await Hacker.uploadResume(hacker.id, values.resume);
+    const resumeResponse = await Hacker.uploadResume(
+      hacker.identifier.toString(),
+      values.resume
+    );
     if (resumeResponse.status !== 200) {
       console.error('Could not upload resume properly');
       return false;
@@ -1357,7 +1356,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
   if (
     isLoaded &&
     (isSubmitted ||
-      (new Date() > new Date(settings.closeTime) &&
+      (new Date() > new Date(settings.APPLICATION_CLOSE) &&
         props.mode === ManageApplicationModes.CREATE))
   ) {
     history.push(FrontendRoute.HOME_PAGE);

@@ -17,6 +17,9 @@ class SearchAPI {
         model,
         ...searchOptions,
       },
+      data: {
+        filters: parameters,
+      }
     });
   }
 }

@@ -12,23 +12,9 @@ class SettingsAPI {
    * Update the settings.
    * @param setting The settings that you want to update
    */
-  public update(setting: ISetting): AxiosPromise {
-    return API.getEndpoint(APIRoute.SETTINGS).patch(
-      { identifier: '' },
-      setting
-    );
-
-    {
-      "KEY": "VALUE"
-    },
-    {
-      "KEY": "VALUE"
-    }
-
-    {
-      OPEN_TIME: "DASF"
-      CLOSE_TIME: "das"
-    }
+  public update(setting: Partial<ISetting>): AxiosPromise {
+    console.log(setting)
+    return API.getEndpoint(APIRoute.SETTINGS).patchDirectly(setting);
   }
   /**
    * Get the current settings

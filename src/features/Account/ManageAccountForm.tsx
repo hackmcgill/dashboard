@@ -8,8 +8,9 @@ import {
   FormikProps,
   FormikValues,
 } from 'formik';
-import { Account, Auth, Settings } from '../../api';
+import { Account, AccountUpdate, Auth, Settings } from '../../api';
 import {
+  defaultSettings,
   DietaryRestriction,
   FrontendRoute,
   Genders,
@@ -58,12 +59,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Application settings
-  const [settings, setSettings] = useState<ISetting>({
-    openTime: new Date().toString(),
-    closeTime: new Date().toString(),
-    confirmTime: new Date().toString(),
-    isRemote: false,
-  });
+  const [settings, setSettings] = useState<ISetting>(defaultSettings);
 
   // Track the details of the account that is either being created or updated
   const [accountDetails, setAccountDetails] = useState<IAccount>({
@@ -120,7 +116,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     values: FormikValues,
     accountId: number = -1
   ): IAccount => ({
-    accountType: UserType.UNKNOWN,
+    accountType: UserType.HACKER,
     birthDate: input2date(values.birthDate),
     confirmed: false,
     email: values.email,
@@ -132,7 +128,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
     pronoun: values.pronoun,
     gender: values.gender,
-    dietaryRestrictions: settings.isRemote
+    dietaryRestrictions: settings.IS_REMOTE
       ? ['Unknown']
       : values.dietaryRestrictions,
   });
@@ -201,10 +197,11 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
    * @param newPassword password this user is changing to
    */
   const handleEdit = async (
-    payload: IAccount,
+    payload: AccountUpdate,
     oldPassword?: string,
     newPassword?: string
   ) => {
+    delete payload.password;
     try {
       await Account.update(payload);
       if (oldPassword && newPassword) {

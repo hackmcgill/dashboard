@@ -52,7 +52,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
     try {
       const { hacker } = props;
       setIsLoading(true);
-      await Hacker.updateStatus(hacker.id, status);
+      await Hacker.updateStatus(hacker.identifier, status);
       setIsLoading(false);
       toast.success(`Hacker status updated to ${status}!`);
     } catch (e) {
@@ -182,7 +182,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             />
             <SHField
               label="Field(s) of Study"
-              text={hacker.application.general.fieldOfStudy}
+              text={hacker.application.general.fieldOfStudy.join(', ')}
             />
             <SHField
               label="Skills"

@@ -14,14 +14,21 @@ interface ISettingsFormProps {
 const SettingsForm: React.FC<ISettingsFormProps> = (
   props: ISettingsFormProps
 ) => {
-  const openTime = datetime2input(props.settings.openTime);
-  const closeTime = datetime2input(props.settings.closeTime);
-  const confirmTime = datetime2input(props.settings.confirmTime);
-  const isRemote = props.settings.isRemote;
+  const APPLICATION_OPEN = datetime2input(props.settings.APPLICATION_OPEN);
+  const APPLICATION_CLOSE = datetime2input(props.settings.APPLICATION_CLOSE);
+  const APPLICATION_CONFIRM = datetime2input(
+    props.settings.APPLICATION_CONFIRM
+  );
+  const IS_REMOTE = props.settings.IS_REMOTE;
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={{ openTime, closeTime, confirmTime, isRemote }}
+      initialValues={{
+        APPLICATION_OPEN,
+        APPLICATION_CLOSE,
+        APPLICATION_CONFIRM,
+        IS_REMOTE,
+      }}
       onSubmit={onSubmitFactory(props)}
       render={renderForm}
     />
@@ -42,36 +49,36 @@ function renderForm(fp: FormikProps<ISetting>) {
   return (
     <Form onSubmit={fp.handleSubmit}>
       <FastField
-        name={'openTime'}
+        name={'APPLICATION_OPEN'}
         label={CONSTANTS.SETTINGS_OPEN_TIME_LABEL}
-        value={fp.values.openTime}
+        value={fp.values.APPLICATION_OPEN}
         component={FormikElements.FormattedNumber}
         placeholder="MM/DD/YYYY HH:MM:SS"
         format="##/##/#### ##:##:##"
         required={true}
       />
       <FastField
-        name={'closeTime'}
+        name={'APPLICATION_CLOSE'}
         label={CONSTANTS.SETTINGS_CLOSE_TIME_LABEL}
-        value={fp.values.closeTime}
+        value={fp.values.APPLICATION_CLOSE}
         component={FormikElements.FormattedNumber}
         placeholder="MM/DD/YYYY HH:MM:SS"
         format="##/##/#### ##:##:##"
         required={true}
       />
       <FastField
-        name={'confirmTime'}
+        name={'APPLICATION_CONFIRM'}
         label={CONSTANTS.SETTINGS_CONFIRM_TIME_LABEL}
-        value={fp.values.confirmTime}
+        value={fp.values.APPLICATION_CONFIRM}
         component={FormikElements.FormattedNumber}
         placeholder="MM/DD/YYYY HH:MM:SS"
         format="##/##/#### ##:##:##"
         required={true}
       />
       <FastField
-        name={'isRemote'}
+        name={'IS_REMOTE'}
         label={CONSTANTS.SETTINGS_IS_REMOTE_LABEL}
-        value={fp.values.isRemote}
+        value={fp.values.IS_REMOTE}
         component={FormikElements.Checkbox}
         required={true}
       />
@@ -82,13 +89,13 @@ function renderForm(fp: FormikProps<ISetting>) {
 
 function handleSubmit(
   values: FormikValues,
-  submit: (settings: ISetting) => void
+  submit: (settings: Partial<ISetting>) => void
 ) {
   submit({
-    openTime: input2datetime(values.openTime),
-    closeTime: input2datetime(values.closeTime),
-    confirmTime: input2datetime(values.confirmTime),
-    isRemote: values.isRemote,
+    APPLICATION_OPEN: input2datetime(values.APPLICATION_OPEN),
+    APPLICATION_CLOSE: input2datetime(values.APPLICATION_CLOSE),
+    APPLICATION_CONFIRM: input2datetime(values.APPLICATION_CONFIRM),
+    IS_REMOTE: values.IS_REMOTE,
   });
 }
 

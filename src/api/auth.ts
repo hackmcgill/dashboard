@@ -27,9 +27,7 @@ class AuthAPI {
    * @returns {AxiosPromise<AxiosResponse>} a promise which resolves to a response
    */
   public async logout(): Promise<AxiosResponse<APIResponse<{}>>> {
-    const value = await API.getEndpoint(APIRoute.AUTH_LOGOUT).getOne({
-      identifier: -1,
-    });
+    const value = await API.getEndpoint(APIRoute.AUTH_LOGOUT).getAll();
     LocalCache.remove(CACHE_USER_KEY);
     LocalCache.remove(CACHE_HACKER_KEY);
     return value;
@@ -86,10 +84,7 @@ class AuthAPI {
       oldPassword,
       newPassword,
     };
-    return API.getEndpoint(APIRoute.AUTH_CHANGE_PASS).patch(
-      { identifier: -1 },
-      changePasswordObject
-    );
+    return API.getEndpoint(APIRoute.AUTH_CHANGE_PASS).patchDirectly(changePasswordObject);
   }
 
   /**
