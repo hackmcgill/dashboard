@@ -20,7 +20,6 @@ import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
-  AttendenceOptions,
   Degrees,
   FrontendRoute,
   HackerStatus,
