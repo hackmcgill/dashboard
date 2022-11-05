@@ -1,7 +1,7 @@
 {
   "name": "hackerapi-frontend",
   "homepage": "https://app.mchacks.ca",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "license": "MIT",
   "private": true,
   "scripts": {
