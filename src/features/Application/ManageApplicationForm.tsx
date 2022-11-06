@@ -1028,15 +1028,6 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 {hackerDetails.application.accommodation.barriers || 'N/A'}
               </div>
             </div>
-            <div className="field">
-              <div className="name">
-                {CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL}
-              </div>
-              <div className="value">
-                {hackerDetails.application.accommodation.attendancePreference ||
-                  'N/A'}
-              </div>
-            </div>
           </GridTwoColumn>
 
           <div className="eventPrompt">
