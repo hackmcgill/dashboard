@@ -21,13 +21,16 @@ export const STATIC_SITE = 'https://mchacks.ca';
 export const BUS_DEPARTURE_CITY = 'Toronto';
 export const BUS_GENERAL_INFO = `We're offering a round-trip bus from ${BUS_DEPARTURE_CITY} to ${HACKATHON_NAME}. Seats are available on a first-come, first-serve basis. You can place a deposit to secure a seat on the bus`;
 export const BUS_SHOPIFY_PAGE = 'https://bus.mchacks.ca/';
-export const BUS_SLACK_PAGE = 'https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU';
+export const BUS_SLACK_PAGE =
+  'https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU';
 export const BUS_SLACK_CHANNEL = '#bus-toronto channel';
-export const TRAVEL_POLICY = 'https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM';
+export const TRAVEL_POLICY =
+  'https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM';
 export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/TdxUaUn31WzXcPvu6';
 
 // Social media
-export const FACEBOOK_EVENT_URL = 'https://www.facebook.com/events/1086921742114789';
+export const FACEBOOK_EVENT_URL =
+  'https://www.facebook.com/events/1126631661572961/';
 export const TWITTER = '@mcgillhacks';
 
 // SEO
@@ -105,7 +108,8 @@ export const ETHNICITY_PLACEHOLDER = 'Ethnicity';
 export const GITHUB_LINK_LABEL = 'GitHub URL';
 export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
 export const GRADUATION_YEAR_LABEL = 'Graduation Year';
-export const IMPAIRMENTS_LABEL = 'Do you have any hearing and/or visual impairments?';
+export const IMPAIRMENTS_LABEL =
+  'Do you have any hearing and/or visual impairments?';
 export const JOBINTEREST_LABEL = 'Job Interest';
 export const JOBINTEREST_PLACEHOLDER = 'Full Time, Internship, None...';
 export const LINKEDIN_LINK_LABEL = 'LinkedIn URL';
@@ -120,7 +124,8 @@ export const MLH_LABEL = 'I accept the MLH policies.';
 export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';
-export const ATTENDENCE_OPTION_PREFERENCE_LABEL = 'Would you prefer to attend McHacks in person or virtually?';
+export const ATTENDENCE_OPTION_PREFERENCE_LABEL =
+  'Would you prefer to attend McHacks in person or virtually?';
 export const SKILLS_LABEL = 'Skills';
 export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';
@@ -149,7 +154,8 @@ export const REQUIRED_INPUT = '*';
 export const OPTIONAL_INPUT = '(optional)';
 
 // Team page
-export const TEAM_OVERVIEW = 'Form a team with up to 3 other friends in order to have your applications considered as a group.';
+export const TEAM_OVERVIEW =
+  'Form a team with up to 3 other friends in order to have your applications considered as a group.';
 export const TEAM_NAME = 'Team name:';
 export const TEAM_NAME_SUBTITLE =
   'Other hackers can join your team with this string.';
@@ -168,4 +174,5 @@ export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker confirmations close at:';
 export const SETTINGS_IS_REMOTE_LABEL = 'Remote hackathon mode';
 
 // Sentry
-export const SENTRY_DSN = 'https://26f1d8550cc34833b9e04894a8192611@o659380.ingest.sentry.io/5764002'
+export const SENTRY_DSN =
+  'https://26f1d8550cc34833b9e04894a8192611@o659380.ingest.sentry.io/5764002';
