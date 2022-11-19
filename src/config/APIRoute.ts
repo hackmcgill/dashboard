@@ -34,7 +34,7 @@ export enum APIRoute {
   SPONSOR_SELF = 'sponsor/self',
 
   TEAM = 'team',
-  TEAM_JOIN = 'team/join',
-  TEAM_LEAVE = 'team/leave',
+  TEAM_JOIN = 'team/members/join',
+  TEAM_LEAVE = 'team/members/leave',
 }
 export default APIRoute;
