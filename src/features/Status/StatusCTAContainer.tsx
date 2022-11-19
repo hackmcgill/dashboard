@@ -15,6 +15,7 @@ import { Hacker, Settings } from '../../api';
 import { ConfirmModal } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
+import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -105,7 +106,7 @@ class StatusCTAContainer extends React.Component<
         alignItems="center"
         p="6px 30px 96px 30px"
       >
-        {this.props.account && (
+        {this.props.confirmed && this.props.account ? (
           <StatusCTA
             status={this.state.status}
             firstName={this.props.account.firstName}
@@ -116,6 +117,8 @@ class StatusCTAContainer extends React.Component<
             // tslint:disable-next-line: jsx-no-lambda
             onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
           />
+        ) : (
+          <ConfirmationEmailSentComponent />
         )}
         <StatusCTALocationModal
           isModalOpen={this.state.isLocationModalOpen}

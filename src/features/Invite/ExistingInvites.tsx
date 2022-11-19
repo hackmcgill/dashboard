@@ -15,7 +15,7 @@ export const ExistingInvites: React.FC = () => {
       // Load invites
       try {
         const result = await Account.getInvites();
-        const allInvites = result.data.data.invites;
+        const allInvites = result.data.data;
         console.log(allInvites);
         setInvites(allInvites);
       } catch (e) {

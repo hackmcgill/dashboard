@@ -16,6 +16,7 @@ import {
   canAccessApplication,
   canAccessTeam,
   canAccessTravel,
+  isConfirmed,
   isLoggedIn,
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
@@ -134,7 +135,7 @@ export default class Navbar extends React.Component<
 
     // set confirmed account
     try {
-      const confirmed = true; //await isConfirmed();
+      const confirmed = await isConfirmed();
       this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });

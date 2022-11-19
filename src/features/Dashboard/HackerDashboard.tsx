@@ -3,6 +3,7 @@ import { Account } from '../../api';
 import Hacker from '../../api/hacker';
 import { HackerStatus, IAccount } from '../../config';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import { isConfirmed } from '../../util/UserInfoHelperFunctions';
 import StatusCTAContainer from '../Status/StatusCTAContainer';
 
 const HackerDashboard: React.FC = () => {
@@ -10,7 +11,9 @@ const HackerDashboard: React.FC = () => {
   const [account, setAccount] = useState<IAccount>(Object());
 
   // Currently logged in hacker's status (e.g. APPLIED, CONFIRMED, etc.)
-  const [status, setStatus] = useState<HackerStatus>(HackerStatus.HACKER_STATUS_NONE);
+  const [status, setStatus] = useState<HackerStatus>(
+    HackerStatus.HACKER_STATUS_NONE
+  );
 
   // Is the currently logged in hacker confirmed as attending event?
   const [confirmed, setConfirmed] = useState<boolean>(false);
@@ -39,11 +42,7 @@ const HackerDashboard: React.FC = () => {
       }
 
       // Check if hacker is confirmed
-      try {
-        setConfirmed(true);//await isConfirmed());
-      } catch (e) {
-        setConfirmed(false);
-      }
+      setConfirmed(await isConfirmed());
 
       // Whatever the results are, we've finshed loading at this point
       setIsLoaded(true);
@@ -51,7 +50,9 @@ const HackerDashboard: React.FC = () => {
   }, []);
 
   // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
-  return isLoaded ? <StatusCTAContainer {...{ account, status, confirmed }} /> : null;
-}
+  return isLoaded ? (
+    <StatusCTAContainer {...{ account, status, confirmed }} />
+  ) : null;
+};
 
 export default WithToasterContainer(HackerDashboard);

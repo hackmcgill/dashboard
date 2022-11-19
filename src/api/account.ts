@@ -94,7 +94,7 @@ class AccountAPI {
   /**
    * Get all of the invites to the platform.
    */
-  public getInvites(): AxiosPromise<APIResponse<{ invites: IInviteInfo[] }>> {
+  public getInvites(): AxiosPromise<APIResponse<IInviteInfo[]>> {
     return API.getEndpoint(APIRoute.ACCOUNT_INVITE).getAll();
   }
 }
