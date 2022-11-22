@@ -154,7 +154,7 @@ class App extends React.Component {
                       {
                         redirAfterLogin: true,
                         AuthVerification: (user: IAccount) =>
-                          user.accountType === UserType.HACKER,
+                          user.confirmed && user.accountType === UserType.HACKER,
                       }
                     ),
                     { activePage: 'application' }
@@ -175,7 +175,7 @@ class App extends React.Component {
                         requiredAuthState: true,
                         redirAfterLogin: true,
                         AuthVerification: (user: IAccount) =>
-                          user.accountType === UserType.HACKER,
+                          user.confirmed && user.accountType === UserType.HACKER,
                       }
                     ),
                     { activePage: 'application' }
@@ -195,7 +195,7 @@ class App extends React.Component {
                       requiredAuthState: true,
                       redirAfterLogin: true,
                       AuthVerification: (user: IAccount) =>
-                        user.accountType === UserType.HACKER,
+                        user.confirmed && user.accountType === UserType.HACKER,
                     }
                   ),
                   { activePage: 'team' }
@@ -214,7 +214,7 @@ class App extends React.Component {
                     requiredAuthState: true,
                     redirAfterLogin: true,
                     AuthVerification: (user: IAccount) =>
-                      user.accountType === UserType.HACKER,
+                      user.confirmed && user.accountType === UserType.HACKER,
                   }
                 ),
                 { activePage: 'travel' }
@@ -242,7 +242,7 @@ class App extends React.Component {
                   {
                     redirAfterLogin: true,
                     AuthVerification: (user: IAccount) =>
-                      user.accountType === UserType.HACKER,
+                      user.confirmed && user.accountType === UserType.HACKER,
                   }
                 )
               )}
@@ -384,7 +384,7 @@ class App extends React.Component {
                       redirAfterLogin: true,
                       requiredAuthState: true,
                       AuthVerification: (user: IAccount) =>
-                        user.accountType === UserType.HACKER,
+                        user.confirmed && user.accountType === UserType.HACKER,
                     }
                   )
                 )
