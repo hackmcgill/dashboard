@@ -3,7 +3,13 @@ import React from 'react';
 import { Flex } from '@rebass/grid';
 import { FrontendRoute, HackerStatus, ISetting } from '../../config';
 import * as CONSTANTS from '../../config/constants';
-import { Button, H1, LinkDuo, Image, ButtonVariant } from '../../shared/Elements';
+import {
+  Button,
+  H1,
+  LinkDuo,
+  Image,
+  ButtonVariant,
+} from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
 import developer from '../../assets/images/developer.svg';
@@ -39,53 +45,105 @@ interface IStatusHeaderProps {
 
 /**
  * Inform the hacker of their current application status and give them the really important actions they
- * can do right now 
+ * can do right now
  */
 const StatusCTA: React.FC<IStatusHeaderProps> = ({
   status,
   firstName,
   settings,
   onClickConfirm,
-  onClickWithdraw
+  onClickWithdraw,
 }) => {
   const confirmButton = (
-    <Button type="button" onClick={onClickConfirm} variant={ButtonVariant.Primary}>
+    <Button
+      type="button"
+      onClick={onClickConfirm}
+      variant={ButtonVariant.Primary}
+    >
       Confirm
     </Button>
   );
   const withdrawButton = (
-    <Button type="button" onClick={onClickWithdraw} variant={ButtonVariant.Secondary} isOutlined={true}>
+    <Button
+      type="button"
+      onClick={onClickWithdraw}
+      variant={ButtonVariant.Secondary}
+      isOutlined={true}
+    >
       Withdraw
     </Button>
   );
   const applyButton = (
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button" variant={ButtonVariant.Secondary}>Apply</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>
+        Apply
+      </Button>
     </LinkDuo>
   );
   const liveSiteButton = (
     /* link not made yet */
     <LinkDuo to={FrontendRoute.CREATE_APPLICATION_PAGE}>
-      <Button type="button" variant={ButtonVariant.Secondary}>Event Info</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>
+        Event Info
+      </Button>
     </LinkDuo>
   );
   const hackPassButton = (
     <LinkDuo to={FrontendRoute.PASS_HACKER_PAGE}>
-      <Button type="button" variant={ButtonVariant.Secondary}>Hack Pass</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>
+        Hack Pass
+      </Button>
     </LinkDuo>
   );
   const travelButton = (
     <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
-      <Button type="button" variant={ButtonVariant.Secondary}>Travel</Button>
+      <Button type="button" variant={ButtonVariant.Secondary}>
+        Travel
+      </Button>
     </LinkDuo>
   );
 
   // Possible choices for art
-  const rocketArt = <Image src={rocket} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
-  const computerArt = <Image src={computer2} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
-  const developerArt = <Image src={developer} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
-  const developerArtSmall = <Image src={developer} imgHeight="280px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
-  const hackerArt = <Image src={hacker} imgHeight="300px" imgWidth="min(100%, 100vw)" padding={'0 0 68px 0'} />;
+  const rocketArt = (
+    <Image
+      src={rocket}
+      imgHeight="300px"
+      imgWidth="min(100%, 100vw)"
+      padding={'0 0 68px 0'}
+    />
+  );
+  const computerArt = (
+    <Image
+      src={computer2}
+      imgHeight="300px"
+      imgWidth="min(100%, 100vw)"
+      padding={'0 0 68px 0'}
+    />
+  );
+  const developerArt = (
+    <Image
+      src={developer}
+      imgHeight="300px"
+      imgWidth="min(100%, 100vw)"
+      padding={'0 0 68px 0'}
+    />
+  );
+  const developerArtSmall = (
+    <Image
+      src={developer}
+      imgHeight="280px"
+      imgWidth="min(100%, 100vw)"
+      padding={'0 0 68px 0'}
+    />
+  );
+  const hackerArt = (
+    <Image
+      src={hacker}
+      imgHeight="300px"
+      imgWidth="min(100%, 100vw)"
+      padding={'0 0 68px 0'}
+    />
+  );
 
   let heading = 'Hey ' + firstName + ',';
   let text;
@@ -108,32 +166,43 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       break;
     case DetailedState.APPLIED:
       heading = CONSTANTS.APPLIED_STATUS_HEADING;
-      text = (<span>
-        {CONSTANTS.APPLIED_STATUS_TEXT}
-        {CONSTANTS.SOCIAL_MEDIA_PROMPT_START}
-        <a href="https://www.facebook.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
-          Facebook
-        </a>,{' '}
-        <a
-          href="https://twitter.com/McGillHacks?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Twitter
-        </a>,{' '}
-        and{' '}
-        <a href="https://www.instagram.com/mcgillhacks/" target="_blank" rel="noopener noreferrer">
-          Instagram
-        </a>
-        {CONSTANTS.SOCIAL_MEDIA_PROMPT_END}
-      </span>);
+      text = (
+        <span>
+          {CONSTANTS.APPLIED_STATUS_TEXT}
+          {CONSTANTS.SOCIAL_MEDIA_PROMPT_START}
+          <a
+            href="https://www.facebook.com/mcgillhacks/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+          ,{' '}
+          <a
+            href="https://twitter.com/McGillHacks?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Twitter
+          </a>
+          , and{' '}
+          <a
+            href="https://www.instagram.com/mcgillhacks/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+          </a>
+          {CONSTANTS.SOCIAL_MEDIA_PROMPT_END}
+        </span>
+      );
       art = computerArt;
       break;
     case DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW:
       heading = CONSTANTS.ACCEPTED_STATUS_HEADING;
       text = `${CONSTANTS.ACCEPTED_STATUS_TEXT}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_START}${' '}
-      ${date2human(settings.confirmTime)}${' '}
+      ${date2human(settings.APPLICATION_CONFIRM)}${' '}
       ${CONSTANTS.RSVP_DEADLINE_TEXT_END}`;
       art = developerArtSmall;
       buttons = [withdrawButton, confirmButton];
@@ -152,7 +221,7 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       break;
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
-      if (!settings.isRemote) {
+      if (!settings.IS_REMOTE) {
         buttons = [hackPassButton, travelButton, withdrawButton];
       } else {
         buttons = [];
@@ -176,15 +245,13 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       alignItems={'center'}
       flexDirection={'column'}
     >
-      <div className="art">
-        {art}
-      </div>
+      <div className="art">{art}</div>
 
-      <H1 marginBottom="0" textAlign="center">{heading}</H1>
+      <H1 marginBottom="0" textAlign="center">
+        {heading}
+      </H1>
 
-      <div className="status-details">
-        {text}
-      </div>
+      <div className="status-details">{text}</div>
 
       <Flex flexDirection={'row'} justifyContent={'space-around'}>
         {insertMargin(buttons)}
@@ -249,9 +316,9 @@ function GetDetailedState(
   settings: ISetting
 ): DetailedState {
   const now = new Date();
-  const openTime = new Date(settings.openTime);
-  const closeTime = new Date(settings.closeTime);
-  const confirmTime = new Date(settings.confirmTime);
+  const openTime = new Date(settings.APPLICATION_OPEN);
+  const closeTime = new Date(settings.APPLICATION_CLOSE);
+  const confirmTime = new Date(settings.APPLICATION_CONFIRM);
 
   const inPreApplyWindow = now < openTime;
   const inApplyWindow = now > openTime && now < closeTime;

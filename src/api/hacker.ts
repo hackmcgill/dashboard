@@ -4,6 +4,7 @@ import {
   CACHE_HACKER_KEY,
   CACHE_STATS_KEY,
   HackerStatus,
+  IAccount,
   IHacker,
   IResumeResponse,
   IStatsResponse,
@@ -168,7 +169,7 @@ class HackerAPI {
     resume: File
   ): Promise<AxiosResponse<APIResponse<{}>>> {
     const data = new FormData();
-    data.append('resume', resume);
+    data.append('file', resume);
     const key = CACHE_HACKER_KEY + '-' + identifier;
     const value = await API.getEndpoint(APIRoute.HACKER_RESUME).create(data, {
       subURL: identifier,

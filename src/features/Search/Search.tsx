@@ -100,15 +100,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       />
                     </Box>
                     <Box mr={'10px'}>
-                      {account && account.accountType === UserType.STAFF && (
-                        <Button
-                          style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary}
-                          isOutlined={true}
-                        >
-                          Update Status
-                        </Button>
-                      )}
                       {account && isSponsor(account) && (
                         <Button
                           onClick={this.toggleSaved}
@@ -348,10 +339,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     const { sponsor, viewSaved, results } = this.state;
     const searchBar = this.state.searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
-      const { accountId } = hacker;
+      const { account } = hacker;
       let foundAcct;
-      if (typeof accountId !== 'string') {
-        const account = accountId as IAccount;
+      if (typeof account !== 'number') {
         if (account) {
           const fullName = `${account.firstName} ${
             account.lastName
@@ -365,26 +355,39 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               account.identifier === Number.parseInt(searchBar));
         }
       } else {
-        foundAcct = accountId.includes(searchBar);
+        foundAcct = account.toString().includes(searchBar);
       }
       const foundHacker =
-        hacker.id.includes(searchBar) ||
-        hacker.application.general.school.includes(searchBar) ||
-        hacker.application.general.degree.includes(searchBar) ||
-        hacker.application.general.fieldOfStudy.includes(searchBar) ||
+        hacker.identifier.toString().includes(searchBar) ||
+        hacker.application.general.school.toLowerCase().includes(searchBar) ||
+        hacker.application.general.degree.toLowerCase().includes(searchBar) ||
+        hacker.application.general.fieldOfStudy
+          .map((field) => field.toLowerCase())
+          .includes(searchBar) ||
         hacker.application.general.graduationYear
           .toString()
           .includes(searchBar) ||
-        hacker.application.general.jobInterest.includes(searchBar) ||
-        hacker.status.includes(searchBar) ||
-        hacker.application.shortAnswer.question1.includes(searchBar) ||
-        hacker.application.shortAnswer.question2.includes(searchBar) ||
-        hacker.application.accommodation.shirtSize.includes(searchBar) ||
-        hacker.application.accommodation.attendancePreference.includes(
-          searchBar
-        ) ||
+        hacker.application.general.jobInterest
+          .toLowerCase()
+          .includes(searchBar) ||
+        hacker.status.toLowerCase().includes(searchBar) ||
+        hacker.application.shortAnswer.question1
+          .toLowerCase()
+          .includes(searchBar) ||
+        hacker.application.shortAnswer.question2
+          .toLowerCase()
+          .includes(searchBar) ||
+        hacker.application.accommodation.shirtSize
+          .toLowerCase()
+          .includes(searchBar) ||
+        hacker.application.accommodation.attendancePreference
+          .toLowerCase()
+          .includes(searchBar) ||
         (hacker.application.shortAnswer.skills &&
-          hacker.application.shortAnswer.skills.toString().includes(searchBar));
+          hacker.application.shortAnswer.skills
+            .toString()
+            .toLowerCase()
+            .includes(searchBar));
 
       const isSavedBySponsorIfToggled =
         !viewSaved ||

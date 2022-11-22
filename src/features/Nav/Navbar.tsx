@@ -5,6 +5,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { Account, Hacker, Settings } from '../../api';
 import Martlet from '../../assets/images/mchacks-martlet-tight.svg';
 import {
+  defaultSettings,
   FrontendRoute as routes,
   HackerStatus,
   ISetting,
@@ -15,6 +16,7 @@ import {
   canAccessApplication,
   canAccessTeam,
   canAccessTravel,
+  isConfirmed,
   isLoggedIn,
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
@@ -59,12 +61,7 @@ export default class Navbar extends React.Component<
       showTeamLink: false,
       showTravelLink: false,
       userType: UserType.UNKNOWN,
-      settings: {
-        openTime: new Date().toString(),
-        closeTime: new Date().toString(),
-        confirmTime: new Date().toString(),
-        isRemote: false,
-      },
+      settings: defaultSettings,
       // hasSponsorInfo: false,
       hasBorder: false,
     };
@@ -107,7 +104,7 @@ export default class Navbar extends React.Component<
         status: hacker.status,
         showTeamLink: canAccessTeam(hacker),
         showTravelLink:
-          canAccessTravel(hacker) && !this.state.settings.isRemote,
+          canAccessTravel(hacker) && !this.state.settings.IS_REMOTE,
       });
     } catch (e) {
       if (e === undefined || e.status === 401) {
@@ -138,7 +135,7 @@ export default class Navbar extends React.Component<
 
     // set confirmed account
     try {
-      const confirmed = true;//await isConfirmed();
+      const confirmed = await isConfirmed();
       this.setState({ confirmed });
     } catch (e) {
       this.setState({ confirmed: false });
@@ -186,7 +183,7 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-            canAccessApplication({ status }, settings) ? (
+          canAccessApplication({ status }, settings) ? (
             <NavLink
               href={appRoute}
               className={
@@ -213,10 +210,10 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null}
           {userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
             <>
               <NavLink
                 href={routes.SPONSOR_SEARCH_PAGE}
@@ -226,7 +223,9 @@ export default class Navbar extends React.Component<
               </NavLink>
               <NavLink
                 href={routes.SPONSOR_ONBOARDING_PAGE}
-                className={this.props.activePage === 'onboarding' ? 'active' : ''}
+                className={
+                  this.props.activePage === 'onboarding' ? 'active' : ''
+                }
               >
                 Onboarding
               </NavLink>
@@ -272,10 +271,7 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {loggedIn && confirmed && NavItems()}
-          {
-            (!loggedIn || !confirmed) &&
-            <SocialMediaBar />
-          }
+          {(!loggedIn || !confirmed) && <SocialMediaBar />}
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>

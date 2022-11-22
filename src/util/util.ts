@@ -47,11 +47,11 @@ function date2input(date: string) {
 
 /**
  * @function datetime2input
- * @param date a string representation of a date.
+ * @param date a string representation of a date in miliseconds.
  * @returns a string with the following format: MMDDYYYYhhmmss
  */
 function datetime2input(date: string): string {
-  const parsed = new Date(date);
+  const parsed = new Date(parseInt(date));
   const sec = padStart(2, '0', String(parsed.getSeconds()));
   const min = padStart(2, '0', String(parsed.getMinutes()));
   const hour = padStart(2, '0', String(parsed.getHours()));
@@ -64,7 +64,7 @@ function datetime2input(date: string): string {
 /**
  * @function input2datetime
  * @param date a number of the following format: MMDDYYYYhhmmss
- * @returns a string representation of a date. The format of the string depends on the locale.
+ * @returns a string representation of a date in milliseconds since epoch.
  */
 function input2datetime(date: number): string {
   const dateStr = String(date);
@@ -84,7 +84,7 @@ function input2datetime(date: number): string {
     Number(dateFields[4]),
     Number(dateFields[5])
   );
-  return formattedDate.toString();
+  return formattedDate.valueOf().toString();
 }
 
 function date2age(date: string) {

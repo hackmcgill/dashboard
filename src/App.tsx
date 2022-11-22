@@ -22,7 +22,7 @@ import CreateSponsorPage from './pages/Sponsor/Create';
 import EditSponsorPage from './pages/Sponsor/Edit';
 import SponsorSearchPage from './pages/Sponsor/Search';
 import SponsorOnboardingPage from './pages/Sponsor/Onboarding';
-import TeamPage from './pages/Team/index'
+import TeamPage from './pages/Team/index';
 import TravelPage from './pages/Travel/index';
 
 import {
@@ -84,9 +84,11 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.HOME_PAGE}
-              component={withBackground(withNavbar(withAuthRedirect(DashboardPage), {
-                activePage: 'home',
-              }))}
+              component={withBackground(
+                withNavbar(withAuthRedirect(DashboardPage), {
+                  activePage: 'home',
+                })
+              )}
             />
             <Route
               exact={true}
@@ -144,43 +146,41 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.CREATE_APPLICATION_PAGE}
-              component={
-                withBackground(
-                  withNavbar(
-                    withAuthRedirect(
-                      withHackerRedirect(CreateApplicationPage, {
-                        requiredAuthState: false,
-                      }),
-                      {
-                        redirAfterLogin: true,
-                        AuthVerification: (user: IAccount) =>
-                          user.accountType === UserType.HACKER,
-                      }
-                    ),
-                    { activePage: 'application' }
-                  )
-                )}
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withHackerRedirect(CreateApplicationPage, {
+                      requiredAuthState: false,
+                    }),
+                    {
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.HACKER,
+                    }
+                  ),
+                  { activePage: 'application' }
+                )
+              )}
             />
             <Route
               exact={true}
               path={FrontendRoute.EDIT_APPLICATION_PAGE}
-              component={
-                withBackground(
-                  withNavbar(
-                    withAuthRedirect(
-                      withHackerRedirect(EditApplicationPage, {
-                        AuthVerification: canAccessApplication,
-                      }),
-                      {
-                        requiredAuthState: true,
-                        redirAfterLogin: true,
-                        AuthVerification: (user: IAccount) =>
-                          user.accountType === UserType.HACKER,
-                      }
-                    ),
-                    { activePage: 'application' }
-                  )
-                )}
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(
+                    withHackerRedirect(EditApplicationPage, {
+                      AuthVerification: canAccessApplication,
+                    }),
+                    {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.HACKER,
+                    }
+                  ),
+                  { activePage: 'application' }
+                )
+              )}
             />
             <Route
               exact={true}
@@ -195,7 +195,7 @@ class App extends React.Component {
                       requiredAuthState: true,
                       redirAfterLogin: true,
                       AuthVerification: (user: IAccount) =>
-                        user.accountType === UserType.HACKER,
+                        user.confirmed && user.accountType === UserType.HACKER,
                     }
                   ),
                   { activePage: 'team' }
@@ -214,7 +214,7 @@ class App extends React.Component {
                     requiredAuthState: true,
                     redirAfterLogin: true,
                     AuthVerification: (user: IAccount) =>
-                      user.accountType === UserType.HACKER,
+                      user.confirmed && user.accountType === UserType.HACKER,
                   }
                 ),
                 { activePage: 'travel' }
@@ -237,12 +237,13 @@ class App extends React.Component {
                   withHackerRedirect(ConfirmAttendancePage, {
                     requiredAuthState: true,
                     AuthVerification: (user: IHacker) =>
+                      user.confirmed &&
                       user.status === HackerStatus.HACKER_STATUS_ACCEPTED,
                   }),
                   {
                     redirAfterLogin: true,
                     AuthVerification: (user: IAccount) =>
-                      user.accountType === UserType.HACKER,
+                      user.confirmed && user.accountType === UserType.HACKER,
                   }
                 )
               )}
@@ -250,18 +251,17 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.ADMIN_SEARCH_PAGE}
-              component={
-                withBackground(
-                  withNavbar(
-                    withAuthRedirect(AdminSearchPage, {
-                      requiredAuthState: true,
-                      redirAfterLogin: true,
-                      AuthVerification: (user: IAccount) =>
-                        user.confirmed && user.accountType === UserType.STAFF,
-                    }),
-                    { activePage: 'search' }
-                  )
-                )}
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(AdminSearchPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && user.accountType === UserType.STAFF,
+                  }),
+                  { activePage: 'search' }
+                )
+              )}
             />
             <Route
               exact={true}
@@ -296,34 +296,32 @@ class App extends React.Component {
             <Route
               exact={true}
               path={FrontendRoute.SPONSOR_SEARCH_PAGE}
-              component={
-                withBackground(
-                  withNavbar(
-                    withAuthRedirect(SponsorSearchPage, {
-                      requiredAuthState: true,
-                      redirAfterLogin: true,
-                      AuthVerification: (user: IAccount) =>
-                        user.confirmed && isSponsor(user),
-                    }),
-                    { activePage: 'search' }
-                  )
-                )}
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(SponsorSearchPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && isSponsor(user),
+                  }),
+                  { activePage: 'search' }
+                )
+              )}
             />
             <Route
               exact={true}
               path={FrontendRoute.SPONSOR_ONBOARDING_PAGE}
-              component={
-                withBackground(
-                  withNavbar(
-                    withAuthRedirect(SponsorOnboardingPage, {
-                      requiredAuthState: true,
-                      redirAfterLogin: true,
-                      AuthVerification: (user: IAccount) =>
-                        user.confirmed && isSponsor(user),
-                    }),
-                    { activePage: 'onboarding' }
-                  )
-                )}
+              component={withBackground(
+                withNavbar(
+                  withAuthRedirect(SponsorOnboardingPage, {
+                    requiredAuthState: true,
+                    redirAfterLogin: true,
+                    AuthVerification: (user: IAccount) =>
+                      user.confirmed && isSponsor(user),
+                  }),
+                  { activePage: 'onboarding' }
+                )
+              )}
             />
             <Route
               exact={true}

@@ -15,7 +15,12 @@ interface IResultsTableProps {
   filter: string;
 }
 
-const ResultsTable: React.StatelessComponent<IResultsTableProps> = (props) => {
+const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
+  props.results.forEach(({ hacker }) => {
+    hacker.application.general.fieldOfStudy = [
+      hacker.application.general.fieldOfStudy.join(', '),
+    ];
+  });
   const volunteerColumns = [
     {
       Header: 'First Name',

@@ -2,13 +2,20 @@ import React from 'react';
 
 import StatusCTALocationModal from './StatusCTALocationModal';
 
-import { HackerStatus, IAccount, IHacker, ISetting } from '../../config';
+import {
+  defaultSettings,
+  HackerStatus,
+  IAccount,
+  IHacker,
+  ISetting,
+} from '../../config';
 
 import { Box, Flex } from '@rebass/grid';
 import { Hacker, Settings } from '../../api';
 import { ConfirmModal } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
+import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -34,12 +41,7 @@ class StatusCTAContainer extends React.Component<
     super(props);
     this.state = {
       status: this.props.status,
-      settings: {
-        openTime: new Date().toString(),
-        closeTime: new Date().toString(),
-        confirmTime: new Date().toString(),
-        isRemote: false,
-      },
+      settings: defaultSettings,
       isWithdrawModalOpen: false,
       isLocationModalOpen: false,
       timeZone: '',
@@ -52,14 +54,22 @@ class StatusCTAContainer extends React.Component<
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
-      if (hacker && timeZone && city && country && timeZone.length > 0 && city.length > 0 && country.length > 0) {
+      if (
+        hacker &&
+        timeZone &&
+        city &&
+        country &&
+        timeZone.length > 0 &&
+        city.length > 0 &&
+        country.length > 0
+      ) {
         this.setState({ isLocationModalOpen: false });
         const newHacker = await this.modifyHacker(hacker);
         await Hacker.update(newHacker);
         await Hacker.confirm(hacker.id, true);
         this.setState({ status: HackerStatus.HACKER_STATUS_CONFIRMED });
       } else {
-        alert("Please let us know where you will be hacking from")
+        alert('Please let us know where you will be hacking from');
       }
     }
   };
@@ -96,7 +106,7 @@ class StatusCTAContainer extends React.Component<
         alignItems="center"
         p="6px 30px 96px 30px"
       >
-        {this.props.account && (
+        {this.props.confirmed && this.props.account ? (
           <StatusCTA
             status={this.state.status}
             firstName={this.props.account.firstName}
@@ -107,6 +117,8 @@ class StatusCTAContainer extends React.Component<
             // tslint:disable-next-line: jsx-no-lambda
             onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
           />
+        ) : (
+          <ConfirmationEmailSentComponent />
         )}
         <StatusCTALocationModal
           isModalOpen={this.state.isLocationModalOpen}
@@ -125,7 +137,7 @@ class StatusCTAContainer extends React.Component<
           onCanceled={() => this.setState({ isWithdrawModalOpen: false })}
           // tslint:disable-next-line: jsx-no-lambda
           onConfirmed={() => {
-            this.withdrawStatus()
+            this.withdrawStatus();
             this.setState({ isWithdrawModalOpen: false });
           }}
         >
@@ -166,7 +178,7 @@ class StatusCTAContainer extends React.Component<
 
   private handleChangeCity = ({ target }: any) => {
     this.setState({ city: target.value });
-  }
+  };
 }
 
 export default StatusCTAContainer;

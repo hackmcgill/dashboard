@@ -93,8 +93,8 @@ export function isAppOpen(settings?: ISetting): boolean {
     return false;
   }
   const now = new Date();
-  const open = new Date(settings.openTime);
-  const close = new Date(settings.closeTime);
+  const open = new Date(settings.APPLICATION_OPEN);
+  const close = new Date(settings.APPLICATION_CLOSE);
   return now > open && now < close;
 }
 

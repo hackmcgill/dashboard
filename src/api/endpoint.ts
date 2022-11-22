@@ -84,6 +84,17 @@ export default class Endpoint {
     return axios.patch(`${this.resourceURL}/${identifier}`, toPatch, config);
   }
   /**
+   * Sends a patch request directly to the endpoint without appending an indentifier
+   * @param {*} toPatch the patched data.
+   * @param {AxiosRequestConfig} config
+   */
+  public patchDirectly(
+    toPatch: any,
+    config: AxiosRequestConfig = {}
+  ) {
+    return axios.patch(this.resourceURL, toPatch, config);
+  }
+  /**
    * Delete a specified resource by calling axios.delete
    * @param {{identifier}:Identifier} object object to delete. Must contain an id.
    * @param {AxiosRequestConfig} config

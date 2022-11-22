@@ -35,7 +35,7 @@
     "react-burger-menu": "^2.6.13",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.4",
-    "react-helmet": "^5.2.0",
+    "react-helmet": "^5.2.1",
     "react-modal": "^3.8.1",
     "react-number-format": "^4.0.6",
     "react-qr-reader": "^2.1.2",

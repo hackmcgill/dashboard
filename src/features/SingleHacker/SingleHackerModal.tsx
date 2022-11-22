@@ -38,7 +38,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
   }
 
   public componentDidUpdate(prevProps: IModalProps) {
-    if (prevProps.hacker.id !== this.props.hacker.id) {
+    if (prevProps.hacker.identifier !== this.props.hacker.identifier) {
       this.resetIndex();
     }
   }
@@ -51,9 +51,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
-        <TextButton onClick={this.handleOpenModal}>
-          See more
-        </TextButton>
+        <TextButton onClick={this.handleOpenModal}>See more</TextButton>
         <StyledModal
           appElement={document.getElementById('root') || undefined}
           isOpen={this.state.showModal}
@@ -172,7 +170,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
 
   private resetIndex = () => {
     const currentHackerIndex = this.props.allHackers.findIndex(
-      (hacker) => hacker.id === this.props.hacker.id
+      (hacker) => hacker.identifier === this.props.hacker.identifier
     );
 
     this.setState({ currentHackerIndex });

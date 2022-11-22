@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { toast } from 'react-toastify';
 import { Settings } from '../../api/settings';
-import { HACKATHON_NAME, ISetting } from '../../config';
+import { defaultSettings, HACKATHON_NAME, ISetting } from '../../config';
 import SettingsForm from '../../features/Settings/SettingsForm';
 import { ConfirmModal, H1, MaxWidthBox } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
@@ -11,12 +11,7 @@ import WithToaster from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 
 const SettingsPage: React.FC = () => {
-  const [settings, setSettings] = useState<ISetting>({
-    openTime: new Date().toISOString(),
-    closeTime: new Date().toISOString(),
-    confirmTime: new Date().toISOString(),
-    isRemote: false,
-  });
+  const [settings, setSettings] = useState<ISetting>(defaultSettings);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -76,7 +71,7 @@ async function getSettings(callback: (settings: ISetting) => void) {
   }
 }
 
-async function patchSettings(newSettings: ISetting) {
+async function patchSettings(newSettings: Partial<ISetting>) {
   try {
     await Settings.update(newSettings);
     toast.success('Settings updated');

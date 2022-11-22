@@ -4,6 +4,8 @@ import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
 
+export type AccountUpdate = Partial<IAccount> & { identifier: number }
+
 class AccountAPI {
   constructor() {
     API.createEntity(APIRoute.ACCOUNT);
@@ -67,12 +69,11 @@ class AccountAPI {
     return value;
   }
   /**
-   * Update an account. In the future, we might want to relax the attributes being passed in
-   * so that it's not the entirety of the Account object.
-   * @param {IAccount} account
+   * Update an account. All fields are option with the exception of the identifier.
+   * @param {AccountUpdate} account
    */
   public async update(
-    account: IAccount
+    account: AccountUpdate
   ): Promise<AxiosResponse<APIResponse<IAccount>>> {
     const value = await API.getEndpoint(APIRoute.ACCOUNT).patch(
       account,
@@ -93,7 +94,7 @@ class AccountAPI {
   /**
    * Get all of the invites to the platform.
    */
-  public getInvites(): AxiosPromise<APIResponse<{ invites: IInviteInfo[] }>> {
+  public getInvites(): AxiosPromise<APIResponse<IInviteInfo[]>> {
     return API.getEndpoint(APIRoute.ACCOUNT_INVITE).getAll();
   }
 }
