@@ -7,8 +7,6 @@ interface IConfirmModalProps {
   onConfirmed: () => void;
   onCanceled: () => void;
   children?: React.ReactNode;
-  cancelLabel?: string;
-  confirmLabel?: string;
 }
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = (
@@ -29,9 +27,9 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
             <Button
               type="button"
               onClick={props.onCanceled}
-              variant={ButtonVariant.Secondary}
+              variant={ButtonVariant.Primary}
             >
-              {props.cancelLabel}
+              No
             </Button>
           </Box>
           <Box>
@@ -40,7 +38,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
               onClick={props.onConfirmed}
               variant={ButtonVariant.Primary}
             >
-              {props.confirmLabel}
+              Yes
             </Button>
           </Box>
         </Flex>
@@ -48,10 +46,5 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = (
     </StyledModalSmall>
   );
 };
-
-ConfirmModal.defaultProps = {
-  cancelLabel: "No",
-  confirmLabel: "Yes",
-}
 
 export default ConfirmModal;
