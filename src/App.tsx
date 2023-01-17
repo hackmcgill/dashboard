@@ -23,7 +23,6 @@ import EditSponsorPage from './pages/Sponsor/Edit';
 import SponsorSearchPage from './pages/Sponsor/Search';
 import SponsorOnboardingPage from './pages/Sponsor/Onboarding';
 import TeamPage from './pages/Team/index';
-import TravelPage from './pages/Travel/index';
 
 import {
   FrontendRoute,
@@ -46,7 +45,6 @@ import {
   canAccessApplication,
   canAccessHackerPass,
   canAccessTeam,
-  canAccessTravel,
   isSponsor,
   userCanAccessHackerPage,
 } from './util';
