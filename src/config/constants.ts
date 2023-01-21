@@ -25,8 +25,8 @@ export const BUS_SLACK_PAGE =
   'https://join.slack.com/t/mchacks7/shared_invite/enQtOTA3MDc2NDU4OTAyLTI0ZWU1N2VkOGExZTA3NDg3Y2JiMGE3MGE2ZmU4MGRlYjI3YmZlYjAxYmI0OTk2ZjZjYTE0ZjNhYmY0ZDNmZmU';
 export const BUS_SLACK_CHANNEL = '#bus-toronto channel';
 export const TRAVEL_POLICY =
-  'https://docs.google.com/document/d/1K8WSGQtWfKrybT_O9WrxIp93dETrv3jhy71fkHKZwdM';
-export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/TdxUaUn31WzXcPvu6';
+  'https://docs.google.com/document/d/1S5RIgVjb2PXCLRNFc6uQKPxLU40uNwiEY5jwfkVOMA0';
+export const TRAVEL_RECEIPTS_FORM = 'https://forms.gle/wVDQCPPxhum4pGVc7';
 
 // Social media
 export const FACEBOOK_EVENT_URL =

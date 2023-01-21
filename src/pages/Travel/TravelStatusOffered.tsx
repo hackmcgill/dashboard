@@ -34,15 +34,14 @@ const TravelStatusOffered: React.FunctionComponent<ITravelStatusProps> = ({
         </div>
       </div>
     );
-  } else if (travel.request === 0) {
+  } /*else if (travel.request === 0) {
     return (
       <div>
         No reimbursement for travel was requested.
         <h2>Bus</h2>
         {BUS_GENERAL_INFO} <LinkDuo to={BUS_SHOPIFY_PAGE}>here</LinkDuo>.
       </div>
-    );
-  } else {
+    );*/ else {
     return (
       <div>
         Unfortunately, we’re unable to offer you any travel reimbursement to
