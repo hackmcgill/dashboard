@@ -3,19 +3,11 @@ import Helmet from 'react-helmet';
 
 import { Travel } from '../../api';
 import { HACKATHON_NAME, ITravel, TRAVEL_POLICY } from '../../config';
-import {
-  BackgroundImage,
-  H1,
-  LinkDuo,
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { H1, LinkDuo, MaxWidthBox } from '../../shared/Elements';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
-import Train from '../../assets/images/train.svg';
-
-import TravelStatusBus from './TravelStatusBus';
 import TravelStatusClaimed from './TravelStatusClaimed';
 import TravelStatusNone from './TravelStatusNone';
 import TravelStatusOffered from './TravelStatusOffered';

@@ -1,11 +1,6 @@
 import * as React from 'react';
 
-import {
-  BUS_GENERAL_INFO,
-  BUS_SHOPIFY_PAGE,
-  ITravel,
-  TRAVEL_RECEIPTS_FORM,
-} from '../../config';
+import { ITravel, TRAVEL_RECEIPTS_FORM } from '../../config';
 import { LinkDuo } from '../../shared/Elements';
 import DollarAmount from './DollarAmount';
 
@@ -34,21 +29,12 @@ const TravelStatusOffered: React.FunctionComponent<ITravelStatusProps> = ({
         </div>
       </div>
     );
-  } /*else if (travel.request === 0) {
-    return (
-      <div>
-        No reimbursement for travel was requested.
-        <h2>Bus</h2>
-        {BUS_GENERAL_INFO} <LinkDuo to={BUS_SHOPIFY_PAGE}>here</LinkDuo>.
-      </div>
-    );*/ else {
+  } else {
     return (
       <div>
         Unfortunately, we’re unable to offer you any travel reimbursement to
         McHacks.
         <DollarAmount amount={travel.offer} />
-        <h2>Bus</h2>
-        {BUS_GENERAL_INFO} <LinkDuo to={BUS_SHOPIFY_PAGE}>here</LinkDuo>.
       </div>
     );
   }
