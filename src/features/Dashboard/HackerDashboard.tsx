@@ -42,7 +42,11 @@ const HackerDashboard: React.FC = () => {
       }
 
       // Check if hacker is confirmed
-      setConfirmed(await isConfirmed());
+      try {
+        setConfirmed(await isConfirmed());
+      } catch (e) {
+        setConfirmed(false);
+      }
 
       // Whatever the results are, we've finshed loading at this point
       setIsLoaded(true);
