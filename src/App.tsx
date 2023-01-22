@@ -49,6 +49,7 @@ import {
   userCanAccessHackerPage,
 } from './util';
 import InvitePage from './pages/Admin/Invite';
+import TravelPage from './pages/Travel';
 
 class App extends React.Component {
   public render() {
@@ -200,7 +201,7 @@ class App extends React.Component {
                 )
               )}
             />
-            {/*<Route
+            <Route
               exact={true}
               path={FrontendRoute.TRAVEL_PAGE}
               component={withNavbar(
@@ -217,7 +218,7 @@ class App extends React.Component {
                 ),
                 { activePage: 'travel' }
               )}
-              />*/}
+            />
             <Route
               exact={true}
               path={FrontendRoute.LOGIN_PAGE}
