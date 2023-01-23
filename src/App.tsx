@@ -45,6 +45,7 @@ import {
   canAccessApplication,
   canAccessHackerPass,
   canAccessTeam,
+  canAccessTravel,
   isSponsor,
   userCanAccessHackerPage,
 } from './util';
