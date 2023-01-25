@@ -24,7 +24,7 @@ const GeneralOnboarding: React.FC = () => (
             <br />
             <br />
             For a sponsor specific schedule, you can find it{' '}
-            <LinkDuo to="https://docs.google.com/spreadsheets/d/1p1RxMcBnCGBlBJMznkvuW9u_rYtbbKno15VjXfrolao/edit?usp=sharing">
+            <LinkDuo to="https://docs.google.com/document/d/1ClrMBzOffam8vU00YCq_YPFAVaYFnBKR0CEILWQsirg/edit?usp=sharing">
               here
             </LinkDuo>
             . We will be updating it as we continue receiving information from
@@ -36,7 +36,7 @@ const GeneralOnboarding: React.FC = () => (
             Discord. we recommend that you read our Discord Onboarding Guide
             first if you don’t know what Discord is. Once you are ready, join
             the channel by clicking
-            <LinkDuo to="https://discord.gg/fqbjr43cKf">
+            <LinkDuo to="https://discord.com/invite/6W25XWfHUr">
               <span> this link. </span>
             </LinkDuo>
             <br />
@@ -50,10 +50,14 @@ const GeneralOnboarding: React.FC = () => (
             Once you have logged onto Discord, message your coordinator
             to let them know you are ready to go! We ask you to check-in at
             least 15 minutes before opening ceremonies at at <b>10:00 a.m. </b>
+            We also ask you to fill up the sponsor{' '}
+            <LinkDuo to="https://forms.gle/mdsimQyWJG83vYDZ8">
+              <span>check-in form</span>
+            </LinkDuo>.
             <br />
             <br />
             If you are scheduled to speak during the opening ceremony,
-            please email <b>sponsor@mchacks.ca</b> with your slides. If you are unable to provide a video, please let your coordinator
+            please email <b>sponsor@mchacks.ca</b> with your slides or video. If you are unable to provide a video, please let your coordinator
             know for accommodations.
           </p>
           <h2>Sponsors</h2>

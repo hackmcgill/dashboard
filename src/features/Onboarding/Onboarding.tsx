@@ -47,15 +47,6 @@ export default class OnboardingContainer extends React.Component< any, any > {
                         >
                             Discord Onboarding
                         </NavLink>
-                        <NavLink>
-                            <a
-                                href="https://mchacks.ca/live/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Schedule
-                            </a>
-                        </NavLink>
                     </NavContainer>
                 </Nav>
                      
