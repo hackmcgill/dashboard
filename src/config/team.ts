@@ -1,6 +1,6 @@
 export interface ITeam {
   name: string;
-  members: string[];
+  members: number[];
   devpostURL?: string;
   projectName?: string;
 }

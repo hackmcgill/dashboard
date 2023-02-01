@@ -35,7 +35,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
     try {
       await Team.create({
         name: generateRandomTeamCode(14),
-        members: [props.hacker.id],
+        members: [props.hacker.identifier],
       });
       props.onTeamChange();
     } catch (e) {
