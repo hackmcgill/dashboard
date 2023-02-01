@@ -4,7 +4,6 @@ import {
   CACHE_HACKER_KEY,
   CACHE_STATS_KEY,
   HackerStatus,
-  IAccount,
   IHacker,
   IResumeResponse,
   IStatsResponse,
