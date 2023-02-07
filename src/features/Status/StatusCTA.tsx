@@ -224,7 +224,7 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       if (!settings.IS_REMOTE) {
         buttons = [hackPassButton, travelButton, withdrawButton];
       } else {
-        buttons = [];
+        buttons = [hackPassButton, liveSiteButton, withdrawButton];
       }
       art = hackerArt;
       break;

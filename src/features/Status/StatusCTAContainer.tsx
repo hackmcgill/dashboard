@@ -1,20 +1,17 @@
 import React from 'react';
 
-import StatusCTALocationModal from './StatusCTALocationModal';
-
 import {
   defaultSettings,
   HackerStatus,
   IAccount,
-  IHacker,
   ISetting,
 } from '../../config';
 
-import { Box, Flex } from '@rebass/grid';
 import { Hacker, Settings } from '../../api';
-import { ConfirmModal } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
+import { Box, Flex } from '@rebass/grid';
+import { ConfirmModal } from '../../shared/Elements';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
 export interface IStatusCTAContainerProps {
@@ -26,11 +23,7 @@ export interface IStatusCTAContainerProps {
 export interface IStatusCTAContainerState {
   status: HackerStatus;
   settings: ISetting;
-  isWithdrawModalOpen: boolean;
-  isLocationModalOpen: boolean;
-  timeZone: string;
-  country: string;
-  city: string;
+  isModalOpen: boolean;
 }
 
 class StatusCTAContainer extends React.Component<
@@ -42,34 +35,16 @@ class StatusCTAContainer extends React.Component<
     this.state = {
       status: this.props.status,
       settings: defaultSettings,
-      isWithdrawModalOpen: false,
-      isLocationModalOpen: false,
-      timeZone: '',
-      country: '',
-      city: '',
+      isModalOpen: false,
     };
   }
-  public confirmStatus = async () => {
-    const { timeZone, city, country } = this.state;
+  public confirmStatus = async (e: any) => {
     if (this.props.account) {
       const hacker = (await Hacker.getByEmail(this.props.account.email)).data
         .data;
-      if (
-        hacker &&
-        timeZone &&
-        city &&
-        country &&
-        timeZone.length > 0 &&
-        city.length > 0 &&
-        country.length > 0
-      ) {
-        this.setState({ isLocationModalOpen: false });
-        const newHacker = await this.modifyHacker(hacker);
-        await Hacker.update(newHacker);
+      if (hacker) {
         await Hacker.confirm(hacker.id, true);
         this.setState({ status: HackerStatus.HACKER_STATUS_CONFIRMED });
-      } else {
-        alert('Please let us know where you will be hacking from');
       }
     }
   };
@@ -85,19 +60,7 @@ class StatusCTAContainer extends React.Component<
     }
   };
 
-  public modifyHacker = async (hacker: IHacker) => {
-    const newHacker = { ...hacker };
-    const { timeZone, country, city } = this.state;
-    newHacker.application.location = {
-      timeZone,
-      country,
-      city,
-    };
-    return newHacker;
-  };
-
   public render() {
-    const { timeZone, country, city } = this.state;
     return (
       <Flex
         flex={1}
@@ -111,34 +74,21 @@ class StatusCTAContainer extends React.Component<
             status={this.state.status}
             firstName={this.props.account.firstName}
             settings={this.state.settings}
-            onClickConfirm={async () =>
-              this.setState({ isLocationModalOpen: true })
-            }
+            onClickConfirm={this.confirmStatus}
             // tslint:disable-next-line: jsx-no-lambda
-            onClickWithdraw={() => this.setState({ isWithdrawModalOpen: true })}
+            onClickWithdraw={() => this.setState({ isModalOpen: true })}
           />
         ) : (
           <ConfirmationEmailSentComponent />
         )}
-        <StatusCTALocationModal
-          isModalOpen={this.state.isLocationModalOpen}
-          onCanceled={() => this.setState({ isLocationModalOpen: false })}
-          onConfirmed={this.confirmStatus}
-          timeZone={timeZone}
-          country={country}
-          city={city}
-          handleChangeTimeZone={this.handleChangeTimeZone}
-          handleChangeCountry={this.handleChangeCountry}
-          handleChangeCity={this.handleChangeCity}
-        />
         <ConfirmModal
-          isOpen={this.state.isWithdrawModalOpen}
+          isOpen={this.state.isModalOpen}
           // tslint:disable-next-line: jsx-no-lambda
-          onCanceled={() => this.setState({ isWithdrawModalOpen: false })}
+          onCanceled={() => this.setState({ isModalOpen: false })}
           // tslint:disable-next-line: jsx-no-lambda
           onConfirmed={() => {
             this.withdrawStatus();
-            this.setState({ isWithdrawModalOpen: false });
+            this.setState({ isModalOpen: false });
           }}
         >
           <Box alignSelf={'center'}>
@@ -167,18 +117,6 @@ class StatusCTAContainer extends React.Component<
       }
     }
   }
-
-  private handleChangeTimeZone = ({ value }: any) => {
-    this.setState({ timeZone: value });
-  };
-
-  private handleChangeCountry = ({ value }: any) => {
-    this.setState({ country: value });
-  };
-
-  private handleChangeCity = ({ target }: any) => {
-    this.setState({ city: target.value });
-  };
 }
 
 export default StatusCTAContainer;
