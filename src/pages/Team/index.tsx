@@ -42,8 +42,8 @@ const TeamPage: React.FC = () => {
     setIsLoading(true);
     try {
       const hacker = (await Hacker.getSelf()).data.data;
-      if (hacker && hacker.teamId) {
-        const id = Number.parseInt(hacker.teamId as string);
+      if (hacker && hacker.team) {
+        const id = Number.parseInt(hacker.team as string);
         const teamResponse: ITeamResponse = (await Team.get(id)).data.data;
         setHacker(hacker);
         setTeam(teamResponse.team);

@@ -1,17 +1,17 @@
-import { SortingRule } from "react-table"
+import { SortingRule } from 'react-table';
 
 export interface ISetting {
-  APPLICATION_CLOSE: string,
-  APPLICATION_CONFIRM: string,
-  APPLICATION_OPEN: string,
-  HACKATHON_YEAR: string,
-  IS_REMOTE: boolean,
-  SOCIAL_MEDIA_DEVPOST: string,
-  SOCIAL_MEDIA_DISCORD: string,
-  SOCIAL_MEDIA_EMAIL: string,
-  SOCIAL_MEDIA_FACEBOOK: string,
-  SOCIAL_MEDIA_INSTAGRAM: string,
-  SOCIAL_MEDIA_TWITTER: string
+  APPLICATION_CLOSE: string;
+  APPLICATION_CONFIRM: string;
+  APPLICATION_OPEN: string;
+  HACKATHON_YEAR: string;
+  IS_REMOTE: boolean;
+  SOCIAL_MEDIA_DEVPOST: string;
+  SOCIAL_MEDIA_DISCORD: string;
+  SOCIAL_MEDIA_EMAIL: string;
+  SOCIAL_MEDIA_FACEBOOK: string;
+  SOCIAL_MEDIA_INSTAGRAM: string;
+  SOCIAL_MEDIA_TWITTER: string;
 }
 
 export const defaultSettings: ISetting = {
@@ -26,4 +26,4 @@ export const defaultSettings: ISetting = {
   SOCIAL_MEDIA_FACEBOOK: '',
   SOCIAL_MEDIA_INSTAGRAM: '',
   SOCIAL_MEDIA_TWITTER: '',
-}
+};
