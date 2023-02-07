@@ -1,6 +1,6 @@
 // API information
 export const LOCAL_API_URL = 'http://localhost:3000/api';
-export const PROD_API_URL = 'https://hacker-api.fly.dev/api';
+export const PROD_API_URL = 'https://api-refactor.mchacks.ca/api';
 
 // Cache information
 export const CACHE_USER_KEY = 'userInfo';
