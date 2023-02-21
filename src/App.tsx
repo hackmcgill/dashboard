@@ -150,7 +150,7 @@ class App extends React.Component {
                 withNavbar(
                   withAuthRedirect(
                     withHackerRedirect(CreateApplicationPage, {
-                      requiredAuthState: false,
+                      requiredAuthState: true,
                     }),
                     {
                       redirAfterLogin: true,
