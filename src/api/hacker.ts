@@ -168,7 +168,7 @@ class HackerAPI {
     resume: File
   ): Promise<AxiosResponse<APIResponse<{}>>> {
     const data = new FormData();
-    data.append('file', resume);
+    data.append('resume', resume);
     const key = CACHE_HACKER_KEY + '-' + identifier;
     const value = await API.getEndpoint(APIRoute.HACKER_RESUME).create(data, {
       subURL: identifier,
