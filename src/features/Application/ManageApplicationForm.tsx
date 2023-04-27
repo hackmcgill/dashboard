@@ -1329,7 +1329,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     }
 
     const account = acctResponse.data.data;
-    const hackerId = hackerDetails.id;
+    const hackerId = hackerDetails.identifier.toString();
     // convert the formik values to the application object.
     const application = convertFormikToHacker(values, account.identifier);
     const hackerResponse = await Hacker.update(application);
