@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { object, string, array } from 'yup';
 
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
@@ -19,9 +19,9 @@ const getValidationSchema = (isCreate: boolean) => {
       .email('Must be a valid email'),
     password,
     newPassword: string().min(6, 'Must be at least 6 characters'),
-    pronoun: string(),
+    pronoun: array().of(string()),
     gender: string(),
-    dietaryRestrictions: string(),
+    dietaryRestrictions: array().of(string()),
     phoneNumber: string()
       .test('validPhone', 'Must be a valid phone number', (value) => {
         return !value || value.length === 11;

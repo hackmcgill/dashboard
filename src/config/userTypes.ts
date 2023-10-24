@@ -20,8 +20,8 @@ export interface IAccount {
   phoneNumber: string;
   // The birthdate
   birthDate: string;
-  // The preferred pronoun
-  pronoun: string;
+  // The preferred pronouns
+  pronoun: string[];
   // The database id (if new, leave blank / make '')
   id: string;
   _id?: string;

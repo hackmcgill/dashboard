@@ -48,11 +48,6 @@ const HackPassWrapper = styled.div`
       border-radius: 8px 8px 0 0;
     }
   }
-
-  button[type='submit'] {
-    position: relative;
-    top: calc(-50px - 38px / 2);
-  }
 `;
 
 const HackPassPage: React.FC = () => {
@@ -65,7 +60,7 @@ const HackPassPage: React.FC = () => {
   const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
 
   // Is the pass currently being downloaded
-  const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
+  const [downloadingPass, setDownloadingPass] = useState<boolean>(false);
 
   // When the component mounts, fetch data associate with this hacker from server
   useEffect(() => {

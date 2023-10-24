@@ -270,7 +270,7 @@ export async function generateHackPass(
   doc.setFontStyle('normal');
   doc.setFontSize(3);
   doc.setTextColor(0);
-  doc.text(account.pronoun, 3, 8);
+  doc.text(account.pronoun.join(', '), 3, 8, { maxWidth: 18 });
 
   // Write the school the hacker is from
   doc.setFont('hind');
