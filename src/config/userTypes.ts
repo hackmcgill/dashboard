@@ -76,7 +76,10 @@ export interface IHacker {
       // Any barriers the user might have
       barriers?: string;
       // If the user requires a bus
-      travel?: number;
+      travel: {
+        amount: number; // Amount requested
+        reason: string; // Justification for the amount
+      };
     };
   };
   teamId?: string | ITeam;

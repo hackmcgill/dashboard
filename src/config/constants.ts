@@ -131,8 +131,8 @@ export const SKILLS_PLACEHOLDER = 'Javascript, iOS, Android...';
 export const SCHOOL_LABEL = 'School';
 export const SCHOOL_PLACEHOLDER = 'School';
 export const TRAVEL_LABEL = 'Travel';
-export const TRAVEL_REQUEST_LABEL =
-  'Will you require any travel reimbursement? (up to $100)';
+export const TRAVEL_REQUEST_AMOUNT_LABEL = 'Amount Requested';
+export const TRAVEL_REQUEST_REASON_LABEL = 'Reason'
 export const PREVIOUS_HACKATHONS_LABEL =
   'How many hackathons have you been to?';
 export const REVIEW_APPLICIATION_DESCRIPTION =
@@ -142,7 +142,7 @@ export const REVIEW_APPLICIATION_DESCRIPTION =
 export const ACCOUNT_TYPE_LABEL = 'Account type';
 
 // Application Page
-export const TOTAL_PAGES = 5;
+export const TOTAL_PAGES = 6;
 
 // Dashboard page
 export const ACCOUNT_NOT_CONFIRMED_MSG = 'You must confirm your account!';
