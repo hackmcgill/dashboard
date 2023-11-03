@@ -116,7 +116,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         attendancePreference: 'In Person',
         impairments: '',
         barriers: '',
-        travel: 0,
+        travel: {
+          amount: 0,
+          reason: '',
+        },
       },
     },
   });
@@ -181,6 +184,8 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       case 4:
         return renderAccommodationFormik(fp);
       case 5:
+        return renderReimbursementFormik(fp);
+      case 6:
         return renderReviewFormik(fp);
       default:
         return renderEducationFormik(fp);
@@ -648,11 +653,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     );
   };
 
-  /**
-   * Renders the accommodation section of the application.
-   * @param fp the formik props.
-   */
-  const renderAccommodationFormik = (fp: FormikProps<any>) => {
+  const renderReimbursementFormik = (fp: FormikProps<any>) => {
     return (
       <Form
         onKeyDown={onKeyDown}
@@ -661,71 +662,52 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       >
         <div className="container">
           <div className="fields">
-            <H1 fontSize={'24px'} marginBottom={'40px'}>
-              Accommodation
+            <H1 fontSize={'24px'} marginBottom={'14px'}>
+              Travel Reimbursement
             </H1>
+            <div className="disclaimer">
+              <p>
+                We want to make McHacks accessible to as many hackers as
+                possible. To this end, we are providing a limited amount of
+                travel reimbursements and will prioritize giving funds to
+                hackers in financial need.
+              </p>
+              <p>
+                Requesting a reimbursement will not be used to influence your
+                application decision. Once you receive your application
+                decision, you will be provided with more details and terms
+                regarding reimbursements. Please note that the amount you
+                specify is not guaranteed.
+              </p>
+            </div>
             <div className="shorter-fields">
               <FastField
-                name={'hacker.application.accommodation.shirtSize'}
-                label={CONSTANTS.SHIRT_SIZE_LABEL}
-                component={FormikElements.Select}
-                options={getOptionsFromEnum(ShirtSize)}
-                required={true}
-                value={fp.values.hacker.application.accommodation.shirtSize}
+                name={'hacker.application.accommodation.travel.amount'}
+                component={FormikElements.FormattedNumber}
+                label={CONSTANTS.TRAVEL_REQUEST_AMOUNT_LABEL}
+                placeholder={0}
+                required={false}
+                value={fp.values.hacker.application.accommodation.travel.amount}
               />
               <ErrorMessage
-                name={'hacker.application.accommodation.shirtSize'}
                 component={FormikElements.Error}
+                name={'hacker.application.accommodation.travel.amount'}
               />
-              {!settings.isRemote && (
-                <>
-                  <FastField
-                    name={'hacker.application.accommodation.travel'}
-                    component={FormikElements.FormattedNumber}
-                    label={CONSTANTS.TRAVEL_REQUEST_LABEL}
-                    placeholder={0}
-                    required={false}
-                    value={fp.values.hacker.application.accommodation.travel}
-                  />
-                  <ErrorMessage
-                    component={FormikElements.Error}
-                    name={'hacker.application.accommodation.travel'}
-                  />
-                </>
-              )}
+              <FastField
+                name={'hacker.application.accommodation.travel.reason'}
+                value={fp.values.hacker.application.accommodation.travel.reason}
+                component={FormikElements.LongTextInput}
+                label={CONSTANTS.TRAVEL_REQUEST_REASON_LABEL}
+                style={{ minHeight: '88px' }}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name={'hacker.application.accommodation.travel.reason'}
+              />
             </div>
-
-            <FastField
-              name={'hacker.application.accommodation.impairments'}
-              component={FormikElements.LongTextInput}
-              label={CONSTANTS.IMPAIRMENTS_LABEL}
-              value={fp.values.hacker.application.accommodation.impairments}
-              required={false}
-              style={{ minHeight: '88px' }}
-              showOptionalLabel={true}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.impairments'}
-            />
-            <FastField
-              name={'hacker.application.accommodation.barriers'}
-              component={FormikElements.LongTextInput}
-              label={CONSTANTS.BARRIERS_LABEL}
-              value={fp.values.hacker.application.accommodation.barriers}
-              required={false}
-              style={{ minHeight: '88px' }}
-              showOptionalLabel={true}
-            />
-            <ErrorMessage
-              component={FormikElements.Error}
-              name={'hacker.application.accommodation.barriers'}
-            />
-
             <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
               Terms and Conditions
             </H1>
-
             <FastField
               name={'hacker.application.other.codeOfConduct'}
               component={FormikElements.Checkbox}
@@ -812,6 +794,140 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 name="hacker.application.other.privacyPolicy"
               />
             </div>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <Button
+            type="reset"
+            isLoading={false}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+            isOutlined={true}
+            style={{ marginRight: '24px' }}
+          >
+            Back
+          </Button>
+
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+            variant={ButtonVariant.Secondary}
+          >
+            Next
+          </Button>
+        </div>
+
+        <style jsx={true}>{`
+          .container {
+            max-width: 960px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .disclaimer {
+            font-size: 14px;
+            color: ${theme.colors.black60};
+            margin-bottom: 40px;
+          }
+
+          .fields {
+            max-width: 600px;
+            flex: 1;
+          }
+
+          .shorter-fields {
+            max-width: 440px;
+          }
+
+          .checkbox-error-message {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            margin-left: 40px;
+          }
+
+          .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 56px;
+            margin-bottom: 80px;
+          }
+
+          .art {
+            height: 882px;
+            width: auto;
+            align-self: flex-end;
+
+            position: relative;
+            left: 128px;
+            top: 52px;
+          }
+        `}</style>
+      </Form>
+    );
+  };
+
+  /**
+   * Renders the accommodation section of the application.
+   * @param fp the formik props.
+   */
+  const renderAccommodationFormik = (fp: FormikProps<any>) => {
+    return (
+      <Form
+        onKeyDown={onKeyDown}
+        onSubmit={fp.handleSubmit}
+        onReset={fp.handleReset}
+      >
+        <div className="container">
+          <div className="fields">
+            <H1 fontSize={'24px'} marginBottom={'40px'}>
+              Accommodation
+            </H1>
+            <div className="shorter-fields">
+              <FastField
+                name={'hacker.application.accommodation.shirtSize'}
+                label={CONSTANTS.SHIRT_SIZE_LABEL}
+                component={FormikElements.Select}
+                options={getOptionsFromEnum(ShirtSize)}
+                required={true}
+                value={fp.values.hacker.application.accommodation.shirtSize}
+              />
+              <ErrorMessage
+                name={'hacker.application.accommodation.shirtSize'}
+                component={FormikElements.Error}
+              />
+            </div>
+
+            <FastField
+              name={'hacker.application.accommodation.impairments'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.IMPAIRMENTS_LABEL}
+              value={fp.values.hacker.application.accommodation.impairments}
+              required={false}
+              style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'hacker.application.accommodation.impairments'}
+            />
+            <FastField
+              name={'hacker.application.accommodation.barriers'}
+              component={FormikElements.LongTextInput}
+              label={CONSTANTS.BARRIERS_LABEL}
+              value={fp.values.hacker.application.accommodation.barriers}
+              required={false}
+              style={{ minHeight: '88px' }}
+              showOptionalLabel={true}
+            />
+            <ErrorMessage
+              component={FormikElements.Error}
+              name={'hacker.application.accommodation.barriers'}
+            />
           </div>
         </div>
 
@@ -1030,6 +1146,28 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
             </div>
           </GridTwoColumn>
 
+          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+            Travel Reimbursement
+          </H2>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">
+                {CONSTANTS.TRAVEL_REQUEST_AMOUNT_LABEL}
+              </div>
+              <div className="value">
+                {hackerDetails.application.accommodation.travel.amount}
+              </div>
+            </div>
+            <div className="field">
+              <div className="name">
+                {CONSTANTS.TRAVEL_REQUEST_REASON_LABEL}
+              </div>
+              <div className="value">
+                {hackerDetails.application.accommodation.travel.reason || 'N/A'}
+              </div>
+            </div>
+          </GridTwoColumn>
+
           <div className="eventPrompt">
             Make sure to mark yourself as going to our{' '}
             <a
@@ -1143,7 +1281,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     };
 
     if (settings.isRemote) {
-      hacker.application.accommodation.travel = 0;
+      hacker.application.accommodation.travel = {
+        amount: 0,
+        reason: '',
+      };
     }
 
     return hacker;

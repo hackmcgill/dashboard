@@ -49,7 +49,7 @@ interface INavbarState {
 export default class Navbar extends React.Component<
   INavbarProps,
   INavbarState
-  > {
+> {
   constructor(props: INavbarProps) {
     super(props);
     this.state = {
@@ -187,16 +187,16 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-            canAccessApplication({ status }, settings) ? (
-              <NavLink
-                href={appRoute}
-                className={
-                  this.props.activePage === 'application' ? 'active' : ''
-                }
-              >
-                Application
-              </NavLink>
-            ) : null}
+          canAccessApplication({ status }, settings) ? (
+            <NavLink
+              href={appRoute}
+              className={
+                this.props.activePage === 'application' ? 'active' : ''
+              }
+            >
+              Application
+            </NavLink>
+          ) : null}
           {this.state.showTeamLink ? (
             <NavLink
               href={routes.TEAM_PAGE}
@@ -205,37 +205,39 @@ export default class Navbar extends React.Component<
               Team
             </NavLink>
           ) : null}
-          {this.state.showTravelLink ? (
+          {/* {this.state.showTravelLink ? (
             <NavLink
               href={routes.TRAVEL_PAGE}
               className={this.props.activePage === 'travel' ? 'active' : ''}
             >
               Travel
             </NavLink>
-          ) : null}
+          ) : null} */}
           {userType === UserType.SPONSOR_T1 ||
-            userType === UserType.SPONSOR_T2 ||
-            userType === UserType.SPONSOR_T3 ||
-            userType === UserType.SPONSOR_T4 ||
-            userType === UserType.SPONSOR_T5 ? (
-              <>
-                <NavLink
-                  href={routes.SPONSOR_SEARCH_PAGE}
-                  className={this.props.activePage === 'search' ? 'active' : ''}
-                >
-                  Search
-                </NavLink>
-                <NavLink
-                  href={routes.SPONSOR_ONBOARDING_PAGE}
-                  className={this.props.activePage === 'onboarding' ? 'active' : ''}
-                >
-                  Onboarding
-                </NavLink>
-                {/* <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
+          userType === UserType.SPONSOR_T2 ||
+          userType === UserType.SPONSOR_T3 ||
+          userType === UserType.SPONSOR_T4 ||
+          userType === UserType.SPONSOR_T5 ? (
+            <>
+              <NavLink
+                href={routes.SPONSOR_SEARCH_PAGE}
+                className={this.props.activePage === 'search' ? 'active' : ''}
+              >
+                Search
+              </NavLink>
+              <NavLink
+                href={routes.SPONSOR_ONBOARDING_PAGE}
+                className={
+                  this.props.activePage === 'onboarding' ? 'active' : ''
+                }
+              >
+                Onboarding
+              </NavLink>
+              {/* <NavLink href={'https://mchacks.ca/sponsor-info'} className={''}>
                   Info
               </NavLink> */}
-              </>
-            ) : null}
+            </>
+          ) : null}
           {userType === UserType.STAFF ? (
             <>
               <NavLink
@@ -258,8 +260,8 @@ export default class Navbar extends React.Component<
               </NavLink>
             </>
           ) : (
-              <div />
-            )}
+            <div />
+          )}
         </>
       );
     }
@@ -273,10 +275,7 @@ export default class Navbar extends React.Component<
         </IconContainer>
         <Links>
           {loggedIn && confirmed && NavItems()}
-          {
-            (!loggedIn || !confirmed) &&
-            <SocialMediaBar />
-          }
+          {(!loggedIn || !confirmed) && <SocialMediaBar />}
           {CTAButton}
         </Links>
         <Menu isOpen={true} styles={Burger}>
