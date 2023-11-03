@@ -118,10 +118,9 @@ export function canAccessApplication(
   const status = hacker ? hacker.status : HackerStatus.HACKER_STATUS_NONE;
   // If applications are open and a user has not yet sent in an app, let them do so.
   // Hackers who have submitted an application AND is not waitlisted should be able to see their app.
-  return (
-    (isAppOpen(settings) && status === HackerStatus.HACKER_STATUS_NONE) ||
-    status !== HackerStatus.HACKER_STATUS_WAITLISTED
-  );
+  return status === HackerStatus.HACKER_STATUS_NONE
+    ? isAppOpen(settings)
+    : status !== HackerStatus.HACKER_STATUS_WAITLISTED;
 }
 
 export function canAccessTeam(hacker?: IHacker): boolean {

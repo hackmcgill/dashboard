@@ -60,6 +60,7 @@ export const FIRST_NAME_LABEL = 'First name';
 export const LAST_NAME_LABEL = 'Last name';
 
 // Status management
+export const CANNOT_YET_APPLY_LABEL = "Glad to have you here! Applications will open soon.";
 export const NONE_STATUS_HEADING = "Let's get started";
 export const NONE_STATUS_TEXT =
   'You’re all set! Ready to start your application?';
