@@ -1,4 +1,4 @@
-import { LOCAL_API_URL, PROD_API_URL } from '../config';
+import { LOCAL_API_URL, DEV_API_URL, PROD_API_URL } from '../config';
 import Endpoint from './endpoint';
 /**
  * Inspired by https://github.com/FrancescoSaverioZuppichini/API-Class
@@ -42,6 +42,7 @@ class API {
   }
 }
 
+// TODO: Can we extract this logic to an environment variable?
 let API_URL;
 if (
   window.location.hostname === 'localhost' ||
@@ -49,8 +50,10 @@ if (
   window.location.hostname === ''
 ) {
   API_URL = LOCAL_API_URL;
-} else {
+} else if (window.location.hostname === 'app.mchacks.ca') {
   API_URL = PROD_API_URL;
+} else {
+  API_URL = DEV_API_URL;
 }
 
 export default new API(API_URL);
