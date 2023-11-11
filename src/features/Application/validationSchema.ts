@@ -16,6 +16,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               degree: string().required('Required'),
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
+                .typeError('Required')
                 .required('Required')
                 .min(2024, 'Graduation year must be 2024 or later')
                 .max(2030, 'Graduation year must be between 2024 and 2030'),
@@ -35,6 +36,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               degree: string().required('Required'),
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
+                .typeError('Required')
                 .required('Required')
                 .min(2024, 'Graduation year must be 2024 or later')
                 .max(2030, 'Graduation year must be between 2024 and 2030'),
@@ -95,6 +97,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               degree: string().required('Required'),
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
+                .typeError('Required')
                 .required('Required')
                 .min(2024, 'Graduation year must be 2024 or later')
                 .max(2030, 'Graduation year must be between 2024 and 2030'),
@@ -134,14 +137,14 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               question2: string()
                 .required('Required')
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               comments: string().test(
                 'length',
@@ -181,6 +184,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               degree: string().required('Required'),
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
+                .typeError('Required')
                 .required('Required')
                 .min(2024, 'Graduation year must be 2024 or later')
                 .max(2030, 'Graduation year must be between 2024 and 2030'),
@@ -220,14 +224,14 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               question2: string()
                 .required('Required')
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               comments: string().test(
                 'length',
@@ -241,12 +245,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               impairments: string().test(
                 'length',
                 'At most 2000 characters',
-                (value) => !value || value.length < 2000
+                (value) => !value || value.length <= 2000
               ),
               barriers: string().test(
                 'length',
                 'At most 2000 characters',
-                (value) => !value || value.length < 2000
+                (value) => !value || value.length <= 2000
               ),
             }),
             other: object().shape({
@@ -278,6 +282,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               degree: string().required('Required'),
               fieldOfStudy: string().required('Required'),
               graduationYear: number()
+                .typeError('Required')
                 .required('Required')
                 .min(2024, 'Graduation year must be 2024 or later')
                 .max(2030, 'Graduation year must be between 2024 and 2030'),
@@ -317,14 +322,14 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               question2: string()
                 .required('Required')
                 .test(
                   'length',
                   'At most 2000 characters',
-                  (value) => value && value.length < 2000
+                  (value) => value.length <= 2000
                 ),
               comments: string().test(
                 'length',
@@ -338,12 +343,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
               impairments: string().test(
                 'length',
                 'At most 2000 characters',
-                (value) => !value || value.length < 2000
+                (value) => !value || value.length <= 2000
               ),
               barriers: string().test(
                 'length',
                 'At most 2000 characters',
-                (value) => !value || value.length < 2000
+                (value) => !value || value.length <= 2000
               ),
               travel: object().shape({
                 amount: number()
@@ -353,7 +358,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                 reason: string().test(
                   'length',
                   'At most 2000 characters',
-                  (value) => !value || value.length < 2000
+                  (value) => !value || value.length <= 2000
                 )
               })
             }),
