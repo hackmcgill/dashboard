@@ -8,11 +8,15 @@ export const StyledCreatableSelect = styled(CreatableSelect)`
   .react-select__control {
     ${inputStyles}
     display: flex;
-    cursor: pointer;
+    cursor: text;
     &--is-focused {
       box-shadow: 2px 2px 16px 0px
         ${(props: any) => props.theme.colors.blueLight};
     }
+  }
+
+  .react-select__indicators {
+    cursor: pointer;
   }
 
   .react-select__option {
