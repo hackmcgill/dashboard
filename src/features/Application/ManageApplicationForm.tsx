@@ -535,9 +535,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
               component={FormikElements.Select}
-              value={
-                fp.values.hacker.application.shortAnswer.previousHackathons
-              }
+              value={fp.values.hacker.application.shortAnswer.previousHackathons.toString()}
               required={true}
               style={{ maxWidth: '160px' }}
             />
