@@ -13,6 +13,7 @@ interface IStylizedSelectFormikProps {
   disabled?: boolean;
   style?: object;
   showOptionalLabel?: boolean;
+  text?: string;
 }
 
 const StylizedSelectFormikComponent: React.FC<
@@ -32,8 +33,13 @@ const StylizedSelectFormikComponent: React.FC<
   };
   return (
     <Label>
-      <LabelText label={props.label} required={props.required} showOptionalLabel={props.showOptionalLabel} />
+      <LabelText
+        label={props.label}
+        required={props.required}
+        showOptionalLabel={props.showOptionalLabel}
+      />
       <div style={props.style}>
+        {props.text ? <p>{props.text}</p> : null}
         {props.creatable ? (
           <StyledCreatableSelect
             {...commonProps}
@@ -41,8 +47,8 @@ const StylizedSelectFormikComponent: React.FC<
             createOptionPosition={'first'}
           />
         ) : (
-            <StyledSelect {...commonProps} />
-          )}
+          <StyledSelect {...commonProps} />
+        )}
       </div>
     </Label>
   );

@@ -11,6 +11,11 @@ export const Label = styled.label<ILabelProps>`
   color: ${(props) => props.theme.colors.black80};
   display: block;
   width: ${(props) => props.width || '100%'};
+
+  p {
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.black60};
+  }
 `;
 
 export default Label;

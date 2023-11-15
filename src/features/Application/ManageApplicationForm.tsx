@@ -452,6 +452,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Select}
                 value={fp.values.hacker.application.other.ethnicity}
                 required={true}
+                text={CONSTANTS.ETHNICITY_TEXT}
               />
               <ErrorMessage
                 component={FormikElements.Error}
