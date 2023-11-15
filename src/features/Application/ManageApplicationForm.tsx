@@ -767,7 +767,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   </a>
                   {'. I further agree to the terms of both the '}
                   <a
-                    href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                    href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
