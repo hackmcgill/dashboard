@@ -452,6 +452,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                 component={FormikElements.Select}
                 value={fp.values.hacker.application.other.ethnicity}
                 required={true}
+                text={CONSTANTS.ETHNICITY_TEXT}
               />
               <ErrorMessage
                 component={FormikElements.Error}
@@ -534,9 +535,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
               component={FormikElements.Select}
-              value={
-                fp.values.hacker.application.shortAnswer.previousHackathons
-              }
+              value={fp.values.hacker.application.shortAnswer.previousHackathons.toString()}
               required={true}
               style={{ maxWidth: '160px' }}
             />
@@ -768,7 +767,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
                   </a>
                   {'. I further agree to the terms of both the '}
                   <a
-                    href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                    href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

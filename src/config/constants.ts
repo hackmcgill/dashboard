@@ -107,6 +107,7 @@ export const QUESTION1_REQUEST_LABEL = 'Why McHacks?';
 export const QUESTION2_REQUEST_LABEL = 'What are you passionate about?';
 export const ETHNICITY_LABEL = 'Ethnicity';
 export const ETHNICITY_PLACEHOLDER = 'Ethnicity';
+export const ETHNICITY_TEXT = 'This information will not be shared and will only be used by McHacks to understand the demographics of our applicants. You may choose to select “Prefer not to answer". This question will not affect the application decision process.'
 export const GITHUB_LINK_LABEL = 'GitHub URL';
 export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
 export const GRADUATION_YEAR_LABEL = 'Graduation Year';
