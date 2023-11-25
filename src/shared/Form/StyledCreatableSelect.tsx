@@ -3,7 +3,7 @@ import { inputStyles } from '../Styles/inputStyles';
 import styled from '../Styles/styled-components';
 
 export const StyledCreatableSelect = styled(CreatableSelect)`
-  font-family: ${(props) => props.theme.fonts.body};
+  font-family: ${(props) => props.theme.fonts.header};
 
   .react-select__control {
     ${inputStyles}
