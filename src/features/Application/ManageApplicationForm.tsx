@@ -139,6 +139,10 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     }));
   };
 
+  const convertNumberToOptionValue = (num: number) => {
+    return isNaN(num) ? '' : num.toString();
+  };
+
   // When this component mounts, fetch hacker's saved appliation data if it already exists
   useEffect(() => {
     (async () => {
@@ -535,7 +539,9 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               options={getPreviousHackathonOptions(PreviousHackathons)}
               label={CONSTANTS.PREVIOUS_HACKATHONS_LABEL}
               component={FormikElements.Select}
-              value={fp.values.hacker.application.shortAnswer.previousHackathons.toString()}
+              value={convertNumberToOptionValue(
+                fp.values.hacker.application.shortAnswer.previousHackathons
+              )}
               required={true}
               style={{ maxWidth: '160px' }}
             />
