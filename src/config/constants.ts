@@ -78,7 +78,8 @@ export const RSVP_DEADLINE_TEXT_END =
 export const DECLINED_STATUS_TEXT =
   "Thank you so much for your interest in McHacks. Unfortunately, we don't have enough space to offer you a spot this year. That being said, please keep in touch and we'd love to see you apply again next year! In the meantime, we hope you continue to create and build awesome things!";
 export const WAITLISTED_STATUS_TEXT =
-  "Thank you so much for your interest in McHacks. At the moment, we've placed you on the waitlist. We received many great applications this year and wish we had the capacity accept them all. Currently, we can only place you on the waitlist, but please keep an eye on the dashboard to see if your status changes and a spot opens up!";
+  // "Thank you so much for your interest in McHacks. At the moment, we've placed you on the waitlist. We received many great applications this year and wish we had the capacity accept them all. Currently, we can only place you on the waitlist, but please keep an eye on the dashboard to see if your status changes and a spot opens up!";
+  "Thank you for applying to McHacks. We received a ton of great applications so far and are unfortunately unable to offer an acceptance at this time. But don't sweat yet, we've placed your application among the others to be considered in the final round of applications. Please keep an eye on the dashboard to see if your status changes and a spot opens up!";
 export const CONFIRMED_STATUS_TEXT =
   'Your attendance has been confirmed! More information on McHacks will be sent to your email as we get closer to the event.';
 export const WITHDRAWN_STATUS_TEXT =
