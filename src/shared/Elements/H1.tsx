@@ -1,4 +1,4 @@
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 interface IH1Props {
   color?: string;

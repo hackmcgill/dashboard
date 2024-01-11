@@ -1,5 +1,5 @@
 import { Box } from '@rebass/grid';
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 export const LeftContainer = styled(Box)`
   float: left;

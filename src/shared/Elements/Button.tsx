@@ -1,4 +1,4 @@
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 /**
  * Type of button refers to the visual weight of the button with
@@ -42,64 +42,90 @@ export const Button = styled.button<IButtonProps>`
   border-radius: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  box-shadow: ${(props) => !(props.variant === ButtonVariant.Secondary) ? `2px 4px 16px 0 ${props.theme.colors.purpleLight}` : 'none'};
+  box-shadow: ${(props) =>
+    !(props.variant === ButtonVariant.Secondary)
+      ? `2px 4px 16px 0 ${props.theme.colors.purpleLight}`
+      : 'none'};
   border: 2px solid transparent;
   outline: none;
 
   ${(props) =>
     // Call to action and primary buttons have solid background and gradient borders
-    (props.variant === ButtonVariant.Primary) ? `
+    props.variant === ButtonVariant.Primary
+      ? `
       background-color: ${props.theme.colors.purple};
       color: ${props.theme.colors.white};
-  ` : ''}
+  `
+      : ''}
 
   ${(props) =>
     // Call to action and primary buttons have solid background and gradient borders
-    props.variant === ButtonVariant.Secondary ? `
+    props.variant === ButtonVariant.Secondary
+      ? `
       background-color: ${props.theme.colors.purpleLight};
       color: ${props.theme.colors.purple};
-  ` : ''}
+  `
+      : ''}
 
   ${(props) =>
-    props.isOutlined ? `
+    props.isOutlined
+      ? `
     background: none;
     color: ${props.theme.colors.purple};
-    border-color: ${props.variant === ButtonVariant.Secondary
+    border-color: ${
+      props.variant === ButtonVariant.Secondary
         ? props.theme.colors.purpleLight
         : props.theme.colors.purple
-      };
-  ` : ''}
+    };
+  `
+      : ''}
 
   ${(props) =>
-    props.disabled ? `
+    props.disabled
+      ? `
       cursor: not-allowed;
       color: ${props.theme.colors.black60};
       background-color: ${props.theme.colors.black10};
       border-color: ${props.theme.colors.black10};
-  ` : ''}
+  `
+      : ''}
 
   ${(props) =>
-    !(props.disabled || props.isLoading) ? `
+    !(props.disabled || props.isLoading)
+      ? `
       &:hover {
-        ${props.variant === ButtonVariant.Primary && !props.isOutlined ? `
+        ${
+          props.variant === ButtonVariant.Primary && !props.isOutlined
+            ? `
           background-color: ${props.theme.colors.purpleLight};
           color: ${props.theme.colors.purple};
           box-shadow: none;
-        ` : ''}
+        `
+            : ''
+        }
 
-        ${props.variant === ButtonVariant.Primary && props.isOutlined ? `
+        ${
+          props.variant === ButtonVariant.Primary && props.isOutlined
+            ? `
           background-color: ${props.theme.colors.purple};
           color: ${props.theme.colors.white};
           box-shadow: none;
-        ` : ''}
+        `
+            : ''
+        }
 
-        ${props.variant === ButtonVariant.Secondary ? `
+        ${
+          props.variant === ButtonVariant.Secondary
+            ? `
           background-color: ${props.theme.colors.white};
           border-color: ${props.theme.colors.purple}
           color: ${props.theme.colors.purple};
-        `: ''}
+        `
+            : ''
+        }
       }
-  ` : ''}
+  `
+      : ''}
 
   @keyframes spinner {
     to {
@@ -108,7 +134,8 @@ export const Button = styled.button<IButtonProps>`
   }
 
   ${(props) =>
-    props.isLoading ? `
+    props.isLoading
+      ? `
     color: transparent;
     background-color: ${props.theme.colors.purple};
 
@@ -126,7 +153,8 @@ export const Button = styled.button<IButtonProps>`
       border: 3px solid transparent;
       border-top-color: ${props.theme.colors.white};
       animation: spinner .8s ease infinite;
-    }` : ''}
+    }`
+      : ''}
 `;
 
 export default Button;

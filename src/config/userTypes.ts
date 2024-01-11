@@ -36,7 +36,7 @@ export interface IHacker {
     general: {
       school: string;
       degree: string;
-      fieldOfStudy: string;
+      fieldOfStudy: string[];
       graduationYear: number;
       jobInterest: string;
       URL: {

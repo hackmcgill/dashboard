@@ -12,7 +12,7 @@ interface INumberFormatFormikComponent {
   disabled?: boolean;
 }
 
-const NumberFormatFormikComponent: React.StatelessComponent<
+const NumberFormatFormikComponent: React.FunctionComponent<
   INumberFormatFormikComponent & FieldProps
 > = (props) => {
   const placeholder = props.placeholder ? props.placeholder : '';

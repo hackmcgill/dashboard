@@ -197,7 +197,7 @@ export async function generateHackPass(
   const doc = new jsPDF({
     orientation: 'landscape',
     unit: 'mm',
-    format: [59, 102],
+    format: [21, 36],
   });
 
   // Load custom fonts
@@ -216,21 +216,18 @@ export async function generateHackPass(
   }
 
   // Write the hacker's name and pronouns
-  doc.setFont('brown');
-  doc.setFontStyle('bold');
+  doc.setFont('brown', 'bold');
   doc.setFontSize(4);
   writeCenteredText(`${account.firstName} ${account.lastName}`, 22.5);
   doc.setFontSize(3);
   writeCenteredText(account.accountType.toUpperCase(), 2);
 
 
-  doc.setFont('hind');
-  doc.setFontStyle('normal');
+  doc.setFont('hind', 'normal');
 
 
   // Write the school the hacker is from
-  doc.setFont('hind');
-  doc.setFontStyle('normal');
+  doc.setFont('hind', 'normal');
   doc.setFontSize(3);
   doc.setTextColor(0);
 
@@ -253,27 +250,23 @@ export async function generateHackPass(
   doc.rect(0, 0, 36, 9, 'F')*/
 
   // Write the hacker's name and pronouns
-  doc.setFont('brown');
-  doc.setFontStyle('bold');
+  doc.setFont('brown', 'bold');
   doc.setFontSize(5);
   doc.setTextColor(0);
   doc.text(`${account.firstName} ${account.lastName}`, 3, 6);
 
-  doc.setFont('hind');
-  doc.setFontStyle('normal');
+  doc.setFont('hind', 'normal');
   doc.setFontSize(4);
   doc.setTextColor(0);
   doc.text('', 3, 8);
 
-  doc.setFont('hind');
-  doc.setFontStyle('normal');
+  doc.setFont('hind', 'normal');
   doc.setFontSize(3);
   doc.setTextColor(0);
   doc.text(account.pronoun, 3, 8);
 
   // Write the school the hacker is from
-  doc.setFont('hind');
-  doc.setFontStyle('normal');
+  doc.setFont('hind', 'normal');
   doc.setFontSize(4);
   doc.setTextColor(0);
 

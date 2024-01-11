@@ -8,8 +8,8 @@ export const LinkDuo: React.FC<LinkProps> = (props: any) => {
       {props.children}
     </a>
   ) : (
-      <Link to={to} {...rest}>
-        {props.children}
-      </Link>
-    );
+    <Link to={to} {...rest}>
+      {props.children}
+    </Link>
+  );
 };

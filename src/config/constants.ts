@@ -1,7 +1,8 @@
 // API information
 export const LOCAL_API_URL = 'http://localhost:3000/api';
 export const PROD_API_URL = 'https://api.mchacks.ca/api';
-export const DEV_API_URL = 'https://hackerapi-dev-90b58016f161.herokuapp.com/api';
+export const DEV_API_URL =
+  'https://hackerapi-dev-90b58016f161.herokuapp.com/api';
 
 // Cache information
 export const CACHE_USER_KEY = 'userInfo';
@@ -60,7 +61,8 @@ export const FIRST_NAME_LABEL = 'First name';
 export const LAST_NAME_LABEL = 'Last name';
 
 // Status management
-export const CANNOT_YET_APPLY_LABEL = "Glad to have you here! Applications will open soon.";
+export const CANNOT_YET_APPLY_LABEL =
+  'Glad to have you here! Applications will open soon.';
 export const NONE_STATUS_HEADING = "Let's get started";
 export const NONE_STATUS_TEXT =
   'You’re all set! Ready to start your application?';
@@ -108,7 +110,8 @@ export const QUESTION1_REQUEST_LABEL = 'Why McHacks?';
 export const QUESTION2_REQUEST_LABEL = 'What are you passionate about?';
 export const ETHNICITY_LABEL = 'Ethnicity';
 export const ETHNICITY_PLACEHOLDER = 'Ethnicity';
-export const ETHNICITY_TEXT = 'This information will not be shared and will only be used by McHacks to understand the demographics of our applicants. You may choose to select “Prefer not to answer". This question will not affect the application decision process.'
+export const ETHNICITY_TEXT =
+  'This information will not be shared and will only be used by McHacks to understand the demographics of our applicants. You may choose to select “Prefer not to answer". This question will not affect the application decision process.';
 export const GITHUB_LINK_LABEL = 'GitHub URL';
 export const GITHUB_LINK_PLACEHOLDER = 'https://www.github.com/';
 export const GRADUATION_YEAR_LABEL = 'Graduation Year';
@@ -136,7 +139,7 @@ export const SCHOOL_LABEL = 'School';
 export const SCHOOL_PLACEHOLDER = 'School';
 export const TRAVEL_LABEL = 'Travel';
 export const TRAVEL_REQUEST_AMOUNT_LABEL = 'Amount Requested';
-export const TRAVEL_REQUEST_REASON_LABEL = 'Reason'
+export const TRAVEL_REQUEST_REASON_LABEL = 'Reason';
 export const PREVIOUS_HACKATHONS_LABEL =
   'How many hackathons have you been to?';
 export const REVIEW_APPLICIATION_DESCRIPTION =

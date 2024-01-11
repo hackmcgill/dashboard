@@ -25,7 +25,7 @@ const CreateAccountPage: React.FC = () => (
         <ManageAccountForm mode={ManageAccountModes.CREATE} />
       </div>
 
-      <style jsx>{`
+      <style jsx={true}>{`
         .form-container {
           max-width: 1080px;
           margin: auto;

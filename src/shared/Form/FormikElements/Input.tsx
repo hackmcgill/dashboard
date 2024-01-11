@@ -1,5 +1,5 @@
-import React from 'react';
 import { FieldProps } from 'formik';
+import React from 'react';
 import { Input, Label, LabelText } from '..';
 
 interface IInputFormikComponentProp {
@@ -12,10 +12,22 @@ interface IInputFormikComponentProp {
 }
 const InputFormikComponent: React.FC<
   IInputFormikComponentProp & FieldProps
-> = ({ placeholder, label, required, inputType, field, disabled, showOptionalLabel }) => {
+> = ({
+  placeholder,
+  label,
+  required,
+  inputType,
+  field,
+  disabled,
+  showOptionalLabel,
+}) => {
   return (
     <Label>
-      <LabelText label={label} required={required} showOptionalLabel={showOptionalLabel} />
+      <LabelText
+        label={label}
+        required={required}
+        showOptionalLabel={showOptionalLabel}
+      />
       <Input
         type={inputType}
         placeholder={placeholder || ''}

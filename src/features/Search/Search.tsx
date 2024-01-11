@@ -101,7 +101,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Box>
                     <Box mr={'10px'}>
                       {account && account.accountType === UserType.STAFF && (
-                        <Button style={{ marginRight: '10px' }} variant={ButtonVariant.Secondary} isOutlined={true}>
+                        <Button
+                          style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
+                        >
                           Update Status
                         </Button>
                       )}
@@ -109,12 +113,17 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                         <Button
                           onClick={this.toggleSaved}
                           style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary} isOutlined={true}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
                         >
                           View {viewSaved ? 'All' : 'Saved'}
                         </Button>
                       )}
-                      <Button onClick={this.downloadData} variant={ButtonVariant.Secondary} isOutlined={true}>
+                      <Button
+                        onClick={this.downloadData}
+                        variant={ButtonVariant.Secondary}
+                        isOutlined={true}
+                      >
                         Export Hackers
                       </Button>
                     </Box>
@@ -155,11 +164,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       }
       const isValidSearch =
         searchParam
-          .map(
-            (value: any): boolean => {
-              return isValidSearchParameter(value);
-            }
-          )
+          .map((value: any): boolean => {
+            return isValidSearchParameter(value);
+          })
           .indexOf(false) === -1;
       return isValidSearch ? searchParam : [];
     } catch (e) {
@@ -295,12 +302,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
+            selected: true,
+            hacker: v,
+          }))
         : [];
       this.setState({ results: tableData, loading: false });
-    } catch (e) {
+    } catch (e: any) {
       ValidationErrorGenerator(e.data);
       this.setState({ loading: false });
     }
@@ -344,7 +351,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       if (typeof accountId !== 'string') {
         const account = accountId as IAccount;
         if (account) {
-          const fullName = `${account.firstName} ${account.lastName}`.toLowerCase();
+          const fullName =
+            `${account.firstName} ${account.lastName}`.toLowerCase();
           foundAcct =
             fullName.includes(searchBar) ||
             account.email.toLowerCase().includes(searchBar) ||
@@ -368,7 +376,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.application.shortAnswer.question1.includes(searchBar) ||
         hacker.application.shortAnswer.question2.includes(searchBar) ||
         hacker.application.accommodation.shirtSize.includes(searchBar) ||
-        hacker.application.accommodation.attendancePreference.includes(searchBar) ||
+        hacker.application.accommodation.attendancePreference.includes(
+          searchBar
+        ) ||
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 

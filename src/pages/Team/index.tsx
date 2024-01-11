@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
 import { Hacker } from '../../api';
 import Team from '../../api/team';
-import { HACKATHON_NAME, IHacker, IMemberName, ITeam, TEAM_OVERVIEW } from '../../config';
+import {
+  HACKATHON_NAME,
+  IHacker,
+  IMemberName,
+  ITeam,
+  TEAM_OVERVIEW,
+} from '../../config';
 
 import { ITeamResponse } from '../../config/teamGETResponse';
-import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import JoinCreateTeam from '../../features/Team/JoinCreateTeam';
 import TeamDescription from '../../features/Team/TeamDescription';
 import { H1 } from '../../shared/Elements';
+import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import theme from '../../shared/Styles/theme';
 
 /**
@@ -47,7 +53,7 @@ const TeamPage: React.FC = () => {
         setTeam(null);
         setMembers([]);
       }
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -63,7 +69,7 @@ const TeamPage: React.FC = () => {
     try {
       setIsLeavingTeam(true);
       await Team.leave();
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -103,7 +109,7 @@ const TeamPage: React.FC = () => {
         {content}
       </div>
 
-      <style jsx>{`
+      <style jsx={true}>{`
         .centered {
           /* Center vertically */
           flex: 1;

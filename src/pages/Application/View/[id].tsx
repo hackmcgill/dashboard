@@ -1,6 +1,6 @@
 import { Box, Flex } from '@rebass/grid';
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { Account, Hacker } from '../../../api';
 import { IHacker, UserType } from '../../../config';
 import { H1, H2 } from '../../../shared/Elements';
@@ -28,20 +28,22 @@ const SingleHackerPage: React.FC = () => {
 
   // When this component mounts, load hackers data
   useEffect(() => {
-    (async () => {
-      try {
-        const viewer = (await Account.getSelf()).data.data;
-        console.log(viewer, viewer.accountType);
-        setUserType(viewer.accountType);
-        const newHacker = (await Hacker.get(id)).data.data;
-        const account = (await Account.get(newHacker.accountId as string)).data
-          .data;
-        newHacker.accountId = account;
-        setHacker(newHacker);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
+    if (id) {
+      (async () => {
+        try {
+          const viewer = (await Account.getSelf()).data.data;
+          console.log(viewer, viewer.accountType);
+          setUserType(viewer.accountType);
+          const newHacker = (await Hacker.get(id)).data.data;
+          const account = (await Account.get(newHacker.accountId as string))
+            .data.data;
+          newHacker.accountId = account;
+          setHacker(newHacker);
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
   }, [id]);
 
   // If data on hacker has loaded, display that hacker's info
@@ -81,7 +83,7 @@ const SingleHackerPage: React.FC = () => {
 
   // If not loading, but hacker data didn't return, in an error state so redirect to 404 page
   else {
-    return <Redirect to={'/404'} />;
+    return <Navigate to={'/404'} />;
   }
 };
 

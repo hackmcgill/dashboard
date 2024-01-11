@@ -1,4 +1,4 @@
-import * as QueryString from 'query-string';
+import QueryString from 'query-string';
 
 function padStart(padNum: number, padValue: string, value: string): string {
   if (value.length < padNum) {

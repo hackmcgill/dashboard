@@ -10,6 +10,7 @@ import {
   ISetting,
   UserType,
 } from '../../config';
+import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 // import { Image } from '../../shared/Elements';
 import {
   canAccessApplication,
@@ -19,7 +20,6 @@ import {
   // getSponsorInfo,
 } from '../../util/UserInfoHelperFunctions';
 import { isConfirmed } from '../../util/UserInfoHelperFunctions';
-import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import Burger from './Burger';
 import Icon from './Icon';
 import IconContainer from './IconContainer';
@@ -110,7 +110,7 @@ export default class Navbar extends React.Component<
         showTravelLink:
           canAccessTravel(hacker) && !this.state.settings.isRemote,
       });
-    } catch (e) {
+    } catch (e: any) {
       if (e === undefined || e.status === 401) {
         this.setState({
           status: HackerStatus.HACKER_STATUS_NONE,

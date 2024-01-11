@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -26,7 +26,7 @@ import WithToasterContainer from '../../shared/HOC/withToaster';
 /**
  * Container that renders form to reset a person's password. The auth token must be present in the URL for this to work.
  */
-const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
+const ResetPasswordPage: React.FunctionComponent = () => {
   // Are the values inputted into the form fields valid?
   const [isValid, setIsValid] = useState<boolean>(false);
 
@@ -36,8 +36,8 @@ const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
   // Value currently entered in password form field
   const [password, setPassword] = useState<string>('');
 
-  // Get access to broswer's router in order to progatically navigate
-  const history = useHistory();
+  // Get access to broswer's navigation in order to progatically navigate
+  const navigate = useNavigate();
 
   const renderPassReset = () => {
     return (
@@ -107,7 +107,7 @@ const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
           if (value.status === 200) {
             console.log('Reset password');
             // Redirec to login page
-            history.push(FrontendRoute.LOGIN_PAGE);
+            navigate(FrontendRoute.LOGIN_PAGE);
           }
         })
         .catch((response: AxiosResponse<APIResponse<any>> | undefined) => {
@@ -145,17 +145,17 @@ const ResetPasswordPage: React.FC<RouteComponentProps> = () => {
             />
           </LeftContainer>
         ) : (
-            <div>
-              {renderPassReset()}
-              <BackgroundImage
-                src={BackgroundLandscape}
-                top={'0px'}
-                left={'0px'}
-                imgHeight={'100%'}
-                zIndex={-1}
-              />
-            </div>
-          )
+          <div>
+            {renderPassReset()}
+            <BackgroundImage
+              src={BackgroundLandscape}
+              top={'0px'}
+              left={'0px'}
+              imgHeight={'100%'}
+              zIndex={-1}
+            />
+          </div>
+        )
       }
     </MediaQuery>
   );

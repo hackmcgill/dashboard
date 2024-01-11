@@ -1,4 +1,4 @@
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 export const RequiredInputLabel = styled.span`
   color: ${(props) => props.theme.colors.red};

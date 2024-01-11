@@ -11,7 +11,9 @@ const HackerDashboard: React.FC = () => {
   const [account, setAccount] = useState<IAccount>(Object());
 
   // Currently logged in hacker's status (e.g. APPLIED, CONFIRMED, etc.)
-  const [status, setStatus] = useState<HackerStatus>(HackerStatus.HACKER_STATUS_NONE);
+  const [status, setStatus] = useState<HackerStatus>(
+    HackerStatus.HACKER_STATUS_NONE
+  );
 
   // Is the currently logged in hacker confirmed as attending event?
   const [confirmed, setConfirmed] = useState<boolean>(false);
@@ -33,7 +35,7 @@ const HackerDashboard: React.FC = () => {
       try {
         const response = await Hacker.getSelf();
         setStatus(response.data.data.status);
-      } catch (e) {
+      } catch (e: any) {
         if (e.status === 401) {
           setStatus(HackerStatus.HACKER_STATUS_NONE);
         }
@@ -52,7 +54,9 @@ const HackerDashboard: React.FC = () => {
   }, []);
 
   // this will prevent loading the default confirm email component page if the componentDidMount has not finished it's async methods
-  return isLoaded ? <StatusCTAContainer {...{ account, status, confirmed }} /> : null;
-}
+  return isLoaded ? (
+    <StatusCTAContainer {...{ account, status, confirmed }} />
+  ) : null;
+};
 
 export default WithToasterContainer(HackerDashboard);

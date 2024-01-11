@@ -10,11 +10,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
         hacker: object().shape({
           application: object().shape({
             general: object().shape({
-              school: string()
-                .min(1, 'Select a school')
-                .required('Required'),
+              school: string().min(1, 'Select a school').required('Required'),
               degree: string().required('Required'),
-              fieldOfStudy: string().required('Required'),
+              fieldOfStudy: array().of(string()).required('Required'),
               graduationYear: number()
                 .typeError('Required')
                 .required('Required')
@@ -30,11 +28,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
         hacker: object().shape({
           application: object().shape({
             general: object().shape({
-              school: string()
-                .min(1, 'Select a school')
-                .required('Required'),
+              school: string().min(1, 'Select a school').required('Required'),
               degree: string().required('Required'),
-              fieldOfStudy: string().required('Required'),
+              fieldOfStudy: array().of(string()).required('Required'),
               graduationYear: number()
                 .typeError('Required')
                 .required('Required')
@@ -77,12 +73,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
           .test(
             'fileSize',
             'File too large (<4MB only)',
-            (value) => !value || value.length > 0 || value.size <= 4000000 // 4MB
+            (value: any) => !value || value.length > 0 || value.size <= 4000000 // 4MB
           )
           .test(
             'fileFormat',
             'Unsupported Format (PDF only)',
-            (value) =>
+            (value: any) =>
               !value || value.length > 0 || value.type === 'application/pdf'
           ),
       });
@@ -91,11 +87,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
         hacker: object().shape({
           application: object().shape({
             general: object().shape({
-              school: string()
-                .min(1, 'Select a school')
-                .required('Required'),
+              school: string().min(1, 'Select a school').required('Required'),
               degree: string().required('Required'),
-              fieldOfStudy: string().required('Required'),
+              fieldOfStudy: array().of(string()).required('Required'),
               graduationYear: number()
                 .typeError('Required')
                 .required('Required')
@@ -164,12 +158,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
           .test(
             'fileSize',
             'File too large (<4MB only)',
-            (value) => !value || value.length > 0 || value.size <= 4000000 // 4MB
+            (value: any) => !value || value.length > 0 || value.size <= 4000000 // 4MB
           )
           .test(
             'fileFormat',
             'Unsupported Format (PDF only)',
-            (value) =>
+            (value: any) =>
               !value || value.length > 0 || value.type === 'application/pdf'
           ),
       });
@@ -178,11 +172,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
         hacker: object().shape({
           application: object().shape({
             general: object().shape({
-              school: string()
-                .min(1, 'Select a school')
-                .required('Required'),
+              school: string().min(1, 'Select a school').required('Required'),
               degree: string().required('Required'),
-              fieldOfStudy: string().required('Required'),
+              fieldOfStudy: array().of(string()).required('Required'),
               graduationYear: number()
                 .typeError('Required')
                 .required('Required')
@@ -262,12 +254,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
           .test(
             'fileSize',
             'File too large (<4MB only)',
-            (value) => !value || value.length > 0 || value.size <= 4000000 // 4MB
+            (value: any) => !value || value.length > 0 || value.size <= 4000000 // 4MB
           )
           .test(
             'fileFormat',
             'Unsupported Format (PDF only)',
-            (value) =>
+            (value: any) =>
               !value || value.length > 0 || value.type === 'application/pdf'
           ),
       });
@@ -276,11 +268,9 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
         hacker: object().shape({
           application: object().shape({
             general: object().shape({
-              school: string()
-                .min(1, 'Select a school')
-                .required('Required'),
+              school: string().min(1, 'Select a school').required('Required'),
               degree: string().required('Required'),
-              fieldOfStudy: string().required('Required'),
+              fieldOfStudy: array().of(string()).required('Required'),
               graduationYear: number()
                 .typeError('Required')
                 .required('Required')
@@ -359,8 +349,8 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
                   'length',
                   'At most 2000 characters',
                   (value) => !value || value.length <= 2000
-                )
-              })
+                ),
+              }),
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
@@ -385,12 +375,12 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
           .test(
             'fileSize',
             'File too large (<4MB only)',
-            (value) => !value || value.length > 0 || value.size <= 4000000 // 4MB
+            (value: any) => !value || value.length > 0 || value.size <= 4000000 // 4MB
           )
           .test(
             'fileFormat',
             'Unsupported Format (PDF only)',
-            (value) =>
+            (value: any) =>
               !value || value.length > 0 || value.type === 'application/pdf'
           ),
       });

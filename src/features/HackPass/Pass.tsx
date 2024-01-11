@@ -8,7 +8,7 @@ interface IPassProps {
   qrData: string;
 }
 
-export const Pass: React.StatelessComponent<IPassProps> = (
+export const Pass: React.FunctionComponent<IPassProps> = (
   props: IPassProps
 ) => {
   return (

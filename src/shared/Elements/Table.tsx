@@ -1,5 +1,5 @@
 import ReactTable from 'react-table';
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 export const StyledTable = styled(ReactTable)`
   position: relative;

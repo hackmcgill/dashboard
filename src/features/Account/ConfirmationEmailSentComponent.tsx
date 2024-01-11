@@ -1,16 +1,11 @@
-import React from 'react';
 import { Flex } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
+import React from 'react';
 import Helmet from 'react-helmet';
 
 import { APIResponse, Auth } from '../../api';
 import { EMAIL_SENT, HACKATHON_NAME, RESEND_CONF_EMAIL } from '../../config';
-import {
-  Button,
-  H1,
-  Image,
-  ButtonVariant
-} from '../../shared/Elements';
+import { Button, ButtonVariant, H1, Image } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
@@ -24,7 +19,7 @@ interface IConfirmationEmailSentState {
 class ConfirmationEmailSentComponent extends React.Component<
   {},
   IConfirmationEmailSentState
-  > {
+> {
   private sendDelay: number;
 
   constructor(props: {}) {
@@ -46,16 +41,15 @@ class ConfirmationEmailSentComponent extends React.Component<
           <title>Confirmation | {HACKATHON_NAME}</title>
         </Helmet>
 
-        <Image
-          src={robot}
-          imgHeight={'220px'}
-          padding={'0 0 68px 0'}
-        />
+        <Image src={robot} imgHeight={'220px'} padding={'0 0 68px 0'} />
 
-        <H1 textAlign={'center'} marginBottom="0">Confirm your email</H1>
+        <H1 textAlign={'center'} marginBottom="0">
+          Confirm your email
+        </H1>
 
         <div className="explanation">
-          Please check your inbox for a confirmation email.<br />
+          Please check your inbox for a confirmation email.
+          <br />
           Click the link in the email to confirm your email address.
         </div>
 
@@ -69,7 +63,7 @@ class ConfirmationEmailSentComponent extends React.Component<
           {!this.state.buttonDisabled ? RESEND_CONF_EMAIL : EMAIL_SENT}
         </Button>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .explanation {
             max-width: 500px;
             text-align: center;

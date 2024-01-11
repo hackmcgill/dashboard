@@ -1,31 +1,30 @@
-import { object, string } from 'yup';
+import { array, object, string } from 'yup';
 
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
-    ? string()
-      .min(6, 'Must be at least 6 characters')
-      .required('Required')
+    ? string().min(6, 'Must be at least 6 characters').required('Required')
     : string().when('newPassword', {
-      is: (pass) => pass,
-      then: string().required('Required to change password'),
-      otherwise: string(),
-    });
+        is: (pass: string) => pass,
+        then: (schema) => schema.required('Required to change password'),
+        otherwise: (schema) => schema,
+      });
 
   return object().shape({
     firstName: string().required('Required'),
     lastName: string().required('Required'),
-    email: string()
-      .required('Required')
-      .email('Must be a valid email'),
+    email: string().required('Required').email('Must be a valid email'),
     password,
     newPassword: string().min(6, 'Must be at least 6 characters'),
     pronoun: string(),
     gender: string(),
-    dietaryRestrictions: string(),
-    phoneNumber: string()
-      .test('validPhone', 'Must be a valid phone number', (value) => {
+    dietaryRestrictions: array().of(string()),
+    phoneNumber: string().test(
+      'validPhone',
+      'Must be a valid phone number',
+      (value) => {
         return !value || value.length === 11;
-      }),
+      }
+    ),
     birthDate: string()
       .test('validDate', 'Must be valid date', (value) => {
         if (!value || value.length !== 8) {

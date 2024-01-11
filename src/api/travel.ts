@@ -1,9 +1,5 @@
 import { AxiosResponse } from 'axios';
-import {
-  APIRoute,
-  CACHE_TRAVEL_KEY,
-  ITravel
-} from '../config';
+import { APIRoute, CACHE_TRAVEL_KEY, ITravel } from '../config';
 import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';

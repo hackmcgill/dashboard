@@ -69,7 +69,7 @@ async function getSettings(callback: (settings: ISetting) => void) {
   try {
     const settings: ISetting = (await Settings.get()).data.data;
     callback(settings);
-  } catch (e) {
+  } catch (e: any) {
     if (e && e.data) {
       ValidationErrorGenerator(e.data);
     }
@@ -80,7 +80,7 @@ async function patchSettings(newSettings: ISetting) {
   try {
     await Settings.update(newSettings);
     toast.success('Settings updated');
-  } catch (e) {
+  } catch (e: any) {
     if (e && e.data) {
       ValidationErrorGenerator(e.data);
     }

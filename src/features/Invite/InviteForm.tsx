@@ -43,7 +43,7 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
       if (props.onSubmitted) {
         props.onSubmitted(newInvite);
       }
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -103,13 +103,14 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
   return (
     <Formik
       onSubmit={handleSubmit}
-      render={renderFormik}
       validationSchema={getValidationSchema()}
       initialValues={{
         email: '',
         accountType: UserType.HACKER,
       }}
-    />
+    >
+      {renderFormik}
+    </Formik>
   );
 };
 

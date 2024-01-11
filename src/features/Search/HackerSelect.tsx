@@ -13,6 +13,7 @@ interface IState {
 
 class HackerSelect extends React.Component<IProps, IState> {
   public static contextType = NomineeContext;
+  public context: React.ContextType<typeof NomineeContext>;
 
   constructor(props: IProps) {
     super(props);
@@ -40,7 +41,7 @@ class HackerSelect extends React.Component<IProps, IState> {
     const { isChanging } = this.state;
     const { hackerId } = this.props;
 
-    if (isChanging) {
+    if (isChanging || !this.context) {
       return;
     }
 

@@ -18,7 +18,7 @@ export const ExistingInvites: React.FC = () => {
         const allInvites = result.data.data.invites;
         console.log(allInvites);
         setInvites(allInvites);
-      } catch (e) {
+      } catch (e: any) {
         if (e && e.data) {
           ValidationErrorGenerator(e);
         }

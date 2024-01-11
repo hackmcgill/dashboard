@@ -1,8 +1,8 @@
-import React from 'react';
 import { Box, Flex } from '@rebass/grid';
-import { REQUIRED_INPUT, OPTIONAL_INPUT } from '../../config';
-import { RequiredInputLabel, SecondaryInfoText } from './';
+import React from 'react';
+import { OPTIONAL_INPUT, REQUIRED_INPUT } from '../../config';
 import theme from '../Styles/theme';
+import { RequiredInputLabel, SecondaryInfoText } from './';
 
 interface ILabelTextProps {
   // Label text
@@ -26,12 +26,19 @@ interface ILabelTextProps {
 export const LabelText: React.FC<ILabelTextProps> = (
   props: ILabelTextProps
 ) => {
-  const requiredText =
-    props.showRequiredLabel ?
-      <RequiredInputLabel>{REQUIRED_INPUT}</RequiredInputLabel> :
-      props.showOptionalLabel ?
-        <span style={{ marginLeft: '6px', color: theme.colors.black60, fontSize: '14px' }}>{OPTIONAL_INPUT}</span> :
-        null;
+  const requiredText = props.showRequiredLabel ? (
+    <RequiredInputLabel>{REQUIRED_INPUT}</RequiredInputLabel>
+  ) : props.showOptionalLabel ? (
+    <span
+      style={{
+        marginLeft: '6px',
+        color: theme.colors.black60,
+        fontSize: '14px',
+      }}
+    >
+      {OPTIONAL_INPUT}
+    </span>
+  ) : null;
 
   const secondaryInfo = (
     <SecondaryInfoText>{props.secondaryInfo}</SecondaryInfoText>

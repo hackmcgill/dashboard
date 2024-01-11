@@ -7,7 +7,10 @@ interface IFieldProps {
   label: string;
 }
 
-const SingleHackerField: React.SFC<IFieldProps> = ({ text, label }) => {
+const SingleHackerField: React.FunctionComponent<IFieldProps> = ({
+  text,
+  label,
+}) => {
   return (
     <Box width={[1, 1 / 2]}>
       <strong>{label}</strong>: {text}
