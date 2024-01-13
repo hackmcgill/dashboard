@@ -65,7 +65,7 @@ const HackPassPage: React.FC = () => {
   const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
 
   // Is the pass currently being downloaded
-  const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
+  const [downloadingPass, setDownloadingPass] = useState<boolean>(false);
 
   // When the component mounts, fetch data associate with this hacker from server
   useEffect(() => {

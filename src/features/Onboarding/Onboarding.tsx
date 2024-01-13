@@ -18,7 +18,7 @@ export default class OnboardingContainer extends React.Component<any, any> {
 
   public async componentDidMount() {
     document.addEventListener('scroll', () => {
-      this.setState({ scrollY: window.pageYOffset });
+      this.setState({ scrollY: window.scrollY });
     });
   }
 

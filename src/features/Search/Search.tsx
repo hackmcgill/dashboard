@@ -320,9 +320,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
+    }, () => {
+      this.updateQueryURL(newFilters, this.state.searchBar);
+      this.triggerSearch();
     });
-    this.updateQueryURL(newFilters, this.state.searchBar);
-    this.triggerSearch();
   }
 
   private onSearchBarChanged(e: any) {

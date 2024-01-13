@@ -73,7 +73,7 @@ export default class Navbar extends React.Component<
   }
 
   public calculateScrollDistance = (): void => {
-    this.setState({ hasBorder: window.pageYOffset !== 0 });
+    this.setState({ hasBorder: window.scrollY !== 0 });
   };
 
   public async componentWillUnmount() {
