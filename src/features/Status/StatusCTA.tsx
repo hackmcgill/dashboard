@@ -95,13 +95,13 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
       </Button>
     </LinkDuo>
   );
-  const travelButton = (
-    <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
-      <Button type="button" variant={ButtonVariant.Secondary}>
-        Travel
-      </Button>
-    </LinkDuo>
-  );
+  // const travelButton = (
+  //   <LinkDuo to={FrontendRoute.TRAVEL_PAGE}>
+  //     <Button type="button" variant={ButtonVariant.Secondary}>
+  //       Travel
+  //     </Button>
+  //   </LinkDuo>
+  // );
 
   // Possible choices for art
   const rocketArt = (
@@ -224,7 +224,7 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
     case DetailedState.CONFIRMED:
       text = CONSTANTS.CONFIRMED_STATUS_TEXT;
       if (!settings.isRemote) {
-        buttons = [hackPassButton, travelButton, withdrawButton];
+        buttons = [hackPassButton, withdrawButton];
       } else {
         buttons = [hackPassButton, liveSiteButton, withdrawButton];
       }
