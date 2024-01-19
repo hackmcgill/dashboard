@@ -1,23 +1,42 @@
-import { AxiosPromise } from 'axios';
-import { APIRoute, ISearchOptions, ISearchParameter } from '../config';
+import { AxiosPromise, AxiosResponse } from 'axios';
+import {
+  APIRoute,
+  CACHE_SEARCH_TABLE_KEY,
+  ISearchOptions,
+  ISearchParameter,
+} from '../config';
+import LocalCache from '../util/LocalCache';
 import API from './api';
 import APIResponse from './APIResponse';
 class SearchAPI {
   constructor() {
     API.createEntity(APIRoute.SEARCH);
   }
-  public search(
+  public async search(
     model: string,
     parameters: ISearchParameter[],
-    searchOptions: ISearchOptions
-  ): AxiosPromise<APIResponse<any[]>> {
-    return API.getEndpoint(APIRoute.SEARCH).getAll({
+    searchOptions: ISearchOptions,
+    overrideCache?: boolean
+  ): Promise<AxiosResponse<APIResponse<any[]>>> {
+    const q = JSON.stringify(parameters);
+    const key = `${CACHE_SEARCH_TABLE_KEY}-${model}-${q}`;
+    const cached: any = LocalCache.get(key);
+    if (cached && !overrideCache) {
+      return cached as AxiosPromise<APIResponse<any[]>>;
+    }
+    const result: AxiosResponse<APIResponse<any[]>> = await API.getEndpoint(
+      APIRoute.SEARCH
+    ).getAll({
       params: {
-        q: JSON.stringify(parameters),
+        q,
         model,
         ...searchOptions,
       },
     });
+    // save the response in local cache for 5 minutes
+    const fiveMinutes = 5 * 60 * 1000;
+    LocalCache.set(key, result, new Date(Date.now() + fiveMinutes));
+    return result;
   }
 }
 export const Search = new SearchAPI();

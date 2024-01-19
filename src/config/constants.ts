@@ -9,6 +9,7 @@ export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';
 export const CACHE_TRAVEL_KEY = 'travelInfo';
+export const CACHE_SEARCH_TABLE_KEY = 'searchTableInfo';
 export const CACHE_SETTINGS_KEY = 'settingsInfo';
 
 // General information

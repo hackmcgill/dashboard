@@ -21,6 +21,7 @@ export * from './settings';
 export * from './shirtSizes';
 export * from './skills';
 export * from './previousHackathons';
+export * from './statsApplications';
 export * from './statsResponse';
 export * from './team';
 export * from './travelStatus';

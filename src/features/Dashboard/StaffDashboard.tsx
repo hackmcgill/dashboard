@@ -61,6 +61,12 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
         validation: this.confirmAccountToastError,
       },
       {
+        title: DashboardText.Stats,
+        route: routes.ADMIN_STATS_PAGE,
+        imageSrc: SearchIcon, // TODO: add StatsIcon
+        validation: this.confirmAccountToastError,
+      },
+      {
         title: DashboardText.Profile,
         route: routes.EDIT_ACCOUNT_PAGE,
         imageSrc: AccountIcon,

@@ -13,6 +13,8 @@ export const BusDeposit: string = 'Bus Deposit';
 
 export const Search: string = 'Search';
 
+export const Stats: string = 'Stats';
+
 export const SponsorOnboarding: string = 'Onboarding';
 
 export const Checkin: string = 'Check In';

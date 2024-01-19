@@ -247,6 +247,12 @@ export default class Navbar extends React.Component<
                 Search
               </NavLink>
               <NavLink
+                href={routes.ADMIN_STATS_PAGE}
+                className={this.props.activePage === 'stats' ? 'active' : ''}
+              >
+                Stats
+              </NavLink>
+              <NavLink
                 href={routes.INVITE_PAGE}
                 className={this.props.activePage === 'invite' ? 'active' : ''}
               >

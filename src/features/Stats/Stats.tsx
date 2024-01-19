@@ -3,13 +3,14 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import { Account, Search, Sponsor } from '../../api';
+import { Account, Sponsor, Hacker } from '../../api';
 import {
   HACKATHON_NAME,
   IAccount,
   IHacker,
   ISearchParameter,
   ISponsor,
+  IStats,
   isValidSearchParameter,
   UserType,
 } from '../../config';
@@ -22,8 +23,9 @@ import theme from '../../shared/Styles/theme';
 import { getNestedAttr, getValueFromQuery, isSponsor } from '../../util';
 
 import withContext from '../../shared/HOC/withContext';
-import { FilterComponent } from './Filters';
-import { ResultsTable } from './ResultsTable';
+import StatsApplications from './StatsApplications';
+import { FilterComponent } from '../Search/Filters';
+import { StatsDemographics } from './Demographics/StatsDemographics';
 
 interface IResult {
   /**
@@ -34,15 +36,22 @@ interface IResult {
   hacker: IHacker;
 }
 
+enum SearchMode {
+  DEMOGRAPHICS = 'Demographics',
+  APPLICATIONS = 'Applications',
+}
+
 interface ISearchState {
   model: string;
+  mode: SearchMode;
   query: ISearchParameter[];
-  results: IResult[];
+  tableResults: IResult[];
   searchBar: string;
   loading: boolean;
   viewSaved: boolean;
   account?: IAccount;
   sponsor?: ISponsor;
+  statsResults: IStats | null;
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -50,8 +59,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     super(props);
     this.state = {
       model: 'hacker',
+      mode: SearchMode.APPLICATIONS,
       query: this.getSearchFromQuery(),
-      results: [],
+      tableResults: [],
+      statsResults: null,
       searchBar: this.getSearchBarFromQuery(),
       loading: false,
       viewSaved: false,
@@ -62,10 +73,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
+    this.handleSearchModeChanged = this.handleSearchModeChanged.bind(this);
   }
 
   public render() {
-    const { searchBar, account, query, loading, viewSaved } = this.state;
+    const { query, loading } = this.state;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -76,59 +88,52 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             Search Hackers
           </H1>
         </Box>
-        <Box width={1}>
-          <Flex>
-            <Box width={1 / 6} mx={2}>
-              <H2>Filters</H2>
-              <FilterComponent
-                initFilters={query}
-                onChange={this.onFilterChange}
-                onResetForm={this.onResetForm}
-                loading={loading}
-              />
+
+        <Box>
+          <Button style={{ marginRight: '10px' }}
+            onClick={() => this.setState({ mode: SearchMode.APPLICATIONS }, this.triggerSearch)}
+            value={this.state.mode} variant={ButtonVariant.Secondary} isOutlined={true}>
+            Applications
+          </Button>
+          <Button style={{ marginRight: '10px' }}
+            onClick={() => this.setState({ mode: SearchMode.DEMOGRAPHICS }, this.triggerSearch)}
+            variant={ButtonVariant.Secondary} isOutlined={true}>
+            Demographics
+          </Button>
+        </Box>
+
+        <Box>
+          {this.state.mode === SearchMode.APPLICATIONS ? (
+            <Box width={1}>
+              <StatsApplications> </StatsApplications>
             </Box>
-            <Box width={5 / 6} mx={2}>
-              <Flex flexDirection={'column'}>
-                <Box width={6 / 6}>
-                  <Flex justifyContent={'space-between'}>
-                    <Box alignSelf={'flex-start'} width={0.5}>
-                      <Input
-                        onChange={this.onSearchBarChanged}
-                        placeholder={'Refine your search...'}
-                        style={{ marginTop: 5 }}
-                        value={searchBar}
-                      />
-                    </Box>
-                    <Box mr={'10px'}>
-                      {account && account.accountType === UserType.STAFF && (
-                        <Button style={{ marginRight: '10px' }} variant={ButtonVariant.Secondary} isOutlined={true}>
-                          Update Status
-                        </Button>
-                      )}
-                      {account && isSponsor(account) && (
-                        <Button
-                          onClick={this.toggleSaved}
-                          style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary} isOutlined={true}
-                        >
-                          View {viewSaved ? 'All' : 'Saved'}
-                        </Button>
-                      )}
-                      <Button onClick={this.downloadData} variant={ButtonVariant.Secondary} isOutlined={true}>
-                        Export Hackers
-                      </Button>
-                    </Box>
+          ) : (
+            <Box width={1}>
+              <Flex>
+                <Box width={1 / 6} mx={2}>
+                  <H2>Filters</H2>
+                  <FilterComponent
+                    initFilters={query}
+                    onChange={this.onFilterChange}
+                    onResetForm={this.onResetForm}
+                    loading={loading}
+                  />
+                </Box>
+                <Box width={5 / 6} mx={2}>
+                  <Flex flexDirection={'column'}>
+                    <StatsDemographics
+                      stats={this.state.statsResults}
+                      loading={this.state.loading}
+                      onFilterChange={this.onFilterChange}
+                      existingFilters={this.state.query}
+                    />
                   </Flex>
                 </Box>
-                <ResultsTable
-                  results={this.filter()}
-                  loading={loading}
-                  userType={account ? account.accountType : UserType.UNKNOWN}
-                />
               </Flex>
             </Box>
-          </Flex>
+          )}
         </Box>
+
       </Flex>
     );
   }
@@ -163,6 +168,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       return isValidSearch ? searchParam : [];
     } catch (e) {
       return [];
+    }
+  }
+
+  private handleSearchModeChanged({ value }: any) {
+    console.log(value);
+    this.setState({ mode: value }, this.triggerSearch);
+  }
+
+  private async triggerStatsSearch(): Promise<void> {
+    try {
+      this.setState({ loading: true });
+      const statsResponse = await Hacker.getStats(this.state.query);
+      const stats: IStats | null = getNestedAttr(statsResponse, [
+        'data',
+        'data',
+        'stats',
+      ]);
+      this.setState({ statsResults: stats, loading: false });
+    } catch (e) {
+      ValidationErrorGenerator(e.data);
+      this.setState({ loading: false });
     }
   }
 
@@ -235,10 +261,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         key: 'application.accommodation.shirtSize',
       });
       headers.push({
-        label: CONSTANTS.ATTENDENCE_OPTION_PREFERENCE_LABEL,
-        key: 'application.accommodation.attendancePreference',
-      });
-      headers.push({
         label: CONSTANTS.IMPAIRMENTS_LABEL,
         key: 'application.accommodation.impairments',
       });
@@ -285,36 +307,19 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private async triggerSearch(): Promise<void> {
-    this.setState({ loading: true });
-    const { model, query } = this.state;
-    try {
-      const response = await Search.search(model, query, {
-        expand: true,
-      });
-      const isArray = Array.isArray(response.data.data);
-      const tableData = isArray
-        ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
-        : [];
-      this.setState({ results: tableData, loading: false });
-    } catch (e) {
-      ValidationErrorGenerator(e.data);
-      this.setState({ loading: false });
-    }
+    return this.triggerStatsSearch();
   }
+
   private onResetForm() {
-    this.setState({ query: [] });
     this.updateQueryURL([], this.state.searchBar);
+    this.setState({ query: [] }, this.triggerSearch);
   }
 
   private onFilterChange(newFilters: ISearchParameter[]) {
     this.setState({
       query: newFilters,
-    });
+    }, this.triggerSearch);
     this.updateQueryURL(newFilters, this.state.searchBar);
-    this.triggerSearch();
   }
 
   private onSearchBarChanged(e: any) {
@@ -335,7 +340,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private filter() {
-    const { sponsor, viewSaved, results } = this.state;
+    const { sponsor, viewSaved, tableResults: results } = this.state;
     const searchBar = this.state.searchBar.toLowerCase();
     return results.filter(({ hacker }) => {
       const { accountId } = hacker;
@@ -367,7 +372,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         hacker.application.shortAnswer.question1.includes(searchBar) ||
         hacker.application.shortAnswer.question2.includes(searchBar) ||
         hacker.application.accommodation.shirtSize.includes(searchBar) ||
-        hacker.application.accommodation.attendancePreference.includes(searchBar) ||
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 

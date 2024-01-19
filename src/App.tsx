@@ -7,6 +7,7 @@ import ConfirmAccountPage from './pages/Account/Confirm';
 import CreateAccountPage from './pages/Account/Create';
 import EditAccountPage from './pages/Account/Edit';
 import AdminSearchPage from './pages/Admin/Search';
+import AdminStatsPage from './pages/Admin/Stats';
 import SettingsPage from './pages/Admin/Settings';
 import ConfirmAttendancePage from './pages/Application/Confirm';
 import CreateApplicationPage from './pages/Application/Create';
@@ -261,6 +262,22 @@ class App extends React.Component {
                   { activePage: 'search' }
                 )
               )}
+            />
+            <Route
+              exact={true}
+              path={FrontendRoute.ADMIN_STATS_PAGE}
+              component={
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(AdminStatsPage, {
+                      requiredAuthState: true,
+                      redirAfterLogin: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed && user.accountType === UserType.STAFF,
+                    }),
+                    { activePage: 'stats' }
+                  )
+                )}
             />
             <Route
               exact={true}
