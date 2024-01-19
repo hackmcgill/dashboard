@@ -19,7 +19,7 @@ export enum FrontendRoute {
   SPONSOR_SEARCH_PAGE = '/sponsor/search',
   SPONSOR_ONBOARDING_PAGE = '/sponsor/onboarding',
   TEAM_PAGE = '/team',
-  TRAVEL_PAGE = '/travel',
+  // TRAVEL_PAGE = '/travel',
 
   CREATE_SPONSOR_PAGE = '/sponsor/create',
   EDIT_SPONSOR_PAGE = '/sponsor/edit',
