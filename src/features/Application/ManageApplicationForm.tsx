@@ -669,7 +669,7 @@ const ManageApplicationForm: React.FunctionComponent<
       >
         <div className="container">
           <div className="fields">
-            <H1 fontSize={'24px'} marginBottom={'14px'}>
+            {/* <H1 fontSize={'24px'} marginBottom={'14px'}>
               Travel Reimbursement
             </H1>
             <div className="disclaimer">
@@ -711,7 +711,7 @@ const ManageApplicationForm: React.FunctionComponent<
                 component={FormikElements.Error}
                 name={'hacker.application.accommodation.travel.reason'}
               />
-            </div>
+            </div> */}
             <H1 fontSize={'24px'} marginBottom={'40px'} marginTop={'60px'}>
               Terms and Conditions
             </H1>
@@ -1153,27 +1153,32 @@ const ManageApplicationForm: React.FunctionComponent<
             </div>
           </GridTwoColumn>
 
-          <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
-            Travel Reimbursement
-          </H2>
-          <GridTwoColumn rowGap="0" margin="0">
-            <div className="field">
-              <div className="name">
-                {CONSTANTS.TRAVEL_REQUEST_AMOUNT_LABEL}
-              </div>
-              <div className="value">
-                {hackerDetails.application.accommodation.travel.amount}
-              </div>
-            </div>
-            <div className="field">
-              <div className="name">
-                {CONSTANTS.TRAVEL_REQUEST_REASON_LABEL}
-              </div>
-              <div className="value">
-                {hackerDetails.application.accommodation.travel.reason || 'N/A'}
-              </div>
-            </div>
-          </GridTwoColumn>
+          {hackerDetails.application.accommodation.travel.amount > 0 ? (
+            <>
+              <H2 marginLeft="0px" marginTop="36px" marginBottom="24px">
+                Travel Reimbursement
+              </H2>
+              <GridTwoColumn rowGap="0" margin="0">
+                <div className="field">
+                  <div className="name">
+                    {CONSTANTS.TRAVEL_REQUEST_AMOUNT_LABEL}
+                  </div>
+                  <div className="value">
+                    {hackerDetails.application.accommodation.travel.amount}
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="name">
+                    {CONSTANTS.TRAVEL_REQUEST_REASON_LABEL}
+                  </div>
+                  <div className="value">
+                    {hackerDetails.application.accommodation.travel.reason ||
+                      'N/A'}
+                  </div>
+                </div>
+              </GridTwoColumn>
+            </>
+          ) : null}
 
           <div className="eventPrompt">
             Make sure to mark yourself as going to our{' '}
