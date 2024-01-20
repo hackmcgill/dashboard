@@ -10,7 +10,7 @@ interface IUploadComponent {
   placeholder?: string;
 }
 
-export const FileUpload: React.StatelessComponent<
+export const FileUpload: React.FunctionComponent<
   IUploadComponent & FieldProps
 > = (props) => {
   const [fileName, setFileName] = useState(
@@ -29,7 +29,7 @@ export const FileUpload: React.StatelessComponent<
       onDrop={onUpload}
       multiple={false}
       maxSize={4000000}
-      accept={'.pdf'}
+      accept={{ 'application/pdf': ['.pdf'] }}
     >
       {({ getRootProps, getInputProps }) => (
         <section className="drop-zone">
@@ -43,7 +43,7 @@ export const FileUpload: React.StatelessComponent<
               </div>
             </div>
           </div>
-          <style jsx>{`
+          <style jsx={true}>{`
             .container {
               text-align: center;
               height: 100%;
@@ -52,7 +52,7 @@ export const FileUpload: React.StatelessComponent<
             .container:focus {
               outline: none;
             }
-            
+
             .drop-zone {
               width: min(100%, 960px);
               height: 280px;
@@ -67,7 +67,8 @@ export const FileUpload: React.StatelessComponent<
               margin-top: 8px;
               margin-bottom: 16px;
               opacity: 0.6;
-              filter: invert(89%) sepia(11%) saturate(2206%) hue-rotate(187deg) brightness(98%) contrast(109%);
+              filter: invert(89%) sepia(11%) saturate(2206%) hue-rotate(187deg)
+                brightness(98%) contrast(109%);
               transition: opacity 0.3s;
             }
 
@@ -76,12 +77,12 @@ export const FileUpload: React.StatelessComponent<
               font-family: ${theme.fonts.header};
               color: ${theme.colors.black80};
             }
-            
+
             .subtitle {
               font-family: ${theme.fonts.header};
               color: ${theme.colors.black40};
             }
-            
+
             .drop-content {
               position: relative;
               transform: translateY(-50%);

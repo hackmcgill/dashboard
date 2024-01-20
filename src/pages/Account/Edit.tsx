@@ -1,24 +1,26 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import ManageAccountContainer, { ManageAccountModes } from '../../features/Account/ManageAccountForm';
+import ManageAccountContainer, {
+  ManageAccountModes,
+} from '../../features/Account/ManageAccountForm';
 
 import * as CONSTANTS from '../../config/constants';
-import {
-  H1,
-  MaxWidthBox,
-} from '../../shared/Elements';
+import { H1, MaxWidthBox } from '../../shared/Elements';
 
 import Gears from '../../assets/images/hacker2-dots.svg';
 
 const EditAccountPage: React.FC = () => (
   <>
     <Helmet>
-      <title>
-        Edit Profile | {CONSTANTS.HACKATHON_NAME}
-      </title>
+      <title>Edit Profile | {CONSTANTS.HACKATHON_NAME}</title>
     </Helmet>
 
-    <MaxWidthBox m={'auto'} maxWidth={'500px'} paddingLeft={'50px'} paddingRight={'50px'}>
+    <MaxWidthBox
+      m={'auto'}
+      maxWidth={'500px'}
+      paddingLeft={'50px'}
+      paddingRight={'50px'}
+    >
       <div className="gears-art-container">
         <img src={Gears} alt="Background" className="gears-art" />
       </div>
@@ -37,7 +39,7 @@ const EditAccountPage: React.FC = () => (
       <ManageAccountContainer mode={ManageAccountModes.EDIT} />
     </MaxWidthBox>
 
-    <style jsx>{`
+    <style jsx={true}>{`
       .gears-art-container {
         position: absolute;
         widht: 0;

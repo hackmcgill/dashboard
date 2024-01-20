@@ -1,26 +1,29 @@
-import React from 'react';
 import { AxiosResponse } from 'axios';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import React from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { APIResponse, Auth } from '../../api';
 import { FrontendRoute, IValidationError } from '../../config';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
-const LogoutBtn: React.FC<RouteComponentProps> = (
-  props: RouteComponentProps
-) => {
+const LogoutBtn: React.FunctionComponent = () => {
+  const navigate = useNavigate();
   return (
-    <Button variant={ButtonVariant.Primary} isOutlined={true} onClick={handleLogout(props)}>
+    <Button
+      variant={ButtonVariant.Primary}
+      isOutlined={true}
+      onClick={handleLogout(navigate)}
+    >
       Sign out
     </Button>
   );
 };
 
-function handleLogout(props: RouteComponentProps): () => void {
+function handleLogout(navigate: NavigateFunction): () => void {
   return () => {
     Auth.logout()
       .then(() => {
-        props.history.push(FrontendRoute.LOGIN_PAGE);
+        navigate(FrontendRoute.LOGIN_PAGE);
       })
       .catch((response: AxiosResponse<APIResponse<IValidationError>>) => {
         if (response && response.data) {
@@ -30,4 +33,4 @@ function handleLogout(props: RouteComponentProps): () => void {
   };
 }
 
-export default withRouter(LogoutBtn);
+export default LogoutBtn;

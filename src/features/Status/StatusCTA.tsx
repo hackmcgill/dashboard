@@ -1,21 +1,21 @@
 import React from 'react';
 
 import { Flex } from '@rebass/grid';
+import computer2 from '../../assets/images/computer2.svg';
+import developer from '../../assets/images/developer.svg';
+import hacker from '../../assets/images/hacker.svg';
+import rocket from '../../assets/images/rocket.svg';
 import { FrontendRoute, HackerStatus, ISetting } from '../../config';
 import * as CONSTANTS from '../../config/constants';
 import {
   Button,
-  H1,
-  LinkDuo,
-  Image,
   ButtonVariant,
+  H1,
+  Image,
+  LinkDuo,
 } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import { date2human } from '../../util';
-import developer from '../../assets/images/developer.svg';
-import rocket from '../../assets/images/rocket.svg';
-import hacker from '../../assets/images/hacker.svg';
-import computer2 from '../../assets/images/computer2.svg';
 
 /**
  * These enums represent states + actions in this diagram: https://bit.ly/3ldYbgV.
@@ -259,7 +259,7 @@ const StatusCTA: React.FC<IStatusHeaderProps> = ({
         {insertMargin(buttons)}
       </Flex>
 
-      <style jsx>{`
+      <style jsx={true}>{`
         .status-details {
           max-width: 500px;
           text-align: center;

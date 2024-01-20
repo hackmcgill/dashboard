@@ -27,7 +27,7 @@ const TravelPage: React.FC = () => {
     try {
       const newTravel = (await Travel.getSelf()).data.data;
       setTravel(newTravel);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       if (e && e.data) {
         ValidationErrorGenerator(e.data);

@@ -44,15 +44,17 @@ class ClipboardComponent extends React.Component<IClipboardProps, {}> {
           </div>
         </Box>
 
-        <style jsx>{`
+        <style jsx={true}>{`
           .copy-link {
             cursor: pointer;
-            filter: invert(42%) sepia(65%) saturate(398%) hue-rotate(196deg) brightness(83%) contrast(93%);
+            filter: invert(42%) sepia(65%) saturate(398%) hue-rotate(196deg)
+              brightness(83%) contrast(93%);
             transition: filter 0.25s ease-in;
           }
 
           .copy-link:hover {
-            filter: invert(28%) sepia(100%) saturate(3848%) hue-rotate(209deg) brightness(102%) contrast(108%);
+            filter: invert(28%) sepia(100%) saturate(3848%) hue-rotate(209deg)
+              brightness(102%) contrast(108%);
           }
         `}</style>
       </Flex>

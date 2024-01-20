@@ -8,7 +8,11 @@ interface ILinkProps {
   label: string;
 }
 
-const SingleHackerLink: React.SFC<ILinkProps> = ({ link, linkText, label }) => {
+const SingleHackerLink: React.FunctionComponent<ILinkProps> = ({
+  link,
+  linkText,
+  label,
+}) => {
   if (link) {
     const url = new URL(link);
     const target =

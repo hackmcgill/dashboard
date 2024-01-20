@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   ErrorMessage,
@@ -51,8 +51,8 @@ interface IManageAccountProps {
  * an existing account (if in EDIT mode)
  */
 const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
-  // Get access to router history in order to programatically change page
-  const history = useHistory();
+  // Get access to router navigation in order to programatically change page
+  const navigate = useNavigate();
 
   // Is the form submission currently being processed? (loading state)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -91,7 +91,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         const result = await Settings.get();
         const newSettings = result.data.data;
         setSettings(newSettings);
-      } catch (e) {
+      } catch (e: any) {
         if (e && e.data) {
           ValidationErrorGenerator(e);
         }
@@ -105,7 +105,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           setAccountDetails(newAccountDetails);
         } catch (e) {
           // If can't find self's account, shouldn't be logged in. Redirect to home page
-          history.push(FrontendRoute.HOME_PAGE);
+          navigate(FrontendRoute.HOME_PAGE);
         }
       }
     })();
@@ -158,9 +158,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
 
     // Once submitted, redirect user to appropriate page
     if (props.mode === ManageAccountModes.CREATE && isSponsor(accountDetails)) {
-      history.push(FrontendRoute.CREATE_SPONSOR_PAGE);
+      navigate(FrontendRoute.CREATE_SPONSOR_PAGE);
     } else {
-      history.push(FrontendRoute.HOME_PAGE);
+      navigate(FrontendRoute.HOME_PAGE);
     }
   };
 
@@ -175,11 +175,11 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       if (result.status === 200) {
         await Auth.login(payload.email, payload.password);
         // Once submitted redirect user to appropriate page
-        history.push(FrontendRoute.HOME_PAGE);
+        navigate(FrontendRoute.HOME_PAGE);
       } else {
         success = false;
       }
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         console.log(e);
         ValidationErrorGenerator(e.data);
@@ -207,7 +207,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       if (oldPassword && newPassword) {
         await Auth.changePassword(oldPassword, newPassword);
       }
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -363,8 +363,9 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       validationSchema={getValidationSchema(
         props.mode === ManageAccountModes.CREATE
       )}
-      render={renderFormik}
-    />
+    >
+      {renderFormik}
+    </Formik>
   );
 };
 

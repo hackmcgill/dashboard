@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Content = styled.div`
   display: flex;
@@ -15,6 +15,6 @@ export const Content = styled.div`
     padding-right: 30px;
     padding-top: 40px;
   }
-`
+`;
 
-export default Content
+export default Content;

@@ -5,13 +5,13 @@ import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
 import { APIResponse, Auth } from '../../api';
 import { EMAIL_LABEL, HACKATHON_NAME } from '../../config';
+import PasswordResetEmailConfirmationContainer from '../../features/Login/PasswordForgotConfirmation';
 import { H1, MaxWidthBox, Paragraph } from '../../shared/Elements';
 import { BackgroundImage, LeftContainer } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { EmailInput, Form } from '../../shared/Form';
 import validationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
-import PasswordResetEmailConfirmationContainer from '../../features/Login/PasswordForgotConfirmation';
 
 import BackgroundLandscape from '../../assets/images/backgroundLandscape.svg';
 
@@ -126,17 +126,17 @@ const ForgotPasswordContainer: React.FC = () => {
                 />
               </LeftContainer>
             ) : (
-                <div>
-                  {renderPassForgot()}
-                  <BackgroundImage
-                    src={BackgroundLandscape}
-                    top={'0px'}
-                    left={'0px'}
-                    imgHeight={'100%'}
-                    zIndex={-1}
-                  />
-                </div>
-              )
+              <div>
+                {renderPassForgot()}
+                <BackgroundImage
+                  src={BackgroundLandscape}
+                  top={'0px'}
+                  left={'0px'}
+                  imgHeight={'100%'}
+                  zIndex={-1}
+                />
+              </div>
+            )
           }
         </MediaQuery>
       </>

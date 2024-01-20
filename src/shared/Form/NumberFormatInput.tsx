@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { NumberFormatProps, NumberFormatValues } from 'react-number-format';
-import { Label, LabelText, StyledNumberFormat } from '.';
+import { NumberFormatValues, PatternFormatProps } from 'react-number-format';
+import { Label, LabelText, StyledNumericFormat, StyledPatternFormat } from '.';
 
 interface ILabelledNumberFormatProp {
   value?: string;
@@ -10,13 +10,17 @@ interface ILabelledNumberFormatProp {
   required?: boolean;
   disabled?: boolean;
 }
-export const NumberFormatInput: React.StatelessComponent<
-  ILabelledNumberFormatProp & NumberFormatProps
+export const NumberFormatInput: React.FunctionComponent<
+  ILabelledNumberFormatProp & PatternFormatProps
 > = (props) => {
   return (
     <Label>
       <LabelText label={props.label} required={props.required} />
-      <StyledNumberFormat {...props} />
+      {props.format ? (
+        <StyledPatternFormat {...props} />
+      ) : (
+        <StyledNumericFormat {...props} />
+      )}
     </Label>
   );
 };

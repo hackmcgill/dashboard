@@ -19,16 +19,17 @@ interface IEmailProps {
   onSubmit: (email: string) => void;
 }
 
-export const Email: React.StatelessComponent<IEmailProps> = (
+export const Email: React.FunctionComponent<IEmailProps> = (
   props: IEmailProps
 ) => {
   return (
     <Formik
       initialValues={{ email: '' }}
       onSubmit={handleSubmitFactory(props)}
-      render={renderFormik}
       validationSchema={getValidationSchema()}
-    />
+    >
+      {renderFormik}
+    </Formik>
   );
 };
 
@@ -64,8 +65,6 @@ function renderFormik(fp: FormikProps<any>) {
 
 function getValidationSchema() {
   return object().shape({
-    email: string()
-      .required('Required')
-      .email('Must be a valid email'),
+    email: string().required('Required').email('Must be a valid email'),
   });
 }

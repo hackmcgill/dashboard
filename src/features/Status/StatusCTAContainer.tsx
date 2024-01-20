@@ -3,11 +3,11 @@ import React from 'react';
 import { HackerStatus, IAccount, ISetting } from '../../config';
 import ConfirmationEmailSentComponent from '../Account/ConfirmationEmailSentComponent';
 
+import { Box, Flex } from '@rebass/grid';
 import { Hacker, Settings } from '../../api';
+import { ConfirmModal } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import StatusCTA from './StatusCTA';
-import { Box, Flex } from '@rebass/grid';
-import { ConfirmModal } from '../../shared/Elements';
 
 export interface IStatusCTAContainerProps {
   account?: IAccount;
@@ -21,7 +21,10 @@ export interface IStatusCTAContainerState {
   isModalOpen: boolean;
 }
 
-class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStatusCTAContainerState> {
+class StatusCTAContainer extends React.Component<
+  IStatusCTAContainerProps,
+  IStatusCTAContainerState
+> {
   constructor(props: IStatusCTAContainerProps) {
     super(props);
     this.state = {
@@ -59,7 +62,13 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
 
   public render() {
     return (
-      <Flex flex={1} flexDirection="column" justifyContent="center" alignItems="center" p="6px 30px 96px 30px">
+      <Flex
+        flex={1}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        p="6px 30px 96px 30px"
+      >
         {this.props.confirmed && this.props.account ? (
           <StatusCTA
             status={this.state.status}
@@ -102,7 +111,7 @@ class StatusCTAContainer extends React.Component<IStatusCTAContainerProps, IStat
       const result = await Settings.get();
       const settings = result.data.data;
       this.setState({ settings });
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e);
       }

@@ -22,7 +22,7 @@ const NumberPageText: React.FC<INumberPageText> = (props) => {
       color: theme.colors.black40,
       textAlign: 'center' as 'center',
       fontFamily: theme.fonts.header,
-      lineHeight: '24px'
+      lineHeight: '24px',
     };
 
     const selectedTextStyle = {

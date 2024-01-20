@@ -1,13 +1,13 @@
 import React from 'react';
+import MarkAsReadGIF from '../../assets/gifs/markasread.gif';
+import NotifsToMentionGIF from '../../assets/gifs/notifstomention.gif';
+import ScreenshareGIF from '../../assets/gifs/screenshare.gif';
+import SetNickNameGIF from '../../assets/gifs/setnickname.gif';
 import { LinkDuo } from '../../shared/Elements';
-import Text from './Text';
 import Container from './Container';
 import Content from './Content';
 import StyledGIF from './StyledGIF';
-import SetNickNameGIF from '../../assets/gifs/setnickname.gif';
-import MarkAsReadGIF from '../../assets/gifs/markasread.gif';
-import ScreenshareGIF from '../../assets/gifs/screenshare.gif';
-import NotifsToMentionGIF from '../../assets/gifs/notifstomention.gif';
+import Text from './Text';
 
 const DiscordOnboarding: React.FC = () => (
   <>
@@ -32,10 +32,10 @@ const DiscordOnboarding: React.FC = () => (
           <h2>What is a discord server?</h2>
           <ul>
             <li>
-              An invite-only home for the community - in our case, McHacks 10! If
-              you are a slack user, you can think of it like a Slack workspace.
-              It is a place where you can talk, ask for help, get announcements,
-              hang out, and have fun!
+              An invite-only home for the community - in our case, McHacks 10!
+              If you are a slack user, you can think of it like a Slack
+              workspace. It is a place where you can talk, ask for help, get
+              announcements, hang out, and have fun!
             </li>
             <li>
               There will be a bunch of channels within the server for different

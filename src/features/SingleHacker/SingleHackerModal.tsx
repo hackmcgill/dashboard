@@ -51,9 +51,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     return (
       // tslint:disable-next-line
       <div onKeyDown={(e) => this.handleKeyPress(e)}>
-        <TextButton onClick={this.handleOpenModal}>
-          See more
-        </TextButton>
+        <TextButton onClick={this.handleOpenModal}>See more</TextButton>
         <StyledModal
           appElement={document.getElementById('root') || undefined}
           isOpen={this.state.showModal}

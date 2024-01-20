@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Text = styled.div`
   margin-bottom: 1rem;
@@ -18,9 +18,9 @@ export const Text = styled.div`
   }
   a {
     :hover {
-        color: #f2463a;
+      color: #f2463a;
     }
   }
-`
+`;
 
-export default Text
+export default Text;

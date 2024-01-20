@@ -1,8 +1,8 @@
 import React from 'react';
 import { LinkDuo } from '../../shared/Elements';
-import Text from './Text';
 import Container from './Container';
 import Content from './Content';
+import Text from './Text';
 
 const GeneralOnboarding: React.FC = () => (
   <>
@@ -47,33 +47,34 @@ const GeneralOnboarding: React.FC = () => (
             <br />
             <br />
             On January 28th, sponsor check-in will start at <b>8:00 a.m. </b>.
-            Once you have logged onto Discord, message your coordinator
-            to let them know you are ready to go! We ask you to check-in at
-            least 15 minutes before opening ceremonies at at <b>10:00 a.m. </b>
+            Once you have logged onto Discord, message your coordinator to let
+            them know you are ready to go! We ask you to check-in at least 15
+            minutes before opening ceremonies at at <b>10:00 a.m. </b>
             We also ask you to fill up the sponsor{' '}
             <LinkDuo to="https://forms.gle/mdsimQyWJG83vYDZ8">
               <span>check-in form</span>
-            </LinkDuo>.
+            </LinkDuo>
+            .
             <br />
             <br />
-            If you are scheduled to speak during the opening ceremony,
-            please email <b>sponsor@mchacks.ca</b> with your slides or video. If you are unable to provide a video, please let your coordinator
-            know for accommodations.
+            If you are scheduled to speak during the opening ceremony, please
+            email <b>sponsor@mchacks.ca</b> with your slides or video. If you
+            are unable to provide a video, please let your coordinator know for
+            accommodations.
           </p>
           <h2>Sponsors</h2>
           <p>
-            This year, our sponsors with recruiter passes will have their own tables.
-            This is where you can interact with hackers and
-            showcase your products! Make sure you have access to social media so
-            that you can share your weekend with our audience and yours! There
-            are two important times we ask you to be present:
+            This year, our sponsors with recruiter passes will have their own
+            tables. This is where you can interact with hackers and showcase
+            your products! Make sure you have access to social media so that you
+            can share your weekend with our audience and yours! There are two
+            important times we ask you to be present:
             <br />
             <br />
             <b>1. Tabling, Saturday 12:00pm-5:00pm:</b> Only applicable to
             sponsors with tabling in their package. This is your designated
             sponsor booth slot. All hackers will know that you will be in-person
-            and available at this time, so they will drop by to chat with
-            you!
+            and available at this time, so they will drop by to chat with you!
             <br />
             <br />
             <b>2. Speed Networking, Saturday 5:00pm-7:00pm:</b> Only applicable

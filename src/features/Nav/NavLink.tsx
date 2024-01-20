@@ -1,4 +1,4 @@
-import styled from '../../shared/Styles/styled-components';
+import styled from 'styled-components';
 
 export const NavLink = styled.a`
   font-family: 'Brown';

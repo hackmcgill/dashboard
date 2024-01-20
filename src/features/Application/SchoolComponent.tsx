@@ -38,12 +38,10 @@ export default class SchoolComponent extends React.Component<
     this.onChange = this.onChange.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(
-      this
-    );
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(
-      this
-    );
+    this.onSuggestionsFetchRequested =
+      this.onSuggestionsFetchRequested.bind(this);
+    this.onSuggestionsClearRequested =
+      this.onSuggestionsClearRequested.bind(this);
     this.getSuggestionValue = this.getSuggestionValue.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
   }
@@ -108,10 +106,7 @@ export default class SchoolComponent extends React.Component<
       inputLength === 0
         ? []
         : Schools.filter((school) =>
-            school
-              .trim()
-              .toLowerCase()
-              .includes(inputValue)
+            school.trim().toLowerCase().includes(inputValue)
           );
     return suggestions;
   }

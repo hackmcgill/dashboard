@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Account, Hacker } from '../../api';
 import { FrontendRoute } from '../../config';
+import { Email } from '../../features/Checkin/Email';
+import { Reader } from '../../features/Checkin/Reader';
 import { H1, MaxWidthBox } from '../../shared/Elements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 import { generateHackPass } from '../../util';
-import { Email } from '../../features/Checkin/Email';
-import { Reader } from '../../features/Checkin/Reader';
-
 
 const CheckinPage: React.FC = () => {
   // Is page currently busy doing something?
@@ -52,7 +51,7 @@ const CheckinPage: React.FC = () => {
       toast.info(`Shirt Size: ${hacker.application.accommodation.shirtSize}`, {
         autoClose: false,
       });
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -60,7 +59,7 @@ const CheckinPage: React.FC = () => {
       setIsLoading(false);
     }
     return checkedIn;
-  }
+  };
 
   /**
    * Function which checks in a hacker as long as the provided data is of the correct format.
@@ -85,7 +84,7 @@ const CheckinPage: React.FC = () => {
       }
       await checkinHacker(data);
     }
-  }
+  };
 
   /**
    * If error scanning an code, display a toast popup with error message
@@ -93,7 +92,7 @@ const CheckinPage: React.FC = () => {
    */
   const handleScanError = (err: any) => {
     toast.error(err);
-  }
+  };
 
   /**
    * Checkin hacker with a certain email address, if that address is valid
@@ -104,14 +103,14 @@ const CheckinPage: React.FC = () => {
     try {
       const hacker = (await Hacker.getByEmail(email)).data.data;
       await checkinHacker(hacker.id);
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Flex flexDirection={'column'}>
@@ -142,10 +141,7 @@ const CheckinPage: React.FC = () => {
               By QR Code:
             </H1>
             <Box>
-              <Reader
-                onError={handleScanError}
-                onScan={handleScan}
-              />
+              <Reader onError={handleScanError} onScan={handleScan} />
             </Box>
           </MaxWidthBox>
           <MaxWidthBox maxWidth={'330px'} width={1}>
@@ -166,6 +162,6 @@ const CheckinPage: React.FC = () => {
       </Box>
     </Flex>
   );
-}
+};
 
 export default WithToasterContainer(CheckinPage);

@@ -4,6 +4,7 @@ import theme from '../../../shared/Styles/theme';
 interface INumberBubble {
   fill: boolean;
   current: boolean;
+  children?: React.ReactNode;
 }
 
 /**

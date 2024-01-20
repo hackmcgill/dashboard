@@ -23,8 +23,9 @@ const SettingsForm: React.FC<ISettingsFormProps> = (
       enableReinitialize={true}
       initialValues={{ openTime, closeTime, confirmTime, isRemote }}
       onSubmit={onSubmitFactory(props)}
-      render={renderForm}
-    />
+    >
+      {renderForm}
+    </Formik>
   );
 };
 

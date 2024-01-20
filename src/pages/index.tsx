@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import Helmet from 'react-helmet';
+import { Navigate } from 'react-router';
 import { HACKATHON_NAME, UserType } from '../config';
-import { H1 } from '../shared/Elements';
-import { getUserInfo } from '../util';
 import HackerDashboard from '../features/Dashboard/HackerDashboard';
 import SponsorDashboard from '../features/Dashboard/SponsorDashboard';
 import StaffDashboardContainer from '../features/Dashboard/StaffDashboard';
-import Helmet from 'react-helmet';
+import { H1 } from '../shared/Elements';
+import { getUserInfo } from '../util';
 
 const DashboardPage: React.FC = () => {
   // Until we figure out what type of user account we are dealing with, store as UNKNOWN
@@ -39,7 +39,7 @@ const DashboardPage: React.FC = () => {
     return <H1>Loading...</H1>;
   } else if (!dashboard) {
     // If page is done and no dashboard to display, return 404
-    return <Redirect to={'/404'} />;
+    return <Navigate to={'/404'} />;
   }
 
   return (
@@ -49,8 +49,8 @@ const DashboardPage: React.FC = () => {
       </Helmet>
       {dashboard}
     </>
-  )
-}
+  );
+};
 
 // Get the special type of dashboard for a specific user AccountType
 const getDashboard = (accountType: UserType) => {
@@ -72,6 +72,6 @@ const getDashboard = (accountType: UserType) => {
   }
 
   return null;
-}
+};
 
 export default DashboardPage;

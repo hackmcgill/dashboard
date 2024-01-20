@@ -1,5 +1,5 @@
-import React from 'react';
 import { FieldProps } from 'formik';
+import React from 'react';
 import { Label, LabelText } from '../';
 import { Textarea } from '../../Elements';
 
@@ -13,9 +13,7 @@ export interface ITextAreaProp {
   showOptionalLabel?: boolean;
 }
 
-export const LongTextInput: React.FC<
-  ITextAreaProp & FieldProps
-> = (props) => {
+export const LongTextInput: React.FC<ITextAreaProp & FieldProps> = (props) => {
   const placeholder = props.placeholder ? props.placeholder : '';
   const charLeft =
     props.maxLength && props.value

@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import MediaQuery from 'react-responsive';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FrontendRoute, HACKATHON_NAME } from '../../config';
 import {
@@ -31,6 +31,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
                 imgWidth={'100%'}
                 imgHeight={'100%'}
                 minHeight={'600px'}
+                zIndex={-1}
               />
             </LeftContainer>
           ) : (
@@ -41,6 +42,7 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
                 top={'0px'}
                 left={'0px'}
                 imgHeight={'100%'}
+                zIndex={-1}
               />
             </div>
           )
@@ -78,13 +80,11 @@ class PasswordResetEmailConfirmationContainer extends React.Component<{}, {}> {
           </Paragraph>
         </MaxWidthBox>
         <Box>
-          <BrowserRouter forceRefresh={true}>
-            <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE}>
-              <Button type="button" variant={ButtonVariant.Primary}>
-                Resend Email
-              </Button>
-            </Link>
-          </BrowserRouter>
+          <Link to={FrontendRoute.FORGOT_PASSWORD_PAGE} reloadDocument={true}>
+            <Button type="button" variant={ButtonVariant.Primary}>
+              Resend Email
+            </Button>
+          </Link>
         </Box>
       </Flex>
     );

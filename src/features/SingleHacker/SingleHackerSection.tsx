@@ -5,9 +5,10 @@ import theme from '../../shared/Styles/theme';
 interface IProps {
   title: string;
   hidden?: boolean;
+  children?: React.ReactNode;
 }
 
-const SingleHackerSection: React.SFC<IProps> = ({
+const SingleHackerSection: React.FunctionComponent<IProps> = ({
   title,
   children,
   hidden,

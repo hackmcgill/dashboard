@@ -1,4 +1,4 @@
-import styled from '../../shared/Styles/styled-components';
+import styled from 'styled-components';
 
 export const Links = styled.div`
   padding: 0 40px 0 0;

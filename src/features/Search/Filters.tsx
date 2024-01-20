@@ -38,8 +38,9 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           enableReinitialize={true}
           initialValues={this.parseInitialValues(this.props.initFilters)}
           onSubmit={this.handleSubmit}
-          render={this.renderFormik}
-        />
+        >
+          {this.renderFormik}
+        </Formik>
       </Box>
     );
   }
@@ -206,12 +207,12 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   ): ISearchParameter[] {
     return values.length > 0
       ? [
-        {
-          param,
-          operation: StringOperations.IN,
-          value: values,
-        },
-      ]
+          {
+            param,
+            operation: StringOperations.IN,
+            value: values,
+          },
+        ]
       : [];
   }
   private searchParam2List(
