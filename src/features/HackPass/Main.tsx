@@ -1,12 +1,12 @@
 import * as React from 'react';
 
+import styled from 'styled-components';
 import { Account, Hacker } from '../../api';
 import { IAccount, IHacker } from '../../config';
 import { SubmitBtn } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import { generateHackerQRCode, generateHackPass } from '../../util';
 import { Pass } from './Pass';
-import styled from '../../shared/Styles/styled-components';
 
 interface IDashboardState {
   account: IAccount | null;
@@ -32,7 +32,7 @@ const HackPassWrapper = styled.div`
   .pass {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-    
+
     .info {
       background: ${(props) => props.theme.colors.black5};
       padding-top: 20px;
@@ -57,7 +57,7 @@ const HackPassWrapper = styled.div`
     }
   }
 
-  button[type="submit"] {
+  button[type='submit'] {
     position: relative;
     top: calc(-50px - 38px / 2);
   }
@@ -81,7 +81,7 @@ class HackPassContainer extends React.Component<{}, IDashboardState> {
       const hacker = (await Hacker.getSelf()).data.data;
       const qrData = await generateHackerQRCode(hacker);
       this.setState({ account, hacker, qrData });
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }

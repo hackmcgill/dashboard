@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { FrontendRoute, ISponsor } from '../../config';
 import { getSponsorInfo } from '../../util/UserInfoHelperFunctions';
 
@@ -63,11 +63,11 @@ const withSponsorRedirect = <P extends {}>(
           return options.requiredAuthState ? (
             <Component {...this.props} />
           ) : (
-            <Redirect to={FrontendRoute.HOME_PAGE} />
+            <Navigate to={FrontendRoute.HOME_PAGE} />
           );
         case authStates.unauthorized:
           return options.requiredAuthState ? (
-            <Redirect to={FrontendRoute.HOME_PAGE} />
+            <Navigate to={FrontendRoute.HOME_PAGE} />
           ) : (
             <Component {...this.props} />
           );

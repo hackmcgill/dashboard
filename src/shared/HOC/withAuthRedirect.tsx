@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { FrontendRoute, IAccount } from '../../config';
 import { getUserInfo } from '../../util/UserInfoHelperFunctions';
@@ -81,11 +81,11 @@ const withAuthRedirect = <P extends {}>(
           return options.requiredAuthState ? (
             <Component {...this.props} />
           ) : (
-            <Redirect to={FrontendRoute.HOME_PAGE} />
+            <Navigate to={FrontendRoute.HOME_PAGE} />
           );
         case authStates.unauthorized:
           return options.requiredAuthState ? (
-            <Redirect
+            <Navigate
               to={`${FrontendRoute.LOGIN_PAGE + this.redirOnSuccess}`}
             />
           ) : (

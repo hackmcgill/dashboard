@@ -1,5 +1,5 @@
-import React from 'react';
 import { FieldProps } from 'formik';
+import React from 'react';
 import { Label, LabelText, StyledCreatableSelect, StyledSelect } from '..';
 
 interface IStylizedSelectFormikProps {

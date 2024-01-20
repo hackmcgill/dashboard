@@ -1,4 +1,6 @@
-const theme = {
+import { DefaultTheme } from 'styled-components';
+
+const theme: DefaultTheme = {
   colors: {
     red: '#F2463A',
     redMed: '#F56F65',
@@ -33,8 +35,7 @@ const theme = {
   fonts: {
     header:
       'Brown, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-    body:
-      'Hind Siliguri, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+    body: 'Hind Siliguri, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
   },
   screens: {
     smUp: '768px',
@@ -42,41 +43,5 @@ const theme = {
     lgUp: '1200px',
   },
 };
-
-export interface ITheme {
-  colors: {
-    red: string;
-    redMed: string;
-    redLight: string;
-    blueLight: string;
-    yellow: string;
-    yellowLight: string;
-    teal: string;
-    tealLight: string;
-    purple: string;
-    purpleLight: string;
-    greyLight: string;
-    white: string;
-    black: string;
-    black80: string;
-    black70: string;
-    black60: string;
-    black40: string;
-    black30: string;
-    black20: string;
-    black10: string;
-    black5: string;
-  };
-  fonts: {
-    header: string;
-    body: string;
-  };
-  inputBorderRadius: string;
-  screens: {
-    smUp: string;
-    mdUp: string;
-    lgUp: string;
-  };
-}
 
 export default theme;

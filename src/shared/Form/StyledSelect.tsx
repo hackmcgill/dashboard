@@ -1,8 +1,8 @@
 import Select from 'react-select';
-import inputStyles from '../Styles/inputStyles';
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
+import inputStyles, { IInputProps } from '../Styles/inputStyles';
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)<IInputProps>`
   font-family: ${(props) => props.theme.fonts.body};
 
   .react-select__control {
@@ -10,7 +10,8 @@ export const StyledSelect = styled(Select)`
     display: flex;
     cursor: pointer;
     &--is-focused {
-      box-shadow: 2px 2px 16px 0px ${(props: any) => props.theme.colors.blueLight};
+      box-shadow: 2px 2px 16px 0px
+        ${(props: any) => props.theme.colors.blueLight};
     }
   }
 

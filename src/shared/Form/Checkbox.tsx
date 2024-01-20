@@ -1,4 +1,4 @@
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   border-radius: 4px;

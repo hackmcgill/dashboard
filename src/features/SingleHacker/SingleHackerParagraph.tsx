@@ -8,7 +8,10 @@ interface IParagraphProps {
   label: string;
 }
 
-const SingleHackerParagraph: React.SFC<IParagraphProps> = ({ text, label }) => {
+const SingleHackerParagraph: React.FunctionComponent<IParagraphProps> = ({
+  text,
+  label,
+}) => {
   return (
     <Box width={1}>
       <strong>{label}</strong>{' '}

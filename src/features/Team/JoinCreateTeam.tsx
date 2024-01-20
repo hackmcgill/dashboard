@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 
-import {
-  Button,
-  ButtonVariant,
-} from '../../shared/Elements';
+import { Button, ButtonVariant } from '../../shared/Elements';
 
 import { IHacker } from '../../config';
 
 // import Team from '../../api/team';
-import { Form, Label } from '../../shared/Form';
-import {
-  Input,
-} from '../../shared/Form';
-import theme from '../../shared/Styles/theme';
-import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import Team from '../../api/team';
+import { Form, Label } from '../../shared/Form';
+import { Input } from '../../shared/Form';
+import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
+import theme from '../../shared/Styles/theme';
 
 interface IJoinCreateTeamProps {
   hacker: IHacker;
@@ -38,7 +33,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         members: [props.hacker.id],
       });
       props.onTeamChange();
-    } catch (e) {
+    } catch (e: any) {
       if (e.status === 409) {
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
@@ -46,7 +41,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
       }
     }
     setIsLoading(false);
-  }
+  };
 
   // Attempt to join the team with a name of state.teamCode
   const joinTeam = async () => {
@@ -54,13 +49,13 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
     try {
       await Team.join(teamCode);
       props.onTeamChange();
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
     }
     setIsLoading(false);
-  }
+  };
 
   return (
     <>
@@ -75,7 +70,12 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         </Button>
       </div>
 
-      <Form onSubmit={(e: any) => { e.preventDefault(); joinTeam(); }}>
+      <Form
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          joinTeam();
+        }}
+      >
         <div className="join">
           <Label style={{ maxWidth: '272px' }}>
             Already have a team?
@@ -100,7 +100,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
         </div>
       </Form>
 
-      <style jsx>{`
+      <style jsx={true}>{`
         .create {
           text-align: center;
 
@@ -118,7 +118,7 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
       `}</style>
     </>
   );
-}
+};
 
 // Create a new random n-long character alphanumeric team code.
 // Since there are 1.24017694e25 team names possible when n=14 and
@@ -126,7 +126,8 @@ const JoinCreateTeam: React.FC<IJoinCreateTeamProps> = (props) => {
 // about handling that
 function generateRandomTeamCode(n: number): string {
   let id = '';
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const chars =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   for (let i = 0; i < n; i++) {
     id += chars.charAt(Math.floor(Math.random() * chars.length));
   }

@@ -1,13 +1,7 @@
 import { Box, Flex } from '@rebass/grid';
 import * as React from 'react';
 
-import {
-  Card,
-  H1,
-  H2,
-  Image,
-  LinkDuo,
-} from '../../shared/Elements';
+import { Card, H1, H2, Image, LinkDuo } from '../../shared/Elements';
 
 import theme from '../../shared/Styles/theme';
 
@@ -26,7 +20,7 @@ export interface IDashboardCard {
   disabled?: boolean;
 }
 
-const DashboardView: React.SFC<IDashboardView> = ({
+const DashboardView: React.FunctionComponent<IDashboardView> = ({
   cards,
   title,
   subtitle,
@@ -46,8 +40,8 @@ const DashboardView: React.SFC<IDashboardView> = ({
             {subtitle}
           </H2>
         ) : (
-            ''
-          )}
+          ''
+        )}
         <Flex flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}>
           {cards.map((card) => (
             <LinkDuo

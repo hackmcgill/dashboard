@@ -57,7 +57,13 @@ const PaginationHeader: React.FC<IPaginationHeaderProps> = (props) => {
 
     if (i !== props.totalPages - 1) {
       // Only display the separating bar if not the last element
-      elements.push(<SeparatingBar current={beforeCurrentPage} key={-(i + 1)} totalPages={props.totalPages} />);
+      elements.push(
+        <SeparatingBar
+          current={beforeCurrentPage}
+          key={-(i + 1)}
+          totalPages={props.totalPages}
+        />
+      );
     }
   }
 
@@ -68,7 +74,7 @@ const PaginationHeader: React.FC<IPaginationHeaderProps> = (props) => {
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: '60px',
-        marginBottom: '90px'
+        marginBottom: '90px',
       }}
     >
       {elements}

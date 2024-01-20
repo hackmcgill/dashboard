@@ -1,4 +1,4 @@
-import { LOCAL_API_URL, DEV_API_URL, PROD_API_URL } from '../config';
+import { DEV_API_URL, LOCAL_API_URL, PROD_API_URL } from '../config';
 import Endpoint from './endpoint';
 /**
  * Inspired by https://github.com/FrancescoSaverioZuppichini/API-Class

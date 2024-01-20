@@ -1,5 +1,5 @@
-import React from 'react';
 import { Flex } from '@rebass/grid';
+import React from 'react';
 import ForgotPasswordLinkComponent from '../../features/Login/ForgotPasswordLink';
 import { Input, Label, LabelText } from './';
 
@@ -18,17 +18,13 @@ interface IPasswordInputProp {
  * A password field in the form
  * @prop {boolean} hasResetLink should a reset password link be displayed
  */
-export const PasswordInput: React.FC<IPasswordInputProp> = (
-  props
-) => {
+export const PasswordInput: React.FC<IPasswordInputProp> = (props) => {
   const placeholder = props.placeholder ? props.placeholder : '';
   return (
     <Label>
       <Flex justifyContent="space-between">
         <LabelText label={props.label} required={props.required} />
-        {
-          props.hasResetLink && <ForgotPasswordLinkComponent />
-        }
+        {props.hasResetLink && <ForgotPasswordLinkComponent />}
       </Flex>
 
       <Input

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { AxiosResponse } from 'axios';
 import {
@@ -59,9 +59,11 @@ interface IManageApplicationProps {
   mode: ManageApplicationModes;
 }
 
-const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
-  // Get access to router history in order to programatically change page
-  const history = useHistory();
+const ManageApplicationForm: React.FunctionComponent<
+  IManageApplicationProps
+> = (props) => {
+  // Get access to router navigation in order to programatically change page
+  const navigate = useNavigate();
 
   // Is hacker's application data still loading?
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -87,7 +89,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
       general: {
         school: '',
         degree: '',
-        fieldOfStudy: '',
+        fieldOfStudy: [],
         graduationYear: NaN,
         jobInterest: '',
         URL: {
@@ -151,7 +153,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         const result = await Settings.get();
         const newSettings = result.data.data;
         setSettings(newSettings);
-      } catch (e) {
+      } catch (e: any) {
         if (e && e.data) {
           ValidationErrorGenerator(e);
         }
@@ -162,7 +164,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         try {
           const response = await Hacker.getSelf();
           setHackerDetails(response.data.data);
-        } catch (e) {
+        } catch (e: any) {
           // If failed, probably because hacker hasn't created application before
           if (e && e.data) {
             ValidationErrorGenerator(e.data);
@@ -1394,6 +1396,7 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
               }`
             );
             setIsSubmitted(true);
+            navigate(FrontendRoute.HOME_PAGE);
           } else {
             setIsSubmitting(false);
             toast.error(`There was an error when submitting the application.`);
@@ -1475,14 +1478,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
     return true;
   };
 
-  // If application creation deadline has passed or if form is submitted, return user to the home page
+  // If application creation deadline has passed, return user to the home page
   if (
     isLoaded &&
-    (isSubmitted ||
-      (new Date() > new Date(settings.closeTime) &&
-        props.mode === ManageApplicationModes.CREATE))
+    new Date() > new Date(settings.closeTime) &&
+    props.mode === ManageApplicationModes.CREATE
   ) {
-    history.push(FrontendRoute.HOME_PAGE);
+    navigate(FrontendRoute.HOME_PAGE);
   }
 
   // If application is loaded, then render it
@@ -1502,12 +1504,13 @@ const ManageApplicationForm: React.FC<IManageApplicationProps> = (props) => {
         }}
         onSubmit={handleSubmit}
         onReset={previousPage}
-        render={renderFormik}
         validationSchema={getValidationSchema(
           props.mode === ManageApplicationModes.CREATE,
           pageNumber
         )}
-      />
+      >
+        {renderFormik}
+      </Formik>
     </div>
   ) : null;
 };

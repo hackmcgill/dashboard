@@ -1,8 +1,6 @@
-import { createGlobalStyle } from './styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri:400,700');
-
   @font-face {
     font-family: 'Brown';
     font-style: normal;
@@ -23,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: ${(props) => props.theme.fonts.body};
     margin: 0;
     padding: 0;
-    
+
     & > #root {
       min-height: 100vh;
     }

@@ -1,5 +1,5 @@
 import { Flex } from '@rebass/grid';
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 interface ICardProps {
   disabled?: boolean;

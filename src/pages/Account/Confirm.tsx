@@ -23,10 +23,7 @@ interface IConfirmAccountState {
   wasConfirmed: boolean;
 }
 
-class ConfirmAccountPage extends React.Component<
-  {},
-  IConfirmAccountState
-  > {
+class ConfirmAccountPage extends React.Component<{}, IConfirmAccountState> {
   constructor(props: {}) {
     super(props);
     this.state = {

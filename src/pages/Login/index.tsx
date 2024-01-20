@@ -1,9 +1,9 @@
 import { Box } from '@rebass/grid';
 import { AxiosResponse } from 'axios';
-import * as QueryString from 'query-string';
+import QueryString from 'query-string';
 import React, { FormEvent, useState } from 'react';
 import Helmet from 'react-helmet';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 
@@ -31,9 +31,9 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  // Get access to router's history to allow for programtic
+  // Get access to router's navigation to allow for programtic
   // page navigation
-  const history = useHistory();
+  const navigate = useNavigate();
 
   /**
    * Trigger authentication function once the form is submitted
@@ -50,9 +50,9 @@ const LoginPage: React.FC = () => {
           console.log('Logged in');
           const redir = getRedirectLink();
           if (redir) {
-            history.push(redir);
+            navigate(redir);
           } else {
-            history.push(FrontendRoute.HOME_PAGE);
+            navigate(FrontendRoute.HOME_PAGE);
           }
         } else {
           console.error(value);
@@ -106,7 +106,7 @@ const LoginPage: React.FC = () => {
         </form>
       </div>
 
-      <style jsx>{`
+      <style jsx={true}>{`
         .centered-container {
           width: 100%;
           height: 100%;

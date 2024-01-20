@@ -1,4 +1,4 @@
-import styled from '../Styles/styled-components';
+import styled from 'styled-components';
 
 export const SecondaryInfoText = styled.span`
   color: ${(props) => props.theme.colors.purple};

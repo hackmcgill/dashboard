@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Redirect, RouteProps } from 'react-router';
+import { Navigate, RouteProps } from 'react-router';
 
 import {
   ErrorMessage,
@@ -36,9 +36,9 @@ interface ISponsorProfileFormValues extends FormikValues {
   url: string;
 }
 
-interface IManageSponsorContainerProps extends RouteProps {
+type IManageSponsorContainerProps = RouteProps & {
   mode: ManageSponsorModes;
-}
+};
 
 const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
   props
@@ -64,7 +64,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
           const response = await Sponsor.getSelf();
           const spDetails = response.data.data;
           setSponsorDetails(spDetails);
-        } catch (e) {
+        } catch (e: any) {
           if (e && e.data) {
             ValidationErrorGenerator(e.data);
           }
@@ -99,7 +99,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
     try {
       await submit(values);
       setFormSubmitted(true);
-    } catch (e) {
+    } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
       }
@@ -173,7 +173,7 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
 
   // redirect after submition
   if (formSubmitted) {
-    return <Redirect to={FrontendRoute.HOME_PAGE} />;
+    return <Navigate to={FrontendRoute.HOME_PAGE} />;
   }
 
   return (
@@ -204,9 +204,10 @@ const ManageSponsorContainer: React.FC<IManageSponsorContainerProps> = (
           company: sponsorDetails.company,
         }}
         onSubmit={handleSubmit}
-        render={renderFormik}
         validationSchema={getValidationSchema()}
-      />
+      >
+        {renderFormik}
+      </Formik>
     </MaxWidthBox>
   );
 };

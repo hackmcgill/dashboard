@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import styled from 'styled-components';
 import { Account, Hacker } from '../../api';
 import { IAccount, IHacker } from '../../config';
+import { Pass } from '../../features/HackPass/Pass';
 import { SubmitBtn } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import { generateHackerQRCode, generateHackPass } from '../../util';
-import { Pass } from '../../features/HackPass/Pass';
-import styled from '../../shared/Styles/styled-components';
 
 const HackPassWrapper = styled.div`
   max-width: 320px;
@@ -65,7 +65,7 @@ const HackPassPage: React.FC = () => {
   const [loadingHacker, setLoadingHacker] = useState<boolean>(true);
 
   // Is the pass currently being downloaded
-  const [downloadingPass, setDownloadingPass] = useState<boolean>(true);
+  const [downloadingPass, setDownloadingPass] = useState<boolean>(false);
 
   // When the component mounts, fetch data associate with this hacker from server
   useEffect(() => {
@@ -77,7 +77,7 @@ const HackPassPage: React.FC = () => {
         setAccount(account);
         setHacker(hacker);
         setQrData(qrData);
-      } catch (e) {
+      } catch (e: any) {
         if (e && e.data) {
           ValidationErrorGenerator(e.data);
         }

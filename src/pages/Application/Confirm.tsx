@@ -2,11 +2,12 @@ import { Box, Flex } from '@rebass/grid';
 import { ErrorMessage, FastField, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react';
 import Helmet from 'react-helmet';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router';
 import { boolean, object } from 'yup';
 
 import { Hacker } from '../../api';
 import { FrontendRoute } from '../../config';
+import * as DashboardText from '../../features/Dashboard/DashboardText';
 import { H1, H2, MaxWidthBox, Paragraph } from '../../shared/Elements';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form } from '../../shared/Form';
@@ -14,7 +15,6 @@ import * as FormikElements from '../../shared/Form/FormikElements';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
-import * as DashboardText from '../../features/Dashboard/DashboardText';
 
 const ConfirmAttendancePage: React.FC = () => {
   // TODO: Think this has to do with whether the hacker is attending or not
@@ -73,8 +73,8 @@ const ConfirmAttendancePage: React.FC = () => {
 
   /**
    * TODO: ???
-   * @param submissionBtn 
-   * @param submitForm 
+   * @param submissionBtn
+   * @param submitForm
    */
   function onClickFactory(
     submissionBtn: number,
@@ -101,14 +101,14 @@ const ConfirmAttendancePage: React.FC = () => {
           break;
       }
       setSubmitted(true);
-    } catch (e) {
+    } catch (e: any) {
       ValidationErrorGenerator(e.data);
     }
   };
 
   // If form has been submitted, redirect to home page
   if (submitted) {
-    return <Redirect to={FrontendRoute.HOME_PAGE} />;
+    return <Navigate to={FrontendRoute.HOME_PAGE} />;
   }
 
   // Display page asking user to confirm their attendance of the hackathon
@@ -142,8 +142,9 @@ const ConfirmAttendancePage: React.FC = () => {
               .test('true', 'You must agree.', (value) => value)
               .required('Required'),
           })}
-          render={renderFormik}
-        />
+        >
+          {renderFormik}
+        </Formik>
       </MaxWidthBox>
     </Flex>
   );

@@ -101,7 +101,7 @@ const FormikCheckbox: React.FC<ICheckboxProps & FieldProps> = ({
         </Flex>
       </Label>
       <FormDescription marginLeft="40px">{subtitle}</FormDescription>
-    </Box >
+    </Box>
   );
 };
 
