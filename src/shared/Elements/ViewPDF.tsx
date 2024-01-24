@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Hacker } from '../../api';
 import Button, { ButtonVariant } from './Button';
+import { Buffer } from 'buffer';
 
 interface IViewPDFProps {
   hackerId: string;
