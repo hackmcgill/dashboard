@@ -60,6 +60,7 @@ class ViewPDFComponent extends React.Component<IViewPDFProps, IViewPDFState> {
           });
         })
         .catch((error) => {
+          console.error(error);
           this.setState({
             isLoading: false,
           });
