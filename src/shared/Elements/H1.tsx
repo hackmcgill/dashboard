@@ -16,7 +16,7 @@ interface IH1Props {
 
 export const H1 = styled.h1<IH1Props>`
   font-size: ${(props) => props.fontSize || '32px'};
-  font-faimly: ${(props) => props.theme.fonts.header};
+  font-family: ${(props) => props.theme.fonts.header};
   text-align: ${(props) => props.textAlign || 'left'};
   color: ${(props) => props.color || props.theme.colors.red};
   margin-left: ${(props) => props.marginLeft || '0'};
