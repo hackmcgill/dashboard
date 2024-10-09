@@ -5,13 +5,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "PORT=1337 react-app-rewired start",
+    "start": "set PORT=1337 react-app-rewired start",
     "start-windows": "set PORT=1337 && react-app-rewired start",
-    "build": "PORT=1337 react-app-rewired build",
+    "build": "set PORT=1337 react-app-rewired build",
     "predeploy": "yarn build",
     "generate-barrels": "barrelsby --delete --exclude .*\\.test\\.tsx --directory ./src -l below -q",
-    "test": "PORT=1337 react-scripts-ts test --env=jsdom",
-    "eject": "PORT=1337 react-scripts-ts eject",
+    "test": "set PORT=1337 && react-scripts-ts test --env=jsdom",
+    "eject": "set PORT=1337 react-scripts-ts eject",
     "lint": "tslint --fix 'src/**/*.{ts,tsx}' --force"
   },
   "dependencies": {
@@ -89,5 +89,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
