@@ -1042,7 +1042,7 @@ const ManageApplicationForm: React.FunctionComponent<
             <div className="field">
               <div className="name">{CONSTANTS.FIELD_OF_STUDY_LABEL}</div>
               <div className="value">
-                {hackerDetails.application.general.fieldOfStudy}
+                {hackerDetails.application.general.fieldOfStudy.join(', ')}
               </div>
             </div>
             <div className="field">
