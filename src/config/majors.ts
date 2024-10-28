@@ -91,6 +91,7 @@ const MajorsList = [
   'Theatre',
   'Urban Planning',
   'Urban Systems',
+  'Other'
 ];
 
 export const Majors = MajorsList.map((v) => ({ label: v, value: v }));

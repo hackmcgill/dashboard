@@ -255,7 +255,7 @@ const ManageApplicationForm: React.FunctionComponent<
               name={'hacker.application.general.fieldOfStudy'}
               options={Majors}
               isMulti={true}
-              creatable={true}
+              creatable={false}
               component={FormikElements.Select}
               label={CONSTANTS.FIELD_OF_STUDY_LABEL}
               placeholder={CONSTANTS.FIELD_OF_STUDY_PLACEHOLDER}
