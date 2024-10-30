@@ -272,7 +272,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     headers.forEach((header) => {
       tempHeaders.push(header.label);
     });
-    const csvData: string[] = [tempHeaders.join('\t')];
+    const csvData: string[] = [tempHeaders.join(',')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
@@ -286,10 +286,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           }
           row.push(value);
         });
-        csvData.push(row.join('\t'));
+        csvData.push(row.join(','));
       }
     });
-    fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
+    fileDownload(csvData.join('\n'), 'hackerData.csv', 'text/csv');
   }
 
   private async triggerSearch(): Promise<void> {
