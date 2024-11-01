@@ -113,7 +113,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         }
       }
     })();
-  }, [history, props.mode]);
+  }, [navigate, props.mode]);
 
   /**
    * This converts a formik values object into the IAccount object.
