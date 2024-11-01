@@ -56,7 +56,7 @@ export const PRONOUN_PLACEHOLDER = 'Pronouns';
 export const GENDER_LABEL = 'Gender';
 export const GENDER_PLACEHOLDER = 'Gender';
 export const PHONE_NUMBER_LABEL = 'Phone number';
-export const BIRTH_DATE_LABEL = 'Birth date';
+export const AGE_LABEL = 'Age';
 export const FIRST_NAME_LABEL = 'First name';
 export const LAST_NAME_LABEL = 'Last name';
 

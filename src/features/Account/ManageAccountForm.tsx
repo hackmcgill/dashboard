@@ -69,7 +69,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
   const [accountDetails, setAccountDetails] = useState<IAccount>({
     accountType:
       (getValueFromQuery('accountType') as UserType) || UserType.UNKNOWN,
-    birthDate: '',
+    age: '',
     confirmed: false,
     email: getNestedAttr(props, ['location', 'state', 'email']) || '',
     firstName: '',
@@ -101,7 +101,10 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         try {
           const response = await Account.getSelf();
           const newAccountDetails = response.data.data;
-          newAccountDetails.birthDate = date2input(newAccountDetails.birthDate);
+
+          // Changed birthdate to age
+          //newAccountDetails.age = date2input(newAccountDetails.age);
+
           setAccountDetails(newAccountDetails);
         } catch (e) {
           // If can't find self's account, shouldn't be logged in. Redirect to home page
@@ -121,7 +124,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     accountId: string = ''
   ): IAccount => ({
     accountType: UserType.UNKNOWN,
-    birthDate: input2date(values.birthDate),
+    age: values.age,
     confirmed: false,
     email: values.email,
     firstName: values.firstName,
@@ -246,15 +249,13 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       </Flex>
       <FastField
         component={FormikElements.FormattedNumber}
-        label={CONSTANTS.BIRTH_DATE_LABEL}
-        placeholder="MM/DD/YYYY"
-        format="##/##/####"
-        name={'birthDate'}
+        label={CONSTANTS.AGE_LABEL}
+        format="##"
+        name={'age'}
         required={true}
-        value={fp.values.birthDate}
-        disabled={props.mode === ManageAccountModes.EDIT}
+        value={fp.values.age}
       />
-      <ErrorMessage component={FormikElements.Error} name="birthDate" />
+      <ErrorMessage component={FormikElements.Error} name="age" />
       <FastField
         name={'email'}
         label={CONSTANTS.EMAIL_LABEL}
@@ -357,7 +358,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         gender: accountDetails.gender,
         dietaryRestrictions: accountDetails.dietaryRestrictions,
         phoneNumber: accountDetails.phoneNumber,
-        birthDate: accountDetails.birthDate,
+        age: accountDetails.age,
       }}
       onSubmit={handleSubmit}
       validationSchema={getValidationSchema(

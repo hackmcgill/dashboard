@@ -23,6 +23,8 @@ import ViewPDFComponent from '../../shared/Elements/ViewPDF';
 import { Form, StyledSelect } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import theme from '../../shared/Styles/theme';
+
+//date2age is currently unused
 import { date2age, getOptionsFromEnum } from '../../util';
 
 import SHField from './SingleHackerField';
@@ -134,7 +136,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <SHField label="Age" text={date2age(account.birthDate)} />
+              <SHField label="Age" text={account.age} />
               <SHField
                 label="Shirt Size"
                 text={hacker.application.accommodation.shirtSize}

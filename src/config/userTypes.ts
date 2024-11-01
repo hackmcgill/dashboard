@@ -18,8 +18,8 @@ export interface IAccount {
   password: string;
   // The user's phone number
   phoneNumber: string;
-  // The birthdate
-  birthDate: string;
+  // The user's age
+  age: string;
   // The preferred pronoun
   pronoun: string;
   // The database id (if new, leave blank / make '')
