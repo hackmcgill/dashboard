@@ -128,8 +128,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     id: accountId,
     lastName: values.lastName,
     password: values.password,
-    phoneNumber:
-      props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
+    phoneNumber: values.phoneNumber,
     pronoun: values.pronoun,
     gender: values.gender,
     dietaryRestrictions: settings.isRemote
