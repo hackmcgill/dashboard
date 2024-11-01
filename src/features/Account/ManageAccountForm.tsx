@@ -281,18 +281,21 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             name={'newPassword'}
           />
           <ErrorMessage component={FormikElements.Error} name="newPassword" />
-          <FastField
-            component={FormikElements.FormattedNumber}
-            label={CONSTANTS.PHONE_NUMBER_LABEL}
-            placeholder="+# (###) ###-####"
-            format="+# (###) ###-####"
-            name={'phoneNumber'}
-            required={true}
-            value={fp.values.phoneNumber}
-          />
-          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
         </>
       )}
+
+      <FastField
+        component={FormikElements.FormattedNumber}
+        label={CONSTANTS.PHONE_NUMBER_LABEL}
+        placeholder="+# (###) ###-####"
+        format="+# (###) ###-####"
+        name={'phoneNumber'}
+        required={true}
+        value={fp.values.phoneNumber}
+      />
+      <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+
+
       <FastField
         component={FormikElements.Select}
         creatable={true}

@@ -1179,18 +1179,6 @@ const ManageApplicationForm: React.FunctionComponent<
               </GridTwoColumn>
             </>
           ) : null}
-
-          <div className="eventPrompt">
-            Make sure to mark yourself as going to our{' '}
-            <a
-              href={CONSTANTS.FACEBOOK_EVENT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook event
-            </a>
-            !
-          </div>
         </div>
 
         <div className="buttons">
