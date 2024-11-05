@@ -2,10 +2,12 @@ import {
   ErrorMessage,
   FastField,
   Formik,
+  FormikActions,
   FormikProps,
   FormikValues,
 } from 'formik';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Account } from '../../api';
 import { IInviteInfo, UserType } from '../../config';
 import * as CONSTANTS from '../../config/constants';
@@ -32,7 +34,8 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
    * Function called when formik form is submitted.
    * @param values the formik values
    */
-  const handleSubmit = async (values: any) => {
+  // const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: FormikValues, {resetForm}: FormikActions<FormikValues>) => {
     // Record that form is being submitted
     setIsSubmitting(true);
 
@@ -50,6 +53,9 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
     } finally {
       setIsSubmitting(false);
     }
+    toast.success("Sent!"); // success message pop-up
+    resetForm(); // reset the form values
+    
   };
 
   /**
@@ -95,7 +101,7 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
         <ErrorMessage component={FormikElements.Error} name="accountType" />
         <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
           Invite
-        </SubmitBtn>
+        </SubmitBtn> 
       </Form>
     );
   };
