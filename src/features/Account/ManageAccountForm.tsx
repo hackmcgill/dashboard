@@ -128,8 +128,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     id: accountId,
     lastName: values.lastName,
     password: values.password,
-    phoneNumber:
-      props.mode === ManageAccountModes.EDIT ? values.phoneNumber : 11111111111,
+    phoneNumber: values.phoneNumber,
     pronoun: values.pronoun,
     gender: values.gender,
     dietaryRestrictions: settings.isRemote
@@ -281,18 +280,21 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
             name={'newPassword'}
           />
           <ErrorMessage component={FormikElements.Error} name="newPassword" />
-          <FastField
-            component={FormikElements.FormattedNumber}
-            label={CONSTANTS.PHONE_NUMBER_LABEL}
-            placeholder="+# (###) ###-####"
-            format="+# (###) ###-####"
-            name={'phoneNumber'}
-            required={true}
-            value={fp.values.phoneNumber}
-          />
-          <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
         </>
       )}
+
+      <FastField
+        component={FormikElements.FormattedNumber}
+        label={CONSTANTS.PHONE_NUMBER_LABEL}
+        placeholder="+# (###) ###-####"
+        format="+# (###) ###-####"
+        name={'phoneNumber'}
+        required={true}
+        value={fp.values.phoneNumber}
+      />
+      <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
+
+
       <FastField
         component={FormikElements.Select}
         creatable={true}
