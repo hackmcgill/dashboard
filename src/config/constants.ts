@@ -128,6 +128,7 @@ export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
 export const MCHACKS_COC = 'Code of Conduct';
 export const MCHACKS_PRIVACY = 'Privacy Policy';
 export const MLH_LABEL = 'I accept the MLH policies.';
+export const SEND_EMAIL_LABEL = 'I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.';
 export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
 export const SHIRT_SIZE_LABEL = 'Shirt Size (Unisex)';

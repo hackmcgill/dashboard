@@ -354,6 +354,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
+              sendEmail: boolean(),
               privacyPolicy: boolean()
                 .required('Required')
                 .test(
