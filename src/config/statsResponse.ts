@@ -15,6 +15,7 @@ export interface IStatsResponse {
     gender: { [key: string]: number };
     travel: { true: number; false: number };
     ethnicity: { [key: string]: number };
+    country: { [key: string]: number };
     jobInterest: { [key in JobInterest]: number };
     major: { [key: string]: number };
     graduationYear: { [key: string]: number };

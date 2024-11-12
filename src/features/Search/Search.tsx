@@ -262,6 +262,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.ETHNICITY_LABEL,
         key: 'application.other.ethnicity',
       });
+      headers.push({
+        label: CONSTANTS.COUNTRY_LABEL,
+        key: 'application.other.country',
+      });
       headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
       headers.push({
         label: CONSTANTS.PRONOUN_LABEL,

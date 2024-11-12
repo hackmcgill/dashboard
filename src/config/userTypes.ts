@@ -62,6 +62,7 @@ export interface IHacker {
     };
     other: {
       // no enum for these
+      country: string;
       ethnicity: string[];
       privacyPolicy: boolean;
       codeOfConduct: boolean;

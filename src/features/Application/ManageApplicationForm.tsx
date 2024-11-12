@@ -43,6 +43,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 
 import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
+import CountriesComponent from './CountriesComponent';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
@@ -110,6 +111,7 @@ const ManageApplicationForm: React.FunctionComponent<
       },
       other: {
         ethnicity: [],
+        country: '',
         privacyPolicy: false,
         codeOfConduct: false,
       },
@@ -463,6 +465,23 @@ const ManageApplicationForm: React.FunctionComponent<
               <ErrorMessage
                 component={FormikElements.Error}
                 name="hacker.application.other.ethnicity"
+              />
+
+              <FastField
+                name={'hacker.application.other.country'}
+                isMulti={true}
+                creatable={true}
+                options={getOptionsFromEnum(ICountry)}
+                label={CONSTANTS.COUNTRY_LABEL}
+                placeholder={CONSTANTS.COUNTRY_PLACEHOLDER}
+                component={FormikElements.Select}
+                value={fp.values.hacker.application.other.country}
+                required={true}
+                text={CONSTANTS.COUNTRY_TEXT}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.country"
               />
             </div>
           </div>
@@ -1095,6 +1114,14 @@ const ManageApplicationForm: React.FunctionComponent<
               <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
               <div className="value">
                 {hackerDetails.application.other.ethnicity}
+              </div>
+            </div>
+          </GridTwoColumn>
+          <GridTwoColumn rowGap="0" margin="0">
+            <div className="field">
+              <div className="name">{CONSTANTS.COUNTRY_LABEL}</div>
+              <div className="value">
+                {hackerDetails.application.other.country}
               </div>
             </div>
           </GridTwoColumn>
