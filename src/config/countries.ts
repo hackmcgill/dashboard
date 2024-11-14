@@ -1,6 +1,7 @@
 // Used MLH's recommendation to use the ISO 3166 Standard for Country Names https://www.iso.org/iso-3166-country-codes.html
 
-export const Countries: string[] = [
+export const CountriesList = [
+  "Canada",
   "Afghanistan",
   "Åland Islands",
   "Albania",
@@ -41,7 +42,6 @@ export const Countries: string[] = [
   "Cabo Verde",
   "Cambodia",
   "Cameroon",
-  "Canada",
   "Cayman Islands",
   "Central African Republic",
   "Chad",
@@ -252,8 +252,8 @@ export const Countries: string[] = [
   "Zimbabwe"
 ];
 
+export const Countries = CountriesList.map((v) => ({ label: v, value: v }));
+export default Countries;
   
-  export default Countries;
   
-  export const CountriesLVpair = Countries.map((v) => ({ label: v, value: v }));
   

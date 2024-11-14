@@ -20,6 +20,7 @@ import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
+  Countries,
   Degrees,
   FrontendRoute,
   HackerStatus,
@@ -43,7 +44,6 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 
 import ResumeComponent from './ResumeComponent';
 import SchoolComponent from './SchoolComponent';
-import CountriesComponent from './CountriesComponent';
 
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
@@ -469,15 +469,14 @@ const ManageApplicationForm: React.FunctionComponent<
 
               <FastField
                 name={'hacker.application.other.country'}
-                isMulti={true}
-                creatable={true}
-                options={getOptionsFromEnum(ICountry)}
+                options={Countries}
+                isMulti={false}
+                creatable={false}
+                component={FormikElements.Select}
                 label={CONSTANTS.COUNTRY_LABEL}
                 placeholder={CONSTANTS.COUNTRY_PLACEHOLDER}
-                component={FormikElements.Select}
                 value={fp.values.hacker.application.other.country}
                 required={true}
-                text={CONSTANTS.COUNTRY_TEXT}
               />
               <ErrorMessage
                 component={FormikElements.Error}
@@ -1116,8 +1115,6 @@ const ManageApplicationForm: React.FunctionComponent<
                 {hackerDetails.application.other.ethnicity}
               </div>
             </div>
-          </GridTwoColumn>
-          <GridTwoColumn rowGap="0" margin="0">
             <div className="field">
               <div className="name">{CONSTANTS.COUNTRY_LABEL}</div>
               <div className="value">
