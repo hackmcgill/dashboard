@@ -104,6 +104,8 @@ export const COC_MLH_REQUEST_LABEL = 'MLH terms, conditions and guidelines.';
 export const COMMENTS_LABEL = "Is there anything you'd like us to know?";
 export const COUNTRY_LABEL = 'Country of Residence';
 export const COUNTRY_PLACEHOLDER = 'Country of Residence';
+export const COUNTRY_TEXT =
+  'Please indicate your current country of residence.';
 export const DEGREE_LABEL = 'Degree';
 export const DEGREE_PLACEHOLDER = 'High School, Undergraduate...';
 export const DRIBBBLE_LINK_LABEL = 'Dribbble URL';
