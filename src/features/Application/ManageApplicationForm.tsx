@@ -20,6 +20,7 @@ import PaginationHeader from './PaginationHeader/PaginationHeader';
 import getValidationSchema from './validationSchema';
 
 import {
+  Countries,
   Degrees,
   FrontendRoute,
   HackerStatus,
@@ -110,6 +111,7 @@ const ManageApplicationForm: React.FunctionComponent<
       },
       other: {
         ethnicity: [],
+        country: '',
         privacyPolicy: false,
         codeOfConduct: false,
       },
@@ -463,6 +465,22 @@ const ManageApplicationForm: React.FunctionComponent<
               <ErrorMessage
                 component={FormikElements.Error}
                 name="hacker.application.other.ethnicity"
+              />
+
+              <FastField
+                name={'hacker.application.other.country'}
+                options={Countries}
+                isMulti={false}
+                creatable={false}
+                component={FormikElements.Select}
+                label={CONSTANTS.COUNTRY_LABEL}
+                placeholder={CONSTANTS.COUNTRY_PLACEHOLDER}
+                value={fp.values.hacker.application.other.country}
+                required={true}
+              />
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.country"
               />
             </div>
           </div>
@@ -1095,6 +1113,12 @@ const ManageApplicationForm: React.FunctionComponent<
               <div className="name">{CONSTANTS.ETHNICITY_LABEL}</div>
               <div className="value">
                 {hackerDetails.application.other.ethnicity}
+              </div>
+            </div>
+            <div className="field">
+              <div className="name">{CONSTANTS.COUNTRY_LABEL}</div>
+              <div className="value">
+                {hackerDetails.application.other.country}
               </div>
             </div>
           </GridTwoColumn>
