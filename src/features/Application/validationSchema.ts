@@ -66,6 +66,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
+              country: string().required('Required'),
             }),
           }),
         }),
@@ -151,6 +152,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
+              country: string().required('Required'),
             }),
           }),
         }),
@@ -247,6 +249,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
+              country: string().required('Required'),
             }),
           }),
         }),
@@ -355,6 +358,7 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             other: object().shape({
               ethnicity: array().required('Required'),
               sendEmail: boolean(),
+              country: string().required('Required'),
               privacyPolicy: boolean()
                 .required('Required')
                 .test(
