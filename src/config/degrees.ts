@@ -1,6 +1,7 @@
 export enum Degrees {
   LESS_THAN_SECONDARY = 'Less than Secondary / High School',
   SECONDARY = 'Secondary / High School',
+  CEGEP = 'CEGEP',
   COLLEGE = 'Undergraduate University (2 year - community college or similar)',
   UNDERGRADUATE = 'Undergraduate University (3+ year)',
   GRADUATE = 'Graduate University (Masters, Professional, Doctoral, etc)',
