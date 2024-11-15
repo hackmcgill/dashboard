@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
           <Image
             src={MartletTitle}
             imgHeight="60px"
-            imgWidth="200px"
+            imgWidth="230px"
             padding="0 0 60px 0"
           />
           <EmailInput
