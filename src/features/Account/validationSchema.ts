@@ -1,4 +1,4 @@
-import { array, object, string } from 'yup';
+import { array, object, string, number } from 'yup';
 
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
@@ -25,19 +25,10 @@ const getValidationSchema = (isCreate: boolean) => {
         return !value || value.length === 11;
       }
     ),
-    birthDate: string()
-      .test('validDate', 'Must be valid date', (value) => {
-        if (!value || value.length !== 8) {
-          return false;
-        } else {
-          // Assume MMDDYYYY
-          const month = parseInt(value.substr(0, 2), 10);
-          const day = parseInt(value.substr(2, 2), 10);
-          const year = parseInt(value.substr(4, 4), 10);
-          return month <= 12 && day <= 31 && year >= 1901 && year <= 2018;
-        }
-      })
-      .required('Required'),
+    age: number()
+      .required('Required')
+      .min(0, 'Age must be a positive number') // Minimum age
+      .max(100, 'Age must be less than or equal to 100'), // Maximum age
   });
 };
 
