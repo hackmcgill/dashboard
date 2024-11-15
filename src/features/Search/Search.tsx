@@ -469,7 +469,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         )}
         {/* Reviewer Modal */}
 
-                      {/* {
+        {/* {
                         this.state.reviewerModalOpen && (
                           <AssignReviewerModal
                             onSubmit={this.handleReviewerAssignment}
@@ -686,6 +686,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.COUNTRY_LABEL,
         key: 'application.other.country',
       });
+      headers.push({
+        label: CONSTANTS.COUNTRY_LABEL,
+        key: 'application.other.country',
+      });
       headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
       headers.push({
         label: CONSTANTS.PRONOUN_LABEL,
@@ -754,9 +758,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-            selected: true,
-            hacker: v,
-          }))
+          selected: true,
+          hacker: v,
+        }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e: any) {
@@ -822,7 +826,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         e.response?.data?.error || 'Failed to assign reviewers'
       );
     }
-    
+
 
   }
 
@@ -838,25 +842,25 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private calculateReviewScoreCount(hacker: IHacker): number {
     const arr = [hacker.reviewerStatus, hacker.reviewerStatus2];
-    if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    if (arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
       return -1;
-    } else if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+    } else if (arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
       return 5;
     } else {
       let score = 0;
       let numberOfReviews = 0;
       arr.forEach((val) => {
-        if (val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+        if (val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
           numberOfReviews += 1;
           // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
-          if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
+          if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
+          else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
+          else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
+          else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
         }
       });
-      return score/numberOfReviews;
-    } 
+      return score / numberOfReviews;
+    }
   }
 
   // extract teamId from hacker (handles both ObjectId and string)
@@ -912,7 +916,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       const passReviewStatusFilter = this.state.reviewStatusFilter.length === 0 || this.state.reviewStatusFilter.includes(this.calculateReviewStatusCount(hacker));
       const passReviewScoreFilter = this.state.reviewScoreFilter.length === 0 || this.state.reviewScoreFilter.includes(Math.round(this.calculateReviewScoreCount(hacker)));
-      
+
       const isSavedBySponsorIfToggled =
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));

@@ -4,10 +4,10 @@ const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
     ? string().min(6, 'Must be at least 6 characters').required('Required')
     : string().when('newPassword', {
-        is: (pass: string) => pass,
-        then: (schema) => schema.required('Required to change password'),
-        otherwise: (schema) => schema,
-      });
+      is: (pass: string) => pass,
+      then: (schema) => schema.required('Required to change password'),
+      otherwise: (schema) => schema,
+    });
 
   return object().shape({
     firstName: string().required('Required'),
