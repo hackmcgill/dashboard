@@ -262,6 +262,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.ETHNICITY_LABEL,
         key: 'application.other.ethnicity',
       });
+      headers.push({
+        label: CONSTANTS.COUNTRY_LABEL,
+        key: 'application.other.country',
+      });
       headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
       headers.push({
         label: CONSTANTS.PRONOUN_LABEL,
@@ -272,7 +276,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     headers.forEach((header) => {
       tempHeaders.push(header.label);
     });
-    const csvData: string[] = [tempHeaders.join('\t')];
+    const csvData: string[] = [tempHeaders.join(',')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
@@ -286,10 +290,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           }
           row.push(value);
         });
-        csvData.push(row.join('\t'));
+        csvData.push(row.join(','));
       }
     });
-    fileDownload(csvData.join('\n'), 'hackerData.tsv', 'text/tsv');
+    fileDownload(csvData.join('\n'), 'hackerData.csv', 'text/csv');
   }
 
   private async triggerSearch(): Promise<void> {
