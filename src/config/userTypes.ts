@@ -64,6 +64,7 @@ export interface IHacker {
       // no enum for these
       country: string;
       ethnicity: string[];
+      sendEmail: boolean;
       privacyPolicy: boolean;
       codeOfConduct: boolean;
     };
