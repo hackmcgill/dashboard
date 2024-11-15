@@ -113,6 +113,7 @@ const ManageApplicationForm: React.FunctionComponent<
         ethnicity: [],
         sendEmail: false,
         country: '',
+        sendEmail: false,
         privacyPolicy: false,
         codeOfConduct: false,
       },
