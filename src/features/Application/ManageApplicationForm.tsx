@@ -111,6 +111,7 @@ const ManageApplicationForm: React.FunctionComponent<
       },
       other: {
         ethnicity: [],
+        sendEmail: false,
         country: '',
         privacyPolicy: false,
         codeOfConduct: false,
@@ -817,6 +818,18 @@ const ManageApplicationForm: React.FunctionComponent<
               <ErrorMessage
                 component={FormikElements.Error}
                 name="hacker.application.other.privacyPolicy"
+              />
+            </div>
+            <FastField
+              name={'hacker.application.other.sendEmail'} // change
+              component={FormikElements.Checkbox}
+              label={CONSTANTS.SEND_EMAIL_LABEL} // change
+              value={fp.values.hacker.application.other.sendEmail} // change
+            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.sendEmail"
               />
             </div>
           </div>
