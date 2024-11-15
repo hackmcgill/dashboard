@@ -2,6 +2,7 @@ export * from './APIRoute';
 export * from './attendanceOptions';
 export * from './authToken';
 export * from './constants';
+export * from './countries';
 export * from './degrees';
 export * from './dietaryRestrictions';
 export * from './ethnicity';
