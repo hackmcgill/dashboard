@@ -285,16 +285,13 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       )}
 
       <FastField
-        component={FormikElements.FormattedNumber}
+        component={FormikElements.PhoneNumberInput}
         label={CONSTANTS.PHONE_NUMBER_LABEL}
-        placeholder="+# (###) ###-####"
-        format="+# (###) ###-####"
-        name={'phoneNumber'}
+        name="phoneNumber"
         required={true}
         value={fp.values.phoneNumber}
       />
       <ErrorMessage component={FormikElements.Error} name="phoneNumber" />
-
 
       <FastField
         component={FormikElements.Select}
