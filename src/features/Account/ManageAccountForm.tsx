@@ -1,6 +1,6 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import {
   ErrorMessage,

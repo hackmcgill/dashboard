@@ -40,4 +40,5 @@ function handleChange({ field, form }: FieldProps) {
   };
 }
 
+
 export { NumberFormatFormikComponent as FormattedNumber };
