@@ -300,9 +300,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           }
           row.push(value);
         });
-        csvData.push(row.join(','));
+        csvData.push(row.join('\t'));
       }
     });
+
     fileDownload(csvData.join('\n'), 'hackerData.csv', 'text/csv;charset=utf-8');
   }
 
