@@ -43,6 +43,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [status, setStatus] = useState(props.hacker.status);
   const [reviewerStatus, setReviewerStatus] = useState(props.hacker.reviewerStatus);
   const [reviewerStatus2, setReviewerStatus2] = useState('None');
+  const [reviewerName, setReviewerName] = useState('');
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -75,9 +76,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   // const submitReviewer = async () => {
   //   try {
   //     const { hacker } = props;
-  //     // setIsLoading(true);
+  //     setIsLoading(true);
   //     await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
-  //     // setIsLoading(false);
+  //     setIsLoading(false);
   //     toast.success(`Hacker status updated to ${reviewerStatus}!`);
   //   } catch (e: any) {
   //     if (e && e.data) {
@@ -93,16 +94,39 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const handleRChange = ({value}:any) => {
     setReviewerStatus2(value);
   }
+  
+  const handleReviewerNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setReviewerName(event.target.value);
+    console.log(event.target.value);
+    console.log(reviewerName);
+  }
+
+  // const handleReviewerChange = async ({ value }: any) => {
+  //   try {
+  //     console.log('VALUE', value);
+  //     setReviewerStatus(value);
+  //     setReviewerStatus((prev) => {
+  //       console.log("Previous reviewerStatus:", prev);
+  //       return value; // This ensures the new value gets set properly
+  //     });
+  //     console.log(value);
+  //     console.log(reviewerStatus);
+  //     console.log(props.hacker.reviewerStatus);
+  //     await submitReviewer(); 
+  //   } catch (error) {
+  //     console.error('Error updating reviewer status:', error);
+  //   }
+  // };
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerStatus) {
+      submitReviewer();
+    }
+  }, [reviewerStatus]);
 
   const handleReviewerChange = async ({ value }: any) => {
-    try {
-      console.log('VALUE', value);
-      setReviewerStatus(value);
-      console.log(value);
-      console.log(reviewerStatus);
-      console.log(props.hacker.reviewerStatus);
-      console.log("ho");
-      await submitReviewer(); 
+    try {      
+      setReviewerStatus(value);      
+      await submitReviewer();
     } catch (error) {
       console.error('Error updating reviewer status:', error);
     }
@@ -112,9 +136,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
     try {
       const { hacker } = props;
       // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
-      console.log('REVIEW', reviewerStatus);
+      // console.log('REVIEW', reviewerStatus);
       await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
-      console.log(reviewerStatus);
+      // console.log(reviewerStatus);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
     } catch (e: any) {
       if (e?.data) {
@@ -124,26 +148,6 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
       }
     }
   };
-
-  // const handleReviewerChange = async ({ value }: any) => {
-  //   setReviewerStatus(value); // Update local state immediately
-  //   console.log(Status);
-  //   console.log(props.hacker.reviewerStatus);
-
-  //   try {
-  //     await Hacker.updateReviewerStatus(props.hacker.id, value); // Persist change
-  //     toast.success(`Reviewer status updated to ${value}`);
-  //   } catch (error) {
-  //     console.error("Error updating reviewer status:", error);
-  //     toast.error("Failed to update reviewer status");
-  //   }
-  // };
-  
-
-  // const handleReviewerChange = ({ value }: any) => {
-  //   setReviewerStatus(value);
-  //   submitReviewer();
-  // }
 
   const { hacker } = props;
   const account = (hacker.accountId as IAccount) || {};
@@ -219,25 +223,11 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 mb="0px"
                 
               >
-                {/* <Flex
-                  justifyContent={['center', 'flex-start']}
-                  alignItems="center"
-                  ml="16px"
-                > */}
-                  {/* <Button
-                    type="button"
-                    onClick={submit}
-                    variant={ButtonVariant.Primary}
-                    isLoading={isLoading}
-                    disabled={isLoading || !isAdmin}
-                  >
-                    Change status
-                  </Button> */}
                 <Box width={[1, 1/2]} style={{ paddingTop: '10px', marginRight: '17px' }}>
                   <Input
-                    // onChange={this.onSearchBarChanged}
+                    onChange={handleReviewerNameChange}
                     placeholder={'Reviewer Name'}
-                    // value={searchBar}
+                    value={reviewerName}
                   />
                 </Box>
                 {/* </Flex> */}
@@ -264,7 +254,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                   mt="-27px"
               >
 
-                <Box width={'35rem'} style={{ paddingTop: '0px', marginRight: '17px' }}>
+                <Box width={[1,0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
                     // onChange={this.onSearchBarChanged}
                     placeholder={'Comments'}
@@ -311,7 +301,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                   mt="-27px"
               >
 
-                <Box width={'35rem'} style={{ paddingTop: '0px', marginRight: '17px' }}>
+                {/* <Box width={'35rem'} style={{ paddingTop: '0px', marginRight: '17px' }}> */}
+                <Box width={[1, 0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
                     // onChange={this.onSearchBarChanged}
                     placeholder={'Comments'}
@@ -368,7 +359,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             <SHField label="School" text={hacker.application.general.school} />
             <SHField label="Degree" text={hacker.application.general.degree} />
             <SHField label="Status" text={hacker.status} />
-            {/* <SHField label="ReviewerStatus" text={hacker.reviewerStatus} /> */}
+            <SHField label="ReviewerStatus" text={hacker.reviewerStatus} /> 
             <SHField
               label="Graduation Year"
               text={hacker.application.general.graduationYear}
