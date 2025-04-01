@@ -12,6 +12,11 @@ export interface IStatsResponse {
     total: number;
     status: { [key in HackerStatus]: number };
     reviewerStatus: { [key in HackerReviewerStatus]: number };
+    reviewerStatus2: { [key in HackerReviewerStatus]: number };
+    reviewerName: { [key: string]: number };
+    reviewerName2: { [key: string]: number };
+    reviewerComments: { [key: string]: number };
+    reviewerComments2: { [key: string]: number };
     school: { [key: string]: number };
     degree: { [key: string]: number };
     gender: { [key: string]: number };
