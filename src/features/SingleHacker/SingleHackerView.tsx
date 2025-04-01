@@ -42,10 +42,18 @@ interface IHackerViewProps {
 const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [status, setStatus] = useState(props.hacker.status);
   const [reviewerStatus, setReviewerStatus] = useState(props.hacker.reviewerStatus);
-  const [reviewerStatus2, setReviewerStatus2] = useState('None');
-  const [reviewerName, setReviewerName] = useState('');
+  const [reviewerStatus2, setReviewerStatus2] = useState(props.hacker.reviewerStatus2);
+  const [reviewerName, setReviewerName] = useState(props.hacker.reviewerName);
+  const [reviewerName2, setReviewerName2] = useState(props.hacker.reviewerName2);
+  const [reviewerComments, setReviewerComments] = useState(props.hacker.reviewerComments);
+  const [reviewerComments2, setReviewerComments2] = useState(props.hacker.reviewerComments2);
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  // console.log("reviewerName:", props.hacker.reviewerName);
+  console.log("reviewerComments:", props.hacker.reviewerComments);
+  console.log("props.hacker:", props.hacker);
+  console.log("reviewerComments State: ", reviewerComments)
 
   useEffect(() => {
     setIsAdmin(props.userType === UserType.STAFF);
@@ -57,6 +65,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setReviewerStatus(props.hacker.reviewerStatus);
+  }, [props]);
+  useEffect(() => {
+    setReviewerStatus2(props.hacker.reviewerStatus2);
   }, [props]);
 
   const submit = async () => {
@@ -91,37 +102,207 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
     setStatus(value);
   };
 
-  const handleRChange = ({value}:any) => {
-    setReviewerStatus2(value);
-  }
-  
-  const handleReviewerNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewerName(event.target.value);
-    console.log(event.target.value);
-    console.log(reviewerName);
-  }
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerName) {
+      submitReviewerName();
+    }
+  }, [reviewerName]);
 
-  // const handleReviewerChange = async ({ value }: any) => {
-  //   try {
-  //     console.log('VALUE', value);
-  //     setReviewerStatus(value);
-  //     setReviewerStatus((prev) => {
-  //       console.log("Previous reviewerStatus:", prev);
-  //       return value; // This ensures the new value gets set properly
-  //     });
-  //     console.log(value);
-  //     console.log(reviewerStatus);
-  //     console.log(props.hacker.reviewerStatus);
-  //     await submitReviewer(); 
-  //   } catch (error) {
-  //     console.error('Error updating reviewer status:', error);
-  //   }
-  // };
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerName2) {
+      submitReviewerName2();
+    }
+  }, [reviewerName2]);
+  
+  const handleReviewerNameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setReviewerName(event.target.value);
+      console.log(event.target.value);
+      console.log(reviewerName);     
+      await submitReviewerName();
+    } catch (error) {
+      console.error('Error updating reviewer status:', error);
+    }
+  };
+
+  const submitReviewerName = async () => {
+    try {
+      const { hacker } = props;
+      // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+      // console.log('REVIEW', reviewerStatus);
+      await Hacker.updateReviewerName(hacker.id, reviewerName);
+      console.log("name: ", props.hacker.reviewerName);
+      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+    } catch (e: any) {
+      if (e?.data) {
+        ValidationErrorGenerator(e.data);
+      } else {
+        console.error('Unexpected error:', e);
+      }
+    }
+  };
+  
+  const handleReviewerNameChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setReviewerName2(event.target.value);
+      console.log(event.target.value);
+      console.log(reviewerName2);     
+      await submitReviewerName2();
+    } catch (error) {
+      console.error('Error updating reviewer status:', error);
+    }
+  };
+
+  const submitReviewerName2 = async () => {
+    try {
+      const { hacker } = props;
+      // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+      // console.log('REVIEW', reviewerStatus);
+      await Hacker.updateReviewerName2(hacker.id, reviewerName2);
+      console.log("name: ", props.hacker.reviewerName2);
+      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+    } catch (e: any) {
+      if (e?.data) {
+        ValidationErrorGenerator(e.data);
+      } else {
+        console.error('Unexpected error:', e);
+      }
+    }
+  };
+
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerComments) {
+      submitReviewerComments();
+    }
+  }, [reviewerComments]);
+
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerComments2) {
+      submitReviewerComments2();
+    }
+  }, [reviewerComments2]);
+  
+  const handleReviewerCommentsChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setReviewerComments(event.target.value);
+      console.log("value: ", event.target.value);
+      console.log("element: ",reviewerComments);     
+      await submitReviewerComments();
+    } catch (error) {
+      console.error('Error updating reviewer status:', error);
+    }
+  };
+
+  const submitReviewerComments = async () => {
+    try {
+      const { hacker } = props;
+      // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+      // console.log('REVIEW', reviewerStatus);
+      await Hacker.updateReviewerComments(hacker.id, reviewerComments);
+      console.log("name: ", props.hacker.reviewerComments);
+      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+    } catch (e: any) {
+      if (e?.data) {
+        ValidationErrorGenerator(e.data);
+      } else {
+        console.error('Unexpected error:', e);
+      }
+    }
+  };
+  
+  const handleReviewerCommentsChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setReviewerComments2(event.target.value);
+      console.log(event.target.value);
+      console.log(reviewerComments2);     
+      await submitReviewerComments2();
+    } catch (error) {
+      console.error('Error updating reviewer status:', error);
+    }
+  };
+
+  const submitReviewerComments2 = async () => {
+    try {
+      const { hacker } = props;
+      // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+      // console.log('REVIEW', reviewerStatus);
+      await Hacker.updateReviewerComments2(hacker.id, reviewerComments2);
+      console.log("name: ", props.hacker.reviewerComments2);
+      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+    } catch (e: any) {
+      if (e?.data) {
+        ValidationErrorGenerator(e.data);
+      } else {
+        console.error('Unexpected error:', e);
+      }
+    }
+  };
+
   useEffect(() => { // when reviewerStatus changes
     if (reviewerStatus) {
       submitReviewer();
     }
   }, [reviewerStatus]);
+
+  useEffect(() => { // when reviewerStatus changes
+    if (reviewerStatus2) {
+      submitReviewer2();
+    }
+  }, [reviewerStatus2]);
+
+  // const handleReviewerChange = async ({ value }: any, reviewerNum: number) => {
+  //   if (reviewerNum == 1) {
+  //     try {      
+  //       setReviewerStatus(value);      
+  //       await submitReviewer(1);
+  //     } catch (error) {
+  //       console.error('Error updating reviewer status:', error);
+  //     }
+  //   }
+  //   else if (reviewerNum == 2) {
+  //     try {      
+  //       setReviewerStatus2(value);      
+  //       await submitReviewer(2);
+  //     } catch (error) {
+  //       console.error('Error updating reviewer status:', error);
+  //     }
+  //   }
+  // };
+
+  // const submitReviewer = async (num: number) => {
+  //   if (num == 1) {
+  //     try {
+  //       const { hacker } = props;
+  //       // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+  //       // console.log('REVIEW', reviewerStatus);
+  //       await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
+  //       // console.log(reviewerStatus);
+  //       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+  //     } catch (e: any) {
+  //       if (e?.data) {
+  //         ValidationErrorGenerator(e.data);
+  //       } else {
+  //         console.error('Unexpected error:', e);
+  //       }
+  //     }
+  //   }
+  //   else if (num == 2) {
+  //     try {
+  //       const { hacker } = props;
+  //       // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+  //       // console.log('REVIEW', reviewerStatus);
+  //       await Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2);
+  //       // console.log(reviewerStatus);
+  //       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+  //     } catch (e: any) {
+  //       if (e?.data) {
+  //         ValidationErrorGenerator(e.data);
+  //       } else {
+  //         console.error('Unexpected error:', e);
+  //       }
+  //     }
+  //   }
+  // };
 
   const handleReviewerChange = async ({ value }: any) => {
     try {      
@@ -138,6 +319,32 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
       // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
       // console.log('REVIEW', reviewerStatus);
       await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
+      // console.log(reviewerStatus);
+      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
+    } catch (e: any) {
+      if (e?.data) {
+        ValidationErrorGenerator(e.data);
+      } else {
+        console.error('Unexpected error:', e);
+      }
+    }
+  };
+
+  const handleReviewerChange2 = async ({ value }: any) => {
+    try {      
+      setReviewerStatus2(value);      
+      await submitReviewer2();
+    } catch (error) {
+      console.error('Error updating reviewer status:', error);
+    }
+  };
+
+  const submitReviewer2 = async () => {
+    try {
+      const { hacker } = props;
+      // const updatedReviewerStatus = reviewerStatusOverride || reviewerStatus;
+      // console.log('REVIEW', reviewerStatus);
+      await Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2);
       // console.log(reviewerStatus);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
     } catch (e: any) {
@@ -240,6 +447,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     options={getOptionsFromEnum(HackerReviewerStatus)}
                     isDisabled={!isAdmin}
                     onChange={handleReviewerChange}
+                    // onChange={(event) => handleReviewerChange(event, 1)}
                     value={{
                       label: reviewerStatus,
                       value: reviewerStatus,
@@ -256,9 +464,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
                 <Box width={[1,0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
-                    // onChange={this.onSearchBarChanged}
+                    onChange={handleReviewerCommentsChange}
                     placeholder={'Comments'}
-                    // value={searchBar}
+                    value={reviewerComments}
                   />  
                 </Box>
               </Flex>
@@ -272,13 +480,18 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               >
                 <Box width={[1, 1/2]} style={{ paddingTop: '-10px', marginRight: '17px' }}>
                   <Input
-                    // onChange={this.onSearchBarChanged}
+                    onChange={handleReviewerNameChange2}
                     placeholder={'Reviewer Name'}
-                    // value={searchBar}
+                    value={reviewerName2}
                   />
                 </Box>
-                {/* </Flex> */}
-                {/* <Box width={[1, 1/5.5]} style={{ paddingTop: '1px' }}> */}
+                {/* <Box width={[1, 1/2]} style={{ paddingTop: '-10px', marginRight: '17px' }}>
+                  <Input
+                    onChange={handleReviewerNameChange2}
+                    placeholder={'Reviewer Name'}
+                    value={reviewerName2}
+                  />
+                </Box> */}
                 <Box width={'9.1rem'} style={{ paddingTop: '-10px' }}>
                   <StyledSelect
                     isTight={true}
@@ -286,7 +499,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     classNamePrefix="react-select"
                     options={getOptionsFromEnum(HackerReviewerStatus)}
                     isDisabled={!isAdmin}
-                    onChange={handleRChange}
+                    // onChange={(event) => handleReviewerChange(event, 2)}
+                    onChange={handleReviewerChange2}
                     value={{
                       label: reviewerStatus2,
                       value: reviewerStatus2,
@@ -304,9 +518,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 {/* <Box width={'35rem'} style={{ paddingTop: '0px', marginRight: '17px' }}> */}
                 <Box width={[1, 0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
-                    // onChange={this.onSearchBarChanged}
+                    onChange={handleReviewerCommentsChange2}
                     placeholder={'Comments'}
-                    // value={searchBar}
+                    value={reviewerComments2}
                   />  
                 </Box>
               </Flex>

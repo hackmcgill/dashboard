@@ -88,6 +88,11 @@ const ManageApplicationForm: React.FunctionComponent<
     accountId: '',
     status: HackerStatus.HACKER_STATUS_NONE,
     reviewerStatus: HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE,
+    reviewerStatus2: HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE,
+    reviewerName: '',
+    reviewerName2: '',
+    reviewerComments: '',
+    reviewerComments2: '',
     application: {
       general: {
         school: '',
@@ -1317,6 +1322,11 @@ const ManageApplicationForm: React.FunctionComponent<
       accountId,
       status: HackerStatus.HACKER_STATUS_NONE,
       reviewerStatus: HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE,
+      reviewerStatus2: HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE,
+      reviewerName: '',
+      reviewerName2: '',
+      reviewerComments: '',
+      reviewerComments2: '',
       application: values.hacker.application,
     };
 
