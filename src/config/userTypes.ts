@@ -34,6 +34,11 @@ export interface IHacker {
   accountId: string | IAccount; // for querying account as well
   status: HackerStatus;
   reviewerStatus: HackerReviewerStatus;
+  reviewerStatus2: HackerReviewerStatus;
+  reviewerName: string;
+  reviewerName2: string;
+  reviewerComments: string;
+  reviewerComments2: string;
   application: {
     general: {
       school: string;
