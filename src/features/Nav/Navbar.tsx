@@ -197,6 +197,26 @@ export default class Navbar extends React.Component<
               Application
             </NavLink>
           ) : null}
+          {userType === UserType.HACKER && status === HackerStatus.HACKER_STATUS_CHECKED_IN ? (
+            <NavLink
+              href={routes.CHECKIN_HACKER_PAGE}
+              className={
+                this.props.activePage === 'checkin' ? 'active' : ''
+              }
+            >
+              Check In
+            </NavLink>
+          ) : null}
+          {(userType === UserType.STAFF || userType === UserType.VOLUNTEER) ? (
+            <NavLink
+              href={routes.CHECKIN_STAFF_PAGE}
+              className={
+                this.props.activePage === 'checkin' ? 'active' : ''
+              }
+            >
+              Check In
+            </NavLink>
+          ) : null}
           {this.state.showTeamLink ? (
             <NavLink
               href={routes.TEAM_PAGE}

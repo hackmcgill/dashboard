@@ -160,8 +160,6 @@ const CheckinPage: React.FC = () => {
             </Box>
           </MaxWidthBox>
         </Flex>
-
-        <HackerCheckinForm />
       </Box>
     </Flex>
   );

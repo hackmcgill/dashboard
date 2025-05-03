@@ -67,7 +67,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
       },
       {
         title: DashboardText.Checkin,
-        route: routes.CHECKIN_HACKER_PAGE,
+        route: routes.CHECKIN_STAFF_PAGE,
         imageSrc: CheckinIcon,
       },
     ];

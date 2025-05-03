@@ -13,6 +13,7 @@ import CreateApplicationPage from './pages/Application/Create';
 import EditApplicationPage from './pages/Application/Edit';
 import SingleHackerPage from './pages/Application/View/[id]';
 import CheckinPage from './pages/Hacker/Checkin';
+import SelfCheckinPage from './pages/Hacker/SelfCheckin';
 import HackPassPage from './pages/Hacker/Pass';
 import DashboardPage from './pages/index';
 import LoginPage from './pages/Login/index';
@@ -375,16 +376,42 @@ class App extends React.Component {
               )}
             />
             <Route
+              path={FrontendRoute.CHECKIN_STAFF_PAGE}
+              element={React.createElement(
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(CheckinPage, {
+                      requiredAuthState: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.VOLUNTEER),
+                    }),
+                    { activePage: 'checkin' }
+                  )
+                ),
+                this.props
+              )}
+            />
+            <Route
               path={FrontendRoute.CHECKIN_HACKER_PAGE}
               element={React.createElement(
-                withNavbar(
-                  withAuthRedirect(CheckinPage, {
-                    requiredAuthState: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed &&
-                      (user.accountType === UserType.STAFF ||
-                        user.accountType === UserType.VOLUNTEER),
-                  })
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(
+                      withHackerRedirect(SelfCheckinPage, {
+                        AuthVerification: (user: IHacker) =>
+                          user.status === HackerStatus.HACKER_STATUS_CHECKED_IN,
+                      }),
+                      {
+                        requiredAuthState: true,
+                        redirAfterLogin: true,
+                        AuthVerification: (user: IAccount) =>
+                          user.confirmed && user.accountType === UserType.HACKER,
+                      }
+                    ),
+                    { activePage: 'checkin' }
+                  )
                 ),
                 this.props
               )}
