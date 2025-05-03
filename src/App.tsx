@@ -399,14 +399,50 @@ class App extends React.Component {
               )}
             />
             <Route
+              path={FrontendRoute.CHECKIN_STAFF_PAGE}
+              element={React.createElement(
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(CheckinPage, {
+                      requiredAuthState: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.VOLUNTEER),
+                    }),
+                    { activePage: 'checkin' }
+                  )
+                ),
+                this.props
+              )}
+            />
+            <Route
+              path={FrontendRoute.CHECKIN_STAFF_PAGE}
+              element={React.createElement(
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(CheckinPage, {
+                      requiredAuthState: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.VOLUNTEER),
+                    }),
+                    { activePage: 'checkin' }
+                  )
+                ),
+                this.props
+              )}
+            />
+            <Route
               path={FrontendRoute.CHECKIN_HACKER_PAGE}
               element={React.createElement(
                 withBackground(
                   withNavbar(
                     withAuthRedirect(
                       withHackerRedirect(TeamCheckinPage, {
-                        AuthVerification: (user: IHacker, settings?: ISetting) =>
-                          user.status === HackerStatus.HACKER_STATUS_CHECKED_IN &&
+                        AuthVerification: (hacker: IHacker, settings?: ISetting) =>
+                          hacker.status === HackerStatus.HACKER_STATUS_CHECKED_IN &&
                           Boolean(settings?.checkinOpen),
                       }),
                       {

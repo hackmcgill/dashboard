@@ -188,7 +188,7 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-          canAccessApplication({ status }, settings) ? (
+            canAccessApplication({ status }, settings) ? (
             <NavLink
               href={appRoute}
               className={
@@ -235,10 +235,10 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null} */}
           {userType === UserType.SPONSOR_T1 ||
-          userType === UserType.SPONSOR_T2 ||
-          userType === UserType.SPONSOR_T3 ||
-          userType === UserType.SPONSOR_T4 ||
-          userType === UserType.SPONSOR_T5 ? (
+            userType === UserType.SPONSOR_T2 ||
+            userType === UserType.SPONSOR_T3 ||
+            userType === UserType.SPONSOR_T4 ||
+            userType === UserType.SPONSOR_T5 ? (
             <>
               <NavLink
                 href={routes.SPONSOR_SEARCH_PAGE}
