@@ -29,3 +29,6 @@ export * from './travel';
 export * from './userTypes';
 export * from './validationError';
 export * from './pageType';
+export * from './prizeCategories';
+export * from './sponsorChallenges';
+export * from './workshops';
