@@ -10,5 +10,5 @@ export enum SponsorChallenges {
   SPONSOR_CHALLENGE_9 = 'NOVA',
   SPONSOR_CHALLENGE_10 = 'CSUS',
 }
-  
+
 export default SponsorChallenges;
