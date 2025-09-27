@@ -86,6 +86,22 @@ const HackerDashboard: React.FC = () => {
           setReviewerName2('');
       }
 
+      // Set hacker reviewer comments
+      try {
+        const response = await Hacker.getSelf();
+        setReviewerComments(response.data.data.reviewerComments);
+      } catch (e: any) {
+          setReviewerComments('');
+      }
+
+      // Set hacker reviewer comments 2
+      try {
+        const response = await Hacker.getSelf();
+        setReviewerComments2(response.data.data.reviewerComments2);
+      } catch (e: any) {
+          setReviewerComments2('');
+      }
+
       // Check if hacker is confirmed
       try {
         setConfirmed(await isConfirmed());
