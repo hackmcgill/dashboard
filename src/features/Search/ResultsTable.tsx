@@ -4,6 +4,7 @@ import { IHacker, UserType } from '../../config';
 import { StyledTable } from '../../shared/Elements';
 import SingleHackerModal from '../SingleHacker/SingleHackerModal';
 import HackerSelect from './HackerSelect';
+import HackerReviewerStatus from '../../config/hackerReviewerStatus';
 
 interface IResultsTableProps {
   results: Array<{
@@ -47,6 +48,21 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
     {
       Header: 'Status',
       accessor: 'hacker.status',
+    },
+    {
+      Header: 'Review Status',
+      accessor: 'hacker.reviewerStatus',
+      Cell: (cellProps: any) => {
+        const reviewerStatus = cellProps.original.hacker.reviewerStatus;
+        const reviewerStatus2 = cellProps.original.hacker.reviewerStatus2;
+        if (reviewerStatus!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && reviewerStatus2!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+          return <span>2</span>;
+        } else if (reviewerStatus!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE || reviewerStatus2!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+          return <span>1</span>;
+        } else {
+          return <span>0</span>;
+        }
+      },
     },
     {
       Header: 'Job Interest',
