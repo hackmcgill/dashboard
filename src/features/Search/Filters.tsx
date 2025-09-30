@@ -19,7 +19,7 @@ import { getOptionsFromEnum } from '../../util';
 
 interface IFilterProps {
   initFilters: ISearchParameter[];
-  onChange: (newFilters: ISearchParameter[]) => void;
+  onChange: (newFilters: ISearchParameter[], reviewStatus?: number[]) => void;
   onResetForm: () => void;
   loading: boolean;
 }
@@ -53,6 +53,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       ),
       degree: this.searchParam2List('application.general.degree', initFilters),
       status: this.searchParam2List('status', initFilters),
+      reviewStatus: this.searchParam2List('reviewStatus', initFilters),
       skills: this.searchParam2List(
         'application.shortAnswer.skills',
         initFilters
@@ -107,6 +108,20 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           options={getOptionsFromEnum(HackerStatus)}
           component={FormikElements.Select}
           value={fp.values.status}
+        />
+        <FastField
+          name={'reviewStatus'}
+          label={'Review Status'}
+          placeholder={'Review Statuses...'}
+          isMulti={true}
+          creatable={true}
+          options={[
+            { label: '0', value: 0 },
+            { label: '1', value: 1 },
+            { label: '2', value: 2 },
+          ]}
+          component={FormikElements.Select}
+          value={fp.values.reviewStatus}
         />
         <FastField
           name={'skills'}
@@ -193,7 +208,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       skillsParam,
       jobInterestParam
     );
-    this.props.onChange(search);
+    // this.props.onChange(search);
+    this.props.onChange(search, values.reviewStatus);
   }
 
   /**
