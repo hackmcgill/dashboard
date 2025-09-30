@@ -2,6 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
+import HackerReviewerStatus from '../../config/hackerReviewerStatus';
 
 import { Account, Search, Sponsor } from '../../api';
 import {
@@ -43,6 +44,7 @@ interface ISearchState {
   viewSaved: boolean;
   account?: IAccount;
   sponsor?: ISponsor;
+  reviewStatusFilter: number[];
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -55,6 +57,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       searchBar: this.getSearchBarFromQuery(),
       loading: false,
       viewSaved: false,
+      reviewStatusFilter: [],
     };
 
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -333,9 +336,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.updateQueryURL([], this.state.searchBar);
   }
 
-  private onFilterChange(newFilters: ISearchParameter[]) {
+  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[]) {
     this.setState({
       query: newFilters,
+      reviewStatusFilter: reviewStatus,
     }, () => {
       this.updateQueryURL(newFilters, this.state.searchBar);
       this.triggerSearch();
@@ -357,6 +361,16 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       '',
       window.location.href.split('?')[0] + newSearch
     );
+  }
+
+  private calculateReviewStatusCount(hacker: IHacker): number {
+    if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+      return 2;
+    } else if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE || hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   private filter() {
@@ -399,11 +413,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 
+      const passReviewStatusFilter = this.state.reviewStatusFilter.length === 0 || this.state.reviewStatusFilter.includes(this.calculateReviewStatusCount(hacker));
+
       const isSavedBySponsorIfToggled =
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));
 
-      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled;
+      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter;
     });
   }
 
