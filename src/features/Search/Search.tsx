@@ -140,6 +140,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   loading={loading}
                   userType={account ? account.accountType : UserType.UNKNOWN}
                   filter={searchBar}
+                  triggerUpdate={this.triggerSearch}
                 />
               </Flex>
             </Box>
