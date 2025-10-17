@@ -45,6 +45,7 @@ interface ISearchState {
   account?: IAccount;
   sponsor?: ISponsor;
   reviewStatusFilter: number[];
+  reviewScoreFilter: number[];
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -58,6 +59,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       loading: false,
       viewSaved: false,
       reviewStatusFilter: [],
+      reviewScoreFilter: [],
     };
 
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -335,10 +337,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.updateQueryURL([], this.state.searchBar);
   }
 
-  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[]) {
+  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[], reviewScore: number[]) {
     this.setState({
       query: newFilters,
-      reviewStatusFilter: reviewStatus,
+      reviewStatusFilter: reviewStatus || [],
+      reviewScoreFilter: reviewScore || [],
     }, () => {
       this.updateQueryURL(newFilters, this.state.searchBar);
       this.triggerSearch();
@@ -370,6 +373,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     } else {
       return 0;
     }
+  }
+
+  private calculateReviewScoreCount(hacker: IHacker): number {
+    const arr = [hacker.reviewerStatus, hacker.reviewerStatus2];
+    if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+      return -1;
+    } else {
+      let score = 0;
+      let numberOfReviews = 0;
+      arr.forEach((val) => {
+        if (val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+          numberOfReviews += 1;
+          // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
+          if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
+          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
+          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
+          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
+        }
+      });
+      return score/numberOfReviews;
+    } 
   }
 
   private filter() {
@@ -413,12 +437,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 
       const passReviewStatusFilter = this.state.reviewStatusFilter.length === 0 || this.state.reviewStatusFilter.includes(this.calculateReviewStatusCount(hacker));
-
+      const passReviewScoreFilter = this.state.reviewScoreFilter.length === 0 || this.state.reviewScoreFilter.includes(Math.round(this.calculateReviewScoreCount(hacker)));
+      
       const isSavedBySponsorIfToggled =
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));
 
-      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter;
+      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter && passReviewScoreFilter;
     });
   }
 
