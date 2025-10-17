@@ -14,6 +14,7 @@ interface IResultsTableProps {
   loading: boolean;
   userType: UserType;
   filter: string;
+  triggerUpdate: () => void;
 }
 
 const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
@@ -102,6 +103,7 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
             hacker={original.hacker}
             allHackers={props.results.map((r) => r.hacker)}
             userType={props.userType}
+            onUpdate={props.triggerUpdate}
           />
         </div>
       ),

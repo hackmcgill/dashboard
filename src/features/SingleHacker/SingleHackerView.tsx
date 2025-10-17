@@ -37,6 +37,7 @@ import SingleHackerSection from './SingleHackerSection';
 interface IHackerViewProps {
   hacker: IHacker;
   userType: UserType;
+  onUpdate?: () => void;
 }
 
 const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
@@ -69,9 +70,22 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
     try {
       const { hacker } = props;
       setIsLoading(true);
-      await Hacker.updateStatus(hacker.id, status);
+
+      await Promise.all([
+        Hacker.updateStatus(hacker.id, status),
+        Hacker.updateReviewerStatus(hacker.id, reviewerStatus),
+        Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2),
+        Hacker.updateReviewerName(hacker.id, reviewerName),
+        Hacker.updateReviewerName2(hacker.id, reviewerName2),
+        Hacker.updateReviewerComments(hacker.id, reviewerComments),
+        Hacker.updateReviewerComments2(hacker.id, reviewerComments2),
+      ]);
+      // await Hacker.updateStatus(hacker.id, status);
       setIsLoading(false);
-      toast.success(`Hacker status updated to ${status}!`);
+      toast.success(`Hacker information updated!`);
+      // toast.success(`Hacker status updated to ${status}!`);
+      if (props.onUpdate) props.onUpdate();
+
     } catch (e: any) {
       if (e && e.data) {
         ValidationErrorGenerator(e.data);
@@ -83,178 +97,178 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
     setStatus(value);
   };
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerName) {
-      submitReviewerName();
-    }
-  }, [reviewerName]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerName) {
+  //     submitReviewerName();
+  //   }
+  // }, [reviewerName]);
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerName2) {
-      submitReviewerName2();
-    }
-  }, [reviewerName2]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerName2) {
+  //     submitReviewerName2();
+  //   }
+  // }, [reviewerName2]);
   
   const handleReviewerNameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
+    // try {
       setReviewerName(event.target.value);   
-      await submitReviewerName();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewerName();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewerName = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerName(hacker.id, reviewerName);
+      // await Hacker.updateReviewerName(hacker.id, reviewerName);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
   
   const handleReviewerNameChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
+    // try {
       setReviewerName2(event.target.value);
-      await submitReviewerName2();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewerName2();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewerName2 = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerName2(hacker.id, reviewerName2);
+      // await Hacker.updateReviewerName2(hacker.id, reviewerName2);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerComments) {
-      submitReviewerComments();
-    }
-  }, [reviewerComments]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerComments) {
+  //     submitReviewerComments();
+  //   }
+  // }, [reviewerComments]);
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerComments2) {
-      submitReviewerComments2();
-    }
-  }, [reviewerComments2]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerComments2) {
+  //     submitReviewerComments2();
+  //   }
+  // }, [reviewerComments2]);
   
   const handleReviewerCommentsChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
+    // try {
       setReviewerComments(event.target.value);
-      await submitReviewerComments();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewerComments();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewerComments = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerComments(hacker.id, reviewerComments);
+      // await Hacker.updateReviewerComments(hacker.id, reviewerComments);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
   
   const handleReviewerCommentsChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
+    // try {
       setReviewerComments2(event.target.value);    
-      await submitReviewerComments2();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewerComments2();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewerComments2 = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerComments2(hacker.id, reviewerComments2);
+      // await Hacker.updateReviewerComments2(hacker.id, reviewerComments2);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerStatus) {
-      submitReviewer();
-    }
-  }, [reviewerStatus]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerStatus) {
+  //     submitReviewer();
+  //   }
+  // }, [reviewerStatus]);
 
-  useEffect(() => { // when reviewerStatus changes
-    if (reviewerStatus2) {
-      submitReviewer2();
-    }
-  }, [reviewerStatus2]);
+  // useEffect(() => { // when reviewerStatus changes
+  //   if (reviewerStatus2) {
+  //     submitReviewer2();
+  //   }
+  // }, [reviewerStatus2]);
 
   const handleReviewerChange = async ({ value }: any) => {
-    try {      
+    // try {      
       setReviewerStatus(value);      
-      await submitReviewer();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewer();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewer = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
+      // await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
 
   const handleReviewerChange2 = async ({ value }: any) => {
-    try {      
+    // try {      
       setReviewerStatus2(value);      
-      await submitReviewer2();
-    } catch (error) {
-      console.error('Error updating reviewer status:', error);
-    }
+      // await submitReviewer2();
+    // } catch (error) {
+    //   console.error('Error updating reviewer status:', error);
+    // }
   };
 
   const submitReviewer2 = async () => {
-    try {
+    // try {
       const { hacker } = props;
-      await Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2);
+      // await Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2);
       // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    } catch (e: any) {
-      if (e?.data) {
-        ValidationErrorGenerator(e.data);
-      } else {
-        console.error('Unexpected error:', e);
-      }
-    }
+    // } catch (e: any) {
+    //   if (e?.data) {
+    //     ValidationErrorGenerator(e.data);
+    //   } else {
+    //     console.error('Unexpected error:', e);
+    //   }
+    // }
   };
 
   const { hacker } = props;
@@ -319,7 +333,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     isLoading={isLoading}
                     disabled={isLoading || !isAdmin}
                   >
-                    Change status
+                    {/* Change status */}
+                     Save Changes 
                   </Button>
                 </Flex>
               </Flex>
