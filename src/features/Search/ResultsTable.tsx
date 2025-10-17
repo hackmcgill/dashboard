@@ -49,7 +49,7 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
       Header: 'Status',
       accessor: 'hacker.status',
     },
-    {
+    { // Number of reviewers that have reviewed this hacker
       Header: 'Review Status',
       accessor: 'hacker.reviewerStatus',
       Cell: (cellProps: any) => {
@@ -62,6 +62,32 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
         } else {
           return <span>0</span>;
         }
+      },
+    },
+    { // Average score of the reviews for this hacker
+      Header: 'Review Score',
+      accessor: 'hacker.reviewerStatus',
+      Cell: (cellProps: any) => {
+        const reviewerStatus = cellProps.original.hacker.reviewerStatus;
+        const reviewerStatus2 = cellProps.original.hacker.reviewerStatus2;
+        const arr = [reviewerStatus, reviewerStatus2];
+        if (reviewerStatus==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && reviewerStatus2==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+          return <span>-1</span>;
+        } else {
+          let score = 0;
+          let numberOfReviews = 0;
+          arr.forEach((val) => {
+            if (val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+              numberOfReviews += 1;
+              // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
+              if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
+              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
+              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
+              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
+            }
+          });
+          return <span>{score/numberOfReviews}</span>;
+        } 
       },
     },
     {
