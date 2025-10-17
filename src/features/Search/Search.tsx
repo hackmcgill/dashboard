@@ -380,6 +380,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     const arr = [hacker.reviewerStatus, hacker.reviewerStatus2];
     if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
       return -1;
+    } else if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+      return 5;
     } else {
       let score = 0;
       let numberOfReviews = 0;

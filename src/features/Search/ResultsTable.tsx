@@ -72,9 +72,11 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
         const reviewerStatus = cellProps.original.hacker.reviewerStatus;
         const reviewerStatus2 = cellProps.original.hacker.reviewerStatus2;
         const arr = [reviewerStatus, reviewerStatus2];
-        if (reviewerStatus==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && reviewerStatus2==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+        if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
           return <span>-1</span>;
-        } else {
+        } else if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+              return <span>5</span>;
+            } else {
           let score = 0;
           let numberOfReviews = 0;
           arr.forEach((val) => {
