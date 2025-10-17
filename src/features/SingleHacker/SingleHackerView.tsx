@@ -96,179 +96,29 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const handleChange = ({ value }: any) => {
     setStatus(value);
   };
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerName) {
-  //     submitReviewerName();
-  //   }
-  // }, [reviewerName]);
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerName2) {
-  //     submitReviewerName2();
-  //   }
-  // }, [reviewerName2]);
   
   const handleReviewerNameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    // try {
-      setReviewerName(event.target.value);   
-      // await submitReviewerName();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
-  };
-
-  const submitReviewerName = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerName(hacker.id, reviewerName);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
+    setReviewerName(event.target.value);   
   };
   
   const handleReviewerNameChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    // try {
       setReviewerName2(event.target.value);
-      // await submitReviewerName2();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
   };
-
-  const submitReviewerName2 = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerName2(hacker.id, reviewerName2);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
-  };
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerComments) {
-  //     submitReviewerComments();
-  //   }
-  // }, [reviewerComments]);
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerComments2) {
-  //     submitReviewerComments2();
-  //   }
-  // }, [reviewerComments2]);
   
   const handleReviewerCommentsChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    // try {
       setReviewerComments(event.target.value);
-      // await submitReviewerComments();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
-  };
-
-  const submitReviewerComments = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerComments(hacker.id, reviewerComments);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
   };
   
   const handleReviewerCommentsChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    // try {
       setReviewerComments2(event.target.value);    
-      // await submitReviewerComments2();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
   };
-
-  const submitReviewerComments2 = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerComments2(hacker.id, reviewerComments2);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
-  };
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerStatus) {
-  //     submitReviewer();
-  //   }
-  // }, [reviewerStatus]);
-
-  // useEffect(() => { // when reviewerStatus changes
-  //   if (reviewerStatus2) {
-  //     submitReviewer2();
-  //   }
-  // }, [reviewerStatus2]);
 
   const handleReviewerChange = async ({ value }: any) => {
-    // try {      
-      setReviewerStatus(value);      
-      // await submitReviewer();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
-  };
-
-  const submitReviewer = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerStatus(hacker.id, reviewerStatus);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
+      setReviewerStatus(value);  
   };
 
   const handleReviewerChange2 = async ({ value }: any) => {
-    // try {      
-      setReviewerStatus2(value);      
-      // await submitReviewer2();
-    // } catch (error) {
-    //   console.error('Error updating reviewer status:', error);
-    // }
-  };
-
-  const submitReviewer2 = async () => {
-    // try {
-      const { hacker } = props;
-      // await Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2);
-      // toast.success(`Hacker status updated to ${reviewerStatus}!`);
-    // } catch (e: any) {
-    //   if (e?.data) {
-    //     ValidationErrorGenerator(e.data);
-    //   } else {
-    //     console.error('Unexpected error:', e);
-    //   }
-    // }
+      setReviewerStatus2(value);  
   };
 
   const { hacker } = props;
