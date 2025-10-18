@@ -4,10 +4,6 @@ import API from './api';
 import APIResponse from './APIResponse';
 
 interface ICheckinData {
-  teamMember1: string;
-  teamMember2?: string;
-  teamMember3?: string;
-  teamMember4?: string;
   prizeCategories: string[];
   sponsorChallenges: string[];
   workshopsAttended: string[];

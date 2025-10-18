@@ -8,25 +8,15 @@ const SelfCheckinPage: React.FC = () => {
   return (
     <Flex flexDirection={'column'}>
       <Box>
-        <H1
-          fontSize={'30px'}
-          textAlign={'center'}
-          marginBottom={'20px'}
-          marginLeft={'0px'}
-        >
-          Check In
-        </H1>
-      </Box>
-      <Box>
         <MaxWidthBox maxWidth={'600px'} width={1} mx="auto">
           <H1
             color={theme.colors.black80}
             fontSize={'24px'}
-            textAlign={'left'}
-            marginBottom={'20px'}
+            textAlign={'center'}
+            marginBottom={'50px'}
             marginLeft={'0px'}
           >
-            Team Information
+            Hacker Self Check-in Form
           </H1>
           <HackerCheckinForm />
         </MaxWidthBox>

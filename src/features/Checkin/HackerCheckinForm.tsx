@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, FastField, ErrorMessage } from 'formik';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import { SubmitBtn } from '../../shared/Form';
 import styled from 'styled-components';
 import { submitCheckin } from '../../api/checkin';
+import { Hacker } from '../../api';
 
-import { PrizeCategories, SponsorChallenges, Workshops } from '../../config';
+import { PrizeCategories, SponsorChallenges, Workshops, FrontendRoute } from '../../config';
 import { getOptionsFromEnum } from '../../util';
+import { Button, ButtonVariant, MaxWidthBox } from '../../shared/Elements';
 
 const StyledForm = styled(Form).attrs({
   placeholder: undefined
@@ -28,15 +30,34 @@ const HackerCheckinForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [hasTeam, setHasTeam] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleSubmit = async (values: any) => {
+  useEffect(() => {
+    // Check if user has a team
+    const checkTeam = async () => {
+      try {
+        const response = await Hacker.getSelf();
+        const hacker = response.data.data;
+        setHasTeam(!!hacker.teamId);
+      } catch (error) {
+        console.error('Failed to fetch hacker info:', error);
+        setHasTeam(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkTeam();
+  }, []);
+
+  const handleSubmit = async (values: any, { resetForm }: any) => {
     setIsSubmitting(true);
     setSubmitError(null);
     setSubmitSuccess(false);
     try {
-      console.log(values);
       await submitCheckin(values);
       setSubmitSuccess(true);
+      resetForm();
     } catch (error) {
       setSubmitError('Failed to submit check-in. Please try again.');
     } finally {
@@ -44,22 +65,62 @@ const HackerCheckinForm: React.FC = () => {
     }
   };
 
+  if (isLoading) {
+    return <div style={{ textAlign: 'center', padding: '40px' }}>Loading...</div>;
+  }
+
+  if (!hasTeam) {
+    return (
+      <MaxWidthBox 
+        maxWidth="600px"
+        m="0 auto"
+        style={{ 
+          background: '#fff3cd', 
+          border: '1px solid #ffc107', 
+          borderRadius: '8px', 
+          padding: '20px', 
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <h3 style={{ color: '#856404', marginTop: 0 }}>Team Required</h3>
+        <p style={{ color: '#856404' }}>
+          You must create or join a team before accessing this form.
+        </p>
+        <p style={{ color: '#856404' }}>
+          <strong>Solo hackers:</strong> You may create a team with just yourself.
+        </p>
+        <Button
+          variant={ButtonVariant.Primary}
+          as="a"
+          href={FrontendRoute.TEAM_PAGE}
+          style={{ 
+            marginTop: '15px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+            minHeight: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          Go to Team Page
+        </Button>
+      </MaxWidthBox>
+    );
+  }
+
   return (
     <Formik
       initialValues={{
-        teamMember1: '',
-        teamMember2: '',
-        teamMember3: '',
-        teamMember4: '',
         prizeCategories: [],
         sponsorChallenges: [],
         workshopsAttended: []
       }}
       validate={(values) => {
         const errors: any = {};
-        if (!values.teamMember1) {
-          errors.teamMember1 = 'Required';
-        }
         if (!values.prizeCategories || values.prizeCategories.length === 0) {
           errors.prizeCategories = 'Required';
         }
@@ -69,39 +130,6 @@ const HackerCheckinForm: React.FC = () => {
     >
       {(fp) => (
         <StyledForm>
-          <h2>Hacker Check-In Form</h2>
-          <FastField
-            name="teamMember1"
-            label="Team Member 1 *"
-            component={FormikElements.Input}
-            required={true}
-            value={fp.values.teamMember1}
-          />
-          <ErrorMessage component={FormikElements.Error} name="teamMember1" />
-
-          <FastField
-            name="teamMember2"
-            label="Team Member 2"
-            component={FormikElements.Input}
-            value={fp.values.teamMember2}
-          />
-          <ErrorMessage component={FormikElements.Error} name="teamMember2" />
-
-          <FastField
-            name="teamMember3"
-            label="Team Member 3"
-            component={FormikElements.Input}
-            value={fp.values.teamMember3}
-          />
-          <ErrorMessage component={FormikElements.Error} name="teamMember3" />
-
-          <FastField
-            name="teamMember4"
-            label="Team Member 4"
-            component={FormikElements.Input}
-            value={fp.values.teamMember4}
-          />
-          <ErrorMessage component={FormikElements.Error} name="teamMember4" />
 
           <FastField
             name="prizeCategories"
@@ -112,7 +140,7 @@ const HackerCheckinForm: React.FC = () => {
             required={true}
             value={fp.values.prizeCategories}
           >
-            
+
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="prizeCategories" />
 
@@ -124,7 +152,7 @@ const HackerCheckinForm: React.FC = () => {
             isMulti={true}
             value={fp.values.sponsorChallenges}
           >
-            
+
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="sponsorChallenges" />
 
@@ -136,7 +164,7 @@ const HackerCheckinForm: React.FC = () => {
             options={getOptionsFromEnum(Workshops)}
             value={fp.values.workshopsAttended}
           >
-            
+
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="workshopsAttended" />
 
