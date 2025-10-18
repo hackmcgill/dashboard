@@ -9,3 +9,4 @@ export * from './travel';
 export * from './search';
 export * from './settings';
 export * from './sponsor';
+export * from './emails';
