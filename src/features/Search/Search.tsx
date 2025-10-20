@@ -46,6 +46,15 @@ interface ISearchState {
   emailModalOpen: boolean;
   emailSending: boolean;
   emailStatus: string;
+  emailConfirming: boolean;
+  emailCount: number | null;
+  emailResult: null | {
+    ok: boolean;
+    success: number;
+    failed: number;
+    statusLabel: string;
+    errorMessage?: string;
+  };
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -61,6 +70,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       emailModalOpen: false,
       emailSending: false,
       emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailResult: null,
     };
 
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -70,12 +82,18 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
     this.openEmailModal = this.openEmailModal.bind(this);
     this.closeEmailModal = this.closeEmailModal.bind(this);
-    this.handleSendEmails = this.handleSendEmails.bind(this);
+    this.startEmailConfirmation = this.startEmailConfirmation.bind(this);
+    this.backFromEmailConfirmation = this.backFromEmailConfirmation.bind(this);
+    this.confirmSendEmails = this.confirmSendEmails.bind(this);
+    this.closeEmailResult = this.closeEmailResult.bind(this);
     this.state = {
       ...this.state,
       emailModalOpen: false,
       emailSending: false,
       emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailResult: null,
     };
   }
   openEmailModal() {
@@ -83,29 +101,85 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   closeEmailModal() {
-    this.setState({ emailModalOpen: false, emailStatus: '' });
+    this.setState({
+      emailModalOpen: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailSending: false,
+      emailResult: null,
+    });
   }
 
-  async handleSendEmails(status: string) {
-    this.setState({ emailSending: true, emailStatus: status });
+  async startEmailConfirmation(status: string) {
     try {
-      const resp = await Emails.sendAutomatedStatus(status);
-      // Axios returns the response directly
-      const { success, failed } = resp.data.data;
-      alert(
-        `Successfully sent ${success} ${status.toLowerCase()} emails` +
-          (failed > 0 ? ` (${failed} failed)` : '')
-      );
+      // Fetch the count of emails to be sent
+      const countResp = await Emails.getStatusCount(status);
+      const count = countResp.data.data.count;
+      this.setState({
+        emailStatus: status,
+        emailConfirming: true,
+        emailCount: typeof count === 'number' ? count : 0,
+      });
     } catch (err: any) {
       const message = err?.data?.message || err?.message || err;
-      alert(`Failed to send ${status.toLowerCase()} emails: ${message}`);
+      alert(
+        `Failed to retrieve ${status.toLowerCase()} email count: ${message}`
+      );
+    }
+  }
+
+  backFromEmailConfirmation() {
+    this.setState({
+      emailConfirming: false,
+      emailCount: null,
+      emailStatus: '',
+    });
+  }
+
+  async confirmSendEmails() {
+    const { emailStatus } = this.state;
+    if (!emailStatus) return;
+    try {
+      this.setState({ emailSending: true });
+      const resp = await Emails.sendAutomatedStatus(emailStatus);
+      const { success, failed } = resp.data.data;
+      this.setState({
+        emailResult: {
+          ok: true,
+          success,
+          failed,
+          statusLabel: emailStatus,
+        },
+      });
+    } catch (err: any) {
+      const message = err?.data?.message || err?.message || err;
+      this.setState({
+        emailResult: {
+          ok: false,
+          success: 0,
+          failed: 0,
+          statusLabel: emailStatus,
+          errorMessage: String(message),
+        },
+      });
     } finally {
       this.setState({
         emailSending: false,
-        emailModalOpen: false,
-        emailStatus: '',
+        emailConfirming: false,
       });
     }
+  }
+
+  private closeEmailResult() {
+    this.setState({
+      emailResult: null,
+      emailModalOpen: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailSending: false,
+    });
   }
 
   public render() {
@@ -222,70 +296,141 @@ class SearchContainer extends React.Component<{}, ISearchState> {
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h2>Send Decision Emails</h2>
-              <div
-                style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
-              >
-                <Button
-                  disabled={this.state.emailSending}
-                  onClick={() => this.handleSendEmails('Accepted')}
-                  style={{
-                    backgroundColor: theme.colors.white,
-                    transition: 'background-color 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      theme.colors.black10;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = theme.colors.white;
-                  }}
+              {this.state.emailResult ? (
+                <div
+                  style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
                 >
-                  Send All Acceptance Emails
-                </Button>
-                <Button
-                  disabled={this.state.emailSending}
-                  onClick={() => this.handleSendEmails('Declined')}
-                  style={{
-                    backgroundColor: theme.colors.white,
-                    transition: 'background-color 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      theme.colors.black10;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = theme.colors.white;
-                  }}
+                  <h2>
+                    {this.state.emailResult.ok ? 'Emails Sent' : 'Send Failed'}
+                  </h2>
+                  {this.state.emailResult.ok ? (
+                    <p style={{ marginTop: 4 }}>
+                      Successfully sent{' '}
+                      <strong>{this.state.emailResult.success}</strong>{' '}
+                      {this.state.emailResult.statusLabel.toLowerCase()} email
+                      {this.state.emailResult.success === 1 ? '' : 's'}
+                      {this.state.emailResult.failed > 0
+                        ? ` (${this.state.emailResult.failed} failed)`
+                        : ''}
+                      .
+                    </p>
+                  ) : (
+                    <>
+                      <p style={{ marginTop: 4 }}>
+                        Failed to send{' '}
+                        {this.state.emailResult.statusLabel.toLowerCase()}{' '}
+                        emails.
+                      </p>
+                      <p
+                        style={{
+                          color: theme.colors.black60,
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {this.state.emailResult.errorMessage}
+                      </p>
+                    </>
+                  )}
+                  <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                    <Button onClick={this.closeEmailResult}>Done</Button>
+                  </div>
+                </div>
+              ) : this.state.emailConfirming ? (
+                <div
+                  style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
                 >
-                  Send All Declined Emails
-                </Button>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: 24,
-                }}
-              >
-                <Button
-                  onClick={this.closeEmailModal}
-                  variant={ButtonVariant.Secondary}
-                  isOutlined={true}
-                  disabled={this.state.emailSending}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      theme.colors.black10;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = theme.colors.white;
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
-
-              {this.state.emailSending && <p>Sending emails...</p>}
+                  <h2>Confirm Send</h2>
+                  <p style={{ marginTop: 4 }}>
+                    You are about to send{' '}
+                    <strong>{this.state.emailCount ?? 0}</strong>{' '}
+                    {this.state.emailStatus.toLowerCase()} email
+                    {this.state.emailCount === 1 ? '' : 's'}.
+                  </p>
+                  <p style={{ color: theme.colors.black60, marginTop: 0 }}>
+                    This will email all hackers currently marked as{' '}
+                    <strong>{this.state.emailStatus}</strong>.
+                  </p>
+                  <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                    <Button
+                      disabled={
+                        this.state.emailSending ||
+                        (this.state.emailCount ?? 0) === 0
+                      }
+                      onClick={this.confirmSendEmails}
+                      variant={ButtonVariant.Primary}
+                    >
+                      {this.state.emailSending ? 'Sending…' : 'Confirm Send'}
+                    </Button>
+                    <Button
+                      onClick={this.backFromEmailConfirmation}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      disabled={this.state.emailSending}
+                    >
+                      Back
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <h2>Send Decision Emails</h2>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 12,
+                    }}
+                  >
+                    <Button
+                      disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Accepted')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Acceptance Emails
+                    </Button>
+                    <Button
+                      disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Declined')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Declined Emails
+                    </Button>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: 24,
+                    }}
+                  >
+                    <Button
+                      onClick={this.closeEmailModal}
+                      variant={ButtonVariant.Primary}
+                      disabled={this.state.emailSending}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}

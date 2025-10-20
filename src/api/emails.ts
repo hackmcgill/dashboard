@@ -1,10 +1,10 @@
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosPromise } from 'axios';
 import API from './api';
 import APIResponse from './APIResponse';
+import axios from 'axios';
 
 class EmailsAPI {
   constructor() {
-    // register /api/email endpoints
     API.createEntity('email');
   }
 
@@ -14,11 +14,23 @@ class EmailsAPI {
    */
   public sendAutomatedStatus(
     status: string
-  ): AxiosPromise<APIResponse<{ success: number; failed: number }>
-  > {
-    // Use create with subURL to hit /email/automated/status/:status
+  ): AxiosPromise<APIResponse<{ success: number; failed: number }>> {
     return API.getEndpoint('email').create(undefined, {
       subURL: `automated/status/${status}`,
+      config: { withCredentials: true },
+    });
+  }
+
+  /**
+   * Get count of hackers with specified status
+   * GET /api/email/automated/status/:status/count
+   */
+  public getStatusCount(
+    status: string
+  ): AxiosPromise<APIResponse<{ count: number }>> {
+    const baseURL = API.getEndpoint('email')['resourceURL'];
+    return axios.get(`${baseURL}/automated/status/${status}/count`, {
+      withCredentials: true,
     });
   }
 }
