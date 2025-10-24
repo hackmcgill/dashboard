@@ -12,7 +12,7 @@ import { ButtonVariant } from '../../shared/Elements';
 import { EmailInput, PasswordInput, SubmitBtn } from '../../shared/Form';
 
 import launchpad from '../../assets/images/launchpad.svg';
-import MartletTitle from '../../assets/images/martlet-text.svg';
+import MartletTitle from '../../assets/images/martlet-text-13.png';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
@@ -79,8 +79,10 @@ const LoginPage: React.FC = () => {
         <form className="form-content" onSubmit={handleSubmit}>
           <Image
             src={MartletTitle}
-            imgHeight="60px"
-            imgWidth="230px"
+            imgHeight="90px"
+            imgWidth="345px"
+            // imgHeight="60px"
+            // imgWidth="230px"
             padding="0 0 60px 0"
           />
           <EmailInput
