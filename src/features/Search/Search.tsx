@@ -80,6 +80,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           <Flex>
             <Box width={1 / 6} mx={2}>
               <H2>Filters</H2>
+              <h4>{this.state.results.length} results</h4>
               <FilterComponent
                 initFilters={query}
                 onChange={this.onFilterChange}
