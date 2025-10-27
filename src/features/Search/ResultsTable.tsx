@@ -17,6 +17,41 @@ interface IResultsTableProps {
   triggerUpdate: () => void;
 }
 
+// calculate review status
+const calculateReviewStatusCount = (hacker: IHacker): number => {
+  if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    return 2;
+  } else if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE || hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+// calculate review score
+const calculateReviewScoreCount = (hacker: IHacker): number => {
+  const arr = [hacker.reviewerStatus, hacker.reviewerStatus2];
+  if (arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    return -1;
+  } else if (arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+    return 5;
+  } else {
+    let score = 0;
+    let numberOfReviews = 0;
+    arr.forEach((val) => {
+      if (val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+        numberOfReviews += 1;
+        // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
+        if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
+        else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
+        else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
+        else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
+      }
+    });
+    return score / numberOfReviews;
+  }
+};
+
 const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
   const volunteerColumns = [
     {
@@ -52,45 +87,18 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
     },
     { // Number of reviewers that have reviewed this hacker
       Header: 'Review Status',
-      accessor: 'hacker.reviewerStatus',
+      id: 'reviewStatus', // required since accessor is a non-string
+      accessor: (row: any) => calculateReviewStatusCount(row.hacker),
       Cell: (cellProps: any) => {
-        const reviewerStatus = cellProps.original.hacker.reviewerStatus;
-        const reviewerStatus2 = cellProps.original.hacker.reviewerStatus2;
-        if (reviewerStatus!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && reviewerStatus2!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
-          return <span>2</span>;
-        } else if (reviewerStatus!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE || reviewerStatus2!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
-          return <span>1</span>;
-        } else {
-          return <span>0</span>;
-        }
+        return cellProps.value;
       },
     },
     { // Average score of the reviews for this hacker
       Header: 'Review Score',
-      accessor: 'hacker.reviewerStatus',
+      id: 'reviewScore', // required since accessor is a non-string
+      accessor: (row: any) => calculateReviewScoreCount(row.hacker),
       Cell: (cellProps: any) => {
-        const reviewerStatus = cellProps.original.hacker.reviewerStatus;
-        const reviewerStatus2 = cellProps.original.hacker.reviewerStatus2;
-        const arr = [reviewerStatus, reviewerStatus2];
-        if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
-          return <span>-1</span>;
-        } else if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
-              return <span>5</span>;
-            } else {
-          let score = 0;
-          let numberOfReviews = 0;
-          arr.forEach((val) => {
-            if (val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
-              numberOfReviews += 1;
-              // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
-              if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
-              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
-              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
-              else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
-            }
-          });
-          return <span>{score/numberOfReviews}</span>;
-        } 
+        return cellProps.value;
       },
     },
     {
