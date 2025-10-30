@@ -15,10 +15,10 @@ const getValidationSchema = (isCreate: boolean) => {
     email: string().required('Required').email('Must be a valid email'),
     password,
     newPassword: string().min(6, 'Must be at least 6 characters'),
-    pronoun: string(),
-    gender: string(),
+    pronoun: array().of(string()),
+    gender: string().required('Required'),
     dietaryRestrictions: array().of(string()),
-    phoneNumber: string().test(
+    phoneNumber: string().required('Required').test(
       'validPhone',
       'Must be a valid phone number',
       (value) => {
