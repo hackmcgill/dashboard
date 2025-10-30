@@ -298,7 +298,7 @@ export async function generateHackPass(
 
   if (account.pronoun) {
     doc.text('Hacker', 8, 15);
-    doc.text(account.pronoun, 8, 17);
+    doc.text(account.pronoun.join(", "), 8, 17);
   } else {
     doc.text('Hacker', 8, 16);
   }

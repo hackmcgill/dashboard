@@ -78,7 +78,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     lastName: '',
     password: getNestedAttr(props, ['location', 'state', 'password']) || '',
     phoneNumber: '',
-    pronoun: '',
+    pronoun: [],
     gender: '',
     dietaryRestrictions: [],
   });
@@ -319,7 +319,6 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         options={getOptionsFromEnum(Genders)}
         required={true}
         value={fp.values.gender}
-        showOptionalLabel={true}
       />
       <ErrorMessage component={FormikElements.Error} name="gender" />
       <FastField
@@ -327,9 +326,10 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
         creatable={true}
         label={CONSTANTS.PRONOUN_LABEL}
         name={'pronoun'}
+        isMulti={true}
         placeholder={CONSTANTS.PRONOUN_PLACEHOLDER}
         options={getOptionsFromEnum(Pronouns)}
-        required={true}
+        required={false}
         value={fp.values.pronoun}
         showOptionalLabel={true}
       />
