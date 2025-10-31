@@ -117,12 +117,20 @@ const HackerCheckinForm: React.FC = () => {
       initialValues={{
         prizeCategories: [],
         sponsorChallenges: [],
-        workshopsAttended: []
+        workshopsAttended: [],
+        discordTag: '',
+        devpostLink: ''
       }}
       validate={(values) => {
         const errors: any = {};
         if (!values.prizeCategories || values.prizeCategories.length === 0) {
           errors.prizeCategories = 'Required';
+        }
+        if (!values.discordTag) {
+          errors.discordTag = 'Required';
+        }
+        if (!values.devpostLink) {
+          errors.devpostLink = 'Required';
         }
         return errors;
       }}
@@ -167,6 +175,30 @@ const HackerCheckinForm: React.FC = () => {
 
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="workshopsAttended" />
+
+          <FastField
+            name="discordTag"
+            label={<>
+              Discord tag of the main point of contact for your team <br/> (e.g. JohnDoe#1234) *
+            </>}
+            component={FormikElements.Input}
+            required={true}
+            value={fp.values.discordTag}
+          >
+
+          </FastField>
+          <ErrorMessage component={FormikElements.Error} name="discordTag" />
+
+          <FastField
+            name="devpostLink"
+            label="Devpost Draft Link *"
+            component={FormikElements.Input}
+            required={true}
+            value={fp.values.devpostLink}
+          >
+
+          </FastField>
+          <ErrorMessage component={FormikElements.Error} name="devpostLink" />
 
           <SubmitBtn disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Submit'}

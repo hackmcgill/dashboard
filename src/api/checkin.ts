@@ -7,6 +7,8 @@ interface ICheckinData {
   prizeCategories: string[];
   sponsorChallenges: string[];
   workshopsAttended: string[];
+  discordTag: string;
+  devpostLink: string;
 }
 
 class CheckinAPI {
