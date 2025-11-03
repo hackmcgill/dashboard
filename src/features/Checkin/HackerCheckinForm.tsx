@@ -131,6 +131,15 @@ const HackerCheckinForm: React.FC = () => {
         }
         if (!values.devpostLink) {
           errors.devpostLink = 'Required';
+        } else {
+          try {
+            const url = new URL(values.devpostLink);
+            if (url.hostname !== 'devpost.com') {
+              errors.devpostLink = 'Please enter a valid Devpost URL';
+            }
+          } catch (e) {
+            errors.devpostLink = 'Please enter a valid Devpost URL';
+          }
         }
         return errors;
       }}
