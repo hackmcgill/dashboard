@@ -43,26 +43,14 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   useEffect(() => {
     setStatus(props.hacker.status);
-  }, [props]);
+  }, [props.hacker.status]);
 
   const isStaffMember = props.userType === UserType.STAFF;
   const isHackboardMember = props.userType === UserType.HACKBOARD;
   const canViewAdminSection = isStaffMember || isHackboardMember;
-  const restrictedStatuses = new Set<HackerStatus>([
-    HackerStatus.HACKER_STATUS_ACCEPTED,
-    HackerStatus.HACKER_STATUS_DECLINED,
-  ]);
-  const statusRestrictedForHackboard =
-    isHackboardMember && restrictedStatuses.has(status);
 
   const submit = async () => {
-    if (!canViewAdminSection) {
-      return;
-    }
-    if (statusRestrictedForHackboard) {
-      toast.error(
-        'Hackboard members cannot set status to Accepted or Declined.'
-      );
+    if (!isStaffMember) {
       return;
     }
     try {
@@ -123,13 +111,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     className="react-select-container"
                     classNamePrefix="react-select"
                     options={getOptionsFromEnum(HackerStatus)}
-                    isDisabled={!canViewAdminSection}
-                    isOptionDisabled={
-                      isHackboardMember
-                        ? (option: { value: HackerStatus }) =>
-                            restrictedStatuses.has(option.value)
-                        : undefined
-                    }
+                    isDisabled={!isStaffMember}
                     onChange={handleChange}
                     value={{
                       label: status,
@@ -137,25 +119,23 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     }}
                   />
                 </Box>
-                <Flex
-                  justifyContent={['center', 'flex-start']}
-                  alignItems="center"
-                  ml="16px"
-                >
-                  <Button
-                    type="button"
-                    onClick={submit}
-                    variant={ButtonVariant.Primary}
-                    isLoading={isLoading}
-                    disabled={
-                      isLoading ||
-                      !canViewAdminSection ||
-                      statusRestrictedForHackboard
-                    }
+                {isStaffMember && (
+                  <Flex
+                    justifyContent={['center', 'flex-start']}
+                    alignItems="center"
+                    ml="16px"
                   >
-                    Change status
-                  </Button>
-                </Flex>
+                    <Button
+                      type="button"
+                      onClick={submit}
+                      variant={ButtonVariant.Primary}
+                      isLoading={isLoading}
+                      disabled={isLoading}
+                    >
+                      Change status
+                    </Button>
+                  </Flex>
+                )}
               </Flex>
             </Form>
             <Flex

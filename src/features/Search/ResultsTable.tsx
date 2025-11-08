@@ -14,7 +14,6 @@ interface IResultsTableProps {
   userType: UserType;
   filter: string;
   canEditAllStatuses?: boolean;
-  canEditLimitedStatuses?: boolean;
 }
 
 const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {

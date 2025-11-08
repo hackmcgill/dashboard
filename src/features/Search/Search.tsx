@@ -68,8 +68,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     const { searchBar, account, query, loading, viewSaved } = this.state;
     const isStaffAccount =
       account && account.accountType === UserType.STAFF ? true : false;
-    const isHackboardAccount =
-      account && account.accountType === UserType.HACKBOARD ? true : false;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -140,7 +138,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   userType={account ? account.accountType : UserType.UNKNOWN}
                   filter={searchBar}
                   canEditAllStatuses={isStaffAccount}
-                  canEditLimitedStatuses={isHackboardAccount}
                 />
               </Flex>
             </Box>
