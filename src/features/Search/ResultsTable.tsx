@@ -13,6 +13,8 @@ interface IResultsTableProps {
   loading: boolean;
   userType: UserType;
   filter: string;
+  canEditAllStatuses?: boolean;
+  canEditLimitedStatuses?: boolean;
 }
 
 const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
@@ -98,6 +100,9 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
       columns = volunteerColumns;
       break;
     case UserType.STAFF:
+      columns = adminColumns;
+      break;
+    case UserType.HACKBOARD:
       columns = adminColumns;
       break;
     default:

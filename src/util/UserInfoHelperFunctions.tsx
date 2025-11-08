@@ -22,6 +22,7 @@ export function userCanAccessHackerPage(user: IAccount) {
   return (
     user.confirmed &&
     (user.accountType === UserType.STAFF ||
+      user.accountType === UserType.HACKBOARD ||
       user.accountType === UserType.VOLUNTEER ||
       isSponsor(user))
   );

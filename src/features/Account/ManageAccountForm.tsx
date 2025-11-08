@@ -1,6 +1,6 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import {
   ErrorMessage,
@@ -103,7 +103,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           const response = await Account.getSelf();
           const newAccountDetails = response.data.data;
           // Changed birthdate to age
-          //newAccountDetails.age = date2input(newAccountDetails.age);
+          // newAccountDetails.age = date2input(newAccountDetails.age);
 
           setAccountDetails(newAccountDetails);
         } catch (e) {
@@ -289,7 +289,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
           <FastField
             component={FormikElements.PhoneNumberInput}
             label={CONSTANTS.PHONE_NUMBER_LABEL}
-            name={"phoneNumber"}
+            name={'phoneNumber'}
             required={true}
             value={fp.values.phoneNumber}
           />
@@ -372,7 +372,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       pronoun: accountDetails.pronoun,
       gender: accountDetails.gender,
       dietaryRestrictions: accountDetails.dietaryRestrictions,
-      phoneNumber: accountDetails.phoneNumber, 
+      phoneNumber: accountDetails.phoneNumber,
       age: accountDetails.age,
     };
   };

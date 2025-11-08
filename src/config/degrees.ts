@@ -10,6 +10,6 @@ export enum Degrees {
   POSTDOC = 'Post Doctorate',
   OTHER = 'Other',
   NOT_STUDENT = "I'm not currently a student",
-  NO_ANSWER = 'Prefer not to answer'
+  NO_ANSWER = 'Prefer not to answer',
 }
 export default Degrees;

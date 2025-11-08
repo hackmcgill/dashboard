@@ -66,6 +66,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   public render() {
     const { searchBar, account, query, loading, viewSaved } = this.state;
+    const isStaffAccount =
+      account && account.accountType === UserType.STAFF ? true : false;
+    const isHackboardAccount =
+      account && account.accountType === UserType.HACKBOARD ? true : false;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -101,7 +105,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       />
                     </Box>
                     <Box mr={'10px'}>
-                      {account && account.accountType === UserType.STAFF && (
+                      {isStaffAccount && (
                         <Button
                           style={{ marginRight: '10px' }}
                           variant={ButtonVariant.Secondary}
@@ -135,6 +139,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   loading={loading}
                   userType={account ? account.accountType : UserType.UNKNOWN}
                   filter={searchBar}
+                  canEditAllStatuses={isStaffAccount}
+                  canEditLimitedStatuses={isHackboardAccount}
                 />
               </Flex>
             </Box>
@@ -203,10 +209,14 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     // Return all fields for admin, and only subset for sponsors
     if (
       this.state.account &&
-      this.state.account.accountType === UserType.STAFF
+      (this.state.account.accountType === UserType.STAFF ||
+        this.state.account.accountType === UserType.HACKBOARD)
     ) {
       headers.push({ label: CONSTANTS.AGE_LABEL, key: 'accountId.age' });
-      headers.push({ label: CONSTANTS.PHONE_NUMBER_LABEL, key: 'accountId.age' });
+      headers.push({
+        label: CONSTANTS.PHONE_NUMBER_LABEL,
+        key: 'accountId.age',
+      });
       headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
       headers.push({ label: 'Github', key: 'application.general.URL.github' });
       headers.push({
@@ -222,9 +232,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         key: 'application.general.URL.other',
       });
       headers.push({
-        label: 'Number of previous hackathons', 
-        key: 'application.shortAnswer.previousHackathons'
-      })
+        label: 'Number of previous hackathons',
+        key: 'application.shortAnswer.previousHackathons',
+      });
       headers.push({
         label: CONSTANTS.SKILLS_LABEL,
         key: 'application.shortAnswer.skills',
@@ -274,14 +284,20 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.PRONOUN_LABEL,
         key: 'accountId.pronoun',
       });
-      headers.push({label: CONSTANTS.DIETARY_RESTRICTIONS_LABEL, key: 'accountId.dietaryRestrictions'});
-      headers.push({label: 'Authorize MLH to send emails', key: 'application.other.sendEmail'})
+      headers.push({
+        label: CONSTANTS.DIETARY_RESTRICTIONS_LABEL,
+        key: 'accountId.dietaryRestrictions',
+      });
+      headers.push({
+        label: 'Authorize MLH to send emails',
+        key: 'application.other.sendEmail',
+      });
     }
     const tempHeaders: string[] = [];
     headers.forEach((header) => {
       tempHeaders.push(header.label);
     });
-    const csvData: string[] = [tempHeaders.join(',')]; 
+    const csvData: string[] = [tempHeaders.join(',')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
@@ -305,7 +321,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       }
     });
 
-    fileDownload(csvData.join('\n'), 'hackerData.csv', 'text/csv;charset=utf-8');
+    fileDownload(
+      csvData.join('\n'),
+      'hackerData.csv',
+      'text/csv;charset=utf-8'
+    );
   }
 
   private async triggerSearch(): Promise<void> {
@@ -334,12 +354,15 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private onFilterChange(newFilters: ISearchParameter[]) {
-    this.setState({
-      query: newFilters,
-    }, () => {
-      this.updateQueryURL(newFilters, this.state.searchBar);
-      this.triggerSearch();
-    });
+    this.setState(
+      {
+        query: newFilters,
+      },
+      () => {
+        this.updateQueryURL(newFilters, this.state.searchBar);
+        this.triggerSearch();
+      }
+    );
   }
 
   private onSearchBarChanged(e: any) {

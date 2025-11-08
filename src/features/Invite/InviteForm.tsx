@@ -35,7 +35,10 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
    * @param values the formik values
    */
   // const handleSubmit = async (values: any) => {
-    const handleSubmit = async (values: FormikValues, {resetForm}: FormikActions<FormikValues>) => {
+  const handleSubmit = async (
+    values: FormikValues,
+    { resetForm }: FormikActions<FormikValues>
+  ) => {
     // Record that form is being submitted
     setIsSubmitting(true);
 
@@ -53,9 +56,8 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
     } finally {
       setIsSubmitting(false);
     }
-    toast.success("Sent!"); // success message pop-up
+    toast.success('Sent!'); // success message pop-up
     resetForm(); // reset the form values
-    
   };
 
   /**
@@ -101,7 +103,7 @@ export const InviteForm: React.FC<IInviteFormProps> = (props) => {
         <ErrorMessage component={FormikElements.Error} name="accountType" />
         <SubmitBtn isLoading={isSubmitting} disabled={isSubmitting}>
           Invite
-        </SubmitBtn> 
+        </SubmitBtn>
       </Form>
     );
   };

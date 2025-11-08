@@ -109,6 +109,7 @@ export enum UserType {
   HACKER = 'Hacker',
   VOLUNTEER = 'Volunteer',
   STAFF = 'Staff',
+  HACKBOARD = 'Hackboard',
   SPONSOR_T1 = 'SponsorT1',
   SPONSOR_T2 = 'SponsorT2',
   SPONSOR_T3 = 'SponsorT3',
