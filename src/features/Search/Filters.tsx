@@ -10,6 +10,7 @@ import {
   SchoolsLVpair,
   Skills,
   StringOperations,
+  reviewers
 } from '../../config';
 import { GradYears } from '../../config';
 import Button, { ButtonVariant } from '../../shared/Elements/Button';
@@ -62,6 +63,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
         'application.general.jobInterest',
         initFilters
       ),
+      reviewer1: this.searchParam2List('reviewerName', initFilters),
+      reviewer2: this.searchParam2List('reviewerName2', initFilters),
     };
     return initVals;
   }
@@ -160,6 +163,24 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           component={FormikElements.Select}
           value={fp.values.jobInterest}
         />
+        <FastField
+          name={'reviewer1'}
+          label={'Reviewer 1'}
+          placeholder={'Reviewer 1...'}
+          isMulti={true}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(reviewers)}
+          value={fp.values.reviewer1}
+        />
+        <FastField
+          name={'reviewer2'}
+          label={'Reviewer 2'}
+          placeholder={'Reviewer 2...'}
+          isMulti={true}
+          component={FormikElements.Select}
+          options={getOptionsFromEnum(reviewers)}
+          value={fp.values.reviewer2}
+        />
         <Flex justifyContent={'center'}>
           <Box mr={'10px'}>
             <Button
@@ -217,6 +238,14 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       'application.general.jobInterest',
       values.jobInterest
     );
+    const reviewer1Param = this.list2SearchParam(
+      'reviewerName',
+      values.reviewer1
+    );
+    const reviewer2Param = this.list2SearchParam(
+      'reviewerName2',
+      values.reviewer2
+    );
     let search: ISearchParameter[] = [];
     search = search.concat(
       schoolSearchParam,
@@ -224,7 +253,9 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       degreeParam,
       statusParam,
       skillsParam,
-      jobInterestParam
+      jobInterestParam,
+      reviewer1Param,
+      reviewer2Param
     );
     // this.props.onChange(search);
     // this.props.onChange(search, values.reviewStatus);
