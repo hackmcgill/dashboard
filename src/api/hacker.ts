@@ -122,7 +122,7 @@ class HackerAPI {
   }
 
   /**
-   * Update's a hacker's status any status to any status of type HackerStatus
+   * Assign reviewers to hackers
    */
   public assignReviewers(): AxiosPromise {
     const value = API.getEndpoint(APIRoute.HACKER).create({},{subURL: 'assignReviewers'});
