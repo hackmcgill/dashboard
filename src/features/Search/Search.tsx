@@ -3,6 +3,8 @@ import fileDownload from 'js-file-download';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import HackerReviewerStatus from '../../config/hackerReviewerStatus';
+import { toast } from 'react-toastify';
+import Hacker from '../../api/hacker';
 
 import { Account, Search, Sponsor, Emails } from '../../api';
 import {
@@ -226,6 +228,25 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       />
                     </Box>
                     <Box mr={'10px'}>
+                      {account && account.accountType === UserType.STAFF && (
+                        <Button
+                          style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
+                          onClick={this.handleReviewerAssignment}
+                        >
+                          Assign Reviewers
+                        </Button>
+                      )}
+                      {account && account.accountType === UserType.STAFF && (
+                        <Button
+                          style={{ marginRight: '10px' }}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
+                        >
+                          Update Status
+                        </Button>
+                      )}
                       {account && isSponsor(account) && (
                         <Button
                           onClick={this.toggleSaved}
@@ -761,6 +782,26 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.setState({ sponsor, viewSaved: !viewSaved });
     }
   };
+
+  private handleReviewerAssignment = async () => {
+    try {
+      const resp = await Hacker.assignReviewers();
+      const result = resp.data;
+      const assignedCount = result.assignedCount;
+      const hackersAssigned = result.hackersAssigned;
+      const assignments = result.assignments;
+
+      toast.success(`Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`);
+      await this.triggerSearch();
+    }
+    catch (e: any) {
+      toast.error(
+        e.response?.data?.error || 'Failed to assign reviewers'
+      );
+    }
+    
+
+  }
 }
 
 export default withContext(WithToasterContainer(SearchContainer));
