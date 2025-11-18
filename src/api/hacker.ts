@@ -3,6 +3,7 @@ import {
   APIRoute,
   CACHE_HACKER_KEY,
   CACHE_STATS_KEY,
+  HackerReviewerStatus,
   HackerStatus,
   IHacker,
   IResumeResponse,
@@ -22,6 +23,12 @@ class HackerAPI {
     API.createEntity(APIRoute.HACKER_CHECKIN);
     API.createEntity(APIRoute.HACKER);
     API.createEntity(APIRoute.HACKER_STATUS);
+    API.createEntity(APIRoute.HACKER_REVIEWER_STATUS);
+    API.createEntity(APIRoute.HACKER_REVIEWER_STATUS2);
+    API.createEntity(APIRoute.HACKER_REVIEWER_NAME);
+    API.createEntity(APIRoute.HACKER_REVIEWER_NAME2);
+    API.createEntity(APIRoute.HACKER_REVIEWER_COMMENTS);
+    API.createEntity(APIRoute.HACKER_REVIEWER_COMMENTS2);
   }
   /**
    * Create an account.
@@ -113,6 +120,102 @@ class HackerAPI {
     LocalCache.remove(key);
     return value;
   }
+
+    /**
+   * Update's a hacker's reviewer status any status to any status of type HackerReviewerStatus
+   * @param {String} id The id of the hacker to be updated
+   * @param {HackerReviewerStatus} reviewerStatus The new status of the hacker
+   */
+  public updateReviewerStatus(id: string, reviewerStatus: HackerReviewerStatus): AxiosPromise {
+    const key = CACHE_HACKER_KEY + '-' + id;
+    const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_STATUS).patch(
+      { id },
+      { reviewerStatus }
+    );
+    LocalCache.remove(CACHE_HACKER_KEY);
+    LocalCache.remove(key);
+    return value;
+  }
+
+  /**
+ * Update's a hacker's reviewer status (2nd) any status to any status of type HackerReviewerStatus
+ * @param {String} id The id of the hacker to be updated
+ * @param {HackerReviewerStatus} reviewerStatus2 The new status of the hacker
+ */
+public updateReviewerStatus2(id: string, reviewerStatus2: HackerReviewerStatus): AxiosPromise {
+  const key = CACHE_HACKER_KEY + '-' + id;
+  const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_STATUS2).patch(
+    { id },
+    { reviewerStatus2 }
+  );
+  LocalCache.remove(CACHE_HACKER_KEY);
+  LocalCache.remove(key);
+  return value;
+}
+
+/**
+* Update's a hacker's reviewer name to any name of type string
+* @param {String} id The id of the hacker to be updated
+* @param {String} reviewerName The new status of the hacker
+*/
+public updateReviewerName(id: string, reviewerName: string): AxiosPromise {
+const key = CACHE_HACKER_KEY + '-' + id;
+const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_NAME).patch(
+  { id },
+  { reviewerName }
+);
+LocalCache.remove(CACHE_HACKER_KEY);
+LocalCache.remove(key);
+return value;
+}
+
+/**
+* Update's a hacker's reviewer name 2 to any name of type string
+* @param {String} id The id of the hacker to be updated
+* @param {String} reviewerName2 The new status of the hacker
+*/
+public updateReviewerName2(id: string, reviewerName2: string): AxiosPromise {
+const key = CACHE_HACKER_KEY + '-' + id;
+const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_NAME2).patch(
+  { id },
+  { reviewerName2 }
+);
+LocalCache.remove(CACHE_HACKER_KEY);
+LocalCache.remove(key);
+return value;
+}
+
+/**
+* Update's a hacker's reviewer comments to any name of type string
+* @param {String} id The id of the hacker to be updated
+* @param {String} reviewerComments The new status of the hacker
+*/
+public updateReviewerComments(id: string, reviewerComments: string): AxiosPromise {
+const key = CACHE_HACKER_KEY + '-' + id;
+const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_COMMENTS).patch(
+  { id },
+  { reviewerComments }
+);
+LocalCache.remove(CACHE_HACKER_KEY);
+LocalCache.remove(key);
+return value;
+}
+
+/**
+* Update's a hacker's reviewer comments to any name of type string
+* @param {String} id The id of the hacker to be updated
+* @param {String} reviewerComments2 The new status of the hacker
+*/
+public updateReviewerComments2(id: string, reviewerComments2: string): AxiosPromise {
+const key = CACHE_HACKER_KEY + '-' + id;
+const value = API.getEndpoint(APIRoute.HACKER_REVIEWER_COMMENTS2).patch(
+  { id },
+  { reviewerComments2 }
+);
+LocalCache.remove(CACHE_HACKER_KEY);
+LocalCache.remove(key);
+return value;
+}
 
   /**
    * Update's a hacker's status to checked-in if the hacker is accepted or confirmed.
