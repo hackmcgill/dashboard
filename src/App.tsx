@@ -285,7 +285,9 @@ class App extends React.Component {
                       requiredAuthState: true,
                       redirAfterLogin: true,
                       AuthVerification: (user: IAccount) =>
-                        user.confirmed && user.accountType === UserType.STAFF,
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.HACKBOARD),
                     }),
                     { activePage: 'search' }
                   )
@@ -302,7 +304,9 @@ class App extends React.Component {
                       requiredAuthState: true,
                       redirAfterLogin: true,
                       AuthVerification: (user: IAccount) =>
-                        user.confirmed && user.accountType === UserType.STAFF,
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.HACKBOARD),
                     }),
                     { activePage: 'settings' }
                   )

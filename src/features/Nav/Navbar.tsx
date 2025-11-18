@@ -259,7 +259,7 @@ export default class Navbar extends React.Component<
               </NavLink> */}
             </>
           ) : null}
-          {userType === UserType.STAFF ? (
+          {userType === UserType.STAFF || userType === UserType.HACKBOARD ? (
             <>
               <NavLink
                 href={routes.ADMIN_SEARCH_PAGE}
@@ -267,22 +267,26 @@ export default class Navbar extends React.Component<
               >
                 Search
               </NavLink>
-              <NavLink
-                href={routes.INVITE_PAGE}
-                className={this.props.activePage === 'invite' ? 'active' : ''}
-              >
-                Invite
-              </NavLink>
-              <NavLink
-                href={routes.SETTINGS_PAGE}
-                className={this.props.activePage === 'settings' ? 'active' : ''}
-              >
-                Settings
-              </NavLink>
+              {userType === UserType.STAFF ? (
+                <NavLink
+                  href={routes.INVITE_PAGE}
+                  className={this.props.activePage === 'invite' ? 'active' : ''}
+                >
+                  Invite
+                </NavLink>
+              ) : null}
+              {userType === UserType.STAFF ? (
+                <NavLink
+                  href={routes.SETTINGS_PAGE}
+                  className={
+                    this.props.activePage === 'settings' ? 'active' : ''
+                  }
+                >
+                  Settings
+                </NavLink>
+              ) : null}
             </>
-          ) : (
-            <div />
-          )}
+          ) : null}
         </>
       );
     }

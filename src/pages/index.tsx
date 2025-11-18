@@ -59,6 +59,8 @@ const getDashboard = (accountType: UserType) => {
       return <HackerDashboard />;
     case UserType.STAFF:
       return <StaffDashboardContainer />;
+    case UserType.HACKBOARD:
+      return <StaffDashboardContainer />;
     case UserType.SPONSOR_T1:
       return <SponsorDashboard userType={UserType.SPONSOR_T1} />;
     case UserType.SPONSOR_T2:
