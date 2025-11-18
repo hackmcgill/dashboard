@@ -18,6 +18,7 @@ interface IModalProps {
   hacker: IHacker;
   allHackers: IHacker[];
   userType: UserType;
+  onUpdate?: () => void;
 }
 interface IModalState {
   showModal: boolean;
@@ -109,6 +110,7 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
               <SingleHackerView
                 hacker={this.props.allHackers[this.state.currentHackerIndex]}
                 userType={this.props.userType}
+                onUpdate={this.handleUpdate}
               />
             </Flex>
             <Flex width={1 / 8} justifyContent="flex-end">
@@ -165,6 +167,11 @@ class SingleHackerModal extends React.Component<IModalProps, IModalState> {
     const index = this.state.currentHackerIndex;
     if (index > 0) {
       this.setState({ currentHackerIndex: index - 1 });
+    }
+  };
+  private handleUpdate = () => {
+    if (this.props.onUpdate) {
+      this.props.onUpdate();
     }
   };
 
