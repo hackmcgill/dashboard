@@ -94,11 +94,11 @@ function date2age(date: string): string {
 
   // Adjust if the birthday hasn't occurred yet this year
   if (
-      currentDate.getMonth() < dob.getMonth() ||
-      (currentDate.getMonth() === dob.getMonth() &&
-        currentDate.getDate() < dob.getDate())
+    currentDate.getMonth() < dob.getMonth() ||
+    (currentDate.getMonth() === dob.getMonth() &&
+      currentDate.getDate() < dob.getDate())
   ) {
-      age--;
+    age--;
   }
   return age.toString();
 }

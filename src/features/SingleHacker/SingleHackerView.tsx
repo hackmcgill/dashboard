@@ -26,7 +26,7 @@ import { Form, StyledSelect } from '../../shared/Form';
 import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator';
 import theme from '../../shared/Styles/theme';
 
-//date2age is currently unused
+// date2age is currently unused
 import { date2age, getOptionsFromEnum } from '../../util';
 
 import SHField from './SingleHackerField';
@@ -52,12 +52,12 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsAdmin(props.userType === UserType.STAFF);
-  }, [props.userType]);
-
-  useEffect(() => {
     setStatus(props.hacker.status);
-  }, [props]);
+  }, [props.hacker.status]);
+
+  const isStaffMember = props.userType === UserType.STAFF;
+  const isHackboardMember = props.userType === UserType.HACKBOARD;
+  const canViewAdminSection = isStaffMember || isHackboardMember;
 
   useEffect(() => {
     setReviewerStatus(props.hacker.reviewerStatus);
@@ -67,18 +67,21 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   }, [props]);
 
   const submit = async () => {
+    if (!isStaffMember && !isHackboardMember) {
+      return;
+    }
     try {
-      const { hacker } = props;
       setIsLoading(true);
+      await Hacker.updateStatus(props.hacker.id, status);
 
       await Promise.all([
-        Hacker.updateStatus(hacker.id, status),
-        Hacker.updateReviewerStatus(hacker.id, reviewerStatus),
-        Hacker.updateReviewerStatus2(hacker.id, reviewerStatus2),
-        Hacker.updateReviewerName(hacker.id, reviewerName),
-        Hacker.updateReviewerName2(hacker.id, reviewerName2),
-        Hacker.updateReviewerComments(hacker.id, reviewerComments),
-        Hacker.updateReviewerComments2(hacker.id, reviewerComments2),
+        Hacker.updateStatus(props.hacker.id, status),
+        Hacker.updateReviewerStatus(props.hacker.id, reviewerStatus),
+        Hacker.updateReviewerStatus2(props.hacker.id, reviewerStatus2),
+        Hacker.updateReviewerName(props.hacker.id, reviewerName),
+        Hacker.updateReviewerName2(props.hacker.id, reviewerName2),
+        Hacker.updateReviewerComments(props.hacker.id, reviewerComments),
+        Hacker.updateReviewerComments2(props.hacker.id, reviewerComments2),
       ]);
       // await Hacker.updateStatus(hacker.id, status);
       setIsLoading(false);
@@ -121,8 +124,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
       setReviewerStatus2(value);  
   };
 
-  const { hacker } = props;
-  const account = (hacker.accountId as IAccount) || {};
+  const hackerDetails = props.hacker;
+  const account = (hackerDetails.accountId as IAccount) || {};
   const pronoun = account.pronoun ? `(${account.pronoun})` : '';
 
   // convert birthdates to ages if age value doesn't exist and birthdate value does
@@ -143,11 +146,11 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             {`${account.firstName} ${account.lastName} ${pronoun}`}
           </H1>
         </Flex>
-        <hr hidden={isAdmin} />
+        {/* <hr hidden={!canViewAdminSection} /> */}
         <Box ml="6px">
           <SingleHackerSection
             title={'Administrative Information'}
-            hidden={!isAdmin}
+            hidden={!canViewAdminSection}
           >
             <Form>
               <Flex
@@ -163,7 +166,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     className="react-select-container"
                     classNamePrefix="react-select"
                     options={getOptionsFromEnum(HackerStatus)}
-                    isDisabled={!isAdmin}
+                    isDisabled={!isStaffMember}
                     onChange={handleChange}
                     value={{
                       label: status,
@@ -171,23 +174,24 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     }}
                   />
                 </Box>
-                <Flex
-                  justifyContent={['center', 'flex-start']}
-                  alignItems="center"
-                  ml="16px"
-                >
-                  <Button
-                    type="button"
-                    onClick={submit}
-                    variant={ButtonVariant.Primary}
-                    isLoading={isLoading}
-                    disabled={isLoading || !isAdmin}
+                {(
+                  <Flex
+                    justifyContent={['center', 'flex-start']}
+                    alignItems="center"
+                    ml="16px"
                   >
-                    {/* Change status */}
-                     Save Changes 
-                  </Button>
+                    <Button
+                      type="button"
+                      onClick={submit}
+                      variant={ButtonVariant.Primary}
+                      isLoading={isLoading}
+                      disabled={isLoading}
+                    >
+                      Save Changes
+                    </Button>
+                  </Flex>
+                )}
                 </Flex>
-              </Flex>
               <Flex
                 width="100%"
                 flexWrap="wrap"
@@ -291,7 +295,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               <SHField label="Age" text={account.age} />
               <SHField
                 label="Shirt Size"
-                text={hacker.application.accommodation.shirtSize}
+                text={hackerDetails.application.accommodation.shirtSize}
               />
               {/* Removed as shirt size is no longer a property of account
                 <SHField label="Shirt Size" text={account.shirtSize} /> */}
@@ -310,11 +314,11 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               />
               <SHParagraph
                 label="Impairments"
-                text={hacker.application.accommodation.impairments}
+                text={hackerDetails.application.accommodation.impairments}
               />
               <SHParagraph
                 label="Barriers"
-                text={hacker.application.accommodation.barriers}
+                text={hackerDetails.application.accommodation.barriers}
               />
             </Flex>
             <hr />
@@ -327,28 +331,37 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             alignItems="center"
           >
             <SHField label="Email" text={account.email} />
-            <SHField label="School" text={hacker.application.general.school} />
-            <SHField label="Degree" text={hacker.application.general.degree} />
-            <SHField label="Status" text={hacker.status} />
-            <SHField label="ReviewerStatus" text={hacker.reviewerStatus} /> 
+            <SHField
+              label="School"
+              text={hackerDetails.application.general.school}
+            />
+            <SHField
+              label="Degree"
+              text={hackerDetails.application.general.degree}
+            />
+            <SHField label="Status" text={hackerDetails.status} />
+            <SHField label="School" text={props.hacker.application.general.school} />
+            <SHField label="Degree" text={props.hacker.application.general.degree} />
+            <SHField label="Status" text={props.hacker.status} />
+            <SHField label="ReviewerStatus" text={props.hacker.reviewerStatus} /> 
             <SHField
               label="Graduation Year"
-              text={hacker.application.general.graduationYear}
+              text={hackerDetails.application.general.graduationYear}
             />
             <SHField
               label="Field(s) of Study"
-              text={hacker.application.general.fieldOfStudy.join(', ')}
+              text={hackerDetails.application.general.fieldOfStudy.join(', ')}
             />
             <SHField
               label="Skills"
               text={
-                hacker.application.shortAnswer.skills &&
-                hacker.application.shortAnswer.skills.join(', ')
+                hackerDetails.application.shortAnswer.skills &&
+                hackerDetails.application.shortAnswer.skills.join(', ')
               }
             />
             <SHField
               label="Job interest"
-              text={hacker.application.general.jobInterest}
+              text={hackerDetails.application.general.jobInterest}
             />
           </Flex>
           <hr />
@@ -361,40 +374,42 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           >
             <SHLink
               label="GitHub"
-              link={hacker.application.general.URL.github}
+              link={hackerDetails.application.general.URL.github}
             />
             <SHLink
               label="LinkedIn"
-              link={hacker.application.general.URL.linkedIn}
+              link={hackerDetails.application.general.URL.linkedIn}
             />
             <SHLink
               label="Website"
-              link={hacker.application.general.URL.other}
+              link={hackerDetails.application.general.URL.other}
             />
             <SHLink
               label="Dribbble"
-              link={hacker.application.general.URL.dribbble}
+              link={hackerDetails.application.general.URL.dribbble}
             />
           </Flex>
           {/* Only tier1 sponsors and admin have access to user resumes */}
-          {props.userType === UserType.SPONSOR_T1 ||
-          props.userType === UserType.STAFF ? (
+          {props.userType === UserType.SPONSOR_T1 || canViewAdminSection ? (
             <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
-              <ViewPDFComponent hackerId={hacker.id} />
+              <ViewPDFComponent hackerId={hackerDetails.id} />
             </Flex>
           ) : null}
-          <SingleHackerSection title="Additional Information" hidden={!isAdmin}>
+          <SingleHackerSection
+            title="Additional Information"
+            hidden={!canViewAdminSection}
+          >
             <SHParagraph
               label="Why McHacks?"
-              text={hacker.application.shortAnswer.question1}
+              text={hackerDetails.application.shortAnswer.question1}
             />
             <SHParagraph
               label="What are you passionate about?"
-              text={hacker.application.shortAnswer.question2}
+              text={hackerDetails.application.shortAnswer.question2}
             />
             <SHParagraph
               label="Comments"
-              text={hacker.application.shortAnswer.comments}
+              text={hackerDetails.application.shortAnswer.comments}
             />
           </SingleHackerSection>
         </Box>

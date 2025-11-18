@@ -1,4 +1,4 @@
-import { array, object, string, number } from 'yup';
+import { array, number, object, string } from 'yup';
 
 const getValidationSchema = (isCreate: boolean) => {
   const password = isCreate
@@ -23,7 +23,9 @@ const getValidationSchema = (isCreate: boolean) => {
       'Must be a valid phone number',
       (value) => {
         const parsedValue = value?.replace(/\D/g, '');
-        return !parsedValue || (parsedValue.length > 10 && parsedValue.length < 14);
+        return (
+          !parsedValue || (parsedValue.length > 10 && parsedValue.length < 14)
+        );
       }
     ),
     age: number()

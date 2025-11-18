@@ -189,6 +189,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   public render() {
     const { searchBar, account, query, loading, viewSaved } = this.state;
+    const isStaffAccount =
+      account && account.accountType === UserType.STAFF ? true : false;
     return (
       <Flex flexDirection={'column'}>
         <Helmet>
@@ -224,15 +226,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       />
                     </Box>
                     <Box mr={'10px'}>
-                      {account && account.accountType === UserType.STAFF && (
-                        <Button
-                          style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary}
-                          isOutlined={true}
-                        >
-                          Update Status
-                        </Button>
-                      )}
                       {account && isSponsor(account) && (
                         <Button
                           onClick={this.toggleSaved}
@@ -268,6 +261,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   loading={loading}
                   userType={account ? account.accountType : UserType.UNKNOWN}
                   filter={searchBar}
+                  canEditAllStatuses={isStaffAccount}
                   triggerUpdate={this.triggerSearch}
                 />
               </Flex>
@@ -503,7 +497,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     // Return all fields for admin, and only subset for sponsors
     if (
       this.state.account &&
-      this.state.account.accountType === UserType.STAFF
+      (this.state.account.accountType === UserType.STAFF ||
+        this.state.account.accountType === UserType.HACKBOARD)
     ) {
       headers.push({ label: CONSTANTS.AGE_LABEL, key: 'accountId.age' });
       headers.push({
