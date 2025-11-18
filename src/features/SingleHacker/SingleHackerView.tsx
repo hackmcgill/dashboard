@@ -67,7 +67,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   }, [props]);
 
   const submit = async () => {
-    if (!isStaffMember) {
+    if (!isStaffMember && !isHackboardMember) {
       return;
     }
     try {
@@ -146,7 +146,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             {`${account.firstName} ${account.lastName} ${pronoun}`}
           </H1>
         </Flex>
-        <hr hidden={!canViewAdminSection} />
+        {/* <hr hidden={!canViewAdminSection} /> */}
         <Box ml="6px">
           <SingleHackerSection
             title={'Administrative Information'}
@@ -174,7 +174,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     }}
                   />
                 </Box>
-                {isStaffMember && (
+                {(
                   <Flex
                     justifyContent={['center', 'flex-start']}
                     alignItems="center"
