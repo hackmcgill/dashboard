@@ -620,7 +620,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       headers.push({ label: CONSTANTS.AGE_LABEL, key: 'accountId.age' });
       headers.push({
         label: CONSTANTS.PHONE_NUMBER_LABEL,
-        key: 'accountId.age',
+        key: 'accountId.phoneNumber',
       });
       headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
       headers.push({ label: 'Github', key: 'application.general.URL.github' });
@@ -698,36 +698,45 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         key: 'application.other.sendEmail',
       });
     }
-    const tempHeaders: string[] = [];
-    headers.forEach((header) => {
-      tempHeaders.push(header.label);
-    });
-    const csvData: string[] = [tempHeaders.join(',')];
+    // Build header row
+    const headerLabels = headers.map((h) => h.label);
+    const csvRows: string[] = [headerLabels.join(',')];
+
+    // Build each data row with proper escaping
     this.filter().forEach((result) => {
-      if (result.selected) {
-        const row: string[] = [];
-        headers.forEach((header) => {
-          let value;
-          if (header.key.indexOf('.') >= 0) {
-            const nestedAttr = header.key.split('.');
-            value = getNestedAttr(result.hacker, nestedAttr);
-            if (/[,"\n]/.test(value)) {
-              value = `"${value.replace(/"/g, '""')}"`;
-            }
-          } else {
-            value = result.hacker[header.key];
-            if (/[,"\n]/.test(value)) {
-              value = `"${value.replace(/"/g, '""')}"`;
-            }
-          }
-          row.push(value);
-        });
-        csvData.push(row.join('\t'));
-      }
+      if (!result.selected) return;
+      const row: string[] = [];
+      headers.forEach((header) => {
+        let value: any = '';
+        if (header.key.indexOf('.') >= 0) {
+          const nestedAttr = header.key.split('.');
+          value = getNestedAttr(result.hacker, nestedAttr);
+        } else {
+          value = (result.hacker as any)[header.key];
+        }
+
+        // Handle null/undefined, arrays, and coerce to string
+        if (value == null) {
+          value = '';
+        } else if (Array.isArray(value)) {
+          value = value.join('; ');
+        } else {
+          value = String(value);
+        }
+
+        // Escape double quotes and wrap if needed
+        if (/[",\n]/.test(value)) {
+          value = `"${value.replace(/"/g, '""')}"`;
+        }
+
+        row.push(value);
+      });
+
+      csvRows.push(row.join(','));
     });
 
     fileDownload(
-      csvData.join('\n'),
+      csvRows.join('\n'),
       'hackerData.csv',
       'text/csv;charset=utf-8'
     );
