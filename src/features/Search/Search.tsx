@@ -4,7 +4,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import HackerReviewerStatus from '../../config/hackerReviewerStatus';
 
-import { Account, Search, Sponsor } from '../../api';
+import { Account, Search, Sponsor, Emails } from '../../api';
 import {
   HACKATHON_NAME,
   IAccount,
@@ -46,6 +46,18 @@ interface ISearchState {
   sponsor?: ISponsor;
   reviewStatusFilter: number[];
   reviewScoreFilter: number[];
+  emailModalOpen: boolean;
+  emailSending: boolean;
+  emailStatus: string;
+  emailConfirming: boolean;
+  emailCount: number | null;
+  emailResult: null | {
+    ok: boolean;
+    success: number;
+    failed: number;
+    statusLabel: string;
+    errorMessage?: string;
+  };
 }
 
 class SearchContainer extends React.Component<{}, ISearchState> {
@@ -60,6 +72,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       viewSaved: false,
       reviewStatusFilter: [],
       reviewScoreFilter: [],
+      emailModalOpen: false,
+      emailSending: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailResult: null,
     };
 
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -67,6 +85,106 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
+    this.openEmailModal = this.openEmailModal.bind(this);
+    this.closeEmailModal = this.closeEmailModal.bind(this);
+    this.startEmailConfirmation = this.startEmailConfirmation.bind(this);
+    this.backFromEmailConfirmation = this.backFromEmailConfirmation.bind(this);
+    this.confirmSendEmails = this.confirmSendEmails.bind(this);
+    this.closeEmailResult = this.closeEmailResult.bind(this);
+    this.state = {
+      ...this.state,
+      emailModalOpen: false,
+      emailSending: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailResult: null,
+    };
+  }
+  openEmailModal() {
+    this.setState({ emailModalOpen: true });
+  }
+
+  closeEmailModal() {
+    this.setState({
+      emailModalOpen: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailSending: false,
+      emailResult: null,
+    });
+  }
+
+  async startEmailConfirmation(status: string) {
+    try {
+      // Fetch the count of emails to be sent
+      const countResp = await Emails.getStatusCount(status);
+      const count = countResp.data.data.count;
+      this.setState({
+        emailStatus: status,
+        emailConfirming: true,
+        emailCount: typeof count === 'number' ? count : 0,
+      });
+    } catch (err: any) {
+      const message = err?.data?.message || err?.message || err;
+      alert(
+        `Failed to retrieve ${status.toLowerCase()} email count: ${message}`
+      );
+    }
+  }
+
+  backFromEmailConfirmation() {
+    this.setState({
+      emailConfirming: false,
+      emailCount: null,
+      emailStatus: '',
+    });
+  }
+
+  async confirmSendEmails() {
+    const { emailStatus } = this.state;
+    if (!emailStatus) return;
+    try {
+      this.setState({ emailSending: true });
+      const resp = await Emails.sendAutomatedStatus(emailStatus);
+      const { success, failed } = resp.data.data;
+      this.setState({
+        emailResult: {
+          ok: true,
+          success,
+          failed,
+          statusLabel: emailStatus,
+        },
+      });
+    } catch (err: any) {
+      const message = err?.data?.message || err?.message || err;
+      this.setState({
+        emailResult: {
+          ok: false,
+          success: 0,
+          failed: 0,
+          statusLabel: emailStatus,
+          errorMessage: String(message),
+        },
+      });
+    } finally {
+      this.setState({
+        emailSending: false,
+        emailConfirming: false,
+      });
+    }
+  }
+
+  private closeEmailResult() {
+    this.setState({
+      emailResult: null,
+      emailModalOpen: false,
+      emailStatus: '',
+      emailConfirming: false,
+      emailCount: null,
+      emailSending: false,
+    });
   }
 
   public render() {
@@ -132,6 +250,16 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       >
                         Export Hackers
                       </Button>
+                      {account && account.accountType === UserType.STAFF && (
+                        <Button
+                          onClick={this.openEmailModal}
+                          variant={ButtonVariant.Secondary}
+                          isOutlined={true}
+                          style={{ marginLeft: '10px' }}
+                        >
+                          Send Emails
+                        </Button>
+                      )}
                     </Box>
                   </Flex>
                 </Box>
@@ -146,6 +274,172 @@ class SearchContainer extends React.Component<{}, ISearchState> {
             </Box>
           </Flex>
         </Box>
+        {/* Email Modal */}
+        {this.state.emailModalOpen && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              background: 'rgba(0,0,0,0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+            }}
+            onClick={this.closeEmailModal}
+          >
+            <div
+              style={{
+                background: 'white',
+                padding: '16px 32px 32px',
+                borderRadius: 8,
+                minWidth: 320,
+                boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+                position: 'relative',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {this.state.emailResult ? (
+                <div
+                  style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+                >
+                  <h2>
+                    {this.state.emailResult.ok ? 'Emails Sent' : 'Send Failed'}
+                  </h2>
+                  {this.state.emailResult.ok ? (
+                    <p style={{ marginTop: 4 }}>
+                      Successfully sent{' '}
+                      <strong>{this.state.emailResult.success}</strong>{' '}
+                      {this.state.emailResult.statusLabel.toLowerCase()} email
+                      {this.state.emailResult.success === 1 ? '' : 's'}
+                      {this.state.emailResult.failed > 0
+                        ? ` (${this.state.emailResult.failed} failed)`
+                        : ''}
+                      .
+                    </p>
+                  ) : (
+                    <>
+                      <p style={{ marginTop: 4 }}>
+                        Failed to send{' '}
+                        {this.state.emailResult.statusLabel.toLowerCase()}{' '}
+                        emails.
+                      </p>
+                      <p
+                        style={{
+                          color: theme.colors.black60,
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {this.state.emailResult.errorMessage}
+                      </p>
+                    </>
+                  )}
+                  <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                    <Button onClick={this.closeEmailResult}>Done</Button>
+                  </div>
+                </div>
+              ) : this.state.emailConfirming ? (
+                <div
+                  style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+                >
+                  <h2>Confirm Send</h2>
+                  <p style={{ marginTop: 4 }}>
+                    You are about to send{' '}
+                    <strong>{this.state.emailCount ?? 0}</strong>{' '}
+                    {this.state.emailStatus.toLowerCase()} email
+                    {this.state.emailCount === 1 ? '' : 's'}.
+                  </p>
+                  <p style={{ color: theme.colors.black60, marginTop: 0 }}>
+                    This will email all hackers currently marked as{' '}
+                    <strong>{this.state.emailStatus}</strong>.
+                  </p>
+                  <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                    <Button
+                      disabled={
+                        this.state.emailSending ||
+                        (this.state.emailCount ?? 0) === 0
+                      }
+                      onClick={this.confirmSendEmails}
+                      variant={ButtonVariant.Primary}
+                    >
+                      {this.state.emailSending ? 'Sending…' : 'Confirm Send'}
+                    </Button>
+                    <Button
+                      onClick={this.backFromEmailConfirmation}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      disabled={this.state.emailSending}
+                    >
+                      Back
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <h2>Send Decision Emails</h2>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 12,
+                    }}
+                  >
+                    <Button
+                      disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Accepted')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Acceptance Emails
+                    </Button>
+                    <Button
+                      disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Declined')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Declined Emails
+                    </Button>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: 24,
+                    }}
+                  >
+                    <Button
+                      onClick={this.closeEmailModal}
+                      variant={ButtonVariant.Primary}
+                      disabled={this.state.emailSending}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </Flex>
     );
   }
@@ -212,7 +506,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.state.account.accountType === UserType.STAFF
     ) {
       headers.push({ label: CONSTANTS.AGE_LABEL, key: 'accountId.age' });
-      headers.push({ label: CONSTANTS.PHONE_NUMBER_LABEL, key: 'accountId.age' });
+      headers.push({
+        label: CONSTANTS.PHONE_NUMBER_LABEL,
+        key: 'accountId.age',
+      });
       headers.push({ label: 'Resume', key: 'application.general.URL.resume' });
       headers.push({ label: 'Github', key: 'application.general.URL.github' });
       headers.push({
@@ -228,9 +525,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         key: 'application.general.URL.other',
       });
       headers.push({
-        label: 'Number of previous hackathons', 
-        key: 'application.shortAnswer.previousHackathons'
-      })
+        label: 'Number of previous hackathons',
+        key: 'application.shortAnswer.previousHackathons',
+      });
       headers.push({
         label: CONSTANTS.SKILLS_LABEL,
         key: 'application.shortAnswer.skills',
@@ -280,14 +577,20 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.PRONOUN_LABEL,
         key: 'accountId.pronoun',
       });
-      headers.push({label: CONSTANTS.DIETARY_RESTRICTIONS_LABEL, key: 'accountId.dietaryRestrictions'});
-      headers.push({label: 'Authorize MLH to send emails', key: 'application.other.sendEmail'})
+      headers.push({
+        label: CONSTANTS.DIETARY_RESTRICTIONS_LABEL,
+        key: 'accountId.dietaryRestrictions',
+      });
+      headers.push({
+        label: 'Authorize MLH to send emails',
+        key: 'application.other.sendEmail',
+      });
     }
     const tempHeaders: string[] = [];
     headers.forEach((header) => {
       tempHeaders.push(header.label);
     });
-    const csvData: string[] = [tempHeaders.join(',')]; 
+    const csvData: string[] = [tempHeaders.join(',')];
     this.filter().forEach((result) => {
       if (result.selected) {
         const row: string[] = [];
@@ -311,7 +614,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       }
     });
 
-    fileDownload(csvData.join('\n'), 'hackerData.csv', 'text/csv;charset=utf-8');
+    fileDownload(
+      csvData.join('\n'),
+      'hackerData.csv',
+      'text/csv;charset=utf-8'
+    );
   }
 
   private async triggerSearch(): Promise<void> {
