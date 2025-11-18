@@ -103,15 +103,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                       />
                     </Box>
                     <Box mr={'10px'}>
-                      {isStaffAccount && (
-                        <Button
-                          style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary}
-                          isOutlined={true}
-                        >
-                          Update Status
-                        </Button>
-                      )}
                       {account && isSponsor(account) && (
                         <Button
                           onClick={this.toggleSaved}
