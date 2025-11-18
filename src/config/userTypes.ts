@@ -1,4 +1,5 @@
 import HackerStatus from './hackerStatus';
+import HackerReviewerStatus from './hackerReviewerStatus';
 import { ITeam } from './team';
 
 export interface IAccount {
@@ -34,6 +35,12 @@ export interface IHacker {
   id: string;
   accountId: string | IAccount; // for querying account as well
   status: HackerStatus;
+  reviewerStatus: HackerReviewerStatus;
+  reviewerStatus2: HackerReviewerStatus;
+  reviewerName: string;
+  reviewerName2: string;
+  reviewerComments: string;
+  reviewerComments2: string;
   application: {
     general: {
       school: string;

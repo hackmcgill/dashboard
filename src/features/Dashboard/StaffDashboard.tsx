@@ -48,7 +48,7 @@ class AdminDashboardContainer extends React.Component<{}, IDashboardState> {
 
   public render() {
     return (
-      <DashboardView cards={this.generateCards()} title={'Staff Dashboard'} />
+        <DashboardView cards={this.generateCards()} title={'Staff Dashboard'} />
     );
   }
 
