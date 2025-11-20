@@ -801,7 +801,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   private handleReviewerAssignment = async (names: string) => {
-    try {//['Amy', 'Carolyn', 'Clara']
+    try {
       const reviewerNames = names.split(',').map((name) => name.trim()).filter((name) => name.length > 0);
       const resp = await Hacker.assignReviewers(reviewerNames);
       const result = resp.data;
