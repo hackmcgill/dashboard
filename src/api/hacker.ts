@@ -121,6 +121,18 @@ class HackerAPI {
     return value;
   }
 
+  /**
+   * Assign reviewers to hackers
+   */
+  public assignReviewers(names: string[]): AxiosPromise {
+    const value = API.getEndpoint(APIRoute.HACKER).create(
+      { names },
+      {subURL: 'assignReviewers'}
+    );
+    LocalCache.remove(CACHE_HACKER_KEY);
+    return value;
+  }
+
     /**
    * Update's a hacker's reviewer status any status to any status of type HackerReviewerStatus
    * @param {String} id The id of the hacker to be updated
