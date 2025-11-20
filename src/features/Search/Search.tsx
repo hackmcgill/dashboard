@@ -257,15 +257,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                           Assign Reviewers
                         </Button>
                       )}
-                      {account && account.accountType === UserType.STAFF && (
-                        <Button
-                          style={{ marginRight: '10px' }}
-                          variant={ButtonVariant.Secondary}
-                          isOutlined={true}
-                        >
-                          Update Status
-                        </Button>
-                      )}
                       {account && isSponsor(account) && (
                         <Button
                           onClick={this.toggleSaved}
