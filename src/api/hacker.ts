@@ -124,8 +124,11 @@ class HackerAPI {
   /**
    * Assign reviewers to hackers
    */
-  public assignReviewers(): AxiosPromise {
-    const value = API.getEndpoint(APIRoute.HACKER).create({},{subURL: 'assignReviewers'});
+  public assignReviewers(names: string[]): AxiosPromise {
+    const value = API.getEndpoint(APIRoute.HACKER).create(
+      { names },
+      {subURL: 'assignReviewers'}
+    );
     LocalCache.remove(CACHE_HACKER_KEY);
     return value;
   }

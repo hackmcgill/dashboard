@@ -785,7 +785,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private handleReviewerAssignment = async () => {
     try {
-      const resp = await Hacker.assignReviewers();
+      const resp = await Hacker.assignReviewers(['Amy', 'Carolyn', 'Clara']);
       const result = resp.data;
       const assignedCount = result.assignedCount;
       const hackersAssigned = result.hackersAssigned;
