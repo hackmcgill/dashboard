@@ -812,6 +812,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       toast.success(`Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`);
       await this.triggerSearch();
       this.closeReviewerModal();
+      this.setState({ reviewerNames: '' });
     }
     catch (e: any) {
       toast.error(
