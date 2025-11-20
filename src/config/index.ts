@@ -30,3 +30,4 @@ export * from './travel';
 export * from './userTypes';
 export * from './validationError';
 export * from './pageType';
+export * from './reviewers'
