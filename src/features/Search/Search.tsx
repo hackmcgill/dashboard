@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import HackerReviewerStatus from '../../config/hackerReviewerStatus';
 import { toast } from 'react-toastify';
 import Hacker from '../../api/hacker';
+import { Textarea } from '../../shared/Elements';
 
 import { Account, Search, Sponsor, Emails } from '../../api';
 import {
@@ -27,6 +28,9 @@ import { getNestedAttr, getValueFromQuery, isSponsor } from '../../util';
 import withContext from '../../shared/HOC/withContext';
 import { FilterComponent } from './Filters';
 import { ResultsTable } from './ResultsTable';
+import { LongTextInput } from '../../shared/Form/FormikElements';
+import { FastField } from 'formik';
+import * as FormikElements from '../../shared/Form/FormikElements';
 
 interface IResult {
   /**
@@ -42,6 +46,7 @@ interface ISearchState {
   query: ISearchParameter[];
   results: IResult[];
   searchBar: string;
+  reviewerNames: string;
   loading: boolean;
   viewSaved: boolean;
   account?: IAccount;
@@ -49,6 +54,7 @@ interface ISearchState {
   reviewStatusFilter: number[];
   reviewScoreFilter: number[];
   emailModalOpen: boolean;
+  reviewerModalOpen: boolean;
   emailSending: boolean;
   emailStatus: string;
   emailConfirming: boolean;
@@ -70,11 +76,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       query: this.getSearchFromQuery(),
       results: [],
       searchBar: this.getSearchBarFromQuery(),
+      reviewerNames: '',
       loading: false,
       viewSaved: false,
       reviewStatusFilter: [],
       reviewScoreFilter: [],
       emailModalOpen: false,
+      reviewerModalOpen: false,
       emailSending: false,
       emailStatus: '',
       emailConfirming: false,
@@ -87,8 +95,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.downloadData = this.downloadData.bind(this);
     this.onResetForm = this.onResetForm.bind(this);
     this.onSearchBarChanged = this.onSearchBarChanged.bind(this);
+    this.onReviewerChanged = this.onReviewerChanged.bind(this);
     this.openEmailModal = this.openEmailModal.bind(this);
     this.closeEmailModal = this.closeEmailModal.bind(this);
+    this.openReviewerModal = this.openReviewerModal.bind(this);
+    this.closeReviewerModal = this.closeReviewerModal.bind(this);
     this.startEmailConfirmation = this.startEmailConfirmation.bind(this);
     this.backFromEmailConfirmation = this.backFromEmailConfirmation.bind(this);
     this.confirmSendEmails = this.confirmSendEmails.bind(this);
@@ -96,6 +107,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.state = {
       ...this.state,
       emailModalOpen: false,
+      reviewerModalOpen: false,
       emailSending: false,
       emailStatus: '',
       emailConfirming: false,
@@ -106,7 +118,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   openEmailModal() {
     this.setState({ emailModalOpen: true });
   }
-
   closeEmailModal() {
     this.setState({
       emailModalOpen: false,
@@ -116,6 +127,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       emailSending: false,
       emailResult: null,
     });
+  }
+
+  openReviewerModal() {
+    this.setState({ reviewerModalOpen: true });
+  }
+  closeReviewerModal() {
+    this.setState({ reviewerModalOpen: false });
   }
 
   async startEmailConfirmation(status: string) {
@@ -190,7 +208,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   public render() {
-    const { searchBar, account, query, loading, viewSaved } = this.state;
+    const { searchBar, account, query, loading, viewSaved, reviewerNames } = this.state;
     const isStaffAccount =
       account && account.accountType === UserType.STAFF ? true : false;
     return (
@@ -233,7 +251,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                           style={{ marginRight: '10px' }}
                           variant={ButtonVariant.Secondary}
                           isOutlined={true}
-                          onClick={this.handleReviewerAssignment}
+                          // onClick={this.handleReviewerAssignment}
+                          onClick={this.openReviewerModal}
                         >
                           Assign Reviewers
                         </Button>
@@ -452,6 +471,92 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   </div>
                 </>
               )}
+            </div>
+          </div>
+        )}
+        {/* Reviewer Modal */}
+
+                      {/* {
+                        this.state.reviewerModalOpen && (
+                          <AssignReviewerModal
+                            onSubmit={this.handleReviewerAssignment}
+                            onClose={this.closeReviewerModal}
+                          />
+                        )
+                      } */}
+        {this.state.reviewerModalOpen && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              background: 'rgba(0,0,0,0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+            }}
+            onClick={this.closeReviewerModal}
+          >
+            <div
+              style={{
+                background: 'white',
+                padding: '16px 32px 32px',
+                borderRadius: 8,
+                minWidth: 320,
+                boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+                position: 'relative',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <>
+                <h2>Assign Reviewers</h2>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                  }}
+                >
+                  <Textarea
+                    onChange={this.onReviewerChanged}
+                    placeholder={'Reviewer names...'}
+                    style={{ marginBottom: '8px' }}
+                    value={this.state.reviewerNames}
+                  />
+                  <Button
+                    onClick={() => this.handleReviewerAssignment(reviewerNames)}
+                    variant={ButtonVariant.Secondary}
+                    isOutlined={true}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        theme.colors.black5;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        theme.colors.white;
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: 24,
+                  }}
+                >
+                  <Button
+                    onClick={this.closeReviewerModal}
+                    variant={ButtonVariant.Primary}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </>
             </div>
           </div>
         )}
@@ -679,6 +784,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.updateQueryURL(this.state.query, searchBar);
   }
 
+  private onReviewerChanged(e: any) {
+    const reviewerNames = e.target.value;
+    this.setState({ reviewerNames });
+  }
+
   private updateQueryURL(filters: ISearchParameter[], searchBar: string) {
     const newSearch = `?q=${encodeURIComponent(
       JSON.stringify(filters)
@@ -688,6 +798,28 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       '',
       window.location.href.split('?')[0] + newSearch
     );
+  }
+
+  private handleReviewerAssignment = async (names: string) => {
+    try {//['Amy', 'Carolyn', 'Clara']
+      const reviewerNames = names.split(',').map((name) => name.trim()).filter((name) => name.length > 0);
+      const resp = await Hacker.assignReviewers(reviewerNames);
+      const result = resp.data;
+      const assignedCount = result.assignedCount;
+      const hackersAssigned = result.hackersAssigned;
+      const assignments = result.assignments;
+
+      toast.success(`Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`);
+      await this.triggerSearch();
+      this.closeReviewerModal();
+    }
+    catch (e: any) {
+      toast.error(
+        e.response?.data?.error || 'Failed to assign reviewers'
+      );
+    }
+    
+
   }
 
   private calculateReviewStatusCount(hacker: IHacker): number {
@@ -782,26 +914,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       this.setState({ sponsor, viewSaved: !viewSaved });
     }
   };
-
-  private handleReviewerAssignment = async () => {
-    try {
-      const resp = await Hacker.assignReviewers(['Amy', 'Carolyn', 'Clara']);
-      const result = resp.data;
-      const assignedCount = result.assignedCount;
-      const hackersAssigned = result.hackersAssigned;
-      const assignments = result.assignments;
-
-      toast.success(`Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`);
-      await this.triggerSearch();
-    }
-    catch (e: any) {
-      toast.error(
-        e.response?.data?.error || 'Failed to assign reviewers'
-      );
-    }
-    
-
-  }
 }
 
 export default withContext(WithToasterContainer(SearchContainer));
