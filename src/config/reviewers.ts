@@ -1,5 +1,6 @@
 export const reviewers = [
     '',
+    'Aditi',
     'Amy',
     'Carolyn',
     'Clara',
@@ -35,6 +36,7 @@ export const reviewers = [
     'Sihan',
     'Siva',
     'Snigdha',
+    'Sonia',
     'Stephanie',
     'Tavi',
     'Tina',
