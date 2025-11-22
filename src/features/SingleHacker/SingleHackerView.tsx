@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { Input } from '../../shared/Form';
+import { Link } from 'react-router-dom';
 
 import { Box, Flex } from '@rebass/grid';
 import { toast } from 'react-toastify';
 
 import { Hacker } from '../../api';
+import Team from '../../api/team';
 import {
+  FrontendRoute,
   HACKATHON_NAME,
   HackerStatus,
   HackerReviewerStatus,
   IAccount,
   IHacker,
+  IMemberName,
   UserType,
 } from '../../config';
+import { ITeamResponse } from '../../config/teamGETResponse';
 import {
   Button,
   ButtonVariant,
@@ -50,6 +55,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [reviewerComments2, setReviewerComments2] = useState(props.hacker.reviewerComments2);
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [teamMembers, setTeamMembers] = useState<IMemberName[]>([]);
+  const [isLoadingTeam, setIsLoadingTeam] = useState(false);
 
   useEffect(() => {
     setStatus(props.hacker.status);
@@ -65,6 +72,44 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   useEffect(() => {
     setReviewerStatus2(props.hacker.reviewerStatus2);
   }, [props]);
+
+  // Fetch team members
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      // only if hacker has a teamId
+      if (props.hacker.teamId) {
+        setIsLoadingTeam(true);
+        // teamId might be an object (populated) or a string/ObjectId
+        // extract the ID if it's an object, otherwise use it as-is
+        let teamId: string;
+        if (typeof props.hacker.teamId === 'object' && props.hacker.teamId !== null) {
+          teamId = String((props.hacker.teamId as any)._id || (props.hacker.teamId as any).id);
+        } else {
+          teamId = String(props.hacker.teamId);
+        }
+        try {
+          const teamResponse: ITeamResponse = (await Team.get(teamId)).data.data;
+          
+          // filter out the current hacker from the team members list
+          // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
+          const currentHackerId = String(props.hacker.id);
+          const otherMembers = teamResponse.members.filter(
+            (member) => String(member.id) !== currentHackerId
+          );
+          
+          setTeamMembers(otherMembers);
+        } catch (e: any) {
+          setTeamMembers([]);
+        } finally {
+          setIsLoadingTeam(false);
+        }
+      } else {
+        setTeamMembers([]);
+      }
+    };
+
+    fetchTeamMembers();
+  }, [props.hacker.teamId, props.hacker.id]);
 
   const submit = async () => {
     if (!isStaffMember && !isHackboardMember) {
@@ -389,6 +434,64 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               link={hackerDetails.application.general.URL.dribbble}
             />
           </Flex>
+          <hr />
+          {/* Team Members Section */}
+          {props.hacker.teamId && (
+            <>
+              <H2 color={theme.colors.black60}>Team Members</H2>
+              {isLoadingTeam ? (
+                <Box>Loading team members...</Box>
+              ) : teamMembers.length > 0 ? (
+                <Flex
+                  width="100%"
+                  flexWrap="wrap"
+                  flexDirection="column"
+                  style={{ marginTop: '1em' }}
+                >
+                  {teamMembers.map((member: IMemberName) => {
+                    const hackerPage = FrontendRoute.VIEW_HACKER_PAGE.replace(
+                      ':id',
+                      member.id
+                    );
+                    return (
+                      <Box key={member.id} mb="10px">
+                        <Link to={hackerPage} style={{ textDecoration: 'none' }}>
+                          <Box
+                            style={{
+                              padding: '8px 12px',
+                              border: `1px solid ${theme.colors.purpleLight}`,
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              transition: 'background-color 0.2s',
+                            }}
+                            onMouseEnter={(e: any) => {
+                              e.currentTarget.style.backgroundColor =
+                                theme.colors.purpleLight;
+                            }}
+                            onMouseLeave={(e: any) => {
+                              e.currentTarget.style.backgroundColor = 'transparent';
+                            }}
+                          >
+                            <strong>
+                              {member.firstName} {member.lastName}
+                            </strong>
+                            {member.school && (
+                              <Box style={{ fontSize: '14px', color: theme.colors.black60 }}>
+                                {member.school}
+                              </Box>
+                            )}
+                          </Box>
+                        </Link>
+                      </Box>
+                    );
+                  })}
+                </Flex>
+              ) : (
+                <Box>No other team members found.</Box>
+              )}
+              <hr />
+            </>
+          )}
           {/* Only tier1 sponsors and admin have access to user resumes */}
           {props.userType === UserType.SPONSOR_T1 || canViewAdminSection ? (
             <Flex flexDirection={'column'} style={{ marginTop: '4em' }}>
