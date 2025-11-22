@@ -53,6 +53,7 @@ interface ISearchState {
   sponsor?: ISponsor;
   reviewStatusFilter: number[];
   reviewScoreFilter: number[];
+  groupTeamsFilter: boolean;
   emailModalOpen: boolean;
   reviewerModalOpen: boolean;
   emailSending: boolean;
@@ -81,6 +82,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       viewSaved: false,
       reviewStatusFilter: [],
       reviewScoreFilter: [],
+      groupTeamsFilter: false,
       emailModalOpen: false,
       reviewerModalOpen: false,
       emailSending: false,
@@ -767,11 +769,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.updateQueryURL([], this.state.searchBar);
   }
 
-  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[], reviewScore: number[]) {
+  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[], reviewScore: number[], groupTeams: boolean = false) {
     this.setState({
       query: newFilters,
       reviewStatusFilter: reviewStatus || [],
       reviewScoreFilter: reviewScore || [],
+      groupTeamsFilter: groupTeams,
     }, () => {
       this.updateQueryURL(newFilters, this.state.searchBar);
       this.triggerSearch();
@@ -856,10 +859,21 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     } 
   }
 
+  // extract teamId from hacker (handles both ObjectId and string)
+  private getTeamId(hacker: IHacker): string | null {
+    if (!hacker.teamId) {
+      return null;
+    }
+    if (typeof hacker.teamId === 'object' && hacker.teamId !== null) {
+      return String((hacker.teamId as any)._id || (hacker.teamId as any).id);
+    }
+    return String(hacker.teamId);
+  }
+
   private filter() {
     const { sponsor, viewSaved, results } = this.state;
     const searchBar = this.state.searchBar.toLowerCase();
-    return results.filter(({ hacker }) => {
+    let filteredResults = results.filter(({ hacker }) => {
       const { accountId } = hacker;
       let foundAcct;
       if (typeof accountId !== 'string') {
@@ -903,8 +917,27 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));
 
-      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter && passReviewScoreFilter;
+      // exclude hackers without teams if groupTeamsFilter is enabled
+      const passTeamFilter = !this.state.groupTeamsFilter || this.getTeamId(hacker) !== null;
+
+      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter && passReviewScoreFilter && passTeamFilter;
     });
+
+    // sort results to group teammates together if groupTeamsFilter is enabled
+    if (this.state.groupTeamsFilter) {
+      filteredResults.sort((a, b) => {
+        const teamIdA = this.getTeamId(a.hacker);
+        const teamIdB = this.getTeamId(b.hacker);
+
+        // group by teamId (same teamId means they're on the same team)
+        if (teamIdA === teamIdB) return 0;
+
+        // sort by teamId to group teammates together
+        return teamIdA!.localeCompare(teamIdB!);
+      });
+    }
+
+    return filteredResults;
   }
 
   private toggleSaved = async () => {
