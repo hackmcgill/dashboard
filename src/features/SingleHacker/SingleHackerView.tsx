@@ -94,7 +94,12 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
           const currentHackerId = String(props.hacker.id);
           const otherMembers = teamResponse.members.filter(
-            (member) => String(member.id) !== currentHackerId
+            (member) => 
+              member && 
+              String(member.id) !== currentHackerId &&
+              member.id && 
+              member.firstName &&
+              member.lastName
           );
           
           setTeamMembers(otherMembers);
