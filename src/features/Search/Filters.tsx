@@ -17,12 +17,14 @@ import Button, { ButtonVariant } from '../../shared/Elements/Button';
 import { Form } from '../../shared/Form';
 import * as FormikElements from '../../shared/Form/FormikElements';
 import { getOptionsFromEnum } from '../../util';
+import { cut } from 'clipboard';
 
 interface IFilterProps {
   initFilters: ISearchParameter[];
   onChange: (newFilters: ISearchParameter[], reviewStatus?: number[], reviewScore?: number[]) => void;
   onResetForm: () => void;
   loading: boolean;
+  reviewerModeOpen: boolean;
 }
 
 class FilterComponent extends React.Component<IFilterProps, {}> {
@@ -112,38 +114,42 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           component={FormikElements.Select}
           value={fp.values.status}
         />
-        <FastField
-          name={'reviewStatus'}
-          label={'Review Status'}
-          placeholder={'Review Statuses...'}
-          isMulti={true}
-          creatable={true}
-          options={[
-            { label: '0', value: 0 },
-            { label: '1', value: 1 },
-            { label: '2', value: 2 },
-          ]}
-          component={FormikElements.Select}
-          value={fp.values.reviewStatus}
-        />
-        <FastField
-          name={'reviewScore'}
-          label={'Review Score'}
-          placeholder={'Review Scores...'}
-          isMulti={true}
-          creatable={true}
-          options={[
-            { label: '-1', value: -1 }, // both none
-            { label: '0', value: 0 },
-            { label: '1', value: 1 },
-            { label: '2', value: 2 },
-            { label: '3', value: 3 },
-            { label: '4', value: 4 },
-            { label: '5', value: 5 }, // whitelist
-          ]}
-          component={FormikElements.Select}
-          value={fp.values.reviewScore}
-        />
+        {(this.props.reviewerModeOpen && (
+          <>
+          <FastField
+            name={'reviewStatus'}
+            label={'Review Status'}
+            placeholder={'Review Statuses...'}
+            isMulti={true}
+            creatable={true}
+            options={[
+              { label: '0', value: 0 },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]}
+            component={FormikElements.Select}
+            value={fp.values.reviewStatus}
+          />
+          <FastField
+            name={'reviewScore'}
+            label={'Review Score'}
+            placeholder={'Review Scores...'}
+            isMulti={true}
+            creatable={true}
+            options={[
+              { label: '-1', value: -1 }, // both none
+              { label: '0', value: 0 },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+              { label: '3', value: 3 },
+              { label: '4', value: 4 },
+              { label: '5', value: 5 }, // whitelist
+            ]}
+            component={FormikElements.Select}
+            value={fp.values.reviewScore}
+          />
+          </>
+        ))}
         <FastField
           name={'skills'}
           label={'Skills'}
@@ -163,24 +169,48 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           component={FormikElements.Select}
           value={fp.values.jobInterest}
         />
-        <FastField
-          name={'reviewer1'}
-          label={'Reviewer 1'}
-          placeholder={'Reviewer 1...'}
-          isMulti={true}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(reviewers)}
-          value={fp.values.reviewer1}
-        />
-        <FastField
-          name={'reviewer2'}
-          label={'Reviewer 2'}
-          placeholder={'Reviewer 2...'}
-          isMulti={true}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(reviewers)}
-          value={fp.values.reviewer2}
-        />
+        {(this.props.reviewerModeOpen && (
+          <>
+          <FastField
+            name={'reviewer1'}
+            label={'Reviewer 1'}
+            placeholder={'Reviewer 1...'}
+            isMulti={true}
+            component={FormikElements.Select}
+            options={getOptionsFromEnum(reviewers)}
+            value={fp.values.reviewer1}
+          />
+          <FastField
+            name={'reviewer2'}
+            label={'Reviewer 2'}
+            placeholder={'Reviewer 2...'}
+            isMulti={true}
+            component={FormikElements.Select}
+            options={getOptionsFromEnum(reviewers)}
+            value={fp.values.reviewer2}
+          />
+          <FastField
+            name={'reviewStatus'}
+            label={'Review Status'}
+            placeholder={'Review Statuses...'}
+            isMulti={true}
+            creatable={true}
+            options={[
+              { label: '0', value: 0 },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]}
+            component={FormikElements.Select}
+            value={fp.values.reviewStatus}
+          />
+          <FastField
+            name={'cutoffTime'}
+            label={'Cutoff Time'}
+            placeholder={'2025-11-17T23:59:59.000Z'}
+            component={FormikElements.Input}
+          />
+          </>
+        ))}
         <Flex justifyContent={'center'}>
           <Box mr={'10px'}>
             <Button
@@ -203,6 +233,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
             </Button>
           </Box>
         </Flex>
+        <div style={{ height: '20px' }}></div> {/* add space under filter */}
       </Form>
     );
   }
@@ -246,6 +277,16 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       'reviewerName2',
       values.reviewer2
     );
+    // const cutoffObjectId = new ObjectId(Math.floor((new Date(values.cutoffTime)).getTime() / 1000).toString(16) + "0000000000000000");
+    // const cutoffTimeParam = values.cutoffTime
+    //   ? [
+    //       {
+    //         raw: {
+    //           _id: { $lte: cutoffObjectId}
+    //         }
+    //       },
+    //     ]
+    //   : [];
     let search: ISearchParameter[] = [];
     search = search.concat(
       schoolSearchParam,
@@ -255,7 +296,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       skillsParam,
       jobInterestParam,
       reviewer1Param,
-      reviewer2Param
+      reviewer2Param,
+      // cutoffTimeParam
     );
     // this.props.onChange(search);
     // this.props.onChange(search, values.reviewStatus);
