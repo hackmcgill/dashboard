@@ -203,12 +203,12 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
             component={FormikElements.Select}
             value={fp.values.reviewStatus}
           />
-          <FastField
+          {/* <FastField
             name={'cutoffTime'}
             label={'Cutoff Time'}
             placeholder={'2025-11-17T23:59:59.000Z'}
             component={FormikElements.Input}
-          />
+          /> */}
           </>
         ))}
         <Flex justifyContent={'center'}>
