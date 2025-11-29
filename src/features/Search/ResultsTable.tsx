@@ -16,6 +16,7 @@ interface IResultsTableProps {
   filter: string;
   canEditAllStatuses?: boolean;
   triggerUpdate: () => void;
+  reviewerModeOpen: boolean;
 }
 
 // calculate review status
@@ -86,22 +87,25 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
       Header: 'Status',
       accessor: 'hacker.status',
     },
-    { // Number of reviewers that have reviewed this hacker
-      Header: 'Review Status',
-      id: 'reviewStatus', // required since accessor is a non-string
-      accessor: (row: any) => calculateReviewStatusCount(row.hacker),
-      Cell: (cellProps: any) => {
-        return cellProps.value;
+    ...props.reviewerModeOpen ? [
+      { // Number of reviewers that have reviewed this hacker
+        Header: 'Review Status',
+        id: 'reviewStatus', // required since accessor is a non-string
+        accessor: (row: any) => calculateReviewStatusCount(row.hacker),
+        Cell: (cellProps: any) => {
+          return cellProps.value;
+        },
       },
-    },
-    { // Average score of the reviews for this hacker
-      Header: 'Review Score',
-      id: 'reviewScore', // required since accessor is a non-string
-      accessor: (row: any) => calculateReviewScoreCount(row.hacker),
-      Cell: (cellProps: any) => {
-        return cellProps.value;
+      { // Average score of the reviews for this hacker
+        Header: 'Review Score',
+        id: 'reviewScore', // required since accessor is a non-string
+        accessor: (row: any) => calculateReviewScoreCount(row.hacker),
+        Cell: (cellProps: any) => {
+          return cellProps.value;
+        },
       },
-    },
+    ]
+    : [],
     {
       Header: 'Job Interest',
       accessor: 'hacker.application.general.jobInterest',

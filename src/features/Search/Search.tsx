@@ -55,6 +55,7 @@ interface ISearchState {
   reviewScoreFilter: number[];
   emailModalOpen: boolean;
   reviewerModalOpen: boolean;
+  reviewerModeOpen: boolean;
   emailSending: boolean;
   emailStatus: string;
   emailConfirming: boolean;
@@ -83,6 +84,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       reviewScoreFilter: [],
       emailModalOpen: false,
       reviewerModalOpen: false,
+      reviewerModeOpen: false,
       emailSending: false,
       emailStatus: '',
       emailConfirming: false,
@@ -100,6 +102,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.closeEmailModal = this.closeEmailModal.bind(this);
     this.openReviewerModal = this.openReviewerModal.bind(this);
     this.closeReviewerModal = this.closeReviewerModal.bind(this);
+    this.openReviewerMode = this.openReviewerMode.bind(this);
+    this.closeReviewerMode = this.closeReviewerMode.bind(this);
     this.startEmailConfirmation = this.startEmailConfirmation.bind(this);
     this.backFromEmailConfirmation = this.backFromEmailConfirmation.bind(this);
     this.confirmSendEmails = this.confirmSendEmails.bind(this);
@@ -108,6 +112,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       ...this.state,
       emailModalOpen: false,
       reviewerModalOpen: false,
+      reviewerModeOpen: false,
       emailSending: false,
       emailStatus: '',
       emailConfirming: false,
@@ -134,6 +139,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
   closeReviewerModal() {
     this.setState({ reviewerModalOpen: false });
+  }
+
+  openReviewerMode() {
+    this.setState({ reviewerModeOpen: true });
+  }
+  closeReviewerMode() {
+    this.setState({ reviewerModeOpen: false });
   }
 
   async startEmailConfirmation(status: string) {
@@ -213,6 +225,42 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       account && account.accountType === UserType.STAFF ? true : false;
     return (
       <Flex flexDirection={'column'}>
+
+        <style>{`
+          .toggle-btn {
+            margin-left: 10px;
+            top: 7%;
+            background-color: ${theme.colors.black5};
+            border: 1px solid ${theme.colors.black20};
+            border-radius: 99px;
+            cursor: pointer;
+            width: 50px;
+            height: 28px;
+            transition: background-color 0.1s ease, border-color 0.2s ease; 
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+          }
+          .toggle-btn .thumb {
+            background-color: ${theme.colors.white};
+            border-radius: 99px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);  
+            height: 20px;
+            width: 20px;
+            transform: translateX(0px);
+            transition: left 0.15s ease;
+            position: absolute;
+            left: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+          .toggle-btn.toggled {
+            background-color: ${theme.colors.purple};
+          }
+          .toggle-btn.toggled .thumb {
+            left: calc(50px - 20px - 5px);
+          }
+        `}</style>
+
         <Helmet>
           <title> Search | {HACKATHON_NAME}</title>
         </Helmet>
@@ -231,6 +279,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 onChange={this.onFilterChange}
                 onResetForm={this.onResetForm}
                 loading={loading}
+                reviewerModeOpen={this.state.reviewerModeOpen}
               />
             </Box>
             <Box width={5 / 6} mx={2}>
@@ -284,6 +333,12 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                           Send Emails
                         </Button>
                       )}
+                      <button className={`toggle-btn ${this.state.reviewerModeOpen ? "toggled" : ""}`} onClick={() => {
+                        if (this.state.reviewerModeOpen) this.closeReviewerMode();
+                        else this.openReviewerMode();
+                      }}>
+                        <div className='thumb'></div>
+                      </button>
                     </Box>
                   </Flex>
                 </Box>
@@ -294,6 +349,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                   filter={searchBar}
                   canEditAllStatuses={isStaffAccount}
                   triggerUpdate={this.triggerSearch}
+                  reviewerModeOpen={this.state.reviewerModeOpen}
                 />
               </Flex>
             </Box>
@@ -466,15 +522,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
           </div>
         )}
         {/* Reviewer Modal */}
-
-                      {/* {
-                        this.state.reviewerModalOpen && (
-                          <AssignReviewerModal
-                            onSubmit={this.handleReviewerAssignment}
-                            onClose={this.closeReviewerModal}
-                          />
-                        )
-                      } */}
         {this.state.reviewerModalOpen && (
           <div
             style={{
