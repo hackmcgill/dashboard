@@ -20,7 +20,7 @@ import { getOptionsFromEnum } from '../../util';
 
 interface IFilterProps {
   initFilters: ISearchParameter[];
-  onChange: (newFilters: ISearchParameter[], reviewStatus?: number[], reviewScore?: number[]) => void;
+  onChange: (newFilters: ISearchParameter[], reviewStatus?: number[], reviewScore?: number[], groupTeams?: boolean) => void;
   onResetForm: () => void;
   loading: boolean;
 }
@@ -65,6 +65,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
       ),
       reviewer1: this.searchParam2List('reviewerName', initFilters),
       reviewer2: this.searchParam2List('reviewerName2', initFilters),
+      groupTeams: false,
     };
     return initVals;
   }
@@ -181,6 +182,12 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           options={getOptionsFromEnum(reviewers)}
           value={fp.values.reviewer2}
         />
+        <FastField
+          name={'groupTeams'}
+          component={FormikElements.Checkbox}
+          label={'Show only hackers with teams (grouped by team)'}
+          value={fp.values.groupTeams}
+        />
         <Flex justifyContent={'center'}>
           <Box mr={'10px'}>
             <Button
@@ -259,7 +266,7 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
     );
     // this.props.onChange(search);
     // this.props.onChange(search, values.reviewStatus);
-    this.props.onChange(search, values.reviewStatus, values.reviewScore);
+    this.props.onChange(search, values.reviewStatus, values.reviewScore, values.groupTeams || false);
   }
 
   /**

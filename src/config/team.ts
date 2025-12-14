@@ -6,6 +6,7 @@ export interface ITeam {
 }
 
 export interface IMemberName {
+  id: string;
   firstName: string;
   lastName: string;
   school?: string;

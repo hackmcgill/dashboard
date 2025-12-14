@@ -32,7 +32,7 @@ const SingleHackerPage: React.FC = () => {
       (async () => {
         try {
           const viewer = (await Account.getSelf()).data.data;
-          console.log(viewer, viewer.accountType);
+          // console.log(viewer, viewer.accountType);
           setUserType(viewer.accountType);
           const newHacker = (await Hacker.get(id)).data.data;
           const account = (await Account.get(newHacker.accountId as string))
