@@ -432,7 +432,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Button>
                     <Button
                       disabled={this.state.emailSending}
-                      onClick={() => this.startEmailConfirmation('Declined')}
+                      onClick={() => this.startEmailConfirmation('Applied')}
                       variant={ButtonVariant.Secondary}
                       isOutlined={true}
                       onMouseEnter={(e) => {
