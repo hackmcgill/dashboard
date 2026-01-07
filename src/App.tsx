@@ -13,7 +13,7 @@ import CreateApplicationPage from './pages/Application/Create';
 import EditApplicationPage from './pages/Application/Edit';
 import SingleHackerPage from './pages/Application/View/[id]';
 import CheckinPage from './pages/Hacker/Checkin';
-import SelfCheckinPage from './pages/Hacker/SelfCheckin';
+import TeamCheckinPage from './pages/Hacker/TeamCheckin';
 import HackPassPage from './pages/Hacker/Pass';
 import DashboardPage from './pages/index';
 import LoginPage from './pages/Login/index';
@@ -31,6 +31,7 @@ import {
   IAccount,
   IHacker,
   UserType,
+  ISetting,
 } from './config';
 import * as CONSTANTS from './config/constants';
 
@@ -399,9 +400,10 @@ class App extends React.Component {
                 withBackground(
                   withNavbar(
                     withAuthRedirect(
-                      withHackerRedirect(SelfCheckinPage, {
-                        AuthVerification: (user: IHacker) =>
-                          user.status === HackerStatus.HACKER_STATUS_CHECKED_IN,
+                      withHackerRedirect(TeamCheckinPage, {
+                        AuthVerification: (user: IHacker, settings?: ISetting) =>
+                          user.status === HackerStatus.HACKER_STATUS_CHECKED_IN &&
+                          Boolean(settings?.checkinOpen),
                       }),
                       {
                         requiredAuthState: true,

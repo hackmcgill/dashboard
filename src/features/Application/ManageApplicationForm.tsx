@@ -135,6 +135,7 @@ const ManageApplicationForm: React.FunctionComponent<
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
     isRemote: false,
+    checkinOpen: false,
   });
 
   const getPreviousHackathonOptions = (options: any) => {

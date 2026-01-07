@@ -64,6 +64,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
     isRemote: false,
+    checkinOpen: false,
   });
 
   // Track the details of the account that is either being created or updated

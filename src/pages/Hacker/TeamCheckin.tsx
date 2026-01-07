@@ -4,7 +4,7 @@ import { H1, MaxWidthBox } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
 import HackerCheckinForm from '../../features/Checkin/HackerCheckinForm';
 
-const SelfCheckinPage: React.FC = () => {
+const TeamCheckinPage: React.FC = () => {
   return (
     <Flex flexDirection={'column'}>
       <Box>
@@ -16,7 +16,7 @@ const SelfCheckinPage: React.FC = () => {
             marginBottom={'50px'}
             marginLeft={'0px'}
           >
-            Hacker Self Check-in Form
+            Team Check-in Form
           </H1>
           <HackerCheckinForm />
         </MaxWidthBox>
@@ -25,4 +25,4 @@ const SelfCheckinPage: React.FC = () => {
   );
 };
 
-export default SelfCheckinPage; 
+export default TeamCheckinPage; 

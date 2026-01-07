@@ -65,6 +65,7 @@ export default class Navbar extends React.Component<
         closeTime: new Date().toString(),
         confirmTime: new Date().toString(),
         isRemote: false,
+        checkinOpen: false,
       },
       // hasSponsorInfo: false,
       hasBorder: false,
@@ -197,14 +198,14 @@ export default class Navbar extends React.Component<
               Application
             </NavLink>
           ) : null}
-          {userType === UserType.HACKER && status === HackerStatus.HACKER_STATUS_CHECKED_IN ? (
+          {userType === UserType.HACKER && status === HackerStatus.HACKER_STATUS_CHECKED_IN && settings.checkinOpen ? (
             <NavLink
               href={routes.CHECKIN_HACKER_PAGE}
               className={
                 this.props.activePage === 'checkin' ? 'active' : ''
               }
             >
-              Check In
+              Team Check-in
             </NavLink>
           ) : null}
           {(userType === UserType.STAFF || userType === UserType.VOLUNTEER) ? (

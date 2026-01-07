@@ -10,7 +10,6 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import WithToasterContainer from '../../shared/HOC/withToaster';
 import theme from '../../shared/Styles/theme';
 import { generateHackPass } from '../../util';
-import HackerCheckinForm from '../../features/Checkin/HackerCheckinForm';
 
 const CheckinPage: React.FC = () => {
   // Is page currently busy doing something?
