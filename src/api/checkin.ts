@@ -6,7 +6,7 @@ import APIResponse from './APIResponse';
 interface ICheckinData {
   prizeCategories: string[];
   sponsorChallenges: string[];
-  workshopsAttended: string[];
+  // workshopsAttended: string[];
   discordTag: string;
   devpostLink: string;
 }
@@ -18,7 +18,7 @@ class CheckinAPI {
 
   /**
    * Submits a hacker's check-in information
-   * @param data The check-in data including team members, categories, and workshops
+   * @param data The check-in data including team members, categories, and sponsor prizes
    */
   public submitCheckin(data: ICheckinData): AxiosPromise<APIResponse<{}>> {
     return API.getEndpoint(APIRoute.HACKER_CHECKIN).create({ formData: data });

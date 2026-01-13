@@ -26,7 +26,7 @@ const Select = styled.select`
   border-radius: 4px;
 `;
 
-const HackerCheckinForm: React.FC = () => {
+const TeamCheckinForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -117,7 +117,7 @@ const HackerCheckinForm: React.FC = () => {
       initialValues={{
         prizeCategories: [],
         sponsorChallenges: [],
-        workshopsAttended: [],
+        // workshopsAttended: [],
         discordTag: '',
         devpostLink: ''
       }}
@@ -150,9 +150,14 @@ const HackerCheckinForm: React.FC = () => {
 
           <FastField
             name="prizeCategories"
-            label="Which McHacks categories does your team plan to submit to? Note that all projects are entered into 'People's Choice' and 'Top 3 Hacks' automatically. Choose up to 3 options only. *"
+            label={<>
+              Which McHacks categories does your team plan to submit for? <br/>
+              All projects are automatically eligible for People’s Choice and Top 3 Hacks. <br/>
+              (Choose up to 3) *
+            </>}
             component={FormikElements.Select}
             isMulti={true}
+            maxSelections={3}
             options={getOptionsFromEnum(PrizeCategories)}
             required={true}
             value={fp.values.prizeCategories}
@@ -163,9 +168,13 @@ const HackerCheckinForm: React.FC = () => {
 
           <FastField
             name="sponsorChallenges"
-            label="What sponsor challenge(s) does your team plan to submit to?"
+            label={<>
+              Which sponsor challenge(s) does your team plan to submit for? <br/>
+              (Choose up to 5)
+            </>}
             options={getOptionsFromEnum(SponsorChallenges)}
             component={FormikElements.Select}
+            maxSelections={5}
             isMulti={true}
             value={fp.values.sponsorChallenges}
           >
@@ -173,7 +182,7 @@ const HackerCheckinForm: React.FC = () => {
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="sponsorChallenges" />
 
-          <FastField
+          {/* <FastField
             name="workshopsAttended"
             label="What workshops have you and your team attended?"
             component={FormikElements.Select}
@@ -183,12 +192,12 @@ const HackerCheckinForm: React.FC = () => {
           >
 
           </FastField>
-          <ErrorMessage component={FormikElements.Error} name="workshopsAttended" />
+          <ErrorMessage component={FormikElements.Error} name="workshopsAttended" /> */}
 
           <FastField
             name="discordTag"
             label={<>
-              Discord tag of the main point of contact for your team <br/> (e.g. JohnDoe#1234) *
+              Discord tag of the main point of contact for your team <br/> (e.g. JaneDoe#1234) *
             </>}
             component={FormikElements.Input}
             required={true}
@@ -200,7 +209,9 @@ const HackerCheckinForm: React.FC = () => {
 
           <FastField
             name="devpostLink"
-            label="Devpost Draft Link *"
+            label={<>
+              Devpost Draft Link <br/> (Must start with https://devpost.com) *
+            </>}
             component={FormikElements.Input}
             required={true}
             value={fp.values.devpostLink}
@@ -220,4 +231,4 @@ const HackerCheckinForm: React.FC = () => {
   );
 };
 
-export default HackerCheckinForm;
+export default TeamCheckinForm;

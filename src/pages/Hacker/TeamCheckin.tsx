@@ -2,7 +2,7 @@ import { Box, Flex } from '@rebass/grid';
 import React from 'react';
 import { H1, MaxWidthBox } from '../../shared/Elements';
 import theme from '../../shared/Styles/theme';
-import HackerCheckinForm from '../../features/Checkin/HackerCheckinForm';
+import TeamCheckinForm from '../../features/Checkin/TeamCheckinForm';
 
 const TeamCheckinPage: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const TeamCheckinPage: React.FC = () => {
           >
             Team Check-in Form
           </H1>
-          <HackerCheckinForm />
+          <TeamCheckinForm />
         </MaxWidthBox>
       </Box>
     </Flex>
