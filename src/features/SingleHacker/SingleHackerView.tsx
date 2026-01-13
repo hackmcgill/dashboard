@@ -56,6 +56,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [teamMembers, setTeamMembers] = useState<IMemberName[]>([]);
+  const [devpostLink, setDevpostLink] = useState("");
   const [isLoadingTeam, setIsLoadingTeam] = useState(false);
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   // Fetch team members
   useEffect(() => {
-    const fetchTeamMembers = async () => {
+    const fetchTeam = async () => {
       // only if hacker has a teamId
       if (props.hacker.teamId) {
         setIsLoadingTeam(true);
@@ -89,6 +90,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         }
         try {
           const teamResponse: ITeamResponse = (await Team.get(teamId)).data.data;
+
+          // set the depost link
+          setDevpostLink(String(teamResponse.team.devpostURL));
           
           // filter out the current hacker from the team members list
           // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
@@ -105,15 +109,17 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           setTeamMembers(otherMembers);
         } catch (e: any) {
           setTeamMembers([]);
+          setDevpostLink("");
         } finally {
           setIsLoadingTeam(false);
         }
       } else {
         setTeamMembers([]);
+        setDevpostLink("");
       }
     };
 
-    fetchTeamMembers();
+    fetchTeam();
   }, [props.hacker.teamId, props.hacker.id]);
 
   const submit = async () => {
@@ -443,7 +449,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           {/* Team Members Section */}
           {props.hacker.teamId && (
             <>
-              <H2 color={theme.colors.black60}>Team Members</H2>
+              <H2 color={theme.colors.black60}>Team Information</H2>
               {isLoadingTeam ? (
                 <Box>Loading team members...</Box>
               ) : teamMembers.length > 0 ? (
@@ -494,7 +500,19 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               ) : (
                 <Box>No other team members found.</Box>
               )}
+              <Flex
+                width="100%"
+                flexWrap="wrap"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <SHLink
+                  label="DevPost Project Link"
+                  link={devpostLink}
+                />
+              </Flex>
               <hr />
+
             </>
           )}
           {/* Only tier1 sponsors and admin have access to user resumes */}
