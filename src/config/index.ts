@@ -32,6 +32,7 @@ export * from './validationError';
 export * from './pageType';
 export * from './prizeCategories';
 export * from './sponsorChallenges';
+export * from './mlhChallenges';
 export * from './workshops';
 export * from './reviewers'
 export * from './prizeCategories';
