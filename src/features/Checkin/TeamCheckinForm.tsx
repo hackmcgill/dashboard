@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { submitCheckin } from '../../api/checkin';
 import { Hacker } from '../../api';
 
-import { PrizeCategories, SponsorChallenges, Workshops, FrontendRoute } from '../../config';
+import { PrizeCategories, SponsorChallenges, Workshops, FrontendRoute, MlhChallenges } from '../../config';
 import { getOptionsFromEnum } from '../../util';
 import { Button, ButtonVariant, MaxWidthBox } from '../../shared/Elements';
 
@@ -117,15 +117,14 @@ const TeamCheckinForm: React.FC = () => {
       initialValues={{
         prizeCategories: [],
         sponsorChallenges: [],
+        mlhChallenges: [],
         // workshopsAttended: [],
         discordTag: '',
         devpostLink: ''
       }}
       validate={(values) => {
         const errors: any = {};
-        if (!values.prizeCategories || values.prizeCategories.length === 0) {
-          errors.prizeCategories = 'Required';
-        }
+
         if (!values.discordTag) {
           errors.discordTag = 'Required';
         }
@@ -152,14 +151,11 @@ const TeamCheckinForm: React.FC = () => {
             name="prizeCategories"
             label={<>
               Which McHacks categories does your team plan to submit for? <br/>
-              All projects are automatically eligible for People’s Choice and Top 3 Hacks. <br/>
-              (Choose up to 3) *
+              Projects are automatically entered into People’s Choice and Top 3 Hacks.
             </>}
             component={FormikElements.Select}
             isMulti={true}
-            maxSelections={3}
             options={getOptionsFromEnum(PrizeCategories)}
-            required={true}
             value={fp.values.prizeCategories}
           >
 
@@ -169,18 +165,31 @@ const TeamCheckinForm: React.FC = () => {
           <FastField
             name="sponsorChallenges"
             label={<>
-              Which sponsor challenge(s) does your team plan to submit for? <br/>
-              (Choose up to 5)
+              Which sponsor challenge(s) does your team plan to submit for? (Max. 1)
             </>}
             options={getOptionsFromEnum(SponsorChallenges)}
             component={FormikElements.Select}
-            maxSelections={5}
+            maxSelections={1}
             isMulti={true}
             value={fp.values.sponsorChallenges}
           >
 
           </FastField>
           <ErrorMessage component={FormikElements.Error} name="sponsorChallenges" />
+
+          <FastField
+            name="mlhChallenges"
+            label={<>
+              Which MLH challenge(s) does your team plan to submit for? <br/>
+            </>}
+            options={getOptionsFromEnum(MlhChallenges)}
+            component={FormikElements.Select}
+            isMulti={true}
+            value={fp.values.mlhChallenges}
+          >
+
+          </FastField>
+          <ErrorMessage component={FormikElements.Error} name="mlhChallenges" />
 
           {/* <FastField
             name="workshopsAttended"
@@ -197,11 +206,12 @@ const TeamCheckinForm: React.FC = () => {
           <FastField
             name="discordTag"
             label={<>
-              Discord tag of the main point of contact for your team <br/> (e.g. JaneDoe#1234) *
+              Discord tag of the main point of contact for your team *
             </>}
             component={FormikElements.Input}
             required={true}
             value={fp.values.discordTag}
+            placeholder="JaneDoe#1234"
           >
 
           </FastField>
@@ -210,11 +220,12 @@ const TeamCheckinForm: React.FC = () => {
           <FastField
             name="devpostLink"
             label={<>
-              Devpost Draft Link <br/> (Must start with https://devpost.com) *
+              Devpost Project Draft Link *
             </>}
             component={FormikElements.Input}
             required={true}
             value={fp.values.devpostLink}
+            placeholder="https://devpost.com"
           >
 
           </FastField>

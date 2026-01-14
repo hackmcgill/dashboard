@@ -9,7 +9,6 @@ export enum SponsorChallenges {
   SPONSOR_CHALLENGE_8 = 'Desjardins',
   SPONSOR_CHALLENGE_9 = 'NOVA',
   SPONSOR_CHALLENGE_10 = 'CSUS',
-  SPONSOR_CHALLENGE_11 = 'MLH',
 }
   
 export default SponsorChallenges;

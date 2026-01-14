@@ -4,8 +4,9 @@ import API from './api';
 import APIResponse from './APIResponse';
 
 interface ICheckinData {
-  prizeCategories: string[];
-  sponsorChallenges: string[];
+  prizeCategories?: string[];
+  sponsorChallenges?: string[];
+  mlhChallenges?: string[];
   // workshopsAttended: string[];
   discordTag: string;
   devpostLink: string;
