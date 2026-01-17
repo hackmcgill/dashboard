@@ -142,6 +142,7 @@ const ManageApplicationForm: React.FunctionComponent<
     closeTime: new Date().toString(),
     confirmTime: new Date().toString(),
     isRemote: false,
+    checkinOpen: false,
   });
 
   const getPreviousHackathonOptions = (options: any) => {
@@ -1427,10 +1428,9 @@ const ManageApplicationForm: React.FunctionComponent<
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${
-                props.mode === ManageApplicationModes.EDIT
-                  ? 'edited'!
-                  : 'created!'
+              `Account ${props.mode === ManageApplicationModes.EDIT
+                ? 'edited'!
+                : 'created!'
               }`
             );
             setIsSubmitted(true);

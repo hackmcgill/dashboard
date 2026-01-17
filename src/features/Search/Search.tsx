@@ -469,7 +469,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         )}
         {/* Reviewer Modal */}
 
-                      {/* {
+        {/* {
                         this.state.reviewerModalOpen && (
                           <AssignReviewerModal
                             onSubmit={this.handleReviewerAssignment}
@@ -686,6 +686,10 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.COUNTRY_LABEL,
         key: 'application.other.country',
       });
+      headers.push({
+        label: CONSTANTS.COUNTRY_LABEL,
+        key: 'application.other.country',
+      });
       headers.push({ label: CONSTANTS.GENDER_LABEL, key: 'accountId.gender' });
       headers.push({
         label: CONSTANTS.PRONOUN_LABEL,
@@ -754,9 +758,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-            selected: true,
-            hacker: v,
-          }))
+          selected: true,
+          hacker: v,
+        }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e: any) {
@@ -822,7 +826,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         e.response?.data?.error || 'Failed to assign reviewers'
       );
     }
-    
 
   }
 
@@ -912,7 +915,6 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
       const passReviewStatusFilter = this.state.reviewStatusFilter.length === 0 || this.state.reviewStatusFilter.includes(this.calculateReviewStatusCount(hacker));
       const passReviewScoreFilter = this.state.reviewScoreFilter.length === 0 || this.state.reviewScoreFilter.includes(Math.round(this.calculateReviewScoreCount(hacker)));
-      
       const isSavedBySponsorIfToggled =
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));

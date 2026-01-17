@@ -89,7 +89,6 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         }
         try {
           const teamResponse: ITeamResponse = (await Team.get(teamId)).data.data;
-          
           // filter out the current hacker from the team members list
           // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
           const currentHackerId = String(props.hacker.id);

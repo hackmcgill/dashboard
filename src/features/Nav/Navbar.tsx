@@ -65,6 +65,7 @@ export default class Navbar extends React.Component<
         closeTime: new Date().toString(),
         confirmTime: new Date().toString(),
         isRemote: false,
+        checkinOpen: false,
       },
       // hasSponsorInfo: false,
       hasBorder: false,
@@ -187,7 +188,7 @@ export default class Navbar extends React.Component<
             Profile
           </NavLink>
           {userType === UserType.HACKER &&
-          canAccessApplication({ status }, settings) ? (
+            canAccessApplication({ status }, settings) ? (
             <NavLink
               href={appRoute}
               className={
@@ -195,6 +196,26 @@ export default class Navbar extends React.Component<
               }
             >
               Application
+            </NavLink>
+          ) : null}
+          {userType === UserType.HACKER && status === HackerStatus.HACKER_STATUS_CHECKED_IN && settings.checkinOpen ? (
+            <NavLink
+              href={routes.CHECKIN_HACKER_PAGE}
+              className={
+                this.props.activePage === 'checkin' ? 'active' : ''
+              }
+            >
+              Team Check-in
+            </NavLink>
+          ) : null}
+          {(userType === UserType.STAFF || userType === UserType.VOLUNTEER) ? (
+            <NavLink
+              href={routes.CHECKIN_STAFF_PAGE}
+              className={
+                this.props.activePage === 'checkin' ? 'active' : ''
+              }
+            >
+              Check In
             </NavLink>
           ) : null}
           {this.state.showTeamLink ? (
@@ -214,10 +235,10 @@ export default class Navbar extends React.Component<
             </NavLink>
           ) : null} */}
           {userType === UserType.SPONSOR_T1 ||
-          userType === UserType.SPONSOR_T2 ||
-          userType === UserType.SPONSOR_T3 ||
-          userType === UserType.SPONSOR_T4 ||
-          userType === UserType.SPONSOR_T5 ? (
+            userType === UserType.SPONSOR_T2 ||
+            userType === UserType.SPONSOR_T3 ||
+            userType === UserType.SPONSOR_T4 ||
+            userType === UserType.SPONSOR_T5 ? (
             <>
               <NavLink
                 href={routes.SPONSOR_SEARCH_PAGE}

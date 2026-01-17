@@ -2,6 +2,7 @@ export * from './APIResponse';
 export * from './account';
 export * from './api';
 export * from './auth';
+export * from './checkin';
 export * from './endpoint';
 export * from './hacker';
 export * from './travel';
