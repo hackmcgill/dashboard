@@ -3,4 +3,5 @@ export interface ISetting {
   closeTime: string;
   confirmTime: string;
   isRemote: boolean;
+  checkinOpen: boolean;
 }

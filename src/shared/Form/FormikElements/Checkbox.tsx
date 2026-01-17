@@ -14,9 +14,18 @@ interface ICheckboxProps {
 }
 
 const CheckboxContainer = styled.div`
+  .checkbox-wrap {
+    position: relative;
+    width: 22px;
+    height: 22px;
+  }
+
   input {
     width: 22px;
     height: 22px;
+    position: absolute;
+    left: 0;
+    top: 0;
 
     appearance: none;
     border-radius: 4px;
@@ -34,14 +43,14 @@ const CheckboxContainer = styled.div`
   /* Checkmark icon based on StackOverflow icon by dayuloli
   https://stackoverflow.com/questions/21968531/how-to-draw-a-checkmark-tick-using-css */
   .checkmark {
-    width: auto;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
-    position: relative;
-    left: 4px;
-    top: -7px;
+    position: absolute;
+    left: 0;
+    top: 0;
     display: inline-block;
     cursor: pointer;
     z-index: 100;
@@ -87,13 +96,13 @@ const FormikCheckbox: React.FC<ICheckboxProps & FieldProps> = ({
           justifyContent={'flex-start'}
         >
           <CheckboxContainer>
-            <Flex>
+            <div className="checkbox-wrap">
+              <Checkbox {...field} checked={field.value} />
               <span className="checkmark">
                 <div className="checkmark_stem" />
                 <div className="checkmark_kick" />
               </span>
-              <Checkbox {...field} checked={field.value} />
-            </Flex>
+            </div>
           </CheckboxContainer>
           <Box ml="18px" style={{ position: 'relative', top: '-1px' }}>
             <LabelText label={labelElement} required={required} />
