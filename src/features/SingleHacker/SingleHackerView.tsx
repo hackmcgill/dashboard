@@ -89,19 +89,18 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         }
         try {
           const teamResponse: ITeamResponse = (await Team.get(teamId)).data.data;
-
           // filter out the current hacker from the team members list
           // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
           const currentHackerId = String(props.hacker.id);
           const otherMembers = teamResponse.members.filter(
-            (member) =>
-              member &&
+            (member) => 
+              member && 
               String(member.id) !== currentHackerId &&
-              member.id &&
+              member.id && 
               member.firstName &&
               member.lastName
           );
-
+          
           setTeamMembers(otherMembers);
         } catch (e: any) {
           setTeamMembers([]);
@@ -149,29 +148,29 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const handleChange = ({ value }: any) => {
     setStatus(value);
   };
-
+  
   const handleReviewerNameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewerName(event.target.value);
+    setReviewerName(event.target.value);   
   };
-
+  
   const handleReviewerNameChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewerName2(event.target.value);
+      setReviewerName2(event.target.value);
   };
-
+  
   const handleReviewerCommentsChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewerComments(event.target.value);
+      setReviewerComments(event.target.value);
   };
-
+  
   const handleReviewerCommentsChange2 = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewerComments2(event.target.value);
+      setReviewerComments2(event.target.value);    
   };
 
   const handleReviewerChange = async ({ value }: any) => {
-    setReviewerStatus(value);
+      setReviewerStatus(value);  
   };
 
   const handleReviewerChange2 = async ({ value }: any) => {
-    setReviewerStatus2(value);
+      setReviewerStatus2(value);  
   };
 
   const hackerDetails = props.hacker;
@@ -241,16 +240,16 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                     </Button>
                   </Flex>
                 )}
-              </Flex>
+                </Flex>
               <Flex
                 width="100%"
                 flexWrap="wrap"
                 justifyContent="start"
                 alignItems="center"
                 mb="0px"
-
+                
               >
-                <Box width={[1, 1 / 2]} style={{ paddingTop: '10px', marginRight: '17px' }}>
+                <Box width={[1, 1/2]} style={{ paddingTop: '10px', marginRight: '17px' }}>
                   <Input
                     onChange={handleReviewerNameChange}
                     placeholder={'Reviewer Name'}
@@ -276,18 +275,18 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 </Box>
               </Flex>
               <Flex
-                justifyContent={['center', 'flex-start']}
-                alignItems="center"
-                ml="0px"
-                mt="-27px"
+                  justifyContent={['center', 'flex-start']}
+                  alignItems="center"
+                  ml="0px"
+                  mt="-27px"
               >
 
-                <Box width={[1, 0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
+                <Box width={[1,0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
                     onChange={handleReviewerCommentsChange}
                     placeholder={'Comments'}
                     value={reviewerComments}
-                  />
+                  />  
                 </Box>
               </Flex>
               <Flex
@@ -296,9 +295,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 justifyContent="start"
                 alignItems="center"
                 mb="0px"
-
+                
               >
-                <Box width={[1, 1 / 2]} style={{ paddingTop: '-10px', marginRight: '17px' }}>
+                <Box width={[1, 1/2]} style={{ paddingTop: '-10px', marginRight: '17px' }}>
                   <Input
                     onChange={handleReviewerNameChange2}
                     placeholder={'Reviewer Name'}
@@ -322,17 +321,17 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 </Box>
               </Flex>
               <Flex
-                justifyContent={['center', 'flex-start']}
-                alignItems="center"
-                ml="0px"
-                mt="-27px"
+                  justifyContent={['center', 'flex-start']}
+                  alignItems="center"
+                  ml="0px"
+                  mt="-27px"
               >
                 <Box width={[1, 0.7]} style={{ paddingTop: '0px', marginRight: '17px' }}>
                   <Input
                     onChange={handleReviewerCommentsChange2}
                     placeholder={'Comments'}
                     value={reviewerComments2}
-                  />
+                  />  
                 </Box>
               </Flex>
             </Form>
@@ -393,7 +392,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             <SHField label="School" text={props.hacker.application.general.school} />
             <SHField label="Degree" text={props.hacker.application.general.degree} />
             <SHField label="Status" text={props.hacker.status} />
-            <SHField label="ReviewerStatus" text={props.hacker.reviewerStatus} />
+            <SHField label="ReviewerStatus" text={props.hacker.reviewerStatus} /> 
             <SHField
               label="Graduation Year"
               text={hackerDetails.application.general.graduationYear}

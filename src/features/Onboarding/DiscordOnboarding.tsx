@@ -88,28 +88,14 @@ const DiscordOnboarding: React.FC = () => (
               minutes. Click the link and verify your Discord account
             </li>
           </ol>
-          <h2>How do I join the McHacks 10 Discord server?</h2>
+          <h2>How do I join the McHacks 13 Discord server?</h2>
           <p>
-            To join a server, click the "+" icon at the very bottom of the
-            server list.
+            To join our server, please use the invite link provided to you in your onboarding document.
           </p>
           <ul>
             <li>
-              Select “Join a Server” at the bottom of the pop-up and you will be
-              asked for an “Invite Link”, which is provided in our week of email
-            </li>
-            <li>
-              Paste the link and press “Join Server”. And you are good to go!
-            </li>
-            <li>
               Please set your nickname in the server in the format: (First Name)
               (Last Name) (Company/School)
-            </li>
-            <li>
-              Please note that the invite links are case sensitive and could be
-              expired. Also, a user cannot be a member of more than 100 servers,
-              so you will need to leave one before you can join if you reach the
-              limit
             </li>
             <li>
               If you are having trouble joining the server, please reach out to

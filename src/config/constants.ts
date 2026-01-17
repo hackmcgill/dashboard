@@ -184,8 +184,3 @@ export const SETTINGS_OPEN_TIME_LABEL = 'Applications open at:';
 export const SETTINGS_CLOSE_TIME_LABEL = 'Applications close at:';
 export const SETTINGS_CONFIRM_TIME_LABEL = 'Hacker confirmations close at:';
 export const SETTINGS_IS_REMOTE_LABEL = 'Remote hackathon mode';
-export const SETTINGS_CHECKIN_OPEN_LABEL = 'Open/Close team check-in form';
-
-// Sentry
-export const SENTRY_DSN =
-  'https://26f1d8550cc34833b9e04894a8192611@o659380.ingest.sentry.io/5764002';
