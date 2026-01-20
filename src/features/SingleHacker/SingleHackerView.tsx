@@ -57,6 +57,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [teamMembers, setTeamMembers] = useState<IMemberName[]>([]);
   const [isLoadingTeam, setIsLoadingTeam] = useState(false);
+  const [teamDevpostURL, setTeamDevpostURL] = useState<string | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     setStatus(props.hacker.status);
@@ -89,6 +92,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
         }
         try {
           const teamResponse: ITeamResponse = (await Team.get(teamId)).data.data;
+          setTeamDevpostURL(teamResponse.team.devpostURL);
           // filter out the current hacker from the team members list
           // convert both IDs to strings for comparison to handle ObjectId vs string mismatches
           const currentHackerId = String(props.hacker.id);
@@ -104,11 +108,13 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           setTeamMembers(otherMembers);
         } catch (e: any) {
           setTeamMembers([]);
+          setTeamDevpostURL(undefined);
         } finally {
           setIsLoadingTeam(false);
         }
       } else {
         setTeamMembers([]);
+        setTeamDevpostURL(undefined);
       }
     };
 
@@ -442,7 +448,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
           {/* Team Members Section */}
           {props.hacker.teamId && (
             <>
-              <H2 color={theme.colors.black60}>Team Members</H2>
+              <H2 color={theme.colors.black60}>Team</H2>
               {isLoadingTeam ? (
                 <Box>Loading team members...</Box>
               ) : teamMembers.length > 0 ? (
@@ -493,6 +499,17 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
               ) : (
                 <Box>No other team members found.</Box>
               )}
+              {teamDevpostURL ? (
+                <Flex
+                  width="100%"
+                  flexWrap="wrap"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  style={{ marginTop: "1em" }}
+                >
+                  <SHLink label="Devpost" link={teamDevpostURL} />
+                </Flex>
+              ) : null}
               <hr />
             </>
           )}
