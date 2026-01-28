@@ -13,6 +13,7 @@ import CreateApplicationPage from './pages/Application/Create';
 import EditApplicationPage from './pages/Application/Edit';
 import SingleHackerPage from './pages/Application/View/[id]';
 import CheckinPage from './pages/Hacker/Checkin';
+import TeamCheckinPage from './pages/Hacker/TeamCheckin';
 import HackPassPage from './pages/Hacker/Pass';
 import DashboardPage from './pages/index';
 import LoginPage from './pages/Login/index';
@@ -30,6 +31,7 @@ import {
   IAccount,
   IHacker,
   UserType,
+  ISetting,
 } from './config';
 import * as CONSTANTS from './config/constants';
 
@@ -379,17 +381,44 @@ class App extends React.Component {
               )}
             />
             <Route
+              path={FrontendRoute.CHECKIN_STAFF_PAGE}
+              element={React.createElement(
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(CheckinPage, {
+                      requiredAuthState: true,
+                      AuthVerification: (user: IAccount) =>
+                        user.confirmed &&
+                        (user.accountType === UserType.STAFF ||
+                          user.accountType === UserType.VOLUNTEER),
+                    }),
+                    { activePage: 'checkin' }
+                  )
+                ),
+                this.props
+              )}
+            />
+            <Route
               path={FrontendRoute.CHECKIN_HACKER_PAGE}
               element={React.createElement(
-                withNavbar(
-                  withAuthRedirect(CheckinPage, {
-                    requiredAuthState: true,
-                    AuthVerification: (user: IAccount) =>
-                      user.confirmed &&
-                      (user.accountType === UserType.STAFF ||
-                        user.accountType === UserType.HACKBOARD ||
-                        user.accountType === UserType.VOLUNTEER),
-                  })
+                withBackground(
+                  withNavbar(
+                    withAuthRedirect(
+                      withHackerRedirect(TeamCheckinPage, {
+                        requiredAuthState: true,
+                        AuthVerification: (hacker: IHacker, settings?: ISetting) =>
+                          Boolean(settings?.checkinOpen) &&
+                          hacker.status === HackerStatus.HACKER_STATUS_CHECKED_IN,
+                      }),
+                      {
+                        requiredAuthState: true,
+                        redirAfterLogin: true,
+                        AuthVerification: (user: IAccount) =>
+                          user.confirmed && user.accountType === UserType.HACKER,
+                      }
+                    ),
+                    { activePage: 'checkin' }
+                  )
                 ),
                 this.props
               )}

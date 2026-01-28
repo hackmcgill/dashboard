@@ -34,6 +34,7 @@ class StatusCTAContainer extends React.Component<
         closeTime: new Date().toString(),
         confirmTime: new Date().toString(),
         isRemote: false,
+        checkinOpen: false,
       },
       isModalOpen: false,
     };

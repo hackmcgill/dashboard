@@ -8,6 +8,7 @@ interface IStylizedSelectFormikProps {
   isMulti: boolean;
   placeholder?: string;
   value?: string | string[];
+  maxSelections?: number;
   creatable: boolean;
   required?: boolean;
   disabled?: boolean;
@@ -93,8 +94,37 @@ function handleChangeMulti(
   return (newValue: [{ label: string; value: string }]) => {
     const field = props.field;
     const form = props.form;
-    const skills = newValue.map((value) => value.value);
-    form.setFieldValue(field.name, skills);
+    if (!newValue) {
+      form.setFieldValue(field.name, []);
+      return;
+    }
+    const selections = newValue.map((value) => value.value);
+    if (
+      props.maxSelections !== undefined &&
+      newValue.length > props.maxSelections
+    ) {
+      const previousSelections = Array.isArray(props.value) ? props.value : [];
+      const addedSelection = selections.find(
+        (value) => !previousSelections.includes(value)
+      );
+      if (addedSelection) {
+        const trimmedSelections =
+          previousSelections.length >= props.maxSelections
+            ? previousSelections.slice(1)
+            : previousSelections;
+        form.setFieldValue(field.name, [
+          ...trimmedSelections,
+          addedSelection
+        ]);
+        return;
+      }
+      form.setFieldValue(
+        field.name,
+        selections.slice(-props.maxSelections)
+      );
+      return;
+    }
+    form.setFieldValue(field.name, selections);
   };
 }
 
