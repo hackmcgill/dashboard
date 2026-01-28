@@ -507,7 +507,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                   alignItems="center"
                   style={{ marginTop: "1em" }}
                 >
-                  <SHLink label="Devpost" link={teamDevpostURL} />
+                  <SHLink label="Devpost" link={teamDevpostURL} fullWidth />
                 </Flex>
               ) : null}
               <hr />

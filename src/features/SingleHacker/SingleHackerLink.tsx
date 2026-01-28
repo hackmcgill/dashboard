@@ -6,13 +6,16 @@ interface ILinkProps {
   link?: string;
   linkText?: string;
   label: string;
+  fullWidth?: boolean;
 }
 
 const SingleHackerLink: React.FunctionComponent<ILinkProps> = ({
   link,
   linkText,
   label,
+  fullWidth = false,
 }) => {
+  const width = fullWidth ? 1 : [1, 1 / 2];
   if (link) {
     const normalized = link.trim();
     const href =
@@ -25,13 +28,13 @@ const SingleHackerLink: React.FunctionComponent<ILinkProps> = ({
       target = ['https:', 'http:'].indexOf(url.protocol) !== -1 ? '_blank' : '';
     } catch {
       return (
-        <Box width={[1, 1 / 2]}>
+        <Box width={width}>
           <strong>{label}</strong>: {link}
         </Box>
       );
     }
     return (
-      <Box width={[1, 1 / 2]}>
+      <Box width={width}>
         <strong>{label}</strong>:{' '}
         <a href={href} target={target}>
           {linkText ? linkText : link}
@@ -40,7 +43,7 @@ const SingleHackerLink: React.FunctionComponent<ILinkProps> = ({
     );
   } else {
     return (
-      <Box width={[1, 1 / 2]}>
+      <Box width={width}>
         <strong>{label}</strong>: None
       </Box>
     );
