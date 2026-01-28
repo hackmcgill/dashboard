@@ -14,13 +14,26 @@ const SingleHackerLink: React.FunctionComponent<ILinkProps> = ({
   label,
 }) => {
   if (link) {
-    const url = new URL(link);
-    const target =
-      ['https:', 'http:'].indexOf(url.protocol) !== -1 ? '_blank' : '';
+    const normalized = link.trim();
+    const href =
+      normalized.startsWith('http://') || normalized.startsWith('https://')
+        ? normalized
+        : `https://${normalized}`;
+    let target = '';
+    try {
+      const url = new URL(href);
+      target = ['https:', 'http:'].indexOf(url.protocol) !== -1 ? '_blank' : '';
+    } catch {
+      return (
+        <Box width={[1, 1 / 2]}>
+          <strong>{label}</strong>: {link}
+        </Box>
+      );
+    }
     return (
       <Box width={[1, 1 / 2]}>
         <strong>{label}</strong>:{' '}
-        <a href={link} target={target}>
+        <a href={href} target={target}>
           {linkText ? linkText : link}
         </a>
       </Box>
