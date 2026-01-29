@@ -54,6 +54,14 @@ const calculateReviewScoreCount = (hacker: IHacker): number => {
 };
 
 const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
+  // get devpost url from the team service
+  const getDevpostURL = (hacker: IHacker): string => {
+    const team = hacker.teamId as any;
+    if (team && typeof team === 'object') {
+      return team.devpostURL || 'None';
+    }
+    return 'None';
+  };
   const volunteerColumns = [
     {
       Header: 'First Name',
@@ -78,6 +86,22 @@ const ResultsTable: React.FunctionComponent<IResultsTableProps> = (props) => {
       Header: 'Grad Year',
       accessor: 'hacker.application.general.graduationYear',
     },
+    {
+      Header: 'Devpost Project',
+      id: 'devpost',
+      accessor: (row: any) => getDevpostURL(row.hacker),
+      Cell: (cellProps: any) => {
+        const value = cellProps.value;
+        if (!value || value === 'None') {
+          return 'None';
+        }
+        return (
+          <a href={value} target="_blank" rel="noreferrer">
+            Link
+          </a>
+        );
+      },
+    }
   ];
 
   const adminColumns = [

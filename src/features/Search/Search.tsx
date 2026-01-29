@@ -233,6 +233,13 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 onChange={this.onFilterChange}
                 onResetForm={this.onResetForm}
                 loading={loading}
+                canViewReviewFilters={
+                  Boolean(
+                    account &&
+                      (account.accountType === UserType.STAFF ||
+                        account.accountType === UserType.HACKBOARD)
+                  )
+                }
               />
             </Box>
             <Box width={5 / 6} mx={2}>
@@ -612,6 +619,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         label: CONSTANTS.JOBINTEREST_LABEL,
         key: 'application.general.jobInterest',
       },
+      { label: 'Devpost', key: 'teamId.devpostURL' },
     ];
     // Return all fields for admin, and only subset for sponsors
     if (
