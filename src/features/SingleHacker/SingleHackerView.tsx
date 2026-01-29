@@ -56,6 +56,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [teamMembers, setTeamMembers] = useState<IMemberName[]>([]);
+  const [devpostLink, setDevpostLink] = useState("");
   const [isLoadingTeam, setIsLoadingTeam] = useState(false);
   const [teamDevpostURL, setTeamDevpostURL] = useState<string | undefined>(
     undefined,
@@ -78,7 +79,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   // Fetch team members
   useEffect(() => {
-    const fetchTeamMembers = async () => {
+    const fetchTeam = async () => {
       // only if hacker has a teamId
       if (props.hacker.teamId) {
         setIsLoadingTeam(true);
@@ -118,7 +119,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
       }
     };
 
-    fetchTeamMembers();
+    fetchTeam();
   }, [props.hacker.teamId, props.hacker.id]);
 
   const submit = async () => {
@@ -511,6 +512,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
                 </Flex>
               ) : null}
               <hr />
+
             </>
           )}
           {/* Only tier1 sponsors and admin have access to user resumes */}
