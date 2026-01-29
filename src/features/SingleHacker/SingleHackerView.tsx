@@ -38,6 +38,7 @@ import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
 import SHParagraph from './SingleHackerParagraph';
 import SingleHackerSection from './SingleHackerSection';
+import { isSetIterator } from 'util/types';
 
 interface IHackerViewProps {
   hacker: IHacker;
@@ -53,7 +54,6 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
   const [reviewerName2, setReviewerName2] = useState(props.hacker.reviewerName2);
   const [reviewerComments, setReviewerComments] = useState(props.hacker.reviewerComments);
   const [reviewerComments2, setReviewerComments2] = useState(props.hacker.reviewerComments2);
-  const [isAdmin, setIsAdmin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [teamMembers, setTeamMembers] = useState<IMemberName[]>([]);
   const [devpostLink, setDevpostLink] = useState("");
@@ -68,6 +68,7 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   const isStaffMember = props.userType === UserType.STAFF;
   const isHackboardMember = props.userType === UserType.HACKBOARD;
+  const isAdmin = isStaffMember || isHackboardMember;
   const canViewAdminSection = isStaffMember || isHackboardMember;
 
   useEffect(() => {
@@ -399,7 +400,9 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
             <SHField label="School" text={props.hacker.application.general.school} />
             <SHField label="Degree" text={props.hacker.application.general.degree} />
             <SHField label="Status" text={props.hacker.status} />
-            <SHField label="ReviewerStatus" text={props.hacker.reviewerStatus} /> 
+            {canViewAdminSection ? (
+              <SHField label="Reviewer Status" text={props.hacker.reviewerStatus} />
+            ) : null}
             <SHField
               label="Graduation Year"
               text={hackerDetails.application.general.graduationYear}

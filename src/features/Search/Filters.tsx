@@ -23,6 +23,7 @@ interface IFilterProps {
   onChange: (newFilters: ISearchParameter[], reviewStatus?: number[], reviewScore?: number[], groupTeams?: boolean) => void;
   onResetForm: () => void;
   loading: boolean;
+  canViewReviewFilters: boolean;
 }
 
 class FilterComponent extends React.Component<IFilterProps, {}> {
@@ -71,6 +72,8 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
   }
 
   private renderFormik(fp: FormikProps<any>) {
+    const { canViewReviewFilters } = this.props;
+    //console.log(canViewReviewFilters)
     return (
       <Form onSubmit={fp.handleSubmit}>
         <FastField
@@ -113,38 +116,60 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           component={FormikElements.Select}
           value={fp.values.status}
         />
-        <FastField
-          name={'reviewStatus'}
-          label={'Review Status'}
-          placeholder={'Review Statuses...'}
-          isMulti={true}
-          creatable={true}
-          options={[
-            { label: '0', value: 0 },
-            { label: '1', value: 1 },
-            { label: '2', value: 2 },
-          ]}
-          component={FormikElements.Select}
-          value={fp.values.reviewStatus}
-        />
-        <FastField
-          name={'reviewScore'}
-          label={'Review Score'}
-          placeholder={'Review Scores...'}
-          isMulti={true}
-          creatable={true}
-          options={[
-            { label: '-1', value: -1 }, // both none
-            { label: '0', value: 0 },
-            { label: '1', value: 1 },
-            { label: '2', value: 2 },
-            { label: '3', value: 3 },
-            { label: '4', value: 4 },
-            { label: '5', value: 5 }, // whitelist
-          ]}
-          component={FormikElements.Select}
-          value={fp.values.reviewScore}
-        />
+        {canViewReviewFilters ? (
+          <>
+            <FastField
+              name={'reviewStatus'}
+              label={'Review Status'}
+              placeholder={'Review Statuses...'}
+              isMulti={true}
+              creatable={true}
+              options={[
+                { label: '0', value: 0 },
+                { label: '1', value: 1 },
+                { label: '2', value: 2 },
+              ]}
+              component={FormikElements.Select}
+              value={fp.values.reviewStatus}
+            />
+            <FastField
+              name={'reviewScore'}
+              label={'Review Score'}
+              placeholder={'Review Scores...'}
+              isMulti={true}
+              creatable={true}
+              options={[
+                { label: '-1', value: -1 }, // both none
+                { label: '0', value: 0 },
+                { label: '1', value: 1 },
+                { label: '2', value: 2 },
+                { label: '3', value: 3 },
+                { label: '4', value: 4 },
+                { label: '5', value: 5 }, // whitelist
+              ]}
+              component={FormikElements.Select}
+              value={fp.values.reviewScore}
+            />
+            <FastField
+              name={'reviewer1'}
+              label={'Reviewer 1'}
+              placeholder={'Reviewer 1...'}
+              isMulti={true}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(reviewers)}
+              value={fp.values.reviewer1}
+            />
+            <FastField
+              name={'reviewer2'}
+              label={'Reviewer 2'}
+              placeholder={'Reviewer 2...'}
+              isMulti={true}
+              component={FormikElements.Select}
+              options={getOptionsFromEnum(reviewers)}
+              value={fp.values.reviewer2}
+            />
+          </>
+        ) : null}
         <FastField
           name={'skills'}
           label={'Skills'}
@@ -163,24 +188,6 @@ class FilterComponent extends React.Component<IFilterProps, {}> {
           options={getOptionsFromEnum(JobInterest)}
           component={FormikElements.Select}
           value={fp.values.jobInterest}
-        />
-        <FastField
-          name={'reviewer1'}
-          label={'Reviewer 1'}
-          placeholder={'Reviewer 1...'}
-          isMulti={true}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(reviewers)}
-          value={fp.values.reviewer1}
-        />
-        <FastField
-          name={'reviewer2'}
-          label={'Reviewer 2'}
-          placeholder={'Reviewer 2...'}
-          isMulti={true}
-          component={FormikElements.Select}
-          options={getOptionsFromEnum(reviewers)}
-          value={fp.values.reviewer2}
         />
         <FastField
           name={'groupTeams'}
