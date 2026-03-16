@@ -22,10 +22,10 @@ const getValidationSchema = (isCreate: boolean) => {
       'validPhone',
       'Must be a valid phone number',
       (value) => {
+        if (!value) return false;
         const parsedValue = value?.replace(/\D/g, '');
-        return (
-          !parsedValue || (parsedValue.length > 10 && parsedValue.length < 14)
-        );
+        if (!parsedValue) return false;
+        return parsedValue.length > 10 && parsedValue.length < 14;
       }
     ),
     age: number()
