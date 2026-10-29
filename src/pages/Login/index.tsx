@@ -12,7 +12,7 @@ import { ButtonVariant } from '../../shared/Elements';
 import { EmailInput, PasswordInput, SubmitBtn } from '../../shared/Form';
 
 import launchpad from '../../assets/images/launchpad.svg';
-import MartletTitle from '../../assets/images/martlet-text-13.png';
+import MartletTitle from '../../assets/images/martlet-text-14.png';
 import SocialMediaBar from '../../features/Sponsor/SocialMediaBar';
 import WithToasterContainer from '../../shared/HOC/withToaster';
 
