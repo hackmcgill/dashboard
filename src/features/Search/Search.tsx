@@ -439,6 +439,38 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                     </Button>
                     <Button
                       disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Accepted (Wave 1)')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Acceptance (Wave 1) Emails
+                    </Button>
+                    <Button
+                      disabled={this.state.emailSending}
+                      onClick={() => this.startEmailConfirmation('Accepted (Wave 2)')}
+                      variant={ButtonVariant.Secondary}
+                      isOutlined={true}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.black5;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          theme.colors.white;
+                      }}
+                    >
+                      Send All Acceptance (Wave 2) Emails
+                    </Button>
+                    <Button
+                      disabled={this.state.emailSending}
                       onClick={() => this.startEmailConfirmation('Applied')}
                       variant={ButtonVariant.Secondary}
                       isOutlined={true}
