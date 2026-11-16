@@ -783,7 +783,7 @@ const ManageApplicationForm: React.FunctionComponent<
                 <span>
                   {'I have read and agree to the '}
                   <a
-                    href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+                    href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -791,16 +791,18 @@ const ManageApplicationForm: React.FunctionComponent<
                   </a>
                   {'. '}
                   {
-                    'I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the '
+                    'I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and administration (including the creation of linked accounts on MLH and '
                   }
                   <a
-                    href="https://mlh.io/privacy"
+                    href="http://dev.to/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {'MLH Privacy Policy'}
+                    {'DEV'}
                   </a>
-                  {'. I further agree to the terms of both the '}
+                  {
+                    ' in line with the MLH Privacy Policy. I further agree to the terms of both the '
+                  }
                   <a
                     href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                     target="_blank"
@@ -808,15 +810,7 @@ const ManageApplicationForm: React.FunctionComponent<
                   >
                     {'MLH Contest Terms and Conditions'}
                   </a>
-                  {' and the '}
-                  <a
-                    href="https://mlh.io/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {'MLH Privacy Policy'}
-                    {'.'}
-                  </a>
+                  {' and the MLH Privacy Policy.'}
                 </span>
               }
               value={fp.values.hacker.application.other.privacyPolicy}
@@ -1428,9 +1422,10 @@ const ManageApplicationForm: React.FunctionComponent<
           if (success) {
             console.log('Submitted application');
             toast.success(
-              `Account ${props.mode === ManageApplicationModes.EDIT
-                ? 'edited'!
-                : 'created!'
+              `Account ${
+                props.mode === ManageApplicationModes.EDIT
+                  ? 'edited'!
+                  : 'created!'
               }`
             );
             setIsSubmitted(true);
