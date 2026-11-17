@@ -98,8 +98,6 @@ export const BUS_REQUEST_LABEL = 'Will you require a seat on a bus?';
 export const BUS_REQUEST_SUBTITLE =
   'We will be sending busses to Toronto, Waterloo, London, Ottawa, Kingston, and Boston.';
 export const COC_ACCEPTANCE_PHRASE = 'I accept the';
-export const COC_MCHACKS_REQUEST_LABEL = 'McHacks Code of Conduct';
-export const COC_MLH_REQUEST_LABEL = 'MLH terms, conditions and guidelines.';
 export const COMMENTS_LABEL = "Is there anything you'd like us to know?";
 export const COUNTRY_LABEL = 'Country of Residence';
 export const COUNTRY_PLACEHOLDER = 'Country of Residence';
@@ -130,8 +128,7 @@ export const OTHER_LINK_LABEL = 'Other URL';
 export const OTHER_LINK_PLACEHOLDER = 'https://my.website.com/';
 export const MCHACKS_COC = 'Code of Conduct';
 export const MCHACKS_PRIVACY = 'Privacy Policy';
-export const MLH_LABEL = 'I accept the MLH policies.';
-export const SEND_EMAIL_LABEL =
+export const MLH_SEND_EMAIL_LABEL =
   'I authorize MLH + DEV to send me occasional emails about relevant events, career opportunities, and community announcements.';
 export const PERSONAL_LABEL = 'Personal URL';
 export const RESUME_LABEL = 'Resume';
