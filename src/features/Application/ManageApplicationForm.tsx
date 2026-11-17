@@ -118,9 +118,10 @@ const ManageApplicationForm: React.FunctionComponent<
       },
       other: {
         ethnicity: [],
-        sendEmail: false,
+        mlhSendEmail: false,
         country: '',
-        privacyPolicy: false,
+        mlhCodeOfConduct: false,
+        mlhPrivacyPolicy: false,
         codeOfConduct: false,
       },
       accommodation: {
@@ -776,10 +777,9 @@ const ManageApplicationForm: React.FunctionComponent<
               />
             </div>
             <FastField
-              name={'hacker.application.other.privacyPolicy'}
+              name={'hacker.application.other.mlhCodeOfConduct'}
               component={FormikElements.Checkbox}
-              label={CONSTANTS.MLH_LABEL}
-              subtitle={
+              label={
                 <span>
                   {'I have read and agree to the '}
                   <a
@@ -790,6 +790,22 @@ const ManageApplicationForm: React.FunctionComponent<
                     {'MLH Code of Conduct'}
                   </a>
                   {'. '}
+                </span>
+              }
+              value={fp.values.hacker.application.other.mlhCodeOfConduct}
+              required={true}
+            />
+            <div className="checkbox-error-message">
+              <ErrorMessage
+                component={FormikElements.Error}
+                name="hacker.application.other.mlhCodeOfConduct"
+              />
+            </div>
+            <FastField
+              name={'hacker.application.other.mlhPrivacyPolicy'}
+              component={FormikElements.Checkbox}
+              label={
+                <span>
                   {
                     'I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and administration (including the creation of linked accounts on MLH and '
                   }
@@ -813,25 +829,25 @@ const ManageApplicationForm: React.FunctionComponent<
                   {' and the MLH Privacy Policy.'}
                 </span>
               }
-              value={fp.values.hacker.application.other.privacyPolicy}
+              value={fp.values.hacker.application.other.mlhPrivacyPolicy}
               required={true}
             />
             <div className="checkbox-error-message">
               <ErrorMessage
                 component={FormikElements.Error}
-                name="hacker.application.other.privacyPolicy"
+                name="hacker.application.other.mlhPrivacyPolicy"
               />
             </div>
             <FastField
-              name={'hacker.application.other.sendEmail'} // change
+              name={'hacker.application.other.mlhSendEmail'}
               component={FormikElements.Checkbox}
-              label={CONSTANTS.SEND_EMAIL_LABEL} // change
-              value={fp.values.hacker.application.other.sendEmail} // change
+              label={CONSTANTS.MLH_SEND_EMAIL_LABEL}
+              value={fp.values.hacker.application.other.mlhSendEmail}
             />
             <div className="checkbox-error-message">
               <ErrorMessage
                 component={FormikElements.Error}
-                name="hacker.application.other.sendEmail"
+                name="hacker.application.other.mlhSendEmail"
               />
             </div>
           </div>
