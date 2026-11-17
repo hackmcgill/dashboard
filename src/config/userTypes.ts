@@ -73,8 +73,9 @@ export interface IHacker {
       // no enum for these
       country: string;
       ethnicity: string[];
-      sendEmail: boolean;
-      privacyPolicy: boolean;
+      mlhSendEmail: boolean;
+      mlhCodeOfConduct: boolean;
+      mlhPrivacyPolicy: boolean;
       codeOfConduct: boolean;
     };
     accommodation: {

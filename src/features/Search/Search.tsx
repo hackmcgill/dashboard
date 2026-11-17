@@ -210,7 +210,8 @@ class SearchContainer extends React.Component<{}, ISearchState> {
   }
 
   public render() {
-    const { searchBar, account, query, loading, viewSaved, reviewerNames } = this.state;
+    const { searchBar, account, query, loading, viewSaved, reviewerNames } =
+      this.state;
     const isStaffAccount =
       account && account.accountType === UserType.STAFF ? true : false;
     return (
@@ -233,13 +234,11 @@ class SearchContainer extends React.Component<{}, ISearchState> {
                 onChange={this.onFilterChange}
                 onResetForm={this.onResetForm}
                 loading={loading}
-                canViewReviewFilters={
-                  Boolean(
-                    account &&
-                      (account.accountType === UserType.STAFF ||
-                        account.accountType === UserType.HACKBOARD)
-                  )
-                }
+                canViewReviewFilters={Boolean(
+                  account &&
+                    (account.accountType === UserType.STAFF ||
+                      account.accountType === UserType.HACKBOARD)
+                )}
               />
             </Box>
             <Box width={5 / 6} mx={2}>
@@ -741,7 +740,7 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       });
       headers.push({
         label: 'Authorize MLH to send emails',
-        key: 'application.other.sendEmail',
+        key: 'application.other.mlhSendEmail',
       });
     }
     // Build header row
@@ -798,9 +797,9 @@ class SearchContainer extends React.Component<{}, ISearchState> {
       const isArray = Array.isArray(response.data.data);
       const tableData = isArray
         ? response.data.data.map((v) => ({
-          selected: true,
-          hacker: v,
-        }))
+            selected: true,
+            hacker: v,
+          }))
         : [];
       this.setState({ results: tableData, loading: false });
     } catch (e: any) {
@@ -813,16 +812,24 @@ class SearchContainer extends React.Component<{}, ISearchState> {
     this.updateQueryURL([], this.state.searchBar);
   }
 
-  private onFilterChange(newFilters: ISearchParameter[], reviewStatus: number[], reviewScore: number[], groupTeams: boolean = false) {
-    this.setState({
-      query: newFilters,
-      reviewStatusFilter: reviewStatus || [],
-      reviewScoreFilter: reviewScore || [],
-      groupTeamsFilter: groupTeams,
-    }, () => {
-      this.updateQueryURL(newFilters, this.state.searchBar);
-      this.triggerSearch();
-    });
+  private onFilterChange(
+    newFilters: ISearchParameter[],
+    reviewStatus: number[],
+    reviewScore: number[],
+    groupTeams: boolean = false
+  ) {
+    this.setState(
+      {
+        query: newFilters,
+        reviewStatusFilter: reviewStatus || [],
+        reviewScoreFilter: reviewScore || [],
+        groupTeamsFilter: groupTeams,
+      },
+      () => {
+        this.updateQueryURL(newFilters, this.state.searchBar);
+        this.triggerSearch();
+      }
+    );
   }
 
   private onSearchBarChanged(e: any) {
@@ -849,30 +856,39 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private handleReviewerAssignment = async (names: string) => {
     try {
-      const reviewerNames = names.split(',').map((name) => name.trim()).filter((name) => name.length > 0);
+      const reviewerNames = names
+        .split(',')
+        .map((name) => name.trim())
+        .filter((name) => name.length > 0);
       const resp = await Hacker.assignReviewers(reviewerNames);
       const result = resp.data;
       const assignedCount = result.assignedCount;
       const hackersAssigned = result.hackersAssigned;
       const assignments = result.assignments;
 
-      toast.success(`Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`);
+      toast.success(
+        `Successfully assigned  ${result.data.reviewers} reviewers to ${result.data.assigned} hackers.`
+      );
       await this.triggerSearch();
       this.closeReviewerModal();
       this.setState({ reviewerNames: '' });
+    } catch (e: any) {
+      toast.error(e.response?.data?.error || 'Failed to assign reviewers');
     }
-    catch (e: any) {
-      toast.error(
-        e.response?.data?.error || 'Failed to assign reviewers'
-      );
-    }
-
-  }
+  };
 
   private calculateReviewStatusCount(hacker: IHacker): number {
-    if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    if (
+      hacker.reviewerStatus !=
+        HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE &&
+      hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE
+    ) {
       return 2;
-    } else if (hacker.reviewerStatus != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE || hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    } else if (
+      hacker.reviewerStatus !=
+        HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE ||
+      hacker.reviewerStatus2 != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE
+    ) {
       return 1;
     } else {
       return 0;
@@ -881,25 +897,40 @@ class SearchContainer extends React.Component<{}, ISearchState> {
 
   private calculateReviewScoreCount(hacker: IHacker): number {
     const arr = [hacker.reviewerStatus, hacker.reviewerStatus2];
-    if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE) {
+    if (
+      arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE &&
+      arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE
+    ) {
       return -1;
-    } else if (arr[0]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST || arr[1]==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+    } else if (
+      arr[0] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST ||
+      arr[1] == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST
+    ) {
       return 5;
     } else {
       let score = 0;
       let numberOfReviews = 0;
       arr.forEach((val) => {
-        if (val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE && val!=HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST) {
+        if (
+          val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_NONE &&
+          val != HackerReviewerStatus.HACKER_REVIEWER_STATUS_WHITELIST
+        ) {
           numberOfReviews += 1;
           // Poor=0, Weak=1, Average=2, Strong=3, Outstanding=4
-          if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK) score += 1;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE) score += 2;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG) score += 3;
-          else if (val==HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING) score += 4;
+          if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_WEAK)
+            score += 1;
+          else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_AVERAGE)
+            score += 2;
+          else if (val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_STRONG)
+            score += 3;
+          else if (
+            val == HackerReviewerStatus.HACKER_REVIEWER_STATUS_OUTSTANDING
+          )
+            score += 4;
         }
       });
-      return score/numberOfReviews;
-    } 
+      return score / numberOfReviews;
+    }
   }
 
   // extract teamId from hacker (handles both ObjectId and string)
@@ -953,16 +984,31 @@ class SearchContainer extends React.Component<{}, ISearchState> {
         (hacker.application.shortAnswer.skills &&
           hacker.application.shortAnswer.skills.toString().includes(searchBar));
 
-      const passReviewStatusFilter = this.state.reviewStatusFilter.length === 0 || this.state.reviewStatusFilter.includes(this.calculateReviewStatusCount(hacker));
-      const passReviewScoreFilter = this.state.reviewScoreFilter.length === 0 || this.state.reviewScoreFilter.includes(Math.round(this.calculateReviewScoreCount(hacker)));
+      const passReviewStatusFilter =
+        this.state.reviewStatusFilter.length === 0 ||
+        this.state.reviewStatusFilter.includes(
+          this.calculateReviewStatusCount(hacker)
+        );
+      const passReviewScoreFilter =
+        this.state.reviewScoreFilter.length === 0 ||
+        this.state.reviewScoreFilter.includes(
+          Math.round(this.calculateReviewScoreCount(hacker))
+        );
       const isSavedBySponsorIfToggled =
         !viewSaved ||
         (sponsor && sponsor.nominees.some((n) => n === hacker.id));
 
       // exclude hackers without teams if groupTeamsFilter is enabled
-      const passTeamFilter = !this.state.groupTeamsFilter || this.getTeamId(hacker) !== null;
+      const passTeamFilter =
+        !this.state.groupTeamsFilter || this.getTeamId(hacker) !== null;
 
-      return (foundAcct || foundHacker) && isSavedBySponsorIfToggled && passReviewStatusFilter && passReviewScoreFilter && passTeamFilter;
+      return (
+        (foundAcct || foundHacker) &&
+        isSavedBySponsorIfToggled &&
+        passReviewStatusFilter &&
+        passReviewScoreFilter &&
+        passTeamFilter
+      );
     });
 
     // sort results to group teammates together if groupTeamsFilter is enabled

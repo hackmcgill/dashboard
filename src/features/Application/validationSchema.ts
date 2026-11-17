@@ -357,13 +357,20 @@ const getValidationSchema = (isCreate: boolean, pageNumber: number) => {
             }),
             other: object().shape({
               ethnicity: array().required('Required'),
-              sendEmail: boolean(),
+              mlhSendEmail: boolean(),
               country: string().required('Required'),
-              privacyPolicy: boolean()
+              mlhCodeOfConduct: boolean()
                 .required('Required')
                 .test(
                   'true',
-                  'You must accept the MLH policies',
+                  'You must accept the MLH Code of Conduct',
+                  (value) => value
+                ),
+              mlhPrivacyPolicy: boolean()
+                .required('Required')
+                .test(
+                  'true',
+                  'You must accept the MLH Privacy Policy',
                   (value) => value
                 ),
               codeOfConduct: boolean()
