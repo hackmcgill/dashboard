@@ -130,6 +130,8 @@ export function canAccessTeam(hacker?: IHacker): boolean {
   return (
     status === HackerStatus.HACKER_STATUS_APPLIED ||
     status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2 ||
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
     status === HackerStatus.HACKER_STATUS_CHECKED_IN
   );
@@ -141,6 +143,8 @@ export function canAccessTravel(hacker?: IHacker): boolean {
   if (
     status === HackerStatus.HACKER_STATUS_APPLIED ||
     status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2 ||
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
     status === HackerStatus.HACKER_STATUS_CHECKED_IN
   ) {
@@ -155,6 +159,8 @@ export function canAccessBus(hacker?: IHacker): boolean {
     ? Boolean(hacker.travel) &&
         (status === HackerStatus.HACKER_STATUS_APPLIED ||
           status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+          status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 ||
+          status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2 ||
           status === HackerStatus.HACKER_STATUS_CONFIRMED ||
           status === HackerStatus.HACKER_STATUS_CHECKED_IN)
     : false;
@@ -165,6 +171,8 @@ export function canAccessHackerPass(hacker?: IHacker): boolean {
 
   return (
     status === HackerStatus.HACKER_STATUS_ACCEPTED ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 ||
+    status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2 ||
     status === HackerStatus.HACKER_STATUS_CONFIRMED ||
     status === HackerStatus.HACKER_STATUS_WITHDRAWN ||
     status === HackerStatus.HACKER_STATUS_CHECKED_IN

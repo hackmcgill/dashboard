@@ -336,7 +336,7 @@ function GetDetailedState(
     }
   } else if (status === HackerStatus.HACKER_STATUS_APPLIED) {
     return DetailedState.APPLIED;
-  } else if (status === HackerStatus.HACKER_STATUS_ACCEPTED) {
+  } else if (status === HackerStatus.HACKER_STATUS_ACCEPTED || status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 || status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2) {
     if (inConfirmWindow) {
       // This is any time before the confirmation date
       return DetailedState.ACCEPTED_CAN_CONFIRM_OR_WITHDRAW;

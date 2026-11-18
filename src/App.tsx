@@ -264,6 +264,8 @@ class App extends React.Component {
                     withHackerRedirect(ConfirmAttendancePage, {
                       requiredAuthState: true,
                       AuthVerification: (user: IHacker) =>
+                        user.status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE1 ||
+                        user.status === HackerStatus.HACKER_STATUS_ACCEPTED_WAVE2 ||
                         user.status === HackerStatus.HACKER_STATUS_ACCEPTED,
                     }),
                     {
