@@ -34,6 +34,7 @@ import {
   getValueFromQuery,
   input2date,
   isSponsor,
+  normalizePronoun,
 } from '../../util';
 import getValidationSchema from './validationSchema';
 
@@ -133,7 +134,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
     lastName: values.lastName,
     password: values.password,
     phoneNumber: values.phoneNumber,
-    pronoun: values.pronoun,
+    pronoun: normalizePronoun(values.pronoun),
     gender: values.gender,
     dietaryRestrictions: settings.isRemote
       ? ['Unknown']
@@ -370,7 +371,7 @@ const ManageAccountForm: React.FC<IManageAccountProps> = (props) => {
       email: accountDetails.email,
       password: accountDetails.password || '',
       newPassword: '',
-      pronoun: accountDetails.pronoun,
+      pronoun: normalizePronoun(accountDetails.pronoun),
       gender: accountDetails.gender,
       dietaryRestrictions: accountDetails.dietaryRestrictions,
       phoneNumber: accountDetails.phoneNumber,
