@@ -4,7 +4,7 @@ export const PROD_API_URL = 'https://api.mchacks.ca/api';
 export const DEV_API_URL = 'https://hacker-api-dev-4d089ae7eedf.herokuapp.com/api';
 
 // Cache information
-export const CACHE_USER_KEY = 'userInfo';
+export const CACHE_USER_KEY = 'userInfo-v2';
 export const CACHE_HACKER_KEY = 'hackerInfo';
 export const CACHE_STATS_KEY = 'statsInfo';
 export const CACHE_SPONSOR_KEY = 'sponsorInfo';

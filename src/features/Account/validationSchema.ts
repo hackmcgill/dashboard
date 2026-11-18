@@ -18,7 +18,7 @@ const getValidationSchema = (isCreate: boolean) => {
     pronoun: array().of(string()),
     gender: string().required('Required'),
     dietaryRestrictions: array().of(string()),
-    phoneNumber: string().required('Required').test(
+    phoneNumber: string().test(
       'validPhone',
       'Must be a valid phone number',
       (value) => {

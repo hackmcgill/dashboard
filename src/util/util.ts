@@ -122,6 +122,21 @@ function getValueFromQuery(key: string): string | undefined {
   return queries[key];
 }
 
+/**
+ * @function normalizePronoun
+ * @description Normalizes a pronoun value into an array of strings. Handles
+ * legacy string values from older API responses and cached account data.
+ * @param pronoun the pronoun value from the API or a form
+ */
+function normalizePronoun(pronoun: unknown): string[] {
+  if (Array.isArray(pronoun)) {
+    return pronoun.filter(
+      (value): value is string => typeof value === 'string'
+    );
+  }
+  return typeof pronoun === 'string' && pronoun.length > 0 ? [pronoun] : [];
+}
+
 export {
   padStart,
   getNestedAttr,
@@ -133,4 +148,5 @@ export {
   datetime2input,
   input2datetime,
   date2human,
+  normalizePronoun,
 };

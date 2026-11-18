@@ -13,6 +13,7 @@ import {
 import addBrownBoldFont from './jsPDF-brown-bold-font';
 import addBrownFont from './jsPDF-brown-font';
 import addHindFont from './jsPDF-hind-font';
+import { normalizePronoun } from './util';
 
 export function userCanAccessCreateApplicationPage(user: IAccount) {
   return user.confirmed && user.accountType === UserType.HACKER;
@@ -304,9 +305,10 @@ export async function generateHackPass(
   doc.setFontSize(5.5);
   doc.setFont('brown', 'normal');
 
-  if (account.pronoun) {
+  const pronouns = normalizePronoun(account.pronoun);
+  if (pronouns.length > 0) {
     doc.text('Hacker', 8, 15);
-    doc.text(account.pronoun.join(", "), 8, 17);
+    doc.text(pronouns.join(', '), 8, 17);
   } else {
     doc.text('Hacker', 8, 16);
   }
