@@ -2,6 +2,8 @@ export enum HackerStatus {
   HACKER_STATUS_NONE = 'None',
   HACKER_STATUS_APPLIED = 'Applied',
   HACKER_STATUS_ACCEPTED = 'Accepted',
+  HACKER_STATUS_ACCEPTED_WAVE1 = 'Accepted (Wave 1)',
+  HACKER_STATUS_ACCEPTED_WAVE2 = 'Accepted (Wave 2)',
   HACKER_STATUS_DECLINED = 'Declined',
   HACKER_STATUS_WAITLISTED = 'Waitlisted',
   HACKER_STATUS_CONFIRMED = 'Confirmed',
