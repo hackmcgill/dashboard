@@ -32,7 +32,7 @@ import ValidationErrorGenerator from '../../shared/Form/validationErrorGenerator
 import theme from '../../shared/Styles/theme';
 
 // date2age is currently unused
-import { date2age, getOptionsFromEnum } from '../../util';
+import { date2age, getOptionsFromEnum, normalizePronoun } from '../../util';
 
 import SHField from './SingleHackerField';
 import SHLink from './SingleHackerLink';
@@ -183,7 +183,8 @@ const SingleHackerView: React.FC<IHackerViewProps> = (props) => {
 
   const hackerDetails = props.hacker;
   const account = (hackerDetails.accountId as IAccount) || {};
-  const pronoun = account.pronoun ? `(${account.pronoun})` : '';
+  const pronouns = normalizePronoun(account.pronoun);
+  const pronoun = pronouns.length ? `(${pronouns.join(', ')})` : '';
 
   // convert birthdates to ages if age value doesn't exist and birthdate value does
   if (account.birthDate && !account.age) {

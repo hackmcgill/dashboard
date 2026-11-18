@@ -15,17 +15,17 @@ const getValidationSchema = (isCreate: boolean) => {
     email: string().required('Required').email('Must be a valid email'),
     password,
     newPassword: string().min(6, 'Must be at least 6 characters'),
-    pronoun: string(),
-    gender: string(),
+    pronoun: array().of(string()),
+    gender: string().required('Required'),
     dietaryRestrictions: array().of(string()),
     phoneNumber: string().test(
       'validPhone',
       'Must be a valid phone number',
       (value) => {
+        if (!value) return false;
         const parsedValue = value?.replace(/\D/g, '');
-        return (
-          !parsedValue || (parsedValue.length > 10 && parsedValue.length < 14)
-        );
+        if (!parsedValue) return false;
+        return parsedValue.length > 10 && parsedValue.length < 14;
       }
     ),
     age: number()
