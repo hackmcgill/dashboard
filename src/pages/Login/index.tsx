@@ -79,7 +79,7 @@ const LoginPage: React.FC = () => {
         <form className="form-content" onSubmit={handleSubmit}>
           <Image
             src={MartletTitle}
-            imgHeight="90px"
+            imgHeight="59px"
             imgWidth="345px"
             // imgHeight="60px"
             // imgWidth="230px"
